@@ -1,0 +1,24 @@
+# Sensitive config
+site/includes/config.php
+
+# Generated images (large files)
+*.jpg
+*.jpeg
+*.png
+*.gif
+*.webp
+*.pdf
+
+# Python
+__pycache__/
+*.pyc
+
+# Archives
+archive/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Node
+node_modules/

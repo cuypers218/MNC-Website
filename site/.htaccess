@@ -1,0 +1,72 @@
+RewriteEngine On
+RewriteBase /
+
+# Force HTTPS
+RewriteCond %{HTTPS} off
+RewriteRule ^(.*)$ https://%{HTTP_HOST}/$1 [R=301,L]
+
+# Block access to includes directory
+RewriteRule ^includes/ - [F,L]
+
+# Block access to downloads directory
+RewriteRule ^downloads/ - [F,L]
+
+# If the file or directory exists, serve it directly
+RewriteCond %{REQUEST_FILENAME} -f [OR]
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^ - [L]
+
+# --- Clean URL Routes ---
+
+# Homepage
+RewriteRule ^$ index.php [L]
+
+# About
+RewriteRule ^about/?$ about.php [L]
+
+# Blog index
+RewriteRule ^blog/?$ blog.php [L]
+
+# Blog single post
+RewriteRule ^blog/([a-z0-9-]+)/?$ blog-post.php?slug=$1 [L]
+
+# Shop index
+RewriteRule ^shop/?$ shop.php [L]
+
+# Shop single product
+RewriteRule ^shop/([a-z0-9-]+)/?$ product.php?slug=$1 [L]
+
+# Resources
+RewriteRule ^resources/?$ resources.php [L]
+
+# Freebies
+RewriteRule ^freebies/?$ freebies.php [L]
+
+# Login
+RewriteRule ^login/?$ login.php [L]
+
+# Register
+RewriteRule ^register/?$ register.php [L]
+
+# Forgot Password
+RewriteRule ^forgot-password/?$ forgot-password.php [L]
+
+# Reset Password
+RewriteRule ^reset-password/?$ reset-password.php [L]
+
+# Dashboard
+RewriteRule ^dashboard/?$ dashboard.php [L]
+
+# Checkout
+RewriteRule ^checkout/?$ checkout.php [L]
+
+# Download with token
+RewriteRule ^download/([a-zA-Z0-9]+)/?$ download.php?token=$1 [L]
+
+# API routes
+RewriteRule ^api/auth/?$ api/auth.php [L]
+RewriteRule ^api/webhook/?$ api/stripe-webhook.php [L]
+RewriteRule ^api/email/?$ api/email.php [L]
+
+# 404
+ErrorDocument 404 /404.php

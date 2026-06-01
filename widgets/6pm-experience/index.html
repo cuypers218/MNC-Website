@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The 6pm Experience | My Nest Chapter</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;800&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+html, body { width: 100%; height: 100%; overflow: hidden; }
+
+body { font-family: Arial, sans-serif; background: #252535; }
+
+.skip-link { position: absolute; top: -40px; left: 0; background: #E87AAA; color: #252535; padding: 8px 16px; z-index: 9999; font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 9pt; text-transform: uppercase; text-decoration: none; }
+.skip-link:focus { top: 0; }
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+
+/* SCREENS */
+.screen {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.7s ease;
+}
+
+.screen.active { opacity: 1; pointer-events: all; }
+
+/* STORY SCREENS */
+.story-screen { cursor: pointer; background: #252535; }
+
+.screen-bg {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  opacity: 0.7;
+}
+
+.screen-overlay {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at center, transparent 30%, rgba(0,0,0,0.45) 100%),
+    linear-gradient(to bottom, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.5) 100%);
+}
+
+.screen-content {
+  position: relative;
+  z-index: 1;
+  max-width: 620px;
+  padding: 40px 32px;
+  text-align: center;
+}
+
+.brand-tag {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 800;
+  font-size: 9pt;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: #E87AAA;
+  margin-bottom: 32px;
+}
+
+.story-text {
+  font-family: 'Lora', serif;
+  font-size: 22pt;
+  font-weight: 400;
+  color: #FFF8EE;
+  line-height: 1.55;
+  text-shadow: 0 2px 16px rgba(0,0,0,0.65);
+}
+
+.intro-text {
+  font-family: 'Lora', serif;
+  font-size: 16pt;
+  font-weight: 400;
+  font-style: italic;
+  color: #FFF8EE;
+  line-height: 1.7;
+  text-shadow: 0 2px 16px rgba(0,0,0,0.65);
+  margin-bottom: 40px;
+}
+
+.tap-hint {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 800;
+  font-size: 8pt;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: rgba(255,248,238,0.5);
+  animation: pulse 2.5s ease-in-out infinite;
+}
+.story-btn { background: none; border: none; cursor: pointer; padding: 0; }
+
+@keyframes pulse { 0%, 100% { opacity: 0.5; } 50% { opacity: 1; } }
+
+/* CLOSE BUTTON */
+.close-btn {
+  position: fixed;
+  top: 20px;
+  left: 24px;
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0,0,0,0.3);
+  border: 1px solid rgba(255,248,238,0.2);
+  cursor: pointer;
+  z-index: 200;
+  touch-action: manipulation;
+  transition: background 0.2s;
+}
+.close-btn:hover { background: rgba(0,0,0,0.55); }
+.close-btn svg { width: 16px; height: 16px; fill: rgba(255,248,238,0.7); }
+.close-btn.on-light { background: rgba(37,37,53,0.08); border-color: #ABABAB; }
+.close-btn.on-light svg { fill: #5A5A72; }
+.close-btn.on-light:hover { background: rgba(37,37,53,0.15); }
+
+/* COUNTER */
+.counter {
+  position: fixed;
+  top: 24px;
+  right: 28px;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 800;
+  font-size: 8pt;
+  letter-spacing: 2px;
+  color: rgba(255,248,238,0.45);
+  z-index: 100;
+  pointer-events: none;
+  transition: opacity 0.4s;
+}
+.counter.hidden { opacity: 0; }
+
+/* ARROW */
+.arrow-btn {
+  position: fixed;
+  bottom: 32px;
+  right: 28px;
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(232,122,170,0.2);
+  border: 1px solid rgba(232,122,170,0.4);
+  cursor: pointer;
+  z-index: 100;
+  transition: background 0.2s, opacity 0.4s;
+  touch-action: manipulation;
+}
+.arrow-btn:hover { background: rgba(232,122,170,0.45); }
+.arrow-btn svg { width: 18px; height: 18px; fill: #FFF8EE; }
+.arrow-btn.hidden { opacity: 0; pointer-events: none; }
+
+/* EMAIL SCREEN */
+.email-screen {
+  background: #FFF8EE;
+  cursor: default;
+  overflow-y: auto;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+
+.email-card {
+  width: 100%;
+  max-width: 520px;
+  padding: 60px 40px;
+  margin: 0 auto;
+}
+
+.email-screen .brand-tag { color: #C45C88; }
+
+.email-screen h2 {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 800;
+  font-size: 18pt;
+  color: #252535;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  line-height: 1.2;
+  margin-bottom: 14px;
+}
+
+.email-screen .sub {
+  font-family: Arial, sans-serif;
+  font-size: 12pt;
+  color: #5A5A72;
+  line-height: 1.6;
+  margin-bottom: 32px;
+}
+
+.field-col { display: flex; flex-direction: column; gap: 10px; }
+
+.email-screen input {
+  font-family: Arial, sans-serif;
+  font-size: 12pt;
+  color: #252535;
+  background: #FFFFFF;
+  border: 1px solid #ABABAB;
+  padding: 14px;
+  outline: none;
+  touch-action: manipulation;
+}
+.email-screen input:focus { border-color: #E87AAA; background: #FFFFFF; }
+.email-screen input::placeholder { color: #BCBCBC; }
+
+.send-btn {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 800;
+  font-size: 12pt;
+  text-transform: uppercase;
+  color: #252535;
+  background: #E87AAA;
+  border: none;
+  padding: 16px;
+  cursor: pointer;
+  touch-action: manipulation;
+  margin-top: 4px;
+}
+.send-btn:hover { background: #CF638E; }
+.send-btn:active { transform: translateY(1px); }
+.send-btn.loading { opacity: 0.7; cursor: not-allowed; }
+
+.no-thanks {
+  font-family: Arial, sans-serif;
+  font-size: 10pt;
+  color: #ABABAB;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 14px 0 0;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  display: block;
+  touch-action: manipulation;
+}
+.no-thanks:hover { color: #5A5A72; }
+
+.no-spam { font-family: Arial, sans-serif; font-size: 10pt; color: #ABABAB; margin-top: 12px; }
+
+.email-success { display: none; }
+.success-msg {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 800;
+  font-size: 11pt;
+  color: #E87AAA;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 8px;
+}
+.success-sub { font-family: Arial, sans-serif; font-size: 12pt; color: #5A5A72; line-height: 1.6; margin-bottom: 24px; }
+
+.download-btn {
+  display: inline-block;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 800;
+  font-size: 11pt;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #252535;
+  background: #E87AAA;
+  padding: 14px 24px;
+  text-decoration: none;
+  touch-action: manipulation;
+}
+.download-btn:hover { background: #CF638E; }
+
+.email-error { display: none; font-family: Arial, sans-serif; font-size: 11pt; color: #b04040; padding-top: 12px; }
+
+/* CONFIRMATION SCREEN */
+.confirm-screen { background: #FFF8EE; cursor: default; }
+
+.confirm-content { max-width: 520px; padding: 60px 40px; text-align: center; }
+
+.confirm-screen .brand-tag { color: #C45C88; }
+
+.confirm-screen h2 {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 800;
+  font-size: 18pt;
+  color: #252535;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 16px;
+}
+
+.confirm-screen p { font-family: Arial, sans-serif; font-size: 12pt; color: #5A5A72; line-height: 1.6; margin-bottom: 32px; }
+
+.home-link {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 800;
+  font-size: 10pt;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #C45C88;
+  text-decoration: none;
+  border-bottom: 1.5px solid #ABABAB;
+  padding-bottom: 2px;
+  touch-action: manipulation;
+}
+.home-link:hover { color: #E87AAA; }
+
+button, input, a { touch-action: manipulation; }
+
+@media (max-width: 520px) {
+  .story-text { font-size: 17pt; }
+  .intro-text { font-size: 13pt; }
+  .email-card, .confirm-content { padding: 40px 24px; }
+  .counter { top: 16px; right: 16px; }
+  .arrow-btn { bottom: 20px; right: 16px; }
+}
+</style>
+</head>
+<body>
+
+<a href="#main-content" class="skip-link">Skip to main content</a>
+
+<button class="close-btn" id="close-btn" onclick="closeExperience()" aria-label="Close">
+  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+</button>
+
+<div class="counter hidden" id="counter" aria-hidden="true"></div>
+
+<button class="arrow-btn hidden" id="arrow-btn" onclick="advance()" aria-label="Next screen">
+  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6z"/></svg>
+</button>
+
+<!-- SCREEN 0: INTRO -->
+<div class="screen story-screen active" id="screen-0" onclick="advance()" role="button" aria-label="Tap to begin">
+  <div class="screen-bg" style="background-color:#2C1408;background-image:url('bg-kitchen.jpg');" aria-hidden="true"></div>
+  <div class="screen-overlay" aria-hidden="true"></div>
+  <div class="screen-content" id="main-content" tabindex="-1">
+    <div class="brand-tag">My Nest Chapter</div>
+    <p class="intro-text">"For me, I was usually okay until about 6. Then the quiet hit. So still. So empty. It started to be all I could think about all day."</p>
+    <button class="tap-hint story-btn" onclick="advance()">For me, it was usually okay until...</button>
+  </div>
+</div>
+
+<!-- SCREEN 1 -->
+<div class="screen story-screen" id="screen-1" onclick="advance()" role="button" aria-label="Tap to continue">
+  <div class="screen-bg" style="background-color:#140A04;background-image:url('bg-hallway.jpg');" aria-hidden="true"></div>
+  <div class="screen-overlay" aria-hidden="true"></div>
+  <div class="screen-content">
+    <p class="story-text">For a second you almost hear them. Then you remember.</p>
+  </div>
+</div>
+
+<!-- SCREEN 2 -->
+<div class="screen story-screen" id="screen-2" onclick="advance()" role="button" aria-label="Tap to continue">
+  <div class="screen-bg" style="background-color:#101010;background-image:url('bg-phone.jpg');" aria-hidden="true"></div>
+  <div class="screen-overlay" aria-hidden="true"></div>
+  <div class="screen-content">
+    <p class="story-text">You open the fridge. Close the fridge. Pick up your phone. Put it down.</p>
+  </div>
+</div>
+
+<!-- SCREEN 3 -->
+<div class="screen story-screen" id="screen-3" onclick="advance()" role="button" aria-label="Tap to continue">
+  <div class="screen-bg" style="background-color:#080812;background-image:url('bg-tv.jpg');" aria-hidden="true"></div>
+  <div class="screen-overlay" aria-hidden="true"></div>
+  <div class="screen-content">
+    <p class="story-text">The TV's on but you're not watching it. You just needed the noise.</p>
+  </div>
+</div>
+
+<!-- SCREEN 4 -->
+<div class="screen story-screen" id="screen-4" onclick="advance()" role="button" aria-label="Tap to continue">
+  <div class="screen-bg" style="background-color:#180C04;background-image:url('bg-phone-lit.jpg');" aria-hidden="true"></div>
+  <div class="screen-overlay" aria-hidden="true"></div>
+  <div class="screen-content">
+    <p class="story-text">You think about texting them. But you don't want to come across as needy. So you don't.</p>
+  </div>
+</div>
+
+<!-- SCREEN 5 -->
+<div class="screen story-screen" id="screen-5" onclick="advance()" role="button" aria-label="Tap to continue">
+  <div class="screen-bg" style="background-color:#160818;background-image:url('bg-window.jpg');" aria-hidden="true"></div>
+  <div class="screen-overlay" aria-hidden="true"></div>
+  <div class="screen-content">
+    <p class="story-text">The quiet is so much louder than you thought it would be.</p>
+  </div>
+</div>
+
+<!-- SCREEN 6: LANDING -->
+<div class="screen story-screen" id="screen-6" onclick="advance()" role="button" aria-label="Tap to continue">
+  <div class="screen-bg" style="background-color:#1C0C04;background-image:url('bg-cozy.jpg');" aria-hidden="true"></div>
+  <div class="screen-overlay" aria-hidden="true"></div>
+  <div class="screen-content">
+    <p class="story-text" style="font-size:18pt;line-height:1.65;">I've been there. And honestly, sometimes the quiet still catches me off guard. But these 7 things actually helped me — and maybe one of them helps you too.</p>
+    <p class="tap-hint" style="margin-top:40px;">Tap to get them</p>
+  </div>
+</div>
+
+<!-- SCREEN 7: EMAIL CAPTURE -->
+<div class="screen email-screen" id="screen-7">
+  <div class="email-card">
+    <div class="brand-tag">My Nest Chapter</div>
+    <h2>The 6pm<br>Cheat Sheet</h2>
+    <p class="sub">7 things that actually helped me get through the 6pm hour. Short, honest, free.</p>
+    <div id="email-form">
+      <div class="field-col">
+        <input type="text" id="first-name-input" placeholder="First name" autocomplete="given-name" aria-label="First name">
+        <input type="email" id="email-input" placeholder="Email address" autocomplete="email" aria-label="Email address">
+        <button class="send-btn" id="send-btn" onclick="submitEmail()">Send me the cheat sheet</button>
+      </div>
+      <button class="no-thanks" onclick="skipEmail()">No thanks</button>
+      <p class="no-spam">No spam. Just this.</p>
+      <div class="email-error" id="email-error">Something went wrong — please try again.</div>
+    </div>
+    <div class="email-success" id="email-success">
+      <p class="success-msg">Got it.</p>
+      <p class="success-sub">Check your inbox — it's on its way.</p>
+      <a class="download-btn" href="https://drive.google.com/uc?export=download&id=1dVTgwgBjwsg0jz9HCcGkPgif6edNhyQR" target="_blank" rel="noopener">Download The 6pm Cheat Sheet</a>
+    </div>
+  </div>
+</div>
+
+<!-- SCREEN 8: CONFIRMATION -->
+<div class="screen confirm-screen" id="screen-8">
+  <div class="confirm-content">
+    <div class="brand-tag">My Nest Chapter</div>
+    <h2>It's on its way.</h2>
+    <p>Check your inbox.</p>
+    <a class="home-link" href="https://mynestchapter.com">Back to My Nest Chapter</a>
+  </div>
+</div>
+
+<script>
+let current = 0;
+
+function closeExperience() {
+  if (window.opener) { window.close(); return; }
+  window.parent.postMessage('mnc-6pm-close', '*');
+}
+
+function updateUI() {
+  const counter = document.getElementById('counter');
+  const arrow = document.getElementById('arrow-btn');
+  const closeBtn = document.getElementById('close-btn');
+  if (current <= 6) {
+    counter.textContent = (current + 1) + ' of 7';
+    counter.classList.remove('hidden');
+    arrow.classList.remove('hidden');
+    closeBtn.classList.remove('on-light');
+  } else {
+    counter.classList.add('hidden');
+    arrow.classList.add('hidden');
+    closeBtn.classList.add('on-light');
+  }
+}
+
+function advance() {
+  if (current >= 8) return;
+  const from = document.getElementById('screen-' + current);
+  const next = current + 1;
+  const to = document.getElementById('screen-' + next);
+  if (!to) return;
+  from.classList.remove('active');
+  current = next;
+  to.classList.add('active');
+  updateUI();
+  if (current === 7) {
+    setTimeout(() => { document.getElementById('first-name-input').focus(); }, 500);
+  }
+  window.scrollTo(0, 0);
+}
+
+function skipEmail() {
+  document.getElementById('screen-7').classList.remove('active');
+  current = 8;
+  document.getElementById('screen-8').classList.add('active');
+  updateUI();
+}
+
+async function submitEmail() {
+  const nameInput = document.getElementById('first-name-input');
+  const emailInput = document.getElementById('email-input');
+  const btn = document.getElementById('send-btn');
+  const email = emailInput.value.trim();
+  const firstName = nameInput.value.trim();
+  if (!email || !email.includes('@')) {
+    emailInput.style.borderColor = 'rgba(176,64,64,0.5)';
+    emailInput.focus();
+    return;
+  }
+  btn.textContent = 'Sending…';
+  btn.classList.add('loading');
+  document.getElementById('email-error').style.display = 'none';
+  try {
+    const res = await fetch('/reach-subscribe.php', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, first_name: firstName })
+    });
+    if (res.ok) {
+      document.getElementById('email-form').style.display = 'none';
+      document.getElementById('email-success').style.display = 'block';
+      setTimeout(() => {
+        document.getElementById('screen-7').classList.remove('active');
+        current = 8;
+        document.getElementById('screen-8').classList.add('active');
+        updateUI();
+      }, 3000);
+    } else { throw new Error(); }
+  } catch {
+    btn.textContent = 'Send me the cheat sheet';
+    btn.classList.remove('loading');
+    document.getElementById('email-error').style.display = 'block';
+  }
+}
+
+document.addEventListener('keydown', e => {
+  if ((e.key === 'ArrowRight' || e.key === ' ') && current <= 6) {
+    e.preventDefault();
+    advance();
+  }
+});
+
+document.getElementById('email-input').addEventListener('keydown', e => {
+  if (e.key === 'Enter') { e.preventDefault(); submitEmail(); }
+});
+
+updateUI();
+</script>
+</body>
+</html>
