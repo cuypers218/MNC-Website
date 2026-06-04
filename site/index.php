@@ -72,8 +72,9 @@
 <section class="hero">
     <div class="container">
         <h1 class="hero-tagline fade-in">Solo mom. Empty nest.<br>Now what?</h1>
-        <p class="hero-subtitle fade-in-delay-1">This is where you start.</p>
-        <a href="/6pm-experience/" onclick="event.preventDefault();open6pmExperience();" class="btn btn-primary fade-in-delay-2">Start Here</a>
+        <p class="hero-subtitle fade-in-delay-1">Start with 6pm. That hour when the house feels wrong and you're just standing in the kitchen not knowing what to do with yourself.</p>
+        <a href="/6pm-experience/" onclick="event.preventDefault();open6pmExperience();" class="btn btn-primary btn-hero fade-in-delay-2">What Got Me Through 6pm →</a>
+        <p class="hero-cta-hint fade-in-delay-3">click to watch &middot; free cheat sheet inside</p>
     </div>
 </section>
 
@@ -402,7 +403,7 @@ window.mncCloseModal = function() {
 <!-- LATEST FROM THE BLOG -->
 
 <!-- FEATURED PRODUCTS -->
-<section class="section">
+<section class="section section-warm">
     <div class="container">
         <h2 class="text-center" style="margin-bottom: 0.5rem;">Tools I Built Because I Needed Them</h2>
         <p class="text-center" style="color: #666666; font-size: 0.9rem; margin-bottom: 2rem;">Some are free. Some aren't. All of them came from something real.</p>
@@ -450,24 +451,25 @@ window.mncCloseModal = function() {
 </section>
 
 <!-- ABOUT TEASER -->
-<section class="section-cream">
+<section class="section-charcoal">
     <div class="container-narrow text-center">
-        <h2>I'm Cece</h2>
-        <p style="font-size: 1.05rem; line-height: 1.7; color: #101010; margin-bottom: 2rem;">I raised my kids mostly on my own. When my last one left, I wasn't ready for what hit me. I went looking for something — anything — that sounded like my life, and it didn't exist. So I created My Nest Chapter.</p>
-        <a href="/about" class="btn btn-dark">Read My Story</a>
+        <h2 style="color: #FFF8EE;">I'm Cece</h2>
+        <p style="font-size: 1.05rem; line-height: 1.7; color: rgba(255,248,238,0.8); margin-bottom: 2rem;">I raised my kids mostly on my own. When my last one left, I wasn't ready for what hit me. I went looking for something — anything — that sounded like my life, and it didn't exist. So I created My Nest Chapter.</p>
+        <a href="/about" class="btn btn-primary">Read My Story</a>
     </div>
 </section>
 
 <!-- EMAIL CAPTURE -->
-<section class="section">
+<section class="section section-dusty">
     <div class="container">
         <div class="email-capture">
-            <h3>I Write About This Every Week</h3>
-            <p>Real updates from where I am right now. No advice. No coaching. Just one mom being honest about what this looks like.</p>
-            <form class="email-capture-form" onsubmit="event.preventDefault(); submitEmailCapture(this, 'homepage');">
-                <input type="email" placeholder="Your email" required aria-label="Email address">
-                <button type="submit" class="btn btn-primary">Send It</button>
+            <h3>I'm Still In It. I Write About It Every Week.</h3>
+            <p>Not advice. Not a program. Just where I am right now — the hard parts, the better parts, and everything in between. If that sounds like something you need, drop your email.</p>
+            <form class="email-capture-form" onsubmit="event.preventDefault(); submitToReach(this);">
+                <input type="email" id="homepage-email" placeholder="Your email" required aria-label="Email address">
+                <button type="submit" class="btn btn-primary" id="homepage-submit">Send It</button>
             </form>
+            <p id="homepage-msg" style="display:none; margin-top:12px; font-family:'Montserrat',sans-serif; font-weight:800; font-size:0.8rem; text-transform:uppercase; letter-spacing:1px; color:#E87AAA;"></p>
         </div>
     </div>
 </section>
@@ -514,6 +516,36 @@ window.addEventListener('message', function(e) {
 <div class="toast" id="toast" aria-live="polite" aria-atomic="true"></div>
 
 <script>
+// --- Reach Email Capture ---
+async function submitToReach(form) {
+    const email = document.getElementById('homepage-email').value.trim();
+    const btn = document.getElementById('homepage-submit');
+    const msg = document.getElementById('homepage-msg');
+    if (!email) return;
+    btn.textContent = 'Sending…';
+    btn.disabled = true;
+    try {
+        const res = await fetch('/reach-subscribe.php', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email, first_name: '', segment: 'b236abad-55a2-45a7-a0f1-9c4bfa003c77' })
+        });
+        const data = await res.json();
+        if (res.ok && data.success) {
+            form.style.display = 'none';
+            msg.textContent = 'Check your inbox.';
+            msg.style.display = 'block';
+        } else {
+            throw new Error(data.detail || data.error || 'Unknown error');
+        }
+    } catch(e) {
+        btn.textContent = 'Send It';
+        btn.disabled = false;
+        msg.textContent = 'Error: ' + e.message;
+        msg.style.display = 'block';
+    }
+}
+
 // --- Mobile Nav ---
 function openMobileNav() {
     document.getElementById('mobileNav').classList.add('open');

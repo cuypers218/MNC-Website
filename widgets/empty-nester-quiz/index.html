@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>What Kind of Empty Nester Are You? — My Nest Chapter</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;800&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Arial', sans-serif;
+    font-size: 12pt;
+    color: #101010;
+    background-color: #FAFAFA;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px 20px;
+  }
+
+  .skip-link {
+    position: absolute; top: -40px; left: 0;
+    background: #252535; color: #FFF8EE;
+    padding: 8px 16px;
+    font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 9pt;
+    text-decoration: none; z-index: 100;
+  }
+  .skip-link:focus { top: 0; }
+
+  .sr-only {
+    position: absolute; width: 1px; height: 1px;
+    padding: 0; margin: -1px; overflow: hidden;
+    clip: rect(0,0,0,0); white-space: nowrap; border: 0;
+  }
+
+  .brand-tag {
+    font-family: 'Montserrat', sans-serif; font-weight: 800;
+    font-size: 9pt; letter-spacing: 3px; color: #E87AAA;
+    text-transform: uppercase; text-align: center; margin-bottom: 6px;
+  }
+
+  .brand-sub {
+    font-family: 'Montserrat', sans-serif; font-weight: 400;
+    font-size: 8pt; letter-spacing: 1px; color: #666666;
+    text-transform: uppercase; text-align: center; margin-bottom: 32px;
+  }
+
+  .widget-container {
+    width: 100%; max-width: 550px;
+    background: #FFFFFF; border: 1px solid #ABABAB; padding: 40px;
+  }
+
+  @keyframes contentFadeIn {
+    from { opacity: 0; transform: translateY(6px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .content-enter { animation: contentFadeIn 0.22s ease both; }
+
+  .progress-wrap { margin-bottom: 28px; }
+  .progress-label {
+    font-family: 'Montserrat', sans-serif; font-weight: 400;
+    font-size: 8pt; color: #666666; margin-bottom: 6px;
+    text-transform: uppercase; letter-spacing: 1px;
+  }
+  .progress-bar-bg { background: #F0F0F0; height: 4px; width: 100%; }
+  .progress-bar-fill { background: #E87AAA; height: 4px; transition: width 0.3s ease; }
+
+  .scene {
+    width: 100%; margin-bottom: 28px; text-align: center;
+    background: #FFF8EE; border: 1px solid #D3D3D3; padding: 24px 16px;
+  }
+  .scene svg { max-width: 260px; width: 100%; }
+
+  h2.question {
+    font-family: 'Montserrat', sans-serif; font-weight: 800;
+    font-size: 14pt; color: #333333; text-transform: uppercase;
+    letter-spacing: 0.5px; margin-bottom: 20px; line-height: 1.4;
+  }
+
+  .answers { display: flex; flex-direction: column; gap: 0; }
+
+  .answer-btn {
+    font-family: 'Arial', sans-serif; font-size: 11pt; color: #101010;
+    background: #FFFFFF; border: 1px solid #ABABAB; border-bottom: none;
+    padding: 16px 20px; text-align: left; cursor: pointer;
+    line-height: 1.5; transition: background 0.15s; touch-action: manipulation;
+  }
+  .answer-btn:last-child { border-bottom: 1px solid #ABABAB; }
+  .answer-btn:hover { background: #FFF8EE; border-color: #E87AAA; }
+  .answer-btn.selected { background: #FFF8EE; border-color: #E87AAA; color: #101010; font-weight: bold; }
+  .answer-btn:active { transform: translateY(1px); }
+
+  .answer-letter {
+    font-family: 'Montserrat', sans-serif; font-weight: 800;
+    font-size: 9pt; color: #E87AAA; margin-right: 12px; text-transform: uppercase;
+  }
+
+  .btn-primary {
+    font-family: 'Montserrat', sans-serif; font-weight: 800;
+    font-size: 12pt; color: #FFFFFF; background: #E87AAA; border: none;
+    padding: 14px 32px; cursor: pointer; text-transform: uppercase;
+    letter-spacing: 1px; width: 100%; margin-top: 24px;
+    touch-action: manipulation; display: block;
+  }
+  .btn-primary:hover { background: #C4567E; }
+  .btn-primary:active { transform: translateY(1px); }
+  .btn-primary:disabled { background: #DDDDDD; color: #ABABAB; cursor: not-allowed; }
+
+  .btn-secondary {
+    font-family: 'Montserrat', sans-serif; font-weight: 800;
+    font-size: 11pt; color: #E87AAA; background: #FFFFFF;
+    border: 1px solid #E87AAA; padding: 14px 32px; cursor: pointer;
+    text-transform: uppercase; letter-spacing: 1px; width: 100%;
+    margin-top: 12px; touch-action: manipulation; display: block;
+  }
+  .btn-secondary:hover { background: #FFF8EE; }
+  .btn-secondary:active { transform: translateY(1px); }
+
+  .cover-title {
+    font-family: 'Montserrat', sans-serif; font-weight: 800;
+    font-size: 18pt; color: #333333; text-transform: uppercase;
+    letter-spacing: 0.5px; margin-bottom: 14px; line-height: 1.3; text-align: center;
+  }
+
+  .cover-sub {
+    font-family: 'Arial', sans-serif; font-size: 12pt; color: #666666;
+    line-height: 1.6; text-align: center; margin-bottom: 8px;
+  }
+
+  .email-label {
+    font-family: 'Montserrat', sans-serif; font-weight: 800;
+    font-size: 9pt; color: #333333; text-transform: uppercase;
+    letter-spacing: 1px; display: block; margin-bottom: 8px;
+  }
+
+  input[type="email"] {
+    font-family: 'Arial', sans-serif; font-size: 12pt; color: #101010;
+    background: #FCFCFC; border: 1px solid #ABABAB;
+    padding: 14px; width: 100%; outline: none;
+    touch-action: manipulation;
+  }
+  input[type="email"]:focus { border-color: #E87AAA; background: #FFFFFF; }
+  input[type="email"]::placeholder { color: #BCBCBC; }
+
+  .privacy-note {
+    font-family: 'Montserrat', sans-serif; font-weight: 400;
+    font-size: 8pt; color: #666666; text-align: center; margin-top: 14px;
+  }
+
+  .result-type {
+    font-family: 'Montserrat', sans-serif; font-weight: 800;
+    font-size: 18pt; color: #E87AAA; text-transform: uppercase;
+    letter-spacing: 1px; text-align: center; margin-bottom: 8px;
+  }
+
+  .result-divider { border: none; border-top: 1px solid #D3D3D3; margin: 20px 0; }
+
+  .result-body {
+    font-family: 'Arial', sans-serif; font-size: 12pt;
+    color: #101010; line-height: 1.6; margin-bottom: 12px;
+  }
+
+  .result-note {
+    font-family: 'Arial', sans-serif; font-size: 11pt;
+    color: #666666; line-height: 1.6; font-style: italic; margin-bottom: 0;
+  }
+
+  .error-msg {
+    font-family: 'Montserrat', sans-serif; font-weight: 400;
+    font-size: 9pt; color: #C4567E; margin-top: 8px; display: none;
+  }
+
+  .toast {
+    position: fixed; top: 20px; left: 50%; transform: translateX(-50%);
+    background: #252535; border-bottom: 2px solid #E87AAA; color: #FFF8EE;
+    font-family: 'Montserrat', sans-serif; font-weight: 800;
+    font-size: 9pt; letter-spacing: 2px; text-transform: uppercase;
+    padding: 12px 24px; z-index: 999; display: none;
+  }
+
+  @media (hover: none) and (pointer: coarse) {
+    .btn-primary, .btn-secondary, .answer-btn { min-height: 44px; }
+  }
+
+  @media (max-width: 600px) {
+    body { padding: 20px 12px; }
+    .widget-container { padding: 28px 20px; }
+    .cover-title { font-size: 15pt; }
+  }
+</style>
+</head>
+<body>
+
+<a href="#content" class="skip-link">Skip to main content</a>
+<div class="toast" id="toast" role="alert" aria-live="polite"></div>
+
+<div class="brand-tag" aria-hidden="true">My Nest Chapter</div>
+<div class="brand-sub" aria-hidden="true">For Single &amp; Solo Moms</div>
+
+<main class="widget-container">
+  <div id="content" tabindex="-1"></div>
+</main>
+
+<script>
+const WORKBOOK_URL = 'https://mynestchapter.com/shop/now-what-workbook';
+
+let currentScreen = 0;
+let answers = [];
+let result = null;
+
+const questions = [
+  {
+    scene: 'grocery',
+    question: "You're at the grocery store. You look down at your cart and:",
+    options: [
+      { letter: 'A', text: "It's giving 'feeding a small soccer team.' Old habits. I'll figure it out." },
+      { letter: 'B', text: "I have a list. I stuck to the list. I'm very busy and very fine." },
+      { letter: 'C', text: "Half this stuff is for me. Half I have no idea why I grabbed." }
+    ]
+  },
+  {
+    scene: 'plates',
+    question: "Dinnertime. You set the table and:",
+    options: [
+      { letter: 'A', text: "Started putting out extra plates before I caught myself. Again." },
+      { letter: 'B', text: "I ate standing at the counter. I had somewhere to be after." },
+      { letter: 'C', text: "I made something with onions. Because I can now. Small wins." }
+    ]
+  },
+  {
+    scene: 'cleaning',
+    question: "It's Saturday. You cleaned the whole house because:",
+    options: [
+      { letter: 'A', text: "Habit. Also the Amazon driver might judge me." },
+      { letter: 'B', text: "I had 45 minutes between things so I knocked it out." },
+      { letter: 'C', text: "I started cleaning and then sat down in the middle of the floor for a while." }
+    ]
+  },
+  {
+    scene: 'movies',
+    question: "You're at the movies. You bought:",
+    options: [
+      { letter: 'A', text: "Enough for everyone. Realized at the register. Kept it anyway." },
+      { letter: 'B', text: "A water and a small popcorn. I had a good parking spot and wasn't rushing." },
+      { letter: 'C', text: "Whatever I actually wanted. Which felt weird. But also kind of good." }
+    ]
+  },
+  {
+    scene: 'yelling',
+    question: "Be honest. In the last week you yelled something into an empty house:",
+    options: [
+      { letter: 'A', text: '"Don\'t forget your charger." To no one. The charger is still there.' },
+      { letter: 'B', text: "I don't have time to yell. I'm already in the car." },
+      { letter: 'C', text: "I yelled something, caught myself, and then laughed about it for five minutes." }
+    ]
+  }
+];
+
+const scenes = {
+  door:     `<img src="scene-door.png.png" alt="Stick figure at door with question mark" style="max-width:260px;width:100%;">`,
+
+  grocery:  `<img src="scene-grocery.png.png" alt="Stick figure with grocery cart" style="max-width:260px;width:100%;">`,
+
+  plates:   `<img src="scene-plate.png.png" alt="Stick figure holding plates at empty table" style="max-width:260px;width:100%;">`,
+
+  cleaning: `<img src="scene-cleaning.png.png" alt="Stick figure mopping kitchen" style="max-width:260px;width:100%;">`,
+
+  movies:   `<img src="scene-movies.png.png" alt="Stick figure with lots of popcorn" style="max-width:260px;width:100%;">`,
+
+  yelling:  `<img src="scene-yelling.png.png" alt="Stick figure yelling into empty house" style="max-width:260px;width:100%;">`,
+
+  email:    `<div style="background:#E87AAA;padding:32px;text-align:center;"><p style="font-family:'Montserrat',sans-serif;font-weight:800;font-size:13pt;color:#ffffff;text-transform:uppercase;letter-spacing:2px;margin:0;">My Nest Chapter</p></div>`,
+  nester:   `<div style="background:#252535;padding:32px;text-align:center;"><p style="font-family:'Montserrat',sans-serif;font-weight:800;font-size:13pt;color:#E87AAA;text-transform:uppercase;letter-spacing:2px;margin:0;">The Nester 🪺</p></div>`,
+  busyer:   `<div style="background:#252535;padding:32px;text-align:center;"><p style="font-family:'Montserrat',sans-serif;font-weight:800;font-size:13pt;color:#E87AAA;text-transform:uppercase;letter-spacing:2px;margin:0;">The Busy-er 🏃‍♀️</p></div>`,
+  wonderer: `<div style="background:#252535;padding:32px;text-align:center;"><p style="font-family:'Montserrat',sans-serif;font-weight:800;font-size:13pt;color:#E87AAA;text-transform:uppercase;letter-spacing:2px;margin:0;">The Wonderer 🗺️</p></div>`
+};
+
+const results = {
+  nester: {
+    scene: 'nester',
+    type: 'The Nester',
+    body: `The plates are still set for five. The cart still has juice boxes in it. Their room is exactly the way they left it and that's not changing anytime soon. You're not stuck. You're just not done yet. And that's okay.`,
+    note: `Check your email — I sent you something I made for exactly where you are.`
+  },
+  busyer: {
+    scene: 'busyer',
+    type: 'The Busy-er',
+    body: `Your calendar has not had a blank square since they left. You're fine. You're handling it. You've got things — so many things. Somewhere under all of it, the quiet is waiting. You already know that.`,
+    note: `Check your email — I sent you something for the five minutes between things.`
+  },
+  wonderer: {
+    scene: 'wonderer',
+    type: 'The Wonderer',
+    body: `You're not holding on to everything anymore and you're not running from the quiet. You're starting to ask questions you haven't let yourself ask before. You don't have the answers yet — but you're finally asking.`,
+    note: `Check your email — I sent you something to help you start figuring it out.`
+  }
+};
+
+function calculateResult() {
+  const counts = { A: 0, B: 0, C: 0 };
+  answers.forEach(a => counts[a]++);
+  const max = Math.max(counts.A, counts.B, counts.C);
+  if (counts.A === max) return 'nester';
+  if (counts.B === max) return 'busyer';
+  return 'wonderer';
+}
+
+function render(html) {
+  const el = document.getElementById('content');
+  el.classList.remove('content-enter');
+  void el.offsetWidth;
+  el.innerHTML = html;
+  el.classList.add('content-enter');
+  el.focus();
+}
+
+function progressHTML(step) {
+  if (step < 1 || step > 5) return '';
+  const pct = (step / 5) * 100;
+  return `<div class="progress-wrap">
+    <div class="progress-label">Question ${step} of 5</div>
+    <div class="progress-bar-bg">
+      <div class="progress-bar-fill" style="width:${pct}%" role="progressbar" aria-valuenow="${step}" aria-valuemin="0" aria-valuemax="5"></div>
+    </div>
+  </div>`;
+}
+
+function showCover() {
+  currentScreen = 0;
+  answers = [];
+  render(`
+    <div class="scene">${scenes.door}</div>
+    <h1 class="cover-title">What Kind of Empty Nester Are You?</h1>
+    <p class="cover-sub">5 questions. Stick figures. Takes about two minutes.</p>
+    <button class="btn-primary" onclick="showQuestion(0)">Let's Find Out</button>
+  `);
+}
+
+function showQuestion(index) {
+  currentScreen = index + 1;
+  const q = questions[index];
+  const selectedAnswer = answers[index];
+  const optionsHTML = q.options.map(o => `
+    <button class="answer-btn${selectedAnswer === o.letter ? ' selected' : ''}"
+      onclick="selectAnswer(${index}, '${o.letter}')"
+      aria-pressed="${selectedAnswer === o.letter}">
+      <span class="answer-letter">${o.letter}</span>${o.text}
+    </button>
+  `).join('');
+  render(`
+    ${progressHTML(index + 1)}
+    <div class="scene">${scenes[q.scene]}</div>
+    <h2 class="question">${q.question}</h2>
+    <div class="answers" role="group" aria-label="Answer options">${optionsHTML}</div>
+    <button class="btn-primary" id="nextBtn" onclick="handleNext(${index})" ${selectedAnswer ? '' : 'disabled'}>
+      ${index < 4 ? 'Next Question' : 'See My Results'}
+    </button>
+    ${index > 0 ? `<button class="btn-secondary" onclick="showQuestion(${index - 1})">Back</button>` : ''}
+  `);
+}
+
+function selectAnswer(qIndex, letter) {
+  answers[qIndex] = letter;
+  showQuestion(qIndex);
+}
+
+function handleNext(index) {
+  if (!answers[index]) return;
+  if (index < 4) { showQuestion(index + 1); } else { showEmailCapture(); }
+}
+
+function showEmailCapture() {
+  currentScreen = 6;
+  result = calculateResult();
+  render(`
+    <div class="scene">${scenes.email}</div>
+    <h2 style="font-family:'Montserrat',sans-serif;font-weight:800;font-size:16pt;color:#333333;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:12px;text-align:center;">Okay. Your result is ready.</h2>
+    <p style="font-family:'Arial',sans-serif;font-size:12pt;color:#101010;line-height:1.6;margin-bottom:24px;text-align:center;">Drop your email and I'll send it over — plus something small I made that goes with your type.</p>
+    <div class="input-group">
+      <label class="email-label" for="emailInput">Your email address</label>
+      <input type="email" id="emailInput" placeholder="you@email.com" autocomplete="email" aria-required="true"/>
+      <p class="error-msg" id="emailError" role="alert">Please enter a valid email address.</p>
+    </div>
+    <button class="btn-primary" onclick="submitEmail()">Send Me My Result</button>
+    <p class="privacy-note">No spam. Just your result and something I made for you.</p>
+  `);
+}
+
+async function submitEmail() {
+  const emailInput = document.getElementById('emailInput');
+  const errorMsg = document.getElementById('emailError');
+  const email = emailInput.value.trim();
+  if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    errorMsg.style.display = 'block';
+    emailInput.focus();
+    return;
+  }
+  errorMsg.style.display = 'none';
+  const btn = document.querySelector('.btn-primary');
+  btn.textContent = 'Sending…';
+  btn.disabled = true;
+  try {
+    const res = await fetch('/quiz-submit.php', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, result })
+    });
+    const data = await res.json();
+    if (res.ok && data.success) { showResult(); }
+    else { throw new Error(); }
+  } catch {
+    btn.textContent = 'Send Me My Result';
+    btn.disabled = false;
+    document.getElementById('emailError').textContent = 'Something went wrong — please try again.';
+    document.getElementById('emailError').style.display = 'block';
+  }
+}
+
+function showResult() {
+  currentScreen = 7;
+  const r = results[result];
+  render(`
+    <div class="scene">${scenes[r.scene]}</div>
+    <p class="result-type">${r.type}</p>
+    <hr class="result-divider">
+    <p class="result-body">${r.body}</p>
+    <p class="result-note">${r.note}</p>
+    <hr class="result-divider">
+    <a href="${WORKBOOK_URL}" class="btn-primary" style="text-decoration:none;display:block;text-align:center;" target="_blank">Get the Workbook</a>
+    <button class="btn-secondary" onclick="showCover()">Take the Quiz Again</button>
+  `);
+}
+
+showCover();
+</script>
+</body>
+</html>

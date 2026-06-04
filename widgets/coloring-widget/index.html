@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pick Your Mood — My Nest Chapter</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@800&family=DM+Sans:wght@400;500&display=swap');
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: #FFF8EE;
+    font-family: 'DM Sans', Arial, sans-serif;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+  }
+
+  .widget {
+    background: #252535;
+    border-radius: 20px;
+    max-width: 520px;
+    width: 100%;
+    padding: 48px 40px;
+    text-align: center;
+  }
+
+  .logo {
+    font-family: 'Montserrat', Arial, sans-serif;
+    font-weight: 800;
+    font-size: 13px;
+    letter-spacing: 2px;
+    margin-bottom: 32px;
+  }
+  .logo span:first-child { color: #8BA7D4; }
+  .logo span:last-child { color: #E87AAA; }
+
+  .screen { display: none; }
+  .screen.active { display: block; }
+
+  h2 {
+    font-family: 'Montserrat', Arial, sans-serif;
+    font-weight: 800;
+    font-size: 22px;
+    color: #FFF8EE;
+    line-height: 1.3;
+    margin-bottom: 12px;
+  }
+
+  .subtitle {
+    color: #C4B0E8;
+    font-size: 15px;
+    line-height: 1.6;
+    margin-bottom: 36px;
+  }
+
+  .mood-btn {
+    display: block;
+    width: 100%;
+    background: transparent;
+    border: 2px solid #8BA7D4;
+    color: #FFF8EE;
+    font-family: 'DM Sans', Arial, sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+    padding: 16px 24px;
+    border-radius: 50px;
+    cursor: pointer;
+    margin-bottom: 14px;
+    transition: all 0.2s ease;
+    text-align: center;
+  }
+  .mood-btn:hover { background: #8BA7D4; color: #252535; border-color: #8BA7D4; }
+
+  .email-label {
+    color: #FFF8EE;
+    font-size: 14px;
+    display: block;
+    margin-bottom: 8px;
+    text-align: left;
+  }
+
+  input[type="text"],
+  input[type="email"] {
+    width: 100%;
+    padding: 14px 18px;
+    border-radius: 50px;
+    border: 2px solid #8BA7D4;
+    background: transparent;
+    color: #FFF8EE;
+    font-family: 'DM Sans', Arial, sans-serif;
+    font-size: 15px;
+    margin-bottom: 14px;
+    outline: none;
+  }
+  input::placeholder { color: #C4B0E8; opacity: 0.7; }
+  input:focus { border-color: #E87AAA; }
+
+  .submit-btn {
+    display: block;
+    width: 100%;
+    background: #E87AAA;
+    border: none;
+    color: #FFF8EE;
+    font-family: 'Montserrat', Arial, sans-serif;
+    font-weight: 800;
+    font-size: 14px;
+    letter-spacing: 1px;
+    padding: 16px 24px;
+    border-radius: 50px;
+    cursor: pointer;
+    margin-top: 8px;
+    transition: opacity 0.2s;
+  }
+  .submit-btn:hover { opacity: 0.88; }
+  .submit-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+  .download-btn {
+    display: block;
+    width: 100%;
+    background: #B5CC6A;
+    border: none;
+    color: #252535;
+    font-family: 'Montserrat', Arial, sans-serif;
+    font-weight: 800;
+    font-size: 14px;
+    letter-spacing: 1px;
+    padding: 16px 24px;
+    border-radius: 50px;
+    cursor: pointer;
+    margin-top: 20px;
+    text-decoration: none;
+    transition: opacity 0.2s;
+    text-align: center;
+  }
+  .download-btn:hover { opacity: 0.88; }
+
+  .mood-display {
+    background: #FFF8EE;
+    color: #252535;
+    border-radius: 12px;
+    padding: 12px 20px;
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 28px;
+    display: inline-block;
+  }
+
+  .confirm-icon { font-size: 48px; margin-bottom: 20px; display: block; }
+
+  .small-print {
+    color: #8BA7D4;
+    font-size: 12px;
+    margin-top: 16px;
+    line-height: 1.5;
+  }
+
+  .back-link {
+    color: #C4B0E8;
+    font-size: 13px;
+    cursor: pointer;
+    background: none;
+    border: none;
+    margin-top: 20px;
+    display: block;
+    text-decoration: underline;
+  }
+  .back-link:hover { color: #FFF8EE; }
+
+  .error-msg {
+    color: #F2A57A;
+    font-size: 13px;
+    margin-top: -8px;
+    margin-bottom: 10px;
+    text-align: left;
+    display: none;
+  }
+</style>
+</head>
+<body>
+<div class="widget">
+  <div class="logo"><span>MY NEST</span> <span>Chapter</span></div>
+
+  <!-- Screen 1: Pick Your Mood -->
+  <div class="screen active" id="screen-mood">
+    <h2>Pick Your Mood</h2>
+    <p class="subtitle">Get a free coloring page that fits right where you are today.</p>
+    <button class="mood-btn" onclick="selectMood('distraction')">I need a distraction</button>
+    <button class="mood-btn" onclick="selectMood('unwind')">I want to unwind</button>
+    <button class="mood-btn" onclick="selectMood('coloring')">I just feel like coloring</button>
+  </div>
+
+  <!-- Screen 2: Email Capture -->
+  <div class="screen" id="screen-email">
+    <h2>Almost there.</h2>
+    <div class="mood-display" id="mood-display-text"></div>
+    <p class="subtitle">Drop your name and email and I'll send it straight to you.</p>
+    <label class="email-label">First name</label>
+    <input type="text" id="input-name" placeholder="Your first name" />
+    <label class="email-label">Email address</label>
+    <input type="email" id="input-email" placeholder="your@email.com" />
+    <p class="error-msg" id="error-msg">Please enter a valid email address.</p>
+    <button class="submit-btn" id="submit-btn" onclick="submitEmail()">SEND MY COLORING PAGE →</button>
+    <button class="back-link" onclick="goBack()">← change my mood</button>
+    <p class="small-print">No spam. Just your coloring page — and occasional real talk from a solo mom who gets it.</p>
+  </div>
+
+  <!-- Screen 3: Confirmation + Download -->
+  <div class="screen" id="screen-confirm">
+    <span class="confirm-icon">🎨</span>
+    <h2>Here's your page.</h2>
+    <p class="subtitle">Check your inbox too — I'll send a copy there as well.</p>
+    <a class="download-btn" id="download-link" href="#" target="_blank">DOWNLOAD MY COLORING PAGE</a>
+    <p class="small-print" style="margin-top: 24px;">From my nest to yours — enjoy a few quiet minutes with this one.</p>
+  </div>
+</div>
+
+<script>
+  var selectedMood = '';
+
+  var moodLabels = {
+    distraction: 'I need a distraction',
+    unwind:      'I want to unwind',
+    coloring:    'I just feel like coloring'
+  };
+
+  var moodFiles = {
+    distraction: '/downloads/mnc-coloring-distraction.pdf',
+    unwind:      '/downloads/mnc-coloring-unwind.pdf',
+    coloring:    '/downloads/mnc-coloring-coloring.pdf'
+  };
+
+  function selectMood(mood) {
+    selectedMood = mood;
+    document.getElementById('mood-display-text').textContent = moodLabels[mood];
+    showScreen('screen-email');
+  }
+
+  function goBack() {
+    showScreen('screen-mood');
+  }
+
+  function showScreen(id) {
+    document.querySelectorAll('.screen').forEach(function(s) {
+      s.classList.remove('active');
+    });
+    document.getElementById(id).classList.add('active');
+  }
+
+  async function submitEmail() {
+    var name  = document.getElementById('input-name').value.trim();
+    var email = document.getElementById('input-email').value.trim();
+    var err   = document.getElementById('error-msg');
+    var btn   = document.getElementById('submit-btn');
+
+    if (!email || email.indexOf('@') < 0 || email.indexOf('.') < 0) {
+      err.style.display = 'block';
+      return;
+    }
+    err.style.display = 'none';
+    btn.textContent = 'Sending…';
+    btn.disabled = true;
+
+    try {
+      await fetch('/coloring-submit.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: email, first_name: name, mood: selectedMood })
+      });
+    } catch(e) {}
+
+    document.getElementById('download-link').href = moodFiles[selectedMood];
+    showScreen('screen-confirm');
+  }
+</script>
+</body>
+</html>

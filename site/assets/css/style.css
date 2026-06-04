@@ -37,9 +37,12 @@ p { margin-bottom: 1rem; line-height: 1.6; }
 /* --- Layout --- */
 .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
 .container-narrow { max-width: 700px; margin: 0 auto; padding: 0 24px; }
-.section { padding: 4rem 0; }
+.section { padding: 4rem 0; background-color: #FAFAFA; }
 .section-alt { padding: 4rem 0; background-color: #FFFFFF; }
 .section-cream { padding: 4rem 0; background-color: #FFF8EE; }
+.section-warm { padding: 4rem 0; background-color: #FFF8EE; }
+.section-charcoal { padding: 4rem 0; background-color: #252535; }
+.section-dusty { padding: 4rem 0; background-color: #E8EEF4; }
 .text-center { text-align: center; }
 
 /* --- Accessibility --- */
@@ -66,14 +69,14 @@ p { margin-bottom: 1rem; line-height: 1.6; }
 }
 .header-inner {
     display: flex; align-items: center; justify-content: space-between;
-    padding: 1rem 24px; max-width: 1200px; margin: 0 auto;
+    padding: 0.5rem 24px; max-width: 1200px; margin: 0 auto;
 }
 .brand-mark {
     font-family: 'Montserrat', sans-serif; font-weight: 800;
     font-size: 1.1rem; text-transform: uppercase; letter-spacing: 2px;
-    color: #E87AAA; text-decoration: none;
+    color: #8BA7D4; text-decoration: none;
 }
-.brand-mark:hover { color: #E87AAA; }
+.brand-mark:hover { color: #8BA7D4; }
 
 .main-nav { display: flex; align-items: center; gap: 2rem; }
 .main-nav a {
@@ -132,16 +135,27 @@ p { margin-bottom: 1rem; line-height: 1.6; }
    HERO
    ============================================ */
 .hero {
-    background-color: #FFF8EE;
-    padding: 5rem 0; text-align: center;
+    background-color: #252535;
+    background-image: url('/assets/images/hero.jpg');
+    background-size: cover;
+    background-position: center;
+    padding: 7rem 0; text-align: center;
+    position: relative;
 }
+.hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, rgba(37,37,53,0.55) 0%, rgba(37,37,53,0.75) 100%);
+}
+.hero .container { position: relative; z-index: 1; }
 .hero-tagline {
     font-family: 'Montserrat', sans-serif; font-weight: 800;
-    font-size: 2.2rem; color: #E87AAA; text-transform: uppercase;
+    font-size: 2.2rem; color: #FFF8EE; text-transform: uppercase;
     letter-spacing: 0.02em; margin-bottom: 1.5rem; line-height: 1.15;
 }
 .hero-subtitle {
-    font-family: 'Arial', sans-serif; font-size: 1.1rem; color: #101010;
+    font-family: 'Arial', sans-serif; font-size: 1.1rem; color: rgba(255,248,238,0.85);
     max-width: 550px; margin: 0 auto 2rem; line-height: 1.6;
 }
 
@@ -154,12 +168,33 @@ p { margin-bottom: 1rem; line-height: 1.6; }
     font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px;
     padding: 14px 32px; cursor: pointer; border: none;
     text-decoration: none; text-align: center;
+    border-radius: 9999px;
     transition: all 0.2s ease; touch-action: manipulation;
 }
 .btn:active { transform: translateY(1px); }
 
 .btn-primary { background-color: #E87AAA; color: #FFFFFF; }
 .btn-primary:hover { background-color: #C45A84; color: #FFFFFF; }
+
+.btn-hero {
+    font-size: 0.85rem;
+    padding: 14px 36px;
+    border-radius: 9999px;
+    border: 2px solid rgba(255,255,255,0.7);
+    animation: heroGlow 2.5s ease-in-out infinite;
+}
+@keyframes heroGlow {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(232,122,170,0); }
+    50% { box-shadow: 0 0 22px 6px rgba(232,122,170,0.55); }
+}
+.btn-hero:hover { animation: none; box-shadow: 0 0 28px 8px rgba(232,122,170,0.65); }
+
+.hero-cta-hint {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.72rem; text-transform: uppercase;
+    letter-spacing: 0.12em; color: rgba(255,248,238,0.85);
+    margin-top: 0.75rem; margin-bottom: 0;
+}
 
 .btn-outline { background-color: #FFFFFF; color: #E87AAA; border: 1px solid #E87AAA; }
 .btn-outline:hover { background-color: #FFF8EE; color: #E87AAA; }
@@ -380,7 +415,7 @@ p { margin-bottom: 1rem; line-height: 1.6; }
 .footer-brand {
     font-family: 'Montserrat', sans-serif; font-weight: 800;
     font-size: 0.9rem; text-transform: uppercase; letter-spacing: 2px;
-    color: #E87AAA; margin-bottom: 0.5rem;
+    color: #8BA7D4; margin-bottom: 0.5rem;
 }
 .footer-tagline {
     font-family: 'Montserrat', sans-serif; font-weight: 400;

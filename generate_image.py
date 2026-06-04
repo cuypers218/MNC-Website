@@ -61,8 +61,15 @@ def generate(filename, prompt):
     return False
 
 
+FRIDGE_IMAGE = {
+    "filename": "bg-fridge.jpg",
+    "prompt": (
+        "view from a doorway looking into a dim kitchen, closed refrigerator in focus, "
+        "dark quiet residential kitchen, no people, moody slightly underexposed interior, "
+        "warm available light, real photography style, shallow depth of field"
+    )
+}
+
 if __name__ == "__main__":
-    for img in IMAGES:
-        generate(img["filename"], img["prompt"])
-        time.sleep(3)
-    print("\nDone. All images saved to MNC-Website folder.")
+    generate(FRIDGE_IMAGE["filename"], FRIDGE_IMAGE["prompt"])
+    print("\nDone.")
