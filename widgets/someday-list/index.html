@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Someday List | My Nest Chapter</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Montserrat:wght@300;400;500;600;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --pink:        #E87AAA;
+  --pink-dark:   #C45A84;
+  --pink-soft:   #C4B0E8;
+  --pink-faint:  #FFF0F6;
+  --pink-pale:   #FFF8EE;
+
+  --charcoal:    #252535;
+  --periwinkle:  #8BA7D4;
+  --cream:       #FFF8EE;
+
+  --bg:          #FAFAFA;
+  --card:        #FFFFFF;
+  --rule:        #E8E4F0;
+  --rule-light:  #F0ECF8;
+
+  --ink:         #252535;
+  --ink-mid:     #5A5A72;
+  --ink-light:   #8BA7D4;
+  --ink-faint:   #C4B0E8;
+
+  --shadow-card:
+    0 1px 2px  rgba(37,37,53,0.05),
+    0 4px 12px rgba(37,37,53,0.06),
+    0 16px 48px rgba(37,37,53,0.05);
+
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
+
+/* ── MODAL OVERLAY ── */
+.sdl-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(37,37,53,0.55);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  z-index: 9999;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.35s ease;
+}
+.sdl-overlay.open { opacity: 1; pointer-events: all; }
+
+.sdl-modal {
+  position: relative;
+  width: 100%;
+  max-width: 476px;
+  max-height: 92vh;
+  overflow-y: auto;
+  transform: translateY(28px) scale(0.96);
+  transition: transform 0.5s var(--ease-out);
+  scrollbar-width: none;
+}
+.sdl-modal::-webkit-scrollbar { display: none; }
+.sdl-overlay.open .sdl-modal { transform: translateY(0) scale(1); }
+
+.sdl-close {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  float: right;
+  margin: 12px 12px 0 0;
+  width: 32px; height: 32px;
+  background: var(--card);
+  border: 1px solid var(--rule);
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px; line-height: 1;
+  color: var(--ink-light);
+  box-shadow: 0 2px 8px rgba(37,37,53,0.12);
+  transition: color 0.2s, transform 0.15s;
+}
+.sdl-close:hover { color: var(--pink); transform: scale(1.08); }
+
+/* ── SCREENS ── */
+.screen { display: none; }
+.screen.active { display: flex; flex-direction: column; animation: screenIn 0.55s var(--ease-out) both; }
+@keyframes screenIn { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
+
+/* ── CARD ── */
+.card {
+  background: var(--card);
+  border-radius: 20px;
+  border: 1px solid rgba(196,176,232,0.4);
+  box-shadow: var(--shadow-card);
+  position: relative;
+  overflow: hidden;
+}
+.card::after { content: ''; position: absolute; inset: 0; border-radius: 20px; background: linear-gradient(165deg, rgba(255,255,255,0.55) 0%, transparent 40%); pointer-events: none; }
+.card-accent { height: 3px; background: linear-gradient(90deg, var(--pink) 0%, var(--pink-soft) 60%, transparent 100%); opacity: 0.8; border-radius: 20px 20px 0 0; }
+
+/* ── INTRO ── */
+#screen-intro .inner { padding: 44px 40px 48px; display: flex; flex-direction: column; align-items: center; text-align: center; }
+.brand-eyebrow { display: inline-flex; align-items: center; gap: 12px; font-family: 'Montserrat', sans-serif; font-size: 10px; font-weight: 800; letter-spacing: 3.5px; text-transform: uppercase; color: var(--periwinkle); margin-bottom: 32px; }
+.brand-eyebrow span { display: block; width: 28px; height: 1px; background: currentColor; opacity: 0.5; }
+.intro-title { font-family: 'Lora', serif; font-size: 40px; font-weight: 700; color: var(--charcoal); line-height: 1.12; letter-spacing: -0.8px; margin-bottom: 14px; }
+.intro-rule { width: 36px; height: 2px; border-radius: 2px; background: linear-gradient(90deg, var(--pink), var(--pink-soft)); margin: 0 auto 16px; }
+.intro-subtitle { font-family: 'Lora', serif; font-style: italic; font-size: 17px; color: var(--ink-light); margin-bottom: 32px; }
+.intro-divider { width: 100%; height: 1px; background: var(--rule-light); margin-bottom: 28px; }
+.intro-body { font-family: 'Montserrat', sans-serif; font-size: 15px; line-height: 1.78; color: var(--ink-mid); text-align: left; margin-bottom: 44px; }
+
+.btn-primary { font-family: 'Montserrat', sans-serif; font-size: 12px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; color: var(--card); background: var(--pink); border: none; border-radius: 8px; padding: 17px 56px; cursor: pointer; transition: background 0.25s, transform 0.18s var(--ease-out); box-shadow: 0 2px 6px rgba(232,122,170,0.3), 0 8px 24px rgba(232,122,170,0.2); }
+.btn-primary:hover { background: var(--pink-dark); transform: translateY(-2px); }
+.btn-primary:active { transform: translateY(0); }
+
+/* ── DUMP SCREEN ── */
+#screen-dump .inner { padding: 40px 40px 44px; display: flex; flex-direction: column; }
+.dump-eyebrow { font-family: 'Montserrat', sans-serif; font-size: 10px; font-weight: 800; letter-spacing: 3px; text-transform: uppercase; color: var(--periwinkle); margin-bottom: 14px; }
+.dump-prompt { font-family: 'Lora', serif; font-size: 26px; font-weight: 700; color: var(--charcoal); line-height: 1.3; letter-spacing: -0.3px; margin-bottom: 6px; }
+.dump-sub { font-family: 'Montserrat', sans-serif; font-size: 14px; color: var(--ink-faint); margin-bottom: 28px; }
+
+.input-row { display: flex; gap: 10px; margin-bottom: 28px; }
+.text-input { font-family: 'Montserrat', sans-serif; font-size: 14px; flex: 1; min-width: 0; padding: 13px 16px; background: var(--card); border: 1.5px solid var(--rule); border-radius: 8px; color: var(--ink); outline: none; transition: border-color 0.2s, box-shadow 0.2s; }
+.text-input:focus { border-color: var(--pink); box-shadow: 0 0 0 3px rgba(232,122,170,0.12); }
+.text-input::placeholder { color: var(--ink-faint); }
+.btn-add { font-family: 'Montserrat', sans-serif; font-size: 12px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; color: var(--card); background: var(--pink); border: none; border-radius: 8px; padding: 13px 22px; cursor: pointer; white-space: nowrap; transition: background 0.2s, transform 0.15s; box-shadow: 0 2px 8px rgba(232,122,170,0.25); }
+.btn-add:hover { background: var(--pink-dark); transform: translateY(-1px); }
+.btn-add:active { transform: translateY(0); }
+
+.chips-label { font-family: 'Montserrat', sans-serif; font-size: 10px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; color: var(--ink-faint); margin-bottom: 12px; }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 32px; }
+.chip { font-family: 'Montserrat', sans-serif; font-size: 12px; font-weight: 500; padding: 7px 14px; border-radius: 6px; border: 1px solid var(--rule); background: var(--cream); color: var(--ink-mid); cursor: pointer; transition: color 0.2s, border-color 0.2s, background 0.2s; }
+.chip:hover { border-color: var(--pink); color: var(--pink); background: var(--pink-faint); }
+.chip.used { opacity: 0.3; pointer-events: none; text-decoration: line-through; }
+
+.list-area { min-height: 80px; margin-bottom: 20px; border-top: 1px solid var(--rule-light); }
+.someday-item { display: flex; align-items: center; padding: 14px 0; border-bottom: 1px solid var(--rule-light); animation: itemIn 0.35s var(--ease-out) both; }
+@keyframes itemIn { from { opacity: 0; transform: translateX(-8px); } to { opacity: 1; transform: translateX(0); } }
+.item-num { font-family: 'Lora', serif; font-size: 13px; font-weight: 700; color: var(--periwinkle); min-width: 26px; }
+.item-text { flex: 1; font-family: 'Montserrat', sans-serif; font-size: 14px; font-weight: 400; color: var(--ink); line-height: 1.5; }
+.item-remove { font-size: 16px; color: var(--ink-faint); cursor: pointer; padding: 4px 6px; border: none; background: none; transition: color 0.2s; line-height: 1; }
+.item-remove:hover { color: var(--pink); }
+
+.counter { font-family: 'Montserrat', sans-serif; font-size: 12px; font-weight: 500; letter-spacing: 0.5px; color: var(--ink-faint); text-align: center; margin-bottom: 24px; min-height: 18px; }
+
+.btn-done { font-family: 'Montserrat', sans-serif; font-size: 12px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; color: var(--card); background: var(--pink); border: none; border-radius: 8px; padding: 17px 56px; cursor: pointer; align-self: center; transition: background 0.25s, transform 0.18s var(--ease-out); box-shadow: 0 2px 6px rgba(232,122,170,0.3), 0 8px 24px rgba(232,122,170,0.2); }
+.btn-done:hover { background: var(--pink-dark); transform: translateY(-2px); }
+.btn-done:active { transform: translateY(0); }
+.btn-done:disabled { background: var(--rule); color: var(--ink-faint); box-shadow: none; cursor: not-allowed; transform: none; }
+
+/* ── RESULT ── */
+#screen-result .inner { padding: 40px 40px 44px; display: flex; flex-direction: column; }
+.result-eyebrow { font-family: 'Montserrat', sans-serif; font-size: 10px; font-weight: 800; letter-spacing: 3px; text-transform: uppercase; color: var(--periwinkle); margin-bottom: 14px; }
+.result-headline { display: flex; align-items: baseline; gap: 12px; margin-bottom: 6px; }
+.result-count { font-family: 'Lora', serif; font-size: 52px; font-weight: 700; color: var(--pink); line-height: 1; letter-spacing: -1.5px; }
+.result-word { font-family: 'Lora', serif; font-size: 20px; font-weight: 600; color: var(--charcoal); }
+.result-sub { font-family: 'Lora', serif; font-size: 14px; font-style: italic; color: var(--ink-light); margin-bottom: 28px; }
+
+.result-list-wrap { background: var(--cream); border: 1px solid var(--rule-light); border-radius: 14px; padding: 20px 24px; margin-bottom: 32px; max-height: 200px; overflow-y: auto; position: relative; }
+.result-list-wrap::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, var(--pink), transparent 80%); opacity: 0.45; border-radius: 14px 14px 0 0; }
+.result-list { list-style: none; }
+.result-list li { font-family: 'Montserrat', sans-serif; font-size: 14px; color: var(--ink); line-height: 1.5; padding: 8px 0; border-bottom: 1px solid var(--rule-light); display: flex; gap: 10px; }
+.result-list li:last-child { border-bottom: none; }
+.result-list .rnum { font-family: 'Lora', serif; font-weight: 700; color: var(--periwinkle); min-width: 20px; }
+
+.freebie-section { background: var(--cream); border: 1px solid var(--rule-light); border-radius: 14px; padding: 28px 26px; margin-bottom: 28px; position: relative; overflow: hidden; }
+.freebie-section::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, var(--pink), transparent 80%); opacity: 0.45; }
+.freebie-header { font-family: 'Lora', serif; font-size: 16px; font-weight: 600; color: var(--charcoal); margin-bottom: 6px; }
+.freebie-text { font-family: 'Montserrat', sans-serif; font-size: 14px; line-height: 1.65; color: var(--ink-mid); margin-bottom: 20px; font-style: italic; }
+.email-row { display: flex; gap: 10px; }
+.email-input { font-family: 'Montserrat', sans-serif; font-size: 14px; flex: 1; min-width: 0; padding: 13px 16px; background: var(--card); border: 1.5px solid var(--rule); border-radius: 8px; color: var(--ink); outline: none; transition: border-color 0.2s, box-shadow 0.2s; }
+.email-input:focus { border-color: var(--pink); box-shadow: 0 0 0 3px rgba(232,122,170,0.12); }
+.email-input::placeholder { color: var(--ink-faint); }
+.send-btn { font-family: 'Montserrat', sans-serif; font-size: 12px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; color: var(--card); background: var(--pink); border: none; border-radius: 8px; padding: 13px 22px; cursor: pointer; white-space: nowrap; transition: background 0.2s, transform 0.15s; box-shadow: 0 2px 8px rgba(232,122,170,0.25); }
+.send-btn:hover { background: var(--pink-dark); transform: translateY(-1px); }
+.send-btn:active { transform: translateY(0); }
+.send-btn.loading { opacity: 0.7; cursor: not-allowed; transform: none; }
+.email-success { display: none; font-family: 'Montserrat', sans-serif; font-size: 14px; font-weight: 500; color: var(--pink); padding-top: 14px; }
+.email-error { display: none; font-family: 'Montserrat', sans-serif; font-size: 13px; color: #b04040; padding-top: 12px; }
+
+.result-divider { width: 100%; height: 1px; background: var(--rule-light); margin-bottom: 24px; }
+.cta-section { text-align: center; }
+.cta-text { font-family: 'Montserrat', sans-serif; font-size: 14px; line-height: 1.72; color: var(--ink-mid); margin-bottom: 16px; }
+.cta-link { font-family: 'Montserrat', sans-serif; font-size: 12px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; color: var(--pink); text-decoration: none; border-bottom: 1.5px solid var(--rule); padding-bottom: 2px; transition: border-color 0.2s; }
+.cta-link:hover { border-color: var(--pink); }
+
+.meter-footer { font-family: 'Montserrat', sans-serif; text-align: center; margin-top: 16px; padding-bottom: 8px; font-size: 11px; color: var(--ink-faint); letter-spacing: 0.5px; }
+
+@media (max-width: 520px) {
+  #screen-intro .inner, #screen-dump .inner, #screen-result .inner { padding: 28px 22px 32px; }
+  .intro-title { font-size: 32px; }
+  .dump-prompt { font-size: 22px; }
+  .result-count { font-size: 42px; }
+  .input-row, .email-row { flex-direction: column; }
+  .btn-add, .send-btn { width: 100%; text-align: center; }
+}
+</style>
+</head>
+<body>
+
+<div class="sdl-overlay" id="sdl-overlay">
+  <div class="sdl-modal" id="sdl-modal">
+    <button class="sdl-close" onclick="closeSomedayList()" aria-label="Close">&times;</button>
+
+    <!-- INTRO -->
+    <div class="screen active card" id="screen-intro">
+      <div class="card-accent"></div>
+      <div class="inner">
+        <div class="brand-eyebrow"><span></span>My Nest Chapter<span></span></div>
+        <h1 class="intro-title">The Someday<br>List</h1>
+        <div class="intro-rule"></div>
+        <p class="intro-subtitle">For the solo mom who kept saying someday.</p>
+        <div class="intro-divider"></div>
+        <p class="intro-body">I had a list in my head for years — all the things I told myself I'd do when the kids were gone. A cruise. A Spanish class. That designer bag I never bought because the money always went to them. I never wrote any of it down. When they finally left, I couldn't remember half of it. This is where you get it out of your head and onto the screen.</p>
+        <button class="btn-primary" onclick="showScreen('screen-dump')">Start My List</button>
+      </div>
+    </div>
+
+    <!-- DUMP -->
+    <div class="screen card" id="screen-dump">
+      <div class="card-accent"></div>
+      <div class="inner">
+        <div class="dump-eyebrow">Your list</div>
+        <p class="dump-prompt">Someday I&rsquo;m going to&hellip;</p>
+        <p class="dump-sub">Type one and hit enter. Keep going.</p>
+        <div class="input-row">
+          <input class="text-input" type="text" id="someday-input" placeholder="Take that trip, learn that thing, buy that thing&hellip;" maxlength="120" />
+          <button class="btn-add" onclick="addSomeday()">Add</button>
+        </div>
+        <p class="chips-label">Or tap one to start</p>
+        <div class="chips" id="chips">
+          <span class="chip" onclick="useChip(this)">Take a trip by myself</span>
+          <span class="chip" onclick="useChip(this)">Learn something new</span>
+          <span class="chip" onclick="useChip(this)">Redecorate a room</span>
+          <span class="chip" onclick="useChip(this)">Say yes to something that scares me</span>
+          <span class="chip" onclick="useChip(this)">Buy something just for me</span>
+          <span class="chip" onclick="useChip(this)">Go back to school</span>
+        </div>
+        <div class="list-area" id="list-area"></div>
+        <p class="counter" id="counter"></p>
+        <button class="btn-done" id="done-btn" disabled onclick="showResult()">I&rsquo;m Done</button>
+      </div>
+    </div>
+
+    <!-- RESULT -->
+    <div class="screen card" id="screen-result">
+      <div class="card-accent"></div>
+      <div class="inner">
+        <div class="result-eyebrow">Your someday list</div>
+        <div class="result-headline">
+          <span class="result-count" id="result-count"></span>
+          <span class="result-word">somedays.</span>
+        </div>
+        <p class="result-sub" id="result-sub"></p>
+        <div class="result-list-wrap">
+          <ul class="result-list" id="result-list"></ul>
+        </div>
+        <div class="freebie-section">
+          <div class="freebie-header">Want me to email you this list?</div>
+          <p class="freebie-text">So it&rsquo;s there when you&rsquo;re ready &mdash; not just gone when you close this tab.</p>
+          <div class="email-row" id="email-row">
+            <input type="email" class="email-input" id="email-input" placeholder="Your email address" autocomplete="email" />
+            <button class="send-btn" id="send-btn" onclick="submitEmail()">Send it</button>
+          </div>
+          <div class="email-success" id="email-success">&#10003;&nbsp; Check your inbox.</div>
+          <div class="email-error" id="email-error">Something went wrong &mdash; please try again.</div>
+        </div>
+        <div class="result-divider"></div>
+        <div class="cta-section">
+          <p class="cta-text">Now that they&rsquo;re written down &mdash; the Someday List Companion is what you use to actually look at them. No pressure to do everything. Just a way to figure out where to start.</p>
+          <a href="https://mynestchapter.com/shop/someday-list-builder" class="cta-link" target="_blank">Get the Companion &rarr;</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="meter-footer">My Nest Chapter &middot; For Single &amp; Solo Moms &middot; mynestchapter.com</div>
+  </div>
+</div>
+
+<script>
+const somedays = [];
+const input    = document.getElementById('someday-input');
+const listArea = document.getElementById('list-area');
+const counter  = document.getElementById('counter');
+const doneBtn  = document.getElementById('done-btn');
+
+input.addEventListener('keydown', e => { if (e.key === 'Enter') { e.preventDefault(); addSomeday(); } });
+
+function openSomedayList() {
+  document.getElementById('sdl-overlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeSomedayList() {
+  document.getElementById('sdl-overlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+document.getElementById('sdl-overlay').addEventListener('click', function(e) { if (e.target === this) closeSomedayList(); });
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeSomedayList(); });
+if (window.self === window.top) openSomedayList();
+
+function addSomeday(text) {
+  const val = text || input.value.trim();
+  if (!val) return;
+  somedays.push(val);
+  input.value = '';
+  input.focus();
+  renderList();
+  updateCounter();
+}
+function useChip(el) { addSomeday(el.textContent); el.classList.add('used'); }
+function removeSomeday(index) { somedays.splice(index, 1); renderList(); updateCounter(); }
+function renderList() {
+  listArea.innerHTML = somedays.map((s, i) => `
+    <div class="someday-item">
+      <span class="item-num">${i+1}.</span>
+      <span class="item-text">${escapeHtml(s)}</span>
+      <button class="item-remove" onclick="removeSomeday(${i})" title="Remove">&times;</button>
+    </div>`).join('');
+}
+function updateCounter() {
+  const n = somedays.length;
+  counter.textContent = n === 0 ? '' : n === 1 ? '1 someday and counting…' : `${n} somedays and counting…`;
+  doneBtn.disabled = n < 3;
+}
+function showScreen(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  if (id === 'screen-dump') setTimeout(() => input.focus(), 400);
+}
+function showResult() {
+  const n = somedays.length;
+  document.getElementById('result-count').textContent = n;
+  document.getElementById('result-sub').textContent =
+    n >= 10 ? 'Out of your head, onto the screen. That\'s the first step.'
+    : n >= 5 ? 'A real list. More in there — you can always come back.'
+    : 'A start. The important thing is you started.';
+  document.getElementById('result-list').innerHTML = somedays.map((s, i) =>
+    `<li><span class="rnum">${i+1}.</span>${escapeHtml(s)}</li>`).join('');
+  showScreen('screen-result');
+}
+
+async function submitEmail() {
+  const emailInput = document.getElementById('email-input');
+  const btn        = document.getElementById('send-btn');
+  const email      = emailInput.value.trim();
+
+  if (!email || !email.includes('@')) { emailInput.focus(); return; }
+
+  btn.textContent = 'Sending…';
+  btn.classList.add('loading');
+  document.getElementById('email-error').style.display = 'none';
+
+  try {
+    await fetch('/someday-submit.php', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, items: somedays })
+    });
+    document.getElementById('email-row').style.display = 'none';
+    document.getElementById('email-success').style.display = 'block';
+  } catch {
+    btn.textContent = 'Send it';
+    btn.classList.remove('loading');
+    document.getElementById('email-error').style.display = 'block';
+  }
+}
+
+function escapeHtml(str) { const d = document.createElement('div'); d.textContent = str; return d.innerHTML; }
+</script>
+</body>
+</html>
