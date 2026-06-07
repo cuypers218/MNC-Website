@@ -17,7 +17,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 40px 20px;
+    padding: 16px 16px;
   }
 
   .skip-link {
@@ -28,6 +28,8 @@
     text-decoration: none; z-index: 100;
   }
   .skip-link:focus { top: 0; }
+
+  #content:focus { outline: none; }
 
   .sr-only {
     position: absolute; width: 1px; height: 1px;
@@ -55,22 +57,15 @@
     background: #FFFFFF;
     border: 1px solid rgba(196,176,232,0.4);
     border-radius: 20px;
-    padding: 40px;
-    overflow: hidden;
+    padding: 24px;
+    overflow: visible;
     position: relative;
     box-shadow:
       0 1px 2px rgba(37,37,53,0.05),
       0 4px 12px rgba(37,37,53,0.06),
       0 16px 48px rgba(37,37,53,0.05);
   }
-  .widget-container::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; right: 0;
-    height: 3px;
-    background: linear-gradient(90deg, #E87AAA 0%, #C4B0E8 60%, transparent 100%);
-    opacity: 0.85;
-  }
+  .widget-container::before { display: none; }
 
   @keyframes contentFadeIn {
     from { opacity: 0; transform: translateY(6px); }
@@ -78,7 +73,7 @@
   }
   .content-enter { animation: contentFadeIn 0.22s ease both; }
 
-  .progress-wrap { margin-bottom: 28px; }
+  .progress-wrap { margin-bottom: 14px; }
   .progress-label {
     font-family: 'Montserrat', sans-serif; font-weight: 400;
     font-size: 8pt; color: #666666; margin-bottom: 6px;
@@ -88,15 +83,52 @@
   .progress-bar-fill { background: #E87AAA; height: 4px; transition: width 0.3s ease; }
 
   .scene {
-    width: 100%; margin-bottom: 28px; text-align: center;
-    background: #FFF8EE; border: 1px solid #D3D3D3; padding: 24px 16px;
+    display: block !important;
+    position: relative !important;
+    width: 100% !important;
+    margin: 0 0 14px 0 !important;
+    overflow: visible !important;
+    border-radius: 0 !important;
+    background: transparent !important;
+    text-align: center !important;
+  }
+
+  .scene img {
+    display: block !important;
+    width: 100% !important;
+    max-height: 200px !important;
+    height: auto !important;
+    object-fit: contain !important;
+    object-position: center !important;
+  }
+
+  .scene.scene-result {
+    display: block !important;
+    position: relative !important;
+    width: 100% !important;
+    aspect-ratio: auto !important;
+    margin: 0 0 28px 0 !important;
+    background: #FFF8EE !important;
+    border: 1px solid #D3D3D3 !important;
+    padding: 20px 16px !important;
+    overflow: hidden !important;
+    border-radius: 0 !important;
+    text-align: center !important;
+  }
+  .scene.scene-result img {
+    display: block;
+    margin: 0 auto;
+    max-height: 180px;
+    width: auto;
+    height: auto;
+    object-fit: initial;
   }
   .scene svg { max-width: 260px; width: 100%; }
 
   h2.question {
     font-family: 'Montserrat', sans-serif; font-weight: 800;
     font-size: 14pt; color: #333333; text-transform: uppercase;
-    letter-spacing: 0.5px; margin-bottom: 20px; line-height: 1.4;
+    letter-spacing: 0.5px; margin-bottom: 12px; line-height: 1.3;
   }
 
   .answers { display: flex; flex-direction: column; gap: 0; }
@@ -104,7 +136,7 @@
   .answer-btn {
     font-family: 'Arial', sans-serif; font-size: 11pt; color: #101010;
     background: #FFFFFF; border: 1px solid #ABABAB; border-bottom: none;
-    padding: 16px 20px; text-align: left; cursor: pointer;
+    padding: 11px 16px; text-align: left; cursor: pointer;
     line-height: 1.5; transition: background 0.15s; touch-action: manipulation;
   }
   .answer-btn:last-child { border-bottom: 1px solid #ABABAB; }
@@ -120,8 +152,8 @@
   .btn-primary {
     font-family: 'Montserrat', sans-serif; font-weight: 800;
     font-size: 12pt; color: #FFFFFF; background: #E87AAA; border: none;
-    padding: 14px 32px; cursor: pointer; text-transform: uppercase;
-    letter-spacing: 1px; width: 100%; margin-top: 24px;
+    padding: 12px 32px; cursor: pointer; text-transform: uppercase;
+    letter-spacing: 1px; width: 100%; margin-top: 14px;
     touch-action: manipulation; display: block;
   }
   .btn-primary:hover { background: #C4567E; }
@@ -204,10 +236,27 @@
     .btn-primary, .btn-secondary, .answer-btn { min-height: 44px; }
   }
 
+  .quiz-close-btn {
+    position: absolute;
+    top: 14px; right: 14px;
+    display: none;
+    width: 36px; height: 36px;
+    background: rgba(37,37,53,0.72);
+    border: none; border-radius: 50%;
+    align-items: center; justify-content: center;
+    cursor: pointer; font-size: 20px; line-height: 1;
+    color: #FFF8EE; z-index: 20;
+    font-family: 'Montserrat', sans-serif;
+  }
+  .quiz-close-btn:hover { background: #E87AAA; }
+
   @media (max-width: 600px) {
     body { padding: 20px 12px; }
     .widget-container { padding: 28px 20px; }
     .cover-title { font-size: 15pt; }
+    .scene:not(.scene-result) img {
+      max-height: 220px !important;
+    }
   }
 </style>
 </head>
@@ -220,11 +269,26 @@
 <div class="brand-sub" aria-hidden="true">For Single &amp; Solo Moms</div>
 
 <main class="widget-container">
+  <button class="quiz-close-btn" onclick="closeQuiz()" aria-label="Close quiz">&times;</button>
   <div id="content" tabindex="-1"></div>
 </main>
 
 <script>
 const WORKBOOK_URL = 'https://mynestchapter.com/shop/now-what-workbook';
+
+function closeQuiz() {
+  if (window.parent !== window) {
+    window.parent.postMessage('closeQuiz', '*');
+  } else {
+    window.location.href = '/about/';
+  }
+}
+
+// Only show the internal X button on the standalone page, not inside the popup
+if (window.parent === window) {
+  var closeBtn = document.querySelector('.quiz-close-btn');
+  if (closeBtn) { closeBtn.style.display = 'flex'; }
+}
 
 let currentScreen = 0;
 let answers = [];
@@ -279,22 +343,22 @@ const questions = [
 ];
 
 const scenes = {
-  door:     `<img src="scene-door.png.png" alt="Stick figure at door with question mark" style="max-width:260px;width:100%;">`,
+  door:     `<img src="images/scene-door.png.png" alt="Stick figure at door with question mark">`,
 
-  grocery:  `<img src="scene-grocery.png.png" alt="Stick figure with grocery cart" style="max-width:260px;width:100%;">`,
+  grocery:  `<img src="images/scene-grocery.png.png" alt="Stick figure with grocery cart">`,
 
-  plates:   `<img src="scene-plate.png.png" alt="Stick figure holding plates at empty table" style="max-width:260px;width:100%;">`,
+  plates:   `<img src="images/scene-plate.png.png" alt="Stick figure holding plates at empty table">`,
 
-  cleaning: `<img src="scene-cleaning.png.png" alt="Stick figure mopping kitchen" style="max-width:260px;width:100%;">`,
+  cleaning: `<img src="images/scene-cleaning.png.png" alt="Stick figure mopping kitchen">`,
 
-  movies:   `<img src="scene-movies.png.png" alt="Stick figure with lots of popcorn" style="max-width:260px;width:100%;">`,
+  movies:   `<img src="images/scene-movies.png.png" alt="Stick figure with lots of popcorn">`,
 
-  yelling:  `<img src="scene-yelling.png.png" alt="Stick figure yelling into empty house" style="max-width:260px;width:100%;">`,
+  yelling:  `<img src="images/scene-yelling.png.png" alt="Stick figure yelling into empty house">`,
 
   email:    `<div style="background:#E87AAA;padding:32px;text-align:center;"><p style="font-family:'Montserrat',sans-serif;font-weight:800;font-size:13pt;color:#ffffff;text-transform:uppercase;letter-spacing:2px;margin:0;">My Nest Chapter</p></div>`,
-  nester:   `<img src="scene-result-nester.png" alt="The Nester" style="max-width:260px;width:100%;">`,
-  busyer:   `<img src="scene-result-busyer.png" alt="The Busy-er" style="max-width:260px;width:100%;">`,
-  wonderer: `<img src="scene-result-wonderer.png" alt="The Wonderer" style="max-width:260px;width:100%;">`
+  nester:   `<img src="scene-result-nester.png" alt="The Nester">`,
+  busyer:   `<img src="scene-result-busyer.png" alt="The Busy-er">`,
+  wonderer: `<img src="scene-result-wonderer.png" alt="The Wonderer">`
 };
 
 const results = {
@@ -441,7 +505,7 @@ function showResult() {
   currentScreen = 7;
   const r = results[result];
   render(`
-    <div class="scene">${scenes[r.scene]}</div>
+    <div class="scene scene-result">${scenes[r.scene]}</div>
     <p class="result-type">${r.type}</p>
     <hr class="result-divider">
     <p class="result-body">${r.body}</p>

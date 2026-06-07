@@ -110,7 +110,7 @@ $isWelcome = isset($_GET['welcome']);
         <div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid #D3D3D3;">
             <p class="dashboard-section-title">Account</p>
             <p style="color: #666666; font-size: 0.9rem; margin-bottom: 0.5rem;">Logged in as <?= esc($user['email']) ?></p>
-            <a href="/api/auth?action=logout" style="font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; color: #811453;">Log Out</a>
+            <a href="/api/auth?action=logout" style="font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; color: #E87AAA;">Log Out</a>
         </div>
         
     </div>

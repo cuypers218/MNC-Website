@@ -71,10 +71,10 @@
 <!-- HERO -->
 <section class="hero">
     <div class="container">
-        <h1 class="hero-tagline fade-in">Solo mom. Empty nest.<br>Now what?</h1>
-        <p class="hero-subtitle fade-in-delay-1">Start with 6pm. That hour when the house feels wrong and you're just standing in the kitchen not knowing what to do with yourself.</p>
-        <a href="/6pm-experience/" onclick="event.preventDefault();open6pmExperience();" class="btn btn-primary btn-hero fade-in-delay-2">What Got Me Through 6pm →</a>
-        <p class="hero-cta-hint fade-in-delay-3">click to watch &middot; free cheat sheet inside</p>
+        <h1 class="hero-tagline">Solo mom. Empty nest.<br>Now what?</h1>
+        <p class="hero-subtitle">Start with 6pm. That hour when the house feels wrong and you're just standing in the kitchen not knowing what to do with yourself.</p>
+        <a href="/6pm-experience/" onclick="event.preventDefault();open6pmExperience();" class="btn btn-primary btn-hero">GET THE FREE 6PM CHEAT SHEET →</a>
+        <p class="hero-cta-hint">No sign-up needed</p>
     </div>
 </section>
 
@@ -450,28 +450,356 @@ window.mncCloseModal = function() {
     </div>
 </section>
 
-<!-- ABOUT TEASER -->
-<section class="section-charcoal">
-    <div class="container-narrow text-center">
-        <h2 style="color: #FFF8EE;">I'm Cece</h2>
-        <p style="font-size: 1.05rem; line-height: 1.7; color: rgba(255,248,238,0.8); margin-bottom: 2rem;">I raised my kids mostly on my own. When my last one left, I wasn't ready for what hit me. I went looking for something — anything — that sounded like my life, and it didn't exist. So I created My Nest Chapter.</p>
-        <a href="/about" class="btn btn-primary">Read My Story</a>
+<!-- I'M CECE SECTION -->
+<section class="cece-section">
+  <div class="cece-inner">
+
+    <div class="cece-photo-col">
+      <img
+        src="/images/cece-photo.jpg"
+        alt="Cece, founder of My Nest Chapter"
+        class="cece-photo"
+      >
     </div>
+
+    <div class="cece-text-col">
+      <p class="cece-eyebrow">I'M CECE</p>
+      <h2 class="cece-heading">I raised my kids mostly on my own. When my last one left, I wasn't ready for what hit me.</h2>
+      <p class="cece-body">I went looking for something — anything — that sounded like my life, and it didn't exist. So I created My Nest Chapter.</p>
+      <a href="/about" class="cece-btn">Read my story →</a>
+    </div>
+
+  </div>
 </section>
 
-<!-- EMAIL CAPTURE -->
-<section class="section section-dusty">
-    <div class="container">
-        <div class="email-capture">
-            <h3>I'm Still In It. I Write About It Every Week.</h3>
-            <p>Not advice. Not a program. Just where I am right now — the hard parts, the better parts, and everything in between. If that sounds like something you need, drop your email.</p>
-            <form class="email-capture-form" onsubmit="event.preventDefault(); submitToReach(this);">
-                <input type="email" id="homepage-email" placeholder="Your email" required aria-label="Email address">
-                <button type="submit" class="btn btn-primary" id="homepage-submit">Send It</button>
-            </form>
-            <p id="homepage-msg" style="display:none; margin-top:12px; font-family:'Montserrat',sans-serif; font-weight:800; font-size:0.8rem; text-transform:uppercase; letter-spacing:1px; color:#E87AAA;"></p>
-        </div>
+<style>
+  .cece-section {
+    background-color: #252535;
+    padding: 0;
+  }
+
+  .cece-inner {
+    max-width: 960px;
+    margin: 0 auto;
+    display: flex;
+    align-items: stretch;
+  }
+
+  .cece-photo-col {
+    flex: 0 0 200px;
+    overflow: hidden;
+  }
+
+  .cece-photo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center top;
+    display: block;
+    min-height: 280px;
+  }
+
+  .cece-text-col {
+    flex: 1;
+    padding: 52px 48px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .cece-eyebrow {
+    font-family: 'Montserrat', Arial, sans-serif;
+    font-weight: 800;
+    font-size: 11px;
+    letter-spacing: 2px;
+    color: #E87AAA;
+    text-transform: uppercase;
+    margin: 0 0 14px;
+  }
+
+  .cece-heading {
+    font-family: 'Montserrat', Arial, sans-serif;
+    font-weight: 800;
+    font-size: 22px;
+    color: #FFF8EE;
+    line-height: 1.35;
+    margin: 0 0 16px;
+    max-width: 520px;
+  }
+
+  .cece-body {
+    font-family: 'DM Sans', 'Helvetica Neue', Arial, sans-serif;
+    font-size: 15px;
+    color: rgba(255, 248, 238, 0.78);
+    line-height: 1.7;
+    margin: 0 0 28px;
+    max-width: 480px;
+  }
+
+  .cece-btn {
+    display: inline-block;
+    background: #E87AAA;
+    color: #fff;
+    font-family: 'Montserrat', Arial, sans-serif;
+    font-weight: 800;
+    font-size: 12px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    padding: 13px 26px;
+    border-radius: 999px;
+    text-decoration: none;
+    align-self: flex-start;
+    transition: background 0.2s ease, transform 0.15s ease;
+  }
+
+  .cece-btn:hover {
+    background: #d9608f;
+    transform: translateY(-1px);
+  }
+
+  @media (max-width: 600px) {
+    .cece-inner {
+      flex-direction: column;
+    }
+
+    .cece-photo-col {
+      flex: none;
+      width: 100%;
+      height: 220px;
+    }
+
+    .cece-photo {
+      min-height: 220px;
+      object-position: center 20%;
+    }
+
+    .cece-text-col {
+      padding: 36px 24px;
+    }
+
+    .cece-heading {
+      font-size: 19px;
+    }
+  }
+</style>
+
+<!-- ACCOUNT + NEWSLETTER -->
+<style>
+  .account-newsletter-section {
+    background-color: #f0eee8;
+    padding: 72px 24px;
+  }
+  .an-inner {
+    max-width: 680px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+  }
+  .an-account-block {
+    background: #252535;
+    border-radius: 16px;
+    padding: 48px 40px;
+    text-align: center;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  .an-eyebrow {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 800;
+    font-size: 11px;
+    letter-spacing: 2px;
+    color: #C4B0E8;
+    margin: 0 0 16px;
+    text-transform: uppercase;
+  }
+  .an-heading {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 800;
+    font-size: 22px;
+    color: #FFF8EE;
+    line-height: 1.35;
+    margin: 0 0 16px;
+  }
+  .an-body {
+    font-family: 'DM Sans', 'Helvetica Neue', sans-serif;
+    font-size: 15px;
+    color: rgba(255, 248, 238, 0.78);
+    line-height: 1.65;
+    margin: 0 0 28px;
+  }
+  .an-btn-primary {
+    display: inline-block;
+    background: #E87AAA;
+    color: #fff;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 800;
+    font-size: 13px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    padding: 15px 32px;
+    border-radius: 999px;
+    text-decoration: none;
+    transition: background 0.2s ease, transform 0.15s ease;
+  }
+  .an-btn-primary:hover {
+    background: #d9608f;
+    transform: translateY(-1px);
+  }
+  .an-divider {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    gap: 12px;
+    padding: 28px 0 20px;
+    color: #a09a92;
+    font-family: 'DM Sans', 'Helvetica Neue', sans-serif;
+    font-size: 13px;
+  }
+  .an-divider::before,
+  .an-divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: #d5cfc8;
+  }
+  .an-newsletter-block {
+    background: #fff;
+    border: 1px solid #e5e0d9;
+    border-radius: 16px;
+    padding: 40px 40px 36px;
+    text-align: center;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  .an-newsletter-label {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 800;
+    font-size: 11px;
+    letter-spacing: 2px;
+    color: #8BA7D4;
+    margin: 0 0 14px;
+    text-transform: uppercase;
+  }
+  .an-newsletter-body {
+    font-family: 'DM Sans', 'Helvetica Neue', sans-serif;
+    font-size: 15px;
+    color: #3a3530;
+    line-height: 1.65;
+    margin: 0 0 10px;
+  }
+  .an-newsletter-sub {
+    font-family: 'DM Sans', 'Helvetica Neue', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    color: #252535;
+    margin: 0 0 22px;
+  }
+  .an-email-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+  .an-form-row {
+    display: flex;
+    gap: 8px;
+    width: 100%;
+    max-width: 420px;
+  }
+  .an-email-input {
+    flex: 1;
+    padding: 13px 18px;
+    border: 1.5px solid #d5cfc8;
+    border-radius: 999px;
+    font-family: 'DM Sans', 'Helvetica Neue', sans-serif;
+    font-size: 14px;
+    color: #252535;
+    background: #FFF8EE;
+    outline: none;
+    transition: border-color 0.2s ease;
+  }
+  .an-email-input:focus {
+    border-color: #E87AAA;
+  }
+  .an-email-input::placeholder {
+    color: #b0a89e;
+  }
+  .an-btn-secondary {
+    background: #E87AAA;
+    color: #fff;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 800;
+    font-size: 12px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    padding: 13px 22px;
+    border: none;
+    border-radius: 999px;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background 0.2s ease;
+  }
+  .an-btn-secondary:hover {
+    background: #d9608f;
+  }
+  .an-form-note {
+    font-family: 'DM Sans', 'Helvetica Neue', sans-serif;
+    font-size: 12px;
+    color: #a09a92;
+    margin: 0;
+  }
+  @media (max-width: 560px) {
+    .an-account-block,
+    .an-newsletter-block {
+      padding: 36px 24px;
+    }
+    .an-heading {
+      font-size: 19px;
+    }
+    .an-form-row {
+      flex-direction: column;
+    }
+    .an-btn-secondary {
+      width: 100%;
+      padding: 14px;
+    }
+  }
+</style>
+
+<section class="account-newsletter-section">
+  <div class="an-inner">
+
+    <!-- PRIMARY: FREE ACCOUNT -->
+    <div class="an-account-block">
+      <p class="an-eyebrow">YOUR SPOT. FREE. ALWAYS.</p>
+      <h2 class="an-heading">Create a free account and everything lives in one place — your tools, your downloads, your resources.</h2>
+      <p class="an-body">Plus freebies that aren't anywhere else on the site. The ones on the public pages are for anyone who finds them. The ones inside your account are just for you.</p>
+      <a href="/register" class="an-btn-primary">CREATE YOUR FREE ACCOUNT →</a>
     </div>
+
+    <!-- DIVIDER -->
+    <div class="an-divider">
+      <span>or</span>
+    </div>
+
+    <!-- SECONDARY: NEWSLETTER -->
+    <div class="an-newsletter-block">
+      <p class="an-newsletter-label">NOT READY FOR THAT?</p>
+      <p class="an-newsletter-body">I write every week. What I'm still figuring out, what helped me this week, what's hard right now. Not advice. Not a program. Just where I am — the honest parts and the better parts both.</p>
+      <p class="an-newsletter-sub">Drop your email and I'll send it to you.</p>
+      <form class="an-email-form" onsubmit="event.preventDefault(); submitToReach(this);">
+        <div class="an-form-row">
+          <input type="email" id="homepage-email" name="email" placeholder="Your email" required class="an-email-input" aria-label="Email address">
+          <button type="submit" id="homepage-submit" class="an-btn-secondary">SEND IT</button>
+        </div>
+        <p class="an-form-note">Nothing else. Just the weekly note.</p>
+      </form>
+      <p id="homepage-msg" style="display:none; margin-top:12px; font-family:'Montserrat',sans-serif; font-weight:800; font-size:0.8rem; text-transform:uppercase; letter-spacing:1px; color:#E87AAA;"></p>
+    </div>
+
+  </div>
 </section>
 
 <!-- 6PM EXPERIENCE LIGHTBOX -->

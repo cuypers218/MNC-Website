@@ -23,7 +23,7 @@ if (isset($_GET['success']) && $_GET['success'] === '1') {
     ?>
     <section class="section">
         <div class="container text-center" style="padding: 3rem 0;">
-            <h1 style="color: #811453;">You're In</h1>
+            <h1 style="color: #E87AAA;">You're In</h1>
             <p style="color: #444; font-size: 1.05rem; margin: 1rem 0 0.5rem;">Your purchase is confirmed.</p>
             <p style="color: #666; margin-bottom: 2rem;">It's now in your dashboard, ready to download.</p>
             <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">

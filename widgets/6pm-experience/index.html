@@ -19,7 +19,7 @@ body { font-family: Arial, sans-serif; background: #252535; }
 .story-screen { cursor: pointer; background: #252535; }
 
 /* ── background images ── */
-.screen-bg { position: absolute; inset: 0; background-size: cover; background-position: center center; background-repeat: no-repeat; opacity: 0.55; }
+.screen-bg { position: absolute; inset: 0; background-size: contain; background-position: center center; background-repeat: no-repeat; opacity: 0.55; }
 .screen-overlay { position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(0,0,0,0.25) 0%, rgba(0,0,0,0.55) 100%); }
 .screen-content { position: relative; z-index: 1; max-width: 620px; padding: 40px 32px; text-align: center; }
 
@@ -102,6 +102,8 @@ button, input, a { touch-action: manipulation; }
 
 <!-- SCREEN 0: INTRO -->
 <div class="screen story-screen active" id="screen-0" onclick="advance()" role="button" aria-label="Tap to begin">
+  <div class="screen-bg" style="background-color:#2C1408;background-image:url('bg-kitchen.jpg');background-size:contain;background-repeat:no-repeat;background-position:center;" aria-hidden="true"></div>
+  <div class="screen-overlay" aria-hidden="true"></div>
   <div class="screen-content" id="main-content" tabindex="-1">
     <div class="brand-tag">My Nest Chapter</div>
     <p class="intro-text">For me, I was usually okay until about 6. Then the quiet hit. So still. So empty. It started to be all I could think about all day.</p>
@@ -110,7 +112,7 @@ button, input, a { touch-action: manipulation; }
 
 <!-- SCREEN 1 -->
 <div class="screen story-screen" id="screen-1" onclick="advance()" role="button" aria-label="Tap to continue">
-  <div class="screen-bg" style="background-color:#140A04;background-image:url('bg-hallway.jpg');background-size:cover;background-repeat:no-repeat;background-position:center;" aria-hidden="true"></div>
+  <div class="screen-bg" style="background-color:#140A04;background-image:url('bg-hallway.jpg');background-size:contain;background-repeat:no-repeat;background-position:center;" aria-hidden="true"></div>
   <div class="screen-overlay" aria-hidden="true"></div>
   <div class="screen-content">
     <p class="story-text">At 6pm the house didn't just get quiet. It got loud with it.</p>
@@ -119,7 +121,7 @@ button, input, a { touch-action: manipulation; }
 
 <!-- SCREEN 2 -->
 <div class="screen story-screen" id="screen-2" onclick="advance()" role="button" aria-label="Tap to continue">
-  <div class="screen-bg" style="background-color:#101010;background-image:url('bg-fridge.jpg');background-size:cover;background-repeat:no-repeat;background-position:center;" aria-hidden="true"></div>
+  <div class="screen-bg" style="background-color:#101010;background-image:url('bg-phone.jpg');background-size:contain;background-repeat:no-repeat;background-position:center;" aria-hidden="true"></div>
   <div class="screen-overlay" aria-hidden="true"></div>
   <div class="screen-content">
     <p class="story-text">You open the fridge. Close it. Open the pantry. Close it. Open the freezer. Close it. You're not even hungry.</p>
@@ -128,7 +130,7 @@ button, input, a { touch-action: manipulation; }
 
 <!-- SCREEN 3 -->
 <div class="screen story-screen" id="screen-3" onclick="advance()" role="button" aria-label="Tap to continue">
-  <div class="screen-bg" style="background-color:#080812;background-image:url('bg-tv.jpg');background-size:cover;background-repeat:no-repeat;background-position:center;" aria-hidden="true"></div>
+  <div class="screen-bg" style="background-color:#080812;background-image:url('bg-tv.jpg');background-size:contain;background-repeat:no-repeat;background-position:center;" aria-hidden="true"></div>
   <div class="screen-overlay" aria-hidden="true"></div>
   <div class="screen-content">
     <p class="story-text">The TV's on but you're not watching it. You just needed the noise.</p>
@@ -137,7 +139,7 @@ button, input, a { touch-action: manipulation; }
 
 <!-- SCREEN 4 -->
 <div class="screen story-screen" id="screen-4" onclick="advance()" role="button" aria-label="Tap to continue">
-  <div class="screen-bg" style="background-color:#180C04;background-image:url('bg-phone-lit.jpg');background-size:cover;background-repeat:no-repeat;background-position:center;" aria-hidden="true"></div>
+  <div class="screen-bg" style="background-color:#180C04;background-image:url('bg-phone-lit.jpg');background-size:contain;background-repeat:no-repeat;background-position:center;" aria-hidden="true"></div>
   <div class="screen-overlay" aria-hidden="true"></div>
   <div class="screen-content">
     <p class="story-text">It's only 6pm. Too early to call. You tell yourself to wait.</p>
@@ -146,7 +148,7 @@ button, input, a { touch-action: manipulation; }
 
 <!-- SCREEN 5 -->
 <div class="screen story-screen" id="screen-5" onclick="advance()" role="button" aria-label="Tap to continue">
-  <div class="screen-bg" style="background-color:#160818;background-image:url('bg-window.jpg');background-size:cover;background-repeat:no-repeat;background-position:center;" aria-hidden="true"></div>
+  <div class="screen-bg" style="background-color:#160818;background-image:url('bg-window.jpg');background-size:contain;background-repeat:no-repeat;background-position:center;" aria-hidden="true"></div>
   <div class="screen-overlay" aria-hidden="true"></div>
   <div class="screen-content">
     <p class="story-text">You walked the halls. Turned the bedroom light on. Turned it off. Stood in the doorway.</p>
@@ -155,7 +157,7 @@ button, input, a { touch-action: manipulation; }
 
 <!-- SCREEN 6: BRIDGE -->
 <div class="screen story-screen" id="screen-6" onclick="advance()" role="button" aria-label="Tap to continue">
-  <div class="screen-bg" style="background-color:#1C0C04;background-image:url('bg-cozy.jpg');background-size:cover;background-repeat:no-repeat;background-position:center;" aria-hidden="true"></div>
+  <div class="screen-bg" style="background-color:#1C0C04;background-image:url('bg-cozy.jpg');background-size:contain;background-repeat:no-repeat;background-position:center;" aria-hidden="true"></div>
   <div class="screen-overlay" aria-hidden="true"></div>
   <div class="screen-content">
     <p class="story-text" style="font-size:18pt;line-height:1.65;">Sometimes the quiet still catches me off guard. I put together 7 things that actually helped me get through the 6pm hour. Maybe one of them helps you too.</p>
@@ -168,14 +170,14 @@ button, input, a { touch-action: manipulation; }
   <div class="email-card">
     <div class="brand-tag">My Nest Chapter</div>
     <h2>The 6pm<br>Cheat Sheet</h2>
-    <p class="sub">7 things that actually helped me get through the 6pm hour. Short, honest, free.</p>
+    <p class="sub">7 things that actually helped me get through the 6pm hour. Drop your email and I'll send it — or just download it now, no email needed.</p>
     <div id="email-form">
       <div class="field-col">
         <input type="text" id="first-name-input" placeholder="First name" autocomplete="given-name" aria-label="First name">
         <input type="email" id="email-input" placeholder="Email address" autocomplete="email" aria-label="Email address">
         <button class="send-btn" id="send-btn" onclick="submitEmail()">Send me the cheat sheet</button>
       </div>
-      <button class="no-thanks" onclick="skipEmail()">No thanks</button>
+      <a class="no-thanks" href="https://drive.google.com/uc?export=download&id=1dVTgwgBjwsg0jz9HCcGkPgif6edNhyQR" target="_blank" rel="noopener" onclick="skipEmail()">Just download it</a>
       <p class="no-spam">No spam. Just this.</p>
       <div class="email-error" id="email-error">Something went wrong — please try again.</div>
     </div>
@@ -191,8 +193,8 @@ button, input, a { touch-action: manipulation; }
 <div class="screen confirm-screen" id="screen-8">
   <div class="confirm-content">
     <div class="brand-tag">My Nest Chapter</div>
-    <h2>It's on its way.</h2>
-    <p>Check your inbox.</p>
+    <h2>Hope it helps.</h2>
+    <p>7 things that got me through the 6pm hour. You've got them now.</p>
     <a class="home-link" href="https://mynestchapter.com" target="_top">Back to My Nest Chapter</a>
   </div>
 </div>
