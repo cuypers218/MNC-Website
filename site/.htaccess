@@ -60,6 +60,9 @@ RewriteRule ^dashboard/?$ dashboard.php [L]
 # Checkout
 RewriteRule ^checkout/?$ checkout.php [L]
 
+# Workbook product page
+RewriteRule ^workbook/?$ workbook.php [L]
+
 # Download with token
 RewriteRule ^download/([a-zA-Z0-9]+)/?$ download.php?token=$1 [L]
 

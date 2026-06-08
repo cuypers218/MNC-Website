@@ -59,7 +59,7 @@ $allProducts = getProducts();
                         <?php elseif ($isFree): ?>
                             <a href="/shop/<?= esc($product['slug']) ?>" class="btn btn-outline">Get This Free</a>
                         <?php else: ?>
-                            <a href="/shop/<?= esc($product['slug']) ?>" class="btn btn-primary">Learn More</a>
+                            <a href="/shop/<?= esc($product['slug']) ?>" class="btn btn-primary"><?= $product['category'] === 'workbook' ? 'Get the Workbook' : 'Learn More' ?></a>
                         <?php endif; ?>
                     </div>
                 </div>

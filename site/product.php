@@ -57,7 +57,7 @@ $related = $stmt->fetchAll();
                 <h1 style="font-size: 1.75rem; margin: 0.5rem 0 1rem;"><?= esc($product['title']) ?></h1>
                 
                 <?php if (!$isComingSoon): ?>
-                    <p style="font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 1.5rem; color: #811453; margin-bottom: 1.5rem;">
+                    <p style="font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 1.5rem; color: #E87AAA; margin-bottom: 1.5rem;">
                         <?= formatPrice($product['price']) ?>
                     </p>
                 <?php endif; ?>
@@ -91,7 +91,7 @@ $related = $stmt->fetchAll();
         
         <!-- Back to shop -->
         <div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid #D3D3D3;">
-            <a href="/shop" style="font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em; color: #811453;">&larr; Back to Shop</a>
+            <a href="/shop" style="font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em; color: #E87AAA;">&larr; Back to Shop</a>
         </div>
         
     </div>
