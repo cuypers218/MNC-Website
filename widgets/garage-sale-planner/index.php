@@ -1,3 +1,24 @@
+<?php
+require_once __DIR__ . "/../../includes/config.php";
+require_once __DIR__ . "/../../includes/db.php";
+require_once __DIR__ . "/../../includes/auth.php";
+require_once __DIR__ . "/../../includes/functions.php";
+
+if (!isLoggedIn()) {
+    $_SESSION["redirect_after_login"] = "/widgets/garage-sale-planner/";
+    header("Location: /login");
+    exit;
+}
+
+$user = getCurrentUser();
+$product = getProductBySlug("garage-sale-planner");
+
+if (!$product || !userOwnsPurchase($user["id"], $product["id"])) {
+    header("Location: /shop/garage-sale-planner");
+    exit;
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en" data-theme="light">
 <head>
