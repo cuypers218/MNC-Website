@@ -114,19 +114,62 @@ $AMAZON_LINK = "https://www.amazon.com/YOUR_BOOK_LINK"; // replace with Amazon l
     width: 300px; height: 300px;
     background: radial-gradient(circle, rgba(232,122,170,0.12) 0%, transparent 70%);
   }
-  .book-mockup {
-    position: relative;
-    z-index: 2;
-    width: 280px;
-  }
-  .book-mockup img {
+  /* 3D BOOK MOCKUP */
+  .book-scene {
+    perspective: 1200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     width: 100%;
+    height: 100%;
+  }
+  .book-mockup {
+    --thickness: 28px;
+    position: relative;
+    width: 256px;
+    height: 340px;
+    transform-style: preserve-3d;
+    transform: rotateY(-30deg) rotateX(2deg);
+    transition: transform 0.55s ease;
+    filter: drop-shadow(20px 28px 40px rgba(0,0,0,0.7));
+  }
+  .book-mockup:hover {
+    transform: rotateY(-16deg) rotateX(2deg);
+  }
+  /* Front cover */
+  .book-mockup img {
+    position: absolute;
+    inset: 0;
+    width: 100%; height: 100%;
     display: block;
-    box-shadow: -10px 10px 0 rgba(232,122,170,0.35), 24px 24px 60px rgba(0,0,0,0.55);
+    object-fit: cover;
+    transform: translateZ(calc(var(--thickness) / 2));
+    backface-visibility: hidden;
+    border-radius: 0 3px 3px 0;
+  }
+  /* Spine — translateX(-50%) centers the rotated face on the left edge */
+  .book-mockup::before {
+    content: '';
+    position: absolute;
+    top: 3px; left: 0;
+    width: var(--thickness);
+    height: calc(100% - 6px);
+    background: linear-gradient(to right, #4a0820, #7a1438, #a82850);
+    transform: translateX(-50%) rotateY(90deg);
+    border-radius: 2px 0 0 2px;
+  }
+  /* Back face — hidden when facing viewer */
+  .book-mockup::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: #1a0a10;
+    transform: translateZ(calc(var(--thickness) / -2)) rotateY(180deg);
+    backface-visibility: hidden;
   }
   .book-badge {
     position: absolute;
-    top: -12px; right: -12px;
+    top: -12px; right: -14px;
     background: var(--lemon);
     color: var(--charcoal);
     font-family: 'DM Sans', sans-serif;
@@ -135,7 +178,8 @@ $AMAZON_LINK = "https://www.amazon.com/YOUR_BOOK_LINK"; // replace with Amazon l
     letter-spacing: 0.08em;
     text-transform: uppercase;
     padding: 6px 10px;
-    z-index: 3;
+    transform: translateZ(calc(var(--thickness) / 2 + 1px));
+    z-index: 10;
   }
 
   /* RIGHT — product info */
@@ -592,9 +636,11 @@ $AMAZON_LINK = "https://www.amazon.com/YOUR_BOOK_LINK"; // replace with Amazon l
 
   <!-- Book cover image -->
   <div class="product-visual">
-    <div class="book-mockup">
-      <div class="book-badge">WORKBOOK</div>
-      <img src="/assets/images/workbook-cover.png" alt="Now What? A Workbook for Solo Moms in the Empty Nest by Cecilia Ann">
+    <div class="book-scene">
+      <div class="book-mockup">
+        <div class="book-badge">WORKBOOK</div>
+        <img src="/assets/images/workbook-cover.png" alt="Now What? A Workbook for Solo Moms in the Empty Nest by Cecilia Ann">
+      </div>
     </div>
   </div>
 

@@ -8,8 +8,9 @@ RewriteRule ^(.*)$ https://%{HTTP_HOST}/$1 [R=301,L]
 # Block access to includes directory
 RewriteRule ^includes/ - [F,L]
 
-# Block access to downloads directory
-RewriteRule ^downloads/ - [F,L]
+# Block direct access to paid products only — free PDFs (freebie_ and mnc-coloring-) are publicly accessible
+RewriteRule ^downloads/now-what-workbook\.pdf$ - [F,L]
+RewriteRule ^downloads/garage-sale-planner\.pdf$ - [F,L]
 
 # If the file or directory exists, serve it directly
 RewriteCond %{REQUEST_FILENAME} -f [OR]
@@ -62,6 +63,9 @@ RewriteRule ^checkout/?$ checkout.php [L]
 
 # Workbook product page
 RewriteRule ^workbook/?$ workbook.php [L]
+
+# Coloring pages lead magnet
+RewriteRule ^coloring/?$ coloring.php [L]
 
 # Download with token
 RewriteRule ^download/([a-zA-Z0-9]+)/?$ download.php?token=$1 [L]

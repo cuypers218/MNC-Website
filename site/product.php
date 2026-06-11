@@ -2,6 +2,22 @@
 require_once __DIR__ . '/includes/functions.php';
 require_once __DIR__ . '/includes/auth.php';
 
+// Handle download request — generate a secure token and redirect to /download/{token}
+if (isset($_GET['download']) && $_GET['download'] == '1') {
+    requireLogin();
+    $dlSlug = $_GET['slug'] ?? '';
+    $dlProduct = getProductBySlug($dlSlug);
+    if (!$dlProduct) { header('Location: /shop'); exit; }
+    $dlUser = getCurrentUser();
+    $dlFree  = $dlProduct['price'] == 0;
+    $dlOwned = userOwnsPurchase($dlUser['id'], $dlProduct['id']);
+    if (!$dlFree && !$dlOwned) { header('Location: /shop/' . rawurlencode($dlSlug)); exit; }
+    if (empty($dlProduct['file_path'])) { header('Location: /shop/' . rawurlencode($dlSlug)); exit; }
+    $token = generateDownloadToken($dlUser['id'], $dlProduct['id']);
+    header('Location: /download/' . $token);
+    exit;
+}
+
 $slug = $_GET['slug'] ?? '';
 $product = getProductBySlug($slug);
 

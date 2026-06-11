@@ -30,7 +30,17 @@ $moodFiles = [
 $downloadUrl = $moodFiles[$mood] ?? 'https://mynestchapter.com/downloads/mnc-coloring-coloring.pdf';
 
 // ── Add to Reach ──────────────────────────────────────────
-$payload = ['email' => $email];
+$moodLabels = [
+    'distraction' => 'I need a distraction',
+    'unwind'      => 'I want to unwind',
+    'coloring'    => 'I just feel like coloring',
+];
+$moodLabel = $moodLabels[$mood] ?? $mood;
+
+$payload = [
+    'email' => $email,
+    'note'  => 'Coloring widget — mood: ' . $moodLabel,
+];
 if ($firstName) $payload['name'] = $firstName;
 
 $ch = curl_init($baseUrl . '/contacts');
@@ -40,24 +50,8 @@ curl_setopt_array($ch, [
     CURLOPT_RETURNTRANSFER => true,
     CURLOPT_HTTPHEADER     => ['Authorization: Bearer ' . $apiToken, 'Content-Type: application/json', 'Accept: application/json'],
 ]);
-$response    = curl_exec($ch);
-$httpCode    = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+curl_exec($ch);
 curl_close($ch);
-
-$contact     = json_decode($response, true);
-$contactUuid = $contact['uuid'] ?? null;
-
-if ($contactUuid) {
-    $ch2 = curl_init($baseUrl . '/segments/' . $segment . '/contacts');
-    curl_setopt_array($ch2, [
-        CURLOPT_POST           => true,
-        CURLOPT_POSTFIELDS     => json_encode(['contact_uuid' => $contactUuid]),
-        CURLOPT_RETURNTRANSFER => true,
-        CURLOPT_HTTPHEADER     => ['Authorization: Bearer ' . $apiToken, 'Content-Type: application/json', 'Accept: application/json'],
-    ]);
-    curl_exec($ch2);
-    curl_close($ch2);
-}
 
 // ── Send email ────────────────────────────────────────────
 $greeting = $firstName ? "Hi $firstName," : "Hi,";

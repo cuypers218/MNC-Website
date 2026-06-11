@@ -1,3 +1,7 @@
-# Block all direct access to downloadable files
-# Files are served through download.php with token validation
-Deny from all
+# Block direct access to paid product files — served via download.php with token validation
+<FilesMatch "^now-what-workbook\.pdf$">
+    Deny from all
+</FilesMatch>
+<FilesMatch "^garage-sale-planner\.pdf$">
+    Deny from all
+</FilesMatch>

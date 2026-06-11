@@ -4,217 +4,272 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Pick Your Mood — My Nest Chapter</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;800&display=swap" rel="stylesheet">
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@800&family=DM+Sans:wght@400;500&display=swap');
-
-  * { box-sizing: border-box; margin: 0; padding: 0; }
+  *, *::before, *::after { box-sizing: border-box; }
 
   body {
-    background: #FFF8EE;
-    font-family: 'DM Sans', Arial, sans-serif;
-    min-height: 100vh;
+    font-family: Arial, sans-serif;
+    font-size: 12pt;
+    color: #101010;
+    background: #FAFAFA;
+    margin: 0;
+    padding: 40px 20px;
     display: flex;
-    align-items: center;
     justify-content: center;
-    padding: 20px;
+    align-items: flex-start;
+    min-height: 100vh;
   }
 
-  .widget {
-    background: #252535;
-    border-radius: 20px;
-    max-width: 520px;
+  .widget-container {
     width: 100%;
-    padding: 48px 40px;
-    text-align: center;
+    max-width: 550px;
+    background: #FFFFFF;
+    border: 1px solid #ABABAB;
+    padding: 40px;
   }
 
-  .logo {
-    font-family: 'Montserrat', Arial, sans-serif;
+  .brand-tag {
+    font-family: 'Montserrat', sans-serif;
     font-weight: 800;
-    font-size: 13px;
-    letter-spacing: 2px;
-    margin-bottom: 32px;
+    font-size: 9pt;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    color: #E87AAA;
+    margin-bottom: 28px;
+    display: block;
   }
-  .logo span:first-child { color: #8BA7D4; }
-  .logo span:last-child { color: #E87AAA; }
 
-  .screen { display: none; }
+  .screen { display: none; animation: contentFadeIn 0.22s ease both; }
   .screen.active { display: block; }
 
+  @keyframes contentFadeIn {
+    from { opacity: 0; transform: translateY(6px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
   h2 {
-    font-family: 'Montserrat', Arial, sans-serif;
+    font-family: 'Montserrat', sans-serif;
     font-weight: 800;
-    font-size: 22px;
-    color: #FFF8EE;
-    line-height: 1.3;
-    margin-bottom: 12px;
+    font-size: 14pt;
+    color: #333333;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin: 0 0 10px 0;
   }
 
-  .subtitle {
-    color: #C4B0E8;
-    font-size: 15px;
+  p.intro-text {
+    font-family: Arial, sans-serif;
+    font-size: 12pt;
+    color: #101010;
     line-height: 1.6;
-    margin-bottom: 36px;
+    margin: 0 0 28px 0;
   }
 
+  /* MOOD BUTTONS */
   .mood-btn {
     display: block;
     width: 100%;
-    background: transparent;
-    border: 2px solid #8BA7D4;
-    color: #FFF8EE;
-    font-family: 'DM Sans', Arial, sans-serif;
-    font-size: 16px;
-    font-weight: 500;
-    padding: 16px 24px;
-    border-radius: 50px;
-    cursor: pointer;
-    margin-bottom: 14px;
-    transition: all 0.2s ease;
-    text-align: center;
-  }
-  .mood-btn:hover { background: #8BA7D4; color: #252535; border-color: #8BA7D4; }
-
-  .email-label {
-    color: #FFF8EE;
-    font-size: 14px;
-    display: block;
-    margin-bottom: 8px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 800;
+    font-size: 12pt;
+    color: #101010;
+    background: #FFFFFF;
+    border: 1px solid #ABABAB;
+    padding: 18px 20px;
     text-align: left;
+    cursor: pointer;
+    margin-bottom: 12px;
+    touch-action: manipulation;
+    transition: border-color 0.15s, background 0.15s;
   }
+  .mood-btn:last-child { margin-bottom: 0; }
+  .mood-btn:hover { border-color: #E87AAA; background: #FFF8EE; }
+  .mood-btn:active { transform: translateY(1px); }
+
+  /* EMAIL SCREEN */
+  .mood-selected {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 800;
+    font-size: 11pt;
+    color: #E87AAA;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 20px;
+    display: block;
+  }
+
+  label {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 800;
+    font-size: 9pt;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #666666;
+    display: block;
+    margin-bottom: 6px;
+    margin-top: 16px;
+  }
+  label:first-of-type { margin-top: 0; }
 
   input[type="text"],
   input[type="email"] {
+    font-family: Arial, sans-serif;
+    font-size: 12pt;
+    color: #101010;
+    background: #FCFCFC;
+    border: 1px solid #ABABAB;
+    padding: 14px;
     width: 100%;
-    padding: 14px 18px;
-    border-radius: 50px;
-    border: 2px solid #8BA7D4;
-    background: transparent;
-    color: #FFF8EE;
-    font-family: 'DM Sans', Arial, sans-serif;
-    font-size: 15px;
-    margin-bottom: 14px;
     outline: none;
+    touch-action: manipulation;
   }
-  input::placeholder { color: #C4B0E8; opacity: 0.7; }
-  input:focus { border-color: #E87AAA; }
+  input:focus { border-color: #E87AAA; background: #FFFFFF; }
+  input::placeholder { color: #BCBCBC; }
 
-  .submit-btn {
-    display: block;
-    width: 100%;
+  .error-msg {
+    font-family: Arial, sans-serif;
+    font-size: 11pt;
+    color: #C4567E;
+    margin-top: 8px;
+    display: none;
+  }
+
+  .btn-primary {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 800;
+    font-size: 12pt;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: #FFFFFF;
     background: #E87AAA;
     border: none;
-    color: #FFF8EE;
-    font-family: 'Montserrat', Arial, sans-serif;
-    font-weight: 800;
-    font-size: 14px;
-    letter-spacing: 1px;
-    padding: 16px 24px;
-    border-radius: 50px;
-    cursor: pointer;
-    margin-top: 8px;
-    transition: opacity 0.2s;
-  }
-  .submit-btn:hover { opacity: 0.88; }
-  .submit-btn:disabled { opacity: 0.5; cursor: not-allowed; }
-
-  .download-btn {
-    display: block;
+    padding: 16px;
     width: 100%;
-    background: #B5CC6A;
-    border: none;
-    color: #252535;
-    font-family: 'Montserrat', Arial, sans-serif;
-    font-weight: 800;
-    font-size: 14px;
-    letter-spacing: 1px;
-    padding: 16px 24px;
-    border-radius: 50px;
     cursor: pointer;
-    margin-top: 20px;
-    text-decoration: none;
-    transition: opacity 0.2s;
-    text-align: center;
+    margin-top: 24px;
+    touch-action: manipulation;
   }
-  .download-btn:hover { opacity: 0.88; }
+  .btn-primary:hover { background: #C4567E; }
+  .btn-primary:active { transform: translateY(1px); }
+  .btn-primary:disabled { opacity: 0.55; cursor: not-allowed; }
 
-  .mood-display {
-    background: #FFF8EE;
-    color: #252535;
-    border-radius: 12px;
-    padding: 12px 20px;
-    font-size: 14px;
-    font-weight: 500;
-    margin-bottom: 28px;
-    display: inline-block;
+  .back-link {
+    font-family: Arial, sans-serif;
+    font-size: 11pt;
+    color: #666666;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 14px 0 0;
+    display: block;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    touch-action: manipulation;
   }
-
-  .confirm-icon { font-size: 48px; margin-bottom: 20px; display: block; }
+  .back-link:hover { color: #333333; }
 
   .small-print {
-    color: #8BA7D4;
-    font-size: 12px;
-    margin-top: 16px;
+    font-family: Arial, sans-serif;
+    font-size: 10pt;
+    color: #666666;
+    margin-top: 10px;
     line-height: 1.5;
   }
 
-  .back-link {
-    color: #C4B0E8;
-    font-size: 13px;
-    cursor: pointer;
-    background: none;
-    border: none;
-    margin-top: 20px;
-    display: block;
-    text-decoration: underline;
+  /* CONFIRM SCREEN */
+  .confirm-heading {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 800;
+    font-size: 14pt;
+    color: #333333;
+    text-transform: uppercase;
+    margin: 0 0 10px 0;
   }
-  .back-link:hover { color: #FFF8EE; }
 
-  .error-msg {
-    color: #F2A57A;
-    font-size: 13px;
-    margin-top: -8px;
-    margin-bottom: 10px;
-    text-align: left;
-    display: none;
+  .btn-download {
+    display: block;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 800;
+    font-size: 12pt;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: #FFFFFF;
+    background: #E87AAA;
+    border: none;
+    padding: 16px;
+    width: 100%;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    margin-top: 24px;
+    touch-action: manipulation;
+  }
+  .btn-download:hover { background: #C4567E; }
+  .btn-download:active { transform: translateY(1px); }
+
+  .divider {
+    border: none;
+    border-top: 1px solid #D3D3D3;
+    margin: 28px 0;
+  }
+
+  .sr-only {
+    position: absolute; width: 1px; height: 1px;
+    padding: 0; margin: -1px; overflow: hidden;
+    clip: rect(0,0,0,0); white-space: nowrap; border: 0;
+  }
+
+  @media (max-width: 600px) {
+    body { padding: 20px 12px; }
+    .widget-container { padding: 28px 20px; }
   }
 </style>
 </head>
 <body>
-<div class="widget">
-  <div class="logo"><span>MY NEST</span> <span>Chapter</span></div>
+<a href="#content" class="sr-only">Skip to main content</a>
 
-  <!-- Screen 1: Pick Your Mood -->
-  <div class="screen active" id="screen-mood">
-    <h2>Pick Your Mood</h2>
-    <p class="subtitle">Get a free coloring page that fits right where you are today.</p>
-    <button class="mood-btn" onclick="selectMood('distraction')">I need a distraction</button>
-    <button class="mood-btn" onclick="selectMood('unwind')">I want to unwind</button>
-    <button class="mood-btn" onclick="selectMood('coloring')">I just feel like coloring</button>
-  </div>
+<div class="widget-container">
+  <span class="brand-tag" aria-hidden="true">My Nest Chapter</span>
+  <div id="content" tabindex="-1">
 
-  <!-- Screen 2: Email Capture -->
-  <div class="screen" id="screen-email">
-    <h2>Almost there.</h2>
-    <div class="mood-display" id="mood-display-text"></div>
-    <p class="subtitle">Drop your name and email and I'll send it straight to you.</p>
-    <label class="email-label">First name</label>
-    <input type="text" id="input-name" placeholder="Your first name" />
-    <label class="email-label">Email address</label>
-    <input type="email" id="input-email" placeholder="your@email.com" />
-    <p class="error-msg" id="error-msg">Please enter a valid email address.</p>
-    <button class="submit-btn" id="submit-btn" onclick="submitEmail()">SEND MY COLORING PAGE →</button>
-    <button class="back-link" onclick="goBack()">← change my mood</button>
-    <p class="small-print">No spam. Just your coloring page — and occasional real talk from a solo mom who gets it.</p>
-  </div>
+    <!-- SCREEN 1: Pick Your Mood -->
+    <div class="screen active" id="screen-mood" role="region" aria-label="Pick your mood">
+      <h2>Pick Your Mood</h2>
+      <p class="intro-text">Some nights you don't need advice. Pick where you are right now and I'll send you a free coloring page that fits.</p>
+      <button class="mood-btn" onclick="selectMood('distraction')" aria-label="I need a distraction">I need a distraction</button>
+      <button class="mood-btn" onclick="selectMood('unwind')" aria-label="I want to unwind">I want to unwind</button>
+      <button class="mood-btn" onclick="selectMood('coloring')" aria-label="I just feel like coloring">I just feel like coloring</button>
+    </div>
 
-  <!-- Screen 3: Confirmation + Download -->
-  <div class="screen" id="screen-confirm">
-    <span class="confirm-icon">🎨</span>
-    <h2>Here's your page.</h2>
-    <p class="subtitle">Check your inbox too — I'll send a copy there as well.</p>
-    <a class="download-btn" id="download-link" href="#" target="_blank">DOWNLOAD MY COLORING PAGE</a>
-    <p class="small-print" style="margin-top: 24px;">From my nest to yours — enjoy a few quiet minutes with this one.</p>
+    <!-- SCREEN 2: Email Capture -->
+    <div class="screen" id="screen-email" role="region" aria-label="Get your coloring pages">
+      <h2>Almost there.</h2>
+      <span class="mood-selected" id="mood-display" aria-live="polite"></span>
+      <p class="intro-text">Drop your email and I'll send your pages straight to your inbox. You can also download them right here.</p>
+
+      <label for="input-name">First name</label>
+      <input type="text" id="input-name" placeholder="Your first name" autocomplete="given-name">
+
+      <label for="input-email">Email address</label>
+      <input type="email" id="input-email" placeholder="your@email.com" autocomplete="email">
+
+      <p class="error-msg" id="error-msg" role="alert">Please enter a valid email address.</p>
+
+      <button class="btn-primary" id="submit-btn" onclick="submitEmail()">Send My Coloring Pages</button>
+      <button class="back-link" onclick="goBack()">Change my mood</button>
+      <p class="small-print">No spam. Unsubscribe anytime.</p>
+    </div>
+
+    <!-- SCREEN 3: Confirm + Download -->
+    <div class="screen" id="screen-confirm" role="region" aria-label="Download your coloring pages">
+      <p class="confirm-heading">Here are your pages.</p>
+      <p class="intro-text">Check your inbox too — I'll send a copy there as well. Find a quiet spot and enjoy a few minutes that are just for you.</p>
+      <a class="btn-download" id="download-link" href="#" download>Download My Coloring Pages</a>
+      <hr class="divider">
+      <p class="small-print">From my nest to yours — Cece</p>
+    </div>
+
   </div>
 </div>
 
@@ -222,9 +277,9 @@
   var selectedMood = '';
 
   var moodLabels = {
-    distraction: 'I need a distraction',
-    unwind:      'I want to unwind',
-    coloring:    'I just feel like coloring'
+    distraction: 'You said: I need a distraction.',
+    unwind:      'You said: I want to unwind.',
+    coloring:    'You said: I just feel like coloring.'
   };
 
   var moodFiles = {
@@ -235,8 +290,9 @@
 
   function selectMood(mood) {
     selectedMood = mood;
-    document.getElementById('mood-display-text').textContent = moodLabels[mood];
+    document.getElementById('mood-display').textContent = moodLabels[mood];
     showScreen('screen-email');
+    document.getElementById('input-name').focus();
   }
 
   function goBack() {
@@ -247,7 +303,11 @@
     document.querySelectorAll('.screen').forEach(function(s) {
       s.classList.remove('active');
     });
-    document.getElementById(id).classList.add('active');
+    var el = document.getElementById(id);
+    el.classList.remove('active');
+    void el.offsetWidth;
+    el.classList.add('active');
+    document.getElementById('content').focus();
   }
 
   async function submitEmail() {
@@ -258,6 +318,7 @@
 
     if (!email || email.indexOf('@') < 0 || email.indexOf('.') < 0) {
       err.style.display = 'block';
+      document.getElementById('input-email').focus();
       return;
     }
     err.style.display = 'none';
@@ -268,7 +329,7 @@
       await fetch('/coloring-submit.php', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email: email, first_name: name, mood: selectedMood })
+        body: JSON.stringify({ email: email, first_name: name || 'Friend', mood: selectedMood })
       });
     } catch(e) {}
 
