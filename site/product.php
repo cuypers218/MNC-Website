@@ -36,6 +36,7 @@ require_once __DIR__ . '/includes/header.php';
 
 $isFree = $product['price'] == 0;
 $isComingSoon = $product['status'] === 'coming_soon';
+$isInteractiveTool = $product['category'] === 'interactive_tool';
 $isOwned = false;
 
 if (isLoggedIn()) {
@@ -86,7 +87,11 @@ $related = $stmt->fetchAll();
                 <?php if ($isComingSoon): ?>
                     <button class="btn btn-disabled btn-full" disabled>Coming Soon</button>
                 <?php elseif ($isOwned): ?>
-                    <a href="/shop/<?= esc($product['slug']) ?>?download=1" class="btn btn-primary btn-full">Download</a>
+                    <?php if ($isInteractiveTool): ?>
+                        <a href="/widgets/<?= esc($product['slug']) ?>/" class="btn btn-primary btn-full">Open The Planner</a>
+                    <?php else: ?>
+                        <a href="/shop/<?= esc($product['slug']) ?>?download=1" class="btn btn-primary btn-full">Download</a>
+                    <?php endif; ?>
                     <p style="color: #666666; font-size: 0.85rem; margin-top: 0.75rem; text-align: center;">You own this product.</p>
                 <?php elseif ($isFree): ?>
                     <?php if (isLoggedIn()): ?>

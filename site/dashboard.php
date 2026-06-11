@@ -78,7 +78,13 @@ $isWelcome = isset($_GET['welcome']);
                         <p class="product-card-description"><?= esc(truncateWords($product['short_description'], 20)) ?></p>
                         
                         <?php if ($isUnlocked): ?>
-                            <?php if ($product['file_path']): ?>
+                            <?php if ($product['category'] === 'interactive_tool'): ?>
+                                <?php if ($isFree || $isOwned): ?>
+                                    <a href="/widgets/<?= esc($product['slug']) ?>/" class="btn btn-primary">Open Planner</a>
+                                <?php else: ?>
+                                    <a href="/shop/<?= esc($product['slug']) ?>" class="btn btn-primary">View</a>
+                                <?php endif; ?>
+                            <?php elseif ($product['file_path']): ?>
                                 <a href="/shop/<?= esc($product['slug']) ?>?download=1" class="btn btn-primary">Download</a>
                             <?php else: ?>
                                 <a href="/shop/<?= esc($product['slug']) ?>" class="btn btn-primary">Open</a>
