@@ -650,6 +650,63 @@ function getStats(P){
   };
 }
 function daysUntilSale(d){if(!d)return null;const today=new Date();const sale=new Date(`${d}T00:00:00`);if(isNaN(sale.getTime()))return null;const s=new Date(sale.getFullYear(),sale.getMonth(),sale.getDate());const t=new Date(today.getFullYear(),today.getMonth(),today.getDate());return Math.ceil((s-t)/86400000)}
+
+function goalSuggestion(P){
+  const stats=getStats(P);
+  if(!stats.goal)return null;
+  const priced=(P.items||[]).filter(i=>i.decision==="Garage Sale"&&Number(i.price)>0);
+  if(!priced.length)return null;
+  const estimated=priced.reduce((s,i)=>s+Number(i.price)*Number(i.quantity||1),0);
+  if(estimated>=stats.goal)return`Based on your priced items, you are on track to earn $${estimated.toFixed(0)} — ${Math.round((estimated/stats.goal)*100)}% of your $${stats.goal} goal.`;
+  const gap=(stats.goal-estimated).toFixed(0);
+  return`Your priced garage sale items estimate $${estimated.toFixed(0)}. You are $${gap} short of your $${stats.goal} goal. Consider adjusting prices or pricing more items.`;
+}
+
+function downloadCalendar(){
+  const d=P.setup?.saleDate;
+  if(!d)return showToast("Set a sale date first");
+  const title=P.setup?.saleTitle||"Garage Sale";
+  const dateStr=d.replace(/-/g,"");
+  const ics=[
+    "BEGIN:VCALENDAR","VERSION:2.0","PRODID:-//My Nest Chapter//Garage Sale Planner//EN",
+    "BEGIN:VEVENT",
+    `DTSTART;VALUE=DATE:${dateStr}`,
+    `DTEND;VALUE=DATE:${dateStr}`,
+    `SUMMARY:${title}`,
+    `DESCRIPTION:${P.setup?.moneyPurpose||"Garage sale day"}`,
+    `UID:mnc-garage-${Date.now()}@mynestchapter.com`,
+    "END:VEVENT","END:VCALENDAR"
+  ].join("\r\n");
+  const blob=new Blob([ics],{type:"text/calendar"});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement("a");a.href=url;a.download="garage-sale.ics";
+  document.body.appendChild(a);a.click();a.remove();URL.revokeObjectURL(url);
+  showToast("Calendar file downloaded");
+}
+
+function sendReminderEmail(){
+  const email=(document.getElementById("reminder-email")||{}).value||"";
+  const msgEl=document.getElementById("reminder-msg");
+  if(!email||!email.includes("@")){
+    if(msgEl){msgEl.style.display="block";msgEl.innerHTML='<div class="warn-box">Please enter a valid email address.</div>'}
+    return;
+  }
+  const saleDate=P.setup?.saleDate;
+  if(!saleDate){
+    if(msgEl){msgEl.style.display="block";msgEl.innerHTML='<div class="warn-box">Set your sale date first.</div>'}
+    return;
+  }
+  const payload={email,sale_date:saleDate,sale_title:P.setup?.saleTitle||"Garage Sale",money_purpose:P.setup?.moneyPurpose||""};
+  if(msgEl){msgEl.style.display="block";msgEl.innerHTML='<div class="info-box">Setting your reminder...</div>'}
+  fetch("/garage-reminder.php",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(payload)})
+  .then(r=>r.json())
+  .then(data=>{
+    if(data.success){if(msgEl)msgEl.innerHTML='<div class="info-box">Reminder set. Check your inbox the day before your sale.</div>';showToast("Reminder set!")}
+    else{if(msgEl)msgEl.innerHTML='<div class="warn-box">Something went wrong. Please try again.</div>'}
+  })
+  .catch(()=>{if(msgEl)msgEl.innerHTML='<div class="warn-box">Could not connect. Check your connection and try again.</div>'});
+}
+
 function chipClass(dec){return{
   "Garage Sale":"chip-sale","Sell Online":"chip-online","Donate":"chip-donate",
   "Keep":"chip-keep","Trash":"chip-trash","Not Sure":"chip-notsure"
@@ -811,6 +868,7 @@ function renderStart(){
   const s=P.setup||{};const stats=getStats(P);
   const days=daysUntilSale(s.saleDate);
   const daysStr=days===null?"Set a date to see the countdown":days===0?"Sale day is today!":days<0?`Sale was ${Math.abs(days)} day${Math.abs(days)===1?"":"s"} ago`:`${days} day${days===1?"":"s"} until sale day`;
+  const suggestion=goalSuggestion(P);
   return`
   <div class="grid-lg">
     <div class="gap-y">
@@ -819,6 +877,7 @@ function renderStart(){
         <div class="gap-y-sm">
           ${field("Sale name","text","setup.saleTitle",s.saleTitle,"My Next Chapter Sale")}
           ${field("Sale date","date","setup.saleDate",s.saleDate,"")}
+          ${s.saleDate?`<button class="btn btn-secondary btn-sm" onclick="downloadCalendar()" style="margin-top:-4px">Add to calendar</button>`:""}
           ${areaField("What would you like to use the money for?","setup.moneyPurpose",s.moneyPurpose,"A weekend away, fresh bedding, savings, dinner with friends...")}
           ${field("Money goal ($)","number","setup.moneyGoal",s.moneyGoal,"250")}
           ${areaField("Notes before I start","setup.notes",s.notes,"What areas feel easiest? What items feel emotional?")}
@@ -834,12 +893,24 @@ function renderStart(){
         <div id="goal-pct" class="metric-value" style="font-size:40px">${stats.goalProgress}%</div>
         <div id="goal-sub" class="text-muted" style="margin-top:4px">$${stats.earned.toFixed(2)} earned · $${stats.goalLeft.toFixed(2)} left</div>
         <div class="progress progress-lg" role="progressbar" aria-valuenow="${stats.goalProgress}" aria-valuemin="0" aria-valuemax="100" aria-label="Goal progress" style="margin-top:12px"><div class="progress-fill" id="goal-bar" style="width:${stats.goalProgress}%"></div></div>
-        <div class="info-box" style="margin-top:16px">The money goal gives this sale a reason. Not a perfect reason. A real one. Something that belongs to you.</div>
+        ${suggestion?`<div class="info-box" style="margin-top:16px">${esc(suggestion)}</div>`:""}
+        <div class="info-box" style="margin-top:12px">The money goal gives this sale a reason. Not a perfect reason. A real one. Something that belongs to you.</div>
       </div>
       <div class="card">
         <div class="card-title">Sale countdown</div>
         <div class="metric-value">${daysStr}</div>
         ${s.saleDate?`<div class="text-muted" style="margin-top:4px">${new Date(s.saleDate+"T00:00:00").toLocaleDateString("en-US",{weekday:"long",month:"long",day:"numeric",year:"numeric"})}</div>`:""}
+      </div>
+      <div class="card">
+        <div class="card-title">Day-before reminder</div>
+        <p class="card-sub">Get an email the day before your sale with a prep checklist and a link back to your planner.</p>
+        ${!s.saleDate?`<div class="text-muted text-sm">Set a sale date above to enable this reminder.</div>`:`
+        <div class="form-field" style="margin-bottom:10px">
+          <label class="form-label">Your email</label>
+          <input class="input" type="email" id="reminder-email" placeholder="you@email.com" />
+        </div>
+        <button class="btn btn-secondary btn-sm" onclick="sendReminderEmail()">Remind me the day before</button>
+        <div id="reminder-msg" style="display:none;margin-top:10px"></div>`}
       </div>
     </div>
   </div>`;
@@ -1487,6 +1558,7 @@ function renderWrap(){
         <div class="card-title">Leftovers plan</div>
         <div class="gap-y-sm">
           ${areaField("Donate","wrap.donate",w.donate,"Which items go directly to donation after the sale?")}
+          ${w.donate?`<div style="border-left:3px solid var(--color-sage);background:var(--color-sage-bg);padding:12px 16px;font-size:13px;color:var(--color-sage);line-height:1.7">These items are headed somewhere they will be used again. That is a good thing.</div>`:""}
           ${areaField("Sell online after","wrap.sellOnline",w.sellOnline,"Any items worth listing if they did not sell today?")}
           ${areaField("Keep","wrap.keep",w.keep,"Anything you changed your mind about? Note it here.")}
           ${areaField("Trash","wrap.trash",w.trash,"Broken, expired, or truly useless items.")}
