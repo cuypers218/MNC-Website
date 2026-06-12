@@ -1,0 +1,1821 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>My Nest Chapter — Garage Sale Planner</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500&family=Lora:wght@700;800&family=Montserrat:wght@400;800&display=swap" rel="stylesheet">
+<style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { -webkit-font-smoothing: antialiased; scroll-behavior: smooth; }
+
+    :root, [data-theme="light"] {
+      --text-xs:   clamp(0.75rem, 0.7rem + 0.25vw, 0.875rem);
+      --text-sm:   clamp(0.875rem, 0.8rem + 0.35vw, 1rem);
+      --text-base: clamp(1rem, 0.95rem + 0.25vw, 1.125rem);
+      --text-lg:   clamp(1.125rem, 1rem + 0.75vw, 1.5rem);
+      --text-xl:   clamp(1.5rem, 1.2rem + 1.25vw, 2.25rem);
+
+      --space-1:.25rem;--space-2:.5rem;--space-3:.75rem;--space-4:1rem;
+      --space-5:1.25rem;--space-6:1.5rem;--space-8:2rem;--space-10:2.5rem;
+      --space-12:3rem;--space-16:4rem;
+
+      --color-bg:             #FAFAFA;
+      --color-surface:        #FFFFFF;
+      --color-surface-2:      #F2EEF8;
+      --color-surface-3:      #FFF1E8;
+      --color-divider:        #D3D3D3;
+      --color-border:         #ABABAB;
+      --color-text:           #252535;
+      --color-text-muted:     #5A5A72;
+      --color-text-faint:     #5A5A72;
+      --color-primary:        #E87AAA;
+      --color-primary-hover:  #d9608f;
+      --color-primary-active: #c9507f;
+      --color-primary-hl:     #FDEEF5;
+      --color-sage:           #5a7a5c;
+      --color-sage-bg:        #e8f0e8;
+      --color-gold:           #c4922a;
+      --color-gold-bg:        #fdf0d5;
+
+      --radius-sm:0;--radius-md:0;--radius-lg:0;
+      --radius-xl:0;--radius-2xl:0;--radius-full:0;
+      --shadow-sm:none;
+      --shadow-md:none;
+      --shadow-lg:none;
+      --t: 180ms cubic-bezier(0.16,1,0.3,1);
+      --font-display:'Montserrat',sans-serif;
+      --font-body:Arial,sans-serif;
+
+      /* backward-compat aliases for inline styles in JS render functions */
+      --bg:var(--color-bg);--surface:var(--color-surface);--ink:var(--color-text);
+      --plum:var(--color-primary);--plum-dark:var(--color-primary-hover);
+      --plum-tint:var(--color-primary-hl);--border:var(--color-border);
+      --muted:var(--color-text-muted);--r:var(--radius-md);--r-lg:var(--radius-xl);
+      --shadow:var(--shadow-md);
+    }
+
+    body {
+      font-family:var(--font-body);font-size:var(--text-base);
+      color:var(--color-text);background:var(--color-bg);min-height:100dvh;line-height:1.6;
+    }
+    img{display:block;max-width:100%;height:auto}
+    button{cursor:pointer;border:none;background:none;font:inherit;color:inherit;touch-action:manipulation}
+    input,textarea,select{font:inherit;color:inherit;touch-action:manipulation}
+    a{touch-action:manipulation}
+    a,button,[role="button"]{transition:color var(--t),background var(--t),box-shadow var(--t),border-color var(--t)}
+    :focus-visible{outline:2px solid var(--color-primary);outline-offset:3px}
+    h1,h2,h3,h4{font-family:var(--font-display);font-weight:800;line-height:1.2;color:var(--color-text);text-wrap:balance}
+    p,li{text-wrap:pretty}
+    a{color:var(--color-primary);text-decoration:none}
+
+    /* ─── TOPBAR ─── */
+    .topbar {
+      position:-webkit-sticky;position:sticky;top:0;z-index:200;
+      background:var(--color-bg);
+      border-bottom:1px solid var(--color-divider);
+      padding:var(--space-3) var(--space-6);
+      display:flex;align-items:center;gap:var(--space-4);
+      box-shadow:var(--shadow-sm);
+    }
+    .topbar-logo {
+      display:flex;align-items:center;gap:var(--space-2);flex-shrink:0;
+    }
+    .topbar-logo-mark {
+      width:34px;height:34px;
+      background:var(--color-primary);
+      display:flex;align-items:center;justify-content:center;
+      color:#fff;font-family:var(--font-display);font-weight:800;font-size:.7rem;
+      letter-spacing:.05em;flex-shrink:0;
+    }
+    .topbar-logo-text {display:flex;flex-direction:column;line-height:1.2;}
+    .topbar-brand {
+      font-family:'Montserrat',sans-serif;font-size:9pt;font-weight:800;
+      color:#E87AAA;letter-spacing:3px;text-transform:uppercase;
+    }
+    .topbar-sub {font-size:var(--text-xs);color:var(--color-text-muted);}
+    .topbar-center {flex:1;display:flex;justify-content:center;}
+    .topbar-tabs {
+      display:flex;gap:var(--space-1);background:var(--color-surface);
+      border-radius:var(--radius-full);padding:var(--space-1);
+      border:1px solid var(--color-divider);overflow-x:auto;max-width:100%;
+    }
+    .topbar-tabs::-webkit-scrollbar{height:0}
+    .topbar-right {display:flex;align-items:center;gap:var(--space-3);flex-shrink:0;}
+    .topbar-stat {text-align:right;line-height:1.2;}
+    .topbar-stat-value {
+      font-family:var(--font-display);font-size:var(--text-base);font-weight:600;
+      color:var(--color-primary);
+    }
+    .topbar-stat-label {font-size:var(--text-xs);color:var(--color-text-faint);}
+
+    /* ─── TAB BUTTONS ─── */
+    .tab-btn {
+      flex-shrink:0;border-radius:var(--radius-full);
+      padding:var(--space-2) var(--space-4);
+      font-size:var(--text-sm);font-weight:500;white-space:nowrap;
+      color:var(--color-text-muted);
+      transition:background var(--t),color var(--t);
+    }
+    .tab-btn.active{background:var(--color-bg);color:var(--color-text);box-shadow:var(--shadow-sm)}
+    .tab-btn:hover:not(.active){color:var(--color-text);background:var(--color-surface-2)}
+
+    .icon-btn {
+      width:36px;height:36px;display:flex;align-items:center;justify-content:center;
+      border-radius:var(--radius-full);color:var(--color-text-muted);
+      border:1px solid var(--color-divider);flex-shrink:0;
+    }
+    .icon-btn:hover{color:var(--color-text);background:var(--color-surface)}
+
+    /* ─── LAYOUT ─── */
+    .outer{max-width:1100px;margin:0 auto;padding:var(--space-6) var(--space-6)}
+    .metrics-bar{max-width:1100px;margin:0 auto;padding:var(--space-5) var(--space-6) 0}
+
+    /* ─── METRICS ─── */
+    .metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--space-3);margin-bottom:var(--space-5)}
+    @media(max-width:640px){.metrics{grid-template-columns:repeat(2,1fr)}}
+    .metric{
+      background:var(--color-surface);border:1px solid var(--color-divider);
+      border-radius:var(--radius-lg);padding:var(--space-4);
+      transition:box-shadow var(--t);
+    }
+    .metric:hover{box-shadow:var(--shadow-sm)}
+    .metric-label{
+      font-size:var(--text-xs);font-weight:600;letter-spacing:.08em;
+      text-transform:uppercase;color:var(--color-text-faint);margin-bottom:var(--space-2);
+    }
+    .metric-value{
+      font-size:clamp(1.25rem,.9rem + 1vw,1.75rem);font-weight:600;
+      font-family:var(--font-display);color:var(--color-primary);
+    }
+
+    /* ─── DEMO BANNER ─── */
+    .demo-banner{
+      background:var(--color-surface);border:1px solid var(--color-divider);
+      border-radius:var(--radius-xl);padding:var(--space-5) var(--space-6);
+      margin-bottom:var(--space-4);
+    }
+    .demo-label{
+      font-size:var(--text-xs);font-weight:600;letter-spacing:.1em;
+      text-transform:uppercase;color:var(--color-primary);margin-bottom:var(--space-2);
+    }
+    .demo-title{
+      font-size:var(--text-base);font-weight:600;font-family:var(--font-display);
+      margin-bottom:var(--space-2);color:var(--color-text);
+    }
+    .demo-text{font-size:var(--text-sm);color:var(--color-text-muted);line-height:1.7;max-width:640px}
+    .demo-footer{display:flex;align-items:center;gap:var(--space-4);margin-top:var(--space-4);flex-wrap:wrap}
+    .demo-progress{flex:1;height:3px;background:var(--color-divider);border-radius:var(--radius-full);min-width:120px}
+    .demo-progress-fill{height:100%;background:var(--color-primary);border-radius:var(--radius-full);transition:width .3s}
+    .demo-pill{
+      font-size:var(--text-xs);font-weight:600;letter-spacing:.1em;text-transform:uppercase;
+      background:var(--color-primary-hl);color:var(--color-primary);
+      border-radius:var(--radius-full);padding:var(--space-1) var(--space-3);display:inline-block;
+    }
+
+    /* ─── SECTION NAV ─── */
+    .section-nav{
+      background:var(--color-surface);border:1px solid var(--color-divider);
+      border-radius:var(--radius-xl);padding:var(--space-1);
+      display:flex;flex-wrap:wrap;gap:var(--space-1);margin-bottom:var(--space-5);
+    }
+    .sec-btn{
+      border-radius:var(--radius-lg);padding:var(--space-2) var(--space-4);
+      font-size:var(--text-sm);font-weight:500;cursor:pointer;
+      transition:background var(--t),color var(--t);
+      background:transparent;color:var(--color-text-muted);
+    }
+    .sec-btn.active{background:var(--color-primary);color:#fff}
+    .sec-btn:hover:not(.active){background:var(--color-primary-hl);color:var(--color-primary)}
+
+    /* ─── BUTTONS ─── */
+    .btn{
+      display:inline-flex;align-items:center;justify-content:center;gap:var(--space-2);
+      border-radius:var(--radius-full);cursor:pointer;font-weight:500;
+      font-size:var(--text-sm);padding:var(--space-3) var(--space-5);
+      transition:background var(--t),color var(--t),box-shadow var(--t),border-color var(--t);
+      white-space:nowrap;
+    }
+    .btn:disabled{opacity:.45;cursor:not-allowed}
+    .btn-primary{background:var(--color-primary);color:#fff;border:none;font-family:'Montserrat',sans-serif;font-weight:800;text-transform:uppercase;letter-spacing:0.5px}
+    .btn-primary:hover{background:var(--color-primary-hover)}
+    .btn-primary:active{background:var(--color-primary-active);transform:translateY(1px)}
+    .btn-secondary{background:var(--color-surface);color:var(--color-text);border:1.5px solid var(--color-border)}
+    .btn-secondary:hover{background:var(--color-surface-2)}
+    .btn-ghost{background:transparent;color:var(--color-primary);border:1.5px solid transparent;padding:var(--space-2) var(--space-3)}
+    .btn-ghost:hover{background:var(--color-primary-hl)}
+    .btn-white{background:#fff;color:var(--color-primary);border:1.5px solid rgba(255,255,255,.3)}
+    .btn-white:hover{background:rgba(255,255,255,.9)}
+    .btn-danger{background:var(--color-surface);color:#b91c1c;border:1.5px solid #fecaca}
+    .btn-danger:hover{background:#fef2f2}
+    .btn-sm{font-size:var(--text-xs);padding:var(--space-2) var(--space-3)}
+    .btn-xs{font-size:var(--text-xs);padding:var(--space-1) var(--space-3)}
+
+    /* ─── CARDS ─── */
+    .card{
+      background:var(--color-surface);border:1px solid var(--color-divider);
+      border-radius:var(--radius-xl);padding:var(--space-6);
+      transition:box-shadow var(--t);
+    }
+    .card+.card{margin-top:var(--space-4)}
+    .card-title{
+      font-size:var(--text-base);font-weight:600;font-family:var(--font-display);
+      margin-bottom:var(--space-4);color:var(--color-text);
+    }
+    .card-sub{font-size:var(--text-sm);color:var(--color-text-muted);margin-bottom:var(--space-5);line-height:1.7}
+
+    /* ─── GRIDS ─── */
+    .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:var(--space-4)}
+    .grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--space-4)}
+    .grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--space-4)}
+    .grid-lg{display:grid;grid-template-columns:1fr .85fr;gap:var(--space-5);align-items:start}
+    @media(max-width:760px){.grid-2,.grid-3,.grid-4,.grid-lg{grid-template-columns:1fr}}
+
+    /* ─── FORMS ─── */
+    .form-field{display:flex;flex-direction:column;gap:var(--space-2)}
+    .form-label{font-size:var(--text-xs);font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--color-text-faint)}
+    .input,.select,.textarea{
+      width:100%;border:1.5px solid var(--color-border);
+      border-radius:var(--radius-md);padding:var(--space-3) var(--space-4);
+      font-size:var(--text-sm);color:var(--color-text);
+      background:var(--color-bg);transition:border-color var(--t);outline:none;
+    }
+    .input:focus,.select:focus,.textarea:focus{border-color:var(--color-primary)}
+    .textarea{resize:vertical;min-height:80px}
+    .select{
+      appearance:none;
+      background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%238BA7D4' d='M1 1l5 5 5-5'/%3E%3C/svg%3E");
+      background-repeat:no-repeat;background-position:right 14px center;padding-right:36px;cursor:pointer;
+    }
+    .form-hint{font-size:var(--text-xs);color:var(--color-text-muted);line-height:1.5}
+    .form-row{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:var(--space-4)}
+    .form-actions{display:flex;gap:var(--space-3);flex-wrap:wrap;padding-top:var(--space-2)}
+
+    /* ─── TABLE ─── */
+    .tbl-wrap{overflow-x:auto;border-radius:var(--radius-lg);border:1px solid var(--color-divider)}
+    table{width:100%;border-collapse:collapse;font-size:var(--text-sm);min-width:860px}
+    thead th{
+      padding:var(--space-3) var(--space-4);text-align:left;
+      font-size:var(--text-xs);font-weight:600;letter-spacing:.1em;
+      text-transform:uppercase;color:var(--color-text-faint);
+      border-bottom:1px solid var(--color-divider);white-space:nowrap;
+      background:var(--color-surface);
+    }
+    tbody tr{border-bottom:1px solid var(--color-divider)}
+    tbody tr:last-child{border-bottom:none}
+    tbody tr:hover{background:var(--color-primary-hl)}
+    tbody td{padding:var(--space-3) var(--space-4);vertical-align:middle}
+    .td-name{font-weight:600;max-width:160px}
+    .td-chip{display:inline-block;border-radius:var(--radius-full);padding:var(--space-1) var(--space-3);font-size:var(--text-xs);font-weight:600}
+    .chip-sale{background:var(--color-primary-hl);color:var(--color-primary)}
+    .chip-online{background:#eef2ff;color:#4338ca}
+    .chip-donate{background:#f0fdf4;color:#166534}
+    .chip-keep{background:#fff7ed;color:#92400e}
+    .chip-trash{background:#fef2f2;color:#b91c1c}
+    .chip-notsure{background:var(--color-surface-2);color:var(--color-text-muted)}
+    .sold-row{opacity:.5}
+
+    /* ─── PROGRESS ─── */
+    .progress{height:4px;background:var(--color-divider);border-radius:var(--radius-full);overflow:hidden;margin-top:var(--space-2)}
+    .progress-fill{height:100%;background:var(--color-primary);border-radius:var(--radius-full);transition:width .4s var(--t)}
+    .progress-lg{height:8px}
+
+    /* ─── PRICING ─── */
+    .pricing-card{background:var(--color-surface);border:1px solid var(--color-divider);border-radius:var(--radius-lg);padding:var(--space-5)}
+    .pricing-cat{font-size:var(--text-sm);font-weight:600;font-family:var(--font-display);margin-bottom:var(--space-3);color:var(--color-text)}
+    .pricing-row{display:flex;justify-content:space-between;font-size:var(--text-xs);padding:var(--space-2) 0;border-bottom:1px solid var(--color-divider)}
+    .pricing-row:last-of-type{border:none}
+    .pricing-note{font-size:var(--text-xs);color:var(--color-text-muted);margin-top:var(--space-3);line-height:1.6;font-style:italic}
+
+    /* ─── PLATFORM CARDS ─── */
+    .platform-card{background:var(--color-surface);border:1px solid var(--color-divider);border-radius:var(--radius-lg);padding:var(--space-5)}
+    .platform-name{font-size:var(--text-sm);font-weight:600;font-family:var(--font-display);color:var(--color-primary);margin-bottom:var(--space-3)}
+    .platform-row{font-size:var(--text-sm);color:var(--color-text-muted);margin-bottom:var(--space-2)}
+    .platform-row strong{color:var(--color-text)}
+    .platform-tip{font-size:var(--text-xs);color:var(--color-text-muted);margin-top:var(--space-3);border-top:1px solid var(--color-divider);padding-top:var(--space-3);font-style:italic}
+
+    /* ─── MEMORY CARD ─── */
+    .memory-card{
+      background:var(--color-surface);border:1px solid var(--color-divider);
+      border-radius:var(--radius-lg);padding:var(--space-5);
+      display:flex;flex-direction:column;gap:var(--space-3);
+    }
+    .memory-img{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:var(--radius-md);background:var(--color-surface-2)}
+    .memory-name{font-weight:600;font-size:var(--text-sm);color:var(--color-text)}
+    .memory-caption{font-size:var(--text-sm);color:var(--color-text-muted);line-height:1.7;font-style:italic}
+
+    /* ─── BOX CARD ─── */
+    .box-card{background:var(--color-surface);border:1px solid var(--color-divider);border-radius:var(--radius-lg);padding:var(--space-5)}
+    .box-number{font-size:var(--text-xs);font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--color-primary);margin-bottom:var(--space-2)}
+    .box-title{font-size:var(--text-base);font-weight:600;margin-bottom:var(--space-2);color:var(--color-text)}
+    .box-price{font-size:clamp(1.25rem,.9rem + 1vw,1.75rem);font-weight:600;font-family:var(--font-display);color:var(--color-primary)}
+
+    /* ─── CHECKLIST ─── */
+    .checklist{display:flex;flex-direction:column;gap:var(--space-2)}
+    .check-item{
+      display:flex;align-items:center;gap:var(--space-3);
+      padding:var(--space-3) var(--space-4);border-radius:var(--radius-lg);
+      border:1.5px solid var(--color-divider);cursor:pointer;
+      transition:background var(--t),border-color var(--t);user-select:none;
+    }
+    .check-item.checked{background:var(--color-primary-hl);border-color:var(--color-primary)}
+    .check-item label{font-size:var(--text-sm);cursor:pointer;flex:1;color:var(--color-text)}
+    .check-item.checked label{text-decoration:line-through;color:var(--color-text-muted)}
+    .check-box{
+      width:18px;height:18px;border-radius:var(--radius-sm);border:2px solid var(--color-border);
+      flex-shrink:0;display:flex;align-items:center;justify-content:center;
+      transition:background var(--t),border-color var(--t);font-size:.75rem;
+    }
+    .check-item.checked .check-box{background:var(--color-primary);border-color:var(--color-primary);color:#fff}
+
+    /* ─── CALCULATOR ─── */
+    .calc-row{display:grid;grid-template-columns:1fr 80px 100px 36px;gap:var(--space-2);align-items:center}
+    .calc-total{font-size:clamp(1.5rem,1rem + 1.5vw,2rem);font-weight:600;font-family:var(--font-display);color:var(--color-primary)}
+
+    /* ─── TRANSACTIONS ─── */
+    .tx-row{
+      display:flex;align-items:center;gap:var(--space-3);
+      padding:var(--space-3) var(--space-4);border-radius:var(--radius-lg);
+      background:var(--color-surface);border:1px solid var(--color-divider);
+    }
+    .tx-desc{flex:1;font-size:var(--text-sm);font-weight:600;color:var(--color-text)}
+    .tx-meta{font-size:var(--text-xs);color:var(--color-text-muted)}
+    .tx-amount{font-size:var(--text-base);font-weight:600;font-family:var(--font-display);color:var(--color-primary)}
+
+    /* ─── PAGE TITLES ─── */
+    .page-title{font-size:var(--text-lg);font-weight:600;font-family:var(--font-display);color:var(--color-text);margin-bottom:var(--space-2)}
+    .page-sub{font-size:var(--text-sm);color:var(--color-text-muted);line-height:1.7;margin-bottom:var(--space-5)}
+
+    /* ─── INFO / WARN BOXES ─── */
+    .info-box{background:var(--color-primary-hl);border-radius:var(--radius-lg);padding:var(--space-4) var(--space-5);font-size:var(--text-sm);color:var(--color-text);line-height:1.7}
+    .warn-box{background:#fff7ed;border-radius:var(--radius-lg);padding:var(--space-4) var(--space-5);font-size:var(--text-sm);color:#92400e;line-height:1.7}
+
+    /* ─── UTILITY ─── */
+    .gap-y{display:flex;flex-direction:column;gap:var(--space-4)}
+    .gap-y-sm{display:flex;flex-direction:column;gap:var(--space-3)}
+    .row{display:flex;align-items:center;gap:var(--space-3);flex-wrap:wrap}
+    .spacer{flex:1}
+    .text-plum{color:var(--color-primary)}
+    .text-muted{color:var(--color-text-muted);font-size:var(--text-sm)}
+    .text-sm{font-size:var(--text-sm)}
+    .text-xs{font-size:var(--text-xs)}
+    .font-bold{font-weight:600}
+    .font-black{font-weight:700}
+    .serif{font-family:var(--font-display)}
+    .pill{display:inline-block;border-radius:var(--radius-full);padding:var(--space-1) var(--space-3);font-size:var(--text-xs);font-weight:600;background:var(--color-primary-hl);color:var(--color-primary)}
+    .empty-state{text-align:center;padding:var(--space-10) var(--space-6);color:var(--color-text-muted);font-size:var(--text-sm)}
+    .divider{height:1px;background:var(--color-divider);margin:var(--space-4) 0}
+    .sign-preview{border:2px solid var(--color-primary);border-radius:var(--radius-xl);padding:var(--space-8);text-align:center;background:var(--color-primary-hl)}
+    .sign-headline{font-size:clamp(1.25rem,1rem + 1vw,1.75rem);font-weight:600;font-family:var(--font-display);color:var(--color-primary);line-height:1.3}
+    .sign-details{font-size:var(--text-sm);color:var(--color-text);margin-top:var(--space-3)}
+
+    /* ─── RESPONSIVE ─── */
+    @media(max-width:900px){.topbar-stat{display:none}.topbar-sub{display:none}}
+    @media(max-width:600px){.topbar{padding:var(--space-3) var(--space-4);gap:var(--space-2)}.topbar-logo-text{display:none}}
+    @media(hover:none) and (pointer:coarse){
+      .btn,.btn-sm,.btn-xs,.btn-ghost,.tab-btn,.sec-btn,.icon-btn{min-height:44px;min-width:44px}
+    }
+
+    /* ─── ACCESSIBILITY ─── */
+    .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+    .skip-link{position:absolute;top:-40px;left:0;background:#E87AAA;color:#fff;padding:8px 16px;z-index:9999;font-family:'Montserrat',sans-serif;font-weight:800;font-size:9pt;text-transform:uppercase}
+    .skip-link:focus{top:0}
+
+    /* ─── TOAST ─── */
+    .mnc-toast{position:fixed;top:20px;left:50%;transform:translateX(-50%);
+      background:#E87AAA;color:#fff;border-bottom:2px solid #c9507f;
+      font-family:'Montserrat',sans-serif;font-weight:800;font-size:9pt;
+      letter-spacing:2px;text-transform:uppercase;
+      padding:10px 20px;z-index:9999;pointer-events:none;
+      opacity:0;transition:opacity 0.18s;white-space:nowrap}
+    .mnc-toast.show{opacity:1}
+
+    /* ─── PRINT ─── */
+    @media print{
+      body>*{display:none!important}
+      #print-section{display:block!important;position:absolute;top:0;left:0;width:100%;padding:16px}
+      .print-grid-tags{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+      .print-grid-signs{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;margin-bottom:24px}
+      .print-grid-boxes{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
+      .print-tag{border:2px dashed #E87AAA;border-radius:12px;padding:18px;text-align:center;min-height:140px}
+      .print-sign{border:3px solid #E87AAA;border-radius:14px;padding:28px;text-align:center;min-height:300px}
+      .print-box-sign{border:3px solid #E87AAA;border-radius:14px;padding:28px;text-align:center;min-height:240px}
+      .print-page-break{break-after:page;page-break-after:always}
+    }
+    #print-section{display:none}
+    .no-print{}
+</style>
+</head>
+<body>
+<a href="#content" class="skip-link">Skip to main content</a>
+
+<div class="topbar no-print">
+  <div class="topbar-logo">
+    <div class="topbar-logo-mark">MNC</div>
+    <div class="topbar-logo-text">
+      <span class="topbar-brand">My Nest Chapter</span>
+      <span class="topbar-sub">Garage Sale Planner</span>
+    </div>
+  </div>
+  <div class="topbar-center">
+    <div class="topbar-tabs" id="main-nav"></div>
+  </div>
+  <div class="topbar-right">
+    <div class="topbar-stat">
+      <div class="topbar-stat-value" id="hdr-earned" aria-live="polite" aria-atomic="true">$0.00</div>
+      <div class="topbar-stat-label" id="hdr-goal-sub">Set a goal on Start</div>
+    </div>
+    <button class="btn btn-ghost btn-sm" onclick="advanceDemo()" id="demo-btn">Demo</button>
+    <div id="hdr-demo-pill"></div>
+  </div>
+</div>
+
+<div class="metrics-bar no-print">
+  <div class="demo-banner" id="demo-banner" style="display:none;margin:0 0 16px">
+    <div class="demo-label" id="demo-label">Demo · 1 of 5</div>
+    <div class="demo-title" id="demo-title"></div>
+    <div class="demo-text" id="demo-text"></div>
+    <div class="demo-footer">
+      <div class="demo-progress"><div class="demo-progress-fill" id="demo-prog-fill" style="width:20%"></div></div>
+      <button class="btn btn-primary btn-sm" onclick="advanceDemo()" id="demo-next-btn">Next step</button>
+    </div>
+  </div>
+
+  <div class="metrics" id="metrics"></div>
+  <div class="section-nav" id="section-nav" style="display:none"></div>
+</div>
+
+<div class="outer no-print">
+  <div id="content" tabindex="-1"></div>
+</div>
+
+<div id="print-section">
+  <div id="print-inner"></div>
+</div>
+
+<script>
+// ─── CONSTANTS ───────────────────────────────────────────────────────────────
+const STORAGE_KEY = "my-nest-chapter-simple-sale-planner-v8";
+const categories = ["Clothing","Books","Decor","Furniture","Kitchen","Electronics","Toys","Tools","Keepsakes","Home Goods","Other"];
+const conditions = ["New","Excellent","Good","Fair","Needs Repair"];
+const decisions = ["Keep","Garage Sale","Sell Online","Donate","Trash","Not Sure"];
+const paymentMethods = ["Cash","Venmo","Cash App","Zelle","Other"];
+
+const prepTasks = [
+  "Choose sale date and time",
+  "Pick 1–2 rooms or areas to sort first",
+  "Make a small online resale pile for valuable items",
+  "Price garage sale items",
+  "Print or write price tags",
+  "Gather tables, bags, cash/change, water, and signs",
+  "Post sale details online or in local groups",
+  "Set up checkout area",
+  "Choose a leftovers plan before the sale ends",
+];
+
+const safetyTasks = [
+  "Keep house doors locked during the sale",
+  "Wear a fanny pack or crossbody bag for cash",
+  "Keep phone fully charged and on you",
+  "Tell a friend, neighbor, or family member your sale hours",
+  "Ask someone to check in by text during the sale",
+  "Place large furniture near the curb or driveway edge",
+  "Keep buyers out of the house and private areas",
+  "Keep high-value items close to the checkout area",
+  "Use digital payments for larger purchases when possible",
+  "Have a clear pickup plan for large online-sale items",
+  "Keep water, snacks, sunscreen, and a chair nearby",
+  "Remove street signs as soon as the sale ends",
+];
+
+const flowTabs = [
+  {id:"start",label:"Start"},
+  {id:"sortPrice",label:"Sort + Price"},
+  {id:"sellPromote",label:"Sell + Promote"},
+  {id:"prepSafety",label:"Prep + Safety"},
+  {id:"saleWrap",label:"Sale Day + Wrap Up"},
+];
+
+const flowSections = {
+  start:[{id:"start",label:"Start"}],
+  sortPrice:[{id:"inventory",label:"Items"},{id:"batch",label:"Batch Boxes"},{id:"memory",label:"Memory Box"},{id:"pricing",label:"Pricing Guide"}],
+  sellPromote:[{id:"online",label:"Online Selling"},{id:"advertising",label:"Ads + Signs"}],
+  prepSafety:[{id:"prep",label:"Prep"},{id:"safety",label:"Safety + Logistics"}],
+  saleWrap:[{id:"sale",label:"Sale Day"},{id:"tags",label:"Print Center"},{id:"wrap",label:"Wrap Up"}],
+};
+
+const defaultSection = {start:"start",sortPrice:"inventory",sellPromote:"online",prepSafety:"prep",saleWrap:"sale"};
+
+const pricingGuide = {
+  Clothing:{Good:[2,8],Excellent:[5,12],New:[8,18],Fair:[1,4],"Needs Repair":[0,1],note:"Garage sale basics move fastest around $2–$8. Better brands, coats, dresses, and handbags may deserve online resale."},
+  Books:{Good:[1,3],Excellent:[2,5],New:[3,8],Fair:[0.5,2],"Needs Repair":[0,1],note:"Paperback books are usually low-dollar. Sets, textbooks, collectible, and niche books are better checked online first."},
+  Decor:{Good:[2,10],Excellent:[5,20],New:[8,30],Fair:[1,5],"Needs Repair":[0,2],note:"Decor sells best when grouped by style. Mirrors, lamps, framed art, and vintage pieces can go higher."},
+  Furniture:{Good:[20,75],Excellent:[40,150],New:[75,250],Fair:[10,40],"Needs Repair":[0,25],note:"Furniture is often better online first, especially dressers, accent tables, bookshelves, chairs, and small cabinets."},
+  Kitchen:{Good:[1,10],Excellent:[3,20],New:[5,35],Fair:[0.5,5],"Needs Repair":[0,1],note:"Mugs, utensils, and dishes are bundle-friendly. Small appliances, cast iron, Pyrex, and name-brand cookware should be checked online."},
+  Electronics:{Good:[10,50],Excellent:[20,100],New:[30,150],Fair:[3,20],"Needs Repair":[0,10],note:"Working electronics with cords/remotes are better online if over $25. Mark anything untested as-is."},
+  Toys:{Good:[1,10],Excellent:[3,20],New:[5,30],Fair:[0.5,5],"Needs Repair":[0,1],note:"Bundle common toys. Lego, American Girl, vintage toys, gaming items, and complete sets should be checked online."},
+  Tools:{Good:[5,25],Excellent:[10,45],New:[15,70],Fair:[2,10],"Needs Repair":[0,5],note:"Hand tools sell well at garage sales. Power tools, tool sets, and name brands may do better on Facebook Marketplace."},
+  Keepsakes:{Good:[0,0],Excellent:[0,0],New:[0,0],Fair:[0,0],"Needs Repair":[0,0],note:"Do not price your memories too fast. Photograph, write the story, then decide if the object still needs to stay."},
+  "Home Goods":{Good:[2,12],Excellent:[5,25],New:[8,40],Fair:[1,6],"Needs Repair":[0,2],note:"Linens, baskets, pillows, lamps, rugs, and organizers sell better when clean, grouped, and clearly priced."},
+  Other:{Good:[1,10],Excellent:[3,20],New:[5,30],Fair:[1,5],"Needs Repair":[0,1],note:"When unsure, price it so letting go feels easier than carrying it back inside."},
+};
+
+const itemPricingRows = [
+  {item:"T-shirts / casual tops",garage:"$1–$4",online:"$8–$25 if brand-name or new",best:"Garage Sale"},
+  {item:"Jeans / pants",garage:"$3–$8",online:"$15–$40 for better brands",best:"Poshmark, Mercari"},
+  {item:"Coats / jackets",garage:"$5–$20",online:"$25–$100+ for quality brands",best:"Facebook Marketplace, Poshmark"},
+  {item:"Shoes",garage:"$3–$15",online:"$20–$80 if clean/name-brand",best:"Poshmark, Mercari, eBay"},
+  {item:"Paperback books",garage:"$0.50–$2",online:"Only if collectible/niche",best:"Garage Sale"},
+  {item:"Book sets / textbooks",garage:"$5–$20",online:"$15–$100+ depending on title",best:"eBay, Facebook Marketplace"},
+  {item:"Coffee mugs",garage:"$0.50–$2 each or bundle",online:"Only if collectible/vintage",best:"Garage Sale"},
+  {item:"Dishes / glasses",garage:"$0.50–$2 each or $5–$30 set",online:"Higher for full sets/vintage",best:"Garage Sale, Facebook Marketplace"},
+  {item:"Small kitchen appliances",garage:"$5–$25",online:"$20–$75 if clean/tested",best:"Facebook Marketplace"},
+  {item:"Pyrex / cast iron / vintage kitchen",garage:"$5–$40",online:"$20–$150+ for desirable pieces",best:"eBay, Facebook Marketplace"},
+  {item:"Lamps",garage:"$5–$20",online:"$20–$75 for stylish pairs",best:"Garage Sale, Facebook Marketplace"},
+  {item:"Wall art / mirrors",garage:"$5–$35",online:"$25–$100+ for large/stylish",best:"Facebook Marketplace"},
+  {item:"Throw pillows / baskets",garage:"$1–$8",online:"Usually not worth shipping",best:"Garage Sale"},
+  {item:"Accent table / nightstand",garage:"$15–$50",online:"$35–$125",best:"Facebook Marketplace"},
+  {item:"Dresser / bookshelf",garage:"$30–$100",online:"$75–$250+",best:"Facebook Marketplace"},
+  {item:"Working electronics",garage:"$5–$40",online:"$25–$150+ depending on item",best:"eBay, Facebook Marketplace"},
+  {item:"Video games / consoles",garage:"$5–$50",online:"$20–$200+ for systems/bundles",best:"eBay, Mercari"},
+  {item:"Toys",garage:"$1–$10",online:"$15–$75 for sets/brands",best:"Garage Sale, Mercari"},
+  {item:"Tools",garage:"$3–$25",online:"$25–$150+ for power tools",best:"Facebook Marketplace"},
+  {item:"Holiday decor",garage:"$1–$15",online:"$20–$100+ for vintage/large lots",best:"Garage Sale, Facebook Marketplace"},
+];
+
+const onlineSellingGuides = [
+  {platform:"Facebook Marketplace",bestFor:"Furniture, local pickup items, tools, decor lots, small appliances, rugs, exercise gear",avoid:"Tiny low-dollar items unless bundled",tip:"Use bright photos, measurements, pickup area, and honest condition notes."},
+  {platform:"eBay",bestFor:"Collectibles, electronics, vintage kitchen, books, replacement parts, specialty items",avoid:"Large fragile items unless you know how to ship",tip:"Search sold listings before pricing. Shipping matters."},
+  {platform:"Poshmark",bestFor:"Women's clothing, shoes, handbags, accessories, better brands",avoid:"Low-value basics unless bundled",tip:"Good lighting and brand/size details matter more than poetic descriptions."},
+  {platform:"Mercari",bestFor:"Toys, clothing, shoes, small electronics, home goods, bundles",avoid:"Heavy items with awkward shipping",tip:"Bundle related items and price with room for offers."},
+  {platform:"Garage Sale",bestFor:"Low-dollar household items, kitchen duplicates, books, mugs, decor, baskets, basic clothing",avoid:"High-value items you would regret selling too cheaply",tip:"Price to move. The goal is space, cash, and peace."},
+];
+
+const signTemplates = [
+  "GARAGE SALE · Today 8–2 · Home Decor · Kitchen · Furniture",
+  "MULTI-CATEGORY SALE · Priced to Move · Cash + Digital Payments",
+  "MY NEXT CHAPTER SALE · Household Items · Decor · Books · Furniture",
+  "BUNDLE DEALS · Ask About Half-Off Tables After Noon",
+];
+
+const changePlanRows = [
+  {label:"$1 bills",key:"ones",suggested:"40",note:"Great for $1, $2, and $3 items."},
+  {label:"$5 bills",key:"fives",suggested:"20",note:"Helpful for $5, $10, and $15 purchases."},
+  {label:"Quarters",key:"quarters",suggested:"20",note:"Useful if you price books, mugs, or small items under $1."},
+];
+
+const demoSteps = [
+  {title:"Step 1: Start with the purpose",flow:"start",section:"start",text:"Set the sale name, date, money goal, and what the money is for. This gives the whole project a clear reason before sorting begins."},
+  {title:"Step 2: Sort, price, batch, and protect memories",flow:"sortPrice",section:"inventory",text:"Add items, batch low-dollar boxes, save sentimental tribute photos, and check pricing guidance. This is the main decluttering workspace."},
+  {title:"Step 3: Decide what sells online and promote the sale",flow:"sellPromote",section:"online",text:"Review which items are better online, then create ad copy and simple sign wording so shoppers know what is worth stopping for."},
+  {title:"Step 4: Prep safely before sale day",flow:"prepSafety",section:"prep",text:"Work through the prep checklist, safety checklist, and bank-change plan so sale day feels controlled and secure."},
+  {title:"Step 5: Run the sale and wrap it up",flow:"saleWrap",section:"sale",text:"Use the live calculator, print tags when needed, log sales, and decide what happens to leftovers so clutter does not sneak back inside."},
+];
+
+// ─── HELPERS ─────────────────────────────────────────────────────────────────
+function makeId(){try{if(typeof crypto!=="undefined"&&crypto.randomUUID)return crypto.randomUUID()}catch{}return`id-${Date.now()}-${Math.random().toString(16).slice(2)}`}
+function clone(v){try{return structuredClone(v)}catch{return JSON.parse(JSON.stringify(v))}}
+function esc(s){return String(s||"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;")}
+function showToast(msg){
+  let t=document.getElementById('mnc-toast');
+  if(!t){t=document.createElement('div');t.id='mnc-toast';t.className='mnc-toast';document.body.appendChild(t)}
+  t.textContent=msg;t.classList.add('show');
+  clearTimeout(t._timer);t._timer=setTimeout(()=>t.classList.remove('show'),2000);
+}
+function mncConfirm(msg,onConfirm){
+  const ov=document.createElement('div');
+  ov.style.cssText='position:fixed;inset:0;background:rgba(0,0,0,0.45);z-index:8000;display:flex;align-items:center;justify-content:center';
+  ov.innerHTML=`<div style="background:#fff;border:1px solid #ABABAB;padding:32px 36px;max-width:400px;width:90%;box-sizing:border-box">
+    <p style="font-family:Arial,sans-serif;font-size:12pt;color:#252535;margin:0 0 24px;line-height:1.5">${esc(msg)}</p>
+    <div style="display:flex;gap:12px;justify-content:flex-end">
+      <button id="mnc-cancel-btn" style="font-family:'Montserrat',sans-serif;font-weight:800;font-size:11pt;color:#E87AAA;background:#fff;border:1px solid #E87AAA;padding:10px 20px;cursor:pointer;text-transform:uppercase;touch-action:manipulation">Cancel</button>
+      <button id="mnc-ok-btn" style="font-family:'Montserrat',sans-serif;font-weight:800;font-size:11pt;color:#fff;background:#E87AAA;border:none;padding:10px 20px;cursor:pointer;text-transform:uppercase;touch-action:manipulation">Confirm</button>
+    </div>
+  </div>`;
+  document.body.appendChild(ov);
+  const close=()=>document.body.removeChild(ov);
+  ov.querySelector('#mnc-ok-btn').addEventListener('click',()=>{close();onConfirm()});
+  ov.querySelector('#mnc-cancel-btn').addEventListener('click',close);
+  ov.addEventListener('click',e=>{if(e.target===ov)close()});
+  ov.querySelector('#mnc-cancel-btn').focus();
+}
+function priceRange(cat,cond){const r=pricingGuide[cat]?.[cond]||pricingGuide.Other.Good;if(r[0]===0&&r[1]===0)return"Memory check";return`$${r[0]}–$${r[1]}`}
+function suggestPlatform(cat,cond,price,dec){
+  const amt=Number(price||0);
+  if(dec==="Keep")return"Keep";if(dec==="Donate")return"Donate";if(dec==="Trash")return"Trash";if(dec==="Not Sure")return"Decide Later";
+  if(cat==="Furniture"||amt>=35)return"Facebook Marketplace";
+  if(cat==="Clothing"&&["New","Excellent"].includes(cond))return"Poshmark or Mercari";
+  if(cat==="Electronics"&&amt>=25)return"eBay or Facebook Marketplace";
+  if(dec==="Sell Online")return"Facebook Marketplace";
+  return"Garage Sale";
+}
+function calcSubtotal(rows){return(rows||[]).reduce((s,r)=>s+Number(r.quantity||0)*Number(r.price||0),0)}
+function getStats(P){
+  const items=P.items||[];const tx=P.transactions||[];const goal=Number(P.setup?.moneyGoal||0);
+  const earned=tx.reduce((s,t)=>s+Number(t.amount||0),0);
+  const estimated=items.reduce((s,i)=>s+Number(i.price||0)*Number(i.quantity||1),0);
+  const prepDone=prepTasks.filter(t=>P.prep?.[t]).length;
+  return{
+    totalItems:items.length,
+    garageSale:items.filter(i=>i.decision==="Garage Sale").length,
+    online:items.filter(i=>i.decision==="Sell Online").length,
+    donate:items.filter(i=>i.decision==="Donate").length,
+    earned,estimated,goal,
+    goalProgress:goal?Math.min(Math.round((earned/goal)*100),100):0,
+    goalLeft:Math.max(goal-earned,0),
+    prepProgress:Math.round((prepDone/prepTasks.length)*100),
+  };
+}
+function daysUntilSale(d){if(!d)return null;const today=new Date();const sale=new Date(`${d}T00:00:00`);if(isNaN(sale.getTime()))return null;const s=new Date(sale.getFullYear(),sale.getMonth(),sale.getDate());const t=new Date(today.getFullYear(),today.getMonth(),today.getDate());return Math.ceil((s-t)/86400000)}
+function chipClass(dec){return{
+  "Garage Sale":"chip-sale","Sell Online":"chip-online","Donate":"chip-donate",
+  "Keep":"chip-keep","Trash":"chip-trash","Not Sure":"chip-notsure"
+}[dec]||"chip-notsure"}
+
+// ─── STATE ────────────────────────────────────────────────────────────────────
+const blankPlanner={
+  setup:{saleTitle:"",saleDate:"",moneyPurpose:"",moneyGoal:"",notes:""},
+  advertising:{featuredItems:"",adCopy:"",signHeadline:"",signDetails:"",facebookPosted:false,nextdoorPosted:false,localGroupsPosted:false,signsPrinted:false},
+  safety:{tasks:{},change:{ones:"40",fives:"20",quarters:"20"},bankReminderDone:false,safetyNotes:""},
+  items:[],prep:{},calculatorRows:[{id:"r1",name:"",quantity:"1",price:""}],
+  transactions:[],memoryBox:[],batchBoxes:[],
+  wrap:{donate:"",sellOnline:"",keep:"",trash:"",notes:""},
+  isDemo:false,
+};
+
+function normalizePlanner(src){
+  const s=src&&typeof src==="object"?src:{};const b=clone(blankPlanner);
+  return{...b,...s,
+    setup:{...b.setup,...(s.setup||{})},
+    advertising:{...b.advertising,...(s.advertising||{})},
+    safety:{...b.safety,...(s.safety||{}),tasks:{...b.safety.tasks,...(s.safety?.tasks||{})},change:{...b.safety.change,...(s.safety?.change||{})}},
+    items:Array.isArray(s.items)?s.items:b.items,
+    prep:{...b.prep,...(s.prep||{})},
+    calculatorRows:Array.isArray(s.calculatorRows)&&s.calculatorRows.length?s.calculatorRows:b.calculatorRows,
+    transactions:Array.isArray(s.transactions)?s.transactions:b.transactions,
+    memoryBox:Array.isArray(s.memoryBox)?s.memoryBox:b.memoryBox,
+    batchBoxes:Array.isArray(s.batchBoxes)?s.batchBoxes:b.batchBoxes,
+    wrap:{...b.wrap,...(s.wrap||{})},
+  };
+}
+
+function loadPlanner(){try{const d=localStorage.getItem(STORAGE_KEY);return d?normalizePlanner(JSON.parse(d)):clone(blankPlanner)}catch{return clone(blankPlanner)}}
+
+function getDemoPlanner(){
+  return{
+    ...clone(blankPlanner),isDemo:true,
+    setup:{saleTitle:"My Next Chapter Sale",saleDate:"2026-05-16",moneyPurpose:"A peaceful weekend getaway to celebrate this new season",moneyGoal:"250",notes:"Start with low-emotion areas first, then handle keepsakes when you have more energy."},
+    advertising:{featuredItems:"Home decor, small furniture, kitchen bundles, books, and cozy household finds",adCopy:"My Next Chapter Sale! Home decor, kitchen items, books, small furniture, and gently used household pieces. Priced to move. Cash and digital payments accepted.",signHeadline:"GARAGE SALE TODAY",signDetails:"8 AM–2 PM · Home Decor · Furniture · Kitchen",facebookPosted:true,nextdoorPosted:false,localGroupsPosted:true,signsPrinted:false},
+    safety:{tasks:{"Keep house doors locked during the sale":true,"Wear a fanny pack or crossbody bag for cash":true,"Place large furniture near the curb or driveway edge":true},change:{ones:"40",fives:"20",quarters:"20"},bankReminderDone:false,safetyNotes:"Ask Diane next door to text at 10 AM and noon."},
+    items:[
+      {id:makeId(),name:"Guest room comforter set",category:"Home Goods",condition:"Good",quantity:"1",decision:"Garage Sale",price:"25",suggested:"$2–$12",platform:"Garage Sale",notes:"Freshly washed.",sold:false},
+      {id:makeId(),name:"Small accent table",category:"Furniture",condition:"Good",quantity:"1",decision:"Sell Online",price:"45",suggested:"$20–$75",platform:"Facebook Marketplace",notes:"Photograph near window.",sold:true},
+      {id:makeId(),name:"Coffee mug bundle",category:"Kitchen",condition:"Good",quantity:"8",decision:"Garage Sale",price:"6",suggested:"$1–$10",platform:"Garage Sale",notes:"Bundle together.",sold:true},
+      {id:makeId(),name:"Old school art folder",category:"Keepsakes",condition:"Good",quantity:"1",decision:"Keep",price:"",suggested:"Memory check",platform:"Keep",notes:"Pick favorites and photograph the rest.",sold:false},
+    ],
+    memoryBox:[{id:makeId(),itemName:"Old school art folder",caption:"This mattered. It had its season. I do not have to keep the item to keep the memory.",photo:"",createdAt:"Demo memory"}],
+    batchBoxes:[{id:makeId(),boxNumber:1,title:"Kitchen odds + ends",price:"2",category:"Kitchen",description:"Utensils, extra mugs, small duplicate kitchen items",photo:"",createdAt:"Demo box"},{id:makeId(),boxNumber:2,title:"Books + paperbacks",price:"1",category:"Books",description:"Beach reads, cozy mysteries, and paperback books",photo:"",createdAt:"Demo box"}],
+    prep:{"Choose sale date and time":true,"Pick 1–2 rooms or areas to sort first":true,"Make a small online resale pile for valuable items":true},
+    calculatorRows:[{id:makeId(),name:"Coffee mug bundle",quantity:"1",price:"6"},{id:makeId(),name:"Decor basket",quantity:"1",price:"12"}],
+    transactions:[{id:makeId(),description:"Coffee mug bundle",amount:"6",method:"Cash",time:"9:15 AM"},{id:makeId(),description:"Small accent table",amount:"45",method:"Venmo",time:"10:05 AM"}],
+    wrap:{donate:"Kitchen duplicates that do not sell",sellOnline:"Accent table if buyer does not pick up",keep:"A small memory box only",trash:"Broken frames and expired supplies",notes:"Bundles sold faster than single small items."},
+  };
+}
+
+let P=loadPlanner();
+let UI={tab:"start",section:"start",invView:"table",demo:false,demoStep:0};
+let draft={
+  item:{name:"",category:"Decor",condition:"Good",quantity:"1",decision:"Garage Sale",price:"",notes:""},
+  box:{title:"",price:"2",category:"Other",description:""},
+  memory:{itemName:"",caption:""},
+  sale:{description:"",amount:"",method:"Cash"},
+};
+let itemSearch="";
+
+// ─── PERSISTENCE ──────────────────────────────────────────────────────────────
+function save(){try{localStorage.setItem(STORAGE_KEY,JSON.stringify(P))}catch{}}
+
+function deepSet(obj,path,value){
+  let o=obj;for(let i=0;i<path.length-1;i++){if(!o[path[i]])o[path[i]]={};o=o[path[i]]}
+  o[path[path.length-1]]=value;
+}
+
+// ─── NAVIGATION ───────────────────────────────────────────────────────────────
+function goTab(tab,sec){UI.tab=tab;UI.section=sec||defaultSection[tab];render()}
+function goSection(sec){UI.section=sec;renderContent();renderSectionNav()}
+
+function buildNav(){
+  const nav=document.getElementById("main-nav");
+  nav.innerHTML=flowTabs.map(t=>`<button class="tab-btn${UI.tab===t.id?" active":""}" onclick="goTab('${t.id}')">${t.label}</button>`).join("");
+}
+
+function renderSectionNav(){
+  const el=document.getElementById("section-nav");
+  const secs=flowSections[UI.tab]||[];
+  if(secs.length<=1){el.style.display="none";return}
+  el.style.display="flex";
+  el.innerHTML=secs.map(s=>`<button class="sec-btn${UI.section===s.id?" active":""}" onclick="goSection('${s.id}')">${s.label}</button>`).join("");
+}
+
+// ─── HEADER + METRICS ─────────────────────────────────────────────────────────
+function refreshHeaderStat(){
+  const stats=getStats(P);
+  document.getElementById("hdr-earned").textContent=`$${stats.earned.toFixed(2)}`;
+  document.getElementById("hdr-goal-sub").textContent=stats.goal?`${stats.goalProgress}% of $${stats.goal} goal`:"Set a goal on Start";
+  document.getElementById("hdr-demo-pill").innerHTML=P.isDemo?`<div class="demo-pill">Demo mode</div>`:"";
+}
+
+function refreshMetrics(){
+  const stats=getStats(P);
+  document.getElementById("metrics").innerHTML=[
+    {label:"Total Items",value:stats.totalItems},{label:"Garage Sale",value:stats.garageSale},
+    {label:"Sell Online",value:stats.online},{label:"Goal Progress",value:stats.goalProgress+"%"},
+  ].map(m=>`<div class="metric"><div class="metric-label">${m.label}</div><div class="metric-value">${m.value}</div></div>`).join("");
+}
+
+function refreshDemoBanner(){
+  const el=document.getElementById("demo-banner");
+  if(!UI.demo){el.style.display="none";document.getElementById("demo-btn").textContent="Start demo";return}
+  el.style.display="block";
+  const step=demoSteps[UI.demoStep];
+  document.getElementById("demo-label").textContent=`Demo · ${UI.demoStep+1} of ${demoSteps.length}`;
+  document.getElementById("demo-title").textContent=step.title;
+  document.getElementById("demo-text").textContent=step.text;
+  document.getElementById("demo-prog-fill").style.width=`${Math.round(((UI.demoStep+1)/demoSteps.length)*100)}%`;
+  document.getElementById("demo-next-btn").textContent=UI.demoStep===demoSteps.length-1?"Finish demo":"Next step";
+  document.getElementById("demo-btn").textContent=UI.demoStep===demoSteps.length-1?"Finish demo":"Next step";
+}
+
+function refreshGoalProgress(){
+  const el=document.getElementById("goal-pct");if(!el)return;
+  const stats=getStats(P);
+  el.textContent=stats.goalProgress+"%";
+  const bar=document.getElementById("goal-bar");if(bar)bar.style.width=stats.goalProgress+"%";
+  const sub=document.getElementById("goal-sub");if(sub)sub.textContent=`$${stats.earned.toFixed(2)} earned · $${stats.goalLeft.toFixed(2)} left`;
+}
+
+function refreshSubtotal(){
+  const el=document.getElementById("calc-subtotal");if(!el)return;
+  el.textContent=`$${calcSubtotal(P.calculatorRows).toFixed(2)}`;
+}
+
+// ─── MAIN RENDER ──────────────────────────────────────────────────────────────
+function render(){
+  buildNav();renderSectionNav();refreshHeaderStat();refreshMetrics();refreshDemoBanner();renderContent();
+}
+
+function renderContent(){
+  const key=UI.tab+"|"+UI.section;
+  const map={
+    "start|start":renderStart,
+    "sortPrice|inventory":renderInventory,
+    "sortPrice|batch":renderBatch,
+    "sortPrice|memory":renderMemory,
+    "sortPrice|pricing":renderPricing,
+    "sellPromote|online":renderOnline,
+    "sellPromote|advertising":renderAdvertising,
+    "prepSafety|prep":renderPrep,
+    "prepSafety|safety":renderSafety,
+    "saleWrap|sale":renderSaleDay,
+    "saleWrap|tags":renderPrintCenter,
+    "saleWrap|wrap":renderWrap,
+  };
+  document.getElementById("content").innerHTML=(map[key]||renderStart)();
+}
+
+// ─── SECTION: START ───────────────────────────────────────────────────────────
+function renderStart(){
+  const s=P.setup||{};const stats=getStats(P);
+  const days=daysUntilSale(s.saleDate);
+  const daysStr=days===null?"Set a date to see the countdown":days===0?"Sale day is today!":days<0?`Sale was ${Math.abs(days)} day${Math.abs(days)===1?"":"s"} ago`:`${days} day${days===1?"":"s"} until sale day`;
+  return`
+  <div class="grid-lg">
+    <div class="gap-y">
+      <div class="card">
+        <div class="card-title">Start here</div>
+        <div class="gap-y-sm">
+          ${field("Sale name","text","setup.saleTitle",s.saleTitle,"My Next Chapter Sale")}
+          ${field("Sale date","date","setup.saleDate",s.saleDate,"")}
+          ${areaField("What would you like to use the money for?","setup.moneyPurpose",s.moneyPurpose,"A weekend away, fresh bedding, savings, dinner with friends...")}
+          ${field("Money goal ($)","number","setup.moneyGoal",s.moneyGoal,"250")}
+          ${areaField("Notes before I start","setup.notes",s.notes,"What areas feel easiest? What items feel emotional?")}
+        </div>
+        <div style="margin-top:16px">
+          <button class="btn btn-primary" onclick="goTab('sortPrice','inventory')">Start adding items</button>
+        </div>
+      </div>
+    </div>
+    <div class="gap-y">
+      <div class="card">
+        <div class="card-title">Money goal</div>
+        <div id="goal-pct" class="metric-value" style="font-size:40px">${stats.goalProgress}%</div>
+        <div id="goal-sub" class="text-muted" style="margin-top:4px">$${stats.earned.toFixed(2)} earned · $${stats.goalLeft.toFixed(2)} left</div>
+        <div class="progress progress-lg" role="progressbar" aria-valuenow="${stats.goalProgress}" aria-valuemin="0" aria-valuemax="100" aria-label="Goal progress" style="margin-top:12px"><div class="progress-fill" id="goal-bar" style="width:${stats.goalProgress}%"></div></div>
+        ${stats.estimated>0?`<div style="background:var(--color-gold-bg);border-radius:var(--radius-lg);padding:10px 14px;margin-top:12px;font-size:var(--text-sm);color:var(--color-gold);line-height:1.6"><strong>Based on ${stats.totalItems} priced item${stats.totalItems===1?"":"s"}:</strong> estimated $${stats.estimated.toFixed(2)}${!stats.goal?" — try setting this as your goal":""}</div>`:""}
+        <div class="info-box" style="margin-top:16px">The money goal gives this sale a reason. Not a perfect reason. A real one. Something that belongs to you.</div>
+      </div>
+      <div class="card">
+        <div class="card-title">Sale countdown</div>
+        <div class="metric-value">${daysStr}</div>
+        ${s.saleDate?`<div class="text-muted" style="margin-top:4px">${new Date(s.saleDate+"T00:00:00").toLocaleDateString("en-US",{weekday:"long",month:"long",day:"numeric",year:"numeric"})}</div><div style="margin-top:12px"><button class="btn btn-secondary btn-sm" onclick="downloadCalendar()">Add to calendar</button></div>`:""}
+      </div>
+      <div class="card">
+        <div class="card-title">Day-before reminder</div>
+        <p class="card-sub" style="margin-bottom:12px">Get a prep email the morning before sale day — your items, your goal, and a link back here.</p>
+        <div class="form-field" style="margin-bottom:10px">
+          <label class="form-label">Your email</label>
+          <input class="input" type="email" id="reminder-email" placeholder="you@email.com" />
+        </div>
+        <button class="btn btn-primary btn-sm" onclick="setReminder()" id="reminder-btn" ${!s.saleDate?'disabled':''}>Set reminder${!s.saleDate?' (set date first)':''}</button>
+        <div id="reminder-msg" style="display:none;margin-top:10px"></div>
+      </div>
+    </div>
+  </div>`;
+}
+
+// ─── SECTION: INVENTORY ───────────────────────────────────────────────────────
+function renderInventory(){
+  return`
+  <div class="gap-y">
+    <div>
+      <h2 class="page-title">Items</h2>
+      <p class="page-sub">Add items, decide what to do with them, and see suggested pricing or online-sale direction.</p>
+      <div class="row" style="margin-bottom:16px">
+        <button class="btn ${UI.invView==="add"?"btn-primary":"btn-secondary"}" onclick="setInvView('add')">Add item</button>
+        <button class="btn ${UI.invView==="table"?"btn-primary":"btn-secondary"}" onclick="setInvView('table')">Inventory list</button>
+      </div>
+    </div>
+    ${UI.invView==="add"?renderAddItemForm():renderItemTable()}
+  </div>`;
+}
+
+function setInvView(v){UI.invView=v;renderContent()}
+
+function renderAddItemForm(){
+  const d=draft.item;
+  const suggested=priceRange(d.category,d.condition);
+  const platform=suggestPlatform(d.category,d.condition,d.price,d.decision);
+  return`
+  <div class="card">
+    <div class="card-title">Add an item</div>
+    <div class="form-row" style="margin-bottom:14px">
+      <div class="form-field">
+        <label class="form-label">Item name</label>
+        <input class="input" id="di-name" value="${esc(d.name)}" placeholder="Guest room comforter set" oninput="draftItem('name',this.value)" />
+      </div>
+      <div class="form-field">
+        <label class="form-label">Category</label>
+        <select class="select" onchange="draftItemAndRefresh('category',this.value)">${categories.map(c=>`<option${c===d.category?" selected":""}>${c}</option>`).join("")}</select>
+      </div>
+      <div class="form-field">
+        <label class="form-label">Condition</label>
+        <select class="select" onchange="draftItemAndRefresh('condition',this.value)">${conditions.map(c=>`<option${c===d.condition?" selected":""}>${c}</option>`).join("")}</select>
+      </div>
+      <div class="form-field">
+        <label class="form-label">Quantity</label>
+        <input class="input" type="number" min="1" value="${esc(d.quantity)}" oninput="draftItem('quantity',this.value)" />
+      </div>
+      <div class="form-field">
+        <label class="form-label">Decision</label>
+        <select class="select" onchange="draftItemAndRefresh('decision',this.value)">${decisions.map(c=>`<option${c===d.decision?" selected":""}>${c}</option>`).join("")}</select>
+      </div>
+      <div class="form-field">
+        <label class="form-label">My price ($)</label>
+        <input class="input" type="number" min="0" step="0.5" value="${esc(d.price)}" oninput="draftItemAndRefresh('price',this.value)" placeholder="0" />
+      </div>
+    </div>
+    <div class="info-box" style="margin-bottom:14px">
+      <strong>Suggested:</strong> ${suggested} &nbsp;·&nbsp; <strong>Best fit:</strong> ${platform}
+    </div>
+    <div class="form-field" style="margin-bottom:14px">
+      <label class="form-label">Notes</label>
+      <textarea class="textarea" rows="2" placeholder="Condition details, bundle idea, where to list..." oninput="draftItem('notes',this.value)">${esc(d.notes)}</textarea>
+    </div>
+    <div class="form-actions">
+      <button class="btn btn-primary" onclick="addItem()">Add item</button>
+      <button class="btn btn-secondary" onclick="setInvView('table')">View inventory</button>
+    </div>
+  </div>`;
+}
+
+function renderItemTable(){
+  const items=P.items||[];
+  const visible=items.filter(i=>`${i.name} ${i.category} ${i.decision} ${i.platform}`.toLowerCase().includes(itemSearch.toLowerCase()));
+  return`
+  <div class="card">
+    <div class="row" style="margin-bottom:14px">
+      <div class="card-title" style="margin-bottom:0;flex:1">Inventory (${items.length} item${items.length===1?"":"s"})</div>
+      <button class="btn btn-secondary btn-sm" onclick="setInvView('add')">+ Add item</button>
+    </div>
+    <div class="form-field" style="margin-bottom:14px">
+      <input class="input" placeholder="Search items, category, decision..." value="${esc(itemSearch)}" oninput="itemSearch=this.value;renderContent()" />
+    </div>
+    ${visible.length===0?`<div class="empty-state">${items.length===0?"No items yet. Add your first item to get started.":"No items match your search."}</div>`:
+    `<div class="tbl-wrap"><table>
+      <thead><tr>
+        <th>Sold</th><th>Item</th><th>Cat.</th><th>Cond.</th><th>Decision</th>
+        <th>Price</th><th>Suggested</th><th>Best fit</th><th></th>
+      </tr></thead>
+      <tbody>${visible.map(item=>`
+        <tr class="${item.sold?"sold-row":""}">
+          <td><input type="checkbox" ${item.sold?"checked":""} onchange="toggleSold('${esc(item.id)}',this.checked)" aria-label="Mark ${esc(item.name)} as sold" style="width:16px;height:16px;accent-color:var(--plum);cursor:pointer" /></td>
+          <td class="td-name">${esc(item.name)}</td>
+          <td class="text-xs text-muted">${esc(item.category)}</td>
+          <td class="text-xs text-muted">${esc(item.condition)}</td>
+          <td><span class="td-chip ${chipClass(item.decision)}">${esc(item.decision)}</span></td>
+          <td class="font-bold">${item.price?"$"+esc(item.price):""}</td>
+          <td class="text-xs text-muted">${esc(item.suggested||"")}</td>
+          <td class="text-xs">${esc(item.platform||"")}</td>
+          <td>
+            <div class="row" style="gap:4px">
+              <button class="btn btn-ghost btn-xs" onclick="saveToMemory('${esc(item.id)}')" aria-label="Save ${esc(item.name)} to memory box">&#9825;</button>
+              <button class="btn btn-danger btn-xs" onclick="deleteItem('${esc(item.id)}')" aria-label="Remove ${esc(item.name)}">×</button>
+            </div>
+          </td>
+        </tr>`).join("")}
+      </tbody>
+    </table></div>`}
+  </div>`;
+}
+
+function draftItem(k,v){draft.item[k]=v}
+function draftItemAndRefresh(k,v){draft.item[k]=v;renderContent()}
+function addItem(){
+  if(!draft.item.name.trim())return;
+  const d=draft.item;
+  P.items=[{id:makeId(),name:d.name,category:d.category,condition:d.condition,quantity:d.quantity,decision:d.decision,price:d.price,notes:d.notes,suggested:priceRange(d.category,d.condition),platform:suggestPlatform(d.category,d.condition,d.price,d.decision),sold:false},...(P.items||[])];
+  P.isDemo=false;save();draft.item={name:"",category:"Decor",condition:"Good",quantity:"1",decision:"Garage Sale",price:"",notes:""};
+  UI.invView="table";renderContent();refreshMetrics();
+}
+function deleteItem(id){mncConfirm("Remove this item?",()=>{P.items=(P.items||[]).filter(i=>i.id!==id);P.isDemo=false;save();renderContent();refreshMetrics()})}
+function toggleSold(id,v){const item=(P.items||[]).find(i=>i.id===id);if(item){item.sold=v;P.isDemo=false;save();renderContent()}}
+function saveToMemory(id){
+  const item=(P.items||[]).find(i=>i.id===id);if(!item)return;
+  const cap="This mattered. It had its season. I do not have to keep the item to keep the memory.";
+  P.memoryBox=[{id:makeId(),itemName:item.name,caption:cap,photo:"",createdAt:new Date().toLocaleDateString()},...(P.memoryBox||[])];
+  P.isDemo=false;save();showToast("Added to memory box");
+}
+
+// ─── SECTION: BATCH BOXES ────────────────────────────────────────────────────
+function renderBatch(){
+  const boxes=P.batchBoxes||[];
+  return`
+  <div class="gap-y">
+    <div>
+      <h2 class="page-title">Batch Boxes</h2>
+      <p class="page-sub">Group low-dollar items into priced boxes so shoppers can browse and choose without individual tags.</p>
+    </div>
+    <div class="card">
+      <div class="card-title">Create a batch box</div>
+      <div class="form-row" style="margin-bottom:14px">
+        <div class="form-field">
+          <label class="form-label">Box title</label>
+          <input class="input" id="bx-title" placeholder="Kitchen odds + ends" oninput="draft.box.title=this.value" />
+        </div>
+        <div class="form-field">
+          <label class="form-label">All items price ($)</label>
+          <input class="input" type="number" min="0" step="0.5" id="bx-price" value="2" oninput="draft.box.price=this.value" />
+        </div>
+        <div class="form-field">
+          <label class="form-label">Category</label>
+          <select class="select" id="bx-cat" onchange="draft.box.category=this.value">${categories.map(c=>`<option${c===draft.box.category?" selected":""}>${c}</option>`).join("")}</select>
+        </div>
+      </div>
+      <div class="form-field" style="margin-bottom:14px">
+        <label class="form-label">Description</label>
+        <textarea class="textarea" rows="2" id="bx-desc" placeholder="Utensils, extra mugs, small duplicate kitchen items..." oninput="draft.box.description=this.value"></textarea>
+      </div>
+      <div class="form-field" style="margin-bottom:14px">
+        <label class="form-label">Box photo (optional)</label>
+        <input type="file" accept="image/*" onchange="handleBoxPhoto(this)" style="font-size:13px" />
+      </div>
+      <div class="form-actions">
+        <button class="btn btn-primary" onclick="addBox()">Add box</button>
+        ${boxes.length?`<button class="btn btn-secondary" onclick="printBoxSigns()">Print box signs</button>`:""}
+      </div>
+    </div>
+    ${boxes.length===0?`<div class="empty-state">No batch boxes yet.</div>`:
+    `<div class="grid-3">${boxes.map(box=>`
+      <div class="box-card">
+        ${box.photo?`<img src="${box.photo}" style="width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:8px;margin-bottom:10px" />`:""}
+        <div class="box-number">Box #${box.boxNumber} · ${box.category}</div>
+        <div class="box-title">${esc(box.title||"Untitled box")}</div>
+        <div class="box-price">All items $${esc(box.price||"__")}</div>
+        <div class="text-muted" style="margin-top:6px;font-size:13px">${esc(box.description||"")}</div>
+        <div style="margin-top:12px"><button class="btn btn-danger btn-xs" onclick="deleteBox('${esc(box.id)}')">Remove</button></div>
+      </div>`).join("")}
+    </div>`}
+  </div>`;
+}
+
+let _boxPhotoData="";
+function handleBoxPhoto(input){const f=input.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{_boxPhotoData=r.result};r.readAsDataURL(f)}
+function addBox(){
+  const d=draft.box;
+  const existing=P.batchBoxes||[];
+  const nextNum=existing.reduce((m,b)=>Math.max(m,Number(b.boxNumber||0)),0)+1;
+  P.batchBoxes=[{id:makeId(),boxNumber:nextNum,title:d.title,price:d.price,category:d.category,description:d.description,photo:_boxPhotoData,createdAt:new Date().toLocaleDateString()},...existing];
+  P.isDemo=false;save();_boxPhotoData="";draft.box={title:"",price:"2",category:"Other",description:""};renderContent();
+}
+function deleteBox(id){mncConfirm("Remove this box?",()=>{P.batchBoxes=(P.batchBoxes||[]).filter(b=>b.id!==id);P.isDemo=false;save();renderContent()})}
+
+// ─── SECTION: MEMORY BOX ─────────────────────────────────────────────────────
+function renderMemory(){
+  const memories=P.memoryBox||[];
+  return`
+  <div class="gap-y">
+    <div>
+      <h2 class="page-title">Memory Box</h2>
+      <p class="page-sub">Before an item leaves, give it a moment. Photograph it, write the story, then decide.</p>
+    </div>
+    <div class="card">
+      <div class="card-title">Add a memory</div>
+      <div class="form-row" style="margin-bottom:14px">
+        <div class="form-field">
+          <label class="form-label">Item name</label>
+          <input class="input" id="mem-name" placeholder="Old school art folder" oninput="draft.memory.itemName=this.value" />
+        </div>
+      </div>
+      <div class="form-field" style="margin-bottom:14px">
+        <label class="form-label">Caption or memory note</label>
+        <textarea class="textarea" id="mem-cap" rows="3" placeholder="This mattered. It had its season. I do not have to keep the item to keep the memory." oninput="draft.memory.caption=this.value"></textarea>
+      </div>
+      <div class="form-field" style="margin-bottom:14px">
+        <label class="form-label">Photo (optional)</label>
+        <input type="file" accept="image/*" onchange="handleMemPhoto(this)" style="font-size:13px" />
+      </div>
+      <button class="btn btn-primary" onclick="addMemory()">Save memory</button>
+    </div>
+    ${memories.length===0?`<div class="empty-state">No memories saved yet.</div>`:
+    `<div class="grid-3">${memories.map(m=>`
+      <div class="memory-card">
+        ${m.photo?`<img src="${m.photo}" class="memory-img" alt="${esc(m.itemName)}" />`:""}
+        <div class="memory-name">${esc(m.itemName||"Memory")}</div>
+        <div class="memory-caption">${esc(m.caption||"")}</div>
+        <div class="text-xs text-muted">${esc(m.createdAt||"")}</div>
+        <button class="btn btn-danger btn-xs" onclick="deleteMemory('${esc(m.id)}')">Remove</button>
+      </div>`).join("")}
+    </div>`}
+  </div>`;
+}
+
+let _memPhotoData="";
+function handleMemPhoto(input){const f=input.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{_memPhotoData=r.result};r.readAsDataURL(f)}
+function addMemory(){
+  const d=draft.memory;
+  P.memoryBox=[{id:makeId(),itemName:d.itemName||"Memory",caption:d.caption||"This mattered. It had its season.",photo:_memPhotoData,createdAt:new Date().toLocaleDateString()},...(P.memoryBox||[])];
+  P.isDemo=false;save();_memPhotoData="";draft.memory={itemName:"",caption:""};renderContent();
+}
+function deleteMemory(id){mncConfirm("Remove this memory?",()=>{P.memoryBox=(P.memoryBox||[]).filter(m=>m.id!==id);P.isDemo=false;save();renderContent()})}
+
+// ─── SECTION: PRICING GUIDE ───────────────────────────────────────────────────
+function renderPricing(){
+  return`
+  <div class="gap-y">
+    <div>
+      <h2 class="page-title">Pricing Guide</h2>
+      <p class="page-sub">Reference ranges by category and condition. Trust your gut on the final number.</p>
+    </div>
+    <div class="grid-3">
+      ${Object.entries(pricingGuide).map(([cat,data])=>`
+        <div class="pricing-card">
+          <div class="pricing-cat">${cat}</div>
+          ${conditions.map(c=>`
+            <div class="pricing-row">
+              <span class="text-muted">${c}</span>
+              <span class="font-bold">${priceRange(cat,c)}</span>
+            </div>`).join("")}
+          <div class="pricing-note">${esc(data.note)}</div>
+        </div>`).join("")}
+    </div>
+    <div class="card">
+      <div class="card-title">Item-by-item reference</div>
+      <div class="tbl-wrap">
+        <table>
+          <thead><tr><th>Item</th><th>Garage Sale</th><th>Online</th><th>Best fit</th></tr></thead>
+          <tbody>${itemPricingRows.map(r=>`
+            <tr>
+              <td class="font-bold">${esc(r.item)}</td>
+              <td>${esc(r.garage)}</td>
+              <td class="text-muted text-xs">${esc(r.online)}</td>
+              <td><span class="pill">${esc(r.best)}</span></td>
+            </tr>`).join("")}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>`;
+}
+
+// ─── SECTION: ONLINE SELLING ─────────────────────────────────────────────────
+function renderOnline(){
+  const onlineItems=(P.items||[]).filter(i=>i.decision==="Sell Online");
+  return`
+  <div class="gap-y">
+    <div>
+      <h2 class="page-title">Online Selling</h2>
+      <p class="page-sub">Platform guide plus a review of your items marked for online sale.</p>
+    </div>
+    <div class="grid-3">
+      ${onlineSellingGuides.map(g=>`
+        <div class="platform-card">
+          <div class="platform-name">${esc(g.platform)}</div>
+          <div class="platform-row"><strong>Best for:</strong> ${esc(g.bestFor)}</div>
+          <div class="platform-row"><strong>Skip if:</strong> ${esc(g.avoid)}</div>
+          <div class="platform-tip">${esc(g.tip)}</div>
+        </div>`).join("")}
+    </div>
+    <div class="card">
+      <div class="card-title">Your online-sale items (${onlineItems.length})</div>
+      ${onlineItems.length===0?`<div class="empty-state">No items marked "Sell Online" yet. Add items and set decision to Sell Online.</div>`:
+      `<div class="tbl-wrap"><table>
+        <thead><tr><th>Item</th><th>Category</th><th>Condition</th><th>Price</th><th>Suggested platform</th><th>Notes</th></tr></thead>
+        <tbody>${onlineItems.map(i=>`
+          <tr>
+            <td class="td-name font-bold">${esc(i.name)}</td>
+            <td class="text-xs text-muted">${esc(i.category)}</td>
+            <td class="text-xs text-muted">${esc(i.condition)}</td>
+            <td class="font-bold">${i.price?"$"+esc(i.price):""}</td>
+            <td><span class="pill">${esc(i.platform||"")}</span></td>
+            <td class="text-xs text-muted">${esc(i.notes||"")}</td>
+          </tr>`).join("")}
+        </tbody>
+      </table></div>`}
+    </div>
+  </div>`;
+}
+
+// ─── SECTION: ADVERTISING ────────────────────────────────────────────────────
+function renderAdvertising(){
+  const a=P.advertising||{};
+  return`
+  <div class="gap-y">
+    <div>
+      <h2 class="page-title">Ads + Signs</h2>
+      <p class="page-sub">Write your ad copy, plan where to post it, and design your signs.</p>
+    </div>
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-title">Ad copy</div>
+        <div class="gap-y-sm">
+          ${areaField("Featured items","advertising.featuredItems",a.featuredItems,"Home decor, small furniture, kitchen bundles, books...")}
+          ${areaField("Ad copy (copy + paste to Facebook, Nextdoor, etc.)","advertising.adCopy",a.adCopy,"My Next Chapter Sale! ...")}
+          <button class="btn btn-secondary btn-sm" onclick="copyAdCopy()">Copy ad copy</button>
+        </div>
+        <div class="divider"></div>
+        <div class="card-title">Where posted</div>
+        ${[
+          ["facebookPosted","Facebook Marketplace / Groups"],
+          ["nextdoorPosted","Nextdoor"],
+          ["localGroupsPosted","Local community groups"],
+          ["signsPrinted","Signs printed or made"],
+        ].map(([k,lbl])=>`
+          <div class="check-item${a[k]?" checked":""}" role="checkbox" tabindex="0" aria-checked="${a[k]?"true":"false"}" onclick="toggleAdCheck('${k}')" onkeydown="if(event.key===' '||event.key==='Enter'){event.preventDefault();toggleAdCheck('${k}')}">
+            <div class="check-box" aria-hidden="true">${a[k]?"✓":""}</div>
+            <label>${lbl}</label>
+          </div>`).join("")}
+      </div>
+      <div class="gap-y">
+        <div class="card">
+          <div class="card-title">Sign builder</div>
+          ${field("Sign headline","text","advertising.signHeadline",a.signHeadline,"GARAGE SALE TODAY")}
+          <div style="margin-top:10px">${field("Details","text","advertising.signDetails",a.signDetails,"8 AM–2 PM · Home Decor · Furniture · Kitchen")}</div>
+          <div class="sign-preview" style="margin-top:16px">
+            <div class="sign-headline">${esc(a.signHeadline||"GARAGE SALE")}</div>
+            <div class="sign-details">${esc(a.signDetails||"Today · Priced to Move")}</div>
+            <div style="margin-top:12px;font-size:13px;color:var(--muted)">${esc(a.featuredItems||"")}</div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-title">Sign templates</div>
+          <div class="gap-y-sm">
+            ${signTemplates.map((t,i)=>`
+              <div style="display:flex;align-items:center;gap:10px">
+                <div style="flex:1;font-size:13px;color:var(--ink)">${esc(t)}</div>
+                <button class="btn btn-ghost btn-xs" onclick="copyTemplate(${i})">Copy</button>
+              </div>
+              <div class="divider" style="margin:4px 0"></div>`).join("")}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>`;
+}
+
+function copyAdCopy(){
+  const txt=P.advertising?.adCopy||"";
+  if(navigator.clipboard){navigator.clipboard.writeText(txt).then(()=>showToast("Ad copy copied")).catch(()=>fallbackCopy(txt))}
+  else fallbackCopy(txt);
+}
+function fallbackCopy(txt){const el=document.createElement("textarea");el.value=txt;document.body.appendChild(el);el.select();document.execCommand("copy");el.remove();showToast("Ad copy copied")}
+function copyTemplate(i){fallbackCopy(signTemplates[i])}
+function toggleAdCheck(k){deepSet(P,["advertising",k],!P.advertising[k]);P.isDemo=false;save();renderContent()}
+
+// ─── SECTION: PREP ───────────────────────────────────────────────────────────
+function renderPrep(){
+  const stats=getStats(P);const days=daysUntilSale(P.setup?.saleDate);
+  const daysStr=days===null?"Set a sale date":days===0?"Sale day is today!":days<0?"Sale passed":days===1?"1 day to go":`${days} days to go`;
+  return`
+  <div class="gap-y">
+    <div>
+      <h2 class="page-title">Prep</h2>
+      <p class="page-sub">Work through this list before sale day so nothing gets forgotten under pressure.</p>
+    </div>
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-title">Prep checklist</div>
+        <div style="margin-bottom:14px">
+          <div class="text-muted text-sm">${prepTasks.filter(t=>P.prep?.[t]).length} of ${prepTasks.length} done</div>
+          <div class="progress" role="progressbar" aria-valuenow="${stats.prepProgress}" aria-valuemin="0" aria-valuemax="100" aria-label="Prep progress" style="margin-top:6px"><div class="progress-fill" style="width:${stats.prepProgress}%"></div></div>
+        </div>
+        <div class="checklist">
+          ${prepTasks.map((t,i)=>`
+            <div class="check-item${P.prep?.[t]?" checked":""}" role="checkbox" tabindex="0" aria-checked="${P.prep?.[t]?"true":"false"}" onclick="togglePrep(${i})" onkeydown="if(event.key===' '||event.key==='Enter'){event.preventDefault();togglePrep(${i})}">
+              <div class="check-box" aria-hidden="true">${P.prep?.[t]?"✓":""}</div>
+              <label>${esc(t)}</label>
+            </div>`).join("")}
+        </div>
+      </div>
+      <div class="gap-y">
+        <div class="card">
+          <div class="card-title">Countdown</div>
+          <div class="metric-value">${daysStr}</div>
+          ${P.setup?.saleDate?`<div class="text-muted text-sm" style="margin-top:4px">${new Date(P.setup.saleDate+"T00:00:00").toLocaleDateString("en-US",{weekday:"long",month:"long",day:"numeric"})}</div>`:""}
+        </div>
+        <div class="card">
+          <div class="card-title">Change + cash plan</div>
+          <div class="info-box" style="margin-bottom:14px">Go to the bank before sale day. These are suggested starting amounts.</div>
+          <div class="gap-y-sm">
+            ${changePlanRows.map(r=>`
+              <div style="display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid var(--border)">
+                <div>
+                  <div class="font-bold text-sm">${r.label}</div>
+                  <div class="text-muted text-xs">${r.note}</div>
+                </div>
+                <div>
+                  <input class="input" type="number" style="width:80px;text-align:center" value="${esc(P.safety?.change?.[r.key]||r.suggested)}" onblur="sf(this,'safety','change','${r.key}')" />
+                </div>
+              </div>`).join("")}
+          </div>
+          <div class="check-item${P.safety?.bankReminderDone?" checked":""}" role="checkbox" tabindex="0" aria-checked="${P.safety?.bankReminderDone?"true":"false"}" onclick="toggleBankReminder()" onkeydown="if(event.key===' '||event.key==='Enter'){event.preventDefault();toggleBankReminder()}" style="margin-top:14px">
+            <div class="check-box" aria-hidden="true">${P.safety?.bankReminderDone?"✓":""}</div>
+            <label>Bank trip done</label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>`;
+}
+
+function togglePrep(i){const task=prepTasks[i];deepSet(P,["prep",task],!P.prep?.[task]);P.isDemo=false;save();renderContent()}
+function toggleBankReminder(){deepSet(P,["safety","bankReminderDone"],!P.safety?.bankReminderDone);P.isDemo=false;save();renderContent()}
+
+// ─── SECTION: SAFETY ─────────────────────────────────────────────────────────
+function renderSafety(){
+  const s=P.safety||{};
+  const done=safetyTasks.filter(t=>s.tasks?.[t]).length;
+  const pct=Math.round((done/safetyTasks.length)*100);
+  return`
+  <div class="gap-y">
+    <div>
+      <h2 class="page-title">Safety + Logistics</h2>
+      <p class="page-sub">A quick checklist so sale day feels calm and controlled.</p>
+    </div>
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-title">Safety checklist</div>
+        <div style="margin-bottom:14px">
+          <div class="text-muted text-sm">${done} of ${safetyTasks.length} done</div>
+          <div class="progress" role="progressbar" aria-valuenow="${pct}" aria-valuemin="0" aria-valuemax="100" aria-label="Safety checklist progress" style="margin-top:6px"><div class="progress-fill" style="width:${pct}%"></div></div>
+        </div>
+        <div class="checklist">
+          ${safetyTasks.map((t,i)=>`
+            <div class="check-item${s.tasks?.[t]?" checked":""}" role="checkbox" tabindex="0" aria-checked="${s.tasks?.[t]?"true":"false"}" onclick="toggleSafety(${i})" onkeydown="if(event.key===' '||event.key==='Enter'){event.preventDefault();toggleSafety(${i})}">
+              <div class="check-box" aria-hidden="true">${s.tasks?.[t]?"✓":""}</div>
+              <label>${esc(t)}</label>
+            </div>`).join("")}
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-title">Safety notes</div>
+        <div class="form-field">
+          <label class="form-label">Notes (neighbor contacts, checkout setup, etc.)</label>
+          <textarea class="textarea" rows="5" onblur="sf(this,'safety','safetyNotes')">${esc(s.safetyNotes||"")}</textarea>
+        </div>
+        <div class="info-box" style="margin-top:14px">Keep a friend's number in your pocket. Tell someone your hours. Keep your phone charged and your cash in a crossbody bag.</div>
+      </div>
+    </div>
+  </div>`;
+}
+
+function toggleSafety(i){const task=safetyTasks[i];deepSet(P,["safety","tasks",task],!P.safety?.tasks?.[task]);P.isDemo=false;save();renderContent()}
+
+// ─── SECTION: SALE DAY ────────────────────────────────────────────────────────
+function renderSaleDay(){
+  const rows=P.calculatorRows||[];const subtotal=calcSubtotal(rows);
+  const tx=P.transactions||[];const totalEarned=tx.reduce((s,t)=>s+Number(t.amount||0),0);
+  return`
+  <div class="gap-y">
+    <div>
+      <h2 class="page-title">Sale Day</h2>
+      <p class="page-sub">Calculate purchases, log sales, and track what you've earned.</p>
+    </div>
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-title">Calculator</div>
+        <div class="gap-y-sm" id="calc-rows">
+          ${rows.map((row,i)=>`
+            <div class="calc-row">
+              <input class="input" placeholder="Item name" value="${esc(row.name)}" onblur="updateCalcRow('${row.id}','name',this.value)" />
+              <input class="input" type="number" min="1" value="${esc(row.quantity)}" onblur="updateCalcRow('${row.id}','quantity',this.value)" title="Quantity" />
+              <input class="input" type="number" min="0" step="0.5" placeholder="$0" value="${esc(row.price)}" oninput="updateCalcRowLive('${row.id}','price',this.value)" title="Price" />
+              <button class="btn btn-danger btn-xs" onclick="removeCalcRow('${esc(row.id)}')" ${rows.length<=1?"disabled":""} aria-label="Remove row">×</button>
+            </div>`).join("")}
+        </div>
+        <div style="margin-top:14px;padding-top:14px;border-top:1px solid var(--border)">
+          <div class="text-muted text-xs" style="margin-bottom:4px">Subtotal</div>
+          <div class="calc-total" id="calc-subtotal">$${subtotal.toFixed(2)}</div>
+        </div>
+        <div class="form-actions" style="margin-top:14px">
+          <button class="btn btn-primary" onclick="addCalcToSales()">Log sale</button>
+          <button class="btn btn-secondary" onclick="addCalcRow()">+ Row</button>
+          <button class="btn btn-ghost btn-sm" onclick="clearCalc()">Clear</button>
+        </div>
+      </div>
+      <div class="gap-y">
+        <div class="card">
+          <div class="card-title">Quick sale entry</div>
+          <div class="form-row" style="margin-bottom:10px">
+            <div class="form-field">
+              <label class="form-label">Description</label>
+              <input class="input" id="qs-desc" placeholder="Item description" oninput="draft.sale.description=this.value" />
+            </div>
+            <div class="form-field">
+              <label class="form-label">Amount ($)</label>
+              <input class="input" type="number" min="0" step="0.5" id="qs-amt" placeholder="0" oninput="draft.sale.amount=this.value" />
+            </div>
+            <div class="form-field">
+              <label class="form-label">Payment</label>
+              <select class="select" id="qs-method" onchange="draft.sale.method=this.value">${paymentMethods.map(m=>`<option>${m}</option>`).join("")}</select>
+            </div>
+          </div>
+          <button class="btn btn-primary btn-sm" onclick="logQuickSale()">Log sale</button>
+        </div>
+        <div class="card">
+          <div class="row" style="margin-bottom:14px">
+            <div class="card-title" style="margin-bottom:0;flex:1">Sales log</div>
+            <div class="metric-value" style="font-size:20px">$${totalEarned.toFixed(2)}</div>
+          </div>
+          ${tx.length===0?`<div class="empty-state">No sales logged yet.</div>`:
+          `<div class="gap-y-sm">
+            ${tx.map(t=>`
+              <div class="tx-row">
+                <div>
+                  <div class="tx-desc">${esc(t.description||"Sale")}</div>
+                  <div class="tx-meta">${esc(t.method||"Cash")} · ${esc(t.time||"")}</div>
+                </div>
+                <div class="tx-amount">$${Number(t.amount||0).toFixed(2)}</div>
+                <button class="btn btn-danger btn-xs" onclick="deleteSale('${esc(t.id)}')" aria-label="Remove ${esc(t.description||'sale')}">×</button>
+              </div>`).join("")}
+          </div>`}
+        </div>
+      </div>
+    </div>
+  </div>`;
+}
+
+function updateCalcRow(id,k,v){const row=(P.calculatorRows||[]).find(r=>r.id===id);if(row){row[k]=v;P.isDemo=false;save();refreshSubtotal()}}
+function updateCalcRowLive(id,k,v){updateCalcRow(id,k,v)}
+function addCalcRow(){P.calculatorRows=[...(P.calculatorRows||[]),{id:makeId(),name:"",quantity:"1",price:""}];P.isDemo=false;save();renderContent()}
+function removeCalcRow(id){if((P.calculatorRows||[]).length<=1)return;P.calculatorRows=(P.calculatorRows||[]).filter(r=>r.id!==id);P.isDemo=false;save();renderContent()}
+function clearCalc(){P.calculatorRows=[{id:makeId(),name:"",quantity:"1",price:""}];P.isDemo=false;save();renderContent()}
+function addCalcToSales(){
+  const sub=calcSubtotal(P.calculatorRows);if(!sub)return;
+  const desc=(P.calculatorRows||[]).map(r=>r.name).filter(Boolean).join(", ")||"Calculator sale";
+  logSale(desc,sub,"Cash");clearCalc();
+}
+function logSale(desc,amt,method){
+  if(!Number(amt))return;
+  const time=new Date().toLocaleTimeString([],{hour:"numeric",minute:"2-digit"});
+  P.transactions=[{id:makeId(),description:desc||"Garage sale purchase",amount:Number(amt).toFixed(2),method,time},...(P.transactions||[])];
+  P.isDemo=false;save();refreshHeaderStat();renderContent();
+}
+function logQuickSale(){
+  const d=draft.sale;logSale(d.description,d.amount,d.method||"Cash");
+  draft.sale={description:"",amount:"",method:"Cash"};
+  const desc=document.getElementById("qs-desc");const amt=document.getElementById("qs-amt");
+  if(desc)desc.value="";if(amt)amt.value="";
+}
+function deleteSale(id){P.transactions=(P.transactions||[]).filter(t=>t.id!==id);P.isDemo=false;save();refreshHeaderStat();renderContent()}
+
+// ─── SECTION: PRINT CENTER ───────────────────────────────────────────────────
+function renderPrintCenter(){
+  const tagItems=(P.items||[]).filter(i=>["Garage Sale","Sell Online"].includes(i.decision));
+  const boxes=P.batchBoxes||[];
+  return`
+  <div class="gap-y">
+    <div>
+      <h2 class="page-title">Print Center</h2>
+      <p class="page-sub">Print price tags for your items and signs for your batch boxes.</p>
+    </div>
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-title">Price tags (${tagItems.length})</div>
+        <p class="card-sub">Prints tags for all items marked Garage Sale or Sell Online.</p>
+        <div class="grid-3" style="margin-bottom:16px">
+          ${(tagItems.length?tagItems:[{id:"x",name:"Sample Item",price:"5",category:"Decor"}]).slice(0,6).map(i=>`
+            <div style="border:2px dashed var(--border);border-radius:10px;padding:12px;text-align:center;background:var(--bg)">
+              <div style="font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--plum)">My Nest Chapter</div>
+              <div style="font-size:13px;font-weight:700;margin:6px 0">${esc(i.name)}</div>
+              <div style="font-size:22px;font-weight:800;font-family:Lora,serif;color:var(--plum)">$${esc(i.price||"__")}</div>
+              <div style="font-size:10px;color:var(--muted)">${esc(i.category||"")}</div>
+            </div>`).join("")}
+        </div>
+        <button class="btn btn-primary" onclick="printTags()">Print price tags</button>
+      </div>
+      <div class="card">
+        <div class="card-title">Box signs (${boxes.length})</div>
+        <p class="card-sub">Prints one large sign per batch box with the price and title.</p>
+        <div class="gap-y-sm" style="margin-bottom:16px">
+          ${(boxes.length?boxes:[{id:"x",boxNumber:1,title:"Mixed items",price:"2",category:"Other"}]).slice(0,3).map(b=>`
+            <div style="border:2px solid var(--border);border-radius:10px;padding:14px;text-align:center">
+              <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.14em;color:var(--plum)">Box #${b.boxNumber}</div>
+              <div style="font-size:18px;font-weight:800;font-family:Lora,serif;color:var(--plum);margin-top:4px">All items $${esc(b.price||"__")}</div>
+              <div style="font-size:13px;font-weight:700;margin-top:4px">${esc(b.title||b.category||"Mixed items")}</div>
+            </div>`).join("")}
+        </div>
+        <button class="btn btn-primary" onclick="printBoxSigns()">Print box signs</button>
+      </div>
+    </div>
+  </div>`;
+}
+
+// ─── SECTION: WRAP UP ────────────────────────────────────────────────────────
+function renderWrap(){
+  const w=P.wrap||{};const stats=getStats(P);
+  const saleComplete=stats.earned>0&&(w.donate||w.notes||w.sellOnline||w.keep||w.trash);
+  const completionScreen=saleComplete?`
+  <div style="background:#252535;border-radius:0;padding:40px 36px;text-align:center;margin-bottom:8px;">
+    <p style="font-family:'Montserrat',sans-serif;font-weight:800;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#E87AAA;margin:0 0 14px;">Sale Complete</p>
+    <h2 style="font-family:'Montserrat',sans-serif;font-weight:800;font-size:26px;color:#FFF8EE;margin:0 0 10px;line-height:1.3;">You earned $${stats.earned.toFixed(2)}.</h2>
+    ${stats.goal?`<p style="font-family:'DM Sans',Arial,sans-serif;font-size:15px;color:rgba(255,248,238,0.75);margin:0 0 6px;">${stats.goalProgress}% of your $${stats.goal} goal reached.</p>`:""}
+    ${P.setup?.moneyPurpose?`<p style="font-family:'DM Sans',Arial,sans-serif;font-size:14px;color:#A8C5DA;margin:0 0 20px;font-style:italic;">${esc(P.setup.moneyPurpose)}</p>`:"<div style='margin-bottom:20px'></div>"}
+    <p style="font-family:'DM Sans',Arial,sans-serif;font-size:15px;color:rgba(255,248,238,0.78);line-height:1.7;max-width:480px;margin:0 auto 24px;">Every item sorted, priced, and moved out the door. That took real effort. Here&rsquo;s to your next chapter.</p>
+    <p style="font-family:'Montserrat',sans-serif;font-size:12px;color:#8BA7D4;margin:0;">— Cece</p>
+  </div>`:""
+  return`
+  <div class="gap-y">
+    ${completionScreen}
+    <div>
+      <h2 class="page-title">Wrap Up</h2>
+      <p class="page-sub">Decide what happens to leftovers before the sale ends. Make the plan now so nothing sneaks back inside.</p>
+    </div>
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-title">Leftovers plan</div>
+        <div class="gap-y-sm">
+          ${areaField("Donate","wrap.donate",w.donate,"Which items go directly to donation after the sale?")}
+          ${w.donate?`<div style="background:#f0fdf4;border:1px solid #bbf7d0;border-radius:var(--radius-lg);padding:12px 16px;font-size:var(--text-sm);color:#166534;line-height:1.7">Someone else will find exactly what they need from what you are letting go. That matters.</div>`:""}
+          ${areaField("Sell online after","wrap.sellOnline",w.sellOnline,"Any items worth listing if they did not sell today?")}
+          ${areaField("Keep","wrap.keep",w.keep,"Anything you changed your mind about? Note it here.")}
+          ${areaField("Trash","wrap.trash",w.trash,"Broken, expired, or truly useless items.")}
+          ${areaField("Notes + lessons learned","wrap.notes",w.notes,"What worked? What would you do differently?")}
+        </div>
+      </div>
+      <div class="gap-y">
+        <div class="card">
+          <div class="card-title">Final summary</div>
+          <div style="display:flex;flex-direction:column;gap:10px">
+            <div style="display:flex;justify-content:space-between"><span class="text-muted">Total earned</span><span class="font-bold text-plum">$${stats.earned.toFixed(2)}</span></div>
+            <div style="display:flex;justify-content:space-between"><span class="text-muted">Goal</span><span class="font-bold">$${stats.goal||"—"}</span></div>
+            <div style="display:flex;justify-content:space-between"><span class="text-muted">Items</span><span class="font-bold">${stats.totalItems}</span></div>
+            <div style="display:flex;justify-content:space-between"><span class="text-muted">Transactions</span><span class="font-bold">${(P.transactions||[]).length}</span></div>
+          </div>
+          ${stats.goal?`<div class="progress progress-lg" style="margin-top:14px"><div class="progress-fill" style="width:${stats.goalProgress}%"></div></div><div class="text-muted text-sm" style="margin-top:6px">${stats.goalProgress}% of goal</div>`:""}
+        </div>
+        <div class="card">
+          <div class="card-title">Send me my summary</div>
+          <p class="card-sub" style="margin-bottom:14px">Get a full record of your sale sent to your inbox — what you earned, what you learned, and what comes next.</p>
+          <div class="form-field" style="margin-bottom:10px">
+            <label class="form-label">Your email</label>
+            <input class="input" type="email" id="summary-email" placeholder="you@email.com" />
+          </div>
+          <button class="btn btn-primary" onclick="sendSummaryEmail()" style="margin-bottom:14px">Send my sale summary</button>
+          <div id="summary-msg" style="display:none"></div>
+          <div class="divider"></div>
+          <div class="card-title" style="margin-top:14px">Export + reset</div>
+          <div class="gap-y-sm" style="margin-top:10px">
+            <button class="btn btn-secondary" onclick="exportPDF()">Download sale summary (PDF)</button>
+            <button class="btn btn-secondary" onclick="exportData()">Export planner data (JSON)</button>
+            <button class="btn btn-danger" onclick="startFresh()">Start fresh</button>
+          </div>
+          <div class="text-muted text-xs" style="margin-top:10px">Start fresh clears all data. Export first if you want to save a record.</div>
+        </div>
+      </div>
+    </div>
+  </div>`;
+}
+
+// ─── EMAIL SUMMARY ────────────────────────────────────────────────────────────
+function sendSummaryEmail(){
+  const email=(document.getElementById("summary-email")||{}).value||"";
+  const msgEl=document.getElementById("summary-msg");
+  if(!email||!email.includes("@")){
+    if(msgEl){msgEl.style.display="block";msgEl.innerHTML='<div class="warn-box">Please enter a valid email address.</div>'}
+    return;
+  }
+  const stats=getStats(P);
+  const s=P.setup||{};const w=P.wrap||{};
+  const payload={
+    email,
+    sale_title:s.saleTitle||"My Garage Sale",
+    sale_date:s.saleDate||"",
+    money_purpose:s.moneyPurpose||"",
+    total_earned:stats.earned.toFixed(2),
+    money_goal:stats.goal||"",
+    goal_progress:stats.goalProgress,
+    total_items:stats.totalItems,
+    garage_sale_items:stats.garageSale,
+    online_items:stats.online,
+    donate_items:stats.donate,
+    total_transactions:(P.transactions||[]).length,
+    leftovers_donate:w.donate||"",
+    leftovers_sell_online:w.sellOnline||"",
+    leftovers_keep:w.keep||"",
+    leftovers_trash:w.trash||"",
+    lessons_learned:w.notes||""
+  };
+  if(msgEl){msgEl.style.display="block";msgEl.innerHTML='<div class="info-box">Sending your summary...</div>'}
+  fetch("/garage-submit.php",{
+    method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(payload)
+  })
+  .then(r=>r.json())
+  .then(data=>{
+    if(data.success){
+      if(msgEl){msgEl.innerHTML='<div class="info-box">Your sale summary is on its way. Check your inbox!</div>'}
+      showToast("Summary sent!");
+    } else {
+      if(msgEl){msgEl.innerHTML='<div class="warn-box">Something went wrong. Please try again.</div>'}
+    }
+  })
+  .catch(()=>{
+    if(msgEl){msgEl.innerHTML='<div class="warn-box">Could not send. Check your connection and try again.</div>'}
+  });
+}
+
+// ─── PRINT ────────────────────────────────────────────────────────────────────
+function printTags(){
+  const tagItems=(P.items||[]).filter(i=>["Garage Sale","Sell Online"].includes(i.decision));
+  const items=tagItems.length?tagItems:[{id:"x",name:"Item",price:"___",category:"Garage Sale"}];
+  const signHTML=`
+    <div class="print-grid-signs print-page-break">
+      <div class="print-sign">
+        <div style="font-size:11px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:#E87AAA;margin-bottom:16px">My Nest Chapter</div>
+        <div style="font-size:36px;font-weight:700;font-family:Lora,serif;color:#E87AAA;line-height:1.3;white-space:pre-line">${esc(P.advertising?.signHeadline||"GARAGE SALE")}\n${esc(P.advertising?.signDetails||"Today · Priced to Move")}</div>
+        <div style="margin-top:16px;font-size:14px;color:#444">${esc(P.advertising?.featuredItems||"")}</div>
+      </div>
+      <div class="print-sign">
+        <div style="font-size:11px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:#E87AAA;margin-bottom:16px">My Nest Chapter</div>
+        <div style="font-size:32px;font-weight:800;font-family:Lora,serif;color:#E87AAA">PRICED TO MOVE</div>
+        <div style="font-size:20px;font-weight:700;margin-top:14px">Cash + Digital Payments</div>
+        <div style="font-size:13px;color:#666;margin-top:14px">Thank you for helping these items begin their next chapter.</div>
+      </div>
+    </div>`;
+  const tagsHTML=`<div class="print-grid-tags">${items.map(i=>`
+    <div class="print-tag">
+      <div style="font-size:9px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:#E87AAA">My Nest Chapter</div>
+      <div style="font-size:14px;font-weight:700;margin:8px 0;min-height:36px">${esc(i.name||"Item")}</div>
+      <div style="font-size:36px;font-weight:800;font-family:Lora,serif;color:#E87AAA">$${esc(i.price||"___")}</div>
+      <div style="font-size:10px;color:#666;margin-top:4px">${esc(i.category||"")}</div>
+    </div>`).join("")}</div>`;
+  document.getElementById("print-inner").innerHTML=signHTML+tagsHTML;
+  document.getElementById("print-section").style.display="block";
+  window.print();
+  setTimeout(()=>document.getElementById("print-section").style.display="none",2000);
+}
+
+function printBoxSigns(){
+  const boxes=P.batchBoxes||[];
+  const items=boxes.length?boxes:[{id:"x",boxNumber:1,title:"Mixed items",price:"2",category:"Garage Sale"}];
+  document.getElementById("print-inner").innerHTML=`
+    <div class="print-grid-boxes">${items.map(b=>`
+      <div class="print-box-sign">
+        <div style="font-size:10px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:#E87AAA;margin-bottom:12px">My Nest Chapter</div>
+        <div style="font-size:36px;font-weight:800;font-family:Lora,serif">BOX #${esc(b.boxNumber)}</div>
+        <div style="font-size:32px;font-weight:800;font-family:Lora,serif;color:#E87AAA;margin-top:10px">ALL ITEMS $${esc(b.price||"___")}</div>
+        <div style="font-size:18px;font-weight:700;margin-top:12px">${esc(b.title||b.category||"Mixed items")}</div>
+        <div style="font-size:12px;color:#666;margin-top:8px">${esc(b.description||"Browse and choose.")}</div>
+      </div>`).join("")}
+    </div>`;
+  document.getElementById("print-section").style.display="block";
+  window.print();
+  setTimeout(()=>document.getElementById("print-section").style.display="none",2000);
+}
+
+// ─── DEMO ─────────────────────────────────────────────────────────────────────
+function advanceDemo(){
+  if(!UI.demo){P=getDemoPlanner();save();UI.demo=true;UI.demoStep=0;goTab(demoSteps[0].flow,demoSteps[0].section);return}
+  const next=UI.demoStep+1;
+  if(next>=demoSteps.length){UI.demo=false;UI.demoStep=0;render();return}
+  UI.demoStep=next;const step=demoSteps[next];goTab(step.flow,step.section);
+}
+
+function startFresh(){
+  mncConfirm("Clear all data and start fresh?",()=>{
+    P=normalizePlanner(clone(blankPlanner));save();
+    UI={tab:"start",section:"start",invView:"table",demo:false,demoStep:0};
+    draft={item:{name:"",category:"Decor",condition:"Good",quantity:"1",decision:"Garage Sale",price:"",notes:""},box:{title:"",price:"2",category:"Other",description:""},memory:{itemName:"",caption:""},sale:{description:"",amount:"",method:"Cash"}};
+    render();
+  });
+}
+
+function exportData(){
+  const blob=new Blob([JSON.stringify(P,null,2)],{type:"application/json"});
+  const url=URL.createObjectURL(blob);const a=document.createElement("a");
+  a.href=url;a.download="my-nest-chapter-sale-planner.json";document.body.appendChild(a);a.click();a.remove();URL.revokeObjectURL(url);
+}
+
+function exportPDF(){
+  const stats=getStats(P);const s=P.setup||{};const w=P.wrap||{};
+  const items=P.items||[];const tx=P.transactions||[];
+  const saleDate=s.saleDate?new Date(s.saleDate+"T00:00:00").toLocaleDateString("en-US",{weekday:"long",month:"long",day:"numeric",year:"numeric"}):"";
+
+  function row(label,val){
+    if(!val)return"";
+    return`<div style="margin-bottom:14px"><div style="font-family:Arial,sans-serif;font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#E87AAA;margin-bottom:3px">${label}</div><div style="font-family:Arial,sans-serif;font-size:13px;color:#252535;line-height:1.6">${esc(val)}</div></div>`;
+  }
+
+  const itemRows=items.slice(0,50).map(i=>`
+    <tr>
+      <td style="padding:7px 8px;border-bottom:1px solid #F0ECF8;font-size:12px;font-family:Arial,sans-serif;color:#252535">${esc(i.name)}</td>
+      <td style="padding:7px 8px;border-bottom:1px solid #F0ECF8;font-size:12px;font-family:Arial,sans-serif;color:#5A5A72">${esc(i.category)}</td>
+      <td style="padding:7px 8px;border-bottom:1px solid #F0ECF8;font-size:12px;font-family:Arial,sans-serif;color:#5A5A72">${esc(i.decision)}</td>
+      <td style="padding:7px 8px;border-bottom:1px solid #F0ECF8;font-size:12px;font-family:Arial,sans-serif;color:#252535;font-weight:700">${i.price?"$"+esc(i.price):""}</td>
+      <td style="padding:7px 8px;border-bottom:1px solid #F0ECF8;font-size:12px;font-family:Arial,sans-serif;color:#5A5A72">${i.sold?"✓ Sold":""}</td>
+    </tr>`).join("");
+
+  const txRows=tx.map(t=>`
+    <tr>
+      <td style="padding:7px 8px;border-bottom:1px solid #F0ECF8;font-size:12px;font-family:Arial,sans-serif;color:#252535">${esc(t.description||"Sale")}</td>
+      <td style="padding:7px 8px;border-bottom:1px solid #F0ECF8;font-size:12px;font-family:Arial,sans-serif;color:#5A5A72">${esc(t.method||"Cash")}</td>
+      <td style="padding:7px 8px;border-bottom:1px solid #F0ECF8;font-size:12px;font-family:Arial,sans-serif;color:#5A5A72">${esc(t.time||"")}</td>
+      <td style="padding:7px 8px;border-bottom:1px solid #F0ECF8;font-size:12px;font-family:Arial,sans-serif;font-weight:700;color:#E87AAA">$${Number(t.amount||0).toFixed(2)}</td>
+    </tr>`).join("");
+
+  const html=`
+  <div style="max-width:680px;margin:0 auto;padding:40px 32px;font-family:Arial,sans-serif">
+    <div style="background:#252535;padding:20px 28px;margin-bottom:32px">
+      <div style="font-family:Arial,sans-serif;font-size:9px;font-weight:800;letter-spacing:3px;text-transform:uppercase;color:#8BA7D4">MY NEST CHAPTER</div>
+    </div>
+    <h1 style="font-family:Arial,sans-serif;font-weight:800;font-size:22px;color:#252535;margin:0 0 4px">${esc(s.saleTitle||"My Garage Sale")}</h1>
+    ${saleDate?`<p style="font-size:13px;color:#8BA7D4;margin:0 0 28px">${saleDate}</p>`:"<div style='margin-bottom:28px'></div>"}
+
+    <div style="background:#FDEEF5;padding:18px 22px;margin-bottom:28px;display:flex;justify-content:space-between;align-items:center">
+      <div><div style="font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#E87AAA;margin-bottom:2px">Total Earned</div>
+      <div style="font-size:28px;font-weight:800;color:#252535">$${stats.earned.toFixed(2)}</div></div>
+      ${stats.goal?`<div style="text-align:right"><div style="font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#E87AAA;margin-bottom:2px">Goal</div><div style="font-size:18px;font-weight:700;color:#252535">$${stats.goal} &nbsp;·&nbsp; ${stats.goalProgress}%</div></div>`:""}
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:28px">
+      <div style="border:1px solid #F0ECF8;padding:14px 16px"><div style="font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#8BA7D4;margin-bottom:2px">Total Items</div><div style="font-size:18px;font-weight:800;color:#252535">${stats.totalItems}</div></div>
+      <div style="border:1px solid #F0ECF8;padding:14px 16px"><div style="font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#8BA7D4;margin-bottom:2px">Transactions</div><div style="font-size:18px;font-weight:800;color:#252535">${tx.length}</div></div>
+    </div>
+
+    ${s.moneyPurpose?`<div style="border-left:3px solid #E87AAA;padding-left:16px;margin-bottom:28px">${row("What the money is for",s.moneyPurpose)}</div>`:""}
+
+    ${items.length?`
+    <h2 style="font-size:13px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:#252535;margin:0 0 12px;border-bottom:2px solid #252535;padding-bottom:8px">Item List</h2>
+    <table width="100%" cellpadding="0" cellspacing="0" style="margin-bottom:28px;border:1px solid #F0ECF8">
+      <thead><tr style="background:#252535">
+        <th style="padding:8px;text-align:left;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#8BA7D4">Item</th>
+        <th style="padding:8px;text-align:left;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#8BA7D4">Category</th>
+        <th style="padding:8px;text-align:left;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#8BA7D4">Decision</th>
+        <th style="padding:8px;text-align:left;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#8BA7D4">Price</th>
+        <th style="padding:8px;text-align:left;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#8BA7D4">Sold</th>
+      </tr></thead>
+      <tbody>${itemRows}</tbody>
+    </table>`:""}
+
+    ${tx.length?`
+    <h2 style="font-size:13px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:#252535;margin:0 0 12px;border-bottom:2px solid #252535;padding-bottom:8px">Sales Log</h2>
+    <table width="100%" cellpadding="0" cellspacing="0" style="margin-bottom:28px;border:1px solid #F0ECF8">
+      <thead><tr style="background:#252535">
+        <th style="padding:8px;text-align:left;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#8BA7D4">Description</th>
+        <th style="padding:8px;text-align:left;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#8BA7D4">Payment</th>
+        <th style="padding:8px;text-align:left;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#8BA7D4">Time</th>
+        <th style="padding:8px;text-align:left;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#8BA7D4">Amount</th>
+      </tr></thead>
+      <tbody>${txRows}</tbody>
+    </table>`:""}
+
+    ${(w.donate||w.sellOnline||w.keep||w.trash||w.notes)?`
+    <h2 style="font-size:13px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:#252535;margin:0 0 16px;border-bottom:2px solid #252535;padding-bottom:8px">What Happens Next</h2>
+    ${row("Donating",w.donate)}
+    ${row("Selling online",w.sellOnline)}
+    ${row("Keeping",w.keep)}
+    ${row("Tossing",w.trash)}
+    ${row("Lessons learned",w.notes)}`:""}
+
+    <div style="margin-top:40px;padding-top:20px;border-top:1px solid #F0ECF8;font-size:11px;color:#ABABAB">
+      My Nest Chapter &nbsp;·&nbsp; mynestchapter.com &nbsp;·&nbsp; Printed ${new Date().toLocaleDateString("en-US",{month:"long",day:"numeric",year:"numeric"})}
+    </div>
+  </div>`;
+
+  const win=window.open("","_blank");
+  win.document.write(`<!DOCTYPE html><html><head><meta charset="UTF-8"><title>${esc(s.saleTitle||"Sale Summary")}</title>
+  <style>@media print{body{margin:0}}</style></head><body>${html}</body></html>`);
+  win.document.close();
+  setTimeout(()=>win.print(),400);
+}
+
+// ─── FORM HELPERS ─────────────────────────────────────────────────────────────
+// sf() = "set field" — safe varargs alternative to setField; path as spread args avoids JSON-in-HTML quoting issues
+function sf(el,...path){
+  const v=el.type==="checkbox"?el.checked:el.value;
+  deepSet(P,path,v);P.isDemo=false;save();
+  refreshHeaderStat();refreshMetrics();
+  if(UI.tab==="start")refreshGoalProgress();
+  if(UI.tab==="saleWrap"&&UI.section==="sale")refreshSubtotal();
+}
+
+function field(label,type,pathStr,value,placeholder){
+  const args=pathStr.split(".").map(p=>`'${p}'`).join(",");
+  return`<div class="form-field">
+    <label class="form-label">${esc(label)}</label>
+    <input class="input" type="${type}" value="${esc(value||"")}" placeholder="${esc(placeholder||"")}"
+      oninput="sf(this,${args})" onblur="sf(this,${args})" />
+  </div>`;
+}
+
+function areaField(label,pathStr,value,placeholder){
+  const args=pathStr.split(".").map(p=>`'${p}'`).join(",");
+  return`<div class="form-field">
+    <label class="form-label">${esc(label)}</label>
+    <textarea class="textarea" placeholder="${esc(placeholder||"")}"
+      oninput="sf(this,${args})" onblur="sf(this,${args})">${esc(value||"")}</textarea>
+  </div>`;
+}
+
+// ─── CALENDAR + REMINDER ─────────────────────────────────────────────────────
+function downloadCalendar(){
+  const s=P.setup||{};if(!s.saleDate)return;
+  const title=s.saleTitle||"My Garage Sale";
+  const date=s.saleDate.replace(/-/g,"");
+  const dtStart=date+"T080000";const dtEnd=date+"T140000";
+  const now=new Date().toISOString().replace(/[-:]/g,"").split(".")[0]+"Z";
+  const desc=s.moneyPurpose?s.moneyPurpose.replace(/,/g,"\\,").replace(/\n/g,"\\n"):"";
+  const lines=["BEGIN:VCALENDAR","VERSION:2.0","PRODID:-//My Nest Chapter//Garage Sale Planner//EN",
+    "BEGIN:VEVENT","UID:"+now+"@mynestchapter.com","DTSTAMP:"+now,
+    "DTSTART;TZID=America/Chicago:"+dtStart,"DTEND;TZID=America/Chicago:"+dtEnd,
+    "SUMMARY:"+title.replace(/,/g,"\\,"),
+    ...(desc?["DESCRIPTION:"+desc]:[]),
+    "END:VEVENT","END:VCALENDAR"];
+  const blob=new Blob([lines.join("\r\n")],{type:"text/calendar;charset=utf-8"});
+  const url=URL.createObjectURL(blob);const a=document.createElement("a");
+  a.href=url;a.download="garage-sale.ics";document.body.appendChild(a);a.click();a.remove();URL.revokeObjectURL(url);
+  showToast("Calendar file downloaded!");
+}
+
+function setReminder(){
+  const emailEl=document.getElementById("reminder-email");
+  const msgEl=document.getElementById("reminder-msg");
+  const btn=document.getElementById("reminder-btn");
+  const s=P.setup||{};
+  if(!emailEl)return;
+  const email=emailEl.value.trim();
+  if(!email||!email.includes("@")){
+    if(msgEl){msgEl.style.display="block";msgEl.innerHTML='<div class="warn-box">Please enter a valid email address.</div>'}
+    return;
+  }
+  if(!s.saleDate){
+    if(msgEl){msgEl.style.display="block";msgEl.innerHTML='<div class="warn-box">Set a sale date first.</div>'}
+    return;
+  }
+  if(btn){btn.disabled=true;btn.textContent="Setting reminder...";}
+  fetch("/garage-reminder.php",{
+    method:"POST",headers:{"Content-Type":"application/json"},
+    body:JSON.stringify({email,sale_date:s.saleDate,sale_title:s.saleTitle||"My Garage Sale",money_purpose:s.moneyPurpose||""})
+  })
+  .then(r=>r.json())
+  .then(data=>{
+    if(data.success){
+      if(msgEl){msgEl.style.display="block";msgEl.innerHTML='<div class="info-box">Reminder set. You\'ll hear from us the morning before sale day.</div>'}
+      showToast("Reminder set!");
+    } else {
+      if(msgEl){msgEl.style.display="block";msgEl.innerHTML='<div class="warn-box">Something went wrong. Please try again.</div>'}
+    }
+    if(btn){btn.disabled=false;btn.textContent="Set reminder";}
+  })
+  .catch(()=>{
+    if(msgEl){msgEl.style.display="block";msgEl.innerHTML='<div class="warn-box">Could not send. Please try again.</div>'}
+    if(btn){btn.disabled=false;btn.textContent="Set reminder";}
+  });
+}
+
+// ─── INIT ─────────────────────────────────────────────────────────────────────
+render();
+</script>
+</body>
+</html>

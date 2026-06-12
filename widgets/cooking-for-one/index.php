@@ -6,9 +6,9 @@ require_once dirname(__DIR__, 2) . '/includes/functions.php';
 
 requireLogin();
 
-$product = getProductBySlug('garage-sale-planner');
+$product = getProductBySlug('cooking-for-one');
 if (!$product || ($product['price'] > 0 && !userOwnsPurchase($_SESSION['user_id'], $product['id']))) {
-    header('Location: /shop/garage-sale-planner');
+    header('Location: /shop/cooking-for-one');
     exit;
 }
 

@@ -1,0 +1,4 @@
+<Files "widget.html">
+    Order deny,allow
+    Deny from all
+</Files>
