@@ -106,6 +106,11 @@ $related = $stmt->fetchAll();
                         <a href="/register" class="btn btn-primary btn-full">Create Account to Purchase</a>
                         <p style="color: #666666; font-size: 0.85rem; margin-top: 0.75rem; text-align: center;">You'll need an account to buy and access your download.</p>
                     <?php endif; ?>
+                    <?php if ($isInteractiveTool): ?>
+                        <p style="margin-top: 1rem; text-align: center;">
+                            <a href="/widgets/<?= esc($product['slug']) ?>-demo/" style="font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em; color: #E87AAA;">Try the demo first &rarr;</a>
+                        </p>
+                    <?php endif; ?>
                 <?php endif; ?>
             </div>
         </div>
