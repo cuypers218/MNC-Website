@@ -24,7 +24,7 @@ function getCurrentUser() {
     if ($user !== null) return $user;
     
     $db = getDB();
-    $stmt = $db->prepare('SELECT id, first_name, email, created_at FROM users WHERE id = ?');
+    $stmt = $db->prepare('SELECT id, first_name, email, created_at, is_admin FROM users WHERE id = ?');
     $stmt->execute([$_SESSION['user_id']]);
     $user = $stmt->fetch();
     
@@ -94,9 +94,24 @@ function validateCsrf() {
 }
 
 /**
+ * Check if a user ID belongs to an admin account
+ */
+function isAdminUser($userId) {
+    static $cache = [];
+    if (isset($cache[$userId])) return $cache[$userId];
+    $db = getDB();
+    $stmt = $db->prepare('SELECT is_admin FROM users WHERE id = ?');
+    $stmt->execute([$userId]);
+    $row = $stmt->fetch();
+    $cache[$userId] = $row && !empty($row['is_admin']);
+    return $cache[$userId];
+}
+
+/**
  * Check if a user has purchased a specific product
  */
 function userOwnsPurchase($userId, $productId) {
+    if (isAdminUser($userId)) return true;
     $db = getDB();
     $stmt = $db->prepare('SELECT id FROM purchases WHERE user_id = ? AND product_id = ?');
     $stmt->execute([$userId, $productId]);
@@ -108,11 +123,15 @@ function userOwnsPurchase($userId, $productId) {
  */
 function getUserPurchases($userId) {
     $db = getDB();
+    if (isAdminUser($userId)) {
+        $stmt = $db->query('SELECT *, NOW() as purchased_at FROM products WHERE status = "active" ORDER BY sort_order, title');
+        return $stmt->fetchAll();
+    }
     $stmt = $db->prepare('
-        SELECT p.*, pu.purchased_at 
-        FROM products p 
-        JOIN purchases pu ON p.id = pu.product_id 
-        WHERE pu.user_id = ? 
+        SELECT p.*, pu.purchased_at
+        FROM products p
+        JOIN purchases pu ON p.id = pu.product_id
+        WHERE pu.user_id = ?
         ORDER BY pu.purchased_at DESC
     ');
     $stmt->execute([$userId]);
