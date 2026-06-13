@@ -41,6 +41,14 @@ $PDF_URL  = 'https://drive.google.com/uc?export=download&id=1dVTgwgBjwsg0jz9HCcG
       <?php endif; ?>
     </div>
 
+    <!-- Empty Nester Quiz -->
+    <div class="freebie-feature fade-in">
+      <p class="freebie-eyebrow">FREE QUIZ</p>
+      <h2 class="freebie-title">WHAT KIND OF EMPTY NESTER ARE YOU?</h2>
+      <p class="freebie-body">There are three ways women land in the empty nest. Most people think they know which one they are — and most people are wrong.<br><br>This quiz takes about 3 minutes. Your result gets emailed to you with what it actually means and what to do next.</p>
+      <a href="/widgets/empty-nester-quiz/" class="btn btn-primary">Take the Quiz &rarr;</a>
+    </div>
+
     <?php if (!$loggedIn): ?>
     <!-- Member teaser — only shown to non-members -->
     <div class="member-teaser fade-in">
