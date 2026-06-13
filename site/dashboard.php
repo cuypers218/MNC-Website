@@ -97,7 +97,8 @@ $isWelcome = isset($_GET['welcome']);
                         <?php if ($isUnlocked): ?>
                             <?php if ($product['category'] === 'interactive_tool'): ?>
                                 <?php if ($isFree || $isOwned): ?>
-                                    <a href="/widgets/<?= esc($product['slug']) ?>/" class="btn btn-primary">Open Planner</a>
+                                    <?php $memberParam = $product['slug'] === 'someday-list' ? '?member=1' : ''; ?>
+                                    <a href="/widgets/<?= esc($product['slug']) ?>/<?= $memberParam ?>" class="btn btn-primary">Open Planner</a>
                                 <?php else: ?>
                                     <a href="/shop/<?= esc($product['slug']) ?>" class="btn btn-primary">View</a>
                                 <?php endif; ?>
@@ -117,6 +118,20 @@ $isWelcome = isset($_GET['welcome']);
                         <?php endif; ?>
                     </div>
                 </div>
+                <?php if ($product['slug'] === 'someday-list'): ?>
+                <div class="product-card fade-in" data-status="unlocked" style="background:#FFF8EE;border:1.5px solid #cfc7e8;">
+                  <span class="badge" style="background:#E87AAA;color:#252535;">$7.99</span>
+                  <div style="height:140px;background:linear-gradient(135deg,#F4E8C1 0%,#F8BBD0 100%);display:flex;align-items:center;justify-content:center;">
+                    <p style="font-family:'Montserrat',sans-serif;font-weight:800;font-size:0.7rem;text-transform:uppercase;letter-spacing:0.1em;color:#C45C88;">SOMEDAY COMPANION</p>
+                  </div>
+                  <div class="product-card-content">
+                    <span class="product-card-category">companion</span>
+                    <h3 class="product-card-title">Ready to do something with your list?</h3>
+                    <p class="product-card-description">The Someday Companion is where your list becomes a real starting point. One item at a time.</p>
+                    <a href="/shop/someday-companion" class="btn btn-primary">Get the Companion</a>
+                  </div>
+                </div>
+                <?php endif; ?>
                 <?php endforeach; ?>
                 
             <?php endif; ?>

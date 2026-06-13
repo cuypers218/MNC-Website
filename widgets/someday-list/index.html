@@ -263,7 +263,7 @@ html { -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; 
         <div class="result-list-wrap">
           <ul class="result-list" id="result-list"></ul>
         </div>
-        <div class="freebie-section">
+        <div class="freebie-section" id="freebie-section">
           <div class="freebie-header">Want me to email you this list?</div>
           <p class="freebie-text">So it&rsquo;s there when you&rsquo;re ready &mdash; not just gone when you close this tab.</p>
           <div class="email-row" id="email-row">
@@ -275,8 +275,8 @@ html { -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; 
         </div>
         <div class="result-divider"></div>
         <div class="cta-section">
-          <p class="cta-text">Now that they&rsquo;re written down &mdash; the Someday List Companion is what you use to actually look at them. No pressure to do everything. Just a way to figure out where to start.</p>
-          <a href="https://mynestchapter.com/shop/someday-list-builder" class="cta-link" target="_blank">Get the Companion &rarr;</a>
+          <p class="cta-text" id="cta-text">Now that they&rsquo;re written down &mdash; the Someday Companion is what you use to actually look at them. No pressure to do everything. Just a way to figure out where to start.</p>
+          <a href="https://mynestchapter.com/shop/someday-companion" class="cta-link" id="cta-link" target="_blank">Get the Someday Companion &rarr;</a>
         </div>
       </div>
     </div>
@@ -335,6 +335,8 @@ function showScreen(id) {
   document.getElementById(id).classList.add('active');
   if (id === 'screen-dump') setTimeout(() => input.focus(), 400);
 }
+const memberMode = new URLSearchParams(window.location.search).has('member');
+
 function showResult() {
   const n = somedays.length;
   document.getElementById('result-count').textContent = n;
@@ -344,6 +346,14 @@ function showResult() {
     : 'A start. The important thing is you started.';
   document.getElementById('result-list').innerHTML = somedays.map((s, i) =>
     `<li><span class="rnum">${i+1}.</span>${escapeHtml(s)}</li>`).join('');
+
+  if (memberMode) {
+    document.getElementById('freebie-section').style.display = 'none';
+    document.getElementById('cta-text').textContent = 'Now that they\'re written down — the Someday Companion is what you use to actually look at them. One item at a time. No timeline. No one watching.';
+    document.getElementById('cta-link').href = 'https://mynestchapter.com/shop/someday-companion';
+    document.getElementById('cta-link').textContent = 'Get the Someday Companion — $7.99 →';
+  }
+
   showScreen('screen-result');
 }
 
