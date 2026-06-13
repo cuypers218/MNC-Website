@@ -110,9 +110,14 @@ $related = $stmt->fetchAll();
                     <?php endif; ?>
                     <?php
                     $slugsWithDemo = ['cooking-for-one'];
+                    $slugsWithQueryDemo = ['goal-habit-tracker'];
                     if ($isInteractiveTool && in_array($product['slug'], $slugsWithDemo)): ?>
                         <p style="margin-top: 1rem; text-align: center;">
                             <a href="/widgets/<?= esc($product['slug']) ?>-demo/" style="font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em; color: #E87AAA;">Try the demo first &rarr;</a>
+                        </p>
+                    <?php elseif ($isInteractiveTool && in_array($product['slug'], $slugsWithQueryDemo)): ?>
+                        <p style="margin-top: 1rem; text-align: center;">
+                            <a href="/widgets/<?= esc($product['slug']) ?>/?demo=1" style="font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em; color: #E87AAA;">Try the demo first &rarr;</a>
                         </p>
                     <?php endif; ?>
                 <?php endif; ?>
