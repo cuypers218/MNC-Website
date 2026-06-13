@@ -4,6 +4,8 @@ header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Methods: POST, OPTIONS');
 header('Access-Control-Allow-Headers: Content-Type');
 
+require_once __DIR__ . '/includes/db.php';
+
 if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') { http_response_code(200); exit; }
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') { http_response_code(405); exit; }
 
@@ -65,6 +67,15 @@ if ($contactUuid && isset($segments[$result])) {
     ]);
     curl_exec($ch2);
     curl_close($ch2);
+}
+
+// ── Save result to local DB if user account exists ───────
+try {
+    $db = getDB();
+    $stmt = $db->prepare('UPDATE users SET quiz_result = ? WHERE email = ?');
+    $stmt->execute([$result, $email]);
+} catch (Exception $e) {
+    error_log('quiz_result save failed: ' . $e->getMessage());
 }
 
 // ── Email content per result ──────────────────────────────

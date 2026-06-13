@@ -24,7 +24,7 @@ function getCurrentUser() {
     if ($user !== null) return $user;
     
     $db = getDB();
-    $stmt = $db->prepare('SELECT id, first_name, email, created_at, is_admin FROM users WHERE id = ?');
+    $stmt = $db->prepare('SELECT id, first_name, email, created_at, is_admin, quiz_result FROM users WHERE id = ?');
     $stmt->execute([$_SESSION['user_id']]);
     $user = $stmt->fetch();
     

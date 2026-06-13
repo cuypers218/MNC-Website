@@ -25,6 +25,23 @@ $isWelcome = isset($_GET['welcome']);
             <p class="fade-in-delay-1" style="color: #444444; margin-bottom: 2rem;">Welcome to My Nest Chapter. This is your home base — everything you unlock shows up here.</p>
         <?php endif; ?>
         
+        <!-- Your Empty Nest Type -->
+        <?php
+        $quizResult = $user['quiz_result'] ?? null;
+        $typeLabels = ['nester' => 'The Nester', 'busyer' => 'The Busy-er', 'wonderer' => 'The Wonderer'];
+        ?>
+        <div style="background:#252535;padding:28px 32px;margin-bottom:2.5rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;">
+          <div>
+            <p style="font-family:'Montserrat',sans-serif;font-weight:800;font-size:0.65rem;text-transform:uppercase;letter-spacing:0.15em;color:#A8C5DA;margin-bottom:0.35rem;">YOUR EMPTY NEST TYPE</p>
+            <?php if ($quizResult && isset($typeLabels[$quizResult])): ?>
+              <p style="font-family:'Montserrat',sans-serif;font-weight:800;font-size:1.1rem;color:#FFF8EE;margin:0;"><?= esc($typeLabels[$quizResult]) ?></p>
+            <?php else: ?>
+              <p style="font-family:'Montserrat',sans-serif;font-weight:800;font-size:1rem;color:#FFF8EE;margin:0;">Not sure which one you are yet</p>
+            <?php endif; ?>
+          </div>
+          <a href="/nest-type" style="font-family:'Montserrat',sans-serif;font-weight:800;font-size:0.75rem;text-transform:uppercase;letter-spacing:0.05em;color:#E87AAA;white-space:nowrap;"><?= $quizResult ? 'View Your Type &amp; Download &rarr;' : 'Find Out &rarr;' ?></a>
+        </div>
+
         <!-- Filter Tabs -->
         <nav class="filter-nav" style="justify-content: flex-start;">
             <button class="filter-tab active" onclick="filterDashboard('all')">All Tools</button>
