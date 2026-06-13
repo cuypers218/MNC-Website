@@ -85,7 +85,11 @@ $isWelcome = isset($_GET['welcome']);
                                     <a href="/shop/<?= esc($product['slug']) ?>" class="btn btn-primary">View</a>
                                 <?php endif; ?>
                             <?php elseif ($product['file_path']): ?>
-                                <a href="/shop/<?= esc($product['slug']) ?>?download=1" class="btn btn-primary">Download</a>
+                                <?php if (str_starts_with($product['file_path'], 'http')): ?>
+                                    <a href="<?= esc($product['file_path']) ?>" target="_blank" rel="noopener" class="btn btn-primary">Download</a>
+                                <?php else: ?>
+                                    <a href="/shop/<?= esc($product['slug']) ?>?download=1" class="btn btn-primary">Download</a>
+                                <?php endif; ?>
                             <?php else: ?>
                                 <a href="/shop/<?= esc($product['slug']) ?>" class="btn btn-primary">Open</a>
                             <?php endif; ?>

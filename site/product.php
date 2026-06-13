@@ -94,7 +94,9 @@ $related = $stmt->fetchAll();
                     <?php endif; ?>
                     <p style="color: #666666; font-size: 0.85rem; margin-top: 0.75rem; text-align: center;">You own this product.</p>
                 <?php elseif ($isFree): ?>
-                    <?php if (isLoggedIn()): ?>
+                    <?php if (str_starts_with($product['file_path'] ?? '', 'http')): ?>
+                        <a href="<?= esc($product['file_path']) ?>" target="_blank" rel="noopener" class="btn btn-primary btn-full">Download Free</a>
+                    <?php elseif (isLoggedIn()): ?>
                         <a href="/shop/<?= esc($product['slug']) ?>?download=1" class="btn btn-primary btn-full">Download Free</a>
                     <?php else: ?>
                         <a href="/register" class="btn btn-primary btn-full">Create Free Account to Download</a>
