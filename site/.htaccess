@@ -11,6 +11,7 @@ RewriteRule ^includes/ - [F,L]
 # Block direct access to paid products only — free PDFs (freebie_ and mnc-coloring-) are publicly accessible
 RewriteRule ^downloads/now-what-workbook\.pdf$ - [F,L]
 RewriteRule ^downloads/garage-sale-planner\.pdf$ - [F,L]
+RewriteRule ^downloads/someday-companion\.pdf$ - [F,L]
 
 # If the file or directory exists, serve it directly
 RewriteCond %{REQUEST_FILENAME} -f [OR]
@@ -57,6 +58,9 @@ RewriteRule ^reset-password/?$ reset-password.php [L]
 
 # Dashboard
 RewriteRule ^dashboard/?$ dashboard.php [L]
+
+# Nest Type result page
+RewriteRule ^nest-type/?$ nest-type.php [L]
 
 # Checkout
 RewriteRule ^checkout/?$ checkout.php [L]

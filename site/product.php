@@ -94,7 +94,7 @@ $related = $stmt->fetchAll();
                     <?php endif; ?>
                     <p style="color: #666666; font-size: 0.85rem; margin-top: 0.75rem; text-align: center;">You own this product.</p>
                 <?php elseif ($isFree): ?>
-                    <?php if (str_starts_with($product['file_path'] ?? '', 'http')): ?>
+                    <?php if (strpos($product['file_path'] ?? '', 'http') === 0): ?>
                         <a href="<?= esc($product['file_path']) ?>" target="_blank" rel="noopener" class="btn btn-primary btn-full">Download Free</a>
                     <?php elseif (isLoggedIn()): ?>
                         <a href="/shop/<?= esc($product['slug']) ?>?download=1" class="btn btn-primary btn-full">Download Free</a>

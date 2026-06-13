@@ -61,7 +61,9 @@ $isWelcome = isset($_GET['welcome']);
                 </div>
             <?php else: ?>
             
-                <?php foreach ($allProducts as $product): 
+                <?php foreach ($allProducts as $product):
+                    // Quiz lives as the nest-type banner above — don't show it again as a card
+                    if ($product['slug'] === 'empty-nester-quiz') continue;
                     $isOwned = in_array($product['id'], $purchasedIds);
                     $isFree = $product['price'] == 0;
                     $isUnlocked = $isOwned || $isFree;
@@ -103,7 +105,7 @@ $isWelcome = isset($_GET['welcome']);
                                     <a href="/shop/<?= esc($product['slug']) ?>" class="btn btn-primary">View</a>
                                 <?php endif; ?>
                             <?php elseif ($product['file_path']): ?>
-                                <?php if (str_starts_with($product['file_path'], 'http')): ?>
+                                <?php if (strpos($product['file_path'], 'http') === 0): ?>
                                     <a href="<?= esc($product['file_path']) ?>" target="_blank" rel="noopener" class="btn btn-primary">Download</a>
                                 <?php else: ?>
                                     <a href="/shop/<?= esc($product['slug']) ?>?download=1" class="btn btn-primary">Download</a>
