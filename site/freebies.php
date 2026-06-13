@@ -49,6 +49,22 @@ $PDF_URL  = 'https://drive.google.com/uc?export=download&id=1dVTgwgBjwsg0jz9HCcG
       <a href="/widgets/empty-nester-quiz/" class="btn btn-primary">Take the Quiz &rarr;</a>
     </div>
 
+    <!-- Someday List Builder -->
+    <div class="freebie-feature fade-in">
+      <p class="freebie-eyebrow">FREE TOOL</p>
+      <h2 class="freebie-title">THE SOMEDAY LIST BUILDER</h2>
+      <p class="freebie-body">You know that list in your head — the things you've been saying you'll do someday? This is where you actually write them down.<br><br>Takes five minutes. No account needed. Your list gets emailed straight to you so it's there when you're ready.</p>
+      <a href="/widgets/someday-list/" class="btn btn-primary">Build Your List &rarr;</a>
+    </div>
+
+    <!-- Pick Your Mood Coloring Pages -->
+    <div class="freebie-feature fade-in">
+      <p class="freebie-eyebrow">FREE DOWNLOAD</p>
+      <h2 class="freebie-title">PICK YOUR MOOD COLORING PAGES</h2>
+      <p class="freebie-body">Sometimes you don't need to talk about it. You just need something to do with your hands.<br><br>Pick your mood and get a coloring page made for exactly where you are right now. Download it, print it, and give yourself 20 minutes.</p>
+      <a href="/widgets/coloring-widget/" class="btn btn-primary">Pick Your Mood &rarr;</a>
+    </div>
+
     <?php if (!$loggedIn): ?>
     <!-- Member teaser — only shown to non-members -->
     <div class="member-teaser fade-in">
