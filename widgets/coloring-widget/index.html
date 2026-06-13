@@ -264,7 +264,7 @@
     <!-- SCREEN 3: Confirm + Download -->
     <div class="screen" id="screen-confirm" role="region" aria-label="Download your coloring pages">
       <p class="confirm-heading">Here are your pages.</p>
-      <p class="intro-text">Check your inbox too — I'll send a copy there as well. Find a quiet spot and enjoy a few minutes that are just for you.</p>
+      <p class="intro-text" id="confirm-inbox-note">Check your inbox too — I'll send a copy there as well. Find a quiet spot and enjoy a few minutes that are just for you.</p>
       <a class="btn-download" id="download-link" href="#" download>Download My Coloring Pages</a>
       <hr class="divider">
       <p class="small-print">From my nest to yours — Cece</p>
@@ -288,11 +288,19 @@
     coloring:    '/downloads/mnc-coloring-coloring.pdf'
   };
 
+  var memberMode = new URLSearchParams(window.location.search).has('member');
+
   function selectMood(mood) {
     selectedMood = mood;
     document.getElementById('mood-display').textContent = moodLabels[mood];
-    showScreen('screen-email');
-    document.getElementById('input-name').focus();
+    if (memberMode) {
+      document.getElementById('download-link').href = moodFiles[mood];
+      document.getElementById('confirm-inbox-note').style.display = 'none';
+      showScreen('screen-confirm');
+    } else {
+      showScreen('screen-email');
+      document.getElementById('input-name').focus();
+    }
   }
 
   function goBack() {

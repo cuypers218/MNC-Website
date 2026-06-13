@@ -97,7 +97,7 @@ $isWelcome = isset($_GET['welcome']);
                         <?php if ($isUnlocked): ?>
                             <?php if ($product['category'] === 'interactive_tool'): ?>
                                 <?php if ($isFree || $isOwned): ?>
-                                    <?php $memberParam = $product['slug'] === 'someday-list' ? '?member=1' : ''; ?>
+                                    <?php $memberParam = in_array($product['slug'], ['someday-list', 'coloring-widget']) ? '?member=1' : ''; ?>
                                     <a href="/widgets/<?= esc($product['slug']) ?>/<?= $memberParam ?>" class="btn btn-primary">Open Planner</a>
                                 <?php else: ?>
                                     <a href="/shop/<?= esc($product['slug']) ?>" class="btn btn-primary">View</a>
