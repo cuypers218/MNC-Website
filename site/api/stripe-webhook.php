@@ -70,7 +70,7 @@ if ($event['type'] === 'checkout.session.completed') {
         $productSlug = $session['metadata']['product_slug'] ?? '';
         $customerEmail = $session['customer_email'] ?? '';
 
-        if ($customerEmail && in_array($productSlug, ['cooking-for-one', 'garage-sale-planner'])) {
+        if ($customerEmail && in_array($productSlug, ['cooking-for-one', 'garage-sale-planner', 'someday-companion'])) {
             try {
                 // Get first name from DB
                 $uStmt = $db->prepare('SELECT first_name FROM users WHERE id = ?');
@@ -82,16 +82,29 @@ if ($event['type'] === 'checkout.session.completed') {
                     $subject = 'Your Cooking for One Planner is ready';
                     $productName = 'Cooking for One Planner';
                     $directUrl = 'https://mynestchapter.com/widgets/cooking-for-one/';
+                    $ctaLabel = 'Open Your Planner';
                     $steps = [
                         ['title' => 'Go to your dashboard', 'text' => 'Head to mynestchapter.com/dashboard and click "Open Planner" on your Cooking for One card.'],
                         ['title' => 'Plan your week', 'text' => 'Fill in breakfast, lunch, dinner, and a snack for each day. Add prep time and notes — just for you.'],
                         ['title' => 'Build your grocery list', 'text' => 'Switch to the Grocery tab and add exactly what you need. No overbuying, no waste.'],
                         ['title' => 'Email yourself the plan', 'text' => 'When your week is set, tap the email icon in the top right and send the whole plan to yourself for when you\'re at the store.'],
                     ];
+                } elseif ($productSlug === 'someday-companion') {
+                    $subject = 'Your Someday Companion is ready';
+                    $productName = 'Someday Companion';
+                    $directUrl = 'https://mynestchapter.com/dashboard';
+                    $ctaLabel = 'Download Your Companion';
+                    $steps = [
+                        ['title' => 'Go to your dashboard', 'text' => 'Head to mynestchapter.com/dashboard — your Someday Companion will be there waiting.'],
+                        ['title' => 'Click Download', 'text' => 'Hit the Download button on your Someday Companion card. The PDF saves straight to your device.'],
+                        ['title' => 'Find a quiet moment', 'text' => 'Open the companion when you have 20 minutes alone. No rush, no timeline — it moves at your pace.'],
+                        ['title' => 'Start wherever feels right', 'text' => 'There\'s no wrong page to begin on. Just you, your list, and a real starting point.'],
+                    ];
                 } else {
                     $subject = 'Your Garage Sale Planner is ready';
                     $productName = 'Garage Sale Planner';
                     $directUrl = 'https://mynestchapter.com/widgets/garage-sale-planner/';
+                    $ctaLabel = 'Open Your Planner';
                     $steps = [
                         ['title' => 'Go to your dashboard', 'text' => 'Head to mynestchapter.com/dashboard and click "Open Planner" on your Garage Sale Planner card.'],
                         ['title' => 'Set your money goal', 'text' => 'Start on the Setup tab — enter your sale date and what you want to earn. The planner tracks everything from there.'],
@@ -151,7 +164,7 @@ if ($event['type'] === 'checkout.session.completed') {
           <table cellpadding="0" cellspacing="0" border="0" style="margin:8px 0 32px;">
             <tr>
               <td style="background:#E87AAA;padding:0;">
-                <a href="' . $directUrl . '" style="display:inline-block;padding:14px 32px;font-family:Arial,sans-serif;font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#252535;text-decoration:none;">Open Your Planner</a>
+                <a href="' . $directUrl . '" style="display:inline-block;padding:14px 32px;font-family:Arial,sans-serif;font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#252535;text-decoration:none;">' . $ctaLabel . '</a>
               </td>
             </tr>
           </table>
