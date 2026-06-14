@@ -70,7 +70,44 @@ if ($event['type'] === 'checkout.session.completed') {
         $productSlug = $session['metadata']['product_slug'] ?? '';
         $customerEmail = $session['customer_email'] ?? '';
 
-        if ($customerEmail && in_array($productSlug, ['cooking-for-one', 'garage-sale-planner', 'someday-companion'])) {
+        // Tag buyer in Reach for goal-habit-tracker purchases
+        if ($customerEmail && $productSlug === 'goal-habit-tracker') {
+            try {
+                $reachToken   = '6MIeMuGCJNf9Fp6NpRLB2xCAW5mmy2gIXQyKxdmS1e9982ba';
+                $reachBase    = 'https://developers.hostinger.com/api/reach/v1';
+                $reachSegment = '1fda3952-0309-46c3-ad2e-0d197a24b574';
+
+                $ch = curl_init($reachBase . '/contacts');
+                curl_setopt_array($ch, [
+                    CURLOPT_POST           => true,
+                    CURLOPT_POSTFIELDS     => json_encode(['email' => $customerEmail]),
+                    CURLOPT_RETURNTRANSFER => true,
+                    CURLOPT_HTTPHEADER     => ['Authorization: Bearer ' . $reachToken, 'Content-Type: application/json', 'Accept: application/json'],
+                ]);
+                $reachResponse = curl_exec($ch);
+                curl_close($ch);
+
+                $reachContact = json_decode($reachResponse, true);
+                $contactUuid  = $reachContact['uuid'] ?? null;
+
+                if ($contactUuid) {
+                    $ch2 = curl_init($reachBase . '/segments/' . $reachSegment . '/contacts');
+                    curl_setopt_array($ch2, [
+                        CURLOPT_POST           => true,
+                        CURLOPT_POSTFIELDS     => json_encode(['contact_uuid' => $contactUuid]),
+                        CURLOPT_RETURNTRANSFER => true,
+                        CURLOPT_HTTPHEADER     => ['Authorization: Bearer ' . $reachToken, 'Content-Type: application/json', 'Accept: application/json'],
+                    ]);
+                    curl_exec($ch2);
+                    curl_close($ch2);
+                    error_log('Reach tagged: ' . $customerEmail . ' → goal-habit-tracker-buyers');
+                }
+            } catch (Exception $e) {
+                error_log('Reach tagging failed: ' . $e->getMessage());
+            }
+        }
+
+        if ($customerEmail && in_array($productSlug, ['cooking-for-one', 'garage-sale-planner', 'someday-companion', 'goal-habit-tracker'])) {
             try {
                 // Get first name from DB
                 $uStmt = $db->prepare('SELECT first_name FROM users WHERE id = ?');
@@ -99,6 +136,17 @@ if ($event['type'] === 'checkout.session.completed') {
                         ['title' => 'Click Download', 'text' => 'Hit the Download button on your Someday Companion card. The PDF saves straight to your device.'],
                         ['title' => 'Find a quiet moment', 'text' => 'Open the companion when you have 20 minutes alone. No rush, no timeline — it moves at your pace.'],
                         ['title' => 'Start wherever feels right', 'text' => 'There\'s no wrong page to begin on. Just you, your list, and a real starting point.'],
+                    ];
+                } elseif ($productSlug === 'goal-habit-tracker') {
+                    $subject = 'Your 30-Day Goal & Habit Tracker is ready';
+                    $productName = '30-Day Goal & Habit Tracker';
+                    $directUrl = 'https://mynestchapter.com/widgets/goal-habit-tracker/';
+                    $ctaLabel = 'Open Your Tracker';
+                    $steps = [
+                        ['title' => 'Go to your dashboard', 'text' => 'Head to mynestchapter.com/dashboard and click "Open Planner" on your Goal & Habit Tracker card.'],
+                        ['title' => 'Complete the 5-step setup', 'text' => 'Walk through the life assessment, values, goals, action plan, and habits tabs. Take your time — this is the foundation everything builds on.'],
+                        ['title' => 'Start your daily check-in', 'text' => 'Once setup is done, the Daily tab opens up. Five minutes a day. One entry. Be honest — it\'s just for you.'],
+                        ['title' => 'Watch your month build', 'text' => 'Visit the Monthly tab anytime to see your habit grid fill in and your streak grow. On Day 30, your full review is waiting.'],
                     ];
                 } else {
                     $subject = 'Your Garage Sale Planner is ready';
