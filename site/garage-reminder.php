@@ -10,7 +10,8 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') { http_response_code(405); exit; }
 require_once __DIR__ . '/includes/config.php';
 require_once __DIR__ . '/includes/db.php';
 
-$data      = json_decode(file_get_contents('php://input'), true);
+$pdo  = getDB();
+$data = json_decode(file_get_contents('php://input'), true);
 $email     = filter_var(trim($data['email'] ?? ''), FILTER_SANITIZE_EMAIL);
 
 if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
