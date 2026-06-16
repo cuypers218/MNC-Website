@@ -461,6 +461,7 @@
       <div class="topbar-stat-value" id="hdr-earned" aria-live="polite" aria-atomic="true">$0.00</div>
       <div class="topbar-stat-label" id="hdr-goal-sub">Set a goal on Start</div>
     </div>
+    <button class="btn btn-ghost btn-sm" onclick="save();showToast('Saved!')" title="Save your planner">Save</button>
     <button class="btn btn-ghost btn-sm" onclick="advanceDemo()" id="demo-btn">Demo</button>
     <div id="hdr-demo-pill"></div>
   </div>
@@ -842,11 +843,12 @@ function renderStart(){
         <div class="gap-y-sm">
           ${field("Sale name","text","setup.saleTitle",s.saleTitle,"My Next Chapter Sale")}
           ${field("Sale date","date","setup.saleDate",s.saleDate,"")}
-          ${areaField("What would you like to use the money for?","setup.moneyPurpose",s.moneyPurpose,"A weekend away, fresh bedding, savings, dinner with friends...")}
           ${field("Money goal ($)","number","setup.moneyGoal",s.moneyGoal,"250")}
+          ${areaField("What would you like to use the money for?","setup.moneyPurpose",s.moneyPurpose,"A weekend away, fresh bedding, savings, dinner with friends...")}
           ${areaField("Notes before I start","setup.notes",s.notes,"What areas feel easiest? What items feel emotional?")}
         </div>
-        <div style="margin-top:16px">
+        <div style="margin-top:16px;display:flex;gap:10px;align-items:center;flex-wrap:wrap">
+          <button class="btn btn-ghost btn-sm" onclick="save();showToast('Saved!')">Save</button>
           <button class="btn btn-primary" onclick="goTab('sortPrice','inventory')">Start adding items</button>
         </div>
       </div>
