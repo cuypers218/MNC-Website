@@ -587,6 +587,14 @@ const onlineSellingGuides = [
   {platform:"Garage Sale",bestFor:"Low-dollar household items, kitchen duplicates, books, mugs, decor, baskets, basic clothing",avoid:"High-value items you would regret selling too cheaply",tip:"Price to move. The goal is space, cash, and peace."},
 ];
 
+const pricePoints = [
+  {label:"25¢",value:"0.25"},{label:"50¢",value:"0.50"},
+  {label:"$1",value:"1.00"},{label:"$2",value:"2.00"},{label:"$3",value:"3.00"},
+  {label:"$5",value:"5.00"},{label:"$7",value:"7.00"},{label:"$10",value:"10.00"},
+  {label:"$15",value:"15.00"},{label:"$20",value:"20.00"},{label:"$25",value:"25.00"},
+  {label:"$50",value:"50.00"},{label:"Blank",value:""}
+];
+
 const signTemplates = [
   "GARAGE SALE · Today 8–2 · Home Decor · Kitchen · Furniture",
   "MULTI-CATEGORY SALE · Priced to Move · Cash + Digital Payments",
@@ -1506,6 +1514,37 @@ function renderPrintCenter(){
       `}
     </div>
 
+    <!-- PRICE POINT TAGS -->
+    <div class="card">
+      <div class="card-title">Blank price tags by amount</div>
+      <p class="card-sub" style="margin-bottom:16px">Choose how many of each price you need. Great for items you haven't priced yet — print a sheet and stick them on anything at the sale.</p>
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:10px;margin-bottom:18px">
+        ${pricePoints.map((p,i)=>{
+          const qty=UI.ppQty?.[i]??3;
+          return`<div style="border:1px solid var(--color-divider);padding:10px 8px;text-align:center;background:var(--color-surface)">
+            <div style="font-family:Lora,serif;font-size:20px;font-weight:800;color:var(--color-primary);margin-bottom:8px">${p.label}</div>
+            <div style="display:flex;align-items:center;justify-content:center;gap:8px">
+              <button class="btn btn-ghost btn-xs" style="padding:0 8px;font-size:16px;line-height:1" onclick="setPPQty(${i},${qty-1})" ${qty<=0?"disabled":""}>−</button>
+              <span style="font-size:14px;font-weight:700;min-width:18px;text-align:center">${qty}</span>
+              <button class="btn btn-ghost btn-xs" style="padding:0 8px;font-size:16px;line-height:1" onclick="setPPQty(${i},${qty+1})">+</button>
+            </div>
+          </div>`;
+        }).join("")}
+      </div>
+      <div style="background:var(--color-surface-2);padding:12px;margin-bottom:16px">
+        <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--color-text-muted);margin-bottom:10px">Preview</div>
+        <div class="grid-3">
+          ${pricePoints.filter((_,i)=>(UI.ppQty?.[i]??3)>0).slice(0,6).map(p=>`
+            <div style="border:2px dashed var(--color-primary);padding:10px;text-align:center;background:#fff">
+              <div style="font-size:8px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--color-primary)">My Nest Chapter</div>
+              <div style="font-size:26px;font-weight:800;font-family:Lora,serif;color:var(--color-primary);margin:6px 0">${p.label||"____"}</div>
+              <div style="font-size:8px;color:var(--color-text-muted)">Thank you!</div>
+            </div>`).join("")}
+        </div>
+      </div>
+      <button class="btn btn-primary" onclick="printPricePointTags()">Print price point tags</button>
+    </div>
+
     <!-- SALE SIGNS -->
     <div class="card">
       <div class="card-title">Sale signs</div>
@@ -1692,6 +1731,30 @@ function printSelectedTags(){
   window.print();
   setTimeout(()=>document.getElementById("print-section").style.display="none",2000);
 }
+function setPPQty(i,qty){
+  if(!UI.ppQty)UI.ppQty={};
+  UI.ppQty[i]=Math.max(0,Math.min(20,qty));
+  renderContent();
+}
+function printPricePointTags(){
+  const tags=[];
+  pricePoints.forEach((p,i)=>{
+    const qty=UI.ppQty?.[i]??3;
+    for(let q=0;q<qty;q++)tags.push(p);
+  });
+  if(!tags.length){showToast("Set at least one tag quantity first.");return;}
+  const tagsHTML=`<div class="print-grid-tags">${tags.map(p=>`
+    <div class="print-tag">
+      <div style="font-size:9px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:#E87AAA">My Nest Chapter</div>
+      <div style="font-size:40px;font-weight:800;font-family:Lora,serif;color:#E87AAA;margin:10px 0">${p.label||"____"}</div>
+      <div style="font-size:9px;color:#666">Thank you!</div>
+    </div>`).join("")}</div>`;
+  document.getElementById("print-inner").innerHTML=tagsHTML;
+  document.getElementById("print-section").style.display="block";
+  window.print();
+  setTimeout(()=>document.getElementById("print-section").style.display="none",2000);
+}
+
 function printChosenSign(){
   const a=P.advertising||{};
   const allSigns=[
