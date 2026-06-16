@@ -1451,40 +1451,100 @@ function deleteSale(id){P.transactions=(P.transactions||[]).filter(t=>t.id!==id)
 function renderPrintCenter(){
   const tagItems=(P.items||[]).filter(i=>["Garage Sale","Sell Online"].includes(i.decision));
   const boxes=P.batchBoxes||[];
+  const a=P.advertising||{};
+  if(UI.printSelected===undefined)UI.printSelected=tagItems.map(i=>i.id);
+  if(UI.printSign===undefined)UI.printSign=-1;
+  const selItems=tagItems.filter(i=>UI.printSelected.includes(i.id));
+  const allSigns=[
+    {label:"My custom sign",text:(a.signHeadline||"GARAGE SALE")+"\n"+(a.signDetails||"Today · Priced to Move")+(a.featuredItems?"\n"+a.featuredItems:"")},
+    ...signTemplates.map(t=>({label:t,text:t}))
+  ];
+  const chosenSign=UI.printSign>=0?allSigns[UI.printSign]:null;
+
   return`
   <div class="gap-y">
     <div>
       <h2 class="page-title">Print Center</h2>
-      <p class="page-sub">Print price tags for your items and signs for your batch boxes.</p>
+      <p class="page-sub">Set up your price tags and signs, preview them here, then print.</p>
     </div>
-    <div class="grid-2">
-      <div class="card">
-        <div class="card-title">Price tags (${tagItems.length})</div>
-        <p class="card-sub">Prints tags for all items marked Garage Sale or Sell Online.</p>
-        <div class="grid-3" style="margin-bottom:16px">
-          ${(tagItems.length?tagItems:[{id:"x",name:"Sample Item",price:"5",category:"Decor"}]).slice(0,6).map(i=>`
-            <div style="border:2px dashed var(--border);border-radius:10px;padding:12px;text-align:center;background:var(--bg)">
-              <div style="font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--plum)">My Nest Chapter</div>
-              <div style="font-size:13px;font-weight:700;margin:6px 0">${esc(i.name)}</div>
-              <div style="font-size:22px;font-weight:800;font-family:Lora,serif;color:var(--plum)">$${esc(i.price||"__")}</div>
-              <div style="font-size:10px;color:var(--muted)">${esc(i.category||"")}</div>
+
+    <!-- PRICE TAGS -->
+    <div class="card">
+      <div class="card-title">Price tags</div>
+      <p class="card-sub" style="margin-bottom:14px">Choose which items to include, then print a full sheet of price tags.</p>
+      ${tagItems.length===0?`
+        <div class="info-box">No items yet. Add items in Sort + Price, mark them Garage Sale, then come back here to print tags.</div>
+      `:`
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
+          <span class="text-muted" style="font-size:var(--text-sm)">${selItems.length} of ${tagItems.length} selected</span>
+          <button class="btn btn-ghost btn-xs" onclick="toggleAllTags()">Select all / none</button>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:6px;max-height:220px;overflow-y:auto;margin-bottom:16px;padding-right:2px">
+          ${tagItems.map(i=>`
+            <div class="check-item${UI.printSelected.includes(i.id)?" checked":""}" role="checkbox" aria-checked="${UI.printSelected.includes(i.id)}" tabindex="0"
+              onclick="toggleTagItem('${i.id}')" onkeydown="if(event.key===' '||event.key==='Enter'){event.preventDefault();toggleTagItem('${i.id}')}">
+              <div class="check-box" aria-hidden="true">${UI.printSelected.includes(i.id)?"✓":""}</div>
+              <div style="flex:1;font-size:var(--text-sm)">${esc(i.name)}</div>
+              <div style="font-weight:700;color:var(--color-primary);font-size:var(--text-sm)">$${esc(i.price||"__")}</div>
             </div>`).join("")}
         </div>
-        <button class="btn btn-primary" onclick="printTags()">Print price tags</button>
+        ${selItems.length>0?`
+        <div style="background:var(--color-surface-2);padding:14px;margin-bottom:16px">
+          <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--color-text-muted);margin-bottom:10px">Preview — first ${Math.min(selItems.length,6)} of ${selItems.length} tags</div>
+          <div class="grid-3">
+            ${selItems.slice(0,6).map(i=>`
+              <div style="border:2px dashed var(--color-primary);padding:10px;text-align:center;background:#fff">
+                <div style="font-size:8px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--color-primary)">My Nest Chapter</div>
+                <div style="font-size:12px;font-weight:700;margin:5px 0;line-height:1.3">${esc(i.name)}</div>
+                <div style="font-size:22px;font-weight:800;font-family:Lora,serif;color:var(--color-primary)">$${esc(i.price||"__")}</div>
+                <div style="font-size:9px;color:var(--color-text-muted)">${esc(i.category||"")}</div>
+              </div>`).join("")}
+          </div>
+        </div>
+        <button class="btn btn-primary" onclick="printSelectedTags()">Print ${selItems.length} price tag${selItems.length===1?"":"s"}</button>
+        `:`<div class="warn-box">Select at least one item to print.</div>`}
+      `}
+    </div>
+
+    <!-- SALE SIGNS -->
+    <div class="card">
+      <div class="card-title">Sale signs</div>
+      <p class="card-sub" style="margin-bottom:14px">Choose a sign, see the preview, then print it or copy the text.</p>
+      <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:16px">
+        ${allSigns.map((s,i)=>`
+          <div style="display:flex;align-items:center;gap:10px;padding:12px;border:2px solid ${UI.printSign===i?"var(--color-primary)":"var(--color-divider)"};background:${UI.printSign===i?"var(--color-primary-hl)":"transparent"};cursor:pointer"
+            onclick="selectSign(${i})" role="button" tabindex="0" onkeydown="if(event.key===' '||event.key==='Enter'){event.preventDefault();selectSign(${i})}">
+            <div style="flex:1;font-size:var(--text-sm);font-weight:${UI.printSign===i?"700":"400"};color:var(--color-text)">${esc(s.label)}</div>
+            <button class="btn ${UI.printSign===i?"btn-primary":"btn-secondary"} btn-xs" onclick="event.stopPropagation();selectSign(${i})">${UI.printSign===i?"Chosen":"Choose"}</button>
+          </div>`).join("")}
       </div>
-      <div class="card">
-        <div class="card-title">Box signs (${boxes.length})</div>
-        <p class="card-sub">Prints one large sign per batch box with the price and title.</p>
-        <div class="gap-y-sm" style="margin-bottom:16px">
-          ${(boxes.length?boxes:[{id:"x",boxNumber:1,title:"Mixed items",price:"2",category:"Other"}]).slice(0,3).map(b=>`
-            <div style="border:2px solid var(--border);border-radius:10px;padding:14px;text-align:center">
-              <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.14em;color:var(--plum)">Box #${b.boxNumber}</div>
-              <div style="font-size:18px;font-weight:800;font-family:Lora,serif;color:var(--plum);margin-top:4px">All items $${esc(b.price||"__")}</div>
-              <div style="font-size:13px;font-weight:700;margin-top:4px">${esc(b.title||b.category||"Mixed items")}</div>
+      ${chosenSign?`
+        <div style="border:3px solid var(--color-primary);padding:32px 28px;text-align:center;background:#fff;margin-bottom:16px">
+          <div style="font-size:10px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--color-primary);margin-bottom:14px">My Nest Chapter</div>
+          <div style="font-size:clamp(20px,4vw,32px);font-weight:800;font-family:Lora,serif;color:var(--color-text);line-height:1.5;white-space:pre-line">${esc(chosenSign.text)}</div>
+        </div>
+        <div style="display:flex;gap:10px;flex-wrap:wrap">
+          <button class="btn btn-primary" onclick="printChosenSign()">Print this sign</button>
+          <button class="btn btn-secondary" onclick="copyChosenSign()">Copy text</button>
+        </div>
+      `:`<div class="info-box">Choose a sign above — it will appear here as a preview you can print.</div>`}
+    </div>
+
+    <!-- BOX SIGNS -->
+    <div class="card">
+      <div class="card-title">Box signs (${boxes.length})</div>
+      <p class="card-sub" style="margin-bottom:14px">One large sign per batch box. Set up batch boxes in Sort + Price first.</p>
+      ${boxes.length===0?`<div class="info-box">No batch boxes yet. Add boxes in Sort + Price → Batch Boxes, then come back here to print signs.</div>`:`
+        <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:16px">
+          ${boxes.slice(0,4).map(b=>`
+            <div style="border:2px solid var(--color-divider);padding:14px;text-align:center;background:#fff">
+              <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.14em;color:var(--color-primary)">Box #${b.boxNumber}</div>
+              <div style="font-size:20px;font-weight:800;font-family:Lora,serif;color:var(--color-primary);margin-top:4px">All items $${esc(b.price||"__")}</div>
+              <div style="font-size:14px;font-weight:700;margin-top:4px">${esc(b.title||b.category||"Mixed items")}</div>
             </div>`).join("")}
         </div>
         <button class="btn btn-primary" onclick="printBoxSigns()">Print box signs</button>
-      </div>
+      `}
     </div>
   </div>`;
 }
@@ -1603,6 +1663,61 @@ function sendSummaryEmail(){
 }
 
 // ─── PRINT ────────────────────────────────────────────────────────────────────
+// ─── PRINT CENTER HELPERS ─────────────────────────────────────────────────────
+function toggleTagItem(id){
+  if(!UI.printSelected)UI.printSelected=(P.items||[]).filter(i=>["Garage Sale","Sell Online"].includes(i.decision)).map(i=>i.id);
+  if(UI.printSelected.includes(id))UI.printSelected=UI.printSelected.filter(x=>x!==id);
+  else UI.printSelected.push(id);
+  renderContent();
+}
+function toggleAllTags(){
+  const all=(P.items||[]).filter(i=>["Garage Sale","Sell Online"].includes(i.decision)).map(i=>i.id);
+  UI.printSelected=(UI.printSelected&&UI.printSelected.length===all.length)?[]:all;
+  renderContent();
+}
+function selectSign(i){UI.printSign=i;renderContent();}
+function printSelectedTags(){
+  const tagItems=(P.items||[]).filter(i=>["Garage Sale","Sell Online"].includes(i.decision));
+  const items=tagItems.filter(i=>(UI.printSelected||[]).includes(i.id));
+  if(!items.length){showToast("Select at least one item first.");return;}
+  const tagsHTML=`<div class="print-grid-tags">${items.map(i=>`
+    <div class="print-tag">
+      <div style="font-size:9px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:#E87AAA">My Nest Chapter</div>
+      <div style="font-size:14px;font-weight:700;margin:8px 0;min-height:36px">${esc(i.name||"Item")}</div>
+      <div style="font-size:36px;font-weight:800;font-family:Lora,serif;color:#E87AAA">$${esc(i.price||"___")}</div>
+      <div style="font-size:10px;color:#666;margin-top:4px">${esc(i.category||"")}</div>
+    </div>`).join("")}</div>`;
+  document.getElementById("print-inner").innerHTML=tagsHTML;
+  document.getElementById("print-section").style.display="block";
+  window.print();
+  setTimeout(()=>document.getElementById("print-section").style.display="none",2000);
+}
+function printChosenSign(){
+  const a=P.advertising||{};
+  const allSigns=[
+    {text:(a.signHeadline||"GARAGE SALE")+"\n"+(a.signDetails||"Today · Priced to Move")+(a.featuredItems?"\n"+a.featuredItems:"")},
+    ...signTemplates.map(t=>({text:t}))
+  ];
+  const s=allSigns[UI.printSign??0];if(!s)return;
+  document.getElementById("print-inner").innerHTML=`
+    <div class="print-sign">
+      <div style="font-size:11px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:#E87AAA;margin-bottom:16px">My Nest Chapter</div>
+      <div style="font-size:36px;font-weight:700;font-family:Lora,serif;color:#252535;line-height:1.4;white-space:pre-line">${esc(s.text)}</div>
+    </div>`;
+  document.getElementById("print-section").style.display="block";
+  window.print();
+  setTimeout(()=>document.getElementById("print-section").style.display="none",2000);
+}
+function copyChosenSign(){
+  const a=P.advertising||{};
+  const allSigns=[
+    {text:(a.signHeadline||"GARAGE SALE")+"\n"+(a.signDetails||"Today · Priced to Move")+(a.featuredItems?"\n"+a.featuredItems:"")},
+    ...signTemplates.map(t=>({text:t}))
+  ];
+  const s=allSigns[UI.printSign??0];if(!s)return;
+  fallbackCopy(s.text);showToast("Sign text copied!");
+}
+
 function printTags(){
   const tagItems=(P.items||[]).filter(i=>["Garage Sale","Sell Online"].includes(i.decision));
   const items=tagItems.length?tagItems:[{id:"x",name:"Item",price:"___",category:"Garage Sale"}];
