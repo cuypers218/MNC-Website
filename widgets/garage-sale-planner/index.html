@@ -7,6 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500&family=Lora:wght@700;800&family=Montserrat:wght@400;800&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
 <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { -webkit-font-smoothing: antialiased; scroll-behavior: smooth; }
@@ -414,6 +415,31 @@
     }
     #print-section{display:none}
     .no-print{}
+
+    /* ─── STICKY BAR ─── */
+    .sticky-bar{
+      position:fixed;bottom:0;left:0;right:0;z-index:300;
+      background:rgba(37,37,53,0.97);
+      backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+      display:flex;align-items:center;gap:var(--space-4);
+      padding:var(--space-3) var(--space-6);
+      border-top:1px solid rgba(255,255,255,0.08);
+    }
+    .sb-section{display:flex;flex-direction:column;gap:2px}
+    .sb-label{font-family:var(--font-display);font-size:9px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,248,238,0.45)}
+    .sb-earned{font-family:var(--font-display);font-weight:800;font-size:var(--text-lg);color:#E87AAA;line-height:1}
+    .sb-goal{font-size:var(--text-xs);color:rgba(255,248,238,0.7);font-weight:500}
+    .sb-bar-wrap{flex:1;max-width:180px}
+    .sb-bar{height:4px;background:rgba(255,255,255,0.12);border-radius:2px;overflow:hidden}
+    .sb-fill{height:100%;background:#E87AAA;border-radius:2px;transition:width 0.5s cubic-bezier(0.16,1,0.3,1)}
+    .sb-pct{font-family:var(--font-display);font-size:9px;font-weight:800;color:rgba(255,248,238,0.45);margin-top:3px;letter-spacing:1px}
+    @media(max-width:480px){
+      .sticky-bar{padding:var(--space-2) var(--space-4);gap:var(--space-3)}
+      .sb-bar-wrap{display:none}
+    }
+    @media print{.sticky-bar{display:none!important}}
+    body{padding-bottom:64px}
+    @media(max-width:480px){body{padding-bottom:56px}}
 </style>
 </head>
 <body>
@@ -733,6 +759,7 @@ function refreshHeaderStat(){
   document.getElementById("hdr-earned").textContent=`$${stats.earned.toFixed(2)}`;
   document.getElementById("hdr-goal-sub").textContent=stats.goal?`${stats.goalProgress}% of $${stats.goal} goal`:"Set a goal on Start";
   document.getElementById("hdr-demo-pill").innerHTML=P.isDemo?`<div class="demo-pill">Demo mode</div>`:"";
+  refreshStickyBar();
 }
 
 function refreshMetrics(){
@@ -776,6 +803,7 @@ function render(){
 
 function renderContent(){
   const key=UI.tab+"|"+UI.section;
+  if(UI.tab==="start")setTimeout(()=>fetchWeather(P.setup?.saleDate||null),50);
   const map={
     "start|start":renderStart,
     "sortPrice|inventory":renderInventory,
@@ -829,6 +857,7 @@ function renderStart(){
         <div class="metric-value">${daysStr}</div>
         ${s.saleDate?`<div class="text-muted" style="margin-top:4px">${new Date(s.saleDate+"T00:00:00").toLocaleDateString("en-US",{weekday:"long",month:"long",day:"numeric",year:"numeric"})}</div><div style="margin-top:12px"><button class="btn btn-secondary btn-sm" onclick="downloadCalendar()">Add to calendar</button></div>`:""}
       </div>
+      <div class="card" id="weather-card" ${!s.saleDate?'style="display:none"':''}></div>
       <div class="card">
         <div class="card-title">Day-before reminder</div>
         <p class="card-sub" style="margin-bottom:12px">Get a prep email the morning before sale day — your items, your goal, and a link back here.</p>
@@ -1745,6 +1774,7 @@ function sf(el,...path){
   deepSet(P,path,v);P.isDemo=false;save();
   refreshHeaderStat();refreshMetrics();
   if(UI.tab==="start")refreshGoalProgress();
+  if(UI.tab==="start"&&path.includes("saleDate"))setTimeout(()=>fetchWeather(P.setup?.saleDate||null),50);
   if(UI.tab==="saleWrap"&&UI.section==="sale")refreshSubtotal();
 }
 
@@ -1822,8 +1852,101 @@ function setReminder(){
   });
 }
 
+// ─── STICKY BAR ──────────────────────────────────────────────────────────────
+function refreshStickyBar(){
+  const stats=getStats(P);
+  const el=document.getElementById('sb-earned');if(el)el.textContent=`$${stats.earned.toFixed(2)}`;
+  const fill=document.getElementById('sb-fill');if(fill)fill.style.width=`${stats.goalProgress}%`;
+  const pct=document.getElementById('sb-pct');if(pct)pct.textContent=stats.goal?`${stats.goalProgress}% of goal`:'';
+  const goal=document.getElementById('sb-goal');
+  if(goal)goal.textContent=stats.goal?`$${stats.goalLeft.toFixed(2)} left to reach $${stats.goal}`:'Set a money goal on Start';
+  checkConfetti(stats);
+}
+
+// ─── CONFETTI ─────────────────────────────────────────────────────────────────
+function checkConfetti(stats){
+  if(!stats.goal||stats.goalProgress<100)return;
+  const key='mnc_confetti_'+(P.setup?.saleDate||'x');
+  if(sessionStorage.getItem(key))return;
+  sessionStorage.setItem(key,'1');
+  if(typeof confetti==='function'){
+    confetti({particleCount:140,spread:80,origin:{y:0.55},colors:['#E87AAA','#8BA7D4','#FFF8EE','#252535','#C4B0E8']});
+    setTimeout(()=>confetti({particleCount:60,spread:50,origin:{y:0.4},colors:['#E87AAA','#8BA7D4']}),400);
+  }
+}
+
+// ─── WEATHER ──────────────────────────────────────────────────────────────────
+const W={data:null,loading:false,forDate:null};
+function wCodeInfo(c){
+  if(c===0)return{icon:'☀️',label:'Clear sky',good:true};
+  if(c<=2)return{icon:'⛅',label:'Partly cloudy',good:true};
+  if(c<=3)return{icon:'☁️',label:'Overcast',good:true};
+  if(c<=48)return{icon:'🌫️',label:'Foggy',good:false};
+  if(c<=67)return{icon:'🌧️',label:'Rain',good:false};
+  if(c<=77)return{icon:'❄️',label:'Snow',good:false};
+  if(c<=82)return{icon:'🌦️',label:'Rain showers',good:false};
+  return{icon:'⛈️',label:'Thunderstorms',good:false};
+}
+async function fetchWeather(saleDate){
+  const el=document.getElementById('weather-card');if(!el)return;
+  if(!saleDate){el.style.display='none';return;}
+  el.style.display='';
+  if(W.forDate===saleDate&&W.data){renderWeatherCard();return;}
+  W.forDate=saleDate;W.loading=true;W.data=null;
+  el.innerHTML=`<div class="card-title">Sale day weather</div><div class="text-muted" style="font-size:var(--text-sm);margin-top:6px">Checking forecast…</div>`;
+  try{
+    const pos=await new Promise((res,rej)=>navigator.geolocation.getCurrentPosition(res,rej,{timeout:8000}));
+    const lat=pos.coords.latitude,lon=pos.coords.longitude;
+    const dateObj=new Date(saleDate+'T00:00:00'),today=new Date();
+    const daysAway=Math.round((dateObj-today)/86400000);
+    if(daysAway<0){W.loading=false;W.data={msg:'Sale date has passed.'};renderWeatherCard();return;}
+    if(daysAway>15){W.loading=false;W.data={msg:'Forecast available within 16 days of sale day.'};renderWeatherCard();return;}
+    const url=`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&daily=weathercode,temperature_2m_max,temperature_2m_min,precipitation_probability_max&temperature_unit=fahrenheit&forecast_days=${Math.min(daysAway+1,16)}&timezone=auto`;
+    const r=await fetch(url);const j=await r.json();
+    const i=Math.min(daysAway,j.daily.time.length-1);
+    W.loading=false;W.data={code:j.daily.weathercode[i],high:Math.round(j.daily.temperature_2m_max[i]),low:Math.round(j.daily.temperature_2m_min[i]),rain:j.daily.precipitation_probability_max[i]};
+  }catch(e){W.loading=false;W.data={msg:'Allow location access to see the forecast.'};}
+  renderWeatherCard();
+}
+function renderWeatherCard(){
+  const el=document.getElementById('weather-card');if(!el)return;
+  if(!W.data){el.innerHTML=`<div class="card-title">Sale day weather</div><div class="text-muted" style="font-size:var(--text-sm);margin-top:6px">Checking forecast…</div>`;return;}
+  if(W.data.msg){el.innerHTML=`<div class="card-title">Sale day weather</div><div class="text-muted" style="font-size:var(--text-sm);margin-top:6px">${W.data.msg}</div>`;return;}
+  const info=wCodeInfo(W.data.code);
+  const rain=W.data.rain;
+  const advice=info.good&&rain<30?'Looking good for an outdoor sale.':info.good&&rain<60?'Mostly ok — keep an eye on it.':'High rain chance. Have a backup plan.';
+  const adviceColor=info.good&&rain<30?'var(--color-sage)':rain>50?'var(--color-gold)':'var(--color-text-muted)';
+  el.innerHTML=`<div class="card-title">Sale day weather</div>
+    <div style="display:flex;align-items:center;gap:12px;margin:10px 0 8px">
+      <span style="font-size:2rem;line-height:1">${info.icon}</span>
+      <div>
+        <div style="font-family:var(--font-display);font-size:var(--text-lg);font-weight:800;color:var(--color-text);line-height:1.1">${W.data.high}° / ${W.data.low}°F</div>
+        <div style="font-size:var(--text-sm);color:var(--color-text-muted);margin-top:2px">${info.label} · ${rain}% rain</div>
+      </div>
+    </div>
+    <div style="font-size:var(--text-sm);font-weight:600;color:${adviceColor}">${advice}</div>`;
+}
+
 // ─── INIT ─────────────────────────────────────────────────────────────────────
 render();
+refreshStickyBar();
 </script>
+
+<!-- Sticky earning bar -->
+<div class="sticky-bar no-print" role="status" aria-label="Running sale total">
+  <div class="sb-section">
+    <div class="sb-label">Total earned</div>
+    <div class="sb-earned" id="sb-earned">$0.00</div>
+  </div>
+  <div class="sb-bar-wrap">
+    <div class="sb-bar"><div class="sb-fill" id="sb-fill" style="width:0%"></div></div>
+    <div class="sb-pct" id="sb-pct"></div>
+  </div>
+  <div class="sb-section" style="text-align:right">
+    <div class="sb-label" id="sb-goal-label">Goal</div>
+    <div class="sb-goal" id="sb-goal">Set a money goal on Start</div>
+  </div>
+</div>
+
 </body>
 </html>
