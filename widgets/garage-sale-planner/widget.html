@@ -6,10 +6,20 @@
 <title>My Nest Chapter — Garage Sale Planner</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500&family=Lora:wght@700;800&family=Montserrat:wght@400;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@800&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
 <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { -webkit-font-smoothing: antialiased; scroll-behavior: smooth; }
+    * { box-sizing: border-box; }
+    *, *::before, *::after { margin: 0; padding: 0; }
+    html, body, #root, [data-framework], main, .app-container {
+      background-color: #FFFFFF !important;
+      background: #FFFFFF !important;
+      margin: 0;
+      padding: 0;
+      width: 100% !important;
+      min-height: 100vh !important;
+    }
+    html { -webkit-font-smoothing: antialiased; scroll-behavior: smooth; overflow-x: hidden; }
 
     :root, [data-theme="light"] {
       --text-xs:   clamp(0.75rem, 0.7rem + 0.25vw, 0.875rem);
@@ -22,26 +32,26 @@
       --space-5:1.25rem;--space-6:1.5rem;--space-8:2rem;--space-10:2.5rem;
       --space-12:3rem;--space-16:4rem;
 
-      --color-bg:             #FAFAFA;
+      --color-bg:             #FFFFFF;
       --color-surface:        #FFFFFF;
-      --color-surface-2:      #F2EEF8;
-      --color-surface-3:      #FFF1E8;
-      --color-divider:        #D3D3D3;
-      --color-border:         #ABABAB;
+      --color-surface-2:      #ECE4F7;
+      --color-surface-3:      #FCEBDD;
+      --color-divider:        #E6E2DA;
+      --color-border:         #D6D1C8;
       --color-text:           #252535;
-      --color-text-muted:     #5A5A72;
-      --color-text-faint:     #5A5A72;
+      --color-text-muted:     #857F8E;
+      --color-text-faint:     #857F8E;
       --color-primary:        #E87AAA;
       --color-primary-hover:  #d9608f;
       --color-primary-active: #c9507f;
-      --color-primary-hl:     #FDEEF5;
+      --color-primary-hl:     #FBE0E7;
       --color-sage:           #5a7a5c;
       --color-sage-bg:        #e8f0e8;
       --color-gold:           #c4922a;
       --color-gold-bg:        #fdf0d5;
 
-      --radius-sm:0;--radius-md:0;--radius-lg:0;
-      --radius-xl:0;--radius-2xl:0;--radius-full:0;
+      --radius-sm:6px;--radius-md:8px;--radius-lg:12px;
+      --radius-xl:16px;--radius-2xl:20px;--radius-full:9999px;
       --shadow-sm:none;
       --shadow-md:none;
       --shadow-lg:none;
@@ -58,8 +68,8 @@
     }
 
     body {
-      font-family:var(--font-body);font-size:var(--text-base);
-      color:var(--color-text);background:var(--color-bg);min-height:100dvh;line-height:1.6;
+      font-family:var(--font-body);font-size:1rem;
+      color:var(--color-text);line-height:1.6;
     }
     img{display:block;max-width:100%;height:auto}
     button{cursor:pointer;border:none;background:none;font:inherit;color:inherit;touch-action:manipulation}
@@ -74,11 +84,11 @@
     /* ─── TOPBAR ─── */
     .topbar {
       position:-webkit-sticky;position:sticky;top:0;z-index:200;
-      background:var(--color-bg);
-      border-bottom:1px solid var(--color-divider);
+      background:#FFFFFF;
+      border-bottom:1px solid #E2DDD5;
       padding:var(--space-3) var(--space-6);
       display:flex;align-items:center;gap:var(--space-4);
-      box-shadow:var(--shadow-sm);
+      box-shadow:0 1px 4px rgba(37,37,53,0.06);
     }
     .topbar-logo {
       display:flex;align-items:center;gap:var(--space-2);flex-shrink:0;
@@ -86,6 +96,7 @@
     .topbar-logo-mark {
       width:34px;height:34px;
       background:var(--color-primary);
+      border-radius:var(--radius-md);
       display:flex;align-items:center;justify-content:center;
       color:#fff;font-family:var(--font-display);font-weight:800;font-size:.7rem;
       letter-spacing:.05em;flex-shrink:0;
@@ -96,11 +107,11 @@
       color:#E87AAA;letter-spacing:3px;text-transform:uppercase;
     }
     .topbar-sub {font-size:var(--text-xs);color:var(--color-text-muted);}
-    .topbar-center {flex:1;display:flex;justify-content:center;}
+    .topbar-center {flex:1;display:flex;justify-content:center;padding:0 var(--space-3);}
     .topbar-tabs {
-      display:flex;gap:var(--space-1);background:var(--color-surface);
-      border-radius:var(--radius-full);padding:var(--space-1);
-      border:1px solid var(--color-divider);overflow-x:auto;max-width:100%;
+      display:flex;gap:3px;background:var(--color-surface);
+      border-radius:10px;padding:4px;
+      border:1px solid var(--color-divider);overflow-x:auto;width:100%;
     }
     .topbar-tabs::-webkit-scrollbar{height:0}
     .topbar-right {display:flex;align-items:center;gap:var(--space-3);flex-shrink:0;}
@@ -113,13 +124,13 @@
 
     /* ─── TAB BUTTONS ─── */
     .tab-btn {
-      flex-shrink:0;border-radius:var(--radius-full);
-      padding:var(--space-2) var(--space-4);
+      flex:1;text-align:center;border-radius:7px;
+      padding:7px 12px;
       font-size:var(--text-sm);font-weight:500;white-space:nowrap;
       color:var(--color-text-muted);
       transition:background var(--t),color var(--t);
     }
-    .tab-btn.active{background:var(--color-bg);color:var(--color-text);box-shadow:var(--shadow-sm)}
+    .tab-btn.active{background:#F1EEF7;color:var(--color-text);box-shadow:var(--shadow-sm)}
     .tab-btn:hover:not(.active){color:var(--color-text);background:var(--color-surface-2)}
 
     .icon-btn {
@@ -130,23 +141,23 @@
     .icon-btn:hover{color:var(--color-text);background:var(--color-surface)}
 
     /* ─── LAYOUT ─── */
-    .outer{max-width:1100px;margin:0 auto;padding:var(--space-6) var(--space-6)}
-    .metrics-bar{max-width:1100px;margin:0 auto;padding:var(--space-5) var(--space-6) 0}
+    .outer{max-width:1400px;margin:0 auto;padding:var(--space-6) var(--space-6);background:transparent}
+    .metrics-bar{max-width:1400px;margin:0 auto;padding:var(--space-5) var(--space-6) 0;background:transparent}
 
     /* ─── METRICS ─── */
     .metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--space-3);margin-bottom:var(--space-5)}
     @media(max-width:640px){.metrics{grid-template-columns:repeat(2,1fr)}}
     .metric{
-      background:#eadffb;border:none;
-      border-radius:12px;padding:24px 20px;
+      background:#ECE4F7;border:none;
+      border-radius:var(--radius-lg);padding:24px 20px;
       box-shadow:0 4px 6px -1px rgba(37,37,53,0.05);
-      display:flex;flex-direction:column;align-items:center;justify-content:center;
-      text-align:center;overflow:visible;
+      display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;
+      transition:box-shadow var(--t);
     }
     .metric:hover{box-shadow:0 6px 12px -2px rgba(37,37,53,0.10)}
     .metric-label{
       font-size:var(--text-xs);font-weight:600;letter-spacing:.08em;
-      text-transform:uppercase;color:var(--color-text-faint);margin-bottom:var(--space-2);
+      text-transform:uppercase;color:#6E6790;margin-bottom:var(--space-2);
     }
     .metric-value{
       font-size:28px;font-weight:700;line-height:1.3;
@@ -201,11 +212,12 @@
       white-space:nowrap;
     }
     .btn:disabled{opacity:.45;cursor:not-allowed}
-    .btn-primary{background:var(--color-primary);color:#fff;border:none;font-family:'Montserrat',sans-serif;font-weight:800;text-transform:uppercase;letter-spacing:0.5px}
-    .btn-primary:hover{background:var(--color-primary-hover)}
-    .btn-primary:active{background:var(--color-primary-active);transform:translateY(1px)}
-    .btn-secondary{background:var(--color-surface);color:var(--color-text);border:1.5px solid var(--color-border)}
-    .btn-secondary:hover{background:var(--color-surface-2)}
+    .btn-primary{background:#E87AAA;color:#FFFFFF;border:1.5px solid #E87AAA;border-radius:10px;padding:11px 20px;font-family:'Montserrat',sans-serif;font-weight:700;font-size:13.5px;letter-spacing:0.2px}
+    .btn-primary:hover{background:#d9608f;border-color:#d9608f}
+    .btn-primary:active{background:#c9507f;border-color:#c9507f;transform:translateY(1px)}
+    .btn-secondary{background:transparent;color:#E87AAA;border:1.5px solid #E87AAA;border-radius:10px;padding:11px 20px;font-family:'Montserrat',sans-serif;font-weight:700;font-size:13.5px;letter-spacing:0.2px}
+    .btn-secondary:hover{background:#FBE0E7}
+    .btn-secondary:active{background:#f5c6d5;transform:translateY(1px)}
     .btn-ghost{background:transparent;color:var(--color-primary);border:1.5px solid transparent;padding:var(--space-2) var(--space-3)}
     .btn-ghost:hover{background:var(--color-primary-hl)}
     .btn-white{background:#fff;color:var(--color-primary);border:1.5px solid rgba(255,255,255,.3)}
@@ -217,16 +229,17 @@
 
     /* ─── CARDS ─── */
     .card{
-      background:var(--color-surface);border:1px solid var(--color-divider);
+      background:var(--color-surface);border:1px solid #DFD9CE;
       border-radius:var(--radius-xl);padding:var(--space-6);
+      box-shadow:0 4px 16px rgba(100,90,80,0.08);
       transition:box-shadow var(--t);
     }
     .card+.card{margin-top:var(--space-4)}
     .card-title{
-      font-size:22px;font-weight:700;font-family:var(--font-display);
-      margin-bottom:var(--space-4);color:#252535;
+      font-size:21px;font-weight:700;font-family:var(--font-display);
+      margin-bottom:var(--space-4);color:var(--color-text);
     }
-    .card-sub{font-size:15px;color:var(--color-text-muted);margin-bottom:var(--space-5);line-height:1.6}
+    .card-sub{font-size:var(--text-sm);color:var(--color-text-muted);margin-bottom:var(--space-5);line-height:1.7}
 
     /* ─── GRIDS ─── */
     .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:var(--space-4)}
@@ -237,19 +250,15 @@
 
     /* ─── FORMS ─── */
     .form-field{display:flex;flex-direction:column;gap:var(--space-2)}
-    .form-label{font-size:14px;font-weight:600;color:#252535}
+    .form-label{font-size:13px;font-weight:700;letter-spacing:0;color:var(--color-text);font-family:var(--font-display)}
     .input,.select,.textarea{
-      width:100%;border:1px solid #cfc7e8;
-      border-radius:8px;padding:13px 12px 11px;
-      font-size:var(--text-sm);line-height:1.5;color:var(--color-text);
-      background:#ffffff;outline:none;
-      transition:border-color 180ms ease,box-shadow 180ms ease;
+      width:100%;border:1px solid #D1C9BC;
+      border-radius:9px;padding:12px 14px;
+      font-size:15px;color:#252535;
+      background:#FFFFFF;transition:border-color var(--t);outline:none;
     }
-    .input:focus,.select:focus,.textarea:focus{
-      border-color:#6a56b2;
-      box-shadow:0 0 0 3px rgba(106,86,178,0.10);
-    }
-    .textarea{resize:vertical;min-height:80px}
+    .input:focus,.select:focus,.textarea:focus{border-color:var(--color-primary)}
+    .textarea{resize:none;min-height:80px}
     .select{
       appearance:none;
       background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%238BA7D4' d='M1 1l5 5 5-5'/%3E%3C/svg%3E");
@@ -284,7 +293,7 @@
     .sold-row{opacity:.5}
 
     /* ─── PROGRESS ─── */
-    .progress{height:4px;background:var(--color-divider);border-radius:var(--radius-full);overflow:hidden;margin-top:var(--space-2)}
+    .progress{height:10px;background:var(--color-divider);border-radius:var(--radius-full);overflow:hidden;margin-top:var(--space-2)}
     .progress-fill{height:100%;background:var(--color-primary);border-radius:var(--radius-full);transition:width .4s var(--t)}
     .progress-lg{height:8px}
 
@@ -351,12 +360,11 @@
     .tx-amount{font-size:var(--text-base);font-weight:600;font-family:var(--font-display);color:var(--color-primary)}
 
     /* ─── PAGE TITLES ─── */
-    .page-title{font-size:22px;font-weight:700;font-family:var(--font-display);color:#252535;margin-bottom:var(--space-2)}
-    .page-sub{font-size:15px;color:var(--color-text-muted);line-height:1.6;margin-bottom:var(--space-5)}
+    .page-title{font-size:var(--text-lg);font-weight:600;font-family:var(--font-display);color:var(--color-text);margin-bottom:var(--space-2)}
+    .page-sub{font-size:var(--text-sm);color:var(--color-text-muted);line-height:1.7;margin-bottom:var(--space-5)}
 
     /* ─── INFO / WARN BOXES ─── */
-    .info-box{background:#facfd4;border-radius:8px;padding:16px;font-size:var(--text-sm);color:#252535;line-height:1.7}
-    .card-placeholder{background:#fff8ee;border:1.5px dashed #cfc7e8;color:#252535}
+    .info-box{background:var(--color-primary-hl);border-radius:var(--radius-lg);padding:var(--space-4) var(--space-5);font-size:var(--text-sm);color:var(--color-text);line-height:1.7}
     .warn-box{background:#fff7ed;border-radius:var(--radius-lg);padding:var(--space-4) var(--space-5);font-size:var(--text-sm);color:#92400e;line-height:1.7}
 
     /* ─── UTILITY ─── */
@@ -378,11 +386,34 @@
     .sign-headline{font-size:clamp(1.25rem,1rem + 1vw,1.75rem);font-weight:600;font-family:var(--font-display);color:var(--color-primary);line-height:1.3}
     .sign-details{font-size:var(--text-sm);color:var(--color-text);margin-top:var(--space-3)}
 
+    /* ─── INVENTORY CARDS (mobile) ─── */
+    .inv-card{border:1.5px solid var(--color-divider);border-radius:var(--radius-lg);padding:14px 12px;display:flex;gap:10px;align-items:flex-start;background:#fff}
+    .inv-card.sold-card{opacity:0.5}
+    .inv-card-check{display:flex;align-items:center;justify-content:center;min-width:44px;min-height:44px;cursor:pointer}
+    .inv-card-check input[type="checkbox"]{width:20px;height:20px;accent-color:var(--plum);cursor:pointer;pointer-events:none}
+    .inv-card-body{flex:1;min-width:0}
+    .inv-card-name{font-weight:700;font-size:15px;color:var(--color-text);margin-bottom:2px;word-break:break-word}
+    .inv-card-meta{font-size:12px;color:var(--color-muted);margin-bottom:6px}
+    .inv-card-row2{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:4px}
+    .inv-card-price{font-weight:700;font-size:14px;color:var(--color-text)}
+    .inv-card-sub{font-size:11px;color:var(--color-muted);margin-top:2px}
+    .inv-card-actions{display:flex;flex-direction:column;gap:2px;align-items:center;flex-shrink:0}
+    .inv-card-actions .btn-ghost,.inv-card-actions .btn-danger{min-width:44px;min-height:44px;display:flex;align-items:center;justify-content:center;font-size:18px}
+
     /* ─── RESPONSIVE ─── */
     @media(max-width:900px){.topbar-stat{display:none}.topbar-sub{display:none}}
-    @media(max-width:600px){.topbar{padding:var(--space-3) var(--space-4);gap:var(--space-2)}.topbar-logo-text{display:none}}
+    @media(max-width:600px){
+      .topbar{padding:var(--space-3) var(--space-4) 0;gap:var(--space-2);flex-wrap:wrap;max-width:100vw;overflow:hidden}
+      .topbar-logo-text{display:none}
+      .topbar-center{order:3;flex:0 0 100%;min-width:0;overflow:hidden;padding-bottom:var(--space-2)}
+      .topbar-tabs{width:100%;min-width:0;-webkit-overflow-scrolling:touch;overflow-x:auto}
+      .topbar-right{margin-left:auto}
+    }
     @media(hover:none) and (pointer:coarse){
       .btn,.btn-sm,.btn-xs,.btn-ghost,.tab-btn,.sec-btn,.icon-btn{min-height:44px;min-width:44px}
+    }
+    @media(prefers-reduced-motion:reduce){
+      *,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}
     }
 
     /* ─── ACCESSIBILITY ─── */
@@ -413,6 +444,8 @@
     }
     #print-section{display:none}
     .no-print{}
+
+
 </style>
 </head>
 <body>
@@ -432,8 +465,9 @@
   <div class="topbar-right">
     <div class="topbar-stat">
       <div class="topbar-stat-value" id="hdr-earned" aria-live="polite" aria-atomic="true">$0.00</div>
-      <div class="topbar-stat-label" id="hdr-goal-sub">Set a goal on Start</div>
+      <div class="topbar-stat-label" id="hdr-goal-sub">Your Sale Day Goal</div>
     </div>
+    <button class="btn btn-ghost btn-sm" onclick="save();showToast('Saved!')" title="Save your planner">Save</button>
     <button class="btn btn-ghost btn-sm" onclick="advanceDemo()" id="demo-btn">Demo</button>
     <div id="hdr-demo-pill"></div>
   </div>
@@ -560,6 +594,14 @@ const onlineSellingGuides = [
   {platform:"Garage Sale",bestFor:"Low-dollar household items, kitchen duplicates, books, mugs, decor, baskets, basic clothing",avoid:"High-value items you would regret selling too cheaply",tip:"Price to move. The goal is space, cash, and peace."},
 ];
 
+const pricePoints = [
+  {label:"25¢",value:"0.25"},{label:"50¢",value:"0.50"},
+  {label:"$1",value:"1.00"},{label:"$2",value:"2.00"},{label:"$3",value:"3.00"},
+  {label:"$5",value:"5.00"},{label:"$7",value:"7.00"},{label:"$10",value:"10.00"},
+  {label:"$15",value:"15.00"},{label:"$20",value:"20.00"},{label:"$25",value:"25.00"},
+  {label:"$50",value:"50.00"},{label:"Blank",value:""}
+];
+
 const signTemplates = [
   "GARAGE SALE · Today 8–2 · Home Decor · Kitchen · Furniture",
   "MULTI-CATEGORY SALE · Priced to Move · Cash + Digital Payments",
@@ -594,7 +636,7 @@ function showToast(msg){
 function mncConfirm(msg,onConfirm){
   const ov=document.createElement('div');
   ov.style.cssText='position:fixed;inset:0;background:rgba(0,0,0,0.45);z-index:8000;display:flex;align-items:center;justify-content:center';
-  ov.innerHTML=`<div style="background:#fff;border:1px solid #ABABAB;padding:32px 36px;max-width:400px;width:90%;box-sizing:border-box">
+  ov.innerHTML=`<div style="background:#fff;border:1px solid #ABABAB;border-radius:12px;padding:32px 36px;max-width:400px;width:90%;box-sizing:border-box">
     <p style="font-family:Arial,sans-serif;font-size:12pt;color:#252535;margin:0 0 24px;line-height:1.5">${esc(msg)}</p>
     <div style="display:flex;gap:12px;justify-content:flex-end">
       <button id="mnc-cancel-btn" style="font-family:'Montserrat',sans-serif;font-weight:800;font-size:11pt;color:#E87AAA;background:#fff;border:1px solid #E87AAA;padding:10px 20px;cursor:pointer;text-transform:uppercase;touch-action:manipulation">Cancel</button>
@@ -692,7 +734,7 @@ function getDemoPlanner(){
 }
 
 let P=loadPlanner();
-let UI={tab:"start",section:"start",invView:"table",demo:false,demoStep:0};
+let UI={tab:"start",section:"start",invView:"table",showAddForm:false,demo:false,demoStep:0,calMenu:false};
 let draft={
   item:{name:"",category:"Decor",condition:"Good",quantity:"1",decision:"Garage Sale",price:"",notes:""},
   box:{title:"",price:"2",category:"Other",description:""},
@@ -700,6 +742,8 @@ let draft={
   sale:{description:"",amount:"",method:"Cash"},
 };
 let itemSearch="";
+let invCatFilter="All";
+let invDecFilter="All";
 
 // ─── PERSISTENCE ──────────────────────────────────────────────────────────────
 function save(){try{localStorage.setItem(STORAGE_KEY,JSON.stringify(P))}catch{}}
@@ -710,7 +754,7 @@ function deepSet(obj,path,value){
 }
 
 // ─── NAVIGATION ───────────────────────────────────────────────────────────────
-function goTab(tab,sec){UI.tab=tab;UI.section=sec||defaultSection[tab];render()}
+function goTab(tab,sec){UI.tab=tab;UI.section=sec||defaultSection[tab];window.scrollTo(0,0);render()}
 function goSection(sec){UI.section=sec;renderContent();renderSectionNav()}
 
 function buildNav(){
@@ -730,8 +774,9 @@ function renderSectionNav(){
 function refreshHeaderStat(){
   const stats=getStats(P);
   document.getElementById("hdr-earned").textContent=`$${stats.earned.toFixed(2)}`;
-  document.getElementById("hdr-goal-sub").textContent=stats.goal?`${stats.goalProgress}% of $${stats.goal} goal`:"Set a goal on Start";
+  document.getElementById("hdr-goal-sub").textContent=stats.goal?`${stats.goalProgress}% of $${stats.goal} goal`:"Your Sale Day Goal";
   document.getElementById("hdr-demo-pill").innerHTML=P.isDemo?`<div class="demo-pill">Demo mode</div>`:"";
+  refreshStickyBar();
 }
 
 function refreshMetrics(){
@@ -775,6 +820,7 @@ function render(){
 
 function renderContent(){
   const key=UI.tab+"|"+UI.section;
+  if(UI.tab==="start")setTimeout(()=>fetchWeather(P.setup?.saleDate||null),50);
   const map={
     "start|start":renderStart,
     "sortPrice|inventory":renderInventory,
@@ -797,47 +843,78 @@ function renderStart(){
   const s=P.setup||{};const stats=getStats(P);
   const days=daysUntilSale(s.saleDate);
   const daysStr=days===null?"Set a date to see the countdown":days===0?"Sale day is today!":days<0?`Sale was ${Math.abs(days)} day${Math.abs(days)===1?"":"s"} ago`:`${days} day${days===1?"":"s"} until sale day`;
+  const saleDateLabel=s.saleDate?new Date(s.saleDate+"T00:00:00").toLocaleDateString("en-US",{weekday:"long",month:"long",day:"numeric",year:"numeric"}):"";
   return`
-  <div class="grid-lg">
-    <div class="gap-y">
-      <div class="card">
-        <div class="card-title">Start here</div>
-        <div class="gap-y-sm">
-          ${field("Sale name","text","setup.saleTitle",s.saleTitle,"My Next Chapter Sale")}
-          ${field("Sale date","date","setup.saleDate",s.saleDate,"")}
-          ${areaField("What would you like to use the money for?","setup.moneyPurpose",s.moneyPurpose,"A weekend away, fresh bedding, savings, dinner with friends...")}
-          ${field("Money goal ($)","number","setup.moneyGoal",s.moneyGoal,"250")}
-          ${areaField("Notes before I start","setup.notes",s.notes,"What areas feel easiest? What items feel emotional?")}
-        </div>
-        <div style="margin-top:16px">
-          <button class="btn btn-primary" onclick="goTab('sortPrice','inventory')">Start adding items</button>
-        </div>
+  <div style="display:flex;gap:20px;flex-wrap:wrap;align-items:flex-start;padding-top:8px">
+
+    <!-- LEFT: form -->
+    <div style="flex:1.7 1 430px;background:#fff;border:1px solid var(--color-divider);border-radius:14px;padding:26px 26px 28px">
+      <div class="card-title" style="font-size:25px;margin-bottom:20px">Start here</div>
+      <div class="gap-y-sm">
+        ${field("Sale name","text","setup.saleTitle",s.saleTitle,"My Next Chapter Sale")}
+        ${areaField("What would you like to use the money for?","setup.moneyPurpose",s.moneyPurpose,"A weekend away, fresh bedding, savings, dinner with friends...")}
+        ${field("Sale date","date","setup.saleDate",s.saleDate,"")}
+        ${field("Money goal ($)","number","setup.moneyGoal",s.moneyGoal,"250")}
+        ${areaField("Notes before I start","setup.notes",s.notes,"What areas feel easiest? What items feel emotional?")}
+      </div>
+      <div style="margin-top:20px;display:flex;gap:10px;align-items:center;flex-wrap:wrap">
+        <button class="btn btn-primary" onclick="save();showToast('Saved!')">Save and keep going →</button>
+        <button class="btn btn-secondary" onclick="startDemo?startDemo():goTab('sortPrice','inventory')">Start a demo</button>
       </div>
     </div>
-    <div class="gap-y">
-      <div class="card">
-        <div class="card-title">Money goal</div>
-        <div id="goal-pct" class="metric-value" style="font-size:40px">${stats.goalProgress}%</div>
-        <div id="goal-sub" class="text-muted" style="margin-top:4px">$${stats.earned.toFixed(2)} earned · $${stats.goalLeft.toFixed(2)} left</div>
-        <div class="progress progress-lg" role="progressbar" aria-valuenow="${stats.goalProgress}" aria-valuemin="0" aria-valuemax="100" aria-label="Goal progress" style="margin-top:12px"><div class="progress-fill" id="goal-bar" style="width:${stats.goalProgress}%"></div></div>
-        ${stats.estimated>0?`<div style="background:var(--color-gold-bg);border-radius:var(--radius-lg);padding:10px 14px;margin-top:12px;font-size:var(--text-sm);color:var(--color-gold);line-height:1.6"><strong>Based on ${stats.totalItems} priced item${stats.totalItems===1?"":"s"}:</strong> estimated $${stats.estimated.toFixed(2)}${!stats.goal?" — try setting this as your goal":""}</div>`:""}
-        <div class="info-box" style="margin-top:16px">The money goal gives this sale a reason. Not a perfect reason. A real one. Something that belongs to you.</div>
+
+    <!-- RIGHT: sidebar -->
+    <div style="flex:1 1 300px;display:flex;flex-direction:column;gap:20px">
+
+      <!-- Money goal -->
+      <div style="background:#fff;border:1px solid var(--color-divider);border-radius:14px;padding:24px">
+        <div class="card-title" style="margin-bottom:8px">Money goal</div>
+        <div id="goal-pct" class="metric-value" style="font-size:44px;line-height:1">${stats.goalProgress}%</div>
+        <div id="goal-sub" class="text-muted" style="margin-top:8px">$${stats.earned.toFixed(2)} earned · $${stats.goalLeft.toFixed(2)} left</div>
+        <div class="progress progress-lg" role="progressbar" aria-valuenow="${stats.goalProgress}" aria-valuemin="0" aria-valuemax="100" aria-label="Goal progress" style="margin-top:14px;margin-bottom:18px"><div class="progress-fill" id="goal-bar" style="width:${stats.goalProgress}%"></div></div>
+        <div style="background:#FBE0E7;border-radius:12px;padding:16px 18px;font-size:14px;color:var(--color-text);line-height:1.55">Set a goal that means something to you — not just a number. It's easier to let go of stuff when you know what the money is going toward.</div>
       </div>
-      <div class="card${!s.saleDate?' card-placeholder':''}">
-        <div class="card-title">Sale countdown</div>
-        <div class="metric-value">${daysStr}</div>
-        ${s.saleDate?`<div class="text-muted" style="margin-top:4px">${new Date(s.saleDate+"T00:00:00").toLocaleDateString("en-US",{weekday:"long",month:"long",day:"numeric",year:"numeric"})}</div><div style="margin-top:12px"><button class="btn btn-secondary btn-sm" onclick="downloadCalendar()">Add to calendar</button></div>`:`<div style="margin-top:8px;font-size:14px;color:#252535;line-height:1.6">Set your sale date in the setup tab to start the countdown.</div>`}
+
+      <!-- Sale countdown -->
+      <div style="background:#fff;border:1px solid var(--color-divider);border-radius:14px;padding:24px">
+        <div class="card-title" style="margin-bottom:12px">Sale countdown</div>
+        <div class="metric-value" style="font-size:28px;line-height:1.15">${daysStr}</div>
+        ${s.saleDate?`
+        <div class="text-muted" style="margin-top:8px;font-size:15px">${saleDateLabel}</div>
+        <div style="margin-top:16px;position:relative;display:inline-block">
+          <button class="btn btn-secondary btn-sm" onclick="UI.calMenu=!UI.calMenu;renderContent()">Add to calendar ▾</button>
+          ${UI.calMenu?`<div style="position:absolute;top:calc(100% + 6px);left:0;z-index:300;background:#fff;border:1.5px solid var(--color-divider);border-radius:10px;box-shadow:0 4px 16px rgba(37,37,53,0.12);min-width:200px;overflow:hidden">
+            <button style="display:flex;align-items:center;gap:10px;width:100%;padding:11px 16px;border:none;background:none;cursor:pointer;font-size:14px;font-weight:600;color:var(--color-text);text-align:left" onmouseover="this.style.background='#f5f3ff'" onmouseout="this.style.background='none'" onclick="openGoogleCal()">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><rect x="3" y="4" width="18" height="17" rx="2" stroke="#4285F4" stroke-width="2"/><line x1="3" y1="9" x2="21" y2="9" stroke="#4285F4" stroke-width="2"/><line x1="8" y1="2" x2="8" y2="6" stroke="#4285F4" stroke-width="2"/><line x1="16" y1="2" x2="16" y2="6" stroke="#4285F4" stroke-width="2"/><text x="12" y="19" text-anchor="middle" font-size="7" font-weight="900" fill="#EA4335">G</text></svg>
+              Google Calendar
+            </button>
+            <button style="display:flex;align-items:center;gap:10px;width:100%;padding:11px 16px;border:none;border-top:1px solid var(--color-divider);background:none;cursor:pointer;font-size:14px;font-weight:600;color:var(--color-text);text-align:left" onmouseover="this.style.background='#f5f3ff'" onmouseout="this.style.background='none'" onclick="openOutlookCal()">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><rect x="2" y="3" width="20" height="18" rx="2" stroke="#0078D4" stroke-width="2"/><path d="M2 8h20" stroke="#0078D4" stroke-width="2"/><path d="M8 3v5" stroke="#0078D4" stroke-width="2"/><path d="M16 3v5" stroke="#0078D4" stroke-width="2"/><circle cx="12" cy="15" r="3" stroke="#0078D4" stroke-width="1.5"/></svg>
+              Outlook / Microsoft
+            </button>
+            <button style="display:flex;align-items:center;gap:10px;width:100%;padding:11px 16px;border:none;border-top:1px solid var(--color-divider);background:none;cursor:pointer;font-size:14px;font-weight:600;color:var(--color-text);text-align:left" onmouseover="this.style.background='#f5f3ff'" onmouseout="this.style.background='none'" onclick="downloadCalendar()">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><rect x="3" y="4" width="18" height="17" rx="2" stroke="#555" stroke-width="2"/><line x1="3" y1="9" x2="21" y2="9" stroke="#555" stroke-width="2"/><line x1="8" y1="2" x2="8" y2="6" stroke="#555" stroke-width="2"/><line x1="16" y1="2" x2="16" y2="6" stroke="#555" stroke-width="2"/></svg>
+              Apple / Other (.ics)
+            </button>
+          </div>`:""}
+        </div>`:""}
       </div>
-      <div class="card">
-        <div class="card-title">Day-before reminder</div>
-        <p class="card-sub" style="margin-bottom:12px">Get a prep email the morning before sale day — your items, your goal, and a link back here.</p>
-        <div class="form-field" style="margin-bottom:10px">
-          <label class="form-label">Your email</label>
+
+      <!-- Weather -->
+      <div style="background:#fff;border:1px solid var(--color-divider);border-radius:14px;padding:20px" id="weather-card" ${!s.saleDate?'style="display:none;background:#fff;border:1px solid var(--color-divider);border-radius:14px;padding:20px"':''}></div>
+
+      <!-- Day-before reminder -->
+      <div style="background:#fff;border:1px solid var(--color-divider);border-radius:14px;padding:24px">
+        <div class="card-title" style="margin-bottom:6px">Day-before reminder</div>
+        <p style="font-size:14px;color:var(--color-muted);line-height:1.55;margin-bottom:14px">Get a prep email the morning before sale day — your items, your goal, and a link back here.</p>
+        <div class="form-field" style="margin-bottom:12px">
+          <label class="form-label" style="font-family:'Montserrat',sans-serif;font-size:13px;font-weight:700;color:var(--color-text)">Your email</label>
           <input class="input" type="email" id="reminder-email" placeholder="you@email.com" />
         </div>
-        <button class="btn btn-primary btn-sm" onclick="setReminder()" id="reminder-btn" ${!s.saleDate?'disabled':''}>Set reminder${!s.saleDate?' (set date first)':''}</button>
+        <button class="btn btn-secondary btn-sm" onclick="setReminder()" id="reminder-btn" ${!s.saleDate?'disabled':''} style="font-family:'Montserrat',sans-serif">${!s.saleDate?'Set reminder (set date first)':'Set reminder'}</button>
         <div id="reminder-msg" style="display:none;margin-top:10px"></div>
       </div>
+
     </div>
   </div>`;
 }
@@ -847,14 +924,12 @@ function renderInventory(){
   return`
   <div class="gap-y">
     <div>
-      <h2 class="page-title">Items</h2>
-      <p class="page-sub">Add items, decide what to do with them, and see suggested pricing or online-sale direction.</p>
-      <div class="row" style="margin-bottom:16px">
-        <button class="btn ${UI.invView==="add"?"btn-primary":"btn-secondary"}" onclick="setInvView('add')">Add item</button>
-        <button class="btn ${UI.invView==="table"?"btn-primary":"btn-secondary"}" onclick="setInvView('table')">Inventory list</button>
-      </div>
+      <p style="font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--color-muted);margin-bottom:4px">Sort + Price</p>
+      <h2 class="page-title" style="margin-bottom:14px">Items</h2>
+      <button class="btn btn-primary" onclick="UI.showAddForm=!UI.showAddForm;renderContent()" style="margin-bottom:20px">+ Add an item</button>
     </div>
-    ${UI.invView==="add"?renderAddItemForm():renderItemTable()}
+    ${UI.showAddForm?renderAddItemForm():""}
+    ${renderItemTable()}
   </div>`;
 }
 
@@ -865,10 +940,10 @@ function renderAddItemForm(){
   const suggested=priceRange(d.category,d.condition);
   const platform=suggestPlatform(d.category,d.condition,d.price,d.decision);
   return`
-  <div class="card">
+  <div class="card" style="margin-bottom:20px">
     <div class="card-title">Add an item</div>
     <div class="form-row" style="margin-bottom:14px">
-      <div class="form-field">
+      <div class="form-field" style="grid-column:1/-1">
         <label class="form-label">Item name</label>
         <input class="input" id="di-name" value="${esc(d.name)}" placeholder="Guest room comforter set" oninput="draftItem('name',this.value)" />
       </div>
@@ -890,10 +965,10 @@ function renderAddItemForm(){
       </div>
       <div class="form-field">
         <label class="form-label">My price ($)</label>
-        <input class="input" type="number" min="0" step="0.5" value="${esc(d.price)}" oninput="draftItemAndRefresh('price',this.value)" placeholder="0" />
+        <input class="input" id="di-price" type="number" min="0" step="1" value="${esc(d.price)}" oninput="draftItem('price',this.value)" onblur="draftItemAndRefresh('price',this.value)" placeholder="0" />
       </div>
     </div>
-    <div class="info-box" style="margin-bottom:14px">
+    <div class="info-box" style="margin-bottom:14px;background:#facfd4">
       <strong>Suggested:</strong> ${suggested} &nbsp;·&nbsp; <strong>Best fit:</strong> ${platform}
     </div>
     <div class="form-field" style="margin-bottom:14px">
@@ -902,28 +977,89 @@ function renderAddItemForm(){
     </div>
     <div class="form-actions">
       <button class="btn btn-primary" onclick="addItem()">Add item</button>
-      <button class="btn btn-secondary" onclick="setInvView('table')">View inventory</button>
     </div>
   </div>`;
 }
 
-function renderItemTable(){
+function invTally(items){
+  const total=items.length;
+  const sale=(items.filter(i=>i.decision==="Garage Sale")||[]).length;
+  const online=(items.filter(i=>i.decision==="Sell Online")||[]).length;
+  const donate=(items.filter(i=>i.decision==="Donate")||[]).length;
+  return`<strong>${total}</strong> item${total===1?"":"s"} · <strong>${sale}</strong> garage sale · <strong>${online}</strong> selling online · <strong>${donate}</strong> donating`;
+}
+
+function invSearchBar(){
+  const pillStyle=`font-family:'Montserrat',sans-serif;font-size:13px;font-weight:600;border:1.5px solid #d4cfe8;border-radius:20px;background:#fff;padding:8px 32px 8px 14px;appearance:none;-webkit-appearance:none;cursor:pointer;color:var(--color-text);background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%23888' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 10px center`;
+  return`<div class="row" style="gap:8px;margin-bottom:20px;flex-wrap:wrap;align-items:center">
+    <input class="input" id="inv-search" placeholder="Search items..." value="${esc(itemSearch)}" style="flex:1;min-width:160px" oninput="const _p=this.selectionStart;itemSearch=this.value;renderContent();const _s=document.getElementById('inv-search');if(_s){_s.focus();_s.setSelectionRange(_p,_p)}" />
+    <select style="${pillStyle}" onchange="invCatFilter=this.value;renderContent()">
+      <option value="All"${invCatFilter==="All"?" selected":""}>Category ▾</option>
+      ${categories.map(c=>`<option value="${esc(c)}"${invCatFilter===c?" selected":""}>${esc(c)}</option>`).join("")}
+    </select>
+    <select style="${pillStyle}" onchange="invDecFilter=this.value;renderContent()">
+      <option value="All"${invDecFilter==="All"?" selected":""}>Decision ▾</option>
+      ${decisions.map(d=>`<option value="${esc(d)}"${invDecFilter===d?" selected":""}>${esc(d)}</option>`).join("")}
+    </select>
+  </div>`;
+}
+
+function filteredItems(items){
+  return items.filter(i=>{
+    const q=itemSearch.toLowerCase();
+    const matchQ=!q||`${i.name} ${i.category} ${i.decision} ${i.platform}`.toLowerCase().includes(q);
+    const matchC=invCatFilter==="All"||i.category===invCatFilter;
+    const matchD=invDecFilter==="All"||i.decision===invDecFilter;
+    return matchQ&&matchC&&matchD;
+  });
+}
+
+function renderItemCards(){
   const items=P.items||[];
-  const visible=items.filter(i=>`${i.name} ${i.category} ${i.decision} ${i.platform}`.toLowerCase().includes(itemSearch.toLowerCase()));
+  const visible=filteredItems(items);
   return`
   <div class="card">
-    <div class="row" style="margin-bottom:14px">
-      <div class="card-title" style="margin-bottom:0;flex:1">Inventory (${items.length} item${items.length===1?"":"s"})</div>
-      <button class="btn btn-secondary btn-sm" onclick="setInvView('add')">+ Add item</button>
+    ${invSearchBar()}
+    ${visible.length===0?`<div class="empty-state">${items.length===0?"No items yet — tap &quot;+ Add an item&quot; to get started.":"No items match your search."}</div>`:`
+    <div style="display:flex;flex-direction:column;gap:10px">
+      ${visible.map(item=>`
+      <div class="inv-card${item.sold?" sold-card":""}">
+        <label class="inv-card-check">
+          <input type="checkbox" ${item.sold?"checked":""} onchange="toggleSold('${esc(item.id)}',this.checked)" aria-label="Mark ${esc(item.name)} as sold" />
+        </label>
+        <div class="inv-card-body">
+          <div class="inv-card-name">${esc(item.name)}${item.quantity&&item.quantity!=="1"?` <span style="font-weight:400;font-size:12px;color:var(--color-muted)">×${esc(item.quantity)}</span>`:""}</div>
+          <div class="inv-card-meta">${esc(item.category)} · ${esc(item.condition)}</div>
+          <div class="inv-card-row2">
+            <span class="td-chip ${chipClass(item.decision)}">${esc(item.decision)}</span>
+            ${item.price?`<span class="inv-card-price">$${esc(item.price)}</span>`:""}
+          </div>
+          <div class="inv-card-sub">${item.platform?esc(item.platform):""}</div>
+        </div>
+        <div class="inv-card-actions">
+          <button class="btn btn-ghost btn-xs" onclick="saveToMemory('${esc(item.id)}')" aria-label="Save to memory">&#9825;</button>
+          <button class="btn btn-danger btn-xs" onclick="deleteItem('${esc(item.id)}')" aria-label="Remove item">×</button>
+        </div>
+      </div>`).join("")}
     </div>
-    <div class="form-field" style="margin-bottom:14px">
-      <input class="input" placeholder="Search items, category, decision..." value="${esc(itemSearch)}" oninput="itemSearch=this.value;renderContent()" />
-    </div>
-    ${visible.length===0?`<div class="empty-state">${items.length===0?"No items yet. Add your first item to get started.":"No items match your search."}</div>`:
-    `<div class="tbl-wrap"><table>
+    <p style="margin-top:14px;font-size:12px;color:var(--color-muted)">${invTally(items)}</p>
+    <p style="margin-top:6px;font-size:12px;color:var(--color-muted)">&#9825; Save an item to your Memory Box before it goes — a small keepsake so you can let go without losing the memory.</p>`}
+  </div>`;
+}
+
+function renderItemTable(){
+  if(window.innerWidth<641)return renderItemCards();
+  const items=P.items||[];
+  const visible=filteredItems(items);
+  return`
+  <div class="card">
+    ${invSearchBar()}
+    <div style="font-size:18px;font-weight:700;color:var(--color-text);margin-bottom:14px">My inventory</div>
+    ${visible.length===0?`<div class="empty-state">${items.length===0?"No items yet — click &quot;+ Add an item&quot; above to get started.":"No items match your search."}</div>`:`
+    <div class="tbl-wrap"><table>
       <thead><tr>
-        <th>Sold</th><th>Item</th><th>Cat.</th><th>Cond.</th><th>Decision</th>
-        <th>Price</th><th>Suggested</th><th>Best fit</th><th></th>
+        <th style="background:#ECE4F7">Sold</th><th style="background:#ECE4F7">Item</th><th style="background:#ECE4F7">Category</th><th style="background:#ECE4F7">Condition</th><th style="background:#ECE4F7">Decision</th>
+        <th style="background:#ECE4F7">Price</th><th style="background:#ECE4F7">Best Fit</th><th style="background:#ECE4F7"></th>
       </tr></thead>
       <tbody>${visible.map(item=>`
         <tr class="${item.sold?"sold-row":""}">
@@ -933,7 +1069,6 @@ function renderItemTable(){
           <td class="text-xs text-muted">${esc(item.condition)}</td>
           <td><span class="td-chip ${chipClass(item.decision)}">${esc(item.decision)}</span></td>
           <td class="font-bold">${item.price?"$"+esc(item.price):""}</td>
-          <td class="text-xs text-muted">${esc(item.suggested||"")}</td>
           <td class="text-xs">${esc(item.platform||"")}</td>
           <td>
             <div class="row" style="gap:4px">
@@ -944,6 +1079,8 @@ function renderItemTable(){
         </tr>`).join("")}
       </tbody>
     </table></div>`}
+    <p style="margin-top:16px;font-size:14px;color:var(--color-text)">${invTally(items)}</p>
+    <p style="margin-top:6px;font-size:12px;color:var(--color-muted)">&#9825; Save an item to your Memory Box before it goes — a small keepsake so you can let go without losing the memory.</p>
   </div>`;
 }
 
@@ -954,7 +1091,7 @@ function addItem(){
   const d=draft.item;
   P.items=[{id:makeId(),name:d.name,category:d.category,condition:d.condition,quantity:d.quantity,decision:d.decision,price:d.price,notes:d.notes,suggested:priceRange(d.category,d.condition),platform:suggestPlatform(d.category,d.condition,d.price,d.decision),sold:false},...(P.items||[])];
   P.isDemo=false;save();draft.item={name:"",category:"Decor",condition:"Good",quantity:"1",decision:"Garage Sale",price:"",notes:""};
-  UI.invView="table";renderContent();refreshMetrics();
+  UI.showAddForm=false;renderContent();refreshMetrics();
 }
 function deleteItem(id){mncConfirm("Remove this item?",()=>{P.items=(P.items||[]).filter(i=>i.id!==id);P.isDemo=false;save();renderContent();refreshMetrics()})}
 function toggleSold(id,v){const item=(P.items||[]).find(i=>i.id===id);if(item){item.sold=v;P.isDemo=false;save();renderContent()}}
@@ -972,7 +1109,7 @@ function renderBatch(){
   <div class="gap-y">
     <div>
       <h2 class="page-title">Batch Boxes</h2>
-      <p class="page-sub">Group low-dollar items into priced boxes so shoppers can browse and choose without individual tags.</p>
+      <p class="page-sub">Box up the little stuff — the odds and ends, the duplicates, the small things that don't need their own price tag. One box, one price, done.</p>
     </div>
     <div class="card">
       <div class="card-title">Create a batch box</div>
@@ -1421,40 +1558,131 @@ function deleteSale(id){P.transactions=(P.transactions||[]).filter(t=>t.id!==id)
 function renderPrintCenter(){
   const tagItems=(P.items||[]).filter(i=>["Garage Sale","Sell Online"].includes(i.decision));
   const boxes=P.batchBoxes||[];
+  const a=P.advertising||{};
+  if(UI.printSelected===undefined)UI.printSelected=tagItems.map(i=>i.id);
+  if(UI.printSign===undefined)UI.printSign=-1;
+  const selItems=tagItems.filter(i=>UI.printSelected.includes(i.id));
+  const allSigns=[
+    {label:"My custom sign",text:(a.signHeadline||"GARAGE SALE")+"\n"+(a.signDetails||"Today · Priced to Move")+(a.featuredItems?"\n"+a.featuredItems:"")},
+    ...signTemplates.map(t=>({label:t,text:t}))
+  ];
+  const chosenSign=UI.printSign>=0?allSigns[UI.printSign]:null;
+
   return`
   <div class="gap-y">
     <div>
       <h2 class="page-title">Print Center</h2>
-      <p class="page-sub">Print price tags for your items and signs for your batch boxes.</p>
+      <p class="page-sub">Set up your price tags and signs, preview them here, then print.</p>
     </div>
-    <div class="grid-2">
-      <div class="card">
-        <div class="card-title">Price tags (${tagItems.length})</div>
-        <p class="card-sub">Prints tags for all items marked Garage Sale or Sell Online.</p>
-        <div class="grid-3" style="margin-bottom:16px">
-          ${(tagItems.length?tagItems:[{id:"x",name:"Sample Item",price:"5",category:"Decor"}]).slice(0,6).map(i=>`
-            <div style="border:2px dashed var(--border);border-radius:10px;padding:12px;text-align:center;background:var(--bg)">
-              <div style="font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--plum)">My Nest Chapter</div>
-              <div style="font-size:13px;font-weight:700;margin:6px 0">${esc(i.name)}</div>
-              <div style="font-size:22px;font-weight:800;font-family:Lora,serif;color:var(--plum)">$${esc(i.price||"__")}</div>
-              <div style="font-size:10px;color:var(--muted)">${esc(i.category||"")}</div>
+
+    <!-- PRICE TAGS -->
+    <div class="card">
+      <div class="card-title">Price tags</div>
+      <p class="card-sub" style="margin-bottom:14px">Choose which items to include, then print a full sheet of price tags.</p>
+      ${tagItems.length===0?`
+        <div class="info-box">No items yet. Add items in Sort + Price, mark them Garage Sale, then come back here to print tags.</div>
+      `:`
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
+          <span class="text-muted" style="font-size:var(--text-sm)">${selItems.length} of ${tagItems.length} selected</span>
+          <button class="btn btn-ghost btn-xs" onclick="toggleAllTags()">Select all / none</button>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:6px;max-height:220px;overflow-y:auto;margin-bottom:16px;padding-right:2px">
+          ${tagItems.map(i=>`
+            <div class="check-item${UI.printSelected.includes(i.id)?" checked":""}" role="checkbox" aria-checked="${UI.printSelected.includes(i.id)}" tabindex="0"
+              onclick="toggleTagItem('${i.id}')" onkeydown="if(event.key===' '||event.key==='Enter'){event.preventDefault();toggleTagItem('${i.id}')}">
+              <div class="check-box" aria-hidden="true">${UI.printSelected.includes(i.id)?"✓":""}</div>
+              <div style="flex:1;font-size:var(--text-sm)">${esc(i.name)}</div>
+              <div style="font-weight:700;color:var(--color-primary);font-size:var(--text-sm)">$${esc(i.price||"__")}</div>
             </div>`).join("")}
         </div>
-        <button class="btn btn-primary" onclick="printTags()">Print price tags</button>
+        ${selItems.length>0?`
+        <div style="background:var(--color-surface-2);padding:14px;margin-bottom:16px">
+          <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--color-text-muted);margin-bottom:10px">Preview — first ${Math.min(selItems.length,6)} of ${selItems.length} tags</div>
+          <div class="grid-3">
+            ${selItems.slice(0,6).map(i=>`
+              <div style="border:2px dashed var(--color-primary);padding:10px;text-align:center;background:#fff">
+                <div style="font-size:8px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--color-primary)">My Nest Chapter</div>
+                <div style="font-size:12px;font-weight:700;margin:5px 0;line-height:1.3">${esc(i.name)}</div>
+                <div style="font-size:22px;font-weight:800;font-family:'Montserrat',sans-serif;color:var(--color-primary)">$${esc(i.price||"__")}</div>
+                <div style="font-size:9px;color:var(--color-text-muted)">${esc(i.category||"")}</div>
+              </div>`).join("")}
+          </div>
+        </div>
+        <button class="btn btn-primary" onclick="printSelectedTags()">Print ${selItems.length} price tag${selItems.length===1?"":"s"}</button>
+        `:`<div class="warn-box">Select at least one item to print.</div>`}
+      `}
+    </div>
+
+    <!-- PRICE POINT TAGS -->
+    <div class="card">
+      <div class="card-title">Blank price tags by amount</div>
+      <p class="card-sub" style="margin-bottom:16px">Choose how many of each price you need. Great for items you haven't priced yet — print a sheet and stick them on anything at the sale.</p>
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:10px;margin-bottom:18px">
+        ${pricePoints.map((p,i)=>{
+          const qty=UI.ppQty?.[i]??3;
+          return`<div style="border:1px solid var(--color-divider);padding:10px 8px;text-align:center;background:var(--color-surface)">
+            <div style="font-family:'Montserrat',sans-serif;font-size:20px;font-weight:800;color:var(--color-primary);margin-bottom:8px">${p.label}</div>
+            <div style="display:flex;align-items:center;justify-content:center;gap:8px">
+              <button class="btn btn-ghost btn-xs" style="padding:0 8px;font-size:16px;line-height:1" onclick="setPPQty(${i},${qty-1})" ${qty<=0?"disabled":""}>−</button>
+              <span style="font-size:14px;font-weight:700;min-width:18px;text-align:center">${qty}</span>
+              <button class="btn btn-ghost btn-xs" style="padding:0 8px;font-size:16px;line-height:1" onclick="setPPQty(${i},${qty+1})">+</button>
+            </div>
+          </div>`;
+        }).join("")}
       </div>
-      <div class="card">
-        <div class="card-title">Box signs (${boxes.length})</div>
-        <p class="card-sub">Prints one large sign per batch box with the price and title.</p>
-        <div class="gap-y-sm" style="margin-bottom:16px">
-          ${(boxes.length?boxes:[{id:"x",boxNumber:1,title:"Mixed items",price:"2",category:"Other"}]).slice(0,3).map(b=>`
-            <div style="border:2px solid var(--border);border-radius:10px;padding:14px;text-align:center">
-              <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.14em;color:var(--plum)">Box #${b.boxNumber}</div>
-              <div style="font-size:18px;font-weight:800;font-family:Lora,serif;color:var(--plum);margin-top:4px">All items $${esc(b.price||"__")}</div>
-              <div style="font-size:13px;font-weight:700;margin-top:4px">${esc(b.title||b.category||"Mixed items")}</div>
+      <div style="background:var(--color-surface-2);padding:12px;margin-bottom:16px">
+        <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--color-text-muted);margin-bottom:10px">Preview</div>
+        <div class="grid-3">
+          ${pricePoints.filter((_,i)=>(UI.ppQty?.[i]??3)>0).slice(0,6).map(p=>`
+            <div style="border:2px dashed var(--color-primary);padding:10px;text-align:center;background:#fff">
+              <div style="font-size:8px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--color-primary)">My Nest Chapter</div>
+              <div style="font-size:26px;font-weight:800;font-family:'Montserrat',sans-serif;color:var(--color-primary);margin:6px 0">${p.label||"____"}</div>
+              <div style="font-size:8px;color:var(--color-text-muted)">Thank you!</div>
+            </div>`).join("")}
+        </div>
+      </div>
+      <button class="btn btn-primary" onclick="printPricePointTags()">Print price point tags</button>
+    </div>
+
+    <!-- SALE SIGNS -->
+    <div class="card">
+      <div class="card-title">Sale signs</div>
+      <p class="card-sub" style="margin-bottom:14px">Choose a sign, see the preview, then print it or copy the text.</p>
+      <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:16px">
+        ${allSigns.map((s,i)=>`
+          <div style="display:flex;align-items:center;gap:10px;padding:12px;border:2px solid ${UI.printSign===i?"var(--color-primary)":"var(--color-divider)"};background:${UI.printSign===i?"var(--color-primary-hl)":"transparent"};cursor:pointer"
+            onclick="selectSign(${i})" role="button" tabindex="0" onkeydown="if(event.key===' '||event.key==='Enter'){event.preventDefault();selectSign(${i})}">
+            <div style="flex:1;font-size:var(--text-sm);font-weight:${UI.printSign===i?"700":"400"};color:var(--color-text)">${esc(s.label)}</div>
+            <button class="btn ${UI.printSign===i?"btn-primary":"btn-secondary"} btn-xs" onclick="event.stopPropagation();selectSign(${i})">${UI.printSign===i?"Chosen":"Choose"}</button>
+          </div>`).join("")}
+      </div>
+      ${chosenSign?`
+        <div style="border:3px solid var(--color-primary);padding:32px 28px;text-align:center;background:#fff;margin-bottom:16px">
+          <div style="font-size:10px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--color-primary);margin-bottom:14px">My Nest Chapter</div>
+          <div style="font-size:clamp(20px,4vw,32px);font-weight:800;font-family:'Montserrat',sans-serif;color:var(--color-text);line-height:1.5;white-space:pre-line">${esc(chosenSign.text)}</div>
+        </div>
+        <div style="display:flex;gap:10px;flex-wrap:wrap">
+          <button class="btn btn-primary" onclick="printChosenSign()">Print this sign</button>
+          <button class="btn btn-secondary" onclick="copyChosenSign()">Copy text</button>
+        </div>
+      `:`<div class="info-box">Choose a sign above — it will appear here as a preview you can print.</div>`}
+    </div>
+
+    <!-- BOX SIGNS -->
+    <div class="card">
+      <div class="card-title">Box signs (${boxes.length})</div>
+      <p class="card-sub" style="margin-bottom:14px">One large sign per batch box. Set up batch boxes in Sort + Price first.</p>
+      ${boxes.length===0?`<div class="info-box">No batch boxes yet. Add boxes in Sort + Price → Batch Boxes, then come back here to print signs.</div>`:`
+        <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:16px">
+          ${boxes.slice(0,4).map(b=>`
+            <div style="border:2px solid var(--color-divider);padding:14px;text-align:center;background:#fff">
+              <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.14em;color:var(--color-primary)">Box #${b.boxNumber}</div>
+              <div style="font-size:20px;font-weight:800;font-family:'Montserrat',sans-serif;color:var(--color-primary);margin-top:4px">All items $${esc(b.price||"__")}</div>
+              <div style="font-size:14px;font-weight:700;margin-top:4px">${esc(b.title||b.category||"Mixed items")}</div>
             </div>`).join("")}
         </div>
         <button class="btn btn-primary" onclick="printBoxSigns()">Print box signs</button>
-      </div>
+      `}
     </div>
   </div>`;
 }
@@ -1464,12 +1692,12 @@ function renderWrap(){
   const w=P.wrap||{};const stats=getStats(P);
   const saleComplete=stats.earned>0&&(w.donate||w.notes||w.sellOnline||w.keep||w.trash);
   const completionScreen=saleComplete?`
-  <div style="background:#252535;border-radius:0;padding:40px 36px;text-align:center;margin-bottom:8px;">
+  <div style="background:#252535;border-radius:16px;padding:40px 36px;text-align:center;margin-bottom:8px;">
     <p style="font-family:'Montserrat',sans-serif;font-weight:800;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#E87AAA;margin:0 0 14px;">Sale Complete</p>
     <h2 style="font-family:'Montserrat',sans-serif;font-weight:800;font-size:26px;color:#FFF8EE;margin:0 0 10px;line-height:1.3;">You earned $${stats.earned.toFixed(2)}.</h2>
-    ${stats.goal?`<p style="font-family:'DM Sans',Arial,sans-serif;font-size:15px;color:rgba(255,248,238,0.75);margin:0 0 6px;">${stats.goalProgress}% of your $${stats.goal} goal reached.</p>`:""}
-    ${P.setup?.moneyPurpose?`<p style="font-family:'DM Sans',Arial,sans-serif;font-size:14px;color:#A8C5DA;margin:0 0 20px;font-style:italic;">${esc(P.setup.moneyPurpose)}</p>`:"<div style='margin-bottom:20px'></div>"}
-    <p style="font-family:'DM Sans',Arial,sans-serif;font-size:15px;color:rgba(255,248,238,0.78);line-height:1.7;max-width:480px;margin:0 auto 24px;">Every item sorted, priced, and moved out the door. That took real effort. Here&rsquo;s to your next chapter.</p>
+    ${stats.goal?`<p style="font-family:Arial,sans-serif;font-size:15px;color:rgba(255,248,238,0.75);margin:0 0 6px;">${stats.goalProgress}% of your $${stats.goal} goal reached.</p>`:""}
+    ${P.setup?.moneyPurpose?`<p style="font-family:Arial,sans-serif;font-size:14px;color:#A8C5DA;margin:0 0 20px;font-style:italic;">${esc(P.setup.moneyPurpose)}</p>`:"<div style='margin-bottom:20px'></div>"}
+    <p style="font-family:Arial,sans-serif;font-size:15px;color:rgba(255,248,238,0.78);line-height:1.7;max-width:480px;margin:0 auto 24px;">Every item sorted, priced, and moved out the door. That took real effort. Here&rsquo;s to your next chapter.</p>
     <p style="font-family:'Montserrat',sans-serif;font-size:12px;color:#8BA7D4;margin:0;">— Cece</p>
   </div>`:""
   return`
@@ -1573,6 +1801,85 @@ function sendSummaryEmail(){
 }
 
 // ─── PRINT ────────────────────────────────────────────────────────────────────
+// ─── PRINT CENTER HELPERS ─────────────────────────────────────────────────────
+function toggleTagItem(id){
+  if(!UI.printSelected)UI.printSelected=(P.items||[]).filter(i=>["Garage Sale","Sell Online"].includes(i.decision)).map(i=>i.id);
+  if(UI.printSelected.includes(id))UI.printSelected=UI.printSelected.filter(x=>x!==id);
+  else UI.printSelected.push(id);
+  renderContent();
+}
+function toggleAllTags(){
+  const all=(P.items||[]).filter(i=>["Garage Sale","Sell Online"].includes(i.decision)).map(i=>i.id);
+  UI.printSelected=(UI.printSelected&&UI.printSelected.length===all.length)?[]:all;
+  renderContent();
+}
+function selectSign(i){UI.printSign=i;renderContent();}
+function printSelectedTags(){
+  const tagItems=(P.items||[]).filter(i=>["Garage Sale","Sell Online"].includes(i.decision));
+  const items=tagItems.filter(i=>(UI.printSelected||[]).includes(i.id));
+  if(!items.length){showToast("Select at least one item first.");return;}
+  const tagsHTML=`<div class="print-grid-tags">${items.map(i=>`
+    <div class="print-tag">
+      <div style="font-size:9px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:#E87AAA">My Nest Chapter</div>
+      <div style="font-size:14px;font-weight:700;margin:8px 0;min-height:36px">${esc(i.name||"Item")}</div>
+      <div style="font-size:36px;font-weight:800;font-family:'Montserrat',sans-serif;color:#E87AAA">$${esc(i.price||"___")}</div>
+      <div style="font-size:10px;color:#666;margin-top:4px">${esc(i.category||"")}</div>
+    </div>`).join("")}</div>`;
+  document.getElementById("print-inner").innerHTML=tagsHTML;
+  document.getElementById("print-section").style.display="block";
+  window.print();
+  setTimeout(()=>document.getElementById("print-section").style.display="none",2000);
+}
+function setPPQty(i,qty){
+  if(!UI.ppQty)UI.ppQty={};
+  UI.ppQty[i]=Math.max(0,Math.min(20,qty));
+  renderContent();
+}
+function printPricePointTags(){
+  const tags=[];
+  pricePoints.forEach((p,i)=>{
+    const qty=UI.ppQty?.[i]??3;
+    for(let q=0;q<qty;q++)tags.push(p);
+  });
+  if(!tags.length){showToast("Set at least one tag quantity first.");return;}
+  const tagsHTML=`<div class="print-grid-tags">${tags.map(p=>`
+    <div class="print-tag">
+      <div style="font-size:9px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:#E87AAA">My Nest Chapter</div>
+      <div style="font-size:40px;font-weight:800;font-family:'Montserrat',sans-serif;color:#E87AAA;margin:10px 0">${p.label||"____"}</div>
+      <div style="font-size:9px;color:#666">Thank you!</div>
+    </div>`).join("")}</div>`;
+  document.getElementById("print-inner").innerHTML=tagsHTML;
+  document.getElementById("print-section").style.display="block";
+  window.print();
+  setTimeout(()=>document.getElementById("print-section").style.display="none",2000);
+}
+
+function printChosenSign(){
+  const a=P.advertising||{};
+  const allSigns=[
+    {text:(a.signHeadline||"GARAGE SALE")+"\n"+(a.signDetails||"Today · Priced to Move")+(a.featuredItems?"\n"+a.featuredItems:"")},
+    ...signTemplates.map(t=>({text:t}))
+  ];
+  const s=allSigns[UI.printSign??0];if(!s)return;
+  document.getElementById("print-inner").innerHTML=`
+    <div class="print-sign">
+      <div style="font-size:11px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:#E87AAA;margin-bottom:16px">My Nest Chapter</div>
+      <div style="font-size:36px;font-weight:700;font-family:'Montserrat',sans-serif;color:#252535;line-height:1.4;white-space:pre-line">${esc(s.text)}</div>
+    </div>`;
+  document.getElementById("print-section").style.display="block";
+  window.print();
+  setTimeout(()=>document.getElementById("print-section").style.display="none",2000);
+}
+function copyChosenSign(){
+  const a=P.advertising||{};
+  const allSigns=[
+    {text:(a.signHeadline||"GARAGE SALE")+"\n"+(a.signDetails||"Today · Priced to Move")+(a.featuredItems?"\n"+a.featuredItems:"")},
+    ...signTemplates.map(t=>({text:t}))
+  ];
+  const s=allSigns[UI.printSign??0];if(!s)return;
+  fallbackCopy(s.text);showToast("Sign text copied!");
+}
+
 function printTags(){
   const tagItems=(P.items||[]).filter(i=>["Garage Sale","Sell Online"].includes(i.decision));
   const items=tagItems.length?tagItems:[{id:"x",name:"Item",price:"___",category:"Garage Sale"}];
@@ -1580,12 +1887,12 @@ function printTags(){
     <div class="print-grid-signs print-page-break">
       <div class="print-sign">
         <div style="font-size:11px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:#E87AAA;margin-bottom:16px">My Nest Chapter</div>
-        <div style="font-size:36px;font-weight:700;font-family:Lora,serif;color:#E87AAA;line-height:1.3;white-space:pre-line">${esc(P.advertising?.signHeadline||"GARAGE SALE")}\n${esc(P.advertising?.signDetails||"Today · Priced to Move")}</div>
+        <div style="font-size:36px;font-weight:700;font-family:'Montserrat',sans-serif;color:#E87AAA;line-height:1.3;white-space:pre-line">${esc(P.advertising?.signHeadline||"GARAGE SALE")}\n${esc(P.advertising?.signDetails||"Today · Priced to Move")}</div>
         <div style="margin-top:16px;font-size:14px;color:#444">${esc(P.advertising?.featuredItems||"")}</div>
       </div>
       <div class="print-sign">
         <div style="font-size:11px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:#E87AAA;margin-bottom:16px">My Nest Chapter</div>
-        <div style="font-size:32px;font-weight:800;font-family:Lora,serif;color:#E87AAA">PRICED TO MOVE</div>
+        <div style="font-size:32px;font-weight:800;font-family:'Montserrat',sans-serif;color:#E87AAA">PRICED TO MOVE</div>
         <div style="font-size:20px;font-weight:700;margin-top:14px">Cash + Digital Payments</div>
         <div style="font-size:13px;color:#666;margin-top:14px">Thank you for helping these items begin their next chapter.</div>
       </div>
@@ -1594,7 +1901,7 @@ function printTags(){
     <div class="print-tag">
       <div style="font-size:9px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:#E87AAA">My Nest Chapter</div>
       <div style="font-size:14px;font-weight:700;margin:8px 0;min-height:36px">${esc(i.name||"Item")}</div>
-      <div style="font-size:36px;font-weight:800;font-family:Lora,serif;color:#E87AAA">$${esc(i.price||"___")}</div>
+      <div style="font-size:36px;font-weight:800;font-family:'Montserrat',sans-serif;color:#E87AAA">$${esc(i.price||"___")}</div>
       <div style="font-size:10px;color:#666;margin-top:4px">${esc(i.category||"")}</div>
     </div>`).join("")}</div>`;
   document.getElementById("print-inner").innerHTML=signHTML+tagsHTML;
@@ -1610,8 +1917,8 @@ function printBoxSigns(){
     <div class="print-grid-boxes">${items.map(b=>`
       <div class="print-box-sign">
         <div style="font-size:10px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:#E87AAA;margin-bottom:12px">My Nest Chapter</div>
-        <div style="font-size:36px;font-weight:800;font-family:Lora,serif">BOX #${esc(b.boxNumber)}</div>
-        <div style="font-size:32px;font-weight:800;font-family:Lora,serif;color:#E87AAA;margin-top:10px">ALL ITEMS $${esc(b.price||"___")}</div>
+        <div style="font-size:36px;font-weight:800;font-family:'Montserrat',sans-serif">BOX #${esc(b.boxNumber)}</div>
+        <div style="font-size:32px;font-weight:800;font-family:'Montserrat',sans-serif;color:#E87AAA;margin-top:10px">ALL ITEMS $${esc(b.price||"___")}</div>
         <div style="font-size:18px;font-weight:700;margin-top:12px">${esc(b.title||b.category||"Mixed items")}</div>
         <div style="font-size:12px;color:#666;margin-top:8px">${esc(b.description||"Browse and choose.")}</div>
       </div>`).join("")}
@@ -1632,7 +1939,8 @@ function advanceDemo(){
 function startFresh(){
   mncConfirm("Clear all data and start fresh?",()=>{
     P=normalizePlanner(clone(blankPlanner));save();
-    UI={tab:"start",section:"start",invView:"table",demo:false,demoStep:0};
+    UI={tab:"start",section:"start",invView:"table",showAddForm:false,demo:false,demoStep:0,calMenu:false};
+    itemSearch="";invCatFilter="All";invDecFilter="All";
     draft={item:{name:"",category:"Decor",condition:"Good",quantity:"1",decision:"Garage Sale",price:"",notes:""},box:{title:"",price:"2",category:"Other",description:""},memory:{itemName:"",caption:""},sale:{description:"",amount:"",method:"Cash"}};
     render();
   });
@@ -1744,6 +2052,11 @@ function sf(el,...path){
   deepSet(P,path,v);P.isDemo=false;save();
   refreshHeaderStat();refreshMetrics();
   if(UI.tab==="start")refreshGoalProgress();
+  if(UI.tab==="start"&&path.includes("saleDate")){
+    setTimeout(()=>fetchWeather(P.setup?.saleDate||null),50);
+    const rb=document.getElementById("reminder-btn");
+    if(rb){rb.disabled=!P.setup?.saleDate;rb.textContent=P.setup?.saleDate?"Set reminder":"Set reminder (set date first)";}
+  }
   if(UI.tab==="saleWrap"&&UI.section==="sale")refreshSubtotal();
 }
 
@@ -1766,6 +2079,24 @@ function areaField(label,pathStr,value,placeholder){
 }
 
 // ─── CALENDAR + REMINDER ─────────────────────────────────────────────────────
+function openGoogleCal(){
+  const s=P.setup||{};if(!s.saleDate)return;
+  UI.calMenu=false;renderContent();
+  const title=encodeURIComponent(s.saleTitle||"My Garage Sale");
+  const date=s.saleDate.replace(/-/g,"");
+  const dates=encodeURIComponent(date+"T080000/"+date+"T140000");
+  const details=encodeURIComponent((s.moneyPurpose?"Goal: "+s.moneyPurpose+"\n\n":"")+"Planned with My Nest Chapter Garage Sale Planner");
+  window.open("https://calendar.google.com/calendar/render?action=TEMPLATE&text="+title+"&dates="+dates+"&details="+details,"_blank");
+}
+function openOutlookCal(){
+  const s=P.setup||{};if(!s.saleDate)return;
+  UI.calMenu=false;renderContent();
+  const title=encodeURIComponent(s.saleTitle||"My Garage Sale");
+  const body=encodeURIComponent((s.moneyPurpose?"Goal: "+s.moneyPurpose+"\n\n":"")+"Planned with My Nest Chapter Garage Sale Planner");
+  const start=encodeURIComponent(s.saleDate+"T08:00:00");
+  const end=encodeURIComponent(s.saleDate+"T14:00:00");
+  window.open("https://outlook.live.com/calendar/0/action/compose?subject="+title+"&startdt="+start+"&enddt="+end+"&body="+body,"_blank");
+}
 function downloadCalendar(){
   const s=P.setup||{};if(!s.saleDate)return;
   const title=s.saleTitle||"My Garage Sale";
@@ -1821,8 +2152,145 @@ function setReminder(){
   });
 }
 
+function refreshStickyBar(){checkConfetti(getStats(P));}
+
+// ─── CONFETTI ─────────────────────────────────────────────────────────────────
+function checkConfetti(stats){
+  if(!stats.goal||stats.goalProgress<100)return;
+  const key='mnc_confetti_'+(P.setup?.saleDate||'x');
+  if(sessionStorage.getItem(key))return;
+  sessionStorage.setItem(key,'1');
+  if(typeof confetti==='function'){
+    confetti({particleCount:140,spread:80,origin:{y:0.55},colors:['#E87AAA','#8BA7D4','#FFF8EE','#252535','#C4B0E8']});
+    setTimeout(()=>confetti({particleCount:60,spread:50,origin:{y:0.4},colors:['#E87AAA','#8BA7D4']}),400);
+  }
+}
+
+// ─── WEATHER ──────────────────────────────────────────────────────────────────
+const W={data:null,loading:false,forDate:null,viewStart:0};
+function wCodeInfo(c){
+  if(c===0)return{icon:'☀️',label:'Clear sky',good:true};
+  if(c<=2)return{icon:'⛅',label:'Partly cloudy',good:true};
+  if(c<=3)return{icon:'☁️',label:'Overcast',good:true};
+  if(c<=48)return{icon:'🌫️',label:'Foggy',good:false};
+  if(c<=67)return{icon:'🌧️',label:'Rain',good:false};
+  if(c<=77)return{icon:'❄️',label:'Snow',good:false};
+  if(c<=82)return{icon:'🌦️',label:'Rain showers',good:false};
+  return{icon:'⛈️',label:'Thunderstorms',good:false};
+}
+function shiftWeather(delta){
+  if(!W.data||!W.data.days)return;
+  W.viewStart=Math.max(0,Math.min(W.data.days.length-3,W.viewStart+delta));
+  renderWeatherCard();
+}
+async function fetchWeather(saleDate){
+  const el=document.getElementById('weather-card');if(!el)return;
+  if(!saleDate){el.style.display='none';return;}
+  el.style.display='';
+  if(W.forDate===saleDate&&W.data){renderWeatherCard();return;}
+  W.forDate=saleDate;W.loading=true;W.data=null;
+  el.innerHTML=`<div class="card-title">Sale day weather</div><div class="text-muted" style="font-size:var(--text-sm);margin-top:6px">Checking forecast…</div>`;
+  try{
+    const pos=await new Promise((res,rej)=>navigator.geolocation.getCurrentPosition(res,rej,{timeout:8000}));
+    const lat=pos.coords.latitude,lon=pos.coords.longitude;
+    const todayObj=new Date();todayObj.setHours(0,0,0,0);
+    const dateObj=new Date(saleDate+'T00:00:00');
+    const daysAway=Math.round((dateObj-todayObj)/86400000);
+    if(daysAway<0){W.loading=false;W.data={msg:'Sale date has passed.'};renderWeatherCard();return;}
+    if(daysAway>15){W.loading=false;W.data={msg:'Forecast available within 16 days of sale day.'};renderWeatherCard();return;}
+    const url=`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current_weather=true&daily=weathercode,temperature_2m_max,temperature_2m_min,precipitation_probability_max&temperature_unit=fahrenheit&forecast_days=16&timezone=auto`;
+    const r=await fetch(url);const j=await r.json();
+    const cw=j.current_weather||{};
+    const times=j.daily.time||[];
+    const todayStr=todayObj.toISOString().split('T')[0];
+    const salei=times.indexOf(saleDate)>=0?times.indexOf(saleDate):Math.min(daysAway,times.length-1);
+    const days=times.map((date,idx)=>{
+      const d=new Date(date+'T00:00:00');
+      return{
+        date,
+        day:d.toLocaleDateString('en-US',{weekday:'short'}),
+        dateNum:d.toLocaleDateString('en-US',{month:'short',day:'numeric'}),
+        code:j.daily.weathercode[idx],
+        high:Math.round(j.daily.temperature_2m_max[idx]),
+        low:Math.round(j.daily.temperature_2m_min[idx]),
+        rain:j.daily.precipitation_probability_max[idx],
+        isToday:date===todayStr,
+        isSaleDay:idx===salei
+      };
+    });
+    W.viewStart=Math.max(0,salei-1);
+    W.loading=false;
+    W.data={
+      current:{temp:Math.round(cw.temperature||0),code:cw.weathercode||0},
+      days,
+      saleDay:days[salei]
+    };
+  }catch(e){W.loading=false;W.data={msg:'Allow location access to see the forecast.'};}
+  renderWeatherCard();
+}
+function renderWeatherCard(){
+  const el=document.getElementById('weather-card');if(!el)return;
+  if(!W.data){el.innerHTML=`<div class="card-title">Sale day weather</div><div class="text-muted" style="font-size:var(--text-sm);margin-top:6px">Checking forecast…</div>`;return;}
+  if(W.data.msg){el.innerHTML=`<div class="card-title">Sale day weather</div><div class="text-muted" style="font-size:var(--text-sm);margin-top:6px">${W.data.msg}</div>`;return;}
+  const cur=W.data.current;
+  const curInfo=wCodeInfo(cur.code);
+  const sd=W.data.saleDay;
+  const sdInfo=wCodeInfo(sd.code);
+  const good=sdInfo.good&&sd.rain<40;
+  const dotColor=good?'#4a9e6b':'#c4922a';
+  const indicatorBg=good?'#e8f5ee':'#fff8ed';
+  const indicatorText=good?'Good sale weather'
+    :sd.rain>=40?`Heads up — rain ${sd.day}`
+    :`Heads up — ${sdInfo.label.toLowerCase()} ${sd.day}`;
+  const days=W.data.days;
+  const vs=W.viewStart;
+  const visible=days.slice(vs,vs+3);
+  const canLeft=vs>0;
+  const canRight=vs+3<days.length;
+  const arrowBtn=(dir,enabled)=>`<button onclick="shiftWeather(${dir})" style="background:none;border:1.5px solid ${enabled?'#E87AAA':'#E6E2DA'};border-radius:8px;width:30px;height:30px;display:flex;align-items:center;justify-content:center;cursor:${enabled?'pointer':'default'};color:${enabled?'#E87AAA':'#ccc'};font-size:14px;flex-shrink:0" ${enabled?'':'disabled'}>${dir<0?'‹':'›'}</button>`;
+  const stripHTML=visible.map(d=>{
+    const info=wCodeInfo(d.code);
+    const highlight=d.isSaleDay?'background:#ECE4F7;border-radius:10px;':'';
+    const labelColor=d.isSaleDay?'var(--color-primary)':d.isToday?'var(--color-text)':'var(--color-text-muted)';
+    const topLabel=d.isToday&&!d.isSaleDay?'Today':d.isSaleDay?`${d.day} ★`:d.day;
+    return`<div style="flex:1;text-align:center;padding:10px 4px;${highlight}">
+      <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:${labelColor};margin-bottom:2px">${topLabel}</div>
+      <div style="font-size:10px;color:${d.isSaleDay?'var(--color-primary)':'var(--color-text-muted)'};margin-bottom:5px">${d.dateNum}</div>
+      <div style="font-size:22px;line-height:1;margin-bottom:5px">${info.icon}</div>
+      <div style="font-size:13px;font-weight:700;color:var(--color-text)">${d.high}°</div>
+      <div style="font-size:11px;color:var(--color-text-muted)">${d.low}°</div>
+      <div style="font-size:10px;color:${d.rain>=40?'#c4922a':'var(--color-text-muted)'};margin-top:3px">${d.rain}% rain</div>
+    </div>`;
+  }).join('');
+  el.innerHTML=`
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
+      <div class="card-title" style="margin-bottom:0">Sale day weather</div>
+      <div style="display:flex;align-items:center;gap:5px">
+        <span style="font-size:16px;line-height:1">${curInfo.icon}</span>
+        <span style="font-size:13px;font-weight:700;color:var(--color-text)">${cur.temp}°F</span>
+        <span style="font-size:11px;color:var(--color-text-muted)">now</span>
+      </div>
+    </div>
+    <div style="display:flex;align-items:center;gap:6px;margin-bottom:12px">
+      ${arrowBtn(-1,canLeft)}
+      <div style="display:flex;flex:1;gap:4px">${stripHTML}</div>
+      ${arrowBtn(1,canRight)}
+    </div>
+    <div style="display:flex;align-items:center;gap:8px;padding:9px 13px;background:${indicatorBg};border-radius:8px">
+      <div style="width:9px;height:9px;border-radius:50%;background:${dotColor};flex-shrink:0"></div>
+      <span style="font-size:13px;font-weight:600;color:var(--color-text)">${indicatorText}</span>
+    </div>`;
+}
+
 // ─── INIT ─────────────────────────────────────────────────────────────────────
 render();
+refreshStickyBar();
 </script>
+
+<footer style="max-width:1100px;margin:0 auto;padding:var(--space-5) var(--space-6);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:var(--space-3);border-top:1px solid var(--color-divider);margin-top:var(--space-8)">
+  <span style="font-size:var(--text-xs);color:var(--color-text-muted)">© My Nest Chapter · <a href="https://mynestchapter.com" style="color:var(--color-text-muted)">mynestchapter.com</a> · Written by Cece</span>
+  <span style="font-size:var(--text-xs);color:var(--color-text-muted)">Saved to this browser · v2.0</span>
+</footer>
+
 </body>
 </html>
