@@ -56,9 +56,13 @@ $related = $stmt->fetchAll();
         
         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: start;">
             
-            <!-- Product Image -->
+            <!-- Product Image / Video -->
             <div>
-                <?php if ($product['image_path']): ?>
+                <?php if ($product['slug'] === 'garage-sale-planner'): ?>
+                    <video autoplay loop muted playsinline controls style="width:100%;border:1px solid #ABABAB;display:block;">
+                        <source src="/assets/videos/garage-sale-planner-demo.mp4" type="video/mp4">
+                    </video>
+                <?php elseif ($product['image_path']): ?>
                     <img src="<?= esc($product['image_path']) ?>" alt="" style="width: 100%; border: 1px solid #ABABAB;">
                 <?php else: ?>
                     <div style="width: 100%; height: 400px; background: linear-gradient(135deg, #F4E8C1 0%, #F8BBD0 100%); border: 1px solid #ABABAB; display: flex; align-items: center; justify-content: center;">
