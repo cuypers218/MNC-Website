@@ -802,7 +802,7 @@ window.mncCloseModal = function() {
   </div>
 </section>
 
-<!-- 6PM EXPERIENCE LIGHTBOX -->
+<!-- 6PM EXPERIENCE WIDGET -->
 <div id="exp-overlay" style="display:none;position:fixed;inset:0;z-index:99999;background:rgba(37,37,53,0.85);">
   <iframe id="exp-frame" src="" title="The 6pm Experience" style="width:100%;height:100%;border:none;"></iframe>
 </div>
