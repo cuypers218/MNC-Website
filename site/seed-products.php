@@ -135,7 +135,7 @@ foreach ($products as $p) {
 <!DOCTYPE html>
 <html lang="en">
 <head><meta charset="UTF-8"><title>Product Seed — My Nest Chapter</title>
-<style>body{font-family:Arial,sans-serif;max-width:600px;margin:50px auto;padding:20px;color:#101010;}h1{font-size:1.2rem;color:#811453;text-transform:uppercase;}.result{padding:8px 0;border-bottom:1px solid #D3D3D3;font-size:0.95rem;}.warning{margin-top:2rem;padding:1rem;background:#FFF3CD;border:1px solid #FFEEBA;font-size:0.85rem;}</style>
+<style>body{font-family:Arial,sans-serif;max-width:600px;margin:50px auto;padding:20px;color:#101010;}h1{font-size:1.2rem;color:#E87AAA;text-transform:uppercase;}.result{padding:8px 0;border-bottom:1px solid #D3D3D3;font-size:0.95rem;}.warning{margin-top:2rem;padding:1rem;background:#FFF3CD;border:1px solid #FFEEBA;font-size:0.85rem;}</style>
 </head>
 <body>
 <h1>Product Seed Complete</h1>
