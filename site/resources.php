@@ -20,7 +20,7 @@ require_once __DIR__ . '/includes/header.php';
             </div>
             
             <div style="margin-bottom: 1.5rem;">
-                <p style="font-weight: bold; margin-bottom: 0.25rem;"><a href="/shop/the-6pm-cheat-sheet" style="color: #E87AAA;">The 6pm Cheat Sheet</a></p>
+                <p style="font-weight: bold; margin-bottom: 0.25rem;"><a href="/shop/6pm-cheat-sheet" style="color: #E87AAA;">The 6pm Cheat Sheet</a></p>
                 <p style="color: #444444; font-size: 0.95rem; margin: 0;">A real list of things that got me from 6pm to bedtime on the hard nights.</p>
             </div>
         </div>
