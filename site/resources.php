@@ -15,12 +15,12 @@ require_once __DIR__ . '/includes/header.php';
             <h2 style="font-size: 1rem; padding-bottom: 0.5rem; border-bottom: 1px solid #4B4B4B; margin-bottom: 1.25rem;">Free Tools I Made</h2>
             
             <div style="margin-bottom: 1.5rem;">
-                <p style="font-weight: bold; margin-bottom: 0.25rem;"><a href="/shop/someday-list-builder" style="color: #811453;">The Someday List Builder</a></p>
+                <p style="font-weight: bold; margin-bottom: 0.25rem;"><a href="/shop/someday-list-builder" style="color: #E87AAA;">The Someday List Builder</a></p>
                 <p style="color: #444444; font-size: 0.95rem; margin: 0;">Write down all those things you've been saying "someday" to. Get them out of your head.</p>
             </div>
             
             <div style="margin-bottom: 1.5rem;">
-                <p style="font-weight: bold; margin-bottom: 0.25rem;"><a href="/shop/the-6pm-cheat-sheet" style="color: #811453;">The 6pm Cheat Sheet</a></p>
+                <p style="font-weight: bold; margin-bottom: 0.25rem;"><a href="/shop/the-6pm-cheat-sheet" style="color: #E87AAA;">The 6pm Cheat Sheet</a></p>
                 <p style="color: #444444; font-size: 0.95rem; margin: 0;">A real list of things that got me from 6pm to bedtime on the hard nights.</p>
             </div>
         </div>
