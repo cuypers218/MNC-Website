@@ -86,7 +86,7 @@ None of these are live yet — the dashboard has no exclusive content section bu
 - Who Am I Now — Free, dashboard only
 - Pick Your Mood Coloring Widget — Free
 - What Kind of Nester Are You? quiz — Free (3 result types: Nester, Busy-er, Wonderer)
-- Garage Sale Planner — built, not yet listed for sale
+- Garage Sale Planner — live, $27
 - What's This Worth — built, not yet listed for sale
 
 ---
@@ -110,3 +110,5 @@ Full palette and typography rules live in the brand skill file — below is just
 **2026-06-19** — Created this file. Logged the two banned-language fixes found in `seed-products.php`, `index.php`, and `workbook.php`. Documented full dashboard gating logic and per-product placement table from the June 13 planning session, which had been locked in chat but never made it into code.
 
 **2026-06-19 (correction)** — The 6pm Survival Plan and Who Am I Now are NOT live. Confirmed against `dashboard.php`: no exclusive content section exists in the code at all. Past session notes marking these "Built ✅" meant content was finished, not that they shipped. Added "build the exclusive content section" as the first action item — both PDFs are ready to upload the moment it exists. Full 7-item drop queue documented above.
+
+**2026-06-21** — Garage Sale Planner design pass complete. Fonts → Lora + DM Sans, all border-radius removed, all box-shadows removed, emoji weather icons replaced with text labels. Backup date field + HOA permit checklist item + rain warning added. Security: deleted unprotected `index.html` duplicate. Product Catalog corrected: Garage Sale Planner is live at $27 (was "built, not yet listed for sale" — stale).
