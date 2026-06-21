@@ -19,16 +19,25 @@ This file lives in the repo so both AI assistants working on this site — the o
 
 - [ ] Replace placeholder thumbnail images on dashboard product cards with real images.
 - [ ] Build the Exclusive Content section on the dashboard (dashboard-only freebies queue — see below). The 6pm Survival Plan and Who Am I Now PDFs are built and ready to upload the moment the section exists.
-- [ ] **phpMyAdmin:** Set Quiet House Meter product status to `draft` in the live database so it no longer appears in any DB-driven page queries.
-- [ ] **Hostinger File Manager:** Manually delete `public_html/widgets/cooking-for-one/index.html` and `public_html/widgets/goal-habit-tracker/index.html` — these unprotected duplicates were removed from the repo but are likely still live on the server.
-- [ ] Fix `color: #811453` (retired color) on two remaining links in `site/resources.php` — Someday List Builder and 6pm Cheat Sheet links.
+- [ ] Fix `color: #811453` (retired color) on two remaining links in `site/resources.php` — Someday List Builder and 6pm Cheat Sheet links. (Link text and copy are fine — just the hex color value on those two `<a>` tags.)
 
 ## BACK BURNER (not urgent — do not touch without a new brief)
 
-- **Quiet House Meter** — widget was never built (no folder in /widgets/). Removed from homepage and resources page 2026-06-21. DB record still active — needs phpMyAdmin → `draft` (see above). Do not rebuild without Cece's go-ahead.
+- **Quiet House Meter** — widget was never built (no folder in /widgets/). Removed from homepage and resources page 2026-06-21. DB record set to `draft` 2026-06-21. Do not rebuild without Cece's go-ahead.
 - **30-Day Goal & Habit Tracker** — live widget, $27, but needs full visual rebuild to match Cooking for One style. Current code is narrow/popup layout. No brief written yet. Widget folder currently has no index.html (deleted as security fix). Back burner until Cece is ready with a brief.
 - **Weekly Reset Planner** — local file only, pre-rebrand colors/fonts, not live. Needs brand audit before going up.
 - **New Grandma Planner** — high priority when ready to build, but not started.
+
+## COMPLETED — 2026-06-21
+
+- ✅ Quiet House Meter removed from homepage (`site/index.php`) and resources page (`site/resources.php`)
+- ✅ Quiet House Meter DB status set to `draft` via one-time PHP script (no longer appears in queries)
+- ✅ `seed-products.php` deleted from repo and server (was stale; DB was hand-updated via `add-widgets.php`)
+- ✅ `widgets/goal-habit-tracker/index.html` deleted from server (unprotected duplicate)
+- ✅ `widgets/cooking-for-one/index.html` was already gone from server
+- ✅ Garage Sale Planner: fonts → Lora/DM Sans, all border-radius removed, all box-shadows removed, emoji icons replaced with text labels, backup date field + HOA permit task + rain warning added
+- ✅ `widgets/garage-sale-planner/index.html` deleted from repo (unprotected duplicate)
+- ✅ `site/index.php`, `site/resources.php`, `site/dashboard.php` deployed to live server
 
 ## COMPLETED — 2026-06-20
 
