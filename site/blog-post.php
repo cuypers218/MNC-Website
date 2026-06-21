@@ -54,7 +54,7 @@ $related = $stmt->fetchAll();
     
     <!-- Back to blog -->
     <div style="margin-top: 2.5rem; padding-top: 1.5rem; border-top: 1px solid #D3D3D3;">
-        <a href="/blog" style="font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em; color: #811453;">&larr; Back to Blog</a>
+        <a href="/blog" style="font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em; color: #E87AAA;">&larr; Back to Blog</a>
     </div>
     
 </article>

@@ -426,7 +426,7 @@ window.mncCloseModal = function() {
                                 <div class="product-card-content">
                     <span class="product-card-category">free</span>
                     <h3 class="product-card-title">The Quiet House Meter</h3>
-                    <p class="product-card-description">Five questions about where you are with the quiet right now. No judgment. Takes 60 seconds.</p>
+                    <p class="product-card-description">Five questions about where you are with the quiet right now. Takes 60 seconds.</p>
                     <a href="/shop/quiet-house-meter" class="btn btn-outline">
                         Get This Free                    </a>
                 </div>

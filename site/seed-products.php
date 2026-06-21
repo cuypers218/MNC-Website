@@ -29,7 +29,7 @@ $products = [
     [
         'title' => 'The Quiet House Meter',
         'slug' => 'quiet-house-meter',
-        'short_description' => 'Five questions about where you are with the quiet right now. No judgment. Takes 60 seconds.',
+        'short_description' => 'Five questions about where you are with the quiet right now. Takes 60 seconds.',
         'description' => "Five questions. That's it. You answer honestly, and I'll point you to the thing I made that fits where you are today.\n\nThis isn't a diagnosis or a score that means anything clinical. It's just a way to name where you are right now — because sometimes that's the hardest part.",
         'price' => 0.00,
         'category' => 'free',

@@ -719,7 +719,7 @@ $AMAZON_LINK = "https://www.amazon.com/YOUR_BOOK_LINK"; // replace with Amazon l
     <div class="weeks-grid">
       <div class="week-card">
         <div class="week-number">Week 1 · Activities 1–4</div>
-        <div class="week-title">The Weight You Carried</div>
+        <div class="week-title">The Weight You Lived</div>
         <div class="week-activities">4 activities</div>
         <div class="week-desc">You kept the lights on, the kids fed, everything running — alone. This section helps you finally see everything you were actually doing. The roles, the decisions, the losses. Written down, it's a lot.</div>
       </div>
