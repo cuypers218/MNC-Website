@@ -425,17 +425,6 @@ window.mncCloseModal = function() {
                     FREE                </span>
                                 <div class="product-card-content">
                     <span class="product-card-category">free</span>
-                    <h3 class="product-card-title">The Quiet House Meter</h3>
-                    <p class="product-card-description">Five questions about where you are with the quiet right now. Takes 60 seconds.</p>
-                    <a href="/shop/quiet-house-meter" class="btn btn-outline">
-                        Get This Free                    </a>
-                </div>
-            </div>
-                        <div class="product-card fade-in">
-                <span class="badge badge-free">
-                    FREE                </span>
-                                <div class="product-card-content">
-                    <span class="product-card-category">free</span>
                     <h3 class="product-card-title">The Someday List Builder</h3>
                     <p class="product-card-description">All those things you said you&#039;d do someday? This is where you finally write them down.</p>
                     <a href="/shop/someday-list-builder" class="btn btn-outline">
