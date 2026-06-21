@@ -19,7 +19,6 @@ This file lives in the repo so both AI assistants working on this site — the o
 
 - [ ] Replace placeholder thumbnail images on dashboard product cards with real images.
 - [ ] Build the Exclusive Content section on the dashboard (dashboard-only freebies queue — see below). The 6pm Survival Plan and Who Am I Now PDFs are built and ready to upload the moment the section exists.
-- [ ] Fix `color: #811453` (retired color) on two remaining links in `site/resources.php` — Someday List Builder and 6pm Cheat Sheet links. (Link text and copy are fine — just the hex color value on those two `<a>` tags.)
 
 ## BACK BURNER (not urgent — do not touch without a new brief)
 
@@ -38,6 +37,7 @@ This file lives in the repo so both AI assistants working on this site — the o
 - ✅ Garage Sale Planner: fonts → Lora/DM Sans, all border-radius removed, all box-shadows removed, emoji icons replaced with text labels, backup date field + HOA permit task + rain warning added
 - ✅ `widgets/garage-sale-planner/index.html` deleted from repo (unprotected duplicate)
 - ✅ `site/index.php`, `site/resources.php`, `site/dashboard.php` deployed to live server
+- ✅ Retired color `#811453` replaced with `#E87AAA` on Someday List Builder + 6pm Cheat Sheet links in `resources.php`
 
 ## COMPLETED — 2026-06-20
 
