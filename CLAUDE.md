@@ -17,15 +17,20 @@ This file lives in the repo so both AI assistants working on this site — the o
 
 ## ACTION ITEMS — FIX NOW
 
-- [ ] **Build the Exclusive Content section on the dashboard.** It doesn't exist yet — `dashboard.php` only loops through `$allProducts`/`$freeProducts`. Needs a new section above the tools grid, gate-free (member already signed up), direct-download cards. Once built, the first two queue items below are ready to upload immediately.
-- [ ] **Remove banned phrase "No judgment."** from the Quiet House Meter short description. Currently lives in `site/seed-products.php` (line ~32) and hardcoded again in `site/index.php` (line ~429). Both must be updated, since the dashboard and shop cards pull from the seeded database value.
-  - Current: `"Five questions about where you are with the quiet right now. No judgment. Takes 60 seconds."`
-  - Fixed: `"Five questions about where you are with the quiet right now. Takes 60 seconds."`
-- [ ] **Fix banned word "Carried"** in `site/workbook.php` (line ~722), week title.
-  - Current: `The Weight You Carried`
-  - Fixed: `The Weight You Lived`
 - [ ] Replace placeholder thumbnail images on dashboard product cards with real images.
-- [ ] Add a dedicated downloads section to the dashboard, separate from interactive tools.
+- [ ] Build the Exclusive Content section on the dashboard (dashboard-only freebies queue — see below). The 6pm Survival Plan and Who Am I Now PDFs are built and ready to upload the moment the section exists.
+- [ ] Seed the Quiet House Meter description change into the live database — `seed-products.php` is fixed but the DB row still has the old text with "No judgment." Run seed or update via phpMyAdmin.
+
+## COMPLETED — 2026-06-20
+
+- ✅ Dashboard rebuilt: Your Products + Freebies + For Members (tiered discount) sections
+- ✅ Door-reveal animation on tier unlock (tracks via `highest_tier_seen` on users table)
+- ✅ Stripe coupons created: MNCTIER10 (10%), MNCTIER15 (15%), MNCTIER20 (20%)
+- ✅ Stripe secret key rotated and updated in config.php
+- ✅ Banned phrase "No judgment." removed from seed-products.php + index.php
+- ✅ Banned word "Carried" fixed → "The Weight You Lived" in workbook.php
+- ✅ Retired color #811453 replaced with #E87AAA in blog-post.php + setup-database.php
+- ✅ Dashboard placeholder gradients updated to Soft Peach → Lavender (brand-compliant)
 
 ---
 
