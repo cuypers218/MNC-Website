@@ -99,7 +99,7 @@ Full palette and typography rules live in the brand skill file — below is just
 
 **Retired — should never appear in new code:** Deep Berry `#811453`, Dark Berry `#5E1337`, any Berry shade, Muted Mauve `#A3918A`, Warm Blush `#D6C2B7`, Sage Gold, Peach Tan, Sage Gray, Blush Pink `#F8D4D4`, Linen White, Soft Rose, Warm Cream `#F4E8C1`, Warm Tan, Coral Orange, Teal, Gold, Navy.
 
-⚠️ Note: as of this entry, `site/about.php`, `site/blog-post.php`, and `site/setup-database.php` still reference retired colors like `#811453`. Worth a cleanup pass.
+⚠️ Note: `site/about.php` may still reference retired colors — worth a check.
 
 **Fonts:** Montserrat ExtraBold (headlines, display), Arial Regular (body/print). HTML tools only: Lora (display) + DM Sans (body).
 
