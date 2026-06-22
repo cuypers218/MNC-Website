@@ -27,6 +27,16 @@ This file lives in the repo so both AI assistants working on this site — the o
 - **Weekly Reset Planner** — local file only, pre-rebrand colors/fonts, not live. Needs brand audit before going up.
 - **New Grandma Planner** — high priority when ready to build, but not started.
 
+## COMPLETED — 2026-06-22
+
+- ✅ Garage Sale Planner Round 3 (`widgets/garage-sale-planner/widget.html`) — commit 703faad
+  - Safety: 4 new checklist tasks (address DM timing, don't mention solo, sightline to all buyers, trust instinct). Page-sub + info-box copy replaced. 3 scripted responses added (uncomfortable buyer, pricing pushback, code word).
+  - Online Selling: Craigslist + ThredUp/Swap.com added to platform cards
+  - Pricing Guide: 5-line callout box above category grid (10–25% of retail, round numbers, bundle, last-hour drop, price before day)
+  - Start tab: rotating tips strip — charcoal bar, 4 tips, swaps every 8 seconds
+  - Sale Day: change calculator inside Calculator card (customer gave / give back, large output)
+  - Write Your Ad: already built in prior session — confirmed present
+
 ## COMPLETED — 2026-06-21 (session 3)
 
 - ✅ Exclusive Content section built on dashboard (`site/dashboard.php`) — unlocked items with lavender EXCLUSIVE badge + Download button, live countdown timer to next unlock, all-caught-up fallback
