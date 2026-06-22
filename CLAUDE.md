@@ -18,7 +18,7 @@ This file lives in the repo so both AI assistants working on this site — the o
 ## ACTION ITEMS — FIX NOW
 
 - [ ] Replace placeholder thumbnail images on dashboard product cards with real images.
-- [ ] Build the Exclusive Content section on the dashboard (dashboard-only freebies queue — see below). The 6pm Survival Plan and Who Am I Now PDFs are built and ready to upload the moment the section exists.
+- [ ] Register the exclusive unlock cron in Hostinger hPanel → Hosting → Cron Jobs: `php /home/u540670132/domains/mynestchapter.com/public_html/cron/send-exclusive-unlocks.php` — daily at 9 AM (`0 9 * * *`). This must be done manually in hPanel.
 
 ## BACK BURNER (not urgent — do not touch without a new brief)
 
@@ -27,7 +27,17 @@ This file lives in the repo so both AI assistants working on this site — the o
 - **Weekly Reset Planner** — local file only, pre-rebrand colors/fonts, not live. Needs brand audit before going up.
 - **New Grandma Planner** — high priority when ready to build, but not started.
 
-## COMPLETED — 2026-06-21
+## COMPLETED — 2026-06-21 (session 3)
+
+- ✅ Exclusive Content section built on dashboard (`site/dashboard.php`) — unlocked items with lavender EXCLUSIVE badge + Download button, live countdown timer to next unlock, all-caught-up fallback
+- ✅ `exclusive-download.php` — auth + unlock check, serves PDF via readfile(), graceful redirect if file missing
+- ✅ `cron/send-exclusive-unlocks.php` — daily 9 AM cron, two-pass (preview 24hr before + unlock day-of), logs per member+item+type to prevent duplicates
+- ✅ `exclusive_content_queue` + `member_freebie_notifications` tables created, queue seeded (6pm Survival Plan + Who Am I Now)
+- ✅ `exclusive-6pm-survival-plan.pdf` + `exclusive-who-am-i-now.pdf` uploaded to `downloads/` on server
+- ✅ Garage Sale Planner Round 2: sticky total bar (fixed bottom, charcoal, pink earned amount, Lime "Goal reached!"), goal confetti via canvas-confetti, weather already live
+- ✅ **One manual step remaining:** Register cron in Hostinger hPanel → see ACTION ITEMS above
+
+## COMPLETED — 2026-06-21 (session 2)
 
 - ✅ Quiet House Meter removed from homepage (`site/index.php`) and resources page (`site/resources.php`)
 - ✅ Quiet House Meter DB status set to `draft` via one-time PHP script (no longer appears in queries)
