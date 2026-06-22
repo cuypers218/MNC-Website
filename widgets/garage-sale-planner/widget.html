@@ -556,15 +556,19 @@ const safetyTasks = [
   "Keep house doors locked during the sale",
   "Wear a fanny pack or crossbody bag for cash",
   "Keep phone fully charged and on you",
+  "Don't post your address in the ad until 24 hours before — share it via DM instead",
+  "Don't mention in the ad that you're running this solo",
   "Tell a friend, neighbor, or family member your sale hours",
   "Ask someone to check in by text during the sale",
   "Place large furniture near the curb or driveway edge",
+  "Set up your table so you have a clear sightline to all buyers",
   "Keep buyers out of the house and private areas",
   "Keep high-value items close to the checkout area",
   "Use digital payments for larger purchases when possible",
   "Have a clear pickup plan for large online-sale items",
   "Keep water, snacks, sunscreen, and a chair nearby",
   "Remove street signs as soon as the sale ends",
+  "If something feels off, the sale is over. Trust that.",
 ];
 
 const flowTabs = [
@@ -628,6 +632,8 @@ const onlineSellingGuides = [
   {platform:"Poshmark",bestFor:"Women's clothing, shoes, handbags, accessories, better brands",avoid:"Low-value basics unless bundled",tip:"Good lighting and brand/size details matter more than poetic descriptions."},
   {platform:"Mercari",bestFor:"Toys, clothing, shoes, small electronics, home goods, bundles",avoid:"Heavy items with awkward shipping",tip:"Bundle related items and price with room for offers."},
   {platform:"Garage Sale",bestFor:"Low-dollar household items, kitchen duplicates, books, mugs, decor, baskets, basic clothing",avoid:"High-value items you would regret selling too cheaply",tip:"Price to move. The goal is space, cash, and peace."},
+  {platform:"Craigslist",bestFor:"Furniture, appliances, tools, local buyers only",avoid:"Small items under $20",tip:"List multiple items in one post."},
+  {platform:"ThredUp/Swap.com",bestFor:"Clothing you don't want to list individually",avoid:"Designer or high-value pieces — sell those yourself",tip:"Payout is low but the effort is zero."},
 ];
 
 const pricePoints = [
@@ -729,6 +735,24 @@ function renderAdAccordionRow(p,i){
       ${p.note?`<p class="ad-note">${esc(p.note)}</p>`:''}
     </div>
   </div>`;
+}
+
+const rotatingTips = [
+  "Price to sell, not to keep. You'll make more by letting go.",
+  "Set your goal before you start. It helps you know when to stop negotiating.",
+  "The best garage sale sign has one word on it: BIG ARROWS.",
+  "Put your best stuff at the front. People decide in the first 30 seconds.",
+];
+let _tipInterval=null;let _tipIdx=0;
+function startTipRotation(){
+  if(_tipInterval)clearInterval(_tipInterval);
+  _tipIdx=0;
+  _tipInterval=setInterval(()=>{
+    _tipIdx=(_tipIdx+1)%rotatingTips.length;
+    const t=document.getElementById('tip-text');
+    if(!t){clearInterval(_tipInterval);_tipInterval=null;return;}
+    t.textContent=rotatingTips[_tipIdx];
+  },8000);
 }
 
 const changePlanRows = [
@@ -942,7 +966,7 @@ function render(){
 
 function renderContent(){
   const key=UI.tab+"|"+UI.section;
-  if(UI.tab==="start")setTimeout(()=>fetchWeather(P.setup?.saleDate||null),50);
+  if(UI.tab==="start"){setTimeout(()=>fetchWeather(P.setup?.saleDate||null),50);setTimeout(startTipRotation,60);}
   const map={
     "start|start":renderStart,
     "sortPrice|inventory":renderInventory,
@@ -967,6 +991,9 @@ function renderStart(){
   const daysStr=days===null?"Set a date to see the countdown":days===0?"Sale day is today!":days<0?`Sale was ${Math.abs(days)} day${Math.abs(days)===1?"":"s"} ago`:`${days} day${days===1?"":"s"} until sale day`;
   const saleDateLabel=s.saleDate?new Date(s.saleDate+"T00:00:00").toLocaleDateString("en-US",{weekday:"long",month:"long",day:"numeric",year:"numeric"}):"";
   return`
+  <div style="background:#252535;color:#FFF8EE;padding:11px 20px;font-family:var(--font-body);font-size:14px;line-height:1.4;margin-bottom:16px">
+    <span id="tip-text">${esc(rotatingTips[0])}</span>
+  </div>
   <div style="display:flex;gap:20px;flex-wrap:wrap;align-items:flex-start;padding-top:8px">
 
     <!-- LEFT: form -->
@@ -1345,6 +1372,13 @@ function renderPricing(){
       <h2 class="page-title">Pricing Guide</h2>
       <p class="page-sub">Reference ranges by category and condition. Trust your gut on the final number.</p>
     </div>
+    <div style="background:var(--color-surface-3);border:1px solid var(--color-divider);padding:18px 20px;font-size:14px;line-height:2;color:var(--color-text)">
+      Price at 10–25% of original retail<br>
+      Round numbers sell faster: $1, $2, $5, $10<br>
+      Bundle small items — more money, less haggling<br>
+      Drop prices 50% in the last hour<br>
+      Price everything before the day — no sticker means no sale
+    </div>
     <div class="grid-3">
       ${Object.entries(pricingGuide).map(([cat,data])=>`
         <div class="pricing-card">
@@ -1576,7 +1610,7 @@ function renderSafety(){
   <div class="gap-y">
     <div>
       <h2 class="page-title">Safety + Logistics</h2>
-      <p class="page-sub">A quick checklist so sale day feels calm and controlled.</p>
+      <p class="page-sub">You're running this by yourself. This checklist is built for that.</p>
     </div>
     <div class="grid-2">
       <div class="card">
@@ -1599,7 +1633,12 @@ function renderSafety(){
           <label class="form-label">Notes (neighbor contacts, checkout setup, etc.)</label>
           <textarea class="textarea" rows="5" onblur="sf(this,'safety','safetyNotes')">${esc(s.safetyNotes||"")}</textarea>
         </div>
-        <div class="info-box" style="margin-top:14px">Keep a friend's number in your pocket. Tell someone your hours. Keep your phone charged and your cash in a crossbody bag.</div>
+        <div class="info-box" style="margin-top:14px">The biggest thing: someone knows you're out there. A text check-in, a neighbor who can see the driveway, a friend on standby for large pickups. You don't need a whole system. You just need one person who knows.</div>
+        <div style="margin-top:14px;display:flex;flex-direction:column;gap:10px">
+          <div style="border-left:3px solid var(--color-primary);padding:8px 12px;font-size:13px;line-height:1.65;color:var(--color-text);font-style:italic">"If someone makes you uncomfortable, it's fine to say: 'I'm closing up for a bit, please come back in 20 minutes.' You do not owe anyone access."</div>
+          <div style="border-left:3px solid var(--color-primary);padding:8px 12px;font-size:13px;line-height:1.65;color:var(--color-text);font-style:italic">"If someone gets aggressive about pricing, the answer is always: 'That's the price — no problem if it doesn't work for you today.'"</div>
+          <div style="border-left:3px solid var(--color-primary);padding:8px 12px;font-size:13px;line-height:1.65;color:var(--color-text);font-style:italic">"Have a code word texted to a trusted person if you need backup."</div>
+        </div>
       </div>
     </div>
   </div>`;
@@ -1637,6 +1676,17 @@ function renderSaleDay(){
           <button class="btn btn-primary" onclick="addCalcToSales()">Log sale</button>
           <button class="btn btn-secondary" onclick="addCalcRow()">+ Row</button>
           <button class="btn btn-ghost btn-sm" onclick="clearCalc()">Clear</button>
+        </div>
+        <div style="border-top:1px solid var(--color-divider);margin-top:18px;padding-top:18px">
+          <div style="font-family:var(--font-display);font-size:16px;font-weight:700;color:var(--color-text);margin-bottom:12px">Change calculator</div>
+          <div class="form-field" style="margin-bottom:12px">
+            <label class="form-label" for="change-given">Customer gave me ($)</label>
+            <input class="input" type="number" id="change-given" min="0" step="0.25" placeholder="0.00" oninput="calcChange()" style="font-size:20px;font-weight:700" />
+          </div>
+          <div id="change-result" style="display:none;background:#ECE4F7;padding:16px 20px">
+            <div style="font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--color-text-muted);margin-bottom:4px">Give back</div>
+            <div id="change-amount" style="font-family:var(--font-display);font-size:40px;font-weight:700;color:var(--color-text)">$0.00</div>
+          </div>
         </div>
       </div>
       <div class="gap-y">
@@ -1679,6 +1729,18 @@ function renderSaleDay(){
       </div>
     </div>
   </div>`;
+}
+
+function calcChange(){
+  const givenEl=document.getElementById('change-given');
+  const given=Number((givenEl||{}).value||0);
+  const sub=calcSubtotal(P.calculatorRows);
+  const result=document.getElementById('change-result');
+  const amt=document.getElementById('change-amount');
+  if(!result||!amt)return;
+  if(!given||given<sub){result.style.display='none';return;}
+  result.style.display='block';
+  amt.textContent='$'+(given-sub).toFixed(2);
 }
 
 function updateCalcRow(id,k,v){const row=(P.calculatorRows||[]).find(r=>r.id===id);if(row){row[k]=v;P.isDemo=false;save();refreshSubtotal()}}
