@@ -185,6 +185,65 @@ if ($showDoorReveal) {
 
         </div>
 
+        <!-- ===== EXCLUSIVE FOR MEMBERS ===== -->
+        <?php
+        $exclusiveItems = getUnlockedExclusiveContent($user['id']);
+        $nextUnlock     = getNextExclusiveUnlock($user['id']);
+
+        if ($nextUnlock) {
+            $unlockDt  = new DateTime($nextUnlock['unlock_date']);
+            $now       = new DateTime();
+            $interval  = $now->diff($unlockDt);
+            $daysLeft  = $interval->invert ? 0 : (int)$interval->days;
+            if ($daysLeft === 0)     $countdownText = 'Unlocking today — refresh your page to access it.';
+            elseif ($daysLeft === 1) $countdownText = 'Unlocks tomorrow.';
+            else                     $countdownText = 'Unlocks in ' . $daysLeft . ' days.';
+        }
+        ?>
+
+        <p class="dashboard-section-title">Exclusive for Members</p>
+
+        <?php if (!empty($exclusiveItems)): ?>
+        <div class="product-grid" style="margin-bottom:1.5rem;">
+            <?php foreach ($exclusiveItems as $item): ?>
+            <div class="product-card fade-in">
+                <span class="badge" style="background:#C4B0E8;color:#252535;">EXCLUSIVE</span>
+                <div class="product-card-image" style="background:linear-gradient(135deg,#252535 0%,#3a3a52 100%);display:flex;align-items:center;justify-content:center;padding:0 20px;text-align:center;">
+                    <p style="font-family:'Montserrat',sans-serif;font-weight:800;font-size:0.65rem;text-transform:uppercase;letter-spacing:0.15em;color:#C4B0E8;margin:0;line-height:1.8;"><?= esc($item['title']) ?></p>
+                </div>
+                <div class="product-card-content">
+                    <span class="product-card-category">exclusive</span>
+                    <h3 class="product-card-title"><?= esc($item['title']) ?></h3>
+                    <p class="product-card-description"><?= esc($item['description']) ?></p>
+                    <?php if ($item['file_path']): ?>
+                        <a href="/exclusive-download?id=<?= (int)$item['id'] ?>" class="btn btn-primary">Download</a>
+                    <?php else: ?>
+                        <p style="font-size:0.8rem;color:#999999;margin:0;">Coming soon.</p>
+                    <?php endif; ?>
+                </div>
+            </div>
+            <?php endforeach; ?>
+        </div>
+        <?php endif; ?>
+
+        <?php if ($nextUnlock): ?>
+        <div style="background:#252535;padding:24px 32px;margin-bottom:3rem;">
+            <p style="font-family:'Montserrat',sans-serif;font-weight:800;font-size:0.65rem;text-transform:uppercase;letter-spacing:0.15em;color:#A8C5DA;margin:0 0 0.35rem;">NEXT EXCLUSIVE FREEBIE</p>
+            <p style="font-family:'Montserrat',sans-serif;font-weight:800;font-size:1rem;color:#FFF8EE;margin:0 0 0.25rem;"><?= esc($nextUnlock['title']) ?></p>
+            <p style="font-family:Arial,sans-serif;font-size:0.85rem;color:#C4B0E8;margin:0;"><?= esc($countdownText) ?></p>
+        </div>
+        <?php elseif (empty($exclusiveItems)): ?>
+        <div style="padding:20px 0 2rem;">
+            <p style="color:#666666;font-size:0.95rem;margin:0;">Your first exclusive freebie is waiting on your dashboard. Refresh if you don't see it.</p>
+        </div>
+        <?php else: ?>
+        <div style="background:#252535;padding:24px 32px;margin-bottom:3rem;">
+            <p style="font-family:'Montserrat',sans-serif;font-weight:800;font-size:0.65rem;text-transform:uppercase;letter-spacing:0.15em;color:#A8C5DA;margin:0 0 0.35rem;">EXCLUSIVE FREEBIES</p>
+            <p style="font-family:'Montserrat',sans-serif;font-weight:800;font-size:1rem;color:#FFF8EE;margin:0 0 0.25rem;">You're all caught up.</p>
+            <p style="font-family:Arial,sans-serif;font-size:0.85rem;color:#C4B0E8;margin:0;">Your next exclusive freebie is on its way.</p>
+        </div>
+        <?php endif; ?>
+
         <!-- ===== FOR MEMBERS ===== -->
         <p class="dashboard-section-title">For Members</p>
 

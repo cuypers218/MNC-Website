@@ -132,3 +132,36 @@ function currentPage() {
 function isPage($page) {
     return currentPage() === $page ? 'active' : '';
 }
+
+/**
+ * Get all exclusive queue items unlocked for a member based on their signup date.
+ */
+function getUnlockedExclusiveContent($userId) {
+    $db   = getDB();
+    $stmt = $db->prepare("
+        SELECT q.*
+        FROM exclusive_content_queue q
+        WHERE q.unlock_offset_days <= DATEDIFF(NOW(), (SELECT created_at FROM users WHERE id = ?))
+        ORDER BY q.sequence_number ASC
+    ");
+    $stmt->execute([$userId]);
+    return $stmt->fetchAll();
+}
+
+/**
+ * Get the next exclusive queue item not yet unlocked, plus its unlock date.
+ * Returns false if the member has caught up to the end of the current queue.
+ */
+function getNextExclusiveUnlock($userId) {
+    $db   = getDB();
+    $stmt = $db->prepare("
+        SELECT q.*,
+               DATE_ADD((SELECT created_at FROM users WHERE id = :uid1), INTERVAL q.unlock_offset_days DAY) AS unlock_date
+        FROM exclusive_content_queue q
+        WHERE q.unlock_offset_days > DATEDIFF(NOW(), (SELECT created_at FROM users WHERE id = :uid2))
+        ORDER BY q.sequence_number ASC
+        LIMIT 1
+    ");
+    $stmt->execute([':uid1' => $userId, ':uid2' => $userId]);
+    return $stmt->fetch();
+}
