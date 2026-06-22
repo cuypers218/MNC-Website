@@ -464,6 +464,17 @@
     .sb-fill{height:100%;background:#E87AAA;transition:width .35s ease}
     #sticky-bar .sb-goal-text{font-size:12px;color:#C4B0E8;white-space:nowrap}
     body{padding-bottom:58px}
+    /* ─── WRITE YOUR AD ACCORDION ─── */
+    .ad-accordion-row{border:1px solid var(--color-divider);margin-bottom:-1px}
+    .ad-accordion-trigger{width:100%;display:flex;justify-content:space-between;align-items:center;padding:14px 16px;background:var(--color-surface);border:none;cursor:pointer;font-family:var(--font-body);font-size:14px;font-weight:600;color:var(--color-text);text-align:left}
+    .ad-accordion-trigger:hover{background:var(--color-surface-2)}
+    .ad-accordion-body{padding:18px 16px;background:var(--color-bg);border-top:1px solid var(--color-divider)}
+    .ad-accordion-body p{font-family:var(--font-body);font-size:14px;line-height:1.7;color:var(--color-text);margin:0 0 14px}
+    .ad-tmpl-ta{width:100%;font-family:var(--font-body);font-size:13px;line-height:1.65;color:var(--color-text);background:#fff;border:1px solid var(--color-divider);padding:12px;resize:none;display:block;margin-bottom:10px}
+    .ad-copy-btn{font-family:var(--font-body);font-size:12px;font-weight:700;padding:8px 18px;background:var(--color-surface-2);border:1px solid var(--color-divider);cursor:pointer;color:var(--color-text);display:inline-block}
+    .ad-copy-btn:hover{background:var(--color-divider)}
+    .ad-note{font-family:var(--font-body);font-size:12px;color:var(--color-text-muted);line-height:1.6;margin:8px 0 0}
+    .ad-chevron{font-size:10px;color:var(--color-text-muted);flex-shrink:0;margin-left:14px}
     /* ─── PRINT CENTER INNER TABS ─── */
     .pc-tabs{display:flex;gap:0;border-bottom:2px solid var(--color-divider);margin:-4px 0 20px}
     .pc-tab-btn{padding:10px 18px;font-family:var(--font-body);font-size:13px;font-weight:600;cursor:pointer;background:none;border:none;border-bottom:3px solid transparent;margin-bottom:-2px;color:var(--color-text-muted);line-height:1}
@@ -633,6 +644,92 @@ const signTemplates = [
   "MY NEXT CHAPTER SALE · Household Items · Decor · Books · Furniture",
   "BUNDLE DEALS · Ask About Half-Off Tables After Noon",
 ];
+
+const adPlatforms=[
+  {
+    label:'Facebook Marketplace',
+    howto:'Go to Facebook Marketplace and create a new listing. Set the category to Garage Sale if it appears, or use Miscellaneous. Set the price to $1 so the listing goes through — buyers know it\'s a sale, not a single item. Add your best wide shot as the first photo — that\'s what people see while scrolling.',
+    template:`GARAGE SALE — [Day, Month Date] — [Your City/Neighborhood]
+
+Clearing out the house. Lots of good stuff — [list 3–5 categories or standout items, e.g.: furniture, kids' clothes, kitchen items, tools, home décor].
+
+[Day, Date] | [Start time]–[End time]
+Address shared the morning before — message me here and I'll send it to you.
+
+Cash and Venmo welcome. No early birds, please.`,
+    note:'First photo = wide shot of your whole setup. Then close-ups of anything with obvious value — furniture, electronics, anything brand-name.',
+    rows:10
+  },
+  {
+    label:'Facebook Groups',
+    howto:'Search Facebook for \'[your town] garage sale\' or \'[your town] buy sell trade\' and join 1–2 active local groups. Post there separately from your Marketplace listing — you can drop your Marketplace link in the comments if the group allows it.',
+    template:`Garage sale at my place — [Day, Month Date]!
+[Start time]–[End time] | [Your city or neighborhood]
+
+Lots of [3–4 categories]. Everything priced to move.
+
+Address in my Marketplace listing, or message me — I'll send it the morning before. Cash and Venmo welcome.`,
+    note:'',
+    rows:8
+  },
+  {
+    label:'Nextdoor',
+    howto:'Open Nextdoor, tap the + button, and choose For Sale & Free, then Garage Sale. It automatically goes to neighbors in your area — no extra steps needed. Short and friendly works best here.',
+    template:`Garage sale at my place — [Day, Date]!
+[Start time] to [End time] | [Your street or cross streets]
+
+I've got [3–4 categories]. Priced to sell. Cash and Venmo welcome.
+
+Hope to see some familiar faces — come by.`,
+    note:'',
+    rows:8
+  },
+  {
+    label:'Craigslist',
+    howto:'Go to craigslist.org, find your city, and post under For Sale — Garage Sales. Your title is what gets you found, so list your best categories there, not just \'garage sale.\' Cash only is the norm on Craigslist — buyers come prepared.',
+    template:`TITLE: Garage Sale — [Neighborhood or Cross Streets] — [Day, Date] — [Start Time]
+
+[Day], [Month Date] — [Start time] to [End time]
+[Your address or cross streets — you can add the full address the morning before]
+
+Items include:
+- [Category 1, e.g. Furniture]
+- [Category 2, e.g. Women's and kids' clothing]
+- [Category 3, e.g. Kitchen and household]
+- [Category 4, e.g. Tools]
+- [Category 5, e.g. Electronics]
+[Add a standout item if you have one: solid wood dresser, kids' bikes, sewing machine, etc.]
+
+Everything priced to sell. Cash only. No early birds.`,
+    note:'',
+    rows:17
+  },
+  {
+    label:'YardSaleSearch.com',
+    howto:'Go to yardsalesearch.com and click List a Sale — it\'s mostly checkboxes and dropdowns, so it takes about two minutes. The description box at the end is the only real writing. Note: YardSaleSearch automatically shares your listing to several other garage sale finder sites, so one post gets you multiple places at once.',
+    template:`Clearing out the house — [list 3–5 categories]. Everything priced to sell. [Cash only / Cash and Venmo welcome]. [Day, Date] from [Start time] to [End time]. [Your address].`,
+    note:'',
+    rows:4
+  }
+];
+
+function renderAdAccordionRow(p,i){
+  const open=!!(UI.adAccordion?.[i]);
+  return`<div class="ad-accordion-row">
+    <button class="ad-accordion-trigger" onclick="toggleAdAccordion(${i})" aria-expanded="${open}">
+      <span>${esc(p.label)}</span>
+      <span class="ad-chevron" id="ad-chev-${i}">${open?'&#9650;':'&#9660;'}</span>
+    </button>
+    <div class="ad-accordion-body" id="ad-body-${i}"${open?'':' style="display:none"'}>
+      <p>${esc(p.howto)}</p>
+      <textarea class="ad-tmpl-ta" id="ad-tmpl-${i}" readonly rows="${p.rows}">${esc(p.template)}</textarea>
+      <div>
+        <button class="ad-copy-btn" onclick="copyAdTemplate(${i},this)">Copy</button>
+      </div>
+      ${p.note?`<p class="ad-note">${esc(p.note)}</p>`:''}
+    </div>
+  </div>`;
+}
 
 const changePlanRows = [
   {label:"$1 bills",key:"ones",suggested:"40",note:"Great for $1, $2, and $3 items."},
@@ -1326,7 +1423,7 @@ function renderAdvertising(){
       <h2 class="page-title">Ads + Signs</h2>
       <p class="page-sub">Write your ad copy, plan where to post it, and design your signs.</p>
     </div>
-    <div class="grid-2">
+    <div class="grid-2" id="ads-grid">
       <div class="card">
         <div class="card-title">Ad copy</div>
         <div class="gap-y-sm">
@@ -1371,6 +1468,15 @@ function renderAdvertising(){
         </div>
       </div>
     </div>
+
+    <!-- WRITE YOUR AD -->
+    <div class="card">
+      <h3 style="font-family:var(--font-display);font-size:20px;font-weight:700;color:var(--color-text);margin:0 0 12px">Write Your Ad</h3>
+      <p style="font-family:var(--font-body);font-size:14px;line-height:1.7;color:var(--color-text);margin:0 0 16px">Knowing where to post is half of it. Knowing what to say is the other half. Here's a quick how-to for each platform plus copy you can grab, fill in, and post. You don't need all five — Facebook Marketplace alone will get you most of your traffic. But the more places you post, the more people show up.</p>
+      <div style="border-top:1px solid var(--color-divider)">
+        ${adPlatforms.map((p,i)=>renderAdAccordionRow(p,i)).join('')}
+      </div>
+    </div>
   </div>`;
 }
 
@@ -1382,6 +1488,25 @@ function copyAdCopy(){
 function fallbackCopy(txt){const el=document.createElement("textarea");el.value=txt;document.body.appendChild(el);el.select();document.execCommand("copy");el.remove();showToast("Ad copy copied")}
 function copyTemplate(i){fallbackCopy(signTemplates[i])}
 function toggleAdCheck(k){deepSet(P,["advertising",k],!P.advertising[k]);P.isDemo=false;save();renderContent()}
+
+function toggleAdAccordion(i){
+  if(!UI.adAccordion)UI.adAccordion={};
+  UI.adAccordion[i]=!UI.adAccordion[i];
+  const body=document.getElementById('ad-body-'+i);
+  const chev=document.getElementById('ad-chev-'+i);
+  if(body)body.style.display=UI.adAccordion[i]?'block':'none';
+  if(chev)chev.innerHTML=UI.adAccordion[i]?'&#9650;':'&#9660;';
+}
+
+function copyAdTemplate(i,btn){
+  const el=document.getElementById('ad-tmpl-'+i);
+  if(!el)return;
+  const txt=el.value;
+  function done(){btn.textContent='Copied';setTimeout(()=>{btn.textContent='Copy';},2000);}
+  if(navigator.clipboard){navigator.clipboard.writeText(txt).then(done).catch(()=>{adFallbackCopy(txt);done();});}
+  else{adFallbackCopy(txt);done();}
+}
+function adFallbackCopy(txt){const ta=document.createElement('textarea');ta.value=txt;document.body.appendChild(ta);ta.select();try{document.execCommand('copy');}catch(e){}ta.remove();}
 
 // ─── SECTION: PREP ───────────────────────────────────────────────────────────
 function renderPrep(){
