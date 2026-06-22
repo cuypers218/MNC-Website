@@ -436,6 +436,16 @@
       .print-sign{border:3px solid #E87AAA;padding:28px;text-align:center;min-height:300px}
       .print-box-sign{border:3px solid #E87AAA;padding:28px;text-align:center;min-height:240px}
       .print-page-break{break-after:page;page-break-after:always}
+      /* ── Quick price tag sheets */
+      .print-quick-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:0;width:100%}
+      .print-quick-tag{border:1px dashed #aaa;display:flex;align-items:center;justify-content:center;flex-direction:column;aspect-ratio:1;text-align:center;break-inside:avoid;page-break-inside:avoid;padding:2pt}
+      .print-sign-cut{border-top:1pt dashed #aaa;width:100%;margin:6pt 0}
+      /* ── Area signs — 2 per page */
+      .print-area-sign{height:47vh;display:flex;align-items:center;justify-content:center;flex-direction:column;text-align:center;border:1.5pt solid #252535;padding:30pt;break-inside:avoid;page-break-inside:avoid}
+      /* ── Sale flyers */
+      .print-flyer{width:100%;min-height:88vh;break-after:always;page-break-after:always;display:flex;flex-direction:column;text-align:center;padding:20pt}
+      .print-tearoff-strip{border-top:1pt dashed #aaa;padding:7pt 0;font-size:10pt;font-family:'DM Sans',Arial,sans-serif;text-align:center}
+      @page{size:8.5in 11in portrait;margin:.5in}
     }
     #print-section{display:none}
     .no-print{}
@@ -454,6 +464,11 @@
     .sb-fill{height:100%;background:#E87AAA;transition:width .35s ease}
     #sticky-bar .sb-goal-text{font-size:12px;color:#C4B0E8;white-space:nowrap}
     body{padding-bottom:58px}
+    /* ─── PRINT CENTER INNER TABS ─── */
+    .pc-tabs{display:flex;gap:0;border-bottom:2px solid var(--color-divider);margin:-4px 0 20px}
+    .pc-tab-btn{padding:10px 18px;font-family:var(--font-body);font-size:13px;font-weight:600;cursor:pointer;background:none;border:none;border-bottom:3px solid transparent;margin-bottom:-2px;color:var(--color-text-muted);line-height:1}
+    .pc-tab-btn.active{color:var(--color-primary);border-bottom-color:var(--color-primary)}
+    .pc-tab-btn:hover{color:var(--color-text)}
 
 </style>
 </head>
@@ -1567,6 +1582,14 @@ function deleteSale(id){P.transactions=(P.transactions||[]).filter(t=>t.id!==id)
 
 // ─── SECTION: PRINT CENTER ───────────────────────────────────────────────────
 function renderPrintCenter(){
+  if(UI.pcTab===undefined)UI.pcTab='tags';
+  if(!UI.areaSign)UI.areaSign={tmpl:0,price:'',custom:''};
+  if(!UI.flyer){
+    const gs=(P.items||[]).filter(i=>i.decision==='Garage Sale').slice(0,3).map(i=>i.name).join(', ');
+    UI.flyer={title:P.setup?.saleTitle||'Garage Sale',date:pcFmtDate(P.setup?.saleDate),time:'',address:'',featured:gs,tagline:''};
+  }
+  if(UI.quickPrice===undefined)UI.quickPrice='';
+
   const tagItems=(P.items||[]).filter(i=>["Garage Sale","Sell Online"].includes(i.decision));
   const boxes=P.batchBoxes||[];
   const a=P.advertising||{};
@@ -1579,16 +1602,75 @@ function renderPrintCenter(){
   ];
   const chosenSign=UI.printSign>=0?allSigns[UI.printSign]:null;
 
+  const areaTmpls=['Everything on this table','Everything on this rack','Everything on this shelf','Everything in this basket','Everything in this box','Everything here','Custom'];
+  const isCustomArea=UI.areaSign.tmpl===areaTmpls.length-1;
+  const areaMainText=isCustomArea?(UI.areaSign.custom||''):areaTmpls[UI.areaSign.tmpl];
+  const areaPriceText=isCustomArea?'':(UI.areaSign.price||'');
+
+  const tabContent=UI.pcTab==='tags'
+    ?renderPCTagsContent(tagItems,selItems,allSigns,chosenSign,boxes)
+    :UI.pcTab==='area'
+    ?renderPCAreaContent(areaTmpls,isCustomArea,areaMainText,areaPriceText)
+    :renderPCFlyersContent();
+
   return`
   <div class="gap-y">
     <div>
       <h2 class="page-title">Print Center</h2>
-      <p class="page-sub">Set up your price tags and signs, preview them here, then print.</p>
+      <p class="page-sub">Price tags, area signs, and flyers — preview here, then print.</p>
+    </div>
+    <div class="pc-tabs" role="tablist">
+      <button class="pc-tab-btn${UI.pcTab==='tags'?' active':''}" onclick="UI.pcTab='tags';renderContent()">Price Tags</button>
+      <button class="pc-tab-btn${UI.pcTab==='area'?' active':''}" onclick="UI.pcTab='area';renderContent()">Area Signs</button>
+      <button class="pc-tab-btn${UI.pcTab==='flyers'?' active':''}" onclick="UI.pcTab='flyers';renderContent()">Flyers</button>
+    </div>
+    ${tabContent}
+  </div>`;
+}
+
+function renderPCTagsContent(tagItems,selItems,allSigns,chosenSign,boxes){
+  return`
+    <!-- QUICK PRICE TAG SHEETS -->
+    <div class="card">
+      <div class="card-title">Quick price tag sheets</div>
+      <p class="card-sub" style="margin-bottom:16px">No inventory needed — pick a sheet, print, and cut. Great for same-price tables.</p>
+      <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:4px">
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px;border:1px solid var(--color-divider);background:var(--color-surface)">
+          <div>
+            <div style="font-size:13px;font-weight:700;font-family:var(--font-display)">$.25 + $.50 combo</div>
+            <div class="text-muted" style="font-size:12px">18 tags each · dashed cut line between</div>
+          </div>
+          <button class="btn btn-secondary btn-sm" onclick="printQuickTags('A')">Print $.25 / $.50</button>
+        </div>
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px;border:1px solid var(--color-divider);background:var(--color-surface)">
+          <div>
+            <div style="font-size:13px;font-weight:700;font-family:var(--font-display)">$.75 + $1 combo</div>
+            <div class="text-muted" style="font-size:12px">18 tags each · dashed cut line between</div>
+          </div>
+          <button class="btn btn-secondary btn-sm" onclick="printQuickTags('B')">Print $.75 / $1</button>
+        </div>
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px;border:1px solid var(--color-divider);background:var(--color-surface)">
+          <div>
+            <div style="font-size:13px;font-weight:700;font-family:var(--font-display)">Mixed sheet</div>
+            <div class="text-muted" style="font-size:12px">$.25 through $20 — 84 tags, full page</div>
+          </div>
+          <button class="btn btn-secondary btn-sm" onclick="printQuickTags('C')">Print mixed sheet</button>
+        </div>
+        <div style="padding:14px;border:1px solid var(--color-divider);background:var(--color-surface)">
+          <div style="font-size:13px;font-weight:700;font-family:var(--font-display);margin-bottom:10px">Single price — 48 identical tags</div>
+          <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+            <input type="text" id="quick-price-input" value="${esc(UI.quickPrice)}" placeholder="e.g. $7.50 or 25¢"
+              style="border:1px solid var(--color-divider);padding:8px 10px;font-family:var(--font-body);font-size:14px;font-weight:700;width:130px;background:var(--color-surface)"
+              oninput="setQuickPrice(this.value)">
+            <button class="btn btn-secondary btn-sm" id="quick-price-btn" onclick="printQuickTags('D')"${!UI.quickPrice?' disabled':''}>Print 48 × ${esc(UI.quickPrice||'___')} tags</button>
+          </div>
+        </div>
+      </div>
     </div>
 
-    <!-- PRICE TAGS -->
+    <!-- PRICE TAGS (inventory) -->
     <div class="card">
-      <div class="card-title">Price tags</div>
+      <div class="card-title">Price tags from your inventory</div>
       <p class="card-sub" style="margin-bottom:14px">Choose which items to include, then print a full sheet of price tags.</p>
       ${tagItems.length===0?`
         <div class="info-box">No items yet. Add items in Sort + Price, mark them Garage Sale, then come back here to print tags.</div>
@@ -1694,8 +1776,110 @@ function renderPrintCenter(){
         </div>
         <button class="btn btn-primary" onclick="printBoxSigns()">Print box signs</button>
       `}
+    </div>`;
+}
+
+function renderPCAreaContent(areaTmpls,isCustomArea,areaMainText,areaPriceText){
+  return`
+    <div class="card">
+      <div class="card-title">Area + table signs</div>
+      <p class="card-sub" style="margin-bottom:16px">Pick a template, type your price, then print. Two signs per page — cut on the dashed line.</p>
+      <div style="display:flex;flex-direction:column;gap:14px;margin-bottom:20px">
+        <div>
+          <label style="display:block;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--color-text-muted);margin-bottom:6px">Sign text</label>
+          <select onchange="setAreaSignField('tmpl',Number(this.value))"
+            style="width:100%;border:1px solid var(--color-divider);padding:10px;font-family:var(--font-body);font-size:14px;background:var(--color-surface);color:var(--color-text)">
+            ${areaTmpls.map((t,i)=>`<option value="${i}"${UI.areaSign.tmpl===i?' selected':''}>${esc(t)}</option>`).join('')}
+          </select>
+        </div>
+        ${isCustomArea?`
+        <div>
+          <label style="display:block;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--color-text-muted);margin-bottom:6px">Your sign text (include price if you want one)</label>
+          <textarea rows="3" placeholder="Everything here — $1"
+            style="width:100%;border:1px solid var(--color-divider);padding:10px;font-family:var(--font-body);font-size:14px;resize:vertical;background:var(--color-surface)"
+            oninput="setAreaSignField('custom',this.value)">${esc(UI.areaSign.custom)}</textarea>
+        </div>
+        `:`
+        <div>
+          <label style="display:block;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--color-text-muted);margin-bottom:6px">Price</label>
+          <input type="text" value="${esc(UI.areaSign.price)}" placeholder="e.g. $1 or 50¢"
+            style="border:1px solid var(--color-divider);padding:10px;font-family:var(--font-body);font-size:14px;width:180px;background:var(--color-surface)"
+            oninput="setAreaSignField('price',this.value)">
+        </div>
+        `}
+      </div>
+      <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--color-text-muted);margin-bottom:12px">Preview — 2 signs per page</div>
+      <div id="area-sign-preview" style="margin-bottom:16px">
+        ${buildAreaSignPreviewHTML(areaMainText,areaPriceText)}
+      </div>
+      <button class="btn btn-primary" onclick="printAreaSigns()">Print 2 signs</button>
+    </div>`;
+}
+
+function renderPCFlyersContent(){
+  const f=UI.flyer||{};
+  return`
+    <div class="card">
+      <div class="card-title">Flyer details</div>
+      <p class="card-sub" style="margin-bottom:16px">Auto-filled from your Start tab. Edit here — changes don't affect your main setup.</p>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px">
+        <div>
+          <label style="display:block;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--color-text-muted);margin-bottom:5px">Sale name</label>
+          <input type="text" value="${esc(f.title)}" placeholder="Garage Sale"
+            style="width:100%;border:1px solid var(--color-divider);padding:9px;font-family:var(--font-body);font-size:13px;background:var(--color-surface)"
+            oninput="setFlyerField('title',this.value)">
+        </div>
+        <div>
+          <label style="display:block;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--color-text-muted);margin-bottom:5px">Date</label>
+          <input type="text" value="${esc(f.date)}" placeholder="Saturday, July 12"
+            style="width:100%;border:1px solid var(--color-divider);padding:9px;font-family:var(--font-body);font-size:13px;background:var(--color-surface)"
+            oninput="setFlyerField('date',this.value)">
+        </div>
+        <div>
+          <label style="display:block;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--color-text-muted);margin-bottom:5px">Time</label>
+          <input type="text" value="${esc(f.time)}" placeholder="8 AM – 2 PM"
+            style="width:100%;border:1px solid var(--color-divider);padding:9px;font-family:var(--font-body);font-size:13px;background:var(--color-surface)"
+            oninput="setFlyerField('time',this.value)">
+        </div>
+        <div>
+          <label style="display:block;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--color-text-muted);margin-bottom:5px">Address</label>
+          <input type="text" value="${esc(f.address)}" placeholder="123 Maple St"
+            style="width:100%;border:1px solid var(--color-divider);padding:9px;font-family:var(--font-body);font-size:13px;background:var(--color-surface)"
+            oninput="setFlyerField('address',this.value)">
+        </div>
+      </div>
+      <div style="margin-bottom:12px">
+        <label style="display:block;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--color-text-muted);margin-bottom:5px">Featured items</label>
+        <input type="text" value="${esc(f.featured)}" placeholder="Furniture, clothing, kitchen items"
+          style="width:100%;border:1px solid var(--color-divider);padding:9px;font-family:var(--font-body);font-size:13px;background:var(--color-surface)"
+          oninput="setFlyerField('featured',this.value)">
+      </div>
+      <div>
+        <label style="display:block;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--color-text-muted);margin-bottom:5px">Tagline (optional)</label>
+        <input type="text" value="${esc(f.tagline)}" placeholder="Cash + Venmo welcome"
+          style="width:100%;border:1px solid var(--color-divider);padding:9px;font-family:var(--font-body);font-size:13px;background:var(--color-surface)"
+          oninput="setFlyerField('tagline',this.value)">
+      </div>
     </div>
-  </div>`;
+
+    <div class="card">
+      <div class="card-title">Standard flyer</div>
+      <p class="card-sub" style="margin-bottom:14px">One flyer per page.</p>
+      <div id="flyer-standard-preview" style="border:2px solid var(--color-divider);padding:28px 24px;background:#fff;margin-bottom:16px;text-align:center">
+        ${buildFlyerPreviewHTML('standard')}
+      </div>
+      <button class="btn btn-primary" onclick="printFlyer('standard')">Print standard flyer</button>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Tear-off flyer</div>
+      <p class="card-sub" style="margin-bottom:14px">Same as standard with 8 tear-off strips at the bottom.</p>
+      <div id="flyer-tearoff-preview" style="border:2px solid var(--color-divider);padding:28px 24px;background:#fff;margin-bottom:16px;text-align:center">
+        ${buildFlyerPreviewHTML('tearoff')}
+      </div>
+      <button class="btn btn-primary" onclick="printFlyer('tearoff')">Print tear-off flyer</button>
+      <p style="font-size:12px;color:var(--color-text-muted);margin-top:12px;line-height:1.6">Print 20–30 copies. Post at grocery stores, laundromats, libraries, and coffee shops 3–5 days before your sale.</p>
+    </div>`;
 }
 
 // ─── SECTION: WRAP UP ────────────────────────────────────────────────────────
@@ -1937,6 +2121,141 @@ function printBoxSigns(){
   document.getElementById("print-section").style.display="block";
   window.print();
   setTimeout(()=>document.getElementById("print-section").style.display="none",2000);
+}
+
+// ─── PRINT CENTER HELPERS ─────────────────────────────────────────────────────
+function pcFmtDate(d){
+  if(!d)return'';
+  try{return new Date(d+'T00:00:00').toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric',year:'numeric'});}
+  catch(e){return d;}
+}
+
+function buildAreaSignPreviewHTML(mainText,priceText){
+  function signCard(){
+    return`<div style="border:2px solid #252535;padding:20px;text-align:center;background:#fff">
+      <div style="font-family:var(--font-display);font-size:clamp(18px,3vw,26px);font-weight:800;line-height:1.3;color:#252535">${esc(mainText)||'—'}</div>
+      ${priceText?`<div style="font-family:var(--font-display);font-size:clamp(22px,4vw,34px);font-weight:800;color:#252535;margin-top:8px">${esc(priceText)}</div>`:''}
+      <div style="font-size:9px;font-family:var(--font-body);color:#bbb;letter-spacing:.1em;text-transform:uppercase;margin-top:10px">My Nest Chapter</div>
+    </div>`;
+  }
+  return signCard()+
+    `<div style="border-top:2px dashed var(--color-divider);margin:2px 0;text-align:center">
+      <span style="font-size:11px;color:var(--color-text-muted);background:var(--color-bg);padding:0 8px;position:relative;top:-1px">cut here</span>
+    </div>`+
+    signCard();
+}
+
+function buildFlyerPreviewHTML(type){
+  const f=UI.flyer||{};
+  const tearoffs=type==='tearoff'?`
+    <div style="margin-top:14px;border-top:2px dashed var(--color-divider);padding-top:6px">
+      ${Array(8).fill(`<div style="border-top:1px dashed var(--color-divider);padding:4px 0;font-size:11px;font-family:var(--font-body);color:var(--color-text-muted)">${esc([f.address,f.date].filter(Boolean).join(' · '))||'Address · Date'}</div>`).join('')}
+    </div>`:'';
+  return`
+    <div style="font-family:var(--font-display);font-size:clamp(22px,4vw,30px);font-weight:800;color:#252535;margin-bottom:6px">${esc(f.title||'GARAGE SALE')}</div>
+    ${f.date||f.time?`<div style="font-size:16px;font-weight:700;font-family:var(--font-body);margin-bottom:4px;color:#252535">${esc([f.date,f.time].filter(Boolean).join(' · '))}</div>`:''}
+    ${f.address?`<div style="font-size:14px;font-family:var(--font-body);margin-bottom:10px;color:#444">${esc(f.address)}</div>`:''}
+    ${f.featured?`<div style="font-size:13px;font-family:var(--font-body);color:var(--color-text-muted);margin-bottom:6px">${esc(f.featured)}</div>`:''}
+    ${f.tagline?`<div style="font-size:12px;font-family:var(--font-body);color:var(--color-text-muted)">${esc(f.tagline)}</div>`:''}
+    <div style="font-size:9px;font-family:var(--font-body);color:#ccc;margin-top:14px;letter-spacing:.1em;text-transform:uppercase">My Nest Chapter</div>
+    ${tearoffs}`;
+}
+
+function setQuickPrice(val){
+  UI.quickPrice=val;
+  const btn=document.getElementById('quick-price-btn');
+  if(btn){btn.textContent='Print 48 × '+(val||'___')+' tags';btn.disabled=!val;}
+}
+
+function setAreaSignField(key,val){
+  if(!UI.areaSign)UI.areaSign={tmpl:0,price:'',custom:''};
+  if(key==='tmpl'){UI.areaSign[key]=Number(val);renderContent();return;}
+  UI.areaSign[key]=val;
+  const areaTmpls=['Everything on this table','Everything on this rack','Everything on this shelf','Everything in this basket','Everything in this box','Everything here','Custom'];
+  const isCustom=UI.areaSign.tmpl===areaTmpls.length-1;
+  const mainText=isCustom?(UI.areaSign.custom||''):areaTmpls[UI.areaSign.tmpl];
+  const priceText=isCustom?'':(UI.areaSign.price||'');
+  const el=document.getElementById('area-sign-preview');
+  if(el)el.innerHTML=buildAreaSignPreviewHTML(mainText,priceText);
+}
+
+function setFlyerField(key,val){
+  if(!UI.flyer)UI.flyer={title:'',date:'',time:'',address:'',featured:'',tagline:''};
+  UI.flyer[key]=val;
+  const s=document.getElementById('flyer-standard-preview');
+  if(s)s.innerHTML=buildFlyerPreviewHTML('standard');
+  const t=document.getElementById('flyer-tearoff-preview');
+  if(t)t.innerHTML=buildFlyerPreviewHTML('tearoff');
+}
+
+function printQuickTags(type){
+  function qtHTML(price){
+    return`<div class="print-quick-tag">
+      <div style="font-family:'Lora',serif;font-size:18pt;font-weight:700;color:#252535;line-height:1">${price}</div>
+      <div style="font-family:'DM Sans',Arial,sans-serif;font-size:5pt;color:#aaa;margin-top:4pt;letter-spacing:.1em;text-transform:uppercase">My Nest Chapter</div>
+    </div>`;
+  }
+  function grid(price,count){
+    return`<div class="print-quick-grid">${Array(count).fill(qtHTML(price)).join('')}</div>`;
+  }
+  const cut=`<div class="print-sign-cut"></div>`;
+  let html='';
+  if(type==='A') html=grid('$.25',18)+cut+grid('$.50',18);
+  else if(type==='B') html=grid('$.75',18)+cut+grid('$1',18);
+  else if(type==='C'){
+    const rows=[['$.25',12],['$.50',12],['$.75',12],['$1',12],['$2',6],['$3',6],['$5',6],['$10',6],['$15',6],['$20',6]];
+    html=`<div class="print-quick-grid">${rows.map(([p,n])=>Array(n).fill(qtHTML(p)).join('')).join('')}</div>`;
+  }
+  else if(type==='D'){
+    if(!UI.quickPrice){showToast('Enter a price first.');return;}
+    html=grid(esc(UI.quickPrice),48);
+  }
+  document.getElementById('print-inner').innerHTML=html;
+  document.getElementById('print-section').style.display='block';
+  window.print();
+  setTimeout(()=>document.getElementById('print-section').style.display='none',2000);
+}
+
+function printAreaSigns(){
+  const areaTmpls=['Everything on this table','Everything on this rack','Everything on this shelf','Everything in this basket','Everything in this box','Everything here','Custom'];
+  const as=UI.areaSign||{tmpl:0,price:'',custom:''};
+  const isCustom=as.tmpl===areaTmpls.length-1;
+  const mainText=isCustom?(as.custom||''):areaTmpls[as.tmpl];
+  const priceText=isCustom?'':(as.price||'');
+  if(!mainText&&!priceText){showToast('Enter sign text or price first.');return;}
+  function signHTML(){
+    return`<div class="print-area-sign">
+      <div style="font-family:'Lora',serif;font-size:36pt;font-weight:700;line-height:1.2;color:#252535">${esc(mainText)}</div>
+      ${priceText?`<div style="font-family:'Lora',serif;font-size:48pt;font-weight:700;color:#252535;margin-top:12pt">${esc(priceText)}</div>`:''}
+      <div style="font-family:'DM Sans',Arial,sans-serif;font-size:7pt;color:#bbb;margin-top:20pt;letter-spacing:.1em;text-transform:uppercase">My Nest Chapter</div>
+    </div>`;
+  }
+  document.getElementById('print-inner').innerHTML=signHTML()+`<div class="print-sign-cut"></div>`+signHTML();
+  document.getElementById('print-section').style.display='block';
+  window.print();
+  setTimeout(()=>document.getElementById('print-section').style.display='none',2000);
+}
+
+function printFlyer(type){
+  const f=UI.flyer||{};
+  const dateTime=esc([f.date,f.time].filter(Boolean).join(' · '));
+  const tearStrips=type==='tearoff'?`
+    <div style="margin-top:24pt;border-top:1pt dashed #aaa;padding-top:6pt">
+      ${Array(8).fill(`<div class="print-tearoff-strip">${esc([f.address,f.date].filter(Boolean).join(' · '))||'Address · Date'}</div>`).join('')}
+    </div>`:'';
+  document.getElementById('print-inner').innerHTML=`
+    <div class="print-flyer">
+      <div style="font-family:'Lora',serif;font-size:48pt;font-weight:700;line-height:1.1;color:#252535;margin-bottom:10pt">${esc(f.title||'GARAGE SALE')}</div>
+      ${dateTime?`<div style="font-family:'DM Sans',Arial,sans-serif;font-size:18pt;font-weight:700;color:#252535;margin-bottom:6pt">${dateTime}</div>`:''}
+      ${f.address?`<div style="font-family:'DM Sans',Arial,sans-serif;font-size:15pt;color:#252535;margin-bottom:12pt">${esc(f.address)}</div>`:''}
+      ${f.featured?`<div style="font-family:'DM Sans',Arial,sans-serif;font-size:12pt;color:#444;margin-bottom:8pt">${esc(f.featured)}</div>`:''}
+      ${f.tagline?`<div style="font-family:'DM Sans',Arial,sans-serif;font-size:11pt;color:#666">${esc(f.tagline)}</div>`:''}
+      <div style="font-family:'DM Sans',Arial,sans-serif;font-size:7pt;color:#ccc;margin-top:auto;padding-top:20pt;letter-spacing:.1em;text-transform:uppercase">My Nest Chapter</div>
+      ${tearStrips}
+    </div>`;
+  document.getElementById('print-section').style.display='block';
+  window.print();
+  setTimeout(()=>document.getElementById('print-section').style.display='none',2000);
 }
 
 // ─── DEMO ─────────────────────────────────────────────────────────────────────
