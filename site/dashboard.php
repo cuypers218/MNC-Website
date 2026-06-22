@@ -190,15 +190,6 @@ if ($showDoorReveal) {
         $exclusiveItems = getUnlockedExclusiveContent($user['id']);
         $nextUnlock     = getNextExclusiveUnlock($user['id']);
 
-        if ($nextUnlock) {
-            $unlockDt  = new DateTime($nextUnlock['unlock_date']);
-            $now       = new DateTime();
-            $interval  = $now->diff($unlockDt);
-            $daysLeft  = $interval->invert ? 0 : (int)$interval->days;
-            if ($daysLeft === 0)     $countdownText = 'Unlocking today — refresh your page to access it.';
-            elseif ($daysLeft === 1) $countdownText = 'Unlocks tomorrow.';
-            else                     $countdownText = 'Unlocks in ' . $daysLeft . ' days.';
-        }
         ?>
 
         <p class="dashboard-section-title">Exclusive for Members</p>
@@ -230,8 +221,31 @@ if ($showDoorReveal) {
         <div style="background:#252535;padding:24px 32px;margin-bottom:3rem;">
             <p style="font-family:'Montserrat',sans-serif;font-weight:800;font-size:0.65rem;text-transform:uppercase;letter-spacing:0.15em;color:#A8C5DA;margin:0 0 0.35rem;">NEXT EXCLUSIVE FREEBIE</p>
             <p style="font-family:'Montserrat',sans-serif;font-weight:800;font-size:1rem;color:#FFF8EE;margin:0 0 0.25rem;"><?= esc($nextUnlock['title']) ?></p>
-            <p style="font-family:Arial,sans-serif;font-size:0.85rem;color:#C4B0E8;margin:0;"><?= esc($countdownText) ?></p>
+            <p id="exclusiveCountdown" style="font-family:Arial,sans-serif;font-size:0.85rem;color:#C4B0E8;margin:0;"></p>
         </div>
+        <script>
+        (function() {
+            var unlockMs = <?= strtotime($nextUnlock['unlock_date']) * 1000 ?>;
+            var el = document.getElementById('exclusiveCountdown');
+            function tick() {
+                var diff = unlockMs - Date.now();
+                if (diff <= 0) {
+                    el.textContent = 'Unlocking now — refresh your page to access it.';
+                    return;
+                }
+                var days    = Math.floor(diff / 86400000);
+                var hours   = Math.floor((diff % 86400000) / 3600000);
+                var minutes = Math.floor((diff % 3600000) / 60000);
+                var parts = [];
+                if (days > 0)  parts.push(days + (days === 1 ? ' day' : ' days'));
+                if (hours > 0) parts.push(hours + (hours === 1 ? ' hour' : ' hours'));
+                parts.push(minutes + (minutes === 1 ? ' minute' : ' minutes'));
+                el.textContent = 'Unlocks in ' + parts.join(', ');
+                setTimeout(tick, 60000);
+            }
+            tick();
+        })();
+        </script>
         <?php elseif (empty($exclusiveItems)): ?>
         <div style="padding:20px 0 2rem;">
             <p style="color:#666666;font-size:0.95rem;margin:0;">Your first exclusive freebie is waiting on your dashboard. Refresh if you don't see it.</p>
