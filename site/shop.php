@@ -44,7 +44,7 @@ $allProducts = getProducts();
                     <?php if ($product['image_path']): ?>
                         <img src="<?= esc($product['image_path']) ?>" alt="" class="product-card-image">
                     <?php else: ?>
-                        <div class="product-card-image" style="background: linear-gradient(135deg, #F4E8C1 0%, #F8BBD0 100%);"></div>
+                        <div class="product-card-image" style="background: linear-gradient(135deg, #F5C4A8 0%, #C4B0E8 100%);"></div>
                     <?php endif; ?>
 
                     <div class="product-card-content">

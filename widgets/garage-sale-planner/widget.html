@@ -75,7 +75,7 @@
     button{cursor:pointer;border:none;background:none;font:inherit;color:inherit;touch-action:manipulation}
     input,textarea,select{font:inherit;color:inherit;touch-action:manipulation}
     a{touch-action:manipulation}
-    a,button,[role="button"]{transition:color var(--t),background var(--t),box-shadow var(--t),border-color var(--t)}
+    a,button,[role="button"]{transition:color var(--t),background var(--t),border-color var(--t)}
     :focus-visible{outline:2px solid var(--color-primary);outline-offset:3px}
     h1,h2,h3,h4{font-family:var(--font-display);font-weight:800;line-height:1.2;color:var(--color-text);text-wrap:balance}
     p,li{text-wrap:pretty}
@@ -205,7 +205,7 @@
       display:inline-flex;align-items:center;justify-content:center;gap:var(--space-2);
       border-radius:var(--radius-full);cursor:pointer;font-weight:500;
       font-size:var(--text-sm);padding:var(--space-3) var(--space-5);
-      transition:background var(--t),color var(--t),box-shadow var(--t),border-color var(--t);
+      transition:background var(--t),color var(--t),border-color var(--t);
       white-space:nowrap;
     }
     .btn:disabled{opacity:.45;cursor:not-allowed}
@@ -444,7 +444,7 @@
       .print-area-sign{height:47vh;display:flex;align-items:center;justify-content:center;flex-direction:column;text-align:center;border:1.5pt solid #252535;padding:30pt;break-inside:avoid;page-break-inside:avoid}
       /* ── Sale flyers */
       .print-flyer{width:100%;min-height:88vh;break-after:always;page-break-after:always;display:flex;flex-direction:column;text-align:center;padding:20pt}
-      .print-tearoff-strip{border-top:1pt dashed #aaa;padding:7pt 0;font-size:10pt;font-family:'DM Sans',Arial,sans-serif;text-align:center}
+      .print-tearoff-strip{border-top:1pt dashed #aaa;padding:7pt 0;font-size:10pt;font-family:'DM Sans',sans-serif;text-align:center}
       @page{size:8.5in 11in portrait;margin:.5in}
     }
     #print-section{display:none}
@@ -456,7 +456,7 @@
       background:#252535;color:#FFF8EE;
       display:none;align-items:center;gap:16px;
       padding:10px 20px;
-      font-family:'DM Sans',Arial,sans-serif;
+      font-family:'DM Sans',sans-serif;
     }
     #sticky-bar .sb-label{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;color:#8BA7D4;line-height:1}
     #sticky-bar .sb-earned{font-size:18px;font-weight:700;color:#E87AAA;line-height:1;margin-top:3px}
@@ -2379,7 +2379,7 @@ function printQuickTags(type){
   function qtHTML(price){
     return`<div class="print-quick-tag">
       <div style="font-family:'Lora',serif;font-size:18pt;font-weight:700;color:#252535;line-height:1">${price}</div>
-      <div style="font-family:'DM Sans',Arial,sans-serif;font-size:5pt;color:#aaa;margin-top:4pt;letter-spacing:.1em;text-transform:uppercase">My Nest Chapter</div>
+      <div style="font-family:'DM Sans',sans-serif;font-size:5pt;color:#aaa;margin-top:4pt;letter-spacing:.1em;text-transform:uppercase">My Nest Chapter</div>
     </div>`;
   }
   function grid(price,count){
@@ -2414,7 +2414,7 @@ function printAreaSigns(){
     return`<div class="print-area-sign">
       <div style="font-family:'Lora',serif;font-size:36pt;font-weight:700;line-height:1.2;color:#252535">${esc(mainText)}</div>
       ${priceText?`<div style="font-family:'Lora',serif;font-size:48pt;font-weight:700;color:#252535;margin-top:12pt">${esc(priceText)}</div>`:''}
-      <div style="font-family:'DM Sans',Arial,sans-serif;font-size:7pt;color:#bbb;margin-top:20pt;letter-spacing:.1em;text-transform:uppercase">My Nest Chapter</div>
+      <div style="font-family:'DM Sans',sans-serif;font-size:7pt;color:#bbb;margin-top:20pt;letter-spacing:.1em;text-transform:uppercase">My Nest Chapter</div>
     </div>`;
   }
   document.getElementById('print-inner').innerHTML=signHTML()+`<div class="print-sign-cut"></div>`+signHTML();
@@ -2433,11 +2433,11 @@ function printFlyer(type){
   document.getElementById('print-inner').innerHTML=`
     <div class="print-flyer">
       <div style="font-family:'Lora',serif;font-size:48pt;font-weight:700;line-height:1.1;color:#252535;margin-bottom:10pt">${esc(f.title||'GARAGE SALE')}</div>
-      ${dateTime?`<div style="font-family:'DM Sans',Arial,sans-serif;font-size:18pt;font-weight:700;color:#252535;margin-bottom:6pt">${dateTime}</div>`:''}
-      ${f.address?`<div style="font-family:'DM Sans',Arial,sans-serif;font-size:15pt;color:#252535;margin-bottom:12pt">${esc(f.address)}</div>`:''}
-      ${f.featured?`<div style="font-family:'DM Sans',Arial,sans-serif;font-size:12pt;color:#444;margin-bottom:8pt">${esc(f.featured)}</div>`:''}
-      ${f.tagline?`<div style="font-family:'DM Sans',Arial,sans-serif;font-size:11pt;color:#666">${esc(f.tagline)}</div>`:''}
-      <div style="font-family:'DM Sans',Arial,sans-serif;font-size:7pt;color:#ccc;margin-top:auto;padding-top:20pt;letter-spacing:.1em;text-transform:uppercase">My Nest Chapter</div>
+      ${dateTime?`<div style="font-family:'DM Sans',sans-serif;font-size:18pt;font-weight:700;color:#252535;margin-bottom:6pt">${dateTime}</div>`:''}
+      ${f.address?`<div style="font-family:'DM Sans',sans-serif;font-size:15pt;color:#252535;margin-bottom:12pt">${esc(f.address)}</div>`:''}
+      ${f.featured?`<div style="font-family:'DM Sans',sans-serif;font-size:12pt;color:#444;margin-bottom:8pt">${esc(f.featured)}</div>`:''}
+      ${f.tagline?`<div style="font-family:'DM Sans',sans-serif;font-size:11pt;color:#666">${esc(f.tagline)}</div>`:''}
+      <div style="font-family:'DM Sans',sans-serif;font-size:7pt;color:#ccc;margin-top:auto;padding-top:20pt;letter-spacing:.1em;text-transform:uppercase">My Nest Chapter</div>
       ${tearStrips}
     </div>`;
   document.getElementById('print-section').style.display='block';

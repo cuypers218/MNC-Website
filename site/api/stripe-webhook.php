@@ -170,7 +170,7 @@ if ($event['type'] === 'checkout.session.completed') {
                         <table cellpadding="0" cellspacing="0" border="0" width="100%">
                           <tr>
                             <td width="36" valign="top" style="padding-right:14px;">
-                              <div style="width:28px;height:28px;background:#E87AAA;color:#252535;font-family:Arial,sans-serif;font-size:13px;font-weight:700;text-align:center;line-height:28px;border-radius:50%;">' . $num . '</div>
+                              <div style="width:28px;height:28px;background:#E87AAA;color:#252535;font-family:Arial,sans-serif;font-size:13px;font-weight:700;text-align:center;line-height:28px;">' . $num . '</div>
                             </td>
                             <td valign="top">
                               <p style="margin:0 0 4px;font-family:Arial,sans-serif;font-size:15px;font-weight:700;color:#252535;">' . htmlspecialchars($step['title']) . '</p>

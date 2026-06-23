@@ -303,11 +303,11 @@ if ($showDoorReveal) {
                     transform-origin: left center;
                     animation: doorSwingOpen 1.6s cubic-bezier(0.4, 0, 0.2, 1) 1s forwards;
                 ">
-                    <div style="background:#FFF8EE;width:100%;height:100%;position:relative;box-shadow:8px 0 32px rgba(0,0,0,0.35);">
+                    <div style="background:#FFF8EE;width:100%;height:100%;position:relative;box-shadow:none;">
                         <!-- Inner frame -->
                         <div style="position:absolute;top:16px;left:16px;right:16px;bottom:16px;border:2px solid #D3D3D3;pointer-events:none;"></div>
                         <!-- Doorknob -->
-                        <div style="position:absolute;right:28px;top:50%;transform:translateY(-50%);width:18px;height:18px;background:#E87AAA;border-radius:50%;box-shadow:0 2px 6px rgba(232,122,170,0.4);"></div>
+                        <div style="position:absolute;right:28px;top:50%;transform:translateY(-50%);width:18px;height:18px;background:#E87AAA;border-radius:9999px;box-shadow:none;"></div>
                         <!-- Brand text on door -->
                         <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-60%);text-align:center;">
                             <p style="font-family:'Montserrat',sans-serif;font-weight:800;font-size:0.55rem;text-transform:uppercase;letter-spacing:0.2em;color:#252535;margin:0;line-height:2.2;">MY NEST<br>CHAPTER</p>

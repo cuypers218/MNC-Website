@@ -1,7 +1,7 @@
 /* ============================================
    MY NEST CHAPTER — Global Stylesheet
    Design system from MNC Widget Standards
-   No border-radius. No shadows. No emojis.
+   Flat design only: no shadows, no emojis.
    ============================================ */
 
 /* --- Reset & Base --- */
@@ -181,13 +181,8 @@ p { margin-bottom: 1rem; line-height: 1.6; }
     padding: 14px 36px;
     border-radius: 9999px;
     border: 2px solid rgba(255,255,255,0.7);
-    animation: heroGlow 2.5s ease-in-out infinite;
 }
-@keyframes heroGlow {
-    0%, 100% { box-shadow: 0 0 0 0 rgba(232,122,170,0); }
-    50% { box-shadow: 0 0 22px 6px rgba(232,122,170,0.55); }
-}
-.btn-hero:hover { animation: none; box-shadow: 0 0 28px 8px rgba(232,122,170,0.65); }
+.btn-hero:hover { }
 
 .hero-cta-hint {
     font-family: 'Montserrat', sans-serif;

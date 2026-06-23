@@ -1,6 +1,6 @@
 <?php
-$pageTitle = 'Free Tools';
-$pageDescription = 'Free tools from My Nest Chapter. No account needed, no catch.';
+$pageTitle = 'Freebies';
+$pageDescription = 'Freebies from My Nest Chapter. No account needed, no catch.';
 require_once __DIR__ . '/includes/header.php';
 require_once __DIR__ . '/includes/auth.php';
 
@@ -11,7 +11,7 @@ $PDF_URL  = 'https://drive.google.com/uc?export=download&id=1dVTgwgBjwsg0jz9HCcG
 <section class="section">
   <div class="container">
 
-    <h1 class="text-center fade-in" style="margin-bottom:0.25rem;">Free Tools</h1>
+    <h1 class="text-center fade-in" style="margin-bottom:0.25rem;">Freebies</h1>
     <p class="text-center fade-in-delay-1" style="color:#666666;font-size:0.95rem;margin-bottom:3rem;">No catch. No upsell on the other side. Just things that helped me.</p>
 
     <!-- 6pm Cheat Sheet -->

@@ -82,7 +82,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
         .mnc-wrap{width:100%;max-width:620px;margin:0 auto;}
-        .mnc-card{background:#FFF8EE;border-radius:1rem;border:1px solid #DDD6F0;box-shadow:0 4px 16px rgba(37,37,53,0.10);overflow:hidden;width:100%;box-sizing:border-box;}
+        .mnc-card{background:#FFF8EE;border-radius:0;border:1px solid #DDD6F0;box-shadow:none;overflow:hidden;width:100%;box-sizing:border-box;}
         .mnc-card-bar{height:4px;background:#E87AAA;}
         .mnc-card-inner{padding:36px 32px 40px;box-sizing:border-box;}
         .mnc-cover{text-align:center;}
@@ -91,43 +91,43 @@
         .mnc-cover-desc{font-family:'DM Sans',sans-serif;font-size:clamp(0.9rem,0.8rem + 0.3vw,1rem);color:#5A5A72;line-height:1.7;margin-bottom:8px;max-width:460px;margin-left:auto;margin-right:auto;}
         .mnc-cover-note{font-family:'DM Sans',sans-serif;font-size:13px;color:#8B8BA8;font-style:italic;margin-bottom:28px;}
         .mnc-cover-divider{height:1px;background:#DDD6F0;margin:0 auto 28px;width:80%;}
-        .mnc-btn-start{font-family:'DM Sans',sans-serif;font-weight:500;font-size:15px;background:#E87AAA;color:#fff;border:none;border-radius:9999px;padding:14px 44px;cursor:pointer;transition:background 180ms cubic-bezier(0.16,1,0.3,1),box-shadow 180ms cubic-bezier(0.16,1,0.3,1);box-shadow:0 4px 16px rgba(37,37,53,0.10);}
-        .mnc-btn-start:hover{background:#C45588;box-shadow:0 4px 16px rgba(37,37,53,0.18);}
+        .mnc-btn-start{font-family:'DM Sans',sans-serif;font-weight:500;font-size:15px;background:#E87AAA;color:#fff;border:none;border-radius:9999px;padding:14px 44px;cursor:pointer;transition:background 180ms cubic-bezier(0.16,1,0.3,1);box-shadow:none;}
+        .mnc-btn-start:hover{background:#C45588;box-shadow:none;}
         .mnc-cover-footer{margin-top:22px;font-family:'DM Sans',sans-serif;font-weight:500;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#8B8BA8;}
         .mnc-progress-label{font-family:'DM Sans',sans-serif;font-weight:600;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#8B8BA8;margin-bottom:8px;}
         .mnc-progress-bg{background:#DDD6F0;border-radius:9999px;height:4px;overflow:hidden;margin-bottom:28px;}
         .mnc-progress-fill{background:#E87AAA;height:100%;border-radius:9999px;transition:width 0.4s cubic-bezier(0.16,1,0.3,1);}
         .mnc-question{font-family:'Lora',Georgia,serif;font-weight:600;font-size:clamp(1rem,0.9rem + 0.5vw,1.2rem);color:#252535;line-height:1.4;margin-bottom:20px;}
         .mnc-options{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:8px;}
-        .mnc-option{width:100%;text-align:left;background:#FFF8EE;border:1.5px solid #DDD6F0;border-radius:0.75rem;padding:13px 16px;font-family:'DM Sans',sans-serif;font-size:15px;color:#5A5A72;cursor:pointer;transition:background 180ms cubic-bezier(0.16,1,0.3,1),border-color 180ms cubic-bezier(0.16,1,0.3,1),color 180ms cubic-bezier(0.16,1,0.3,1);line-height:1.5;box-sizing:border-box;}
+        .mnc-option{width:100%;text-align:left;background:#FFF8EE;border:1.5px solid #DDD6F0;border-radius:0;padding:13px 16px;font-family:'DM Sans',sans-serif;font-size:15px;color:#5A5A72;cursor:pointer;transition:background 180ms cubic-bezier(0.16,1,0.3,1),border-color 180ms cubic-bezier(0.16,1,0.3,1),color 180ms cubic-bezier(0.16,1,0.3,1);line-height:1.5;box-sizing:border-box;}
         .mnc-option:hover{background:#EEE8F8;border-color:#E87AAA;color:#252535;}
         .mnc-option.selected{background:#EEE8F8;border-color:#E87AAA;color:#252535;font-weight:500;}
         .mnc-nav{display:flex;justify-content:space-between;align-items:center;margin-top:24px;}
         .mnc-btn-back{font-family:'DM Sans',sans-serif;font-weight:500;font-size:13px;color:#8B8BA8;background:none;border:none;cursor:pointer;transition:color 180ms;padding:8px 0;}
         .mnc-btn-back:hover{color:#252535;}
-        .mnc-btn-next{font-family:'DM Sans',sans-serif;font-weight:500;font-size:14px;background:#E87AAA;color:#fff;border:none;border-radius:9999px;padding:12px 28px;cursor:pointer;transition:background 180ms cubic-bezier(0.16,1,0.3,1),box-shadow 180ms cubic-bezier(0.16,1,0.3,1);margin-left:auto;}
-        .mnc-btn-next:hover{background:#C45588;box-shadow:0 4px 14px rgba(37,37,53,0.15);}
+        .mnc-btn-next{font-family:'DM Sans',sans-serif;font-weight:500;font-size:14px;background:#E87AAA;color:#fff;border:none;border-radius:9999px;padding:12px 28px;cursor:pointer;transition:background 180ms cubic-bezier(0.16,1,0.3,1);margin-left:auto;}
+        .mnc-btn-next:hover{background:#C45588;box-shadow:none;}
         .mnc-btn-next:disabled{opacity:0.35;cursor:not-allowed;box-shadow:none;}
         .mnc-email h2{font-family:'Lora',Georgia,serif;font-weight:600;font-size:clamp(1.1rem,0.9rem + 0.5vw,1.35rem);color:#252535;margin-bottom:10px;line-height:1.3;}
         .mnc-email p{font-family:'DM Sans',sans-serif;font-size:15px;color:#5A5A72;line-height:1.7;margin-bottom:22px;}
         .mnc-form-group{margin-bottom:14px;}
         .mnc-form-group label{font-family:'DM Sans',sans-serif;font-weight:600;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#8B8BA8;display:block;margin-bottom:6px;}
-        .mnc-form-group input{width:100%;padding:12px 14px;border:1.5px solid #C4B0E8;border-radius:0.5rem;font-family:'DM Sans',sans-serif;font-size:15px;color:#252535;background:#FFF8EE;outline:none;transition:border-color 180ms;box-sizing:border-box;}
+        .mnc-form-group input{width:100%;padding:12px 14px;border:1.5px solid #C4B0E8;border-radius:0;font-family:'DM Sans',sans-serif;font-size:15px;color:#252535;background:#FFF8EE;outline:none;transition:border-color 180ms;box-sizing:border-box;}
         .mnc-form-group input:focus{border-color:#E87AAA;background:#fff;}
-        .mnc-btn-submit{width:100%;font-family:'DM Sans',sans-serif;font-weight:500;font-size:15px;background:#E87AAA;color:#fff;border:none;border-radius:9999px;padding:14px;cursor:pointer;margin-top:4px;transition:background 180ms cubic-bezier(0.16,1,0.3,1),box-shadow 180ms cubic-bezier(0.16,1,0.3,1);}
-        .mnc-btn-submit:hover{background:#C45588;box-shadow:0 4px 14px rgba(37,37,53,0.15);}
+        .mnc-btn-submit{width:100%;font-family:'DM Sans',sans-serif;font-weight:500;font-size:15px;background:#E87AAA;color:#fff;border:none;border-radius:9999px;padding:14px;cursor:pointer;margin-top:4px;transition:background 180ms cubic-bezier(0.16,1,0.3,1);}
+        .mnc-btn-submit:hover{background:#C45588;box-shadow:none;}
         .mnc-privacy{font-family:'DM Sans',sans-serif;font-size:12px;color:#8B8BA8;text-align:center;margin-top:10px;font-style:italic;}
         .mnc-result-badge{display:inline-block;background:#EEE8F8;border:1px solid rgba(232,122,170,0.2);border-radius:9999px;padding:4px 16px;font-family:'DM Sans',sans-serif;font-weight:600;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#E87AAA;margin-bottom:14px;}
         .mnc-result-title{font-family:'Lora',Georgia,serif;font-weight:600;font-size:clamp(1.1rem,0.9rem + 0.5vw,1.5rem);color:#252535;line-height:1.25;margin-bottom:14px;}
         .mnc-result-msg{font-family:'DM Sans',sans-serif;font-size:15px;line-height:1.7;color:#5A5A72;margin-bottom:22px;}
         .mnc-result-divider{height:1px;background:#DDD6F0;border-radius:9999px;margin-bottom:20px;}
-        .mnc-freebie-box{background:#EEE8F8;border:1px solid rgba(232,122,170,0.2);border-radius:0.75rem;padding:16px 20px;margin-bottom:18px;}
+        .mnc-freebie-box{background:#EEE8F8;border:1px solid rgba(232,122,170,0.2);border-radius:0;padding:16px 20px;margin-bottom:18px;}
         .mnc-freebie-box h3{font-family:'DM Sans',sans-serif;font-weight:600;font-size:11px;color:#E87AAA;letter-spacing:.08em;text-transform:uppercase;margin-bottom:6px;}
         .mnc-freebie-box p{font-family:'DM Sans',sans-serif;font-size:14px;color:#5A5A72;line-height:1.6;margin:0;}
         .mnc-cta-note{font-family:'DM Sans',sans-serif;font-size:14px;color:#8B8BA8;text-align:center;margin-bottom:14px;font-style:italic;}
         .mnc-result-btns{display:flex;flex-direction:column;gap:10px;width:100%;}
-        .mnc-btn-workbook{display:block;width:100%;box-sizing:border-box;font-family:'DM Sans',sans-serif;font-weight:500;font-size:15px;background:#E87AAA;color:#fff;border:none;border-radius:9999px;padding:15px;cursor:pointer;text-align:center;text-decoration:none;transition:background 180ms cubic-bezier(0.16,1,0.3,1),box-shadow 180ms cubic-bezier(0.16,1,0.3,1);}
-        .mnc-btn-workbook:hover{background:#C45588;box-shadow:0 4px 14px rgba(37,37,53,0.15);}
+        .mnc-btn-workbook{display:block;width:100%;box-sizing:border-box;font-family:'DM Sans',sans-serif;font-weight:500;font-size:15px;background:#E87AAA;color:#fff;border:none;border-radius:9999px;padding:15px;cursor:pointer;text-align:center;text-decoration:none;transition:background 180ms cubic-bezier(0.16,1,0.3,1);}
+        .mnc-btn-workbook:hover{background:#C45588;box-shadow:none;}
         .mnc-btn-browse{display:block;width:100%;box-sizing:border-box;font-family:'DM Sans',sans-serif;font-weight:500;font-size:14px;background:#FFF8EE;color:#5A5A72;border:1.5px solid #DDD6F0;border-radius:9999px;padding:14px;cursor:pointer;text-align:center;text-decoration:none;transition:background 180ms,border-color 180ms;}
         .mnc-btn-browse:hover{background:#EEE8F8;border-color:#E87AAA;}
         .mnc-fade{animation:mncFadeIn 0.35s cubic-bezier(0.16,1,0.3,1);}
@@ -283,7 +283,7 @@ window.mncCloseModal = function() {
             {
               title: "You're Carrying More Than You Realize",
               trigger: function(a) { return a[1] === 2 || a[2] === 3; },
-              message: "You gave everything for years — mostly alone. The anger makes sense. The exhaustion makes sense. Before you can figure out what's next, you need to see everything you've actually been carrying. That's where this starts. Not with goals. With the truth of what you've handled."
+              message: "You gave everything for years — mostly alone. The anger makes sense. The exhaustion makes sense. Before you can figure out what's next, it helps to see everything you've actually been carrying. That's where this starts. Not with goals. With the truth of what you've handled."
             },
             {
               title: "You've Lost Yourself and You Know It",
@@ -535,7 +535,7 @@ window.mncCloseModal = function() {
     letter-spacing: 0.5px;
     text-transform: uppercase;
     padding: 13px 26px;
-    border-radius: 999px;
+    border-radius: 9999px;
     text-decoration: none;
     align-self: flex-start;
     transition: background 0.2s ease, transform 0.15s ease;
@@ -588,7 +588,7 @@ window.mncCloseModal = function() {
   }
   .an-account-block {
     background: #252535;
-    border-radius: 16px;
+    border-radius: 0;
     padding: 48px 40px;
     text-align: center;
     width: 100%;
@@ -628,7 +628,7 @@ window.mncCloseModal = function() {
     letter-spacing: 0.5px;
     text-transform: uppercase;
     padding: 15px 32px;
-    border-radius: 999px;
+    border-radius: 9999px;
     text-decoration: none;
     transition: background 0.2s ease, transform 0.15s ease;
   }
@@ -656,7 +656,7 @@ window.mncCloseModal = function() {
   .an-newsletter-block {
     background: #fff;
     border: 1px solid #e5e0d9;
-    border-radius: 16px;
+    border-radius: 0;
     padding: 40px 40px 36px;
     text-align: center;
     width: 100%;
@@ -701,7 +701,7 @@ window.mncCloseModal = function() {
     flex: 1;
     padding: 13px 18px;
     border: 1.5px solid #d5cfc8;
-    border-radius: 999px;
+    border-radius: 9999px;
     font-family: 'DM Sans', 'Helvetica Neue', sans-serif;
     font-size: 14px;
     color: #252535;
@@ -725,7 +725,7 @@ window.mncCloseModal = function() {
     text-transform: uppercase;
     padding: 13px 22px;
     border: none;
-    border-radius: 999px;
+    border-radius: 9999px;
     cursor: pointer;
     white-space: nowrap;
     transition: background 0.2s ease;

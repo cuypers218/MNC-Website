@@ -45,24 +45,18 @@ require_once __DIR__ . '/includes/header.php';
 <section class="section-cream" style="border-top: 1px solid #DDD6F0;">
     <div class="container-narrow text-center">
         <p style="font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; color: #666666; margin-bottom: 1.5rem;">Not sure where you fit? Start here.</p>
-        <button onclick="openQuizModal()" class="btn btn-primary" style="animation: quizGlow 2.5s ease-in-out infinite; cursor:pointer;">What Kind of Empty Nester Are You?</button>
+        <button onclick="openQuizModal()" class="btn btn-primary" style="cursor:pointer;">What Kind of Empty Nester Are You?</button>
     </div>
 </section>
 
 <!-- Quiz Modal -->
 <div id="quizModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(37,37,53,0.82); z-index:1000; align-items:center; justify-content:center; padding:20px;" onclick="handleModalClick(event)">
     <div style="position:relative; width:100%; max-width:610px;">
-        <button onclick="closeQuizModal()" aria-label="Close quiz" style="position:absolute; top:14px; right:14px; background:rgba(37,37,53,0.82); border:none; color:#FFF8EE; width:40px; height:40px; border-radius:50%; font-size:22px; line-height:40px; text-align:center; cursor:pointer; z-index:10; font-family:'Montserrat',sans-serif;">&times;</button>
-        <iframe id="quizIframe" src="" data-src="/widgets/empty-nester-quiz/" style="width:100%; height:min(95vh,900px); border:none; border-radius:20px; display:block;" title="What Kind of Empty Nester Are You?"></iframe>
+        <button onclick="closeQuizModal()" aria-label="Close quiz" style="position:absolute; top:14px; right:14px; background:rgba(37,37,53,0.82); border:none; color:#FFF8EE; width:40px; height:40px; border-radius:9999px; font-size:22px; line-height:40px; text-align:center; cursor:pointer; z-index:10; font-family:'Montserrat',sans-serif;">&times;</button>
+        <iframe id="quizIframe" src="" data-src="/widgets/empty-nester-quiz/" style="width:100%; height:min(95vh,900px); border:none; border-radius:0; display:block;" title="What Kind of Empty Nester Are You?"></iframe>
     </div>
 </div>
 
-<style>
-@keyframes quizGlow {
-    0%, 100% { box-shadow: 0 0 0 0 rgba(232,122,170,0); }
-    50% { box-shadow: 0 0 22px 8px rgba(232,122,170,0.55); }
-}
-</style>
 <script>
 function openQuizModal() {
     var modal = document.getElementById('quizModal');

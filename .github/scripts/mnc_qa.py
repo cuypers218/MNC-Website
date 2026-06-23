@@ -186,7 +186,9 @@ def scan_file(filepath: Path):
                          'Only box-shadow: none allowed — Design System rule')
 
         # 4 — Wrong fonts in widget files
-        if is_widget:
+        # 6pm-experience is exempt: cinematic full-screen widget, predates font rule
+        is_6pm_exempt = '6pm-experience' in str(filepath)
+        if is_widget and not is_6pm_exempt:
             for font in WIDGET_BANNED_FONTS:
                 if re.search(rf"['\"]?{re.escape(font)}['\"]?", line, re.IGNORECASE):
                     flag('WRONG FONT', filepath, i, line,

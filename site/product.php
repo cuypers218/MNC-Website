@@ -65,7 +65,7 @@ $related = $stmt->fetchAll();
                 <?php elseif ($product['image_path']): ?>
                     <img src="<?= esc($product['image_path']) ?>" alt="" style="width: 100%; border: 1px solid #ABABAB;">
                 <?php else: ?>
-                    <div style="width: 100%; height: 400px; background: linear-gradient(135deg, #F4E8C1 0%, #F8BBD0 100%); border: 1px solid #ABABAB; display: flex; align-items: center; justify-content: center;">
+                    <div style="width: 100%; height: 400px; background: linear-gradient(135deg, #F5C4A8 0%, #C4B0E8 100%); border: 1px solid #ABABAB; display: flex; align-items: center; justify-content: center;">
                         <span style="font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; color: #D3D3D3;">PRODUCT IMAGE</span>
                     </div>
                 <?php endif; ?>
@@ -155,7 +155,7 @@ $related = $stmt->fetchAll();
                 <?php if ($rel['image_path']): ?>
                     <img src="<?= esc($rel['image_path']) ?>" alt="" class="product-card-image">
                 <?php else: ?>
-                    <div class="product-card-image" style="background: linear-gradient(135deg, #F4E8C1 0%, #F8BBD0 100%);"></div>
+                    <div class="product-card-image" style="background: linear-gradient(135deg, #F5C4A8 0%, #C4B0E8 100%);"></div>
                 <?php endif; ?>
                 
                 <div class="product-card-content">

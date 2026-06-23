@@ -145,7 +145,7 @@ $AMAZON_LINK = "https://www.amazon.com/YOUR_BOOK_LINK"; // replace with Amazon l
     object-fit: cover;
     transform: translateZ(calc(var(--thickness) / 2));
     backface-visibility: hidden;
-    border-radius: 0 3px 3px 0;
+    border-radius: 0;
   }
   /* Spine — translateX(-50%) centers the rotated face on the left edge */
   .book-mockup::before {
@@ -156,7 +156,7 @@ $AMAZON_LINK = "https://www.amazon.com/YOUR_BOOK_LINK"; // replace with Amazon l
     height: calc(100% - 6px);
     background: linear-gradient(to right, #4a0820, #7a1438, #a82850);
     transform: translateX(-50%) rotateY(90deg);
-    border-radius: 2px 0 0 2px;
+    border-radius: 0;
   }
   /* Back face — hidden when facing viewer */
   .book-mockup::after {
@@ -252,9 +252,9 @@ $AMAZON_LINK = "https://www.amazon.com/YOUR_BOOK_LINK"; // replace with Amazon l
     padding: 18px 20px;
     background: white;
     border: 2px solid var(--border);
-    transition: border-color 0.2s, box-shadow 0.2s;
+    transition: border-color 0.2s;
   }
-  .buy-option:hover { border-color: var(--pink); box-shadow: 4px 4px 0 var(--soft-peach); }
+  .buy-option:hover { border-color: var(--pink); box-shadow: none; }
   .buy-option-info { display: flex; flex-direction: column; gap: 3px; }
   .buy-option-type {
     font-size: 0.72rem;

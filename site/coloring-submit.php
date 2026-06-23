@@ -70,7 +70,7 @@ $html = '<!DOCTYPE html><html><head><meta charset="UTF-8"></head>
           <p style="margin-top:16px;">A few quiet minutes, just for you.</p>
           <p style="text-align:center;margin:32px 0;">
             <a href="' . $downloadUrl . '"
-               style="background:#E87AAA;color:#ffffff;font-family:Arial,sans-serif;font-weight:800;font-size:14px;text-transform:uppercase;letter-spacing:1px;text-decoration:none;padding:16px 32px;border-radius:50px;display:inline-block;">
+               style="background:#E87AAA;color:#ffffff;font-family:Arial,sans-serif;font-weight:800;font-size:14px;text-transform:uppercase;letter-spacing:1px;text-decoration:none;padding:16px 32px;display:inline-block;">
               Download Your Coloring Page &rarr;
             </a>
           </p>
