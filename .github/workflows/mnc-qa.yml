@@ -1,0 +1,35 @@
+name: MNC Brand & Code QA
+
+# Runs automatically on every push and pull request.
+# A red ✗ means violations were found — fix before deploying to Hostinger.
+
+on:
+  push:
+    branches: ['**']
+  pull_request:
+    branches: ['**']
+
+jobs:
+  brand-qa:
+    name: Brand & Code Quality Check
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Run MNC QA checks
+        run: python3 .github/scripts/mnc_qa.py
+
+      - name: Upload QA report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: mnc-qa-report
+          path: qa-report.txt
+          retention-days: 30
