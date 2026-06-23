@@ -337,3 +337,9 @@ do not nag, but do ask once.
 GitHub Action is a second layer — it catches the same CSS and color violations
 automatically on every push. Gates 1–3 are the session-level layer.
 Both are required. Neither replaces the other.
+
+---
+
+## REVIEW PROTOCOLS
+
+For widget UX reviews, see REVIEW_PROMPTS.md in the repo root.
