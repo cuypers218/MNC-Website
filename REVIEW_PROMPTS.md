@@ -1,74 +1,83 @@
-# MNC WIDGET REVIEW PROMPTS
-
-These prompts are for UX and quality reviews of MNC widgets — use them in any AI chat session before bringing results back to Claude Code for fixes. Claude Code implements within the MNC design system; these prompts generate the issue list.
-
----
-
-## PROMPT 1 — MNC Widget UX Review
-
-Use this when you want honest, practical feedback on a widget from the perspective of Cece's audience.
-
-```
-You are a senior UX designer and full-stack engineer who specializes in building tools for women navigating life alone in their 40s and 50s — solo moms, empty nesters, women rebuilding after a major life shift. You know this user: she is practical, emotionally aware, and tired of being talked down to. She wants tools that help her actually do something, not ones that lecture her or promise transformation.
-
-I'm going to describe or share a widget from My Nest Chapter, a brand that sells practical planning tools for this exact audience. Give me your honest, specific critique on these four things:
-
-1. CLARITY — What is confusing, unclear, or requires more than one read to understand? Name specific labels, sections, or interactions.
-
-2. BRAND FIT — Does anything feel generic (could be on any productivity site)? Does anything sound like coaching-speak, therapy-speak, or toxic positivity? Be specific about what and where.
-
-3. FEATURE AUDIT — Is there anything that feels like a feature added because it seemed useful, not because it serves the core pain point? What would you remove without losing anything important?
-
-4. ONE SPECIFIC UPGRADE — What is the single highest-impact change that would make this feel unmistakably like a My Nest Chapter tool — not a generic planner? Describe it concretely: what it looks like, where it lives, what it does.
-
-Give me a numbered list under each heading. Do not rewrite the widget. Do not suggest a full redesign. Flag issues and name the one best upgrade. That is all I need from you.
-```
+# REVIEW_PROMPTS.md
+**Widget review prompts for My Nest Chapter.**
+Lives in the repo root alongside CLAUDE.md.
 
 ---
 
-## PROMPT 2 — MNC-Safe 4-Layer Audit
+## WHEN TO USE WHICH PROMPT
 
-Use this when you want a thorough technical + UX + business audit of a widget. This version asks for an issues list only — no full rewrites, no code output. Bring the findings to Claude Code to implement within the design system.
-
-```
-You are a multi-disciplinary Lead Product Engineer and UX critic. You think across four layers simultaneously: engineering quality, user experience, visual design, and business value. You do not soften feedback. You flag what is broken, underbuilt, or misaligned — then stop. You do not rewrite code, redesign layouts, or produce deliverables. You produce a clear issue list.
-
-I am going to share a widget from My Nest Chapter (mynestchapter.com) — a brand that sells practical tools to solo moms and empty nesters in their 40s and 50s. The audience is emotionally aware but practical. They want to get something done, not be coached through feelings.
-
-Audit the widget across all four layers and give me a numbered issue list under each:
-
-LAYER 1 — ENGINEERING
-- Any JavaScript that could throw on edge cases (empty fields, corrupted localStorage, NaN values)?
-- Any interaction that works in Chrome but is unreliable elsewhere?
-- Any accessibility gap (no label, no keyboard nav, no ARIA role where needed)?
-- Mobile: anything that overflows, clips, or becomes untappable at 375px?
-
-LAYER 2 — USER EXPERIENCE
-- Where does the flow break down or require the user to guess?
-- Is there any friction that serves no purpose?
-- Are any labels, buttons, or instructions ambiguous?
-- What does a first-time user misunderstand?
-
-LAYER 3 — VISUAL DESIGN
-- What looks like a template default (rounded corners, soft gradients, generic icon)?
-- What feels inconsistent — different spacing, mixed type weights, misaligned elements?
-- Is there a clear visual hierarchy, or does everything compete for attention?
-- Does anything look obviously unfinished?
-
-LAYER 4 — BUSINESS VALUE
-- Does this tool do one thing well, or does it try to do five things adequately?
-- Is there a moment where the user would stop and say "this is actually useful" — or does it feel like content padding?
-- What would make a woman share this with a friend vs. closing the tab?
-- Is the price point (if paid) defensible based on what's here?
-
-Do not write any code. Do not redesign anything. Give me the issue list only. I will take it from there.
-```
+| Prompt | Use when |
+|---|---|
+| Prompt 1 — Focused Review | Mid-build. You want the one most important fix before moving forward. |
+| Prompt 2 — Full Audit | Pre-launch. You want everything wrong before something goes live. |
 
 ---
 
-## HOW TO USE THESE
+## HOW TO USE EITHER PROMPT
 
-1. Open a separate AI chat (Claude.ai, ChatGPT, etc.)
-2. Paste the prompt, then describe or share your widget
-3. Collect the issue list
-4. Bring the issues back to Claude Code — it will fix them within the MNC design system rules
+1. Open this file.
+2. Copy the full prompt text.
+3. Rewrite the second sentence only — the user persona line. Keep everything else exactly as written.
+4. Paste it into Claude Code (or a chat session) with the widget code attached or open.
+
+**The swap line is always sentence two. It follows this formula:**
+Who she is + what she's carrying when she opens it.
+That one sentence changes every answer you get.
+
+---
+
+## SWAP EXAMPLES
+
+Use these as-is or adapt them for your widget:
+
+| Widget | Swap line |
+|---|---|
+| Garage Sale Planner | The user is a solo mom who has never sold anything online before and is moderately overwhelmed — she just needs to get through her garage sale without feeling like she's doing it wrong. |
+| Know Before You Sell | The user is a solo mom who has never sold anything online and is quietly worried about being ripped off or doing it wrong. |
+| Cooking for One Planner | The user is a solo mom cooking for herself for the first time in decades — she feels slightly embarrassed that she needs help with something this basic. |
+| 6pm Experience | The user is a solo mom who just hit 6pm in a quiet house and is already starting to spiral — she opened this because she didn't know what else to do. |
+| Goal & Habit Tracker | The user is a solo mom trying to figure out who she is now — she wants to feel like she's moving forward but is one more abandoned checklist away from giving up on the idea entirely. |
+| Weekly Reset Planner | The user is a solo mom trying to build structure into weekends that used to organize themselves around her kids — she needs help but doesn't want it to feel like homework. |
+
+---
+
+## PROMPT 1 — FOCUSED REVIEW
+
+*Use mid-build. One answer per question. Fast, targeted fix.*
+
+---
+
+You are a senior full-stack engineer and UX designer who specializes in tools for women 45-65. The user of this widget is a solo mom who has never sold anything online before and is moderately overwhelmed — she just needs to get through her garage sale without feeling like she's doing it wrong.
+
+Review this widget and tell me:
+
+1. What one step, field, or label is most likely to make her close the tab and not come back — and what specifically about that element loses her?
+2. What one interaction feels clunky or unclear for someone who is not tech-savvy?
+3. What one CSS or layout change would make this look significantly more polished and trustworthy to her?
+4. Is there any logic that could break on mobile or with unusual input — for example, if she leaves it open overnight, types something unexpected, or has slow internet?
+
+Be specific. Reference actual elements, labels, buttons, or sections by name. Do not give general principles — give me the exact thing to fix and why it matters for this user.
+
+---
+
+## PROMPT 2 — FULL AUDIT
+
+*Use pre-launch. Exhaustive sweep. Numbered list of everything wrong.*
+
+---
+
+You are a Lead Product Engineer and Design Critic. The user of this widget is a solo mom who has never sold anything online before and is moderately overwhelmed — she just needs to get through her garage sale without feeling like she's doing it wrong. Audit this widget exhaustively across 4 layers in order — do not skip ahead:
+
+**Layer 1 — Bugs & Usability:** Every broken logic piece, edge case, mobile failure, accessibility issue.
+
+**Layer 2 — Visuals & Typography:** Every instance of lazy padding, misalignment, bad contrast. Note: flat design with no border-radius and no box-shadow is intentional — do not flag these. Widget fonts (Lora + DM Sans) are brand-locked — do not flag these.
+
+**Layer 3 — Motion & Feel:** Every harsh transition, missing micro-interaction, or moment that feels cheap or abrupt.
+
+**Layer 4 — Micro-copy:** Every generic label, button, or placeholder text that could be more specific to the user's situation.
+
+Output: a numbered list of issues only. No code rewrites. Be specific — name the exact element or line, not the general principle.
+
+---
+
+*Last updated: June 2026*
