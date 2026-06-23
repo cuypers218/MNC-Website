@@ -481,6 +481,24 @@
     .pc-tab-btn.active{color:var(--color-primary);border-bottom-color:var(--color-primary)}
     .pc-tab-btn:hover{color:var(--color-text)}
 
+    /* ─── BELL + NOTIFICATION PANEL ─── */
+    .bell-panel{
+      position:fixed;top:64px;right:12px;width:340px;max-height:480px;
+      background:#fff;border:1px solid #DFD9CE;z-index:1000;overflow-y:auto;
+      display:flex;flex-direction:column;
+    }
+    @media(max-width:600px){.bell-panel{top:56px;right:4px;left:4px;width:auto}}
+    .bell-notif{padding:14px 16px;border-bottom:1px solid #E6E2DA}
+    .bell-notif:last-child{border-bottom:none}
+    .bell-notif-msg{font-family:'DM Sans',sans-serif;font-size:13px;color:#252535;line-height:1.5}
+    .bell-notif-time{font-family:'DM Sans',sans-serif;font-size:11px;color:#857F8E;margin-top:3px}
+    .bell-notif-actions{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
+    .bell-action-btn{font-family:'DM Sans',sans-serif;font-size:11px;font-weight:700;color:#E87AAA;background:#FBE0E7;border:none;padding:6px 12px;cursor:pointer}
+    .bell-action-btn:hover{background:#f5c6d5}
+    .bell-dismiss-btn{font-family:'DM Sans',sans-serif;font-size:11px;color:#857F8E;background:none;border:1px solid #D6D1C8;padding:6px 12px;cursor:pointer}
+    .bell-dismiss-btn:hover{background:#f5f3f0}
+    .bell-empty{padding:28px 16px;text-align:center;font-family:'DM Sans',sans-serif;font-size:13px;color:#857F8E}
+
 </style>
 </head>
 <body>
@@ -501,6 +519,12 @@
     <div class="topbar-stat">
       <div class="topbar-stat-value" id="hdr-earned" aria-live="polite" aria-atomic="true">$0.00</div>
       <div class="topbar-stat-label" id="hdr-goal-sub">Your Sale Day Goal</div>
+    </div>
+    <div id="bell-wrapper" style="position:relative;display:inline-flex;align-items:center">
+      <button class="btn btn-ghost btn-sm" id="bell-btn" onclick="toggleBellPanel()" aria-label="Notifications" title="Notifications" style="padding:8px">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+      </button>
+      <span id="bell-badge" style="display:none;position:absolute;top:2px;right:2px;background:#E87AAA;color:#fff;font-family:'DM Sans',sans-serif;font-size:9px;font-weight:700;min-width:16px;height:16px;align-items:center;justify-content:center;pointer-events:none;padding:0 3px;line-height:1">0</span>
     </div>
     <button class="btn btn-ghost btn-sm" onclick="save();showToast('Saved!')" title="Save your planner">Save</button>
     <button class="btn btn-ghost btn-sm" onclick="advanceDemo()" id="demo-btn">Demo</button>
@@ -831,12 +855,13 @@ function chipClass(dec){return{
 
 // ─── STATE ────────────────────────────────────────────────────────────────────
 const blankPlanner={
-  setup:{saleTitle:"",saleDate:"",backupDate:"",moneyPurpose:"",moneyGoal:"",notes:""},
+  setup:{saleTitle:"",saleDate:"",backupDate:"",saleEndTime:"",moneyPurpose:"",moneyGoal:"",notes:""},
   advertising:{featuredItems:"",adCopy:"",signHeadline:"",signDetails:"",facebookPosted:false,nextdoorPosted:false,localGroupsPosted:false,signsPrinted:false},
   safety:{tasks:{},change:{ones:"40",fives:"20",quarters:"20"},bankReminderDone:false,safetyNotes:""},
   items:[],prep:{},calculatorRows:[{id:"r1",name:"",quantity:"1",price:""}],
   transactions:[],memoryBox:[],batchBoxes:[],
   wrap:{donate:"",sellOnline:"",keep:"",trash:"",notes:""},
+  notifications:[],notifFired:{},
   isDemo:false,
 };
 
@@ -853,6 +878,8 @@ function normalizePlanner(src){
     memoryBox:Array.isArray(s.memoryBox)?s.memoryBox:b.memoryBox,
     batchBoxes:Array.isArray(s.batchBoxes)?s.batchBoxes:b.batchBoxes,
     wrap:{...b.wrap,...(s.wrap||{})},
+    notifications:Array.isArray(s.notifications)?s.notifications:b.notifications,
+    notifFired:{...b.notifFired,...(s.notifFired||{})},
   };
 }
 
@@ -880,7 +907,7 @@ function getDemoPlanner(){
 }
 
 let P=loadPlanner();
-let UI={tab:"start",section:"start",invView:"table",showAddForm:false,demo:false,demoStep:0,calMenu:false};
+let UI={tab:"start",section:"start",invView:"table",showAddForm:false,demo:false,demoStep:0,calMenu:false,bellOpen:false};
 let draft={
   item:{name:"",category:"Decor",condition:"Good",quantity:"1",decision:"Garage Sale",price:"",notes:""},
   box:{title:"",price:"2",category:"Other",description:""},
@@ -1003,6 +1030,7 @@ function renderStart(){
         ${field("Sale name","text","setup.saleTitle",s.saleTitle,"My Next Chapter Sale")}
         ${areaField("What would you like to use the money for?","setup.moneyPurpose",s.moneyPurpose,"A weekend away, fresh bedding, savings, dinner with friends...")}
         ${field("Sale date","date","setup.saleDate",s.saleDate,"")}
+        ${field("Sale end time (optional)","time","setup.saleEndTime",s.saleEndTime||"","")}
         ${field("Backup date (optional)","date","setup.backupDate",s.backupDate||"","")}
         ${field("Money goal ($)","number","setup.moneyGoal",s.moneyGoal,"250")}
         ${areaField("Notes before I start","setup.notes",s.notes,"What areas feel easiest? What items feel emotional?")}
@@ -1241,15 +1269,17 @@ function addItem(){
   const d=draft.item;
   P.items=[{id:makeId(),name:d.name,category:d.category,condition:d.condition,quantity:d.quantity,decision:d.decision,price:d.price,notes:d.notes,suggested:priceRange(d.category,d.condition),platform:suggestPlatform(d.category,d.condition,d.price,d.decision),sold:false},...(P.items||[])];
   P.isDemo=false;save();draft.item={name:"",category:"Decor",condition:"Good",quantity:"1",decision:"Garage Sale",price:"",notes:""};
-  UI.showAddForm=false;renderContent();refreshMetrics();
+  UI.showAddForm=false;renderContent();refreshMetrics();checkUnpricedNotif();
 }
-function deleteItem(id){mncConfirm("Remove this item?",()=>{P.items=(P.items||[]).filter(i=>i.id!==id);P.isDemo=false;save();renderContent();refreshMetrics()})}
+function deleteItem(id){mncConfirm("Remove this item?",()=>{P.items=(P.items||[]).filter(i=>i.id!==id);P.isDemo=false;save();renderContent();refreshMetrics();checkUnpricedNotif()})}
 function toggleSold(id,v){const item=(P.items||[]).find(i=>i.id===id);if(item){item.sold=v;P.isDemo=false;save();renderContent()}}
 function saveToMemory(id){
   const item=(P.items||[]).find(i=>i.id===id);if(!item)return;
   if((P.memoryBox||[]).some(m=>m.itemName===item.name&&m.photo===""))return;
   P.memoryBox=[{id:makeId(),itemName:item.name,caption:"",photo:"",createdAt:new Date().toLocaleDateString()},...(P.memoryBox||[])];
-  P.isDemo=false;save();showToast("Added to memory box");
+  P.isDemo=false;save();
+  addNotif('memory',`${item.name} was added to your Memory Box.`,{itemName:item.name});
+  showToast("Added to Memory Box");
 }
 
 // ─── SECTION: BATCH BOXES ────────────────────────────────────────────────────
@@ -1759,7 +1789,7 @@ function logSale(desc,amt,method){
   if(!Number(amt))return;
   const time=new Date().toLocaleTimeString([],{hour:"numeric",minute:"2-digit"});
   P.transactions=[{id:makeId(),description:desc||"Garage sale purchase",amount:Number(amt).toFixed(2),method,time},...(P.transactions||[])];
-  P.isDemo=false;save();refreshHeaderStat();renderContent();
+  P.isDemo=false;save();checkGoalNotifs();refreshHeaderStat();renderContent();
 }
 function logQuickSale(){
   const d=draft.sale;logSale(d.description,d.amount,d.method||"Cash");
@@ -2469,6 +2499,133 @@ function printMemoryPage(){
   setTimeout(()=>document.getElementById("print-section").style.display="none",2000);
 }
 
+// ─── NOTIFICATIONS ────────────────────────────────────────────────────────────
+function addNotif(type,msg,opts){
+  const n={id:makeId(),type,message:msg,time:new Date().toLocaleTimeString([],{hour:'numeric',minute:'2-digit'}),dismissed:false,...(opts||{})};
+  P.notifications=[n,...(P.notifications||[])].slice(0,50);
+  save();refreshBell();
+}
+function dismissNotif(id){
+  const n=(P.notifications||[]).find(n=>n.id===id);if(n){n.dismissed=true;save();refreshBell();}
+}
+function dismissAllNotifs(){
+  (P.notifications||[]).forEach(n=>n.dismissed=true);save();refreshBell();
+}
+function activeNotifs(){return(P.notifications||[]).filter(n=>!n.dismissed)}
+function refreshBell(){
+  const count=activeNotifs().length;
+  const badge=document.getElementById('bell-badge');
+  if(badge){badge.textContent=count;badge.style.display=count>0?'flex':'none';}
+  if(UI.bellOpen)renderBellPanel();
+}
+function toggleBellPanel(){
+  UI.bellOpen=!UI.bellOpen;
+  const p=document.getElementById('bell-panel');const ov=document.getElementById('bell-overlay');
+  if(!UI.bellOpen){if(p)p.remove();if(ov)ov.remove();return;}
+  renderBellPanel();
+}
+function renderBellPanel(){
+  let ov=document.getElementById('bell-overlay');
+  if(!ov){
+    ov=document.createElement('div');ov.id='bell-overlay';
+    ov.style.cssText='position:fixed;inset:0;z-index:999';
+    ov.onclick=()=>{UI.bellOpen=false;ov.remove();const p=document.getElementById('bell-panel');if(p)p.remove();};
+    document.body.appendChild(ov);
+  }
+  let p=document.getElementById('bell-panel');
+  if(!p){p=document.createElement('div');p.id='bell-panel';document.body.appendChild(p);}
+  p.className='bell-panel';
+  const notifs=activeNotifs();
+  p.innerHTML=`
+    <div style="display:flex;align-items:center;justify-content:space-between;padding:12px 16px;border-bottom:1px solid #E6E2DA;background:#252535;flex-shrink:0">
+      <span style="font-family:'DM Sans',sans-serif;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#FFF8EE">Notifications</span>
+      ${notifs.length?`<button onclick="dismissAllNotifs()" style="font-family:'DM Sans',sans-serif;font-size:11px;color:#8BA7D4;background:none;border:none;cursor:pointer;padding:0;text-decoration:underline">Clear all</button>`:''}
+    </div>
+    ${notifs.length===0
+      ?`<div class="bell-empty">Nothing new right now.</div>`
+      :notifs.map(n=>renderNotifItem(n)).join('')}
+  `;
+}
+function renderNotifItem(n){
+  const btns=[];
+  if(n.type==='memory'){
+    btns.push(`<button class="bell-action-btn" onclick="printMemoryPage();dismissNotif('${n.id}')">Print Memory Page</button>`);
+  }
+  if(n.type==='wrapUp'){
+    btns.push(`<button class="bell-action-btn" onclick="goTab('saleWrap','wrap');dismissNotif('${n.id}');UI.bellOpen=false;document.getElementById('bell-panel')?.remove();document.getElementById('bell-overlay')?.remove()">Go to Leftovers</button>`);
+  }
+  btns.push(`<button class="bell-dismiss-btn" onclick="dismissNotif('${n.id}')">Dismiss</button>`);
+  return`<div class="bell-notif">
+    <div class="bell-notif-msg">${esc(n.message)}</div>
+    <div class="bell-notif-time">${esc(n.time)}</div>
+    <div class="bell-notif-actions">${btns.join('')}</div>
+  </div>`;
+}
+function checkWeatherNotif(){
+  if(P.notifFired?.weather)return;
+  if(!W.data||!W.data.saleDay)return;
+  const sd=W.data.saleDay;const info=wCodeInfo(sd.code);
+  if(!info.good||sd.rain>=40){
+    const s=P.setup||{};
+    const dateLabel=s.saleDate?new Date(s.saleDate+'T00:00:00').toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric'}):'your sale day';
+    const backupLabel=s.backupDate?new Date(s.backupDate+'T00:00:00').toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric'}):'not set';
+    if(!P.notifFired)P.notifFired={};P.notifFired.weather=true;
+    addNotif('weather',`Rain in the forecast for ${dateLabel}. Your backup date is ${backupLabel}.`);
+  }
+}
+function checkUnpricedNotif(){
+  if(P.notifFired?.unpriced)return;
+  const unpriced=(P.items||[]).filter(i=>['Garage Sale','Sell Online'].includes(i.decision)&&!i.price);
+  if(unpriced.length){
+    if(!P.notifFired)P.notifFired={};P.notifFired.unpriced=true;
+    addNotif('unpriced',`${unpriced.length} item${unpriced.length===1?" doesn't":" don't"} have a price yet.`);
+  }
+}
+function checkGoalNotifs(){
+  const stats=getStats(P);if(!stats.goal)return;
+  const pct=stats.goalProgress;
+  if(!P.notifFired?.goalHalf&&pct>=50&&pct<100){
+    if(!P.notifFired)P.notifFired={};P.notifFired.goalHalf=true;
+    addNotif('goalHalf',`You're halfway to $${stats.goal}. Keep going.`);
+  }
+  if(!P.notifFired?.goalReached&&pct>=100){
+    if(!P.notifFired)P.notifFired={};P.notifFired.goalReached=true;
+    addNotif('goalReached','You hit your goal. Everything from here is extra.');
+  }
+}
+function checkTimeNotifs(){
+  const s=P.setup||{};if(!s.saleDate)return;
+  const days=daysUntilSale(s.saleDate);if(days===null||days<0)return;
+  const permitTask=prepTasks[1];
+  if(!P.notifFired?.permit&&days<=2&&!P.prep?.[permitTask]){
+    if(!P.notifFired)P.notifFired={};P.notifFired.permit=true;
+    addNotif('permit','Still need to check your permit or HOA rules before sale day.');
+  }
+  if(!P.notifFired?.safety&&days===1){
+    const unchecked=safetyTasks.filter(t=>!P.safety?.tasks?.[t]);
+    if(unchecked.length){
+      if(!P.notifFired)P.notifFired={};P.notifFired.safety=true;
+      addNotif('safety',"Your safety checklist isn't done yet. Worth finishing today.");
+    }
+  }
+  if(!P.notifFired?.saleDay&&days===0){
+    if(!P.notifFired)P.notifFired={};P.notifFired.saleDay=true;
+    addNotif('saleDay',"Today's the day. You've got this.");
+  }
+  if(days===0&&s.saleEndTime){
+    const endDate=new Date(s.saleDate+'T'+s.saleEndTime);
+    const now=new Date();const diff=endDate-now;
+    if(!P.notifFired?.lastHour&&diff<=3600000&&diff>0){
+      if(!P.notifFired)P.notifFired={};P.notifFired.lastHour=true;
+      addNotif('lastHour','Last hour. Drop everything 50% and move it.');
+    }
+    if(!P.notifFired?.wrapUp&&diff<=0){
+      if(!P.notifFired)P.notifFired={};P.notifFired.wrapUp=true;
+      addNotif('wrapUp',"Sale's done. Log what's left before you close out — it takes 2 minutes and you'll want it later.");
+    }
+  }
+}
+
 // ─── DEMO ─────────────────────────────────────────────────────────────────────
 function advanceDemo(){
   if(!UI.demo){P=getDemoPlanner();save();UI.demo=true;UI.demoStep=0;goTab(demoSteps[0].flow,demoSteps[0].section);return}
@@ -2480,7 +2637,7 @@ function advanceDemo(){
 function startFresh(){
   mncConfirm("Clear all data and start fresh?",()=>{
     P=normalizePlanner(clone(blankPlanner));save();
-    UI={tab:"start",section:"start",invView:"table",showAddForm:false,demo:false,demoStep:0,calMenu:false};
+    UI={tab:"start",section:"start",invView:"table",showAddForm:false,demo:false,demoStep:0,calMenu:false,bellOpen:false};
     itemSearch="";invCatFilter="All";invDecFilter="All";
     draft={item:{name:"",category:"Decor",condition:"Good",quantity:"1",decision:"Garage Sale",price:"",notes:""},box:{title:"",price:"2",category:"Other",description:""},memory:{itemName:"",caption:""},sale:{description:"",amount:"",method:"Cash"}};
     render();
@@ -2845,11 +3002,17 @@ function renderWeatherCard(){
     </div>
     ${!good?`<div style="margin-top:10px;font-size:13px;color:var(--color-text-muted);line-height:1.6">Rain's looking likely. Worth having a backup date in your pocket.</div>`:""}
     `;
+  checkWeatherNotif();
 }
 
 // ─── INIT ─────────────────────────────────────────────────────────────────────
 render();
 refreshStickyBar();
+refreshBell();
+checkTimeNotifs();
+checkGoalNotifs();
+checkUnpricedNotif();
+setInterval(checkTimeNotifs,60000);
 </script>
 
 <div id="sticky-bar"></div>
