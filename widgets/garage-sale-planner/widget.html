@@ -1247,8 +1247,8 @@ function deleteItem(id){mncConfirm("Remove this item?",()=>{P.items=(P.items||[]
 function toggleSold(id,v){const item=(P.items||[]).find(i=>i.id===id);if(item){item.sold=v;P.isDemo=false;save();renderContent()}}
 function saveToMemory(id){
   const item=(P.items||[]).find(i=>i.id===id);if(!item)return;
-  const cap="This mattered. It had its season. I do not have to keep the item to keep the memory.";
-  P.memoryBox=[{id:makeId(),itemName:item.name,caption:cap,photo:"",createdAt:new Date().toLocaleDateString()},...(P.memoryBox||[])];
+  if((P.memoryBox||[]).some(m=>m.itemName===item.name&&m.photo===""))return;
+  P.memoryBox=[{id:makeId(),itemName:item.name,caption:"",photo:"",createdAt:new Date().toLocaleDateString()},...(P.memoryBox||[])];
   P.isDemo=false;save();showToast("Added to memory box");
 }
 
@@ -1322,7 +1322,8 @@ function renderMemory(){
   <div class="gap-y">
     <div>
       <h2 class="page-title">Memory Box</h2>
-      <p class="page-sub">Before an item leaves, give it a moment. Photograph it, write the story, then decide.</p>
+      <p class="page-sub">Before something goes, note what it meant. Photograph it, write the story, then decide.</p>
+      <p style="font-size:13px;color:var(--color-text-muted);font-style:italic;margin-top:6px;line-height:1.6">"You don't have to hold on to something to hold on to the memory." — Cece</p>
     </div>
     <div class="card">
       <div class="card-title">Add a memory</div>
@@ -1334,7 +1335,7 @@ function renderMemory(){
       </div>
       <div class="form-field" style="margin-bottom:14px">
         <label class="form-label">Caption or memory note</label>
-        <textarea class="textarea" id="mem-cap" rows="3" placeholder="This mattered. It had its season. I do not have to keep the item to keep the memory." oninput="draft.memory.caption=this.value"></textarea>
+        <textarea class="textarea" id="mem-cap" rows="3" placeholder="Add a note, or leave it. The name is enough." oninput="draft.memory.caption=this.value"></textarea>
       </div>
       <div class="form-field" style="margin-bottom:14px">
         <label class="form-label">Photo (optional)</label>
@@ -1342,12 +1343,13 @@ function renderMemory(){
       </div>
       <button class="btn btn-primary" onclick="addMemory()">Save memory</button>
     </div>
+    ${memories.length>0?`<div style="margin-top:4px"><button class="btn btn-secondary btn-sm" onclick="printMemoryPage()">Print your Memory Page</button></div>`:""}
     ${memories.length===0?`<div class="empty-state">No memories saved yet.</div>`:
     `<div class="grid-3">${memories.map(m=>`
       <div class="memory-card">
         ${m.photo?`<img src="${m.photo}" class="memory-img" alt="${esc(m.itemName)}" />`:""}
         <div class="memory-name">${esc(m.itemName||"Memory")}</div>
-        <div class="memory-caption">${esc(m.caption||"")}</div>
+        ${m.caption?`<div class="memory-caption">${esc(m.caption)}</div>`:""}
         <div class="text-xs text-muted">${esc(m.createdAt||"")}</div>
         <button class="btn btn-danger btn-xs" onclick="deleteMemory('${esc(m.id)}')">Remove</button>
       </div>`).join("")}
@@ -1359,7 +1361,7 @@ let _memPhotoData="";
 function handleMemPhoto(input){const f=input.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{_memPhotoData=r.result};r.readAsDataURL(f)}
 function addMemory(){
   const d=draft.memory;
-  P.memoryBox=[{id:makeId(),itemName:d.itemName||"Memory",caption:d.caption||"This mattered. It had its season.",photo:_memPhotoData,createdAt:new Date().toLocaleDateString()},...(P.memoryBox||[])];
+  P.memoryBox=[{id:makeId(),itemName:d.itemName||"Memory",caption:d.caption||"",photo:_memPhotoData,createdAt:new Date().toLocaleDateString()},...(P.memoryBox||[])];
   P.isDemo=false;save();_memPhotoData="";draft.memory={itemName:"",caption:""};renderContent();
 }
 function deleteMemory(id){mncConfirm("Remove this memory?",()=>{P.memoryBox=(P.memoryBox||[]).filter(m=>m.id!==id);P.isDemo=false;save();renderContent()})}
@@ -2162,7 +2164,8 @@ function sendSummaryEmail(){
     leftovers_sell_online:w.sellOnline||"",
     leftovers_keep:w.keep||"",
     leftovers_trash:w.trash||"",
-    lessons_learned:w.notes||""
+    lessons_learned:w.notes||"",
+    memory_box:(P.memoryBox||[]).map(m=>({name:m.itemName,caption:m.caption||""}))
   };
   if(msgEl){msgEl.style.display="block";msgEl.innerHTML='<div class="info-box">Sending your summary...</div>'}
   fetch("/garage-submit.php",{
@@ -2445,6 +2448,27 @@ function printFlyer(type){
   setTimeout(()=>document.getElementById('print-section').style.display='none',2000);
 }
 
+// ─── PRINT: MEMORY PAGE ──────────────────────────────────────────────────────
+function printMemoryPage(){
+  const memories=P.memoryBox||[];
+  if(!memories.length){showToast("No memories saved yet.");return;}
+  const titleLine=P.setup?.saleTitle?`<div style="font-family:'Lora',serif;font-size:18px;font-weight:700;color:#252535;margin-bottom:28px">${esc(P.setup.saleTitle)}</div>`:"<div style='margin-bottom:28px'></div>";
+  document.getElementById("print-inner").innerHTML=`
+    <div style="padding:32px;font-family:'DM Sans',sans-serif;max-width:680px">
+      <div style="font-size:9px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:#E87AAA;margin-bottom:14px">My Nest Chapter · Memory Box</div>
+      ${titleLine}
+      ${memories.map(m=>`
+        <div style="margin-bottom:22px;padding-bottom:22px;border-bottom:1px solid #F0ECF8">
+          <div style="font-size:15px;font-weight:700;color:#252535;font-family:'Lora',serif">${esc(m.itemName||"Memory")}</div>
+          ${m.caption?`<div style="font-size:13px;color:#5A5A72;margin-top:6px;font-style:italic;line-height:1.65">${esc(m.caption)}</div>`:""}
+        </div>`).join("")}
+      <div style="margin-top:36px;font-size:10px;color:#ABABAB">My Nest Chapter · mynestchapter.com</div>
+    </div>`;
+  document.getElementById("print-section").style.display="block";
+  window.print();
+  setTimeout(()=>document.getElementById("print-section").style.display="none",2000);
+}
+
 // ─── DEMO ─────────────────────────────────────────────────────────────────────
 function advanceDemo(){
   if(!UI.demo){P=getDemoPlanner();save();UI.demo=true;UI.demoStep=0;goTab(demoSteps[0].flow,demoSteps[0].section);return}
@@ -2549,6 +2573,14 @@ function exportPDF(){
     ${row("Keeping",w.keep)}
     ${row("Tossing",w.trash)}
     ${row("Lessons learned",w.notes)}`:""}
+
+    ${(P.memoryBox||[]).length?`
+    <h2 style="font-size:13px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:#252535;margin:0 0 16px;border-bottom:2px solid #252535;padding-bottom:8px">Memory Box</h2>
+    ${(P.memoryBox||[]).map(m=>`
+      <div style="margin-bottom:14px;padding-bottom:14px;border-bottom:1px solid #F0ECF8">
+        <div style="font-family:'DM Sans',sans-serif;font-size:13px;font-weight:700;color:#252535">${esc(m.itemName||"Memory")}</div>
+        ${m.caption?`<div style="font-family:'DM Sans',sans-serif;font-size:12px;color:#5A5A72;margin-top:4px;font-style:italic;line-height:1.6">${esc(m.caption)}</div>`:""}
+      </div>`).join("")}`:""}
 
     <div style="margin-top:40px;padding-top:20px;border-top:1px solid #F0ECF8;font-size:11px;color:#ABABAB">
       My Nest Chapter &nbsp;·&nbsp; mynestchapter.com &nbsp;·&nbsp; Printed ${new Date().toLocaleDateString("en-US",{month:"long",day:"numeric",year:"numeric"})}
