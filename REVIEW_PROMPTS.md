@@ -4,19 +4,18 @@ Lives in the repo root alongside CLAUDE.md.
 
 ---
 
-## WHEN TO USE WHICH PROMPT
+## WHEN TO USE THIS PROMPT
 
-| Prompt | Use when |
-|---|---|
-| Prompt 1 — Focused Review | Mid-build. You want the one most important fix before moving forward. |
-| Prompt 2 — Full Audit | Pre-launch. You want everything wrong before something goes live. |
+One prompt. Two passes. Use it any time you want a complete picture before moving forward or going live.
+
+Pass 1 finds everything. Pass 2 prioritizes from what was actually found — not hypotheticals.
 
 ---
 
-## HOW TO USE EITHER PROMPT
+## HOW TO USE IT
 
 1. Open this file.
-2. Copy the full prompt text.
+2. Copy the full prompt text below.
 3. Rewrite the second sentence only — the user persona line. Keep everything else exactly as written.
 4. Paste it into Claude Code (or a chat session) with the widget code attached or open.
 
@@ -41,42 +40,66 @@ Use these as-is or adapt them for your widget:
 
 ---
 
-## PROMPT 1 — FOCUSED REVIEW
+## THE SUPER AUDIT
 
-*Use mid-build. One answer per question. Fast, targeted fix.*
-
----
-
-You are a senior full-stack engineer and UX designer who specializes in tools for women 45-65. The user of this widget is a solo mom who has never sold anything online before and is moderately overwhelmed — she just needs to get through her garage sale without feeling like she's doing it wrong.
-
-Review this widget and tell me:
-
-1. What one step, field, or label is most likely to make her close the tab and not come back — and what specifically about that element loses her?
-2. What one interaction feels clunky or unclear for someone who is not tech-savvy?
-3. What one CSS or layout change would make this look significantly more polished and trustworthy to her?
-4. Is there any logic that could break on mobile or with unusual input — for example, if she leaves it open overnight, types something unexpected, or has slow internet?
-
-Be specific. Reference actual elements, labels, buttons, or sections by name. Do not give general principles — give me the exact thing to fix and why it matters for this user.
+*Full sweep + priority focus in one pass. Use before any launch or major update.*
 
 ---
 
-## PROMPT 2 — FULL AUDIT
+You are a Lead Product Engineer, UX Designer, and Design Critic who specializes in tools for women 45–65. The user of this widget is a solo mom who has never sold anything online before and is moderately overwhelmed — she just needs to get through her garage sale without feeling like she's doing it wrong.
 
-*Use pre-launch. Exhaustive sweep. Numbered list of everything wrong.*
+Audit this widget in two passes. Complete Pass 1 fully before starting Pass 2. Do not rewrite any code. Do not suggest full redesigns. Issues and priorities only.
 
 ---
 
-You are a Lead Product Engineer and Design Critic. The user of this widget is a solo mom who has never sold anything online before and is moderately overwhelmed — she just needs to get through her garage sale without feeling like she's doing it wrong. Audit this widget exhaustively across 4 layers in order — do not skip ahead:
+**PASS 1 — FULL AUDIT**
 
-**Layer 1 — Bugs & Usability:** Every broken logic piece, edge case, mobile failure, accessibility issue.
+Audit exhaustively across all 4 layers. Number every issue sequentially. One issue = one number. Do not group, summarize, or skip ahead.
 
-**Layer 2 — Visuals & Typography:** Every instance of lazy padding, misalignment, bad contrast. Note: flat design with no border-radius and no box-shadow is intentional — do not flag these. Widget fonts (Lora + DM Sans) are brand-locked — do not flag these.
+**Layer 1 — Bugs & Usability**
+Every broken logic piece, edge case, mobile failure, and accessibility gap.
+- What breaks or silently fails on unusual input (empty fields, letters in number fields, extremely long text)?
+- What fails or behaves unexpectedly if she leaves the tool open overnight, refreshes mid-session, or has slow internet?
+- What is untappable, misaligned, or overflowing at 375px (iPhone SE)?
+- What has no keyboard access, no ARIA label, or no visible focus state?
 
-**Layer 3 — Motion & Feel:** Every harsh transition, missing micro-interaction, or moment that feels cheap or abrupt.
+**Layer 2 — Visuals & Typography**
+Every instance of lazy padding, misalignment, inconsistent spacing, or bad contrast.
+Note: flat design with no border-radius and no box-shadow is intentional — do not flag these.
+Widget fonts (Lora + DM Sans) are brand-locked — do not flag these.
+- What looks like a template default that any generic app would have?
+- What is visually inconsistent with the rest of the tool — different spacing, mismatched weight, odd alignment?
+- What colors are present that fall outside the MNC palette?
 
-**Layer 4 — Micro-copy:** Every generic label, button, or placeholder text that could be more specific to the user's situation.
+**Layer 3 — Motion & Feel**
+Every harsh transition, missing micro-interaction, or moment that feels cheap or abrupt.
+- What snaps, pops, or flashes when it should ease?
+- What moment has no feedback at all — a tap, a save, a state change — that leaves her wondering if it worked?
+- What animation or transition timing feels mismatched with the rest of the tool?
 
-Output: a numbered list of issues only. No code rewrites. Be specific — name the exact element or line, not the general principle.
+**Layer 4 — Micro-copy**
+Every generic label, button, placeholder, or instruction that could be more specific to this user's situation.
+- What label or placeholder could only belong on a generic productivity app — nothing about it says My Nest Chapter?
+- What instruction tells her what to do instead of acknowledging what she's actually dealing with?
+- What two elements use nearly identical labels for different actions, or different labels for the same action?
+
+---
+
+**PASS 2 — PRIORITY FOCUS**
+
+Answer these four questions using only what was found in Pass 1. One answer per question. Name the exact issue number, element, or label — not the general principle.
+
+1. **Tab-closer:** Which single issue is most likely to make her close the tab and not come back — and what specifically about it loses her?
+2. **Biggest friction:** Which single interaction feels most clunky or unclear for someone who is not tech-savvy?
+3. **Highest-trust visual fix:** Which single CSS or layout change would make this look most polished and trustworthy to her?
+4. **Silent failure risk:** Which issue could break silently on mobile or with unusual input — the kind of thing she'd never know went wrong?
+
+---
+
+Output format:
+- Pass 1: numbered issues list, layered in order
+- Pass 2: four labeled priority answers, each referencing a specific issue number from Pass 1
+- Nothing else
 
 ---
 
