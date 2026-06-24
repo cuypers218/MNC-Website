@@ -107,7 +107,7 @@ $related = $stmt->fetchAll();
                     <?php endif; ?>
                 <?php else: ?>
                     <?php if (isLoggedIn()): ?>
-                        <a href="/checkout?product=<?= esc($product['slug']) ?>" class="btn btn-primary btn-full">Buy Now — <?= formatPrice($product['price']) ?></a>
+                        <a href="/checkout?product=<?= esc($product['slug']) ?>" class="btn btn-primary btn-full">Get the <?= esc($product['title']) ?></a>
                     <?php else: ?>
                         <a href="/register" class="btn btn-primary btn-full">Create Account to Purchase</a>
                         <p style="color: #666666; font-size: 0.85rem; margin-top: 0.75rem; text-align: center;">You'll need an account to buy and access your download.</p>
@@ -115,6 +115,7 @@ $related = $stmt->fetchAll();
                     <?php
                     $slugsWithDemo = ['cooking-for-one'];
                     $slugsWithQueryDemo = ['goal-habit-tracker'];
+                    $slugsWithDirectDemo = ['garage-sale-planner'];
                     if ($isInteractiveTool && in_array($product['slug'], $slugsWithDemo)): ?>
                         <p style="margin-top: 1rem; text-align: center;">
                             <a href="/widgets/<?= esc($product['slug']) ?>-demo/" style="font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em; color: #E87AAA;">Try the demo first &rarr;</a>
@@ -122,6 +123,10 @@ $related = $stmt->fetchAll();
                     <?php elseif ($isInteractiveTool && in_array($product['slug'], $slugsWithQueryDemo)): ?>
                         <p style="margin-top: 1rem; text-align: center;">
                             <a href="/widgets/<?= esc($product['slug']) ?>/?demo=1" style="font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em; color: #E87AAA;">Try the demo first &rarr;</a>
+                        </p>
+                    <?php elseif ($isInteractiveTool && in_array($product['slug'], $slugsWithDirectDemo)): ?>
+                        <p style="margin-top: 1rem; text-align: center;">
+                            <a href="/widgets/<?= esc($product['slug']) ?>/" style="font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em; color: #E87AAA;">Try it free — no account needed &rarr;</a>
                         </p>
                     <?php endif; ?>
                 <?php endif; ?>
