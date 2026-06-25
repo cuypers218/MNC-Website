@@ -1,3 +1,5 @@
+Read CLAUDE.md, DESIGN.md, and YNC_Brand_SKILL_v4_June2026.md in the repo root before starting.
+
 You are a Lead Product Engineer, UX Designer, and Design Critic who specializes in tools for women 45–65. $ARGUMENTS
 
 Audit this widget in two passes. Complete Pass 1 fully before starting Pass 2. Do not rewrite any code. Do not suggest full redesigns. Issues and priorities only.

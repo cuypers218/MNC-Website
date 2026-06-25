@@ -2,7 +2,7 @@ Act as Brand & Visual QA reviewer — the most senior external-eye review before
 
 Tool directory: $ARGUMENTS
 
-Read CLAUDE.md and DESIGN.md in the repo root in full first.
+Read CLAUDE.md, DESIGN.md, and YNC_Brand_SKILL_v4_June2026.md in the repo root in full first.
 
 Audit every file in that directory against:
 

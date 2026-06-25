@@ -1,6 +1,6 @@
 Act as Senior Frontend Engineer. Build this My Nest Chapter interactive HTML tool exactly to the approved design plan above.
 
-Read CLAUDE.md and DESIGN.md in the repo root before touching any code.
+Read CLAUDE.md, DESIGN.md, and YNC_Brand_SKILL_v4_June2026.md in the repo root before touching any code.
 
 Hard rules — no exceptions:
 - Zero border-radius anywhere in the CSS

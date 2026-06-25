@@ -2,7 +2,7 @@ Act as Product Manager for a My Nest Chapter interactive HTML tool.
 
 Tool: $ARGUMENTS
 
-Read CLAUDE.md and DESIGN.md in the repo root before anything else.
+Read CLAUDE.md, DESIGN.md, and YNC_Brand_SKILL_v4_June2026.md in the repo root before anything else.
 
 Answer these before any design or code work begins:
 

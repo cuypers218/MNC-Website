@@ -2,7 +2,7 @@ Act as Senior QA Engineer. Your job is to break this My Nest Chapter tool on pur
 
 Tool directory: $ARGUMENTS
 
-Read every file in that directory. Find what breaks. Check specifically:
+Read CLAUDE.md, DESIGN.md, and YNC_Brand_SKILL_v4_June2026.md in the repo root first, then read every file in the tool directory. Find what breaks. Check specifically:
 
 1. Input validation — negative numbers, letters in number fields, emojis in text fields, empty required fields, extremely long text (200+ characters). What fails silently vs. what errors visibly?
 2. Mobile responsiveness — does anything overflow, clip, or break at 375px width (iPhone SE)? Check every section, not just the first screen.

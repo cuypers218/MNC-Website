@@ -1,6 +1,6 @@
 Act as the design lead for this My Nest Chapter interactive HTML tool.
 
-Read CLAUDE.md and DESIGN.md in the repo root in full before writing anything. Use ONLY the locked colors from CLAUDE.md, Lora (display) + DM Sans (body) for this HTML tool, and zero border-radius / zero box-shadow per the Design System.
+Read CLAUDE.md, DESIGN.md, and YNC_Brand_SKILL_v4_June2026.md in the repo root in full before writing anything. Use ONLY the locked colors from CLAUDE.md, Lora (display) + DM Sans (body) for this HTML tool, and zero border-radius / zero box-shadow per the Design System.
 
 Before writing any code, produce a design plan:
 
