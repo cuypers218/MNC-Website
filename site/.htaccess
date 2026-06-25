@@ -8,6 +8,10 @@ RewriteRule ^(.*)$ https://%{HTTP_HOST}/$1 [R=301,L]
 # Block access to includes directory
 RewriteRule ^includes/ - [F,L]
 
+# Block direct HTTP access to admin config and auth files
+RewriteRule ^admin/config\.php$ - [F,L]
+RewriteRule ^admin/auth\.php$ - [F,L]
+
 # Block direct access to paid products only — free PDFs (freebie_ and mnc-coloring-) are publicly accessible
 RewriteRule ^downloads/now-what-workbook\.pdf$ - [F,L]
 RewriteRule ^downloads/garage-sale-planner\.pdf$ - [F,L]
