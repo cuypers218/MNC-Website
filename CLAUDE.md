@@ -140,6 +140,91 @@ For widget UX reviews, see REVIEW_PROMPTS.md in the repo root.
 
 ---
 
+## BUILD GATES — MANDATORY, NO EXCEPTIONS
+
+These are not reminders. They are enforced steps. Claude Code runs them automatically.
+Cece should not have to remember to ask for any of this.
+
+---
+
+### GATE 1 — Before Any Code Starts (New Widget)
+
+**Trigger:** Cece mentions building a new tool, names a product not yet started, or a new folder is detected under /widgets/ with no index.html.
+
+**Behavior:** STOP. Do not write a single line of HTML, CSS, or JavaScript. Ask these five questions first — all five, in order:
+
+1. What is this tool? (One sentence — not a list of features.)
+2. Who specifically is using it and when? Not "solo moms" — one specific person, one specific moment.
+3. What is the exact pain point it solves? One sentence. She should feel seen.
+4. What are the 5–8 features that directly serve that pain point? Flag anything that is nice-to-have but doesn't serve it.
+5. What is the price point, and does the scope match that tier?
+
+Do not proceed to Gate 2 until all five questions are answered.
+
+---
+
+### GATE 2 — Design Plan Before Build
+
+**Trigger:** Immediately after Gate 1 answers are in.
+
+**Behavior:** Produce a design plan before writing any code. Plan must cover:
+
+- **Token system** — Which locked color serves which role: background, primary action, secondary, accent, text. Name every role — do not just list the palette.
+- **Type scale** — Sizes and weights for display vs. body. Lora display, DM Sans body. No other fonts in widget files.
+- **Layout structure** — Each section or tab in 1–2 sentences.
+- **Signature element** — ONE thing that could only be My Nest Chapter. Tied to the actual pain point. If you can't name it, the design isn't ready.
+- **Self-critique** — Does any part look like a generic template default (rounded cards, soft shadows, big centered stat)? Fix it before showing Cece.
+
+Show Cece the plan. Wait for explicit approval. Silence is not approval. Only "approved" or "looks good, build it" unlocks Gate 3.
+
+---
+
+### GATE 3 — Session End QA (Every Session Where Code Was Touched)
+
+**Trigger:** Cece indicates she is done for the session, or a natural stopping point is reached after any code was written or modified.
+
+**Behavior:** Run both steps automatically, without being asked. Do not end the session without completing both.
+
+**Step 1 — Technical QA** (run silently, fix everything found, then report)
+- Number fields: test negative numbers, letters, empty input, unreasonably large number
+- Text fields: test empty input and 200+ character input
+- Mobile at 375px: overflow, clipped text, tap targets, tab/nav system
+- localStorage: first load with zero data, recovery from corrupted state
+- Every button: does it do exactly what its label says?
+
+Fix every issue found. Do not ask permission — fix and report.
+
+**Step 2 — Brand & Visual QA** (run silently, fix everything found, then report)
+- `border-radius`: any value other than 0 is a violation in widget files
+- `box-shadow`: any value other than none is a violation
+- Hex colors: only `#252535 #FFF8EE #E87AAA #C4B0E8 #A8C5DA #8BA7D4 #F2A57A #F5C4A8 #EDD96A #B5CC6A #facfd4` allowed
+- Fonts in /widgets/: Lora and DM Sans only — replace any Montserrat or Arial
+- Banned phrases: "no judgment", "what you carried", "as solo moms we", "lightbox", "no wrong answers", "hold space", "healing journey", "you've got this", "this will help you", "you'll feel", "you need to"
+- Signature element: does this tool have ONE thing that could only be My Nest Chapter?
+
+Fix every violation. Do not ask permission — fix and report.
+
+**Step 3 — Close-out report**
+
+End every session with exactly one of:
+- "QA complete. All checks passed. Safe to deploy."
+- "QA complete. Found [N] issues — all fixed. Safe to deploy."
+- "One item needs your call before this is safe to deploy: [describe it]."
+
+If Cece tries to close out before QA has run, ask once: "QA hasn't run on the code we changed. Run it now before we close out?"
+
+---
+
+### GATE SUMMARY
+
+| Gate | Trigger | What it prevents |
+|---|---|---|
+| 1 — PM Define | New widget | Building the wrong thing before pain point is confirmed |
+| 2 — Design Plan | After Gate 1 | Code written before anyone thought about what it should look like |
+| 3 — Session QA | Any session with code changes | Bugs, retired colors, wrong fonts, banned language reaching Hostinger |
+
+---
+
 ## CHANGE LOG
 
 **2026-06-19** — Created this file. Logged the two banned-language fixes found in `seed-products.php`, `index.php`, and `workbook.php`. Documented full dashboard gating logic and per-product placement table from the June 13 planning session, which had been locked in chat but never made it into code.
@@ -147,5 +232,7 @@ For widget UX reviews, see REVIEW_PROMPTS.md in the repo root.
 **2026-06-19 (correction)** — The 6pm Survival Plan and Who Am I Now are NOT live. Confirmed against `dashboard.php`: no exclusive content section exists in the code at all. Past session notes marking these "Built ✅" meant content was finished, not that they shipped. Added "build the exclusive content section" as the first action item — both PDFs are ready to upload the moment it exists. Full 7-item drop queue documented above.
 
 **2026-06-21** — Garage Sale Planner design pass complete. Fonts → Lora + DM Sans, all border-radius removed, all box-shadows removed, emoji weather icons replaced with text labels. Backup date field + HOA permit checklist item + rain warning added. Security: deleted unprotected `index.html` duplicate. Product Catalog corrected: Garage Sale Planner is live at $27 (was "built, not yet listed for sale" — stale).
+
+**2026-06-25** — Build Gates added to this file (from CLAUDE_md_additions.md). Drip system confirmed fully built: dashboard.php has exclusive content section, `getUnlockedExclusiveContent()` and `getNextExclusiveUnlock()` both exist in functions.php, countdown + fallback state both live. GarageSalePlanner_Tips.md (59 tips, brand-checked) added to repo.
 
 **2026-06-21 (session 2)** — Quiet House Meter removed from site: card deleted from `site/index.php`, link deleted from `site/resources.php`. Widget was never built — nothing in /widgets/ to remove. DB record still active; needs phpMyAdmin → `draft`. `seed-products.php` deleted from repo (was stale after DB was hand-updated via `add-widgets.php`; `INSERT IGNORE` made it useless). Security: deleted unprotected `index.html` files from cooking-for-one and goal-habit-tracker widget folders. Product Catalog updated: added Cooking for One ($27) and Goal & Habit Tracker ($27, visual rebuild pending). Goal & Habit Tracker moved to back burner — needs a brief before any visual work.
