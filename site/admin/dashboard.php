@@ -2,7 +2,7 @@
 require_once __DIR__ . '/auth.php';
 
 $page = $_GET['page'] ?? 'dashboard';
-$validPages = ['dashboard', 'products', 'blog', 'queue', 'members', 'orders', 'files', 'quiz'];
+$validPages = ['dashboard', 'products', 'blog', 'queue', 'members', 'orders', 'files', 'quiz', 'reach'];
 if (!in_array($page, $validPages)) $page = 'dashboard';
 
 $pageTitles = [
@@ -14,6 +14,7 @@ $pageTitles = [
     'orders'    => 'Orders',
     'files'     => 'File Manager',
     'quiz'      => 'Quiz Results',
+    'reach'     => 'Reach — Email List',
 ];
 
 $navItems = [
@@ -25,6 +26,7 @@ $navItems = [
     'orders'    => 'Orders',
     'files'     => 'File Manager',
     'quiz'      => 'Quiz Results',
+    'reach'     => 'Reach — Email List',
 ];
 
 $successMsg = $_GET['success'] ?? '';
