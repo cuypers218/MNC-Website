@@ -1,5 +1,5 @@
 # Garage Sale Planner — Rotating Tips
-**All sections. 5 tips per section (Money Goal: 4). 59 tips total.**
+**All sections. 5 tips per section (Money Goal: 4, Wrap Up: 4). 57 tips total.**
 Last updated: June 2026
 Written in Cece's voice. Brand-checked against YNC_Brand_SKILL_v4_June2026.md.
 
@@ -55,7 +55,7 @@ Written in Cece's voice. Brand-checked against YNC_Brand_SKILL_v4_June2026.md.
 
 2. Take a photo. Write one line about it. Then let it go to someone who's going to use it. That's not losing it. That's passing it on.
 
-3. I put my daughter's first backpack in the Memory Box. I cried. Then I donated it to a family that needed it. Both things were true at the same time.
+3. I have one t-shirt from every sport each of my kids played. Those stay. Always. But the equipment, the gear, the extra everything from those years — that all goes. Knowing what I'm keeping makes it a lot easier to let go of the rest.
 
 4. The Memory Box isn't about holding on. It's about making a record before you let go. There's a difference.
 
@@ -171,15 +171,14 @@ Written in Cece's voice. Brand-checked against YNC_Brand_SKILL_v4_June2026.md.
 
 1. Whatever's left — have a plan before you close up. Donation box in the trunk, neighbor who wants first pick, straight to Goodwill. Don't bring it back inside.
 
-2. I always felt a little strange when my sale was over. The house felt different. Lighter. It took me a minute to figure out if that was good or not. It was.
+2. When the last person leaves, I always feel good. Less stuff. More room. Money in my pocket. I don't know why I always waited so long to do it.
 
 3. Take a photo of what's left before you donate it. For your records. And because sometimes you need to see how much actually left.
 
 4. The money is real. Go do the thing you said you were going to do with it.
 
-5. You planned it, ran it by yourself, handled every person who came through your driveway, and walked away with money in your pocket. That's not nothing.
-
 ---
 
-*59 tips total. Ready to paste into widget.html as tab-level tip arrays.*
+*57 tips total. Ready to paste into widget.html as tab-level tip arrays.*
 *Tip for arrow signs also appears in Print Center tab (confirmed locked).*
+*Money Goal tip 5 deleted — "it's enough" violation. Wrap Up tip 5 deleted — "that's not nothing" violation.*

@@ -199,7 +199,7 @@ Fix every issue found. Do not ask permission — fix and report.
 - `box-shadow`: any value other than none is a violation
 - Hex colors: only `#252535 #FFF8EE #E87AAA #C4B0E8 #A8C5DA #8BA7D4 #F2A57A #F5C4A8 #EDD96A #B5CC6A #facfd4` allowed
 - Fonts in /widgets/: Lora and DM Sans only — replace any Montserrat or Arial
-- Banned phrases: "no judgment", "what you carried", "as solo moms we", "lightbox", "no wrong answers", "hold space", "healing journey", "you've got this", "this will help you", "you'll feel", "you need to"
+- Banned phrases: "no judgment", "what you carried", "as solo moms we", "lightbox", "no wrong answers", "hold space", "healing journey", "you've got this", "this will help you", "you'll feel", "you need to", "it's enough" (and all variations: "that's enough", "you are enough", "that is enough"), "that's not nothing" (and all variations: "that's something", "that matters", "that counts")
 - Signature element: does this tool have ONE thing that could only be My Nest Chapter?
 
 Fix every violation. Do not ask permission — fix and report.
@@ -232,6 +232,8 @@ If Cece tries to close out before QA has run, ask once: "QA hasn't run on the co
 **2026-06-19 (correction)** — The 6pm Survival Plan and Who Am I Now are NOT live. Confirmed against `dashboard.php`: no exclusive content section exists in the code at all. Past session notes marking these "Built ✅" meant content was finished, not that they shipped. Added "build the exclusive content section" as the first action item — both PDFs are ready to upload the moment it exists. Full 7-item drop queue documented above.
 
 **2026-06-21** — Garage Sale Planner design pass complete. Fonts → Lora + DM Sans, all border-radius removed, all box-shadows removed, emoji weather icons replaced with text labels. Backup date field + HOA permit checklist item + rain warning added. Security: deleted unprotected `index.html` duplicate. Product Catalog corrected: Garage Sale Planner is live at $27 (was "built, not yet listed for sale" — stale).
+
+**2026-06-25 (session 2)** — Two new banned phrases added: "it's enough" (all variations) and "that's not nothing" (all variations) — confirmed banned by Cece June 24. GarageSalePlanner_Tips.md updated to 57 tips: Memory Box tip 3 → t-shirt story, Money Goal tip 5 deleted (banned phrase), Wrap Up tip 5 deleted (banned phrase).
 
 **2026-06-25** — Build Gates added to this file (from CLAUDE_md_additions.md). Drip system confirmed fully built: dashboard.php has exclusive content section, `getUnlockedExclusiveContent()` and `getNextExclusiveUnlock()` both exist in functions.php, countdown + fallback state both live. GarageSalePlanner_Tips.md (59 tips, brand-checked) added to repo.
 
