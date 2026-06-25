@@ -63,7 +63,7 @@ next_item = the queue row with the smallest unlock_offset_days that is > days_as
 
 ## Build order
 
-1. Create `exclusive_content_queue` table, seed it with the 2 items that already exist (6pm Survival Plan at offset 0, Who Am I Now at offset 30).
+1. ✅ COMPLETED June 2026 — `exclusive_content_queue` table created and seeded: The 6pm Survival Plan (offset 0) and Who Am I Now (offset 30) both have rows in DB.
 2. Create `member_freebie_notifications` table.
 3. Build the unlock logic (a function that takes a member ID and returns unlocked items + next unlock date).
 4. Build the dashboard UI: public freebies section (no gate), exclusive freebies section (gated by unlock logic), countdown card with fallback state.
