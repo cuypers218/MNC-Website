@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en" data-theme="light">
 <head>
 <meta charset="UTF-8" />
@@ -783,6 +783,11 @@ function getSectionTips(){
 function renderTipStrip(tips){
   return`<div style="background:#252535;color:#FFF8EE;padding:11px 20px;font-family:var(--font-body);font-size:14px;line-height:1.4;margin-bottom:16px"><span id="tip-text">${esc(tips[0])}</span></div>`;
 }
+function renderTourNote(text){
+  if(!P.isDemo)return'';
+  return`<div style="background:#C4B0E8;color:#252535;padding:9px 20px;font-family:var(--font-body);font-size:13px;line-height:1.4;margin-bottom:12px;display:flex;align-items:flex-start;justify-content:space-between;gap:16px"><span><strong>Tour:</strong> ${text}</span><button onclick="P.isDemo=false;save();renderContent()" style="font-size:11px;font-family:var(--font-display);font-weight:700;color:#252535;text-transform:uppercase;letter-spacing:.08em;white-space:nowrap;flex-shrink:0">Exit tour</button></div>`;
+}
+function isFreshPlanner(){return!P.setup?.saleTitle&&!P.isDemo&&!(P.items?.length)&&!P.setup?.saleDate;}
 let _tipInterval=null;let _tipIdx=0;
 function startTipRotation(tips){
   if(_tipInterval)clearInterval(_tipInterval);
@@ -851,7 +856,9 @@ function getStats(P){
   const items=P.items||[];const tx=P.transactions||[];const goal=Number(P.setup?.moneyGoal||0);
   const earned=tx.reduce((s,t)=>s+Number(t.amount||0),0);
   const estimated=items.reduce((s,i)=>s+Number(i.price||0)*Number(i.quantity||1),0);
-  const prepDone=prepTasks.filter(t=>P.prep?.[t]).length;
+  const customPrep=P.customPrepTasks||[];
+  const prepDone=prepTasks.filter(t=>P.prep?.[t]).length+(customPrep.filter(t=>t.done).length);
+  const prepTotal=prepTasks.length+customPrep.length;
   return{
     totalItems:items.length,
     garageSale:items.filter(i=>i.decision==="Garage Sale").length,
@@ -860,7 +867,8 @@ function getStats(P){
     earned,estimated,goal,
     goalProgress:goal?Math.min(Math.round((earned/goal)*100),100):0,
     goalLeft:Math.max(goal-earned,0),
-    prepProgress:Math.round((prepDone/prepTasks.length)*100),
+    prepProgress:prepTotal?Math.round((prepDone/prepTotal)*100):0,
+    prepDone,prepTotal,
   };
 }
 function daysUntilSale(d){if(!d)return null;const today=new Date();const sale=new Date(`${d}T00:00:00`);if(isNaN(sale.getTime()))return null;const s=new Date(sale.getFullYear(),sale.getMonth(),sale.getDate());const t=new Date(today.getFullYear(),today.getMonth(),today.getDate());return Math.ceil((s-t)/86400000)}
@@ -874,7 +882,7 @@ const blankPlanner={
   setup:{saleTitle:"",saleDate:"",backupDate:"",saleEndTime:"",moneyPurpose:"",moneyGoal:"",notes:""},
   advertising:{featuredItems:"",adCopy:"",signHeadline:"",signDetails:"",facebookPosted:false,nextdoorPosted:false,localGroupsPosted:false,signsPrinted:false},
   safety:{tasks:{},change:{ones:"40",fives:"20",quarters:"20"},bankReminderDone:false,safetyNotes:""},
-  items:[],prep:{},calculatorRows:[{id:"r1",name:"",quantity:"1",price:""}],
+  items:[],prep:{},customPrepTasks:[],calculatorRows:[{id:"r1",name:"",quantity:"1",price:""}],
   transactions:[],memoryBox:[],batchBoxes:[],
   wrap:{donate:"",sellOnline:"",keep:"",trash:"",notes:""},
   notifications:[],notifFired:{},
@@ -893,6 +901,7 @@ function normalizePlanner(src){
     transactions:Array.isArray(s.transactions)?s.transactions:b.transactions,
     memoryBox:Array.isArray(s.memoryBox)?s.memoryBox:b.memoryBox,
     batchBoxes:Array.isArray(s.batchBoxes)?s.batchBoxes:b.batchBoxes,
+    customPrepTasks:Array.isArray(s.customPrepTasks)?s.customPrepTasks:b.customPrepTasks,
     wrap:{...b.wrap,...(s.wrap||{})},
     notifications:Array.isArray(s.notifications)?s.notifications:b.notifications,
     notifFired:{...b.notifFired,...(s.notifFired||{})},
@@ -1044,8 +1053,28 @@ function renderStart(){
   const days=daysUntilSale(s.saleDate);
   const daysStr=days===null?"Set a date to see the countdown":days===0?"Sale day is today!":days<0?`Sale was ${Math.abs(days)} day${Math.abs(days)===1?"":"s"} ago`:`${days} day${days===1?"":"s"} until sale day`;
   const saleDateLabel=s.saleDate?new Date(s.saleDate+"T00:00:00").toLocaleDateString("en-US",{weekday:"long",month:"long",day:"numeric",year:"numeric"}):"";
+  const welcome=isFreshPlanner()?`
+  <div style="background:#252535;color:#FFF8EE;padding:32px 32px 28px;margin-bottom:20px">
+    <p style="font-family:var(--font-display);font-size:11px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:#E87AAA;margin-bottom:10px">My Nest Chapter</p>
+    <h2 style="font-family:var(--font-display);font-size:24px;font-weight:800;color:#FFF8EE;margin-bottom:8px;line-height:1.25">Your complete garage sale plan — from the first box to the last sale.</h2>
+    <p style="font-size:14px;color:rgba(255,248,238,0.75);line-height:1.6;margin-bottom:24px">Work through the five steps below at your own pace. Everything saves automatically. You can close the tab and pick up right where you left off.</p>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:10px;margin-bottom:24px">
+      ${[["1","Start","Set your date, goal, and the reason behind the money."],["2","Sort + Price","Inventory your items, record memories, and price everything."],["3","Sell + Promote","Post your ad, plan your signs, and list the high-value items online."],["4","Prep + Safety","Check off everything before sale day so nothing gets missed."],["5","Sale Day + Wrap","Log sales, calculate change, and close out when it's done."]].map(([n,label,desc])=>`
+      <div style="background:rgba(255,248,238,0.07);padding:14px 16px">
+        <div style="font-family:var(--font-display);font-size:11px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:#E87AAA;margin-bottom:4px">Step ${n} — ${label}</div>
+        <div style="font-size:13px;color:rgba(255,248,238,0.8);line-height:1.5">${desc}</div>
+      </div>`).join('')}
+    </div>
+    <div style="display:flex;gap:10px;flex-wrap:wrap">
+      <button class="btn" style="background:#E87AAA;color:#fff;font-family:var(--font-display);font-weight:800;font-size:13px;letter-spacing:.5px;padding:12px 24px" onclick="showToast('Ready. Fill in your sale details below.')">Start my planner →</button>
+      <button class="btn" style="background:transparent;color:#FFF8EE;border:1.5px solid rgba(255,248,238,0.4);font-family:var(--font-display);font-weight:800;font-size:13px;padding:12px 24px" onclick="startDemo?startDemo():null">See how it works first →</button>
+      <a href="mailto:cece@mynestchapter.com?subject=Garage Sale Planner" style="font-family:var(--font-display);font-size:12px;color:rgba(255,248,238,0.55);text-decoration:underline;margin-left:4px">Questions or feedback? Email Cece</a>
+    </div>
+  </div>`:'';
   return`
+  ${welcome}
   ${renderTipStrip(TIPS.start)}
+  ${renderTourNote("This is the Start tab. Set your sale date and money goal — the tool uses both throughout. The sidebar tracks your progress in real time.")}
   <div style="display:flex;gap:20px;flex-wrap:wrap;align-items:flex-start;padding-top:8px">
 
     <!-- LEFT: form -->
@@ -1126,6 +1155,7 @@ function renderStart(){
 function renderInventory(){
   return`
   ${renderTipStrip(TIPS.inventory)}
+  ${renderTourNote("Add items one by one — name, category, condition, and your price. The tool suggests a price range and the best place to sell it as you go.")}
   <div class="gap-y">
     <div>
       <p style="font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--color-muted);margin-bottom:4px">Sort + Price</p>
@@ -1183,8 +1213,9 @@ function renderAddItemForm(){
         <input class="input" id="di-price" type="number" min="0" step="1" value="${esc(d.price)}" oninput="draftItem('price',this.value)" onblur="draftItemAndRefresh('price',this.value)" placeholder="0" />
       </div>
     </div>
-    <div class="info-box" style="margin-bottom:14px;background:#facfd4">
-      <strong>Suggested:</strong> ${suggested} &nbsp;·&nbsp; <strong>Best fit:</strong> ${platform}
+    <div class="info-box" style="margin-bottom:6px;background:#facfd4;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap">
+      <span><strong>Suggested:</strong> ${suggested} &nbsp;·&nbsp; <strong>Best fit:</strong> ${platform}</span>
+      <a href="#" onclick="goSection('pricing');return false" style="font-family:var(--font-display);font-size:12px;font-weight:700;color:#252535;text-decoration:underline;white-space:nowrap;flex-shrink:0">Full pricing guide →</a>
     </div>
     <div class="form-field" style="margin-bottom:14px">
       <label class="form-label">Notes</label>
@@ -1396,6 +1427,7 @@ function renderMemory(){
   const memories=P.memoryBox||[];
   return`
   ${renderTipStrip(TIPS.memory)}
+  ${renderTourNote("Use Memory Box for anything that makes you pause. Photograph it, write one line about it, then decide. You don't have to keep the item to keep the memory.")}
   <div class="gap-y">
     <div>
       <h2 class="page-title">Memory Box</h2>
@@ -1447,6 +1479,7 @@ function deleteMemory(id){mncConfirm("Remove this memory?",()=>{P.memoryBox=(P.m
 function renderPricing(){
   return`
   ${renderTipStrip(TIPS.pricing)}
+  ${renderTourNote("Reference ranges for every category. Price at 10–25% of retail, round numbers, and drop 50% in the last hour. Trust your gut on the final number.")}
   <div class="gap-y">
     <div>
       <h2 class="page-title">Pricing Guide</h2>
@@ -1495,6 +1528,7 @@ function renderOnline(){
   const onlineItems=(P.items||[]).filter(i=>i.decision==="Sell Online");
   return`
   ${renderTipStrip(TIPS.online)}
+  ${renderTourNote("Platform guide for your high-value items. Furniture goes on Facebook Marketplace. Clothing on Poshmark. Collectibles on eBay. The guide tells you exactly what goes where.")}
   <div class="gap-y">
     <div>
       <h2 class="page-title">Online Selling</h2>
@@ -1534,6 +1568,7 @@ function renderAdvertising(){
   const a=P.advertising||{};
   return`
   ${renderTipStrip(TIPS.advertising)}
+  ${renderTourNote("Write your ad copy here and copy it straight to Facebook, Nextdoor, or local groups. The sign builder generates text for your physical street signs.")}
   <div class="gap-y">
     <div>
       <h2 class="page-title">Ads + Signs</h2>
@@ -1642,6 +1677,7 @@ function renderPrep(){
   const daysStr=days===null?"Set a sale date":days===0?"Sale day is today!":days<0?"Sale passed":days===1?"1 day to go":`${days} days to go`;
   return`
   ${renderTipStrip(TIPS.prep)}
+  ${renderTourNote("Work through this checklist in the days before sale day. The Change + Cash Plan helps you go to the bank with the right bills so you're ready for every transaction.")}
   <div class="gap-y">
     <div>
       <h2 class="page-title">Prep</h2>
@@ -1651,7 +1687,7 @@ function renderPrep(){
       <div class="card">
         <div class="card-title">Prep checklist</div>
         <div style="margin-bottom:14px">
-          <div class="text-muted text-sm">${prepTasks.filter(t=>P.prep?.[t]).length} of ${prepTasks.length} done</div>
+          <div class="text-muted text-sm">${stats.prepDone} of ${stats.prepTotal} done</div>
           <div class="progress" role="progressbar" aria-valuenow="${stats.prepProgress}" aria-valuemin="0" aria-valuemax="100" aria-label="Prep progress" style="margin-top:6px"><div class="progress-fill" style="width:${stats.prepProgress}%"></div></div>
         </div>
         <div class="checklist">
@@ -1660,6 +1696,16 @@ function renderPrep(){
               <div class="check-box" aria-hidden="true">${P.prep?.[t]?"✓":""}</div>
               <label>${esc(t)}</label>
             </div>`).join("")}
+          ${(P.customPrepTasks||[]).map((t,i)=>`
+            <div class="check-item${t.done?" checked":""}" role="checkbox" tabindex="0" aria-checked="${t.done?"true":"false"}" onclick="toggleCustomPrep(${i})" onkeydown="if(event.key===' '||event.key==='Enter'){event.preventDefault();toggleCustomPrep(${i})}">
+              <div class="check-box" aria-hidden="true">${t.done?"✓":""}</div>
+              <label style="flex:1">${esc(t.task)}</label>
+              <button class="btn btn-danger btn-xs" onclick="event.stopPropagation();deleteCustomPrep(${i})" aria-label="Remove task" style="margin-left:8px">×</button>
+            </div>`).join("")}
+        </div>
+        <div style="display:flex;gap:8px;margin-top:12px;align-items:center">
+          <input class="input" id="custom-prep-input" placeholder="Add your own task..." style="flex:1;font-size:14px" onkeydown="if(event.key==='Enter'){addCustomPrepTask();event.preventDefault()}" />
+          <button class="btn btn-secondary btn-sm" onclick="addCustomPrepTask()">Add</button>
         </div>
       </div>
       <div class="gap-y">
@@ -1695,6 +1741,9 @@ function renderPrep(){
 
 function togglePrep(i){const task=prepTasks[i];deepSet(P,["prep",task],!P.prep?.[task]);P.isDemo=false;save();renderContent()}
 function toggleBankReminder(){deepSet(P,["safety","bankReminderDone"],!P.safety?.bankReminderDone);P.isDemo=false;save();renderContent()}
+function addCustomPrepTask(){const el=document.getElementById('custom-prep-input');const v=(el?.value||'').trim();if(!v)return;if(!P.customPrepTasks)P.customPrepTasks=[];P.customPrepTasks.push({task:v,done:false});P.isDemo=false;save();renderContent()}
+function toggleCustomPrep(i){if(!P.customPrepTasks?.[i])return;P.customPrepTasks[i].done=!P.customPrepTasks[i].done;P.isDemo=false;save();renderContent()}
+function deleteCustomPrep(i){if(!P.customPrepTasks)return;P.customPrepTasks.splice(i,1);P.isDemo=false;save();renderContent()}
 
 // ─── SECTION: SAFETY ─────────────────────────────────────────────────────────
 function renderSafety(){
@@ -1703,6 +1752,7 @@ function renderSafety(){
   const pct=Math.round((done/safetyTasks.length)*100);
   return`
   ${renderTipStrip(TIPS.safety)}
+  ${renderTourNote("You're doing this alone. This checklist is specifically for solo sellers — cash handling, property access, and a check-in plan. Go through it before the day.")}
   <div class="gap-y">
     <div>
       <h2 class="page-title">Safety + Logistics</h2>
@@ -1746,8 +1796,18 @@ function toggleSafety(i){const task=safetyTasks[i];deepSet(P,["safety","tasks",t
 function renderSaleDay(){
   const rows=P.calculatorRows||[];const subtotal=calcSubtotal(rows);
   const tx=P.transactions||[];const totalEarned=tx.reduce((s,t)=>s+Number(t.amount||0),0);
+  const sdGoal=Number(P.setup?.moneyGoal||0);const sdPct=sdGoal?Math.min(Math.round((totalEarned/sdGoal)*100),100):0;
   return`
   ${renderTipStrip(TIPS.saleDay)}
+  ${renderTourNote("Use the Calculator to total up a purchase, then hit Record to add it to your Sales Log. The change calculator tells you exactly what to hand back. Everything adds to your running total.")}
+  ${sdGoal?`<div style="background:#fff;border:1px solid var(--color-divider);padding:16px 20px;display:flex;align-items:center;gap:20px;flex-wrap:wrap">
+    <div style="flex:1;min-width:200px">
+      <div style="font-family:var(--font-display);font-size:13px;font-weight:700;color:var(--color-text-muted);text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px">Earned so far</div>
+      <div style="font-family:var(--font-display);font-size:28px;font-weight:800;color:var(--color-text);line-height:1">$${totalEarned.toFixed(2)}<span style="font-size:14px;font-weight:500;color:var(--color-text-muted);margin-left:8px">of $${sdGoal} goal</span></div>
+      <div class="progress" style="margin-top:10px"><div class="progress-fill" style="width:${sdPct}%"></div></div>
+    </div>
+    <div style="font-family:var(--font-display);font-size:22px;font-weight:800;color:${sdPct>=100?'#B5CC6A':'var(--color-primary)'}">${sdPct}%</div>
+  </div>`:''}
   <div class="gap-y">
     <div>
       <h2 class="page-title">Sale Day</h2>
@@ -1913,6 +1973,7 @@ function renderPrintCenter(){
 
   return`
   ${renderTipStrip(TIPS.print)}
+  ${renderTourNote("Print price tags directly from your inventory, area signs for each table, and a sale flyer with tear-off address strips for neighborhood posts.")}
   <div class="gap-y">
     <div>
       <h2 class="page-title">Print Center</h2>
@@ -1974,6 +2035,8 @@ function renderPCTagsContent(tagItems,selItems,allSigns,chosenSign,boxes){
       ${tagItems.length===0?`
         <div class="info-box">No items yet. Add items in Sort + Price, mark them Garage Sale, then come back here to print tags.</div>
       `:`
+      ${tagItems.some(i=>!i.price)?`<div class="warn-box" style="margin-bottom:14px">Some items don't have prices yet — those tags will print with $___. <a href="#" onclick="goSection('inventory');return false" style="color:#252535;font-weight:700;text-decoration:underline">Set prices in Items →</a></div>`:''}
+      `+`
         <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
           <span class="text-muted" style="font-size:var(--text-sm)">${selItems.length} of ${tagItems.length} selected</span>
           <button class="btn btn-ghost btn-xs" onclick="toggleAllTags()">Select all / none</button>
@@ -2196,6 +2259,7 @@ function renderWrap(){
   </div>`:""
   return`
   ${renderTipStrip(TIPS.wrap)}
+  ${renderTourNote("Decide what happens to leftovers before the sale ends — donate, sell online, keep, or trash. Fill this in while you're still outside. Once it's back inside, it stays inside.")}
   <div class="gap-y">
     ${completionScreen}
     <div>
