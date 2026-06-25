@@ -34,17 +34,17 @@
 
       --color-bg:             #FFFFFF;
       --color-surface:        #FFFFFF;
-      --color-surface-2:      #eadffb;
-      --color-surface-3:      #fffacd;
+      --color-surface-2:      #facfd4;
+      --color-surface-3:      #FFF8EE;
       --color-divider:        #E6E2DA;
       --color-border:         #D6D1C8;
       --color-text:           #252535;
-      --color-text-muted:     #5a5770;
-      --color-text-faint:     #5a5770;
+      --color-text-muted:     #8BA7D4;
+      --color-text-faint:     #8BA7D4;
       --color-primary:        #E87AAA;
-      --color-primary-hover:  #d9608f;
-      --color-primary-active: #c9507f;
-      --color-primary-hl:     #FBE0E7;
+      --color-primary-hover:  #E87AAA;
+      --color-primary-active: #E87AAA;
+      --color-primary-hl:     #facfd4;
       --radius-sm:0;--radius-md:0;--radius-lg:0;
       --radius-xl:0;--radius-2xl:0;--radius-full:0;
       --shadow-sm:none;
@@ -80,7 +80,7 @@
     .topbar {
       position:-webkit-sticky;position:sticky;top:0;z-index:200;
       background:#FFFFFF;
-      border-bottom:1px solid #E2DDD5;
+      border-bottom:1px solid var(--color-divider);
       padding:var(--space-3) var(--space-6);
       display:flex;align-items:center;gap:var(--space-4);
     }
@@ -124,7 +124,7 @@
       color:var(--color-text-muted);
       transition:background var(--t),color var(--t);
     }
-    .tab-btn.active{background:#eadffb;color:var(--color-text);box-shadow:var(--shadow-sm)}
+    .tab-btn.active{background:#facfd4;color:var(--color-text);box-shadow:var(--shadow-sm)}
     .tab-btn:hover:not(.active){color:var(--color-text);background:var(--color-surface-2)}
 
     .icon-btn {
@@ -142,14 +142,14 @@
     .metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--space-3);margin-bottom:var(--space-5)}
     @media(max-width:640px){.metrics{grid-template-columns:repeat(2,1fr)}}
     .metric{
-      background:#eadffb;border:none;
+      background:#facfd4;border:none;
       border-radius:var(--radius-lg);padding:24px 20px;
       display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;
     }
     .metric:hover{}
     .metric-label{
       font-size:var(--text-xs);font-weight:600;letter-spacing:.08em;
-      text-transform:uppercase;color:#6E6790;margin-bottom:var(--space-2);
+      text-transform:uppercase;color:var(--color-text-muted);margin-bottom:var(--space-2);
     }
     .metric-value{
       font-size:28px;font-weight:700;line-height:1.3;
@@ -205,11 +205,11 @@
     }
     .btn:disabled{opacity:.45;cursor:not-allowed}
     .btn-primary{background:#E87AAA;color:#FFFFFF;border:1.5px solid #E87AAA;padding:11px 20px;font-family:var(--font-display);font-weight:700;font-size:13.5px;letter-spacing:0.2px}
-    .btn-primary:hover{background:#d9608f;border-color:#d9608f}
-    .btn-primary:active{background:#c9507f;border-color:#c9507f;transform:translateY(1px)}
+    .btn-primary:hover{background:#E87AAA;border-color:#E87AAA}
+    .btn-primary:active{background:#E87AAA;border-color:#E87AAA;transform:translateY(1px)}
     .btn-secondary{background:transparent;color:#E87AAA;border:1.5px solid #E87AAA;padding:11px 20px;font-family:var(--font-display);font-weight:700;font-size:13.5px;letter-spacing:0.2px}
-    .btn-secondary:hover{background:#FBE0E7}
-    .btn-secondary:active{background:#f5c6d5;transform:translateY(1px)}
+    .btn-secondary:hover{background:#facfd4}
+    .btn-secondary:active{background:#facfd4;transform:translateY(1px)}
     .btn-ghost{background:transparent;color:var(--color-primary);border:1.5px solid transparent;padding:var(--space-2) var(--space-3)}
     .btn-ghost:hover{background:var(--color-primary-hl)}
     .btn-white{background:#fff;color:var(--color-primary);border:1.5px solid rgba(255,255,255,.3)}
@@ -221,7 +221,7 @@
 
     /* ─── CARDS ─── */
     .card{
-      background:var(--color-surface);border:1px solid #DFD9CE;
+      background:var(--color-surface);border:1px solid var(--color-border);
       border-radius:var(--radius-xl);padding:var(--space-6);
     }
     .card+.card{margin-top:var(--space-4)}
@@ -242,7 +242,7 @@
     .form-field{display:flex;flex-direction:column;gap:var(--space-2)}
     .form-label{font-size:13px;font-weight:700;letter-spacing:0;color:var(--color-text);font-family:var(--font-display)}
     .input,.select,.textarea{
-      width:100%;border:1px solid #D1C9BC;
+      width:100%;border:1px solid var(--color-border);
       padding:12px 14px;
       font-size:16px;color:#252535;
       background:#FFFFFF;transition:border-color var(--t);outline:none;
@@ -274,12 +274,12 @@
     tbody td{padding:var(--space-3) var(--space-4);vertical-align:middle}
     .td-name{font-weight:600;max-width:160px}
     .td-chip{display:inline-block;border-radius:var(--radius-full);padding:var(--space-1) var(--space-3);font-size:var(--text-xs);font-weight:600}
-    .chip-sale{background:#FBE0E7;color:#252535}
-    .chip-online{background:#eadffb;color:#252535}
-    .chip-donate{background:#b9e85b;color:#252535}
-    .chip-keep{background:#fffacd;color:#252535}
-    .chip-trash{background:#cfc7e8;color:#252535}
-    .chip-notsure{background:#f9b0c0;color:#252535}
+    .chip-sale{background:#facfd4;color:#252535}
+    .chip-online{background:#C4B0E8;color:#252535}
+    .chip-donate{background:#B5CC6A;color:#252535}
+    .chip-keep{background:#EDD96A;color:#252535}
+    .chip-trash{background:#A8C5DA;color:#252535}
+    .chip-notsure{background:#F5C4A8;color:#252535}
     .sold-row{opacity:.5}
 
     /* ─── PROGRESS ─── */
@@ -355,7 +355,7 @@
 
     /* ─── INFO / WARN BOXES ─── */
     .info-box{background:var(--color-primary-hl);border-radius:var(--radius-lg);padding:var(--space-4) var(--space-5);font-size:var(--text-sm);color:var(--color-text);line-height:1.7}
-    .warn-box{background:#fff7ed;border-radius:var(--radius-lg);padding:var(--space-4) var(--space-5);font-size:var(--text-sm);color:#92400e;line-height:1.7}
+    .warn-box{background:#F5C4A8;border-radius:var(--radius-lg);padding:var(--space-4) var(--space-5);font-size:var(--text-sm);color:#252535;line-height:1.7}
 
     /* ─── UTILITY ─── */
     .gap-y{display:flex;flex-direction:column;gap:var(--space-4)}
@@ -413,7 +413,7 @@
 
     /* ─── TOAST ─── */
     .mnc-toast{position:fixed;top:20px;left:50%;transform:translateX(-50%);
-      background:#E87AAA;color:#fff;border-bottom:2px solid #c9507f;
+      background:#E87AAA;color:#fff;border-bottom:2px solid #E87AAA;
       font-family:var(--font-display);font-weight:800;font-size:9pt;
       letter-spacing:2px;text-transform:uppercase;
       padding:10px 20px;z-index:9999;pointer-events:none;
@@ -433,13 +433,13 @@
       .print-page-break{break-after:page;page-break-after:always}
       /* ── Quick price tag sheets */
       .print-quick-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:0;width:100%}
-      .print-quick-tag{border:1px dashed #aaa;display:flex;align-items:center;justify-content:center;flex-direction:column;aspect-ratio:1;text-align:center;break-inside:avoid;page-break-inside:avoid;padding:2pt}
-      .print-sign-cut{border-top:1pt dashed #aaa;width:100%;margin:6pt 0}
+      .print-quick-tag{border:1px dashed #E6E2DA;display:flex;align-items:center;justify-content:center;flex-direction:column;aspect-ratio:1;text-align:center;break-inside:avoid;page-break-inside:avoid;padding:2pt}
+      .print-sign-cut{border-top:1pt dashed #E6E2DA;width:100%;margin:6pt 0}
       /* ── Area signs — 2 per page */
       .print-area-sign{height:47vh;display:flex;align-items:center;justify-content:center;flex-direction:column;text-align:center;border:1.5pt solid #252535;padding:30pt;break-inside:avoid;page-break-inside:avoid}
       /* ── Sale flyers */
       .print-flyer{width:100%;min-height:88vh;break-after:always;page-break-after:always;display:flex;flex-direction:column;text-align:center;padding:20pt}
-      .print-tearoff-strip{border-top:1pt dashed #aaa;padding:7pt 0;font-size:10pt;font-family:var(--font-body);text-align:center}
+      .print-tearoff-strip{border-top:1pt dashed #E6E2DA;padding:7pt 0;font-size:10pt;font-family:var(--font-body);text-align:center}
       @page{size:8.5in 11in portrait;margin:.5in}
     }
     #print-section{display:none}
@@ -486,20 +486,20 @@
     /* ─── BELL + NOTIFICATION PANEL ─── */
     .bell-panel{
       position:fixed;top:64px;right:12px;width:340px;max-height:480px;
-      background:#fff;border:1px solid #DFD9CE;z-index:1000;overflow-y:auto;
+      background:#fff;border:1px solid var(--color-border);z-index:1000;overflow-y:auto;
       display:flex;flex-direction:column;
     }
     @media(max-width:600px){.bell-panel{top:56px;right:4px;left:4px;width:auto}}
     .bell-notif{padding:14px 16px;border-bottom:1px solid #E6E2DA}
     .bell-notif:last-child{border-bottom:none}
     .bell-notif-msg{font-family:'DM Sans',sans-serif;font-size:13px;color:#252535;line-height:1.5}
-    .bell-notif-time{font-family:'DM Sans',sans-serif;font-size:11px;color:#5a5770;margin-top:3px}
+    .bell-notif-time{font-family:'DM Sans',sans-serif;font-size:11px;color:var(--color-text-muted);margin-top:3px}
     .bell-notif-actions{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
-    .bell-action-btn{font-family:'DM Sans',sans-serif;font-size:11px;font-weight:700;color:#E87AAA;background:#FBE0E7;border:none;padding:6px 12px;cursor:pointer}
-    .bell-action-btn:hover{background:#f5c6d5}
-    .bell-dismiss-btn{font-family:'DM Sans',sans-serif;font-size:11px;color:#5a5770;background:none;border:1px solid #D6D1C8;padding:6px 12px;cursor:pointer}
-    .bell-dismiss-btn:hover{background:#f5f3f0}
-    .bell-empty{padding:28px 16px;text-align:center;font-family:'DM Sans',sans-serif;font-size:13px;color:#5a5770}
+    .bell-action-btn{font-family:'DM Sans',sans-serif;font-size:11px;font-weight:700;color:#E87AAA;background:#facfd4;border:none;padding:6px 12px;cursor:pointer}
+    .bell-action-btn:hover{background:#facfd4}
+    .bell-dismiss-btn{font-family:'DM Sans',sans-serif;font-size:11px;color:var(--color-text-muted);background:none;border:1px solid var(--color-border);padding:6px 12px;cursor:pointer}
+    .bell-dismiss-btn:hover{background:#FFF8EE}
+    .bell-empty{padding:28px 16px;text-align:center;font-family:'DM Sans',sans-serif;font-size:13px;color:var(--color-text-muted)}
 
 </style>
 </head>
@@ -763,21 +763,35 @@ function renderAdAccordionRow(p,i){
   </div>`;
 }
 
-const rotatingTips = [
-  "Price to sell, not to keep. You'll make more by letting go.",
-  "Set your goal before you start. It helps you know when to stop negotiating.",
-  "The best garage sale sign has one word on it: BIG ARROWS.",
-  "Put your best stuff at the front. People decide in the first 30 seconds.",
-];
+const TIPS={
+  start:["Pick a date and put it in this tool right now. The amount of stuff sitting in closets waiting for the right weekend is exactly what garage sales are for.","7am is not too early. People who shop garage sales are up before you are. They will sit in front of your house at 6:45. This is not an exaggeration.","Set your money goal and put a reason behind it. A want of $300 for a weekend trip prices differently than wanting to get rid of stuff. Know which one this is before you start sorting.","Do you have boxes that you just move from room to room? Start going through them, one at a time.","You took care of everything by yourself for years. A garage sale will be easy.","Be specific. $300 for the electric bill keeps you at the table longer than whatever I make.","You will absolutely think of something better to spend this money on five minutes after you hit your goal. You earned it, spend it how you want.","If you're splitting it between something fun and something necessary, price the necessary stuff to actually move. The fun half can wait.","I used my garage sale money for a designer purse that I'd been saying someday to for so long."],
+  inventory:["When you're not sure whether to price it $2 or $5, ask yourself which one means you don't have to carry it back inside. That usually answers it.","But I paid so much for this is the most expensive thought you can have at a garage sale. Price what it's worth today, not what it cost then.","Condition matters more than original price. A great item in rough shape sells for less than a good item in good shape. Price what they're buying.","If you're going room by room, do the easy rooms first. You'll make better decisions when you're not already worn out.","A price on everything means she keeps moving. No price means she puts it down and walks away. Sticker everything before the day."],
+  memory:["You don't have to keep it to keep the memory. That's what this is for.","Take a photo. Write one line about it. Then let it go to someone who's going to use it. That's not losing it. That's passing it on.","I have one t-shirt from every sport each of my kids played. Those stay. Always. But the equipment, the gear, the extra everything from those years — that all goes. Knowing what I'm keeping makes it a lot easier to let go of the rest.","The Memory Box isn't about holding on. It's about making a record before you let go. There's a difference.","Some of it will stop you. That happens. Take a minute. Then keep going."],
+  pricing:["The goal is for it to leave your house. Price it like you mean that.","Round numbers move faster. $2, $5, $10. Nobody wants to make change for $3.75. Nobody.","Put your high-ticket items at the front of the driveway. People stop for them on the way in and stay for everything else.","If you've got a box of stuff that's all worth a dollar or less, make it a free table. It clears fast and buyers feel good about you.","Bundling works. 3 for $5 sells three items you'd have gotten $1 each for. Do the math."],
+  online:["Facebook Marketplace is the easiest place to start for big items. Post it today — furniture moves fast if you price it right.","Poshmark is for your good stuff. Not for the $2 rack. If you wouldn't pay that price for it online, neither will anyone else.","A blurry photo costs you a sale every time. Set the item by a window. That's it. That's the whole photography tip.","eBay is for items with a brand name people search for — electronics, collectibles, name brands. Not random kitchen stuff.","Post the same item on two platforms. First one to sell, you pull the other listing. It costs nothing and doubles your chances."],
+  advertising:["The headline is the only thing most people read. Big garage sale Saturday is not a headline. List what you actually have.","Furniture, kids items, kitchen, tools, clothing moves people. Categories tell them whether it's worth the drive before they even leave the house.","Post Thursday night. People plan their Saturday morning route on Friday. Be there before they make the list.","Don't put your full address in the ad until 24 hours before. Share it by DM when someone asks. Small thing, worth doing.","Photos in the ad get more clicks. Take three. They don't have to be perfect. Post them anyway."],
+  print:["Signs at every turn, not just the corner. If she turns and can't see the next arrow, she keeps driving.","People find your sale from the car. Make the arrow bigger than you think.","Print your price tags the night before. Stickering on the morning of is how things end up unpriced and sit there all day.","Category signs on your tables move people through faster. When she knows where the kitchen stuff is, she goes straight there. Without signs, she wanders and leaves.","Print your half-price sign before the day. You'll want it up fast when the last hour hits and you're already tired."],
+  prep:["Tables. You need more than you think. Folding tables, card tables, a board across sawhorses — buyers don't want to dig through boxes on the ground.","Start your cash box with $50 in small bills. Enough to make change without running back inside every five minutes.","Charge your phone the night before. You're taking Venmo, looking things up, texting your check-in person. You need a full battery before 7am.","Have bags. People buy more when they can carry more. Paper grocery bags from under the sink are fine.","Set up as much as you can the night before. Moving furniture at 6am in the dark is a lot. Give yourself a head start."],
+  safety:["Tell someone you're out there. A text at the start of the day and a text when you close up. That's the minimum.","Keep your cash on your body, not on the table. Crossbody bag. Front pocket. Somewhere that moves when you move.","You're allowed to say no to anyone for any reason. Cash only, sorry is a complete answer. So is I'm closing up for a bit.","If something feels wrong, it probably is. You've been reading people your whole life. Trust that.","A neighbor who can see your driveway is worth more than any security system. Text them you're having a sale. Let them know."],
+  saleDay:["Log each sale as it happens. At the end of the day you'll want to know where the money came from. And watching the number go up is actually really good.","The first hour is always the slowest. By 9am it picks up. Don't let the first 45 minutes tell you how the whole day is going.","Someone's going to offer you half price. You can say no. You can also say yes. You're the one carrying it back inside if it doesn't sell.","Bundle deals in the last hour. Pick any 5 items for $5. You'll move things you'd be donating in an hour anyway.","When you hit your goal — stop for a second. Notice it. You set a number and you got there. That doesn't just happen."],
+  wrap:["Whatever's left — have a plan before you close up. Donation box in the trunk, neighbor who wants first pick, straight to Goodwill. Don't bring it back inside.","When the last person leaves, I always feel good. Less stuff. More room. Money in my pocket. I don't know why I always waited so long to do it.","Take a photo of what's left before you donate it. For your records. And because seeing how much actually left the house — that's the real number.","The money is real. Go do the thing you said you were going to do with it."]
+};
+function getSectionTips(){
+  const map={"start|start":TIPS.start,"sortPrice|inventory":TIPS.inventory,"sortPrice|batch":TIPS.inventory,"sortPrice|memory":TIPS.memory,"sortPrice|pricing":TIPS.pricing,"sellPromote|online":TIPS.online,"sellPromote|advertising":TIPS.advertising,"prepSafety|prep":TIPS.prep,"prepSafety|safety":TIPS.safety,"saleWrap|sale":TIPS.saleDay,"saleWrap|tags":TIPS.print,"saleWrap|wrap":TIPS.wrap};
+  return map[UI.tab+"|"+UI.section]||TIPS.start;
+}
+function renderTipStrip(tips){
+  return`<div style="background:#252535;color:#FFF8EE;padding:11px 20px;font-family:var(--font-body);font-size:14px;line-height:1.4;margin-bottom:16px"><span id="tip-text">${esc(tips[0])}</span></div>`;
+}
 let _tipInterval=null;let _tipIdx=0;
-function startTipRotation(){
+function startTipRotation(tips){
   if(_tipInterval)clearInterval(_tipInterval);
   _tipIdx=0;
   _tipInterval=setInterval(()=>{
-    _tipIdx=(_tipIdx+1)%rotatingTips.length;
+    _tipIdx=(_tipIdx+1)%tips.length;
     const t=document.getElementById('tip-text');
     if(!t){clearInterval(_tipInterval);_tipInterval=null;return;}
-    t.textContent=rotatingTips[_tipIdx];
+    t.textContent=tips[_tipIdx];
   },8000);
 }
 
@@ -808,7 +822,7 @@ function showToast(msg){
 function mncConfirm(msg,onConfirm){
   const ov=document.createElement('div');
   ov.style.cssText='position:fixed;inset:0;background:rgba(0,0,0,0.45);z-index:8000;display:flex;align-items:center;justify-content:center';
-  ov.innerHTML=`<div style="background:#fff;border:1px solid #ABABAB;padding:32px 36px;max-width:400px;width:90%;box-sizing:border-box">
+  ov.innerHTML=`<div style="background:#fff;border:1px solid var(--color-border);padding:32px 36px;max-width:400px;width:90%;box-sizing:border-box">
     <p style="font-family:'DM Sans',sans-serif;font-size:12pt;color:#252535;margin:0 0 24px;line-height:1.5">${esc(msg)}</p>
     <div style="display:flex;gap:12px;justify-content:flex-end">
       <button id="mnc-cancel-btn" style="font-family:var(--font-display);font-weight:800;font-size:11pt;color:#E87AAA;background:#fff;border:1px solid #E87AAA;padding:10px 20px;cursor:pointer;text-transform:uppercase;touch-action:manipulation">Cancel</button>
@@ -1004,7 +1018,8 @@ function renderContent(){
   const el=document.getElementById("content");
   el.style.opacity='0';
   const key=UI.tab+"|"+UI.section;
-  if(UI.tab==="start"){setTimeout(()=>fetchWeather(P.setup?.saleDate||null),50);setTimeout(startTipRotation,60);}
+  if(UI.tab==="start"){setTimeout(()=>fetchWeather(P.setup?.saleDate||null),50);}
+  const _st=getSectionTips();setTimeout(()=>startTipRotation(_st),60);
   const map={
     "start|start":renderStart,
     "sortPrice|inventory":renderInventory,
@@ -1030,9 +1045,7 @@ function renderStart(){
   const daysStr=days===null?"Set a date to see the countdown":days===0?"Sale day is today!":days<0?`Sale was ${Math.abs(days)} day${Math.abs(days)===1?"":"s"} ago`:`${days} day${days===1?"":"s"} until sale day`;
   const saleDateLabel=s.saleDate?new Date(s.saleDate+"T00:00:00").toLocaleDateString("en-US",{weekday:"long",month:"long",day:"numeric",year:"numeric"}):"";
   return`
-  <div style="background:#252535;color:#FFF8EE;padding:11px 20px;font-family:var(--font-body);font-size:14px;line-height:1.4;margin-bottom:16px">
-    <span id="tip-text">${esc(rotatingTips[0])}</span>
-  </div>
+  ${renderTipStrip(TIPS.start)}
   <div style="display:flex;gap:20px;flex-wrap:wrap;align-items:flex-start;padding-top:8px">
 
     <!-- LEFT: form -->
@@ -1062,7 +1075,7 @@ function renderStart(){
         <div id="goal-pct" class="metric-value" style="font-size:44px;line-height:1">${stats.goalProgress}%</div>
         <div id="goal-sub" class="text-muted" style="margin-top:8px">$${stats.earned.toFixed(2)} earned · $${stats.goalLeft.toFixed(2)} left</div>
         <div class="progress progress-lg" role="progressbar" aria-valuenow="${stats.goalProgress}" aria-valuemin="0" aria-valuemax="100" aria-label="Goal progress" style="margin-top:14px;margin-bottom:18px"><div class="progress-fill" id="goal-bar" style="width:${stats.goalProgress}%"></div></div>
-        <div style="background:#FBE0E7;padding:16px 18px;font-size:14px;color:var(--color-text);line-height:1.55">Set a goal that means something to you — not just a number.</div>
+        <div style="background:#facfd4;padding:16px 18px;font-size:14px;color:var(--color-text);line-height:1.55">Set a goal that means something to you — not just a number.</div>
       </div>
 
       <!-- Sale countdown -->
@@ -1083,7 +1096,7 @@ function renderStart(){
               Outlook / Microsoft
             </button>
             <button class="cal-opt-btn" style="border-top:1px solid var(--color-divider)" onclick="downloadCalendar()">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><rect x="3" y="4" width="18" height="17" rx="2" stroke="#555" stroke-width="2"/><line x1="3" y1="9" x2="21" y2="9" stroke="#555" stroke-width="2"/><line x1="8" y1="2" x2="8" y2="6" stroke="#555" stroke-width="2"/><line x1="16" y1="2" x2="16" y2="6" stroke="#555" stroke-width="2"/></svg>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><rect x="3" y="4" width="18" height="17" rx="2" stroke="#252535" stroke-width="2"/><line x1="3" y1="9" x2="21" y2="9" stroke="#252535" stroke-width="2"/><line x1="8" y1="2" x2="8" y2="6" stroke="#252535" stroke-width="2"/><line x1="16" y1="2" x2="16" y2="6" stroke="#252535" stroke-width="2"/></svg>
               Apple / Other (.ics)
             </button>
           </div>`:""}
@@ -1112,6 +1125,7 @@ function renderStart(){
 // ─── SECTION: INVENTORY ───────────────────────────────────────────────────────
 function renderInventory(){
   return`
+  ${renderTipStrip(TIPS.inventory)}
   <div class="gap-y">
     <div>
       <p style="font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--color-muted);margin-bottom:4px">Sort + Price</p>
@@ -1191,7 +1205,7 @@ function invTally(items){
 }
 
 function invSearchBar(){
-  const pillStyle=`font-family:var(--font-display);font-size:13px;font-weight:600;border:1.5px solid #d4cfe8;background:#fff;padding:8px 32px 8px 14px;appearance:none;-webkit-appearance:none;cursor:pointer;color:var(--color-text);background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%23888' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 10px center`;
+  const pillStyle=`font-family:var(--font-display);font-size:13px;font-weight:600;border:1.5px solid #C4B0E8;background:#fff;padding:8px 32px 8px 14px;appearance:none;-webkit-appearance:none;cursor:pointer;color:var(--color-text);background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%23888' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 10px center`;
   return`<div class="row" style="gap:8px;margin-bottom:20px;flex-wrap:wrap;align-items:center">
     <input class="input" id="inv-search" placeholder="Search items..." value="${esc(itemSearch)}" style="flex:1;min-width:160px" oninput="handleInvSearch(this)" />
     <select style="${pillStyle}" onchange="invCatFilter=this.value;renderContent()">
@@ -1259,8 +1273,8 @@ function renderItemTable(){
     ${visible.length===0?`<div class="empty-state">${items.length===0?"No items yet — click &quot;+ Add an item&quot; above to get started.":"No items match your search."}</div>`:`
     <div class="tbl-wrap"><table>
       <thead><tr>
-        <th style="background:#eadffb">Sold</th><th style="background:#eadffb">Item</th><th style="background:#eadffb">Category</th><th style="background:#eadffb">Condition</th><th style="background:#eadffb">Decision</th>
-        <th style="background:#eadffb">Price</th><th style="background:#eadffb">Best Fit</th><th style="background:#eadffb"></th>
+        <th style="background:#facfd4">Sold</th><th style="background:#facfd4">Item</th><th style="background:#facfd4">Category</th><th style="background:#facfd4">Condition</th><th style="background:#facfd4">Decision</th>
+        <th style="background:#facfd4">Price</th><th style="background:#facfd4">Best Fit</th><th style="background:#facfd4"></th>
       </tr></thead>
       <tbody>${visible.map(item=>`
         <tr class="${item.sold?"sold-row":""}">
@@ -1316,6 +1330,7 @@ function renderBatch(){
   _boxPhotoData="";
   const boxes=P.batchBoxes||[];
   return`
+  ${renderTipStrip(TIPS.inventory)}
   <div class="gap-y">
     <div>
       <h2 class="page-title">Batch Boxes</h2>
@@ -1380,6 +1395,7 @@ function renderMemory(){
   _memPhotoData="";
   const memories=P.memoryBox||[];
   return`
+  ${renderTipStrip(TIPS.memory)}
   <div class="gap-y">
     <div>
       <h2 class="page-title">Memory Box</h2>
@@ -1430,6 +1446,7 @@ function deleteMemory(id){mncConfirm("Remove this memory?",()=>{P.memoryBox=(P.m
 // ─── SECTION: PRICING GUIDE ───────────────────────────────────────────────────
 function renderPricing(){
   return`
+  ${renderTipStrip(TIPS.pricing)}
   <div class="gap-y">
     <div>
       <h2 class="page-title">Pricing Guide</h2>
@@ -1477,6 +1494,7 @@ function renderPricing(){
 function renderOnline(){
   const onlineItems=(P.items||[]).filter(i=>i.decision==="Sell Online");
   return`
+  ${renderTipStrip(TIPS.online)}
   <div class="gap-y">
     <div>
       <h2 class="page-title">Online Selling</h2>
@@ -1515,6 +1533,7 @@ function renderOnline(){
 function renderAdvertising(){
   const a=P.advertising||{};
   return`
+  ${renderTipStrip(TIPS.advertising)}
   <div class="gap-y">
     <div>
       <h2 class="page-title">Ads + Signs</h2>
@@ -1546,7 +1565,7 @@ function renderAdvertising(){
           <div class="card-title">Sign builder</div>
           ${field("Sign headline","text","advertising.signHeadline",a.signHeadline,"GARAGE SALE TODAY")}
           <div style="margin-top:10px">${field("Details","text","advertising.signDetails",a.signDetails,"8 AM–2 PM · Home Decor · Furniture · Kitchen")}</div>
-          <div style="font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#5a5770;margin-top:16px;margin-bottom:6px">Preview</div>
+          <div style="font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--color-text-muted);margin-top:16px;margin-bottom:6px">Preview</div>
           <div class="sign-preview">
             <div class="sign-headline">${esc(a.signHeadline||"GARAGE SALE")}</div>
             <div class="sign-details">${esc(a.signDetails||"Today · Priced to Move")}</div>
@@ -1622,6 +1641,7 @@ function renderPrep(){
   const stats=getStats(P);const days=daysUntilSale(P.setup?.saleDate);
   const daysStr=days===null?"Set a sale date":days===0?"Sale day is today!":days<0?"Sale passed":days===1?"1 day to go":`${days} days to go`;
   return`
+  ${renderTipStrip(TIPS.prep)}
   <div class="gap-y">
     <div>
       <h2 class="page-title">Prep</h2>
@@ -1682,6 +1702,7 @@ function renderSafety(){
   const done=safetyTasks.filter(t=>s.tasks?.[t]).length;
   const pct=Math.round((done/safetyTasks.length)*100);
   return`
+  ${renderTipStrip(TIPS.safety)}
   <div class="gap-y">
     <div>
       <h2 class="page-title">Safety + Logistics</h2>
@@ -1726,6 +1747,7 @@ function renderSaleDay(){
   const rows=P.calculatorRows||[];const subtotal=calcSubtotal(rows);
   const tx=P.transactions||[];const totalEarned=tx.reduce((s,t)=>s+Number(t.amount||0),0);
   return`
+  ${renderTipStrip(TIPS.saleDay)}
   <div class="gap-y">
     <div>
       <h2 class="page-title">Sale Day</h2>
@@ -1759,7 +1781,7 @@ function renderSaleDay(){
             <label class="form-label" for="change-given">Customer gave me ($)</label>
             <input class="input" type="number" id="change-given" min="0" step="0.25" placeholder="0.00" oninput="calcChange()" style="font-size:20px;font-weight:700" />
           </div>
-          <div id="change-result" style="display:none;background:#eadffb;padding:16px 20px">
+          <div id="change-result" style="display:none;background:#facfd4;padding:16px 20px">
             <div style="font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--color-text-muted);margin-bottom:4px">Give back</div>
             <div id="change-amount" style="font-family:var(--font-display);font-size:40px;font-weight:700;color:var(--color-text)">$0.00</div>
           </div>
@@ -1823,7 +1845,7 @@ function calcChange(){
     return;
   }
   result.style.display='block';
-  result.style.background='#eadffb';
+  result.style.background='#facfd4';
   amt.style.color='var(--color-text)';
   amt.textContent='$'+(given-sub).toFixed(2);
 }
@@ -1890,6 +1912,7 @@ function renderPrintCenter(){
     :renderPCFlyersContent();
 
   return`
+  ${renderTipStrip(TIPS.print)}
   <div class="gap-y">
     <div>
       <h2 class="page-title">Print Center</h2>
@@ -2172,6 +2195,7 @@ function renderWrap(){
     <p style="font-family:var(--font-display);font-size:12px;color:#8BA7D4;margin:0;">— Cece</p>
   </div>`:""
   return`
+  ${renderTipStrip(TIPS.wrap)}
   <div class="gap-y">
     ${completionScreen}
     <div>
@@ -2183,7 +2207,7 @@ function renderWrap(){
         <div class="card-title">Leftovers plan</div>
         <div class="gap-y-sm">
           ${areaField("Donate","wrap.donate",w.donate,"Which items go directly to donation after the sale?")}
-          ${w.donate?`<div style="background:#f0fdf4;border:1px solid #bbf7d0;border-radius:var(--radius-lg);padding:12px 16px;font-size:var(--text-sm);color:#166534;line-height:1.7">Someone else will find exactly what they need from what you are letting go. That matters.</div>`:""}
+          ${w.donate?`<div style="background:#B5CC6A;border:1px solid #B5CC6A;padding:12px 16px;font-size:var(--text-sm);color:#252535;line-height:1.7">Someone else will find exactly what they need from what you are letting go.</div>`:""}
           ${areaField("Sell online after","wrap.sellOnline",w.sellOnline,"Any items worth listing if they did not sell today?")}
           ${areaField("Keep","wrap.keep",w.keep,"Anything you changed your mind about? Note it here.")}
           ${areaField("Trash","wrap.trash",w.trash,"Broken, expired, or truly useless items.")}
@@ -2517,7 +2541,7 @@ function printFlyer(type){
   const f=UI.flyer||{};
   const dateTime=esc([f.date,f.time].filter(Boolean).join(' · '));
   const tearStrips=type==='tearoff'?`
-    <div style="margin-top:24pt;border-top:1pt dashed #aaa;padding-top:6pt">
+    <div style="margin-top:24pt;border-top:1pt dashed #E6E2DA;padding-top:6pt">
       ${Array(8).fill(`<div class="print-tearoff-strip">${esc([f.address,f.date].filter(Boolean).join(' · '))||'Address · Date'}</div>`).join('')}
     </div>`:'';
   document.getElementById('print-inner').innerHTML=`

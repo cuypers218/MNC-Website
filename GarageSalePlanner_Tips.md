@@ -173,7 +173,7 @@ Written in Cece's voice. Brand-checked against YNC_Brand_SKILL_v4_June2026.md.
 
 2. When the last person leaves, I always feel good. Less stuff. More room. Money in my pocket. I don't know why I always waited so long to do it.
 
-3. Take a photo of what's left before you donate it. For your records. And because sometimes you need to see how much actually left.
+3. Take a photo of what's left before you donate it. For your records. And because seeing how much actually left the house — that's the real number.
 
 4. The money is real. Go do the thing you said you were going to do with it.
 
