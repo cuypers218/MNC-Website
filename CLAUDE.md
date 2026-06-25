@@ -14,6 +14,7 @@ This file lives in the repo so both AI assistants working on this site — the o
 4. This file does NOT replace the full brand voice/copy rules — those live in `YNC_Brand_SKILL_v4_June2026.md` (ask Cece for it if a banned-word check is needed on new copy). This file is for structure, logic, and placement decisions.
 5. For any visual or design decision, read `DESIGN.md` in the repo root — it is the canonical design system and overrides any color, font, or spacing choice not explicitly locked here.
 6. Before starting any new widget or product build, read `MNC_Interactive_Product_Build_Process.md` in the repo root — it contains the mandatory 5-phase build process and prompts.
+7. At the start of every session, read `MNC-PRODUCT-ROADMAP.md` in the repo root — it is the live product status tracker and tells you what's done, what's pending, and what to work on next.
 
 ---
 

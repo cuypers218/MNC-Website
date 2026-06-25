@@ -88,14 +88,14 @@ Last updated: June 2026
 
 ---
 
-### Cooking for One — NOT YET LIVE
-**Status:** Built (v2) but NOT deployed — uses retired plum palette
-**File:** OneDrive/Brand Products/weekly-cooking-for-one-v2.html
-**Pending before going live:**
-- [ ] Color rebrand (plum palette → new MNC palette)
-- [ ] Add to Stripe products table
-- [ ] Create shop product card
-- [ ] Deploy to /widgets/cooking-for-one/
+### Cooking for One Planner — $27
+**Status:** Live and purchasable
+**Where:** mynestchapter.com/shop/cooking-for-one
+**Widget:** /widgets/cooking-for-one/widget.html
+**Payments:** Stripe live ✅ | Reach segment wired ✅
+
+**Pending:**
+- [ ] Visual rebuild to match Garage Sale Planner style (back burner — no brief yet)
 
 ---
 
