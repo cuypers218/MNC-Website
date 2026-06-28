@@ -32,6 +32,15 @@ function formatPrice($price) {
 }
 
 /**
+ * Short title for CTA buttons — strips leading "The/A", drops subtitles after "? " or ": "
+ */
+function ctaTitle($title) {
+    $t = preg_replace('/^(the|a)\s+/i', '', trim($title));
+    $t = preg_replace('/(\?|:)\s+[A-Z].*$/u', '$1', $t);
+    return $t;
+}
+
+/**
  * Get all active products, optionally filtered by category
  */
 function getProducts($category = null) {

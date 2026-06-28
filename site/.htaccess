@@ -1,6 +1,10 @@
 RewriteEngine On
 RewriteBase /
 
+# Force non-www
+RewriteCond %{HTTP_HOST} ^www\.mynestchapter\.com$ [NC]
+RewriteRule ^ https://mynestchapter.com%{REQUEST_URI} [R=301,L]
+
 # Force HTTPS
 RewriteCond %{HTTPS} off
 RewriteRule ^(.*)$ https://%{HTTP_HOST}/$1 [R=301,L]
@@ -85,6 +89,8 @@ RewriteRule ^download/([a-zA-Z0-9]+)/?$ download.php?token=$1 [L]
 RewriteRule ^api/auth/?$ api/auth.php [L]
 RewriteRule ^api/webhook/?$ api/stripe-webhook.php [L]
 RewriteRule ^api/email/?$ api/email.php [L]
+RewriteRule ^api/photo-identify/?$ api/photo-identify.php [L]
+RewriteRule ^api/price-lookup/?$ api/price-lookup.php [L]
 
 # 404
 ErrorDocument 404 /404.php

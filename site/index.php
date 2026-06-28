@@ -6,11 +6,22 @@
     <title>Solo Mom. Empty Nest. Now What? | My Nest Chapter</title>
     <meta name="description" content="Tools and resources built from lived experience, for single and solo moms navigating the empty nest transition.">
     
+    <link rel="canonical" href="https://mynestchapter.com/">
     <!-- Open Graph -->
-    <meta property="og:title" content="Solo Mom. Empty Nest. Now What?">
+    <meta property="og:site_name" content="My Nest Chapter">
+    <meta property="og:title" content="Solo Mom. Empty Nest. Now What? | My Nest Chapter">
     <meta property="og:description" content="Tools and resources built from lived experience, for single and solo moms navigating the empty nest transition.">
     <meta property="og:url" content="https://mynestchapter.com/">
     <meta property="og:type" content="website">
+    <meta property="og:image" content="https://mynestchapter.com/assets/images/logo.png">
+    <meta property="og:see_also" content="https://www.facebook.com/profile.php?id=61590806030391">
+    <meta property="og:see_also" content="https://www.instagram.com/my.nest.chapter/">
+    <meta property="og:see_also" content="https://www.pinterest.com/mynestchapter">
+    <!-- Twitter / X Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Solo Mom. Empty Nest. Now What? | My Nest Chapter">
+    <meta name="twitter:description" content="Tools and resources built from lived experience, for single and solo moms navigating the empty nest transition.">
+    <meta name="twitter:image" content="https://mynestchapter.com/assets/images/logo.png">
     
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -403,36 +414,48 @@ window.mncCloseModal = function() {
 <!-- LATEST FROM THE BLOG -->
 
 <!-- FEATURED PRODUCTS -->
-<section class="section section-warm">
+<section class="section">
     <div class="container">
-        <h2 class="text-center" style="margin-bottom: 0.5rem;">Tools I Built Because I Needed Them</h2>
+        <h2 class="text-center" style="margin-bottom: 0.5rem;">Each one helped me. Still does.<br>Maybe they can help you too.</h2>
         <p class="text-center" style="color: #666666; font-size: 0.9rem; margin-bottom: 2rem;">Some are free. Some aren't. All of them came from something real.</p>
-        
+
         <div class="product-grid">
-                        <div class="product-card fade-in">
-                <span class="badge ">
-                    $14.99                </span>
-                                <div class="product-card-content">
-                    <span class="product-card-category">workbook</span>
+
+            <!-- Now What? Workbook -->
+            <div class="product-card fade-in">
+                <span class="badge">$14.99</span>
+                <div class="product-card-content">
+                    <span class="product-card-category">Workbook</span>
                     <h3 class="product-card-title">Now What? A Workbook for Solo Moms in the Empty Nest</h3>
                     <p class="product-card-description">The workbook I made because nothing out there sounded like me. Activities, reflections, and honest space for solo moms figuring out what comes next.</p>
-                    <a href="/shop/now-what-workbook" class="btn btn-primary">
-                        Learn More                    </a>
+                    <a href="/shop/now-what-workbook" class="btn btn-primary">Get the Now What?</a>
                 </div>
             </div>
-                        <div class="product-card fade-in">
-                <span class="badge badge-free">
-                    FREE                </span>
-                                <div class="product-card-content">
-                    <span class="product-card-category">free</span>
+
+            <!-- Garage Sale Planner — highlighted as interactive app -->
+            <div class="product-card fade-in" style="border: 2px solid #E87AAA;">
+                <span class="badge">$27</span>
+                <div class="product-card-content">
+                    <span class="product-card-category" style="color: #E87AAA;">Interactive App</span>
+                    <h3 class="product-card-title">The Garage Sale Planner</h3>
+                    <p class="product-card-description">Not a PDF — a live app that runs in your browser. Price your items, track every sale, and hit your money goal. Try it free before you buy.</p>
+                    <a href="/shop/garage-sale-planner" class="btn btn-primary">Open the Planner</a>
+                </div>
+            </div>
+
+            <!-- Someday List Builder -->
+            <div class="product-card fade-in">
+                <span class="badge badge-free">FREE</span>
+                <div class="product-card-content">
+                    <span class="product-card-category">Free Tool</span>
                     <h3 class="product-card-title">The Someday List Builder</h3>
-                    <p class="product-card-description">All those things you said you&#039;d do someday? This is where you finally write them down.</p>
-                    <a href="/shop/someday-list-builder" class="btn btn-outline">
-                        Get This Free                    </a>
+                    <p class="product-card-description">All those things you said you'd do someday? This is where you finally write them down.</p>
+                    <a href="/freebies" class="btn btn-outline">Get This Free</a>
                 </div>
             </div>
-                    </div>
-        
+
+        </div>
+
         <div class="text-center" style="margin-top: 2rem;">
             <a href="/shop" class="btn btn-outline">See Everything</a>
         </div>
@@ -765,7 +788,12 @@ window.mncCloseModal = function() {
       <p class="an-eyebrow">YOUR SPOT. FREE. ALWAYS.</p>
       <h2 class="an-heading">Create a free account and everything lives in one place — your tools, your downloads, your resources.</h2>
       <p class="an-body">Plus freebies that aren't anywhere else on the site. The ones on the public pages are for anyone who finds them. The ones inside your account are just for you.</p>
-      <a href="/register" class="an-btn-primary">CREATE YOUR FREE ACCOUNT →</a>
+      <a href="/register" class="an-btn-primary">UNLOCK MY FREE RESOURCES →</a>
+      <div style="margin-top:20px;display:flex;flex-direction:column;gap:6px;align-items:center;">
+        <p style="font-family:'DM Sans','Helvetica Neue',sans-serif;font-size:13px;color:rgba(255,248,238,0.65);margin:0;">Instant access to all freebies — no waiting</p>
+        <p style="font-family:'DM Sans','Helvetica Neue',sans-serif;font-size:13px;color:rgba(255,248,238,0.65);margin:0;">Member-only exclusives added every month</p>
+        <p style="font-family:'DM Sans','Helvetica Neue',sans-serif;font-size:13px;color:rgba(255,248,238,0.65);margin:0;">Free. Always.</p>
+      </div>
     </div>
 
     <!-- DIVIDER -->
@@ -825,6 +853,17 @@ window.addEventListener('message', function(e) {
             <a href="/resources">Resources</a>
             <a href="/freebies">Freebies</a>
         </nav>
+        <div class="footer-social">
+            <a href="https://www.facebook.com/profile.php?id=61590806030391" target="_blank" rel="noopener" aria-label="Facebook">
+                <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+            </a>
+            <a href="https://www.instagram.com/my.nest.chapter/" target="_blank" rel="noopener" aria-label="Instagram">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.5" fill="currentColor" stroke="none"/></svg>
+            </a>
+            <a href="https://www.pinterest.com/mynestchapter" target="_blank" rel="noopener" aria-label="Pinterest">
+                <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M12 0C5.373 0 0 5.373 0 12c0 5.084 3.163 9.426 7.627 11.174-.105-.949-.2-2.405.042-3.441.218-.937 1.407-5.965 1.407-5.965s-.359-.719-.359-1.782c0-1.668.967-2.914 2.171-2.914 1.023 0 1.518.769 1.518 1.69 0 1.029-.655 2.568-.994 3.995-.283 1.194.599 2.169 1.777 2.169 2.133 0 3.772-2.249 3.772-5.495 0-2.873-2.064-4.882-5.012-4.882-3.414 0-5.418 2.561-5.418 5.207 0 1.031.397 2.138.893 2.738a.36.36 0 0 1 .083.345l-.333 1.36c-.053.22-.174.267-.402.161-1.499-.698-2.436-2.889-2.436-4.649 0-3.785 2.75-7.262 7.929-7.262 4.163 0 7.398 2.967 7.398 6.931 0 4.136-2.607 7.464-6.227 7.464-1.216 0-2.359-.632-2.75-1.378l-.748 2.853c-.271 1.043-1.002 2.35-1.492 3.146C9.57 23.812 10.763 24 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0z"/></svg>
+            </a>
+        </div>
         <p class="footer-copy">&copy; 2026 My Nest Chapter. All rights reserved.</p>
     </div>
 </footer>

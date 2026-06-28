@@ -8,12 +8,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?= esc($pageTitle ?? 'My Nest Chapter') ?> | My Nest Chapter</title>
     <meta name="description" content="<?= esc($pageDescription ?? 'Solo mom. Empty nest. Now what? Tools and resources built from lived experience, for single and solo moms.') ?>">
-    
+    <link rel="canonical" href="https://mynestchapter.com<?= esc(strtok($_SERVER['REQUEST_URI'] ?? '/', '?')) ?>">
+
     <!-- Open Graph -->
-    <meta property="og:title" content="<?= esc($pageTitle ?? 'My Nest Chapter') ?>">
-    <meta property="og:description" content="<?= esc($pageDescription ?? 'Solo mom. Empty nest. Now what?') ?>">
-    <meta property="og:url" content="<?= SITE_URL . ($_SERVER['REQUEST_URI'] ?? '') ?>">
+    <meta property="og:site_name" content="My Nest Chapter">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:title" content="<?= esc(($pageTitle ?? 'My Nest Chapter') . ' | My Nest Chapter') ?>">
+    <meta property="og:description" content="<?= esc($pageDescription ?? 'Solo mom. Empty nest. Now what? Tools and resources built from lived experience, for single and solo moms.') ?>">
+    <meta property="og:url" content="https://mynestchapter.com<?= esc(strtok($_SERVER['REQUEST_URI'] ?? '/', '?')) ?>">
     <meta property="og:type" content="website">
+    <?php $ogImage = !empty($pageImage) ? $pageImage : '/assets/images/logo.png'; ?>
+    <meta property="og:image" content="https://mynestchapter.com<?= esc($ogImage) ?>">
+
+    <!-- Social Profiles (SEO signal) -->
+    <meta property="og:see_also" content="https://www.facebook.com/profile.php?id=61590806030391">
+    <meta property="og:see_also" content="https://www.instagram.com/my.nest.chapter/">
+    <meta property="og:see_also" content="https://www.pinterest.com/mynestchapter">
+
+    <!-- Twitter / X Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="<?= esc(($pageTitle ?? 'My Nest Chapter') . ' | My Nest Chapter') ?>">
+    <meta name="twitter:description" content="<?= esc($pageDescription ?? 'Solo mom. Empty nest. Now what? Tools and resources built from lived experience, for single and solo moms.') ?>">
+    <meta name="twitter:image" content="https://mynestchapter.com<?= esc($ogImage) ?>">
     
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">

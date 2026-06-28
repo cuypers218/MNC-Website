@@ -15,12 +15,12 @@ require_once __DIR__ . '/includes/header.php';
             <h2 style="font-size: 1rem; padding-bottom: 0.5rem; border-bottom: 1px solid #4B4B4B; margin-bottom: 1.25rem;">Free Tools I Made</h2>
             
             <div style="margin-bottom: 1.5rem;">
-                <p style="font-weight: bold; margin-bottom: 0.25rem;"><a href="/shop/someday-list-builder" style="color: #E87AAA;">The Someday List Builder</a></p>
+                <p style="font-weight: bold; margin-bottom: 0.25rem;"><a href="/freebies" style="color: #E87AAA;">The Someday List Builder</a></p>
                 <p style="color: #444444; font-size: 0.95rem; margin: 0;">Write down all those things you've been saying "someday" to. Get them out of your head.</p>
             </div>
-            
+
             <div style="margin-bottom: 1.5rem;">
-                <p style="font-weight: bold; margin-bottom: 0.25rem;"><a href="/shop/6pm-cheat-sheet" style="color: #E87AAA;">The 6pm Cheat Sheet</a></p>
+                <p style="font-weight: bold; margin-bottom: 0.25rem;"><a href="/6pm-experience/" style="color: #E87AAA;">The 6pm Cheat Sheet</a></p>
                 <p style="color: #444444; font-size: 0.95rem; margin: 0;">A real list of things that got me from 6pm to bedtime on the hard nights.</p>
             </div>
         </div>
@@ -28,7 +28,11 @@ require_once __DIR__ . '/includes/header.php';
         <!-- Blog Picks -->
         <div style="margin-bottom: 3rem;">
             <h2 style="font-size: 1rem; padding-bottom: 0.5rem; border-bottom: 1px solid #4B4B4B; margin-bottom: 1.25rem;">Blog Posts Worth Reading First</h2>
-            <p style="color: #666666; font-size: 0.95rem;">Coming soon — I'll add my best posts here as the blog grows.</p>
+
+            <div style="margin-bottom: 1.5rem;">
+                <p style="font-weight: bold; margin-bottom: 0.25rem;"><a href="/blog/what-i-do-at-6pm" style="color: #E87AAA;">What I Do at 6pm Now That the House Is Quiet</a></p>
+                <p style="color: #444444; font-size: 0.95rem; margin: 0;">Usually it meant kids asking if dinner was ready yet. Now it's just me. Here's what I actually do with that hour now.</p>
+            </div>
         </div>
         
         <!-- For the Hard Nights -->

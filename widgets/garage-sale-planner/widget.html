@@ -214,8 +214,8 @@
     .btn-ghost:hover{background:var(--color-primary-hl)}
     .btn-white{background:#fff;color:var(--color-primary);border:1.5px solid rgba(255,255,255,.3)}
     .btn-white:hover{background:rgba(255,255,255,.9)}
-    .btn-danger{background:var(--color-surface);color:#b91c1c;border:1.5px solid #fecaca}
-    .btn-danger:hover{background:#fef2f2}
+    .btn-danger{background:var(--color-surface);color:#252535;border:1.5px solid #F5C4A8}
+    .btn-danger:hover{background:#F5C4A8}
     .btn-sm{font-size:var(--text-xs);padding:var(--space-2) var(--space-3)}
     .btn-xs{font-size:var(--text-xs);padding:var(--space-1) var(--space-3)}
 
@@ -529,22 +529,13 @@
       <span id="bell-badge" style="display:none;position:absolute;top:2px;right:2px;background:#E87AAA;color:#fff;font-family:'DM Sans',sans-serif;font-size:9px;font-weight:700;min-width:16px;height:16px;align-items:center;justify-content:center;pointer-events:none;padding:0 3px;line-height:1">0</span>
     </div>
     <button class="btn btn-ghost btn-sm" onclick="save();showToast('Saved!')" title="Save your planner">Save</button>
-    <button class="btn btn-ghost btn-sm" onclick="advanceDemo()" id="demo-btn">Demo</button>
+    <button class="btn btn-ghost btn-sm" onclick="openTour()" title="How this works">How it works</button>
+    <button class="btn btn-ghost btn-sm" onclick="startFresh()" title="Clear all data and start over">Start Over</button>
     <div id="hdr-demo-pill"></div>
   </div>
 </div>
 
 <div class="metrics-bar no-print">
-  <div class="demo-banner" id="demo-banner" style="display:none;margin:0 0 16px">
-    <div class="demo-label" id="demo-label">Demo · 1 of 5</div>
-    <div class="demo-title" id="demo-title"></div>
-    <div class="demo-text" id="demo-text"></div>
-    <div class="demo-footer">
-      <div class="demo-progress"><div class="demo-progress-fill" id="demo-prog-fill" style="width:20%"></div></div>
-      <button class="btn btn-primary btn-sm" onclick="advanceDemo()" id="demo-next-btn">Next step</button>
-    </div>
-  </div>
-
   <div class="metrics" id="metrics"></div>
   <div class="section-nav" id="section-nav" style="display:none"></div>
 </div>
@@ -908,7 +899,7 @@ function normalizePlanner(src){
   };
 }
 
-function loadPlanner(){try{const d=localStorage.getItem(STORAGE_KEY);return d?normalizePlanner(JSON.parse(d)):clone(blankPlanner)}catch{return clone(blankPlanner)}}
+function loadPlanner(){try{const d=localStorage.getItem(STORAGE_KEY);if(d){const p=JSON.parse(d);if(p&&p.isDemo)return clone(blankPlanner);return normalizePlanner(p);}return clone(blankPlanner)}catch{return clone(blankPlanner)}}
 
 function getDemoPlanner(){
   return{
@@ -985,25 +976,7 @@ function refreshMetrics(){
   ].map(m=>`<div class="metric"><div class="metric-label">${m.label}</div><div class="metric-value">${m.value}</div></div>`).join("");
 }
 
-function refreshDemoBanner(){
-  const el=document.getElementById("demo-banner");
-  if(!UI.demo){
-    el.style.opacity='0';
-    setTimeout(()=>{if(!UI.demo)el.style.display="none";},210);
-    document.getElementById("demo-btn").textContent="Start demo";
-    return;
-  }
-  const wasHidden=el.style.display==='none'||!el.style.display;
-  el.style.display="block";
-  if(wasHidden){el.style.opacity='0';requestAnimationFrame(()=>el.style.opacity='1');}
-  const step=demoSteps[UI.demoStep];
-  document.getElementById("demo-label").textContent=`Demo · ${UI.demoStep+1} of ${demoSteps.length}`;
-  document.getElementById("demo-title").textContent=step.title;
-  document.getElementById("demo-text").textContent=step.text;
-  document.getElementById("demo-prog-fill").style.width=`${Math.round(((UI.demoStep+1)/demoSteps.length)*100)}%`;
-  document.getElementById("demo-next-btn").textContent=UI.demoStep===demoSteps.length-1?"Finish demo":"Next step";
-  document.getElementById("demo-btn").textContent=UI.demoStep===demoSteps.length-1?"Finish demo":"Next step";
-}
+function refreshDemoBanner(){}
 
 function refreshGoalProgress(){
   const el=document.getElementById("goal-pct");if(!el)return;
@@ -1020,7 +993,7 @@ function refreshSubtotal(){
 
 // ─── MAIN RENDER ──────────────────────────────────────────────────────────────
 function render(){
-  buildNav();renderSectionNav();refreshHeaderStat();refreshMetrics();refreshDemoBanner();renderContent();
+  buildNav();renderSectionNav();refreshHeaderStat();refreshMetrics();renderContent();
 }
 
 function renderContent(){
@@ -1067,7 +1040,7 @@ function renderStart(){
     </div>
     <div style="display:flex;gap:10px;flex-wrap:wrap">
       <button class="btn" style="background:#E87AAA;color:#fff;font-family:var(--font-display);font-weight:800;font-size:13px;letter-spacing:.5px;padding:12px 24px" onclick="showToast('Ready. Fill in your sale details below.')">Start my planner →</button>
-      <button class="btn" style="background:transparent;color:#FFF8EE;border:1.5px solid rgba(255,248,238,0.4);font-family:var(--font-display);font-weight:800;font-size:13px;padding:12px 24px" onclick="startDemo?startDemo():null">See how it works first →</button>
+      <button class="btn" style="background:transparent;color:#FFF8EE;border:1.5px solid rgba(255,248,238,0.4);font-family:var(--font-display);font-weight:800;font-size:13px;padding:12px 24px" onclick="openTour()">How it works →</button>
       <a href="mailto:cece@mynestchapter.com?subject=Garage Sale Planner" style="font-family:var(--font-display);font-size:12px;color:rgba(255,248,238,0.55);text-decoration:underline;margin-left:4px">Questions or feedback? Email Cece</a>
     </div>
   </div>`:'';
@@ -1091,7 +1064,7 @@ function renderStart(){
       </div>
       <div style="margin-top:20px;display:flex;gap:10px;align-items:center;flex-wrap:wrap">
         <button class="btn btn-primary" onclick="save();showToast('Saved!')">Save and keep going →</button>
-        <button class="btn btn-secondary" onclick="startDemo?startDemo():goTab('sortPrice','inventory')">Start a demo</button>
+        <button class="btn btn-secondary" onclick="openTour()">How it works →</button>
       </div>
     </div>
 
@@ -1334,6 +1307,8 @@ function draftItem(k,v){draft.item[k]=v}
 function draftItemAndRefresh(k,v){draft.item[k]=v;renderContent()}
 function addItem(){
   if(!draft.item.name.trim())return;
+  const qty=Number(draft.item.quantity);if(isNaN(qty)||qty<1)draft.item.quantity="1";
+  const pr=Number(draft.item.price);if(isNaN(pr)||pr<0)draft.item.price="";
   const d=draft.item;
   P.items=[{id:makeId(),name:d.name,category:d.category,condition:d.condition,quantity:d.quantity,decision:d.decision,price:d.price,notes:d.notes,suggested:priceRange(d.category,d.condition),platform:suggestPlatform(d.category,d.condition,d.price,d.decision),sold:false},...(P.items||[])];
   P.isDemo=false;save();draft.item={name:"",category:"Decor",condition:"Good",quantity:"1",decision:"Garage Sale",price:"",notes:""};
@@ -1899,8 +1874,8 @@ function calcChange(){
   if(!given){result.style.display='none';return;}
   if(given<sub){
     result.style.display='block';
-    result.style.background='#fef2f2';
-    amt.style.color='#b91c1c';
+    result.style.background='#F5C4A8';
+    amt.style.color='#252535';
     amt.textContent='Short by $'+(sub-given).toFixed(2);
     return;
   }
@@ -1910,7 +1885,7 @@ function calcChange(){
   amt.textContent='$'+(given-sub).toFixed(2);
 }
 
-function updateCalcRow(id,k,v){const row=(P.calculatorRows||[]).find(r=>r.id===id);if(row){row[k]=v;P.isDemo=false;save();refreshSubtotal()}}
+function updateCalcRow(id,k,v){const row=(P.calculatorRows||[]).find(r=>r.id===id);if(row){if(k==='price'&&(isNaN(Number(v))||Number(v)<0))v='0';if(k==='quantity'&&(isNaN(Number(v))||Number(v)<1))v='1';row[k]=v;P.isDemo=false;save();refreshSubtotal()}}
 function updateCalcRowLive(id,k,v){updateCalcRow(id,k,v)}
 function addCalcRow(){P.calculatorRows=[...(P.calculatorRows||[]),{id:makeId(),name:"",quantity:"1",price:""}];P.isDemo=false;save();renderContent()}
 function removeCalcRow(id){if((P.calculatorRows||[]).length<=1)return;P.calculatorRows=(P.calculatorRows||[]).filter(r=>r.id!==id);P.isDemo=false;save();renderContent()}
@@ -1923,7 +1898,7 @@ function addCalcToSales(){
   logSale(desc,sub,method);
 }
 function logSale(desc,amt,method){
-  if(!Number(amt))return;
+  if(!Number(amt)||Number(amt)<=0)return;
   const time=new Date().toLocaleTimeString([],{hour:"numeric",minute:"2-digit"});
   P.transactions=[{id:makeId(),description:desc||"Garage sale purchase",amount:Number(amt).toFixed(2),method,time},...(P.transactions||[])];
   P.isDemo=false;save();checkGoalNotifs();refreshHeaderStat();renderContent();
@@ -2383,7 +2358,7 @@ function printSelectedTags(){
       <div style="font-size:9px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:#E87AAA">My Nest Chapter</div>
       <div style="font-size:14px;font-weight:700;margin:8px 0;min-height:36px">${esc(i.name||"Item")}</div>
       <div style="font-size:36px;font-weight:800;font-family:var(--font-display);color:#E87AAA">$${esc(i.price||"___")}</div>
-      <div style="font-size:10px;color:#666;margin-top:4px">${esc(i.category||"")}</div>
+      <div style="font-size:10px;color:#8BA7D4;margin-top:4px">${esc(i.category||"")}</div>
     </div>`).join("")}</div>`;
   document.getElementById("print-inner").innerHTML=tagsHTML;
   document.getElementById("print-section").style.display="block";
@@ -2406,7 +2381,7 @@ function printPricePointTags(){
     <div class="print-tag">
       <div style="font-size:9px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:#E87AAA">My Nest Chapter</div>
       <div style="font-size:40px;font-weight:800;font-family:var(--font-display);color:#E87AAA;margin:10px 0">${p.label||"____"}</div>
-      <div style="font-size:9px;color:#666">Thank you!</div>
+      <div style="font-size:9px;color:#8BA7D4">Thank you!</div>
     </div>`).join("")}</div>`;
   document.getElementById("print-inner").innerHTML=tagsHTML;
   document.getElementById("print-section").style.display="block";
@@ -2448,13 +2423,13 @@ function printTags(){
       <div class="print-sign">
         <div style="font-size:11px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:#E87AAA;margin-bottom:16px">My Nest Chapter</div>
         <div style="font-size:36px;font-weight:700;font-family:var(--font-display);color:#E87AAA;line-height:1.3;white-space:pre-line">${esc(P.advertising?.signHeadline||"GARAGE SALE")}\n${esc(P.advertising?.signDetails||"Today · Priced to Move")}</div>
-        <div style="margin-top:16px;font-size:14px;color:#444">${esc(P.advertising?.featuredItems||"")}</div>
+        <div style="margin-top:16px;font-size:14px;color:#8BA7D4">${esc(P.advertising?.featuredItems||"")}</div>
       </div>
       <div class="print-sign">
         <div style="font-size:11px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:#E87AAA;margin-bottom:16px">My Nest Chapter</div>
         <div style="font-size:32px;font-weight:800;font-family:var(--font-display);color:#E87AAA">PRICED TO MOVE</div>
         <div style="font-size:20px;font-weight:700;margin-top:14px">Cash + Digital Payments</div>
-        <div style="font-size:13px;color:#666;margin-top:14px">Thank you for helping these items begin their next chapter.</div>
+        <div style="font-size:13px;color:#8BA7D4;margin-top:14px">Thank you for helping these items begin their next chapter.</div>
       </div>
     </div>`;
   const tagsHTML=`<div class="print-grid-tags">${items.map(i=>`
@@ -2462,7 +2437,7 @@ function printTags(){
       <div style="font-size:9px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:#E87AAA">My Nest Chapter</div>
       <div style="font-size:14px;font-weight:700;margin:8px 0;min-height:36px">${esc(i.name||"Item")}</div>
       <div style="font-size:36px;font-weight:800;font-family:var(--font-display);color:#E87AAA">$${esc(i.price||"___")}</div>
-      <div style="font-size:10px;color:#666;margin-top:4px">${esc(i.category||"")}</div>
+      <div style="font-size:10px;color:#8BA7D4;margin-top:4px">${esc(i.category||"")}</div>
     </div>`).join("")}</div>`;
   document.getElementById("print-inner").innerHTML=signHTML+tagsHTML;
   document.getElementById("print-section").style.display="block";
@@ -2480,7 +2455,7 @@ function printBoxSigns(){
         <div style="font-size:36px;font-weight:800;font-family:var(--font-display)">BOX #${esc(b.boxNumber)}</div>
         <div style="font-size:32px;font-weight:800;font-family:var(--font-display);color:#E87AAA;margin-top:10px">ALL ITEMS $${esc(b.price||"___")}</div>
         <div style="font-size:18px;font-weight:700;margin-top:12px">${esc(b.title||b.category||"Mixed items")}</div>
-        <div style="font-size:12px;color:#666;margin-top:8px">${esc(b.description||"Browse and choose.")}</div>
+        <div style="font-size:12px;color:#8BA7D4;margin-top:8px">${esc(b.description||"Browse and choose.")}</div>
       </div>`).join("")}
     </div>`;
   document.getElementById("print-section").style.display="block";
@@ -2500,7 +2475,7 @@ function buildAreaSignPreviewHTML(mainText,priceText){
     return`<div style="border:2px solid #252535;padding:20px;text-align:center;background:#fff">
       <div style="font-family:var(--font-display);font-size:clamp(18px,3vw,26px);font-weight:800;line-height:1.3;color:#252535">${esc(mainText)||'—'}</div>
       ${priceText?`<div style="font-family:var(--font-display);font-size:clamp(22px,4vw,34px);font-weight:800;color:#252535;margin-top:8px">${esc(priceText)}</div>`:''}
-      <div style="font-size:9px;font-family:var(--font-body);color:#bbb;letter-spacing:.1em;text-transform:uppercase;margin-top:10px">My Nest Chapter</div>
+      <div style="font-size:9px;font-family:var(--font-body);color:#8BA7D4;letter-spacing:.1em;text-transform:uppercase;margin-top:10px">My Nest Chapter</div>
     </div>`;
   }
   return signCard()+
@@ -2519,10 +2494,10 @@ function buildFlyerPreviewHTML(type){
   return`
     <div style="font-family:var(--font-display);font-size:clamp(22px,4vw,30px);font-weight:800;color:#252535;margin-bottom:6px">${esc(f.title||'GARAGE SALE')}</div>
     ${f.date||f.time?`<div style="font-size:16px;font-weight:700;font-family:var(--font-body);margin-bottom:4px;color:#252535">${esc([f.date,f.time].filter(Boolean).join(' · '))}</div>`:''}
-    ${f.address?`<div style="font-size:14px;font-family:var(--font-body);margin-bottom:10px;color:#444">${esc(f.address)}</div>`:''}
+    ${f.address?`<div style="font-size:14px;font-family:var(--font-body);margin-bottom:10px;color:#252535">${esc(f.address)}</div>`:''}
     ${f.featured?`<div style="font-size:13px;font-family:var(--font-body);color:var(--color-text-muted);margin-bottom:6px">${esc(f.featured)}</div>`:''}
     ${f.tagline?`<div style="font-size:12px;font-family:var(--font-body);color:var(--color-text-muted)">${esc(f.tagline)}</div>`:''}
-    <div style="font-size:9px;font-family:var(--font-body);color:#ccc;margin-top:14px;letter-spacing:.1em;text-transform:uppercase">My Nest Chapter</div>
+    <div style="font-size:9px;font-family:var(--font-body);color:#8BA7D4;margin-top:14px;letter-spacing:.1em;text-transform:uppercase">My Nest Chapter</div>
     ${tearoffs}`;
 }
 
@@ -2557,7 +2532,7 @@ function printQuickTags(type){
   function qtHTML(price){
     return`<div class="print-quick-tag">
       <div style="font-family:'Lora',serif;font-size:18pt;font-weight:700;color:#252535;line-height:1">${price}</div>
-      <div style="font-family:'DM Sans',sans-serif;font-size:5pt;color:#aaa;margin-top:4pt;letter-spacing:.1em;text-transform:uppercase">My Nest Chapter</div>
+      <div style="font-family:'DM Sans',sans-serif;font-size:5pt;color:#8BA7D4;margin-top:4pt;letter-spacing:.1em;text-transform:uppercase">My Nest Chapter</div>
     </div>`;
   }
   function grid(price,count){
@@ -2592,7 +2567,7 @@ function printAreaSigns(){
     return`<div class="print-area-sign">
       <div style="font-family:'Lora',serif;font-size:36pt;font-weight:700;line-height:1.2;color:#252535">${esc(mainText)}</div>
       ${priceText?`<div style="font-family:'Lora',serif;font-size:48pt;font-weight:700;color:#252535;margin-top:12pt">${esc(priceText)}</div>`:''}
-      <div style="font-family:'DM Sans',sans-serif;font-size:7pt;color:#bbb;margin-top:20pt;letter-spacing:.1em;text-transform:uppercase">My Nest Chapter</div>
+      <div style="font-family:'DM Sans',sans-serif;font-size:7pt;color:#8BA7D4;margin-top:20pt;letter-spacing:.1em;text-transform:uppercase">My Nest Chapter</div>
     </div>`;
   }
   document.getElementById('print-inner').innerHTML=signHTML()+`<div class="print-sign-cut"></div>`+signHTML();
@@ -2613,9 +2588,9 @@ function printFlyer(type){
       <div style="font-family:'Lora',serif;font-size:48pt;font-weight:700;line-height:1.1;color:#252535;margin-bottom:10pt">${esc(f.title||'GARAGE SALE')}</div>
       ${dateTime?`<div style="font-family:'DM Sans',sans-serif;font-size:18pt;font-weight:700;color:#252535;margin-bottom:6pt">${dateTime}</div>`:''}
       ${f.address?`<div style="font-family:'DM Sans',sans-serif;font-size:15pt;color:#252535;margin-bottom:12pt">${esc(f.address)}</div>`:''}
-      ${f.featured?`<div style="font-family:'DM Sans',sans-serif;font-size:12pt;color:#444;margin-bottom:8pt">${esc(f.featured)}</div>`:''}
-      ${f.tagline?`<div style="font-family:'DM Sans',sans-serif;font-size:11pt;color:#666">${esc(f.tagline)}</div>`:''}
-      <div style="font-family:'DM Sans',sans-serif;font-size:7pt;color:#ccc;margin-top:auto;padding-top:20pt;letter-spacing:.1em;text-transform:uppercase">My Nest Chapter</div>
+      ${f.featured?`<div style="font-family:'DM Sans',sans-serif;font-size:12pt;color:#252535;margin-bottom:8pt">${esc(f.featured)}</div>`:''}
+      ${f.tagline?`<div style="font-family:'DM Sans',sans-serif;font-size:11pt;color:#8BA7D4">${esc(f.tagline)}</div>`:''}
+      <div style="font-family:'DM Sans',sans-serif;font-size:7pt;color:#8BA7D4;margin-top:auto;padding-top:20pt;letter-spacing:.1em;text-transform:uppercase">My Nest Chapter</div>
       ${tearStrips}
     </div>`;
   document.getElementById('print-section').style.display='block';
@@ -2633,11 +2608,11 @@ function printMemoryPage(){
       <div style="font-size:9px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:#E87AAA;margin-bottom:14px">My Nest Chapter · Memory Box</div>
       ${titleLine}
       ${memories.map(m=>`
-        <div style="margin-bottom:22px;padding-bottom:22px;border-bottom:1px solid #F0ECF8">
+        <div style="margin-bottom:22px;padding-bottom:22px;border-bottom:1px solid #E6E2DA">
           <div style="font-size:15px;font-weight:700;color:#252535;font-family:'Lora',serif">${esc(m.itemName||"Memory")}</div>
-          ${m.caption?`<div style="font-size:13px;color:#5A5A72;margin-top:6px;font-style:italic;line-height:1.65">${esc(m.caption)}</div>`:""}
+          ${m.caption?`<div style="font-size:13px;color:#8BA7D4;margin-top:6px;font-style:italic;line-height:1.65">${esc(m.caption)}</div>`:""}
         </div>`).join("")}
-      <div style="margin-top:36px;font-size:10px;color:#ABABAB">My Nest Chapter · mynestchapter.com</div>
+      <div style="margin-top:36px;font-size:10px;color:#8BA7D4">My Nest Chapter · mynestchapter.com</div>
     </div>`;
   document.getElementById("print-section").style.display="block";
   window.print();
@@ -2807,19 +2782,19 @@ function exportPDF(){
 
   const itemRows=items.slice(0,50).map(i=>`
     <tr>
-      <td style="padding:7px 8px;border-bottom:1px solid #F0ECF8;font-size:12px;font-family:'DM Sans',sans-serif;color:#252535">${esc(i.name)}</td>
-      <td style="padding:7px 8px;border-bottom:1px solid #F0ECF8;font-size:12px;font-family:'DM Sans',sans-serif;color:#5A5A72">${esc(i.category)}</td>
-      <td style="padding:7px 8px;border-bottom:1px solid #F0ECF8;font-size:12px;font-family:'DM Sans',sans-serif;color:#5A5A72">${esc(i.decision)}</td>
-      <td style="padding:7px 8px;border-bottom:1px solid #F0ECF8;font-size:12px;font-family:'DM Sans',sans-serif;color:#252535;font-weight:700">${i.price?"$"+esc(i.price):""}</td>
-      <td style="padding:7px 8px;border-bottom:1px solid #F0ECF8;font-size:12px;font-family:'DM Sans',sans-serif;color:#5A5A72">${i.sold?"Sold":""}</td>
+      <td style="padding:7px 8px;border-bottom:1px solid #E6E2DA;font-size:12px;font-family:'DM Sans',sans-serif;color:#252535">${esc(i.name)}</td>
+      <td style="padding:7px 8px;border-bottom:1px solid #E6E2DA;font-size:12px;font-family:'DM Sans',sans-serif;color:#8BA7D4">${esc(i.category)}</td>
+      <td style="padding:7px 8px;border-bottom:1px solid #E6E2DA;font-size:12px;font-family:'DM Sans',sans-serif;color:#8BA7D4">${esc(i.decision)}</td>
+      <td style="padding:7px 8px;border-bottom:1px solid #E6E2DA;font-size:12px;font-family:'DM Sans',sans-serif;color:#252535;font-weight:700">${i.price?"$"+esc(i.price):""}</td>
+      <td style="padding:7px 8px;border-bottom:1px solid #E6E2DA;font-size:12px;font-family:'DM Sans',sans-serif;color:#8BA7D4">${i.sold?"Sold":""}</td>
     </tr>`).join("");
 
   const txRows=tx.map(t=>`
     <tr>
-      <td style="padding:7px 8px;border-bottom:1px solid #F0ECF8;font-size:12px;font-family:'DM Sans',sans-serif;color:#252535">${esc(t.description||"Sale")}</td>
-      <td style="padding:7px 8px;border-bottom:1px solid #F0ECF8;font-size:12px;font-family:'DM Sans',sans-serif;color:#5A5A72">${esc(t.method||"Cash")}</td>
-      <td style="padding:7px 8px;border-bottom:1px solid #F0ECF8;font-size:12px;font-family:'DM Sans',sans-serif;color:#5A5A72">${esc(t.time||"")}</td>
-      <td style="padding:7px 8px;border-bottom:1px solid #F0ECF8;font-size:12px;font-family:'DM Sans',sans-serif;font-weight:700;color:#E87AAA">$${Number(t.amount||0).toFixed(2)}</td>
+      <td style="padding:7px 8px;border-bottom:1px solid #E6E2DA;font-size:12px;font-family:'DM Sans',sans-serif;color:#252535">${esc(t.description||"Sale")}</td>
+      <td style="padding:7px 8px;border-bottom:1px solid #E6E2DA;font-size:12px;font-family:'DM Sans',sans-serif;color:#8BA7D4">${esc(t.method||"Cash")}</td>
+      <td style="padding:7px 8px;border-bottom:1px solid #E6E2DA;font-size:12px;font-family:'DM Sans',sans-serif;color:#8BA7D4">${esc(t.time||"")}</td>
+      <td style="padding:7px 8px;border-bottom:1px solid #E6E2DA;font-size:12px;font-family:'DM Sans',sans-serif;font-weight:700;color:#E87AAA">$${Number(t.amount||0).toFixed(2)}</td>
     </tr>`).join("");
 
   const html=`
@@ -2830,22 +2805,22 @@ function exportPDF(){
     <h1 style="font-family:'DM Sans',sans-serif;font-weight:800;font-size:22px;color:#252535;margin:0 0 4px">${esc(s.saleTitle||"My Garage Sale")}</h1>
     ${saleDate?`<p style="font-size:13px;color:#8BA7D4;margin:0 0 28px">${saleDate}</p>`:"<div style='margin-bottom:28px'></div>"}
 
-    <div style="background:#FDEEF5;padding:18px 22px;margin-bottom:28px;display:flex;justify-content:space-between;align-items:center">
+    <div style="background:#facfd4;padding:18px 22px;margin-bottom:28px;display:flex;justify-content:space-between;align-items:center">
       <div><div style="font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#E87AAA;margin-bottom:2px">Total Earned</div>
       <div style="font-size:28px;font-weight:800;color:#252535">$${stats.earned.toFixed(2)}</div></div>
       ${stats.goal?`<div style="text-align:right"><div style="font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#E87AAA;margin-bottom:2px">Goal</div><div style="font-size:18px;font-weight:700;color:#252535">$${stats.goal} &nbsp;·&nbsp; ${stats.goalProgress}%</div></div>`:""}
     </div>
 
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:28px">
-      <div style="border:1px solid #F0ECF8;padding:14px 16px"><div style="font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#8BA7D4;margin-bottom:2px">Total Items</div><div style="font-size:18px;font-weight:800;color:#252535">${stats.totalItems}</div></div>
-      <div style="border:1px solid #F0ECF8;padding:14px 16px"><div style="font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#8BA7D4;margin-bottom:2px">Transactions</div><div style="font-size:18px;font-weight:800;color:#252535">${tx.length}</div></div>
+      <div style="border:1px solid #E6E2DA;padding:14px 16px"><div style="font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#8BA7D4;margin-bottom:2px">Total Items</div><div style="font-size:18px;font-weight:800;color:#252535">${stats.totalItems}</div></div>
+      <div style="border:1px solid #E6E2DA;padding:14px 16px"><div style="font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#8BA7D4;margin-bottom:2px">Transactions</div><div style="font-size:18px;font-weight:800;color:#252535">${tx.length}</div></div>
     </div>
 
     ${s.moneyPurpose?`<div style="border-left:3px solid #E87AAA;padding-left:16px;margin-bottom:28px">${row("What the money is for",s.moneyPurpose)}</div>`:""}
 
     ${items.length?`
     <h2 style="font-size:13px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:#252535;margin:0 0 12px;border-bottom:2px solid #252535;padding-bottom:8px">Item List</h2>
-    <table width="100%" cellpadding="0" cellspacing="0" style="margin-bottom:28px;border:1px solid #F0ECF8">
+    <table width="100%" cellpadding="0" cellspacing="0" style="margin-bottom:28px;border:1px solid #E6E2DA">
       <thead><tr style="background:#252535">
         <th style="padding:8px;text-align:left;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#8BA7D4">Item</th>
         <th style="padding:8px;text-align:left;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#8BA7D4">Category</th>
@@ -2858,7 +2833,7 @@ function exportPDF(){
 
     ${tx.length?`
     <h2 style="font-size:13px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:#252535;margin:0 0 12px;border-bottom:2px solid #252535;padding-bottom:8px">Sales Log</h2>
-    <table width="100%" cellpadding="0" cellspacing="0" style="margin-bottom:28px;border:1px solid #F0ECF8">
+    <table width="100%" cellpadding="0" cellspacing="0" style="margin-bottom:28px;border:1px solid #E6E2DA">
       <thead><tr style="background:#252535">
         <th style="padding:8px;text-align:left;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#8BA7D4">Description</th>
         <th style="padding:8px;text-align:left;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#8BA7D4">Payment</th>
@@ -2879,12 +2854,12 @@ function exportPDF(){
     ${(P.memoryBox||[]).length?`
     <h2 style="font-size:13px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:#252535;margin:0 0 16px;border-bottom:2px solid #252535;padding-bottom:8px">Memory Box</h2>
     ${(P.memoryBox||[]).map(m=>`
-      <div style="margin-bottom:14px;padding-bottom:14px;border-bottom:1px solid #F0ECF8">
+      <div style="margin-bottom:14px;padding-bottom:14px;border-bottom:1px solid #E6E2DA">
         <div style="font-family:'DM Sans',sans-serif;font-size:13px;font-weight:700;color:#252535">${esc(m.itemName||"Memory")}</div>
-        ${m.caption?`<div style="font-family:'DM Sans',sans-serif;font-size:12px;color:#5A5A72;margin-top:4px;font-style:italic;line-height:1.6">${esc(m.caption)}</div>`:""}
+        ${m.caption?`<div style="font-family:'DM Sans',sans-serif;font-size:12px;color:#8BA7D4;margin-top:4px;font-style:italic;line-height:1.6">${esc(m.caption)}</div>`:""}
       </div>`).join("")}`:""}
 
-    <div style="margin-top:40px;padding-top:20px;border-top:1px solid #F0ECF8;font-size:11px;color:#ABABAB">
+    <div style="margin-top:40px;padding-top:20px;border-top:1px solid #E6E2DA;font-size:11px;color:#8BA7D4">
       My Nest Chapter &nbsp;·&nbsp; mynestchapter.com &nbsp;·&nbsp; Printed ${new Date().toLocaleDateString("en-US",{month:"long",day:"numeric",year:"numeric"})}
     </div>
   </div>`;
@@ -3036,7 +3011,7 @@ function checkConfetti(stats){
 }
 
 // ─── WEATHER ──────────────────────────────────────────────────────────────────
-const W={data:null,loading:false,forDate:null,viewStart:0};
+const W={data:null,loading:false,forDate:null,forZip:null,viewStart:0,latLon:null,latLonZip:null};
 function wCodeInfo(c){
   if(c===0)return{icon:'CLEAR',label:'Clear sky',good:true};
   if(c<=2)return{icon:'PARTLY CLOUDY',label:'Partly cloudy',good:true};
@@ -3052,16 +3027,62 @@ function shiftWeather(delta){
   W.viewStart=Math.max(0,Math.min(W.data.days.length-3,W.viewStart+delta));
   renderWeatherCard();
 }
+async function geocodeZip(zip){
+  const r=await fetch(`https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(zip)}&count=1&language=en&format=json&countryCode=US`);
+  const j=await r.json();
+  if(!j.results||!j.results.length)throw new Error('zip_not_found');
+  return{lat:j.results[0].latitude,lon:j.results[0].longitude};
+}
+function renderWeatherZipPrompt(){
+  const el=document.getElementById('weather-card');if(!el)return;
+  el.innerHTML=`
+    <div class="card-title" style="margin-bottom:8px">Sale day weather</div>
+    <p style="font-size:13px;color:var(--color-text-muted);margin-bottom:12px;line-height:1.5">Enter your zip code to see the forecast — no location access needed.</p>
+    <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+      <input class="input" id="weather-zip-input" type="text" inputmode="numeric" maxlength="5" placeholder="12345" style="flex:1;min-width:80px;max-width:110px" />
+      <button class="btn btn-secondary btn-sm" onclick="submitWeatherZip()">Show forecast</button>
+    </div>
+    <div id="weather-zip-err" style="display:none;margin-top:8px;font-size:12px;color:#F2A57A"></div>`;
+  const inp=document.getElementById('weather-zip-input');
+  if(inp){
+    if(P.setup?.weatherZip)inp.value=P.setup.weatherZip;
+    inp.addEventListener('keydown',e=>{if(e.key==='Enter')submitWeatherZip();});
+  }
+}
+function submitWeatherZip(){
+  const inp=document.getElementById('weather-zip-input');if(!inp)return;
+  const zip=inp.value.trim();
+  if(!/^\d{5}$/.test(zip)){
+    const err=document.getElementById('weather-zip-err');
+    if(err){err.textContent='Please enter a 5-digit US zip code.';err.style.display='block';}
+    return;
+  }
+  P.setup=P.setup||{};P.setup.weatherZip=zip;save();
+  if(!P.setup.saleDate){
+    const el=document.getElementById('weather-card');
+    if(el)el.innerHTML=`<div class="card-title" style="margin-bottom:8px">Sale day weather</div><p style="font-size:13px;color:var(--color-text-muted);margin-top:4px;line-height:1.5">Zip saved. Set a sale date above to see the forecast.</p>`;
+    return;
+  }
+  fetchWeather(P.setup.saleDate);
+}
+function clearWeatherZip(){
+  if(P.setup)P.setup.weatherZip='';
+  W.latLon=null;W.latLonZip=null;W.data=null;W.forDate=null;W.forZip=null;
+  save();renderWeatherZipPrompt();
+}
 async function fetchWeather(saleDate){
   const el=document.getElementById('weather-card');if(!el)return;
   if(!saleDate){el.style.display='none';return;}
   el.style.display='';
-  if(W.forDate===saleDate&&W.data){renderWeatherCard();return;}
-  W.forDate=saleDate;W.loading=true;W.data=null;
+  const zip=P.setup?.weatherZip;
+  if(!zip){renderWeatherZipPrompt();return;}
+  if(W.forDate===saleDate&&W.forZip===zip&&W.data){renderWeatherCard();return;}
+  W.forDate=saleDate;W.forZip=zip;W.loading=true;W.data=null;
   el.innerHTML=`<div class="card-title">Sale day weather</div><div class="text-muted" style="font-size:var(--text-sm);margin-top:6px">Checking forecast…</div>`;
   try{
-    const pos=await new Promise((res,rej)=>navigator.geolocation.getCurrentPosition(res,rej,{timeout:8000}));
-    const lat=pos.coords.latitude,lon=pos.coords.longitude;
+    let latLon=W.latLon;
+    if(!latLon||W.latLonZip!==zip){latLon=await geocodeZip(zip);W.latLon=latLon;W.latLonZip=zip;}
+    const{lat,lon}=latLon;
     const todayObj=new Date();todayObj.setHours(0,0,0,0);
     const dateObj=new Date(saleDate+'T00:00:00');
     const daysAway=Math.round((dateObj-todayObj)/86400000);
@@ -3075,39 +3096,29 @@ async function fetchWeather(saleDate){
     const salei=times.indexOf(saleDate)>=0?times.indexOf(saleDate):Math.min(daysAway,times.length-1);
     const days=times.map((date,idx)=>{
       const d=new Date(date+'T00:00:00');
-      return{
-        date,
-        day:d.toLocaleDateString('en-US',{weekday:'short'}),
-        dateNum:d.toLocaleDateString('en-US',{month:'short',day:'numeric'}),
-        code:j.daily.weathercode[idx],
-        high:Math.round(j.daily.temperature_2m_max[idx]),
-        low:Math.round(j.daily.temperature_2m_min[idx]),
-        rain:j.daily.precipitation_probability_max[idx],
-        isToday:date===todayStr,
-        isSaleDay:idx===salei
-      };
+      return{date,day:d.toLocaleDateString('en-US',{weekday:'short'}),dateNum:d.toLocaleDateString('en-US',{month:'short',day:'numeric'}),
+        code:j.daily.weathercode[idx],high:Math.round(j.daily.temperature_2m_max[idx]),low:Math.round(j.daily.temperature_2m_min[idx]),
+        rain:j.daily.precipitation_probability_max[idx],isToday:date===todayStr,isSaleDay:idx===salei};
     });
-    W.viewStart=Math.max(0,salei-1);
+    W.viewStart=Math.max(0,salei-1);W.loading=false;
+    W.data={current:{temp:Math.round(cw.temperature||0),code:cw.weathercode||0},days,saleDay:days[salei]};
+  }catch(e){
     W.loading=false;
-    W.data={
-      current:{temp:Math.round(cw.temperature||0),code:cw.weathercode||0},
-      days,
-      saleDay:days[salei]
-    };
-  }catch(e){W.loading=false;W.data={msg:'Allow location access to see the forecast.'};}
+    W.data={msg:e.message==='zip_not_found'?'Zip code not found — try a nearby zip.':'Could not load forecast. Check your connection.',zipError:true};
+  }
   renderWeatherCard();
 }
 function renderWeatherCard(){
   const el=document.getElementById('weather-card');if(!el)return;
   if(!W.data){el.innerHTML=`<div class="card-title">Sale day weather</div><div class="text-muted" style="font-size:var(--text-sm);margin-top:6px">Checking forecast…</div>`;return;}
-  if(W.data.msg){el.innerHTML=`<div class="card-title">Sale day weather</div><div class="text-muted" style="font-size:var(--text-sm);margin-top:6px">${W.data.msg}</div>`;return;}
+  if(W.data.msg){el.innerHTML=`<div class="card-title">Sale day weather</div><div class="text-muted" style="font-size:var(--text-sm);margin-top:6px">${W.data.msg}</div>${W.data.zipError?'<button onclick="clearWeatherZip()" style="margin-top:8px;font-family:var(--font-display);font-size:12px;font-weight:700;color:#E87AAA;background:none;border:none;cursor:pointer;padding:0">Try a different zip →</button>':''}`;return;}
   const cur=W.data.current;
   const curInfo=wCodeInfo(cur.code);
   const sd=W.data.saleDay;
   const sdInfo=wCodeInfo(sd.code);
   const good=sdInfo.good&&sd.rain<40;
-  const dotColor=good?'#4a9e6b':'#c4922a';
-  const indicatorBg=good?'#e8f5ee':'#fff8ed';
+  const dotColor=good?'#B5CC6A':'#F2A57A';
+  const indicatorBg=good?'#facfd4':'#F5C4A8';
   const indicatorText=good?'Good sale weather'
     :sd.rain>=40?`Heads up — rain ${sd.day}`
     :`Heads up — ${sdInfo.label.toLowerCase()} ${sd.day}`;
@@ -3116,10 +3127,10 @@ function renderWeatherCard(){
   const visible=days.slice(vs,vs+3);
   const canLeft=vs>0;
   const canRight=vs+3<days.length;
-  const arrowBtn=(dir,enabled)=>`<button onclick="shiftWeather(${dir})" style="background:none;border:1.5px solid ${enabled?'#E87AAA':'#E6E2DA'};width:30px;height:30px;display:flex;align-items:center;justify-content:center;cursor:${enabled?'pointer':'default'};color:${enabled?'#E87AAA':'#ccc'};font-size:14px;flex-shrink:0" ${enabled?'':'disabled'}>${dir<0?'‹':'›'}</button>`;
+  const arrowBtn=(dir,enabled)=>`<button onclick="shiftWeather(${dir})" style="background:none;border:1.5px solid ${enabled?'#E87AAA':'#E6E2DA'};width:30px;height:30px;display:flex;align-items:center;justify-content:center;cursor:${enabled?'pointer':'default'};color:${enabled?'#E87AAA':'#A8C5DA'};font-size:14px;flex-shrink:0" ${enabled?'':'disabled'}>${dir<0?'‹':'›'}</button>`;
   const stripHTML=visible.map(d=>{
     const info=wCodeInfo(d.code);
-    const highlight=d.isSaleDay?'background:#eadffb;':'';
+    const highlight=d.isSaleDay?'background:#facfd4;':'';
     const labelColor=d.isSaleDay?'var(--color-primary)':d.isToday?'var(--color-text)':'var(--color-text-muted)';
     const topLabel=d.isToday&&!d.isSaleDay?'Today':d.isSaleDay?`${d.day} — SALE`:d.day;
     return`<div style="flex:1;text-align:center;padding:10px 4px;${highlight}">
@@ -3128,7 +3139,7 @@ function renderWeatherCard(){
       <div style="font-size:9px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--color-text-muted);margin-bottom:5px;line-height:1.2">${info.icon}</div>
       <div style="font-size:13px;font-weight:700;color:var(--color-text)">${d.high}°</div>
       <div style="font-size:11px;color:var(--color-text-muted)">${d.low}°</div>
-      <div style="font-size:10px;color:${d.rain>=40?'#c4922a':'var(--color-text-muted)'};margin-top:3px">${d.rain}% rain</div>
+      <div style="font-size:10px;color:${d.rain>=40?'#F2A57A':'var(--color-text-muted)'};margin-top:3px">${d.rain}% rain</div>
     </div>`;
   }).join('');
   el.innerHTML=`
@@ -3150,8 +3161,124 @@ function renderWeatherCard(){
       <span style="font-size:13px;font-weight:600;color:var(--color-text)">${indicatorText}</span>
     </div>
     ${!good?`<div style="margin-top:10px;font-size:13px;color:var(--color-text-muted);line-height:1.6">Rain's looking likely. Worth having a backup date in your pocket.</div>`:""}
+    <div style="margin-top:10px;text-align:right"><button onclick="clearWeatherZip()" style="font-family:var(--font-body);font-size:11px;color:var(--color-text-muted);background:none;border:none;cursor:pointer;padding:0;text-decoration:underline">Change zip</button></div>
     `;
   checkWeatherNotif();
+}
+
+// ─── GUIDED TOUR ──────────────────────────────────────────────────────────────
+const TOUR_KEY='mnc_tour_seen_v1';
+let _tourStep=0;
+
+const tourSteps=[
+  {fullScreen:true,
+    title:"Your complete garage sale plan.",
+    body:"Five steps — from setting your date to logging your last sale.\n\nEverything saves automatically. Close the tab, come back later — your work is right here.\n\nHere's a quick look at each section."},
+  {tab:"start",section:"start",title:"Step 1 — Start",
+    body:"Set your sale name, date, and the reason behind the money goal. That reason is what keeps you going when things feel like a lot. The sidebar tracks your countdown and goal progress in real time."},
+  {tab:"sortPrice",section:"inventory",title:"Step 2 — Sort + Price — Items",
+    body:"Add what you're selling. Name, category, condition, your price. The tool suggests a fair price range and the best place to sell it — garage sale, Facebook Marketplace, Poshmark — based on what you enter."},
+  {tab:"sortPrice",section:"batch",title:"Sort + Price — Batch Boxes",
+    body:"For the low-dollar stuff — mugs, paperbacks, odds and ends — batch it. One box, one price. Set it at the edge of the driveway and let people sort through it themselves."},
+  {tab:"sortPrice",section:"memory",title:"Sort + Price — Memory Box",
+    body:"Some things will stop you. Before they go, photograph them and write one line about what they meant. You don't have to keep the item to keep the memory."},
+  {tab:"sortPrice",section:"pricing",title:"Sort + Price — Pricing Guide",
+    body:"A full reference chart for every category — what a fair garage sale price looks like, which items are better online, and where to list them. Use this before you sticker everything."},
+  {tab:"sellPromote",section:"online",title:"Step 3 — Sell + Promote — Online Selling",
+    body:"Some items are worth more than a driveway price. Check this before everything goes out. Furniture, electronics, brand-name clothing — it tells you what to pull out and where to list it."},
+  {tab:"sellPromote",section:"advertising",title:"Sell + Promote — Ads + Signs",
+    body:"Ready-to-post ad copy for Facebook, Nextdoor, Craigslist, and more. Fill in your details, copy it, and post. Sign wording is here too — the headline is the only thing most people read, so make it count."},
+  {tab:"prepSafety",section:"prep",title:"Step 4 — Prep + Safety — Prep Checklist",
+    body:"Everything you need ready before sale day — tables, bags, cash, signs, a plan for leftover items. Check each item off. Add anything specific to your setup."},
+  {tab:"prepSafety",section:"safety",title:"Prep + Safety — Safety + Logistics",
+    body:"Running this solo means thinking ahead. This covers what to do with your cash, who to tell you're out there, and what to trust if something feels off."},
+  {tab:"saleWrap",section:"sale",title:"Step 5 — Sale Day",
+    body:"Log each sale as it happens — the total updates live and shows your goal progress. The change calculator tells you exactly what to hand back for any amount."},
+  {tab:"saleWrap",section:"tags",title:"Sale Day — Print Center",
+    body:"Price tags, area signs, box signs, sale flyers — all ready to print. Do this the night before. You don't want to be at the printer at 6 AM."},
+  {tab:"saleWrap",section:"wrap",title:"Sale Day — Wrap Up",
+    body:"When it's done, log what's left. What's going to donation, what stays online, what goes in the trash. Close it out so you actually close it out."},
+  {fullScreen:true,done:true,
+    title:"You're ready to plan.",
+    body:"Everything saves automatically to this browser.\nCome back any time — your planner will be right here."}
+];
+
+function openTour(step){
+  _tourStep=step||0;
+  const ov=document.getElementById('tour-overlay');
+  if(ov)ov.style.display='block';
+  renderTourOverlay();
+}
+function closeTour(){
+  const ov=document.getElementById('tour-overlay');
+  if(ov)ov.style.display='none';
+  _removeTourHL();
+}
+function nextTourStep(){
+  _tourStep++;
+  if(_tourStep>=tourSteps.length){closeTour();return;}
+  renderTourOverlay();
+}
+function _removeTourHL(){
+  const c=document.getElementById('content');
+  if(c){c.style.outline='';c.style.outlineOffset='';}
+}
+function renderTourOverlay(){
+  const step=tourSteps[_tourStep];
+  const ov=document.getElementById('tour-overlay');
+  if(!ov)return;
+
+  if(!step.fullScreen&&step.tab){
+    UI.tab=step.tab;UI.section=step.section;
+    buildNav();renderSectionNav();renderContent();refreshHeaderStat();refreshMetrics();
+    setTimeout(()=>{
+      const c=document.getElementById('content');
+      if(c){c.style.outline='2.5px solid #E87AAA';c.style.outlineOffset='4px';}
+    },160);
+  }else{
+    _removeTourHL();
+  }
+
+  const total=tourSteps.length-1;
+  const pct=Math.round((_tourStep/total)*100);
+  const isLast=_tourStep===tourSteps.length-2;
+
+  let html='';
+  if(step.fullScreen){
+    html=`<div style="position:absolute;inset:0;background:#252535;display:flex;align-items:center;justify-content:center;padding:32px 24px">
+      <div style="max-width:520px;width:100%;text-align:center">
+        <p style="font-family:'DM Sans',sans-serif;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#E87AAA;margin-bottom:14px">MY NEST CHAPTER</p>
+        <h2 style="font-family:'Lora',serif;font-weight:800;font-size:clamp(1.25rem,4vw,1.9rem);color:#FFF8EE;margin-bottom:14px;line-height:1.25">${esc(step.title)}</h2>
+        <p style="font-family:'DM Sans',sans-serif;font-size:clamp(13px,2vw,15px);color:rgba(255,248,238,0.78);line-height:1.75;margin-bottom:28px;white-space:pre-line">${esc(step.body)}</p>
+        ${step.done
+          ?`<div style="display:flex;flex-direction:column;gap:10px;align-items:center">
+              <button onclick="closeTour();goTab('start','start')" style="font-family:'Lora',serif;font-weight:800;font-size:14px;background:#E87AAA;color:#fff;border:none;padding:14px 32px;cursor:pointer;width:100%;max-width:300px">Start my planner →</button>
+              <button onclick="openTour(0)" style="font-family:'Lora',serif;font-weight:800;font-size:14px;background:transparent;color:#FFF8EE;border:1.5px solid rgba(255,248,238,0.35);padding:14px 32px;cursor:pointer;width:100%;max-width:300px">Watch it again →</button>
+              <a href="mailto:cece@mynestchapter.com?subject=Garage Sale Planner Question" style="font-family:'DM Sans',sans-serif;font-size:13px;color:rgba(255,248,238,0.45);text-decoration:underline;margin-top:6px">Questions? Email Cece →</a>
+            </div>`
+          :`<button onclick="nextTourStep()" style="font-family:'Lora',serif;font-weight:800;font-size:14px;background:#E87AAA;color:#fff;border:none;padding:14px 40px;cursor:pointer">Let's go →</button>`
+        }
+      </div>
+    </div>`;
+  }else{
+    html=`
+    <div style="position:absolute;inset:0;background:rgba(37,37,53,0.68);pointer-events:none"></div>
+    <div style="position:absolute;bottom:0;left:0;right:0;background:#252535;padding:18px 24px;z-index:1">
+      <div style="max-width:900px;margin:0 auto">
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:10px">
+          <div style="flex:1;height:3px;background:rgba(255,248,238,0.12)">
+            <div style="height:100%;width:${pct}%;background:#E87AAA;transition:width 240ms ease"></div>
+          </div>
+          <span style="font-family:'DM Sans',sans-serif;font-size:11px;color:rgba(255,248,238,0.4);white-space:nowrap;flex-shrink:0">${_tourStep} of ${total}</span>
+          <button onclick="closeTour()" style="font-family:'DM Sans',sans-serif;font-size:11px;font-weight:700;color:rgba(255,248,238,0.45);background:none;border:none;cursor:pointer;padding:0;text-transform:uppercase;letter-spacing:.06em;flex-shrink:0">Skip</button>
+        </div>
+        <h3 style="font-family:'Lora',serif;font-weight:800;font-size:clamp(13px,2.5vw,17px);color:#FFF8EE;margin-bottom:5px">${esc(step.title)}</h3>
+        <p style="font-family:'DM Sans',sans-serif;font-size:clamp(12px,1.8vw,14px);color:rgba(255,248,238,0.75);line-height:1.65;margin-bottom:12px;white-space:pre-line">${esc(step.body)}</p>
+        <button onclick="nextTourStep()" style="font-family:'Lora',serif;font-weight:800;font-size:13px;background:#E87AAA;color:#fff;border:none;padding:10px 24px;cursor:pointer">${isLast?'Finish →':'Next →'}</button>
+      </div>
+    </div>`;
+  }
+  ov.innerHTML=html;
 }
 
 // ─── INIT ─────────────────────────────────────────────────────────────────────
@@ -3161,6 +3288,7 @@ refreshBell();
 checkTimeNotifs();
 checkGoalNotifs();
 checkUnpricedNotif();
+if(!localStorage.getItem(TOUR_KEY)){localStorage.setItem(TOUR_KEY,'1');setTimeout(()=>openTour(0),450);}
 setInterval(checkTimeNotifs,60000);
 let _resizeTimer;
 window.addEventListener('resize',()=>{
@@ -3172,6 +3300,8 @@ window.addEventListener('resize',()=>{
 </script>
 
 <div id="sticky-bar"></div>
+
+<div id="tour-overlay" style="position:fixed;inset:0;z-index:9000;display:none;overflow:hidden"></div>
 
 <footer style="max-width:1100px;margin:0 auto;padding:var(--space-5) var(--space-6);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:var(--space-3);border-top:1px solid var(--color-divider);margin-top:var(--space-8)">
   <span style="font-size:var(--text-xs);color:var(--color-text-muted)">© My Nest Chapter · <a href="https://mynestchapter.com" style="color:var(--color-text-muted)">mynestchapter.com</a> · Written by Cece</span>

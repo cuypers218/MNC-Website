@@ -55,7 +55,7 @@ $allProducts = getProducts();
                         <?php if ($isComingSoon): ?>
                             <button class="btn btn-disabled" disabled>Coming Soon</button>
                         <?php else: ?>
-                            <a href="/shop/<?= esc($product['slug']) ?>" class="btn btn-primary">Get the <?= esc($product['title']) ?></a>
+                            <a href="/shop/<?= esc($product['slug']) ?>" class="btn btn-primary">Get the <?= esc(ctaTitle($product['title'])) ?></a>
                         <?php endif; ?>
                     </div>
                 </div>

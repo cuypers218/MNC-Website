@@ -5,10 +5,10 @@ require_once __DIR__ . '/includes/header.php';
 
 requireLogin();
 
-$user     = getCurrentUser();
-$purchases  = getUserPurchases($user['id']);
+$user        = getCurrentUser();
+$purchases   = getUserPurchases($user['id']);
 $freeProducts = getFreeProducts();
-$isWelcome  = isset($_GET['welcome']);
+$isWelcome   = isset($_GET['welcome']);
 
 $quizResult = $user['quiz_result'] ?? null;
 $typeLabels = ['nester' => 'The Nester', 'busyer' => 'The Busy-er', 'wonderer' => 'The Wonderer'];
@@ -38,13 +38,49 @@ $tierDetails = [
 $highestTierSeen = (int)($user['highest_tier_seen'] ?? 0);
 $showDoorReveal  = $currentTier > 0 && $currentTier > $highestTierSeen;
 
-// Record that this tier has now been seen
 if ($showDoorReveal) {
     $db = getDB();
     $stmt = $db->prepare('UPDATE users SET highest_tier_seen = ? WHERE id = ?');
     $stmt->execute([$currentTier, $user['id']]);
 }
+
+$exclusiveItems = getUnlockedExclusiveContent($user['id']);
+$nextUnlock     = getNextExclusiveUnlock($user['id']);
 ?>
+
+<style>
+.dash-tabs {
+    display: flex;
+    border-bottom: 2px solid #E8E0D8;
+    margin-bottom: 2rem;
+    gap: 0;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+.dash-tab-btn {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 800;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #999999;
+    background: none;
+    border: none;
+    border-bottom: 3px solid transparent;
+    margin-bottom: -2px;
+    padding: 14px 24px;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: color 0.15s, border-color 0.15s;
+}
+.dash-tab-btn:hover { color: #252535; }
+.dash-tab-btn.active { color: #E87AAA; border-bottom-color: #E87AAA; }
+.dash-tab-panel { display: none; }
+.dash-tab-panel.active { display: block; }
+@media (max-width: 480px) {
+    .dash-tab-btn { padding: 12px 16px; font-size: 0.65rem; }
+}
+</style>
 
 <section class="section">
     <div class="container">
@@ -56,8 +92,8 @@ if ($showDoorReveal) {
             <p class="fade-in-delay-1" style="color:#444444;margin-bottom:2rem;">Welcome to My Nest Chapter. This is your home base — everything you unlock shows up here.</p>
         <?php endif; ?>
 
-        <!-- Your Empty Nest Type -->
-        <div style="background:#252535;padding:28px 32px;margin-bottom:2.5rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;">
+        <!-- Your Empty Nest Type — persistent above tabs -->
+        <div style="background:#252535;padding:28px 32px;margin-bottom:2rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;">
             <div>
                 <p style="font-family:'Montserrat',sans-serif;font-weight:800;font-size:0.65rem;text-transform:uppercase;letter-spacing:0.15em;color:#A8C5DA;margin-bottom:0.35rem;">YOUR EMPTY NEST TYPE</p>
                 <?php if ($quizResult && isset($typeLabels[$quizResult])): ?>
@@ -69,19 +105,68 @@ if ($showDoorReveal) {
             <a href="/nest-type" style="font-family:'Montserrat',sans-serif;font-weight:800;font-size:0.75rem;text-transform:uppercase;letter-spacing:0.05em;color:#E87AAA;white-space:nowrap;"><?= $quizResult ? 'View Your Type &amp; Download &rarr;' : 'Find Out &rarr;' ?></a>
         </div>
 
-        <!-- ===== YOUR PRODUCTS ===== -->
-        <p class="dashboard-section-title">Your Products</p>
+        <!-- Tab navigation -->
+        <div class="dash-tabs" role="tablist">
+            <button class="dash-tab-btn" id="tab-products" role="tab" aria-controls="panel-products" aria-selected="false" onclick="switchTab('products')">My Products</button>
+            <button class="dash-tab-btn" id="tab-freebies" role="tab" aria-controls="panel-freebies" aria-selected="false" onclick="switchTab('freebies')">Freebies</button>
+            <button class="dash-tab-btn" id="tab-exclusive" role="tab" aria-controls="panel-exclusive" aria-selected="false" onclick="switchTab('exclusive')">Exclusive</button>
+            <button class="dash-tab-btn" id="tab-perks" role="tab" aria-controls="panel-perks" aria-selected="false" onclick="switchTab('perks')">My Perks</button>
+        </div>
 
-        <?php if (empty($purchases)): ?>
-            <div style="padding:20px 0 2.5rem;">
-                <p style="color:#666666;font-size:0.95rem;margin:0 0 0.5rem;">Nothing here yet. Once you buy something, it'll show up here.</p>
-                <a href="/shop" style="font-family:'Montserrat',sans-serif;font-weight:800;font-size:0.75rem;text-transform:uppercase;letter-spacing:0.05em;color:#E87AAA;">Browse the Shop &rarr;</a>
-            </div>
-        <?php else: ?>
+        <!-- ===== TAB: MY PRODUCTS ===== -->
+        <div class="dash-tab-panel" id="panel-products" role="tabpanel" aria-labelledby="tab-products">
+
+            <?php if (empty($purchases)): ?>
+                <div style="padding:20px 0 2.5rem;">
+                    <p style="color:#666666;font-size:0.95rem;margin:0 0 0.5rem;">Nothing here yet. Once you buy something, it'll show up here.</p>
+                    <a href="/shop" style="font-family:'Montserrat',sans-serif;font-weight:800;font-size:0.75rem;text-transform:uppercase;letter-spacing:0.05em;color:#E87AAA;">Browse the Shop &rarr;</a>
+                </div>
+            <?php else: ?>
+                <div class="product-grid" style="margin-bottom:3rem;">
+                    <?php foreach ($purchases as $product): ?>
+                    <div class="product-card fade-in">
+                        <span class="badge badge-unlocked">UNLOCKED</span>
+
+                        <?php if ($product['image_path']): ?>
+                            <img src="<?= esc($product['image_path']) ?>" alt="" class="product-card-image">
+                        <?php else: ?>
+                            <div class="product-card-image" style="background:linear-gradient(135deg,#F5C4A8 0%,#C4B0E8 100%);"></div>
+                        <?php endif; ?>
+
+                        <div class="product-card-content">
+                            <span class="product-card-category"><?= esc(str_replace('_', ' ', $product['category'])) ?></span>
+                            <h3 class="product-card-title"><?= esc($product['title']) ?></h3>
+                            <p class="product-card-description"><?= esc(truncateWords($product['short_description'], 20)) ?></p>
+
+                            <?php if ($product['category'] === 'interactive_tool'): ?>
+                                <a href="/widgets/<?= esc($product['slug']) ?>/" class="btn btn-primary">Open Tool</a>
+                            <?php elseif ($product['file_path']): ?>
+                                <?php if (strpos($product['file_path'], 'http') === 0): ?>
+                                    <a href="<?= esc($product['file_path']) ?>" target="_blank" rel="noopener" class="btn btn-primary">Download Again</a>
+                                <?php else: ?>
+                                    <a href="/shop/<?= esc($product['slug']) ?>?download=1" class="btn btn-primary">Download Again</a>
+                                <?php endif; ?>
+                            <?php else: ?>
+                                <a href="/shop/<?= esc($product['slug']) ?>" class="btn btn-primary">Open</a>
+                            <?php endif; ?>
+                        </div>
+                    </div>
+                    <?php endforeach; ?>
+                </div>
+            <?php endif; ?>
+
+        </div>
+
+        <!-- ===== TAB: FREEBIES ===== -->
+        <div class="dash-tab-panel" id="panel-freebies" role="tabpanel" aria-labelledby="tab-freebies">
+
             <div class="product-grid" style="margin-bottom:3rem;">
-                <?php foreach ($purchases as $product): ?>
+
+                <?php foreach ($freeProducts as $product):
+                    if ($product['slug'] === 'empty-nester-quiz') continue;
+                ?>
                 <div class="product-card fade-in">
-                    <span class="badge badge-unlocked">UNLOCKED</span>
+                    <span class="badge badge-free">FREE</span>
 
                     <?php if ($product['image_path']): ?>
                         <img src="<?= esc($product['image_path']) ?>" alt="" class="product-card-image">
@@ -95,237 +180,188 @@ if ($showDoorReveal) {
                         <p class="product-card-description"><?= esc(truncateWords($product['short_description'], 20)) ?></p>
 
                         <?php if ($product['category'] === 'interactive_tool'): ?>
-                            <a href="/widgets/<?= esc($product['slug']) ?>/" class="btn btn-primary">Open Tool</a>
+                            <?php $memberParam = in_array($product['slug'], ['someday-list', 'coloring-widget']) ? '?member=1' : ''; ?>
+                            <a href="/widgets/<?= esc($product['slug']) ?>/<?= $memberParam ?>" class="btn btn-primary">Open Tool</a>
                         <?php elseif ($product['file_path']): ?>
                             <?php if (strpos($product['file_path'], 'http') === 0): ?>
-                                <a href="<?= esc($product['file_path']) ?>" target="_blank" rel="noopener" class="btn btn-primary">Download Again</a>
+                                <a href="<?= esc($product['file_path']) ?>" target="_blank" rel="noopener" class="btn btn-primary">Download</a>
                             <?php else: ?>
-                                <a href="/shop/<?= esc($product['slug']) ?>?download=1" class="btn btn-primary">Download Again</a>
+                                <a href="/shop/<?= esc($product['slug']) ?>?download=1" class="btn btn-primary">Download</a>
                             <?php endif; ?>
                         <?php else: ?>
                             <a href="/shop/<?= esc($product['slug']) ?>" class="btn btn-primary">Open</a>
                         <?php endif; ?>
                     </div>
                 </div>
-                <?php endforeach; ?>
-            </div>
-        <?php endif; ?>
 
-        <!-- ===== FREEBIES ===== -->
-        <p class="dashboard-section-title">Freebies</p>
-        <div class="product-grid" style="margin-bottom:3rem;">
-
-            <?php foreach ($freeProducts as $product):
-                if ($product['slug'] === 'empty-nester-quiz') continue;
-            ?>
-            <div class="product-card fade-in">
-                <span class="badge badge-free">FREE</span>
-
-                <?php if ($product['image_path']): ?>
-                    <img src="<?= esc($product['image_path']) ?>" alt="" class="product-card-image">
-                <?php else: ?>
-                    <div class="product-card-image" style="background:linear-gradient(135deg,#F5C4A8 0%,#C4B0E8 100%);"></div>
+                <?php if ($product['slug'] === 'someday-list'): ?>
+                <div class="product-card fade-in" style="background:#FFF8EE;border:1.5px solid #cfc7e8;">
+                    <span class="badge" style="background:#E87AAA;color:#FFFFFF;">$7.99</span>
+                    <div style="height:140px;background:linear-gradient(135deg,#F5C4A8 0%,#C4B0E8 100%);display:flex;align-items:center;justify-content:center;">
+                        <p style="font-family:'Montserrat',sans-serif;font-weight:800;font-size:0.7rem;text-transform:uppercase;letter-spacing:0.1em;color:#C45C88;">SOMEDAY COMPANION</p>
+                    </div>
+                    <div class="product-card-content">
+                        <span class="product-card-category">companion</span>
+                        <h3 class="product-card-title">Ready to do something with your list?</h3>
+                        <p class="product-card-description">The Someday Companion is where your list becomes a real starting point. One item at a time.</p>
+                        <a href="/shop/someday-companion" class="btn btn-primary">Get the Companion</a>
+                    </div>
+                </div>
                 <?php endif; ?>
 
-                <div class="product-card-content">
-                    <span class="product-card-category"><?= esc(str_replace('_', ' ', $product['category'])) ?></span>
-                    <h3 class="product-card-title"><?= esc($product['title']) ?></h3>
-                    <p class="product-card-description"><?= esc(truncateWords($product['short_description'], 20)) ?></p>
+                <?php endforeach; ?>
 
-                    <?php if ($product['category'] === 'interactive_tool'): ?>
-                        <?php $memberParam = in_array($product['slug'], ['someday-list', 'coloring-widget']) ? '?member=1' : ''; ?>
-                        <a href="/widgets/<?= esc($product['slug']) ?>/<?= $memberParam ?>" class="btn btn-primary">Open Tool</a>
-                    <?php elseif ($product['file_path']): ?>
-                        <?php if (strpos($product['file_path'], 'http') === 0): ?>
-                            <a href="<?= esc($product['file_path']) ?>" target="_blank" rel="noopener" class="btn btn-primary">Download</a>
+                <!-- Quiz card — handled separately since display depends on quiz_result -->
+                <div class="product-card fade-in">
+                    <span class="badge badge-free">FREE</span>
+                    <div style="height:140px;background:#252535;display:flex;align-items:center;justify-content:center;padding:0 20px;text-align:center;">
+                        <p style="font-family:'Montserrat',sans-serif;font-weight:800;font-size:0.7rem;text-transform:uppercase;letter-spacing:0.1em;color:#A8C5DA;margin:0;">WHAT KIND OF NESTER ARE YOU?</p>
+                    </div>
+                    <div class="product-card-content">
+                        <span class="product-card-category">quiz</span>
+                        <h3 class="product-card-title">What Kind of Nester Are You?</h3>
+                        <?php if ($quizResult && isset($typeLabels[$quizResult])): ?>
+                            <p class="product-card-description">You're <?= esc($typeLabels[$quizResult]) ?>. View your full result and download your type guide.</p>
+                            <a href="/nest-type" class="btn btn-primary">View Your Type &rarr;</a>
                         <?php else: ?>
-                            <a href="/shop/<?= esc($product['slug']) ?>?download=1" class="btn btn-primary">Download</a>
+                            <p class="product-card-description">Ten questions. Three possible types. Find out which one fits where you are right now.</p>
+                            <a href="/nester-quiz" class="btn btn-primary">Discover Your Type &rarr;</a>
                         <?php endif; ?>
-                    <?php else: ?>
-                        <a href="/shop/<?= esc($product['slug']) ?>" class="btn btn-primary">Open</a>
-                    <?php endif; ?>
+                    </div>
                 </div>
+
             </div>
 
-            <?php if ($product['slug'] === 'someday-list'): ?>
-            <div class="product-card fade-in" style="background:#FFF8EE;border:1.5px solid #cfc7e8;">
-                <span class="badge" style="background:#E87AAA;color:#FFFFFF;">$7.99</span>
-                <div style="height:140px;background:linear-gradient(135deg,#F5C4A8 0%,#C4B0E8 100%);display:flex;align-items:center;justify-content:center;">
-                    <p style="font-family:'Montserrat',sans-serif;font-weight:800;font-size:0.7rem;text-transform:uppercase;letter-spacing:0.1em;color:#C45C88;">SOMEDAY COMPANION</p>
+        </div>
+
+        <!-- ===== TAB: EXCLUSIVE ===== -->
+        <div class="dash-tab-panel" id="panel-exclusive" role="tabpanel" aria-labelledby="tab-exclusive">
+
+            <?php if (!empty($exclusiveItems)): ?>
+            <div class="product-grid" style="margin-bottom:1.5rem;">
+                <?php foreach ($exclusiveItems as $item): ?>
+                <div class="product-card fade-in">
+                    <span class="badge" style="background:#C4B0E8;color:#252535;">EXCLUSIVE</span>
+                    <div class="product-card-image" style="background:linear-gradient(135deg,#252535 0%,#3a3a52 100%);display:flex;align-items:center;justify-content:center;padding:0 20px;text-align:center;">
+                        <p style="font-family:'Montserrat',sans-serif;font-weight:800;font-size:0.65rem;text-transform:uppercase;letter-spacing:0.15em;color:#C4B0E8;margin:0;line-height:1.8;"><?= esc($item['title']) ?></p>
+                    </div>
+                    <div class="product-card-content">
+                        <span class="product-card-category">exclusive</span>
+                        <h3 class="product-card-title"><?= esc($item['title']) ?></h3>
+                        <p class="product-card-description"><?= esc($item['description']) ?></p>
+                        <?php if ($item['file_path']): ?>
+                            <a href="/exclusive-download?id=<?= (int)$item['id'] ?>" class="btn btn-primary">Download</a>
+                        <?php else: ?>
+                            <p style="font-size:0.8rem;color:#999999;margin:0;">Coming soon.</p>
+                        <?php endif; ?>
+                    </div>
                 </div>
-                <div class="product-card-content">
-                    <span class="product-card-category">companion</span>
-                    <h3 class="product-card-title">Ready to do something with your list?</h3>
-                    <p class="product-card-description">The Someday Companion is where your list becomes a real starting point. One item at a time.</p>
-                    <a href="/shop/someday-companion" class="btn btn-primary">Get the Companion</a>
-                </div>
+                <?php endforeach; ?>
             </div>
             <?php endif; ?>
 
-            <?php endforeach; ?>
-
-            <!-- Quiz card — handled separately since display depends on quiz_result -->
-            <div class="product-card fade-in">
-                <span class="badge badge-free">FREE</span>
-                <div style="height:140px;background:#252535;display:flex;align-items:center;justify-content:center;padding:0 20px;text-align:center;">
-                    <p style="font-family:'Montserrat',sans-serif;font-weight:800;font-size:0.7rem;text-transform:uppercase;letter-spacing:0.1em;color:#A8C5DA;margin:0;">WHAT KIND OF NESTER ARE YOU?</p>
-                </div>
-                <div class="product-card-content">
-                    <span class="product-card-category">quiz</span>
-                    <h3 class="product-card-title">What Kind of Nester Are You?</h3>
-                    <?php if ($quizResult && isset($typeLabels[$quizResult])): ?>
-                        <p class="product-card-description">You're <?= esc($typeLabels[$quizResult]) ?>. View your full result and download your type guide.</p>
-                        <a href="/nest-type" class="btn btn-primary">View Your Type &rarr;</a>
-                    <?php else: ?>
-                        <p class="product-card-description">Ten questions. Three possible types. Find out which one fits where you are right now.</p>
-                        <a href="/nester-quiz" class="btn btn-primary">Discover Your Type &rarr;</a>
-                    <?php endif; ?>
-                </div>
+            <?php if ($nextUnlock): ?>
+            <div style="background:#252535;padding:24px 32px;margin-bottom:2rem;">
+                <p style="font-family:'Montserrat',sans-serif;font-weight:800;font-size:0.65rem;text-transform:uppercase;letter-spacing:0.15em;color:#A8C5DA;margin:0 0 0.35rem;">NEXT EXCLUSIVE FREEBIE</p>
+                <p style="font-family:'Montserrat',sans-serif;font-weight:800;font-size:1rem;color:#FFF8EE;margin:0 0 0.25rem;"><?= esc($nextUnlock['title']) ?></p>
+                <p id="exclusiveCountdown" style="font-family:Arial,sans-serif;font-size:0.85rem;color:#C4B0E8;margin:0;"></p>
             </div>
-
-        </div>
-
-        <!-- ===== EXCLUSIVE FOR MEMBERS ===== -->
-        <?php
-        $exclusiveItems = getUnlockedExclusiveContent($user['id']);
-        $nextUnlock     = getNextExclusiveUnlock($user['id']);
-
-        ?>
-
-        <p class="dashboard-section-title">Exclusive for Members</p>
-
-        <?php if (!empty($exclusiveItems)): ?>
-        <div class="product-grid" style="margin-bottom:1.5rem;">
-            <?php foreach ($exclusiveItems as $item): ?>
-            <div class="product-card fade-in">
-                <span class="badge" style="background:#C4B0E8;color:#252535;">EXCLUSIVE</span>
-                <div class="product-card-image" style="background:linear-gradient(135deg,#252535 0%,#3a3a52 100%);display:flex;align-items:center;justify-content:center;padding:0 20px;text-align:center;">
-                    <p style="font-family:'Montserrat',sans-serif;font-weight:800;font-size:0.65rem;text-transform:uppercase;letter-spacing:0.15em;color:#C4B0E8;margin:0;line-height:1.8;"><?= esc($item['title']) ?></p>
-                </div>
-                <div class="product-card-content">
-                    <span class="product-card-category">exclusive</span>
-                    <h3 class="product-card-title"><?= esc($item['title']) ?></h3>
-                    <p class="product-card-description"><?= esc($item['description']) ?></p>
-                    <?php if ($item['file_path']): ?>
-                        <a href="/exclusive-download?id=<?= (int)$item['id'] ?>" class="btn btn-primary">Download</a>
-                    <?php else: ?>
-                        <p style="font-size:0.8rem;color:#999999;margin:0;">Coming soon.</p>
-                    <?php endif; ?>
-                </div>
-            </div>
-            <?php endforeach; ?>
-        </div>
-        <?php endif; ?>
-
-        <?php if ($nextUnlock): ?>
-        <div style="background:#252535;padding:24px 32px;margin-bottom:3rem;">
-            <p style="font-family:'Montserrat',sans-serif;font-weight:800;font-size:0.65rem;text-transform:uppercase;letter-spacing:0.15em;color:#A8C5DA;margin:0 0 0.35rem;">NEXT EXCLUSIVE FREEBIE</p>
-            <p style="font-family:'Montserrat',sans-serif;font-weight:800;font-size:1rem;color:#FFF8EE;margin:0 0 0.25rem;"><?= esc($nextUnlock['title']) ?></p>
-            <p id="exclusiveCountdown" style="font-family:Arial,sans-serif;font-size:0.85rem;color:#C4B0E8;margin:0;"></p>
-        </div>
-        <script>
-        (function() {
-            var unlockMs = <?= strtotime($nextUnlock['unlock_date']) * 1000 ?>;
-            var el = document.getElementById('exclusiveCountdown');
-            function tick() {
-                var diff = unlockMs - Date.now();
-                if (diff <= 0) {
-                    el.textContent = 'Unlocking now — refresh your page to access it.';
-                    return;
+            <script>
+            (function() {
+                var unlockMs = <?= strtotime($nextUnlock['unlock_date']) * 1000 ?>;
+                var el = document.getElementById('exclusiveCountdown');
+                function tick() {
+                    var diff = unlockMs - Date.now();
+                    if (diff <= 0) { el.textContent = 'Unlocking now — refresh your page to access it.'; return; }
+                    var days    = Math.floor(diff / 86400000);
+                    var hours   = Math.floor((diff % 86400000) / 3600000);
+                    var minutes = Math.floor((diff % 3600000) / 60000);
+                    var parts = [];
+                    if (days > 0)  parts.push(days + (days === 1 ? ' day' : ' days'));
+                    if (hours > 0) parts.push(hours + (hours === 1 ? ' hour' : ' hours'));
+                    parts.push(minutes + (minutes === 1 ? ' minute' : ' minutes'));
+                    el.textContent = 'Unlocks in ' + parts.join(', ');
+                    setTimeout(tick, 60000);
                 }
-                var days    = Math.floor(diff / 86400000);
-                var hours   = Math.floor((diff % 86400000) / 3600000);
-                var minutes = Math.floor((diff % 3600000) / 60000);
-                var parts = [];
-                if (days > 0)  parts.push(days + (days === 1 ? ' day' : ' days'));
-                if (hours > 0) parts.push(hours + (hours === 1 ? ' hour' : ' hours'));
-                parts.push(minutes + (minutes === 1 ? ' minute' : ' minutes'));
-                el.textContent = 'Unlocks in ' + parts.join(', ');
-                setTimeout(tick, 60000);
-            }
-            tick();
-        })();
-        </script>
-        <?php elseif (empty($exclusiveItems)): ?>
-        <div style="padding:20px 0 2rem;">
-            <p style="color:#666666;font-size:0.95rem;margin:0;">Your first exclusive freebie is waiting on your dashboard. Refresh if you don't see it.</p>
-        </div>
-        <?php else: ?>
-        <div style="background:#252535;padding:24px 32px;margin-bottom:3rem;">
-            <p style="font-family:'Montserrat',sans-serif;font-weight:800;font-size:0.65rem;text-transform:uppercase;letter-spacing:0.15em;color:#A8C5DA;margin:0 0 0.35rem;">EXCLUSIVE FREEBIES</p>
-            <p style="font-family:'Montserrat',sans-serif;font-weight:800;font-size:1rem;color:#FFF8EE;margin:0 0 0.25rem;">You're all caught up.</p>
-            <p style="font-family:Arial,sans-serif;font-size:0.85rem;color:#C4B0E8;margin:0;">Your next exclusive freebie is on its way.</p>
-        </div>
-        <?php endif; ?>
-
-        <!-- ===== FOR MEMBERS ===== -->
-        <p class="dashboard-section-title">For Members</p>
-
-        <?php if ($currentTier === 0): ?>
-            <div style="padding:20px 0 3rem;">
-                <p style="color:#666666;font-size:0.95rem;margin:0 0 0.5rem;">Your member discount unlocks with your first purchase.</p>
-                <a href="/shop" style="font-family:'Montserrat',sans-serif;font-weight:800;font-size:0.75rem;text-transform:uppercase;letter-spacing:0.05em;color:#E87AAA;">Browse the Shop &rarr;</a>
+                tick();
+            })();
+            </script>
+            <?php elseif (empty($exclusiveItems)): ?>
+            <div style="padding:20px 0 2rem;">
+                <p style="color:#666666;font-size:0.95rem;margin:0;">Your first exclusive freebie is waiting on your dashboard. Refresh if you don't see it.</p>
             </div>
+            <?php else: ?>
+            <div style="background:#252535;padding:24px 32px;margin-bottom:2rem;">
+                <p style="font-family:'Montserrat',sans-serif;font-weight:800;font-size:0.65rem;text-transform:uppercase;letter-spacing:0.15em;color:#A8C5DA;margin:0 0 0.35rem;">EXCLUSIVE FREEBIES</p>
+                <p style="font-family:'Montserrat',sans-serif;font-weight:800;font-size:1rem;color:#FFF8EE;margin:0 0 0.25rem;">You're all caught up.</p>
+                <p style="font-family:Arial,sans-serif;font-size:0.85rem;color:#C4B0E8;margin:0;">Your next exclusive freebie is on its way.</p>
+            </div>
+            <?php endif; ?>
 
-        <?php else:
-            $tier = $tierDetails[$currentTier];
-        ?>
-            <div style="position:relative; margin-bottom:3rem; perspective:1000px;">
+        </div>
 
-                <!-- Tier content (always rendered, revealed by door animation on first view) -->
-                <div style="background:#252535;padding:32px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1.5rem;">
-                    <div>
-                        <p style="font-family:'Montserrat',sans-serif;font-weight:800;font-size:0.65rem;text-transform:uppercase;letter-spacing:0.15em;color:#A8C5DA;margin:0 0 0.4rem;">YOUR MEMBER DISCOUNT</p>
-                        <p style="font-family:'Montserrat',sans-serif;font-weight:800;font-size:1.5rem;color:#FFF8EE;margin:0 0 0.25rem;"><?= esc($tier['pct']) ?>% off your next purchase.</p>
-                        <p style="font-family:Arial,sans-serif;font-size:0.85rem;color:#999999;margin:0 0 0.4rem;">Use at checkout:</p>
-                        <p style="font-family:'Montserrat',sans-serif;font-weight:800;font-size:1.3rem;letter-spacing:0.12em;color:#E87AAA;margin:0;" id="tierCode"><?= esc($tier['code']) ?></p>
+        <!-- ===== TAB: MY PERKS ===== -->
+        <div class="dash-tab-panel" id="panel-perks" role="tabpanel" aria-labelledby="tab-perks">
+
+            <?php if ($currentTier === 0): ?>
+                <div style="padding:20px 0 3rem;">
+                    <p style="color:#666666;font-size:0.95rem;margin:0 0 0.5rem;">Your member discount unlocks with your first purchase.</p>
+                    <a href="/shop" style="font-family:'Montserrat',sans-serif;font-weight:800;font-size:0.75rem;text-transform:uppercase;letter-spacing:0.05em;color:#E87AAA;">Browse the Shop &rarr;</a>
+                </div>
+
+            <?php else:
+                $tier = $tierDetails[$currentTier];
+            ?>
+                <div style="position:relative;margin-bottom:3rem;perspective:1000px;">
+
+                    <div style="background:#252535;padding:32px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1.5rem;">
+                        <div>
+                            <p style="font-family:'Montserrat',sans-serif;font-weight:800;font-size:0.65rem;text-transform:uppercase;letter-spacing:0.15em;color:#A8C5DA;margin:0 0 0.4rem;">YOUR MEMBER DISCOUNT</p>
+                            <p style="font-family:'Montserrat',sans-serif;font-weight:800;font-size:1.5rem;color:#FFF8EE;margin:0 0 0.25rem;"><?= esc($tier['pct']) ?>% off your next purchase.</p>
+                            <p style="font-family:Arial,sans-serif;font-size:0.85rem;color:#999999;margin:0 0 0.4rem;">Use at checkout:</p>
+                            <p style="font-family:'Montserrat',sans-serif;font-weight:800;font-size:1.3rem;letter-spacing:0.12em;color:#E87AAA;margin:0;" id="tierCode"><?= esc($tier['code']) ?></p>
+                        </div>
+                        <button onclick="copyTierCode()" id="tierCopyBtn" style="font-family:'Montserrat',sans-serif;font-weight:800;font-size:0.75rem;text-transform:uppercase;letter-spacing:0.05em;background:#E87AAA;color:#FFFFFF;border:none;padding:14px 32px;cursor:pointer;">Copy Code</button>
                     </div>
-                    <button onclick="copyTierCode()" id="tierCopyBtn" style="font-family:'Montserrat',sans-serif;font-weight:800;font-size:0.75rem;text-transform:uppercase;letter-spacing:0.05em;background:#E87AAA;color:#FFFFFF;border:none;padding:14px 32px;cursor:pointer;">Copy Code</button>
-                </div>
 
-                <!-- Next tier nudge / max tier acknowledgement -->
-                <?php if ($currentTier < 3): ?>
-                <div style="background:#1c1c2a;padding:12px 32px;border-top:1px solid #333;">
-                    <p style="font-family:Arial,sans-serif;font-size:0.8rem;color:#666666;margin:0;">Buy <?= $currentTier === 1 ? 'one more product' : 'two more products' ?> to unlock <?= $currentTier === 1 ? '15' : '20' ?>% off.</p>
-                </div>
-                <?php else: ?>
-                <div style="background:#1c1c2a;padding:12px 32px;border-top:1px solid #333;">
-                    <p style="font-family:Arial,sans-serif;font-size:0.8rem;color:#666666;margin:0;">You're at the highest member tier. Thank you.</p>
-                </div>
-                <?php endif; ?>
+                    <?php if ($currentTier < 3): ?>
+                    <div style="background:#1c1c2a;padding:12px 32px;border-top:1px solid #333;">
+                        <p style="font-family:Arial,sans-serif;font-size:0.8rem;color:#666666;margin:0;">Buy <?= $currentTier === 1 ? 'one more product' : 'two more products' ?> to unlock <?= $currentTier === 1 ? '15' : '20' ?>% off.</p>
+                    </div>
+                    <?php else: ?>
+                    <div style="background:#1c1c2a;padding:12px 32px;border-top:1px solid #333;">
+                        <p style="font-family:Arial,sans-serif;font-size:0.8rem;color:#666666;margin:0;">You're at the highest member tier. Thank you.</p>
+                    </div>
+                    <?php endif; ?>
 
-                <?php if ($showDoorReveal): ?>
-                <!-- Door overlay — animates open on first tier unlock, never shown again -->
-                <div id="doorOverlay" style="
-                    position: absolute;
-                    top: 0; left: 0; right: 0; bottom: 0;
-                    z-index: 10;
-                    transform-origin: left center;
-                    animation: doorSwingOpen 1.6s cubic-bezier(0.4, 0, 0.2, 1) 1s forwards;
-                ">
-                    <div style="background:#FFF8EE;width:100%;height:100%;position:relative;box-shadow:none;">
-                        <!-- Inner frame -->
-                        <div style="position:absolute;top:16px;left:16px;right:16px;bottom:16px;border:2px solid #D3D3D3;pointer-events:none;"></div>
-                        <!-- Doorknob -->
-                        <div style="position:absolute;right:28px;top:50%;transform:translateY(-50%);width:18px;height:18px;background:#E87AAA;border-radius:9999px;box-shadow:none;"></div>
-                        <!-- Brand text on door -->
-                        <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-60%);text-align:center;">
-                            <p style="font-family:'Montserrat',sans-serif;font-weight:800;font-size:0.55rem;text-transform:uppercase;letter-spacing:0.2em;color:#252535;margin:0;line-height:2.2;">MY NEST<br>CHAPTER</p>
+                    <?php if ($showDoorReveal): ?>
+                    <div id="doorOverlay" style="
+                        position:absolute;top:0;left:0;right:0;bottom:0;z-index:10;
+                        transform-origin:left center;
+                        animation:doorSwingOpen 1.6s cubic-bezier(0.4,0,0.2,1) 1s forwards;
+                    ">
+                        <div style="background:#FFF8EE;width:100%;height:100%;position:relative;">
+                            <div style="position:absolute;top:16px;left:16px;right:16px;bottom:16px;border:2px solid #D3D3D3;pointer-events:none;"></div>
+                            <div style="position:absolute;right:28px;top:50%;transform:translateY(-50%);width:18px;height:18px;background:#E87AAA;border-radius:9999px;"></div>
+                            <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-60%);text-align:center;">
+                                <p style="font-family:'Montserrat',sans-serif;font-weight:800;font-size:0.55rem;text-transform:uppercase;letter-spacing:0.2em;color:#252535;margin:0;line-height:2.2;">MY NEST<br>CHAPTER</p>
+                            </div>
                         </div>
                     </div>
+                    <style>
+                    @keyframes doorSwingOpen {
+                        0%   { transform: rotateY(0deg); }
+                        100% { transform: rotateY(-90deg); }
+                    }
+                    </style>
+                    <?php endif; ?>
+
                 </div>
-                <style>
-                @keyframes doorSwingOpen {
-                    0%   { transform: rotateY(0deg); }
-                    100% { transform: rotateY(-90deg); }
-                }
-                </style>
-                <?php endif; ?>
+            <?php endif; ?>
 
-            </div>
-        <?php endif; ?>
+        </div>
 
-        <!-- Quick Links -->
+        <!-- Quick Links — persistent below tabs -->
         <div style="margin-top:3rem;padding-top:2rem;border-top:1px solid #D3D3D3;">
             <p class="dashboard-section-title">Quick Links</p>
             <div style="display:flex;gap:1rem;flex-wrap:wrap;">
@@ -336,7 +372,7 @@ if ($showDoorReveal) {
             </div>
         </div>
 
-        <!-- Account -->
+        <!-- Account — persistent below tabs -->
         <div style="margin-top:3rem;padding-top:2rem;border-top:1px solid #D3D3D3;">
             <p class="dashboard-section-title">Account</p>
             <p style="color:#666666;font-size:0.9rem;margin-bottom:0.5rem;">Logged in as <?= esc($user['email']) ?></p>
@@ -347,14 +383,37 @@ if ($showDoorReveal) {
 </section>
 
 <script>
+function switchTab(name) {
+    document.querySelectorAll('.dash-tab-btn').forEach(function(b) {
+        b.classList.remove('active');
+        b.setAttribute('aria-selected', 'false');
+    });
+    document.querySelectorAll('.dash-tab-panel').forEach(function(p) {
+        p.classList.remove('active');
+    });
+    var btn = document.getElementById('tab-' + name);
+    var panel = document.getElementById('panel-' + name);
+    if (btn) { btn.classList.add('active'); btn.setAttribute('aria-selected', 'true'); }
+    if (panel) panel.classList.add('active');
+    history.replaceState(null, '', '#' + name);
+}
+
 function copyTierCode() {
-    var code = document.getElementById('tierCode').textContent;
-    navigator.clipboard.writeText(code).then(function() {
+    var code = document.getElementById('tierCode');
+    if (!code) return;
+    navigator.clipboard.writeText(code.textContent).then(function() {
         var btn = document.getElementById('tierCopyBtn');
         btn.textContent = 'Copied!';
         setTimeout(function() { btn.textContent = 'Copy Code'; }, 2000);
     });
 }
+
+// Activate tab from URL hash, default to products
+(function() {
+    var valid = ['products', 'freebies', 'exclusive', 'perks'];
+    var hash = (window.location.hash || '').replace('#', '');
+    switchTab(valid.indexOf(hash) !== -1 ? hash : 'products');
+})();
 </script>
 
 <?php require_once __DIR__ . '/includes/footer.php'; ?>

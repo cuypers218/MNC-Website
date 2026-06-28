@@ -45,7 +45,7 @@ require_once __DIR__ . '/includes/header.php';
 <section class="section-cream" style="border-top: 1px solid #DDD6F0;">
     <div class="container-narrow text-center">
         <p style="font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; color: #666666; margin-bottom: 1.5rem;">Not sure where you fit? Start here.</p>
-        <button onclick="openQuizModal()" class="btn btn-primary" style="cursor:pointer;">What Kind of Empty Nester Are You?</button>
+        <button onclick="openQuizModal()" class="btn btn-primary btn-pulse" style="cursor:pointer;">What Kind of Empty Nester Are You?</button>
     </div>
 </section>
 

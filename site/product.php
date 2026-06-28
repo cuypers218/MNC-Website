@@ -32,6 +32,7 @@ if (!$product) {
 
 $pageTitle = $product['title'];
 $pageDescription = $product['short_description'] ?? 'A tool from My Nest Chapter.';
+$pageImage = $product['image_path'] ?? null;
 require_once __DIR__ . '/includes/header.php';
 
 $isFree = $product['price'] == 0;
@@ -107,7 +108,8 @@ $related = $stmt->fetchAll();
                     <?php endif; ?>
                 <?php else: ?>
                     <?php if (isLoggedIn()): ?>
-                        <a href="/checkout?product=<?= esc($product['slug']) ?>" class="btn btn-primary btn-full">Get the <?= esc($product['title']) ?></a>
+                        <a href="/checkout?product=<?= esc($product['slug']) ?>" class="btn btn-primary btn-full">Get the <?= esc(ctaTitle($product['title'])) ?></a>
+                        <p style="font-family:Arial,sans-serif;font-size:0.8rem;color:#999999;text-align:center;margin-top:0.6rem;">Secure checkout via Stripe. Instant download after purchase.</p>
                     <?php else: ?>
                         <a href="/register" class="btn btn-primary btn-full">Create Account to Purchase</a>
                         <p style="color: #666666; font-size: 0.85rem; margin-top: 0.75rem; text-align: center;">You'll need an account to buy and access your download.</p>

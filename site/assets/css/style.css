@@ -11,7 +11,7 @@ body {
     font-family: 'Arial', sans-serif;
     font-size: 16px;
     color: #101010;
-    background-color: #FAFAFA;
+    background-color: #FFF8EE;
     line-height: 1.6;
     -webkit-font-smoothing: antialiased;
 }
@@ -37,7 +37,7 @@ p { margin-bottom: 1rem; line-height: 1.6; }
 /* --- Layout --- */
 .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
 .container-narrow { max-width: 700px; margin: 0 auto; padding: 0 24px; }
-.section { padding: 4rem 0; background-color: #FAFAFA; }
+.section { padding: 4rem 0; background-color: #FFF8EE; }
 .section-alt { padding: 4rem 0; background-color: #FFFFFF; }
 .section-cream { padding: 4rem 0; background-color: #FFF8EE; }
 .section-warm { padding: 4rem 0; background-color: #FFF8EE; }
@@ -176,13 +176,23 @@ p { margin-bottom: 1rem; line-height: 1.6; }
 .btn-primary { background-color: #E87AAA; color: #FFFFFF; }
 .btn-primary:hover { background-color: #C45A84; color: #FFFFFF; }
 
+@keyframes heroPulse {
+    0%   { box-shadow: 0 0 0 0 rgba(232,122,170,0.7); }
+    70%  { box-shadow: 0 0 0 16px rgba(232,122,170,0); }
+    100% { box-shadow: 0 0 0 0 rgba(232,122,170,0); }
+}
 .btn-hero {
     font-size: 0.85rem;
     padding: 14px 36px;
     border-radius: 9999px;
     border: 2px solid rgba(255,255,255,0.7);
+    animation: heroPulse 2.2s ease-out infinite;
 }
-.btn-hero:hover { }
+.btn-hero:hover {
+    background-color: #C45A84;
+    border-color: rgba(255,255,255,0.9);
+    animation: none;
+}
 
 .hero-cta-hint {
     font-family: 'Montserrat', sans-serif;
@@ -202,6 +212,14 @@ p { margin-bottom: 1rem; line-height: 1.6; }
 }
 
 .btn-full { width: 100%; }
+
+@keyframes btnPulse {
+    0%   { box-shadow: 0 0 0 0 rgba(232,122,170,0.6); }
+    70%  { box-shadow: 0 0 0 12px rgba(232,122,170,0); }
+    100% { box-shadow: 0 0 0 0 rgba(232,122,170,0); }
+}
+.btn-pulse { animation: btnPulse 2.2s ease-out infinite; }
+.btn-pulse:hover { animation: none; }
 
 /* ============================================
    PRODUCT CARDS
@@ -427,6 +445,11 @@ p { margin-bottom: 1rem; line-height: 1.6; }
     color: #101010; text-decoration: none;
 }
 .footer-nav a:hover { color: #E87AAA; }
+.footer-social {
+    display: flex; gap: 1.25rem; justify-content: center; margin-bottom: 1rem;
+}
+.footer-social a { color: #8BA7D4; transition: color 0.2s; }
+.footer-social a:hover { color: #E87AAA; }
 .footer-copy {
     font-family: 'Arial', sans-serif; font-size: 0.75rem; color: #999999;
 }

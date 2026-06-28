@@ -42,6 +42,28 @@ $related = $stmt->fetchAll();
         <?= $post['body'] ?>
     </div>
     
+    <!-- Product CTA -->
+    <?php
+    $cat = strtolower($post['category'] ?? '');
+    if (str_contains($cat, 'cook') || str_contains($cat, 'food') || str_contains($cat, 'meal')) {
+        $ctaText  = 'Cooking for yourself after years of cooking for everyone else is its own adjustment.';
+        $ctaLink  = '/shop/cooking-for-one';
+        $ctaLabel = 'Get the Cooking for One Planner';
+    } elseif (str_contains($cat, 'garage') || str_contains($cat, 'declutter') || str_contains($cat, 'organiz')) {
+        $ctaText  = 'Ready to clear out the house and actually make money doing it?';
+        $ctaLink  = '/shop/garage-sale-planner';
+        $ctaLabel = 'Get the Garage Sale Planner';
+    } else {
+        $ctaText  = 'If you\'re figuring out what comes next, the Now What? Workbook is where most women start.';
+        $ctaLink  = '/shop/now-what-workbook';
+        $ctaLabel = 'Get the Now What? Workbook';
+    }
+    ?>
+    <div style="background:#252535;padding:28px 32px;margin-top:3rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1.5rem;">
+        <p style="font-family:Arial,sans-serif;font-size:0.95rem;color:#FFF8EE;margin:0;line-height:1.6;max-width:520px;"><?= esc($ctaText) ?></p>
+        <a href="<?= esc($ctaLink) ?>" style="font-family:'Montserrat',sans-serif;font-weight:800;font-size:0.75rem;text-transform:uppercase;letter-spacing:0.05em;color:#E87AAA;white-space:nowrap;flex-shrink:0;"><?= esc($ctaLabel) ?> &rarr;</a>
+    </div>
+
     <!-- Email Capture -->
     <div class="email-capture" style="margin-top: 3rem;">
         <h3>I Write About This Every Week</h3>
