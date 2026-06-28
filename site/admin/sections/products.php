@@ -21,7 +21,7 @@ $urlOverrides = [
 
 function getProductViewUrl(string $slug, string $category, array $overrides): string {
     if (isset($overrides[$slug])) return $overrides[$slug];
-    if ($category === 'interactive_tool') return '/widgets/' . $slug . '/widget.html';
+    if ($category === 'interactive_tool') return '/widgets/' . $slug . '/';
     return '/shop/' . $slug;
 }
 ?>
