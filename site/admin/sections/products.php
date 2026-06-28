@@ -10,6 +10,20 @@ $categories = [
     'interactive_tool' => 'Interactive Tool',
     'free'             => 'Free',
 ];
+
+// Products that live at a non-standard URL (not /shop/{slug})
+$urlOverrides = [
+    'now-what-workbook' => '/workbook',
+    '6pm-cheat-sheet'   => '/6pm-cheat-sheet',
+    'coloring-widget'   => '/coloring',
+    'nester-quiz'       => '/nester-quiz',
+];
+
+function getProductViewUrl(string $slug, string $category, array $overrides): string {
+    if (isset($overrides[$slug])) return $overrides[$slug];
+    if ($category === 'interactive_tool') return '/widgets/' . $slug . '/widget.html';
+    return '/shop/' . $slug;
+}
 ?>
 
 <div class="section-header">
@@ -27,11 +41,12 @@ $categories = [
                 <th>Status</th>
                 <th>Thumbnail</th>
                 <th>Actions</th>
+                <th>View</th>
             </tr>
         </thead>
         <tbody>
             <?php if (!$products): ?>
-                <tr><td colspan="6" style="text-align:center;color:#888;padding:32px;">No products yet.</td></tr>
+                <tr><td colspan="7" style="text-align:center;color:#888;padding:32px;">No products yet.</td></tr>
             <?php endif; ?>
             <?php foreach ($products as $p): ?>
                 <tr>
@@ -65,6 +80,8 @@ $categories = [
                                 'short_description' => $p['short_description'] ?? '',
                                 'file_path'         => $p['file_path'] ?? '',
                                 'stripe_product_id' => $p['stripe_product_id'] ?? $p['stripe_id'] ?? '',
+                                'image_path'        => $p['image_path'] ?? '',
+                                'view_url'          => getProductViewUrl($p['slug'], $p['category'], $urlOverrides),
                             ]), ENT_QUOTES) ?>)">
                             Edit
                         </button>
@@ -72,6 +89,13 @@ $categories = [
                             onclick="toggleProduct(<?= (int)$p['id'] ?>, '<?= esc($p['status']) ?>')">
                             <?= $p['status'] === 'active' ? 'Hide' : 'Activate' ?>
                         </button>
+                    </td>
+                    <td>
+                        <a class="btn btn-sm btn-secondary"
+                           href="<?= esc(getProductViewUrl($p['slug'], $p['category'], $urlOverrides)) ?>"
+                           target="_blank" rel="noopener">
+                            View &rarr;
+                        </a>
                     </td>
                 </tr>
             <?php endforeach; ?>
@@ -88,6 +112,16 @@ $categories = [
         </div>
         <form method="POST" action="/admin/ajax/save-product.php" enctype="multipart/form-data">
             <input type="hidden" name="id" value="">
+
+            <div id="product-view-bar" style="display:none;margin-bottom:18px;padding:10px 14px;background:#f0edf8;border-left:4px solid #8BA7D4;display:flex;align-items:center;justify-content:space-between;gap:12px;">
+                <span id="product-view-url" style="font-size:12px;color:#555;font-family:Arial,monospace;word-break:break-all;"></span>
+                <a id="product-view-link" href="#" target="_blank" rel="noopener" class="btn btn-sm btn-secondary" style="white-space:nowrap;">Open &rarr;</a>
+            </div>
+
+            <div id="product-thumb-bar" style="display:none;margin-bottom:18px;">
+                <div style="font-family:'Montserrat',Arial,sans-serif;font-weight:800;font-size:10px;text-transform:uppercase;letter-spacing:1px;color:#252535;margin-bottom:6px;">Current Thumbnail</div>
+                <img id="product-thumb-preview" src="" alt="" style="max-height:80px;max-width:180px;display:block;object-fit:contain;">
+            </div>
 
             <div class="form-group">
                 <label class="form-label" for="product-title">Product Name</label>
