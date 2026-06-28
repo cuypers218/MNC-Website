@@ -3204,20 +3204,26 @@ const tourSteps=[
 ];
 
 function openTour(step){
-  _tourStep=step||0;
+  _tourStep=(step!==undefined&&step!==null)?step:0;
   const ov=document.getElementById('tour-overlay');
-  if(ov)ov.style.display='block';
+  if(!ov)return;
+  ov.style.display='block';
+  ov.style.opacity='0';
   renderTourOverlay();
+  requestAnimationFrame(()=>requestAnimationFrame(()=>{ov.style.opacity='1';}));
 }
 function closeTour(){
   const ov=document.getElementById('tour-overlay');
-  if(ov)ov.style.display='none';
+  if(ov){ov.style.opacity='0';setTimeout(()=>{ov.style.display='none';},180);}
   _removeTourHL();
 }
 function nextTourStep(){
   _tourStep++;
   if(_tourStep>=tourSteps.length){closeTour();return;}
   renderTourOverlay();
+}
+function prevTourStep(){
+  if(_tourStep>0){_tourStep--;renderTourOverlay();}
 }
 function _removeTourHL(){
   const c=document.getElementById('content');
@@ -3229,6 +3235,8 @@ function renderTourOverlay(){
   if(!ov)return;
 
   if(!step.fullScreen&&step.tab){
+    // Let the widget behind be fully visible and interactive
+    ov.style.pointerEvents='none';
     UI.tab=step.tab;UI.section=step.section;
     buildNav();renderSectionNav();renderContent();refreshHeaderStat();refreshMetrics();
     setTimeout(()=>{
@@ -3236,12 +3244,14 @@ function renderTourOverlay(){
       if(c){c.style.outline='2.5px solid #E87AAA';c.style.outlineOffset='4px';}
     },160);
   }else{
+    ov.style.pointerEvents='auto';
     _removeTourHL();
   }
 
   const total=tourSteps.length-1;
   const pct=Math.round((_tourStep/total)*100);
   const isLast=_tourStep===tourSteps.length-2;
+  const canGoBack=_tourStep>1;
 
   let html='';
   if(step.fullScreen){
@@ -3262,8 +3272,7 @@ function renderTourOverlay(){
     </div>`;
   }else{
     html=`
-    <div style="position:absolute;inset:0;background:rgba(37,37,53,0.68);pointer-events:none"></div>
-    <div style="position:absolute;bottom:0;left:0;right:0;background:#252535;padding:18px 24px;z-index:1">
+    <div style="position:fixed;bottom:0;left:0;right:0;background:#252535;border-top:2px solid rgba(232,122,170,0.5);padding:18px 24px;pointer-events:auto;z-index:1">
       <div style="max-width:900px;margin:0 auto">
         <div style="display:flex;align-items:center;gap:12px;margin-bottom:10px">
           <div style="flex:1;height:3px;background:rgba(255,248,238,0.12)">
@@ -3274,7 +3283,10 @@ function renderTourOverlay(){
         </div>
         <h3 style="font-family:'Lora',serif;font-weight:800;font-size:clamp(13px,2.5vw,17px);color:#FFF8EE;margin-bottom:5px">${esc(step.title)}</h3>
         <p style="font-family:'DM Sans',sans-serif;font-size:clamp(12px,1.8vw,14px);color:rgba(255,248,238,0.75);line-height:1.65;margin-bottom:12px;white-space:pre-line">${esc(step.body)}</p>
-        <button onclick="nextTourStep()" style="font-family:'Lora',serif;font-weight:800;font-size:13px;background:#E87AAA;color:#fff;border:none;padding:10px 24px;cursor:pointer">${isLast?'Finish →':'Next →'}</button>
+        <div style="display:flex;gap:10px;align-items:center">
+          ${canGoBack?`<button onclick="prevTourStep()" style="font-family:'Lora',serif;font-weight:800;font-size:13px;background:transparent;color:#FFF8EE;border:1.5px solid rgba(255,248,238,0.3);padding:10px 20px;cursor:pointer;pointer-events:auto">← Back</button>`:''}
+          <button onclick="nextTourStep()" style="font-family:'Lora',serif;font-weight:800;font-size:13px;background:#E87AAA;color:#fff;border:none;padding:10px 24px;cursor:pointer;pointer-events:auto">${isLast?'Finish →':'Next →'}</button>
+        </div>
       </div>
     </div>`;
   }
@@ -3288,7 +3300,7 @@ refreshBell();
 checkTimeNotifs();
 checkGoalNotifs();
 checkUnpricedNotif();
-if(!localStorage.getItem(TOUR_KEY)){localStorage.setItem(TOUR_KEY,'1');setTimeout(()=>openTour(0),450);}
+if(!localStorage.getItem(TOUR_KEY)){localStorage.setItem(TOUR_KEY,'1');setTimeout(()=>openTour(0),700);}
 setInterval(checkTimeNotifs,60000);
 let _resizeTimer;
 window.addEventListener('resize',()=>{
@@ -3301,7 +3313,7 @@ window.addEventListener('resize',()=>{
 
 <div id="sticky-bar"></div>
 
-<div id="tour-overlay" style="position:fixed;inset:0;z-index:9000;display:none;overflow:hidden"></div>
+<div id="tour-overlay" style="position:fixed;inset:0;z-index:9000;display:none;overflow:hidden;pointer-events:none;transition:opacity 180ms ease;opacity:0"></div>
 
 <footer style="max-width:1100px;margin:0 auto;padding:var(--space-5) var(--space-6);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:var(--space-3);border-top:1px solid var(--color-divider);margin-top:var(--space-8)">
   <span style="font-size:var(--text-xs);color:var(--color-text-muted)">© My Nest Chapter · <a href="https://mynestchapter.com" style="color:var(--color-text-muted)">mynestchapter.com</a> · Written by Cece</span>
