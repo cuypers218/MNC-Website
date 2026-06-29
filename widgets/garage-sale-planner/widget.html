@@ -1106,7 +1106,7 @@ function renderStart(){
       </div>
 
       <!-- Weather -->
-      <div style="background:#fff;border:1px solid var(--color-divider);padding:20px" id="weather-card" ${!s.saleDate?'style="display:none;background:#fff;border:1px solid var(--color-divider);padding:20px"':''}></div>
+      <div style="background:#fff;border:1px solid var(--color-divider);padding:20px" id="weather-card"></div>
 
       <!-- Day-before reminder -->
       <div style="background:#fff;border:1px solid var(--color-divider);padding:24px">
@@ -3072,8 +3072,11 @@ function clearWeatherZip(){
 }
 async function fetchWeather(saleDate){
   const el=document.getElementById('weather-card');if(!el)return;
-  if(!saleDate){el.style.display='none';return;}
   el.style.display='';
+  if(!saleDate){
+    el.innerHTML=`<div class="card-title" style="margin-bottom:8px">Sale day weather</div><div style="font-size:14px;color:var(--color-text-muted);line-height:1.6">Set your sale date above and we'll pull the forecast for you.</div>`;
+    return;
+  }
   const zip=P.setup?.weatherZip;
   if(!zip){renderWeatherZipPrompt();return;}
   if(W.forDate===saleDate&&W.forZip===zip&&W.data){renderWeatherCard();return;}
