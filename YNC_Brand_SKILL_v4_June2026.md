@@ -388,37 +388,38 @@ Every digital product must address a specific, clearly defined pain point before
 - Workbook 1: Amazon KDP ($24.99 paperback) + website ($14.99 PDF)
 - All other products: mynestchapter.com only
 
-### Current Live Products:
-- Now What? Workbook — $14.99 PDF / $24.99 paperback (Amazon KDP)
-- The Someday List Companion — $7.99 placeholder (shop page)
-- The 6pm Cheat Sheet — Free / Freebies page (gated) + dashboard (direct download, no gate)
-- Someday List Builder — Free / Freebies page (gated, capture built in) + dashboard (no gate, callout card to paid Companion)
-- Pick Your Mood Coloring Widget — Free / Freebies page (needs email gate added before going live) + dashboard (no gate)
-- Quiz: What Kind of Nester Are You? — Free / About page + dedicated /nester-quiz page (3 result types: Nester, Busy-er, Wonderer)
-- Garage Sale Planner — HTML tool built, not yet listed
-- What's This Worth — HTML tool built, not yet listed
+### Current Live Products (confirmed against live DB, June 2026):
 
-### Exclusive Dashboard Freebies — Built, NOT YET LIVE:
-Confirmed against live code (dashboard.php) on June 19, 2026 — no exclusive content section exists on the dashboard yet, and neither PDF has been uploaded to Hostinger. "Built ✅" in past session notes meant the content/design was finished, not that it shipped.
+**Paid — Active:**
+- Now What? Workbook — $14.99 PDF (site) / $24.99 paperback (Amazon KDP). All edits done and confirmed live.
+- Someday Companion — $7.99, active
+- Cooking for One Planner — $27, active (no longer free)
+- Garage Sale Planner — $27, active (full design pass complete)
+- 30-Day Goal & Habit Tracker — $27, active in DB but no product image and needs visual rebuild — confirm pricing is intentional
 
-Drop order (none have launched — this is the queue from first to last):
-1. The 6pm Survival Plan
-2. Who Am I Now
-3. Weekend Structure Sheet
-4. Cooking for One Starter Sheet
-5. The Closed Door Checklist (what to do with their kid's old room)
-6. A simple weekly reset — Sunday check-in, one page
-7. Budget Reset for One worksheet
+**Free — Active:**
+- The 6pm Cheat Sheet — free, email capture CTA
+- Pick Your Mood Coloring Pages — free, no product image yet
+- Someday List Builder — free, no product image yet
 
-Items 3-7 are planned/not yet built. Items 1-2 are built and ready to deploy as soon as the exclusive content section exists on the dashboard.
+**Free — Dashboard Only (member exclusive):**
+- The 6pm Survival Plan — built, ready to deploy (exclusive content section not built yet)
+- Who Am I Now — built, ready to deploy (exclusive content section not built yet)
+
+**Free — Quiz:**
+- What Kind of Nester Are You? — 3 result types (The Nester, The Busy-er, The Wonderer). Lives at `/nester-quiz`.
+
+**Built, Not Yet Listed:**
+- What's This Worth — HTML tool complete, not yet in shop
 
 ### Interactive HTML Tools Pipeline — PRIORITY:
 Delivered as: HTML file + PDF instructions. Two files. Opens in browser.
 
-- Garage Sale Planner (built)
-- What's This Worth (built)
-- Weekly Cooking for One (built)
+- Garage Sale Planner — **LIVE at $27** (full design pass complete, in shop)
+- What's This Worth — Built, not yet listed for sale
+- Weekly Cooking for One — Built, active at $27
 - **The New Grandma Planner — HIGH PRIORITY** (Cece is now a grandmother)
+- 30-Day Goal & Habit Tracker — Active in DB at $27, needs visual rebuild
 - Weekly Reset Tool
 - The Crafting Planner
 - My Reading Life
@@ -445,37 +446,20 @@ Interactive content significantly outperforms static PDFs: 2.7x more engagement,
 ## WEBSITE & TECH INFRASTRUCTURE
 
 ### Live Pages:
-Homepage, About (quiz), Shop, workbook.php, Blog, Resources, Freebies, Member Dashboard, Login/Register, Checkout, /nester-quiz (dedicated quiz page — shareable + dashboard link)
-
-### Freebies Page — LOCKED Structure (June 2026):
-- Page name stays "Freebies" — not Free Tools, not Free Resources, not Free Stuff
-- "Free Stuff" is conversational/social language only — never the nav label
-- Shop page is paid products only — no free items mixed in
-- Shop carries a small callout: "Looking for free resources? Visit the Freebies page →"
-- Every public freebie on this page requires email capture — no exceptions
-- Members already logged in get everything gate-free on the dashboard — they're already in the system
+Homepage, About (quiz), Shop, workbook.php, Blog, Resources, Freebies, Member Dashboard, Login/Register, Checkout
 
 ### Homepage — Built & Live:
 - Hero: CTA "Get the Free 6pm Cheat Sheet →"
-- 6pm Experience widget (all copy locked and approved) — NEVER call it a "lightbox"
+- 6pm Experience widget (all copy locked and approved)
 - "I'm Cece" section with photo (narrow portrait, side-by-side)
 - Combined account/newsletter signup section
 - Product cards with action-specific CTAs
 
 ### Member Dashboard:
-- Live (login/register, product grid, filter tabs, account section) — but NO exclusive content section exists yet
-- Monthly freebie drop cadence locked — one new exclusive freebie per month once the section is built
-- Seven-item queue documented above and in Notion (first two already built)
-- KNOWN ISSUES: Banned phrase in product card | Placeholder thumbnails | No dedicated downloads section | Exclusive content section not yet built
-
-**Dashboard Freebie Structure — LOCKED (June 2026):**
-- Members get instant access to ALL currently available freebies on signup — no drip, no waiting
-- Countdown timer card shows next freebie drop date — drives return visits
-- Email reminder goes out via Hostinger Reach ahead of each drop
-- 6pm Cheat Sheet — direct download on dashboard, no email gate (member already in system)
-- Someday List Builder — no gate on dashboard, callout card pointing to paid Someday List Companion
-- Pick Your Mood Coloring Widget — no gate on dashboard
-- Quiz result card: if taken → shows matched type (Nester / Busy-er / Wonderer) + PDF download button; if not taken → "Discover your type →" card linking to /nester-quiz
+- Live. Shows purchased products, freebies, quiz result card.
+- **Exclusive Content section does NOT exist in code yet** — 6pm Survival Plan and Who Am I Now PDFs are built and ready to upload the moment it's built.
+- Monthly drop cadence: one new exclusive freebie per month. Seven-item queue documented in Notion and CLAUDE.md.
+- KNOWN ISSUES: Exclusive content section not built | Banned phrase in product card | Placeholder thumbnails | No dedicated downloads section
 
 ### Stripe:
 Live mode. Needs: product in Product Catalogue + payment link generated.
@@ -501,6 +485,7 @@ Stored at `/home/claude/fonts/` — download at session start for PDF builds.
 ### Platform Status:
 - Facebook — Fully configured. Active.
 - Instagram — Account created. Content built.
+- TikTok — Launched June 2026. Active. Handle: @mynestchapter
 - Pinterest — Next priority. Search-driven traffic. Dedicated session flagged.
 
 ### Content Strategy:
@@ -514,24 +499,23 @@ Instagram post template | Instagram carousel template | Instagram story template
 ## OPEN WORK & PRIORITIES (June 2026)
 
 ### Immediate:
-1. Group 3 brand assets (social media templates)
-2. Stripe: Product Catalogue + payment link
+1. Group 3 brand assets (social media templates: Instagram post, carousel, story; Facebook cover, profile pic)
+2. Stripe: Product Catalogue + payment link for active paid products
 3. Pinterest setup and first content
-4. Quiet House Meter redesign — visual gauge/meter format, 4 questions
-5. New Grandma Planner — HIGH PRIORITY interactive HTML tool
-6. Shop product card mockups (Garage Sale Planner, What's This Worth, Someday List Companion, New Grandma Planner)
+4. **New Grandma Planner — HIGH PRIORITY** interactive HTML tool
+5. Exclusive Content section on member dashboard (code doesn't exist yet — content is ready)
+6. 30-Day Goal & Habit Tracker visual rebuild (brief needed)
+7. Thumbnail images for three free products (6pm Cheat Sheet, Pick Your Mood Coloring Pages, Someday List Builder)
+8. Shop product card mockups
 
 ### Dashboard Fixes:
+- Build the Exclusive Content section (highest priority — content ready, code doesn't exist)
 - Replace placeholder thumbnails
-- Fix banned phrase in product card
+- Fix banned phrase in product card ("No judgment." — must be removed)
 - Add dedicated downloads section
 
-### Workbook 1 Edits Pending:
-- Rewrite intro (pages 4-7): remove Life Coach certification reference, fix brand name error
-- Fix "As solo moms, we..." language across multiple activities
-- Remove outcome promises and assumptive statements
-- Revise "What You Gained" sections
-- Correct typos: "your ready," "INVISIBBLE," punctuation error, duplicate activity list entry
+### Back Burner (do not rebuild without a brief):
+- Quiet House Meter — was never built, removed from live site, DB set to draft
 
 ### Blog:
 No posts written yet. Weekly cadence. Real-time lived experience.
