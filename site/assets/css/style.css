@@ -177,9 +177,9 @@ p { margin-bottom: 1rem; line-height: 1.6; }
 .btn-primary:hover { background-color: #C45A84; color: #FFFFFF; }
 
 @keyframes heroPulse {
-    0%   { box-shadow: 0 0 0 0 rgba(232,122,170,0.7); }
-    70%  { box-shadow: 0 0 0 16px rgba(232,122,170,0); }
-    100% { box-shadow: 0 0 0 0 rgba(232,122,170,0); }
+    0%   { opacity: 1; }
+    50%  { opacity: 0.82; }
+    100% { opacity: 1; }
 }
 .btn-hero {
     font-size: 0.85rem;
@@ -214,9 +214,9 @@ p { margin-bottom: 1rem; line-height: 1.6; }
 .btn-full { width: 100%; }
 
 @keyframes btnPulse {
-    0%   { box-shadow: 0 0 0 0 rgba(232,122,170,0.6); }
-    70%  { box-shadow: 0 0 0 12px rgba(232,122,170,0); }
-    100% { box-shadow: 0 0 0 0 rgba(232,122,170,0); }
+    0%   { opacity: 1; }
+    50%  { opacity: 0.82; }
+    100% { opacity: 1; }
 }
 .btn-pulse { animation: btnPulse 2.2s ease-out infinite; }
 .btn-pulse:hover { animation: none; }
