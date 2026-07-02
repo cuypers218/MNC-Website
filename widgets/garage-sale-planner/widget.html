@@ -370,6 +370,7 @@
     .serif{font-family:var(--font-display)}
     .pill{display:inline-block;border-radius:var(--radius-full);padding:var(--space-1) var(--space-3);font-size:var(--text-xs);font-weight:600;background:var(--color-primary-hl);color:var(--color-primary)}
     .empty-state{text-align:center;padding:var(--space-10) var(--space-6);color:var(--color-text-muted);font-size:var(--text-sm)}
+    .empty-state-prompt{font-family:var(--font-body);font-size:14px;color:#9A96A0;text-align:center;padding:24px 16px;font-weight:400;border-radius:0;box-shadow:none}
     .divider{height:1px;background:var(--color-divider);margin:var(--space-4) 0}
     .sign-preview{padding:var(--space-8);text-align:center;background:var(--color-primary-hl)}
     .sign-headline{font-size:clamp(1.25rem,1rem + 1vw,1.75rem);font-weight:600;font-family:var(--font-display);color:var(--color-primary);line-height:1.3}
@@ -1249,7 +1250,7 @@ function renderItemCards(){
   return`
   <div class="card">
     ${invSearchBar()}
-    ${visible.length===0?`<div class="empty-state">${items.length===0?"No items yet — tap &quot;+ Add an item&quot; to get started.":"No items match your search."}</div>`:`
+    ${visible.length===0?`<div class="empty-state-prompt">${items.length===0?"Nothing sorted yet. Start with the room you've been avoiding. One item at a time.":"Nothing matches that filter. Try a different one or clear it to see everything."}</div>`:`
     <div style="display:flex;flex-direction:column;gap:10px">
       ${visible.map(item=>`
       <div class="inv-card${item.sold?" sold-card":""}">
@@ -1284,7 +1285,7 @@ function renderItemTable(){
   <div class="card">
     ${invSearchBar()}
     <div style="font-size:18px;font-weight:700;color:var(--color-text);margin-bottom:14px">My inventory</div>
-    ${visible.length===0?`<div class="empty-state">${items.length===0?"No items yet — click &quot;+ Add an item&quot; above to get started.":"No items match your search."}</div>`:`
+    ${visible.length===0?`<div class="empty-state-prompt">${items.length===0?"Nothing sorted yet. Start with the room you've been avoiding. One item at a time.":"Nothing matches that filter. Try a different one or clear it to see everything."}</div>`:`
     <div class="tbl-wrap"><table>
       <thead><tr>
         <th style="background:#facfd4">Sold</th><th style="background:#facfd4">Item</th><th style="background:#facfd4">Category</th><th style="background:#facfd4">Condition</th><th style="background:#facfd4">Decision</th>
@@ -1381,7 +1382,7 @@ function renderBatch(){
         ${boxes.length?`<button class="btn btn-secondary" onclick="printBoxSigns()">Print box signs</button>`:""}
       </div>
     </div>
-    ${boxes.length===0?`<div class="empty-state">No batch boxes yet.</div>`:
+    ${boxes.length===0?`<div class="empty-state-prompt">No boxes yet. Use batch boxes when everything in a box sells at the same price — add one and price the whole box at once.</div>`:
     `<div class="grid-3">${boxes.map(box=>`
       <div class="box-card">
         ${box.photo?`<img src="${box.photo}" style="width:100%;aspect-ratio:4/3;object-fit:cover;margin-bottom:10px" />`:""}
@@ -1419,7 +1420,7 @@ function renderMemory(){
       <p style="font-size:13px;color:var(--color-text-muted);font-style:italic;margin-top:6px;line-height:1.6">"You don't have to hold on to something to hold on to the memory." — Cece</p>
     </div>
     ${memories.length>0?`<div><button class="btn btn-secondary btn-sm" onclick="printMemoryPage()">Print your Memory Page</button></div>`:""}
-    ${memories.length===0?`<div class="empty-state">No memories saved yet.</div>`:
+    ${memories.length===0?`<div class="empty-state-prompt">Nothing here yet. When you get to something you can't just price and move on — add it here. You don't have to decide what to do with it right now.</div>`:
     `<div class="grid-3">${memories.map(m=>`
       <div class="memory-card">
         <div class="memory-name">${esc(m.itemName||"Memory")}</div>
@@ -1859,7 +1860,7 @@ function renderSaleDay(){
             <div class="card-title" style="margin-bottom:0;flex:1">Sales log</div>
             <div class="metric-value" style="font-size:20px">$${totalEarned.toFixed(2)}</div>
           </div>
-          ${tx.length===0?`<div class="empty-state">No sales logged yet.</div>`:
+          ${tx.length===0?`<div class="empty-state-prompt">First sale of the day — record it here. Every dollar.</div>`:
           `<div class="gap-y-sm">
             ${tx.map(t=>`
               <div class="tx-row">
