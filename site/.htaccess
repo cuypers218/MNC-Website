@@ -82,6 +82,9 @@ RewriteRule ^coloring/?$ coloring.php [L]
 # 6pm Cheat Sheet smart redirect (logged-in → dashboard, logged-out → /6pm-experience/)
 RewriteRule ^6pm-cheat-sheet/?$ 6pm-cheat-sheet.php [L]
 
+# Booking page
+RewriteRule ^booking/?$ booking.php [L]
+
 # Download with token
 RewriteRule ^download/([a-zA-Z0-9]+)/?$ download.php?token=$1 [L]
 

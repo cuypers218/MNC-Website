@@ -411,6 +411,179 @@ window.mncCloseModal = function() {
         })();
 </script>
 
+<!-- I'M CECE SECTION -->
+<section class="cece-section">
+  <div class="cece-inner">
+
+    <div class="cece-photo-col">
+      <img
+        src="/images/cece-photo.jpg"
+        alt="Cece, founder of My Nest Chapter"
+        class="cece-photo"
+      >
+    </div>
+
+    <div class="cece-text-col">
+      <p class="cece-hook">Hey. I see you. I get you. I am you. Stay a minute.</p>
+      <p class="cece-eyebrow">I'M CECE</p>
+      <h2 class="cece-heading">I raised my kids mostly on my own. When my last one left, I wasn't ready for what hit me.</h2>
+      <p class="cece-body">I went looking for something — anything — that sounded like my life, and it didn't exist. So I created My Nest Chapter.</p>
+      <p class="cece-body">I built every product here myself, because I needed it and it wasn't out there. Your people are here. I'm here. I'm only an email, a Zoom call, or a message away.</p>
+      <p class="cece-body">And since I built all of this by hand, alone — there will be glitches. There will be mistakes. Tell me when you find one. I want to do better.</p>
+      <a href="/contact" class="cece-btn">Get in touch &rarr;</a>
+      <a href="/booking" class="cece-btn" style="background:#C4B0E8; color:#252535;">Book a time &rarr;</a>
+      <p class="cece-connect-note">Video call &nbsp;&middot;&nbsp; Voice call &nbsp;&middot;&nbsp; Text chat &nbsp;&middot;&nbsp; Email &mdash; whatever feels right.</p>
+      <a href="/about" class="cece-link">Read my full story &rarr;</a>
+    </div>
+
+  </div>
+</section>
+
+<style>
+  .cece-section {
+    background-color: #252535;
+    padding: 0;
+  }
+
+  .cece-inner {
+    max-width: 960px;
+    margin: 0 auto;
+    display: flex;
+    align-items: stretch;
+  }
+
+  .cece-photo-col {
+    flex: 0 0 340px;
+    overflow: hidden;
+  }
+
+  .cece-photo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 15%;
+    display: block;
+    min-height: 280px;
+  }
+
+  .cece-text-col {
+    flex: 1;
+    padding: 52px 48px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .cece-hook {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 800;
+    font-size: 13px;
+    letter-spacing: 0.3px;
+    color: #E87AAA;
+    line-height: 1.5;
+    margin: 0 0 18px;
+  }
+
+  .cece-eyebrow {
+    font-family: 'Montserrat', Arial, sans-serif;
+    font-weight: 800;
+    font-size: 11px;
+    letter-spacing: 2px;
+    color: #E87AAA;
+    text-transform: uppercase;
+    margin: 0 0 14px;
+  }
+
+  .cece-heading {
+    font-family: 'Montserrat', Arial, sans-serif;
+    font-weight: 800;
+    font-size: 22px;
+    color: #FFF8EE;
+    line-height: 1.35;
+    margin: 0 0 16px;
+    max-width: 520px;
+  }
+
+  .cece-body {
+    font-family: 'DM Sans', 'Helvetica Neue', Arial, sans-serif;
+    font-size: 15px;
+    color: rgba(255, 248, 238, 0.78);
+    line-height: 1.7;
+    margin: 0 0 22px;
+    max-width: 480px;
+  }
+
+  .cece-btn {
+    display: inline-block;
+    background: #E87AAA;
+    color: #fff;
+    font-family: 'Montserrat', Arial, sans-serif;
+    font-weight: 800;
+    font-size: 12px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    padding: 13px 26px;
+    border-radius: 9999px;
+    text-decoration: none;
+    margin: 4px 14px 0 0;
+    transition: background 0.2s ease;
+  }
+
+  .cece-btn:hover {
+    background: #d9608f;
+  }
+
+  .cece-connect-note {
+    font-family: Arial, sans-serif;
+    font-size: 12px;
+    color: rgba(255, 248, 238, 0.55);
+    margin: 10px 0 4px;
+    letter-spacing: 0.2px;
+  }
+
+  .cece-link {
+    display: inline-block;
+    color: #FFF8EE;
+    font-family: 'Montserrat', Arial, sans-serif;
+    font-weight: 800;
+    font-size: 12px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    text-decoration: underline;
+    margin-top: 4px;
+  }
+
+  @media (max-width: 600px) {
+    .cece-inner {
+      flex-direction: column;
+    }
+
+    .cece-photo-col {
+      flex: none;
+      width: 100%;
+      height: 220px;
+    }
+
+    .cece-photo {
+      min-height: 220px;
+      object-position: center 20%;
+    }
+
+    .cece-text-col {
+      padding: 36px 24px;
+    }
+
+    .cece-heading {
+      font-size: 19px;
+    }
+
+    .cece-btn, .cece-link {
+      display: block;
+      margin: 8px 0 0;
+    }
+  }
+</style>
+
 <!-- LATEST FROM THE BLOG -->
 
 <!-- FEATURED PRODUCTS -->
@@ -461,139 +634,6 @@ window.mncCloseModal = function() {
         </div>
     </div>
 </section>
-
-<!-- I'M CECE SECTION -->
-<section class="cece-section">
-  <div class="cece-inner">
-
-    <div class="cece-photo-col">
-      <img
-        src="/images/cece-photo.jpg"
-        alt="Cece, founder of My Nest Chapter"
-        class="cece-photo"
-      >
-    </div>
-
-    <div class="cece-text-col">
-      <p class="cece-eyebrow">I'M CECE</p>
-      <h2 class="cece-heading">I raised my kids mostly on my own. When my last one left, I wasn't ready for what hit me.</h2>
-      <p class="cece-body">I went looking for something — anything — that sounded like my life, and it didn't exist. So I created My Nest Chapter.</p>
-      <a href="/about" class="cece-btn">Read my story →</a>
-    </div>
-
-  </div>
-</section>
-
-<style>
-  .cece-section {
-    background-color: #252535;
-    padding: 0;
-  }
-
-  .cece-inner {
-    max-width: 960px;
-    margin: 0 auto;
-    display: flex;
-    align-items: stretch;
-  }
-
-  .cece-photo-col {
-    flex: 0 0 200px;
-    overflow: hidden;
-  }
-
-  .cece-photo {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center top;
-    display: block;
-    min-height: 280px;
-  }
-
-  .cece-text-col {
-    flex: 1;
-    padding: 52px 48px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-  }
-
-  .cece-eyebrow {
-    font-family: 'Montserrat', Arial, sans-serif;
-    font-weight: 800;
-    font-size: 11px;
-    letter-spacing: 2px;
-    color: #E87AAA;
-    text-transform: uppercase;
-    margin: 0 0 14px;
-  }
-
-  .cece-heading {
-    font-family: 'Montserrat', Arial, sans-serif;
-    font-weight: 800;
-    font-size: 22px;
-    color: #FFF8EE;
-    line-height: 1.35;
-    margin: 0 0 16px;
-    max-width: 520px;
-  }
-
-  .cece-body {
-    font-family: 'DM Sans', 'Helvetica Neue', Arial, sans-serif;
-    font-size: 15px;
-    color: rgba(255, 248, 238, 0.78);
-    line-height: 1.7;
-    margin: 0 0 28px;
-    max-width: 480px;
-  }
-
-  .cece-btn {
-    display: inline-block;
-    background: #E87AAA;
-    color: #fff;
-    font-family: 'Montserrat', Arial, sans-serif;
-    font-weight: 800;
-    font-size: 12px;
-    letter-spacing: 0.5px;
-    text-transform: uppercase;
-    padding: 13px 26px;
-    border-radius: 9999px;
-    text-decoration: none;
-    align-self: flex-start;
-    transition: background 0.2s ease, transform 0.15s ease;
-  }
-
-  .cece-btn:hover {
-    background: #d9608f;
-    transform: translateY(-1px);
-  }
-
-  @media (max-width: 600px) {
-    .cece-inner {
-      flex-direction: column;
-    }
-
-    .cece-photo-col {
-      flex: none;
-      width: 100%;
-      height: 220px;
-    }
-
-    .cece-photo {
-      min-height: 220px;
-      object-position: center 20%;
-    }
-
-    .cece-text-col {
-      padding: 36px 24px;
-    }
-
-    .cece-heading {
-      font-size: 19px;
-    }
-  }
-</style>
 
 <!-- ACCOUNT + NEWSLETTER -->
 <style>
