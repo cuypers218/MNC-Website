@@ -278,6 +278,7 @@
     .chip-online{background:#C4B0E8;color:#252535}
     .chip-donate{background:#B5CC6A;color:#252535}
     .chip-keep{background:#EDD96A;color:#252535}
+    .chip-kids{background:#F2A57A;color:#252535}
     .chip-trash{background:#A8C5DA;color:#252535}
     .chip-notsure{background:#F5C4A8;color:#252535}
     .sold-row{opacity:.5}
@@ -400,8 +401,9 @@
       .topbar-right{margin-left:auto}
     }
     @media(hover:none) and (pointer:coarse){
-      .btn,.btn-sm,.btn-xs,.btn-ghost,.tab-btn,.sec-btn,.icon-btn{min-height:44px;min-width:44px}
+      .btn,.btn-sm,.btn-xs,.btn-ghost,.tab-btn,.sec-btn,.icon-btn,.toggle-chip{min-height:44px;min-width:44px}
     }
+    .toggle-chip{touch-action:manipulation}
     @media(prefers-reduced-motion:reduce){
       *,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}
     }
@@ -501,6 +503,14 @@
     .bell-dismiss-btn:hover{background:#FDFBF7}
     .bell-empty{padding:28px 16px;text-align:center;font-family:'DM Sans',sans-serif;font-size:13px;color:var(--color-text-muted)}
 
+    /* ─── QUICK-CAPTURE SCRATCH PAD ─── */
+    #scratch-toggle{position:fixed;bottom:70px;right:16px;z-index:600;background:#FFF8EE;border:1px solid #ABABAB;color:#252535;font-family:var(--font-body);font-size:13px;font-weight:600;padding:10px 16px;min-height:44px;cursor:pointer;touch-action:manipulation}
+    #scratch-toggle:hover{background:#facfd4}
+    #scratch-panel{position:fixed;bottom:114px;right:16px;z-index:600;width:280px;max-width:calc(100vw - 32px);background:#FFF8EE;border:1px solid #ABABAB;padding:14px;display:none}
+    #scratch-panel .scratch-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;font-family:var(--font-display);font-weight:700;font-size:13px;color:#252535}
+    #scratch-panel .scratch-clear{background:none;border:none;font-family:var(--font-body);font-size:12px;color:var(--color-text-muted);text-decoration:underline;cursor:pointer;padding:0}
+    #scratch-textarea{width:100%;min-height:140px;border:1px solid #ABABAB;background:#fff;padding:10px;font-family:var(--font-body);font-size:14px;color:#252535;resize:vertical;box-sizing:border-box}
+
 </style>
 </head>
 <body>
@@ -531,7 +541,6 @@
     <button class="btn btn-ghost btn-sm" onclick="save();showToast('Saved!')" title="Save your planner">Save</button>
     <button class="btn btn-ghost btn-sm" onclick="openTour()" title="How this works">How it works</button>
     <button class="btn btn-ghost btn-sm" onclick="openHelp()" title="Help">Help</button>
-    <button class="btn btn-ghost btn-sm" onclick="startFresh()" title="Clear all data and start over">Start Over</button>
     <div id="hdr-demo-pill"></div>
   </div>
 </div>
@@ -554,7 +563,7 @@
 const STORAGE_KEY = "my-nest-chapter-simple-sale-planner-v8";
 const categories = ["Clothing","Books","Decor","Furniture","Kitchen","Electronics","Toys","Tools","Keepsakes","Home Goods","Other"];
 const conditions = ["New","Excellent","Good","Fair","Needs Repair"];
-const decisions = ["Keep","Garage Sale","Sell Online","Donate","Trash","Not Sure"];
+const decisions = ["Keep","Garage Sale","Sell Online","Donate","Given to kids","Trash","Not Sure"];
 const paymentMethods = ["Cash","PayPal","Venmo","Cash App","Zelle","Other"];
 
 const prepTasks = [
@@ -571,8 +580,6 @@ const prepTasks = [
 ];
 
 const safetyTasks = [
-  "Keep house doors locked during the sale",
-  "Wear a fanny pack or crossbody bag for cash",
   "Keep phone fully charged and on you",
   "Don't post your address in the ad until 24 hours before — share it via DM instead",
   "Don't mention in the ad that you're running this solo",
@@ -581,12 +588,27 @@ const safetyTasks = [
   "Place large furniture near the curb or driveway edge",
   "Set up your table so you have a clear sightline to all buyers",
   "Keep buyers out of the house and private areas",
-  "Keep high-value items close to the checkout area",
   "Use digital payments for larger purchases when possible",
   "Have a clear pickup plan for large online-sale items",
   "Keep water, snacks, sunscreen, and a chair nearby",
   "Remove street signs as soon as the sale ends",
   "If something feels off, the sale is over. Trust that.",
+];
+
+const safetyTasksPhysical = [
+  "Clear all walkways — hoses, tools, extension cords off the ground",
+  "Tape down or cover any cords you're using to test electronics",
+  "Check the driveway and steps for uneven surfaces — mark anything that's a trip hazard",
+  "Make sure all folding tables are locked open and not overloaded",
+  "Set up shade if it's going to be hot — a canopy or umbrella over your station",
+  "Have water out for yourself before the first buyer shows up",
+];
+
+const safetyTasksCash = [
+  "Cash stays on your body — crossbody bag or apron, not a box on the table",
+  "Lock every door and window to the house before the first buyer arrives",
+  "Put high-value items closest to where you're standing — jewelry, electronics, anything over $20",
+  "Keep a counterfeit detector pen at your station — check every $20, $50, and $100 bill",
 ];
 
 const flowTabs = [
@@ -773,7 +795,7 @@ function getSectionTips(){
   return map[UI.tab+"|"+UI.section]||TIPS.start;
 }
 function renderTipStrip(tips){
-  return`<div style="background:#252535;color:#FDFBF7;padding:11px 20px;font-family:var(--font-body);font-size:14px;line-height:1.4;margin-bottom:16px"><span id="tip-text">${esc(tips[0])}</span></div>`;
+  return`<div style="background:#FFF8EE;border:1px solid #ABABAB;color:#252535;padding:11px 20px;font-family:var(--font-body);font-size:14px;line-height:1.4;margin-bottom:16px"><span id="tip-text">${esc(tips[0])}</span></div>`;
 }
 function renderTourNote(text){
   if(!P.isDemo)return'';
@@ -816,14 +838,18 @@ function showToast(msg){
   t.textContent=msg;t.classList.add('show');
   clearTimeout(t._timer);t._timer=setTimeout(()=>t.classList.remove('show'),2000);
 }
-function mncConfirm(msg,onConfirm){
+function mncConfirm(msg,onConfirm,opts){
+  opts=opts||{};
+  const confirmLabel=opts.confirmLabel||"Confirm";
+  const confirmBg=opts.confirmBg||"#E87AAA";
+  const confirmColor=opts.confirmColor||"#fff";
   const ov=document.createElement('div');
   ov.style.cssText='position:fixed;inset:0;background:rgba(0,0,0,0.45);z-index:8000;display:flex;align-items:center;justify-content:center';
   ov.innerHTML=`<div style="background:#fff;border:1px solid var(--color-border);padding:32px 36px;max-width:400px;width:90%;box-sizing:border-box">
     <p style="font-family:'DM Sans',sans-serif;font-size:12pt;color:#252535;margin:0 0 24px;line-height:1.5">${esc(msg)}</p>
     <div style="display:flex;gap:12px;justify-content:flex-end">
       <button id="mnc-cancel-btn" style="font-family:var(--font-display);font-weight:800;font-size:11pt;color:#E87AAA;background:#fff;border:1px solid #E87AAA;padding:10px 20px;cursor:pointer;text-transform:uppercase;touch-action:manipulation">Cancel</button>
-      <button id="mnc-ok-btn" style="font-family:var(--font-display);font-weight:800;font-size:11pt;color:#fff;background:#E87AAA;border:none;padding:10px 20px;cursor:pointer;text-transform:uppercase;touch-action:manipulation">Confirm</button>
+      <button id="mnc-ok-btn" style="font-family:var(--font-display);font-weight:800;font-size:11pt;color:${confirmColor};background:${confirmBg};border:none;padding:10px 20px;cursor:pointer;text-transform:uppercase;touch-action:manipulation">${esc(confirmLabel)}</button>
     </div>
   </div>`;
   document.body.appendChild(ov);
@@ -836,7 +862,7 @@ function mncConfirm(msg,onConfirm){
 function priceRange(cat,cond){const r=pricingGuide[cat]?.[cond]||pricingGuide.Other.Good;if(r[0]===0&&r[1]===0)return"Memory check";return`$${r[0]}–$${r[1]}`}
 function suggestPlatform(cat,cond,price,dec){
   const amt=Number(price||0);
-  if(dec==="Keep")return"Keep";if(dec==="Donate")return"Donate";if(dec==="Trash")return"Trash";if(dec==="Not Sure")return"Decide Later";
+  if(dec==="Keep")return"Keep";if(dec==="Donate")return"Donate";if(dec==="Given to kids")return"Given to kids";if(dec==="Trash")return"Trash";if(dec==="Not Sure")return"Decide Later";
   if(cat==="Furniture"||amt>=35)return"Facebook Marketplace";
   if(cat==="Clothing"&&["New","Excellent"].includes(cond))return"Poshmark or Mercari";
   if(cat==="Electronics"&&amt>=25)return"eBay or Facebook Marketplace";
@@ -866,18 +892,19 @@ function getStats(P){
 function daysUntilSale(d){if(!d)return null;const today=new Date();const sale=new Date(`${d}T00:00:00`);if(isNaN(sale.getTime()))return null;const s=new Date(sale.getFullYear(),sale.getMonth(),sale.getDate());const t=new Date(today.getFullYear(),today.getMonth(),today.getDate());return Math.ceil((s-t)/86400000)}
 function chipClass(dec){return{
   "Garage Sale":"chip-sale","Sell Online":"chip-online","Donate":"chip-donate",
-  "Keep":"chip-keep","Trash":"chip-trash","Not Sure":"chip-notsure"
+  "Keep":"chip-keep","Given to kids":"chip-kids","Trash":"chip-trash","Not Sure":"chip-notsure"
 }[dec]||"chip-notsure"}
 
 // ─── STATE ────────────────────────────────────────────────────────────────────
 const blankPlanner={
-  setup:{saleTitle:"",saleDate:"",backupDate:"",saleEndTime:"",moneyPurpose:"",moneyGoal:"",notes:"",venmoHandle:"",cashappHandle:"",paypalHandle:"",zelleHandle:""},
+  setup:{saleTitle:"",saleDate:"",backupDate:"",saleEndTime:"",moneyPurpose:"",moneyGoal:"",notes:"",venmoHandle:"",cashappHandle:"",paypalHandle:"",zelleHandle:"",address:"",emergencyContact:"",charityName:"",charityPhone:"",charityAddress:""},
   advertising:{featuredItems:"",adCopy:"",signHeadline:"",signDetails:"",facebookPosted:false,nextdoorPosted:false,localGroupsPosted:false,signsPrinted:false},
-  safety:{tasks:{},change:{ones:"40",fives:"20",quarters:"20"},bankReminderDone:false,safetyNotes:""},
+  safety:{tasks:{},tasksPhysical:{},tasksCash:{},petLocked:false,change:{ones:"40",fives:"20",quarters:"20"},bankReminderDone:false,safetyNotes:""},
   items:[],prep:{},customPrepTasks:[],calculatorRows:[{id:"r1",name:"",quantity:"1",price:""}],
   transactions:[],memoryBox:[],batchBoxes:[],
-  wrap:{donate:"",sellOnline:"",keep:"",trash:"",notes:""},
+  wrap:{donate:"",sellOnline:"",keep:"",trash:"",notes:"",emotionalCheckIn:""},
   notifications:[],notifFired:{},
+  scratchPad:"",
   isDemo:false,
 };
 
@@ -886,7 +913,7 @@ function normalizePlanner(src){
   return{...b,...s,
     setup:{...b.setup,...(s.setup||{})},
     advertising:{...b.advertising,...(s.advertising||{})},
-    safety:{...b.safety,...(s.safety||{}),tasks:{...b.safety.tasks,...(s.safety?.tasks||{})},change:{...b.safety.change,...(s.safety?.change||{})}},
+    safety:{...b.safety,...(s.safety||{}),tasks:{...b.safety.tasks,...(s.safety?.tasks||{})},tasksPhysical:{...b.safety.tasksPhysical,...(s.safety?.tasksPhysical||{})},tasksCash:{...b.safety.tasksCash,...(s.safety?.tasksCash||{})},change:{...b.safety.change,...(s.safety?.change||{})}},
     items:Array.isArray(s.items)?s.items:b.items,
     prep:{...b.prep,...(s.prep||{})},
     calculatorRows:Array.isArray(s.calculatorRows)&&s.calculatorRows.length?s.calculatorRows:b.calculatorRows,
@@ -924,7 +951,7 @@ function getDemoPlanner(){
 }
 
 let P=loadPlanner();
-let UI={tab:"start",section:"start",invView:"table",showAddForm:false,demo:false,demoStep:0,calMenu:false,bellOpen:false,calcPaymentMethod:"Cash"};
+let UI={tab:"start",section:"start",invView:"table",showAddForm:false,demo:false,demoStep:0,calMenu:false,bellOpen:false,calcPaymentMethod:"Cash",scratchOpen:false,bundleItems:[],bundleDiscountPct:null,haggleLastPct:null};
 let draft={
   item:{name:"",category:"Decor",condition:"Good",quantity:"1",decision:"Garage Sale",price:"",notes:""},
   box:{title:"",price:"2",category:"Other",description:""},
@@ -1085,16 +1112,21 @@ function renderStart(){
       <div class="card-title" style="font-size:25px;margin-bottom:20px">Sale Setup</div>
       <div class="gap-y-sm">
         ${field("Sale name","text","setup.saleTitle",s.saleTitle,"My Next Chapter Sale")}
+        ${field("Sale address","text","setup.address",s.address,"123 Maple St, Anytown")}
         ${areaField("What would you like to use the money for?","setup.moneyPurpose",s.moneyPurpose,"A weekend away, fresh bedding, savings, dinner with friends...")}
         ${field("Sale date","date","setup.saleDate",s.saleDate,"")}
         ${field("Sale end time (optional)","time","setup.saleEndTime",s.saleEndTime||"","")}
         ${field("Backup date (optional)","date","setup.backupDate",s.backupDate||"","")}
         ${field("Money goal ($)","number","setup.moneyGoal",s.moneyGoal,"250")}
         ${areaField("Notes before I start","setup.notes",s.notes,"What areas feel easiest? What items feel emotional?")}
+        ${field("Local donation center (optional)","text","setup.charityName",s.charityName,"Goodwill — Main St")}
+        ${field("Donation center phone","tel","setup.charityPhone",s.charityPhone,"(555) 123-4567")}
+        ${field("Donation center address","text","setup.charityAddress",s.charityAddress,"456 Oak Ave")}
       </div>
       <div style="margin-top:20px;display:flex;gap:10px;align-items:center;flex-wrap:wrap">
         <button class="btn btn-primary" onclick="save();showToast('Saved!')">Save and keep going →</button>
         <button class="btn btn-secondary" onclick="openTour()">How it works →</button>
+        <button class="btn btn-ghost btn-sm" onclick="sectionClear('start')" style="margin-left:auto">Clear</button>
       </div>
     </div>
 
@@ -1131,6 +1163,12 @@ function renderStart(){
         <div id="reminder-msg" style="display:none;margin-top:10px"></div>
       </div>
 
+      <!-- Reset everything -->
+      <div style="border:1px solid #ABABAB;padding:16px 20px">
+        <div style="font-family:var(--font-body);font-size:13px;color:var(--color-text-muted);line-height:1.6;margin-bottom:10px">Want to wipe every field in this planner?</div>
+        <button class="btn btn-ghost btn-sm" onclick="startFresh()">Reset Everything</button>
+      </div>
+
     </div>
   </div>`;
 }
@@ -1138,12 +1176,13 @@ function renderStart(){
 // ─── SECTION: INVENTORY ───────────────────────────────────────────────────────
 function renderInventory(){
   return`
-  ${renderTipStrip(TIPS.inventory)}
   ${renderTourNote("Add items one by one — name, category, condition, and your price. The tool suggests a price range and the best place to sell it as you go.")}
   <div class="gap-y">
     <div>
       <p style="font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--color-muted);margin-bottom:4px">Sort + Price</p>
       <h2 class="page-title" style="margin-bottom:14px">Items</h2>
+      ${renderDispositionCounter()}
+      ${renderTipStrip(TIPS.inventory)}
       <button class="btn btn-primary" onclick="UI.showAddForm=!UI.showAddForm;renderContent()" style="margin-bottom:20px">+ Add an item</button>
     </div>
     ${UI.showAddForm?renderAddItemForm():""}
@@ -1213,10 +1252,14 @@ function renderAddItemForm(){
 
 function invTally(items){
   const total=items.length;
-  const sale=(items.filter(i=>i.decision==="Garage Sale")||[]).length;
-  const online=(items.filter(i=>i.decision==="Sell Online")||[]).length;
-  const donate=(items.filter(i=>i.decision==="Donate")||[]).length;
-  return`<strong>${total}</strong> item${total===1?"":"s"} · <strong>${sale}</strong> garage sale · <strong>${online}</strong> selling online · <strong>${donate}</strong> donating`;
+  return`<strong>${total}</strong> item${total===1?"":"s"} sorted so far`;
+}
+
+function renderDispositionCounter(){
+  const items=P.items||[];
+  const counts=decisions.map(d=>({label:d,count:items.filter(i=>i.decision===d).length})).filter(d=>d.count>0);
+  if(!counts.length)return"";
+  return`<div style="font-family:var(--font-body);font-size:14px;color:var(--color-text);margin-bottom:14px;display:flex;flex-wrap:wrap;gap:18px" aria-live="polite">${counts.map(c=>`<span><span style="color:var(--color-text-muted)">${esc(c.label)}:</span> <strong>${c.count}</strong></span>`).join("")}</div>`;
 }
 
 function invSearchBar(){
@@ -1336,7 +1379,7 @@ function heartBtnHtml(item){
 function saveToMemory(id){
   const item=(P.items||[]).find(i=>i.id===id);if(!item)return;
   if((P.memoryBox||[]).some(m=>m.itemName===item.name&&m.photo===""))return;
-  P.memoryBox=[{id:makeId(),itemName:item.name,caption:"",photo:"",createdAt:new Date().toLocaleDateString()},...(P.memoryBox||[])];
+  P.memoryBox=[{id:makeId(),itemName:item.name,caption:"",photo:"",status:"",createdAt:new Date().toLocaleDateString()},...(P.memoryBox||[])];
   P.isDemo=false;save();
   addNotif('memory',`${item.name} was added to your Memory Box.`,{itemName:item.name});
   showToast("Added to Memory Box");
@@ -1347,12 +1390,12 @@ function renderBatch(){
   _boxPhotoData="";
   const boxes=P.batchBoxes||[];
   return`
-  ${renderTipStrip(TIPS.inventory)}
   <div class="gap-y">
     <div>
       <h2 class="page-title">Batch Boxes</h2>
       <p class="page-sub">Box up the little stuff — the odds and ends, the duplicates, the small things that don't need their own price tag. One box, one price, done.</p>
     </div>
+    ${renderTipStrip(TIPS.inventory)}
     <div class="card">
       <div class="card-title">Create a batch box</div>
       <div class="form-row" style="margin-bottom:14px">
@@ -1411,7 +1454,6 @@ function deleteBox(id){mncConfirm("Remove this box?",()=>{P.batchBoxes=(P.batchB
 function renderMemory(){
   const memories=P.memoryBox||[];
   return`
-  ${renderTipStrip(TIPS.memory)}
   ${renderTourNote("Use Memory Box for anything that makes you pause. Photograph it, write one line about it, then decide. You don't have to keep the item to keep the memory.")}
   <div class="gap-y">
     <div>
@@ -1419,13 +1461,17 @@ function renderMemory(){
       <p class="page-sub">Before something goes, note what it meant. Photograph it, write the story, then decide.</p>
       <p style="font-size:13px;color:var(--color-text-muted);font-style:italic;margin-top:6px;line-height:1.6">"You don't have to hold on to something to hold on to the memory." — Cece</p>
     </div>
+    ${renderTipStrip(TIPS.memory)}
     ${memories.length>0?`<div><button class="btn btn-secondary btn-sm" onclick="printMemoryPage()">Print your Memory Page</button></div>`:""}
     ${memories.length===0?`<div class="empty-state-prompt">Nothing here yet. When you get to something you can't just price and move on — add it here. You don't have to decide what to do with it right now.</div>`:
     `<div class="grid-3">${memories.map(m=>`
-      <div class="memory-card">
+      <div class="memory-card"${m.status?' style="opacity:.6"':''}>
         <div class="memory-name">${esc(m.itemName||"Memory")}</div>
         ${m.caption?`<div class="memory-caption">${esc(m.caption)}</div>`:""}
         <div class="text-xs text-muted">${esc(m.createdAt||"")}</div>
+        <div style="display:flex;gap:6px;flex-wrap:wrap">
+          ${memoryStatuses.map(st=>`<button class="toggle-chip" onclick="setMemoryStatus('${esc(m.id)}','${st}')" style="font-family:var(--font-body);font-size:12px;font-weight:600;padding:6px 10px;cursor:pointer;${m.status===st?'background:#252535;color:#FFF8EE;border:1px solid #252535':'background:transparent;color:#252535;border:1px solid #ABABAB'}">${st}</button>`).join("")}
+        </div>
         <button class="btn btn-danger btn-xs" onclick="deleteMemory('${esc(m.id)}')">Remove</button>
       </div>`).join("")}
     </div>`}
@@ -1448,21 +1494,27 @@ function renderMemory(){
 
 function addMemory(){
   const d=draft.memory;
-  P.memoryBox=[{id:makeId(),itemName:d.itemName||"Memory",caption:d.caption||"",photo:"",createdAt:new Date().toLocaleDateString()},...(P.memoryBox||[])];
+  P.memoryBox=[{id:makeId(),itemName:d.itemName||"Memory",caption:d.caption||"",photo:"",status:"",createdAt:new Date().toLocaleDateString()},...(P.memoryBox||[])];
   P.isDemo=false;save();draft.memory={itemName:"",caption:""};renderContent();
 }
 function deleteMemory(id){mncConfirm("Remove this memory?",()=>{P.memoryBox=(P.memoryBox||[]).filter(m=>m.id!==id);P.isDemo=false;save();renderContent()})}
+const memoryStatuses=["Photographed","Passed on","Donated"];
+function setMemoryStatus(id,status){
+  const m=(P.memoryBox||[]).find(m=>m.id===id);if(!m)return;
+  m.status=m.status===status?"":status;
+  P.isDemo=false;save();renderContent();
+}
 
 // ─── SECTION: PRICING GUIDE ───────────────────────────────────────────────────
 function renderPricing(){
   return`
-  ${renderTipStrip(TIPS.pricing)}
   ${renderTourNote("Reference ranges for every category. Price at 10–25% of retail, round numbers, and drop 50% in the last hour. Trust your gut on the final number.")}
   <div class="gap-y">
     <div>
       <h2 class="page-title">Pricing Guide</h2>
       <p class="page-sub">Reference ranges by category and condition. Trust your gut on the final number.</p>
     </div>
+    ${renderTipStrip(TIPS.pricing)}
     <div style="background:var(--color-surface-3);border:1px solid var(--color-divider);padding:18px 20px;font-size:14px;line-height:2;color:var(--color-text)">
       Price at 10–25% of original retail<br>
       Round numbers sell faster: $1, $2, $5, $10<br>
@@ -1505,13 +1557,13 @@ function renderPricing(){
 function renderOnline(){
   const onlineItems=(P.items||[]).filter(i=>i.decision==="Sell Online");
   return`
-  ${renderTipStrip(TIPS.online)}
   ${renderTourNote("Platform guide for your high-value items. Furniture goes on Facebook Marketplace. Clothing on Poshmark. Collectibles on eBay. The guide tells you exactly what goes where.")}
   <div class="gap-y">
     <div>
       <h2 class="page-title">Online Selling</h2>
       <p class="page-sub">Platform guide plus a review of your items marked for online sale.</p>
     </div>
+    ${renderTipStrip(TIPS.online)}
     <div class="grid-3">
       ${onlineSellingGuides.map(g=>`
         <div class="platform-card">
@@ -1545,13 +1597,13 @@ function renderOnline(){
 function renderAdvertising(){
   const a=P.advertising||{};
   return`
-  ${renderTipStrip(TIPS.advertising)}
   ${renderTourNote("Write your ad copy here and copy it straight to Facebook, Nextdoor, or local groups. The sign builder generates text for your physical street signs.")}
   <div class="gap-y">
     <div>
       <h2 class="page-title">Ads + Signs</h2>
       <p class="page-sub">Write your ad copy, plan where to post it, and design your signs.</p>
     </div>
+    ${renderTipStrip(TIPS.advertising)}
     <div class="grid-2" id="ads-grid">
       <div class="card">
         <div class="card-title">Ad copy</div>
@@ -1607,6 +1659,7 @@ function renderAdvertising(){
         ${adPlatforms.map((p,i)=>renderAdAccordionRow(p,i)).join('')}
       </div>
     </div>
+    <div style="text-align:right"><button class="btn btn-ghost btn-sm" onclick="sectionClear('advertising')">Clear</button></div>
   </div>`;
 }
 
@@ -1654,13 +1707,13 @@ function renderPrep(){
   const stats=getStats(P);const days=daysUntilSale(P.setup?.saleDate);
   const daysStr=days===null?"Set a sale date":days===0?"Sale day is today!":days<0?"Sale passed":days===1?"1 day to go":`${days} days to go`;
   return`
-  ${renderTipStrip(TIPS.prep)}
   ${renderTourNote("Work through this checklist in the days before sale day. The Change + Cash Plan helps you go to the bank with the right bills so you're ready for every transaction.")}
   <div class="gap-y">
     <div>
       <h2 class="page-title">Prep</h2>
       <p class="page-sub">Work through this list before sale day so nothing gets forgotten under pressure.</p>
     </div>
+    ${renderTipStrip(TIPS.prep)}
     <div class="grid-2">
       <div class="card">
         <div class="card-title">Prep checklist</div>
@@ -1724,32 +1777,66 @@ function toggleCustomPrep(i){if(!P.customPrepTasks?.[i])return;P.customPrepTasks
 function deleteCustomPrep(i){if(!P.customPrepTasks)return;P.customPrepTasks.splice(i,1);P.isDemo=false;save();renderContent()}
 
 // ─── SECTION: SAFETY ─────────────────────────────────────────────────────────
+function checklistGroup(title,tasks,doneMap,toggleFn){
+  const done=tasks.filter(t=>doneMap?.[t]).length;
+  return`
+  <div class="card">
+    <div class="card-title">${esc(title)}</div>
+    <div class="text-muted text-sm" style="margin-bottom:10px">${done} of ${tasks.length} done</div>
+    <div class="checklist">
+      ${tasks.map((t,i)=>`
+        <div class="check-item${doneMap?.[t]?" checked":""}" role="checkbox" tabindex="0" aria-checked="${doneMap?.[t]?"true":"false"}" onclick="${toggleFn}(${i})" onkeydown="if(event.key===' '||event.key==='Enter'){event.preventDefault();${toggleFn}(${i})}">
+          <div class="check-box" aria-hidden="true">${doneMap?.[t]?"✓":""}</div>
+          <label>${esc(t)}</label>
+        </div>`).join("")}
+    </div>
+  </div>`;
+}
+
 function renderSafety(){
   const s=P.safety||{};
-  const done=safetyTasks.filter(t=>s.tasks?.[t]).length;
-  const pct=Math.round((done/safetyTasks.length)*100);
+  const addr=P.setup?.address||"";
   return`
-  ${renderTipStrip(TIPS.safety)}
   ${renderTourNote("You're doing this alone. This checklist is specifically for solo sellers — cash handling, property access, and a check-in plan. Go through it before the day.")}
   <div class="gap-y">
     <div>
       <h2 class="page-title">Safety + Logistics</h2>
       <p class="page-sub">You're running this by yourself. This checklist is built for that.</p>
     </div>
+
+    <!-- EMERGENCY INFO -->
+    <div class="card" style="border:1px solid #ABABAB">
+      <div class="card-title" style="margin-bottom:10px">Emergency info</div>
+      ${addr?`<div style="font-family:var(--font-display);font-size:22px;font-weight:700;color:#252535;line-height:1.3;margin-bottom:14px">${esc(addr)}</div>`
+        :`<div style="font-size:14px;color:var(--color-text-muted);margin-bottom:14px">Add your address on the <a href="#" onclick="goTab('start','start');return false" style="color:#E87AAA;font-weight:700;text-decoration:underline">Start tab →</a></div>`}
+      <div class="form-field">
+        <label class="form-label">Emergency contact name + number</label>
+        <input class="input" type="text" value="${esc(P.setup?.emergencyContact||"")}" placeholder="Diane — (555) 123-4567" oninput="sf(this,'setup','emergencyContact')" onblur="sf(this,'setup','emergencyContact')" />
+      </div>
+    </div>
+
+    ${renderTipStrip(TIPS.safety)}
+
     <div class="grid-2">
-      <div class="card">
-        <div class="card-title">Safety checklist</div>
-        <div style="margin-bottom:14px">
-          <div class="text-muted text-sm">${done} of ${safetyTasks.length} done</div>
-          <div class="progress" role="progressbar" aria-valuenow="${pct}" aria-valuemin="0" aria-valuemax="100" aria-label="Safety checklist progress" style="margin-top:6px"><div class="progress-fill" style="width:${pct}%"></div></div>
+      <div class="gap-y">
+        ${checklistGroup("Before Buyers Arrive",safetyTasksPhysical,s.tasksPhysical,"toggleSafetyPhysical")}
+        ${checklistGroup("Protecting Your Cash and Valuables",safetyTasksCash,s.tasksCash,"toggleSafetyCash")}
+
+        <div class="card">
+          <div class="card-title">If Something Feels Off</div>
+          <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:14px">
+            <div style="border-left:3px solid var(--color-primary);padding:8px 12px;font-size:13px;line-height:1.65;color:var(--color-text);font-style:italic">If someone asks to use the restroom: "The house isn't part of the sale today." No further explanation needed.</div>
+            <div style="border-left:3px solid var(--color-primary);padding:8px 12px;font-size:13px;line-height:1.65;color:var(--color-text);font-style:italic">If someone makes you uncomfortable: "I'm closing up for a bit, please come back in 20 minutes." You do not owe anyone access.</div>
+            <div style="border-left:3px solid var(--color-primary);padding:8px 12px;font-size:13px;line-height:1.65;color:var(--color-text);font-style:italic">If someone gets aggressive about price: "That's the price — no problem if it doesn't work for you today." Said once. Not repeated.</div>
+            <div style="border-left:3px solid var(--color-primary);padding:8px 12px;font-size:13px;line-height:1.65;color:var(--color-text);font-style:italic">Have a code word texted to a trusted person if you need backup.</div>
+          </div>
+          <div class="check-item${s.petLocked?" checked":""}" role="checkbox" tabindex="0" aria-checked="${s.petLocked?"true":"false"}" onclick="togglePetLocked()" onkeydown="if(event.key===' '||event.key==='Enter'){event.preventDefault();togglePetLocked()}">
+            <div class="check-box" aria-hidden="true">${s.petLocked?"✓":""}</div>
+            <label>If you have a pet, lock it inside before setup — every door that leads to the pet</label>
+          </div>
         </div>
-        <div class="checklist">
-          ${safetyTasks.map((t,i)=>`
-            <div class="check-item${s.tasks?.[t]?" checked":""}" role="checkbox" tabindex="0" aria-checked="${s.tasks?.[t]?"true":"false"}" onclick="toggleSafety(${i})" onkeydown="if(event.key===' '||event.key==='Enter'){event.preventDefault();toggleSafety(${i})}">
-              <div class="check-box" aria-hidden="true">${s.tasks?.[t]?"✓":""}</div>
-              <label>${esc(t)}</label>
-            </div>`).join("")}
-        </div>
+
+        ${checklistGroup("General Safety",safetyTasks,s.tasks,"toggleSafety")}
       </div>
       <div class="card">
         <div class="card-title">Safety notes</div>
@@ -1758,39 +1845,41 @@ function renderSafety(){
           <textarea class="textarea" rows="5" onblur="sf(this,'safety','safetyNotes')">${esc(s.safetyNotes||"")}</textarea>
         </div>
         <div class="info-box" style="margin-top:14px">The biggest thing: someone knows you're out there. A text check-in, a neighbor who can see the driveway, a friend on standby for large pickups. You don't need a whole system. You just need one person who knows.</div>
-        <div style="margin-top:14px;display:flex;flex-direction:column;gap:10px">
-          <div style="border-left:3px solid var(--color-primary);padding:8px 12px;font-size:13px;line-height:1.65;color:var(--color-text);font-style:italic">"If someone makes you uncomfortable, it's fine to say: 'I'm closing up for a bit, please come back in 20 minutes.' You do not owe anyone access."</div>
-          <div style="border-left:3px solid var(--color-primary);padding:8px 12px;font-size:13px;line-height:1.65;color:var(--color-text);font-style:italic">"If someone gets aggressive about pricing, the answer is always: 'That's the price — no problem if it doesn't work for you today.'"</div>
-          <div style="border-left:3px solid var(--color-primary);padding:8px 12px;font-size:13px;line-height:1.65;color:var(--color-text);font-style:italic">"Have a code word texted to a trusted person if you need backup."</div>
-        </div>
+        <div style="text-align:right;margin-top:14px"><button class="btn btn-ghost btn-sm" onclick="sectionClear('safetyNotes')">Clear</button></div>
       </div>
     </div>
   </div>`;
 }
 
 function toggleSafety(i){const task=safetyTasks[i];deepSet(P,["safety","tasks",task],!P.safety?.tasks?.[task]);P.isDemo=false;save();renderContent()}
+function toggleSafetyPhysical(i){const task=safetyTasksPhysical[i];deepSet(P,["safety","tasksPhysical",task],!P.safety?.tasksPhysical?.[task]);P.isDemo=false;save();renderContent()}
+function toggleSafetyCash(i){const task=safetyTasksCash[i];deepSet(P,["safety","tasksCash",task],!P.safety?.tasksCash?.[task]);P.isDemo=false;save();renderContent()}
+function togglePetLocked(){deepSet(P,["safety","petLocked"],!P.safety?.petLocked);P.isDemo=false;save();renderContent()}
 
 // ─── SECTION: SALE DAY ────────────────────────────────────────────────────────
 function renderSaleDay(){
   const rows=P.calculatorRows||[];const subtotal=calcSubtotal(rows);
   const tx=P.transactions||[];const totalEarned=tx.reduce((s,t)=>s+Number(t.amount||0),0);
   const sdGoal=Number(P.setup?.moneyGoal||0);const sdPct=sdGoal?Math.min(Math.round((totalEarned/sdGoal)*100),100):0;
+  const sdGoalReached=sdGoal&&totalEarned>=sdGoal;const sdOverage=sdGoal?Math.max(totalEarned-sdGoal,0):0;
   return`
-  ${renderTipStrip(TIPS.saleDay)}
   ${renderTourNote("Use the Calculator to total up a purchase, then hit Record to add it to your Sales Log. The change calculator tells you exactly what to hand back. Everything adds to your running total.")}
-  ${sdGoal?`<div style="background:#fff;border:1px solid var(--color-divider);padding:16px 20px;display:flex;align-items:center;gap:20px;flex-wrap:wrap">
-    <div style="flex:1;min-width:200px">
-      <div style="font-family:var(--font-display);font-size:13px;font-weight:700;color:var(--color-text-muted);text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px">Earned so far</div>
-      <div style="font-family:var(--font-display);font-size:28px;font-weight:800;color:var(--color-text);line-height:1">$${totalEarned.toFixed(2)}<span style="font-size:14px;font-weight:500;color:var(--color-text-muted);margin-left:8px">of $${sdGoal} goal</span></div>
-      <div class="progress" style="margin-top:10px"><div class="progress-fill" style="width:${sdPct}%"></div></div>
-    </div>
-    <div style="font-family:var(--font-display);font-size:22px;font-weight:800;color:${sdPct>=100?'#B5CC6A':'var(--color-primary)'}">${sdPct}%</div>
-  </div>`:''}
   <div class="gap-y">
     <div>
       <h2 class="page-title">Sale Day</h2>
       <p class="page-sub">Calculate purchases, log sales, and track what you've earned.</p>
     </div>
+    ${sdGoal?`<div style="background:#fff;border:1px solid var(--color-divider);padding:16px 20px;display:flex;align-items:center;gap:20px;flex-wrap:wrap">
+      <div style="flex:1;min-width:200px">
+        <div style="font-family:var(--font-display);font-size:13px;font-weight:700;color:var(--color-text-muted);text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px">Earned so far</div>
+        <div style="font-family:var(--font-display);font-size:28px;font-weight:800;color:var(--color-text);line-height:1">$${totalEarned.toFixed(2)}<span style="font-size:14px;font-weight:500;color:var(--color-text-muted);margin-left:8px">of $${sdGoal} goal</span></div>
+        <div class="progress" style="margin-top:10px"><div class="progress-fill" style="width:${sdPct}%"></div></div>
+        ${sdGoalReached&&P.setup?.moneyPurpose?`<div style="margin-top:8px;font-size:13px;color:var(--color-text);font-style:italic">$${sdGoal} for ${esc(P.setup.moneyPurpose)} — done.</div>`:''}
+        ${sdOverage>0?`<div style="margin-top:6px;font-size:13px;color:var(--color-text-muted)">$${sdOverage.toFixed(2)} over goal</div>`:''}
+      </div>
+      <div style="font-family:var(--font-display);font-size:22px;font-weight:800;color:${sdGoalReached?'#B5CC6A':'var(--color-primary)'}">${sdPct}%</div>
+    </div>`:''}
+    ${renderTipStrip(TIPS.saleDay)}
     <div class="card">
       <div class="card-title">Digital Payments</div>
       <p style="font-size:14px;color:var(--color-text-muted);line-height:1.55;margin-bottom:14px">Add your handles once. Show buyers this screen when they ask.</p>
@@ -1826,6 +1915,9 @@ function renderSaleDay(){
         </div>
         <div style="border-top:1px solid var(--color-divider);margin-top:18px;padding-top:18px">
           <div style="font-family:var(--font-display);font-size:16px;font-weight:700;color:var(--color-text);margin-bottom:12px">Change calculator</div>
+          <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px">
+            ${[5,10,20,50].map(v=>`<button class="btn btn-secondary btn-sm" onclick="setGivenAmount(${v})">$${v}</button>`).join('')}
+          </div>
           <div class="form-field" style="margin-bottom:12px">
             <label class="form-label" for="change-given">Customer gave me ($)</label>
             <input class="input" type="number" id="change-given" min="0" step="0.25" placeholder="0.00" oninput="calcChange()" style="font-size:20px;font-weight:700" />
@@ -1833,6 +1925,7 @@ function renderSaleDay(){
           <div id="change-result" style="display:none;background:#facfd4;padding:16px 20px">
             <div style="font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--color-text-muted);margin-bottom:4px">Give back</div>
             <div id="change-amount" style="font-family:var(--font-display);font-size:40px;font-weight:700;color:var(--color-text)">$0.00</div>
+            <div id="change-denom" style="font-family:var(--font-body);font-size:13px;color:var(--color-text);margin-top:8px"></div>
           </div>
         </div>
       </div>
@@ -1875,7 +1968,116 @@ function renderSaleDay(){
         </div>
       </div>
     </div>
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-title">Haggle Helper</div>
+        <div class="form-field" style="margin-bottom:12px">
+          <label class="form-label" for="haggle-price">Asking price ($)</label>
+          <input class="input" type="number" id="haggle-price" min="0" step="0.5" placeholder="0.00" oninput="haggleCalc()" style="font-size:20px;font-weight:700" />
+        </div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px">
+          <button class="btn btn-secondary btn-sm" onclick="haggleCalc(10)">−10%</button>
+          <button class="btn btn-secondary btn-sm" onclick="haggleCalc(25)">−25%</button>
+          <button class="btn btn-secondary btn-sm" onclick="haggleCalc(50)">−50%</button>
+        </div>
+        <div id="haggle-result" style="display:none;background:#facfd4;padding:16px 20px">
+          <div style="font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--color-text-muted);margin-bottom:4px">Counter-offer</div>
+          <div id="haggle-offer" style="font-family:var(--font-display);font-size:32px;font-weight:700;color:var(--color-text)">$0.00</div>
+          <div id="haggle-giveup" style="font-family:var(--font-body);font-size:13px;color:var(--color-text);margin-top:6px"></div>
+        </div>
+      </div>
+      ${renderBundleBuilder()}
+    </div>
   </div>`;
+}
+
+function renderBundleBuilder(){
+  const items=UI.bundleItems||[];
+  const subtotal=items.reduce((s,p)=>s+p,0);
+  const pct=UI.bundleDiscountPct;
+  const discountAmt=pct?subtotal*(pct/100):0;
+  const final=subtotal-discountAmt;
+  return`
+  <div class="card">
+    <div class="card-title">Bundle Deal Builder</div>
+    ${items.length===0?`<div class="empty-state-prompt">Add each item's price as she picks it up.</div>`:`
+    <div style="display:flex;flex-direction:column;gap:6px;margin-bottom:12px">
+      ${items.map((p,i)=>`<div style="display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-bottom:1px solid var(--color-divider)"><span style="font-size:14px">Item ${i+1}</span><span style="display:flex;align-items:center;gap:8px"><strong>$${p.toFixed(2)}</strong><button class="btn btn-danger btn-xs" onclick="removeBundleItem(${i})" aria-label="Remove item">×</button></span></div>`).join("")}
+    </div>`}
+    <div style="display:flex;gap:8px;align-items:center;margin-bottom:14px">
+      <input class="input" type="number" id="bundle-price-input" min="0" step="0.5" placeholder="Item price" style="max-width:140px" onkeydown="if(event.key==='Enter'){addBundleItem();event.preventDefault()}" />
+      <button class="btn btn-secondary btn-sm" onclick="addBundleItem()">+ Add item</button>
+    </div>
+    <div style="margin-bottom:14px">
+      <div class="text-muted text-xs" style="margin-bottom:4px">Subtotal</div>
+      <div class="calc-total">$${subtotal.toFixed(2)}</div>
+    </div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px">
+      <button class="btn ${pct===10?'btn-primary':'btn-secondary'} btn-sm" onclick="bundleDiscount(10)">−10%</button>
+      <button class="btn ${pct===20?'btn-primary':'btn-secondary'} btn-sm" onclick="bundleDiscount(20)">−20%</button>
+      <button class="btn ${pct===30?'btn-primary':'btn-secondary'} btn-sm" onclick="bundleDiscount(30)">−30%</button>
+    </div>
+    ${pct?`<div style="background:#facfd4;padding:16px 20px;margin-bottom:14px">
+      <div style="font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--color-text-muted);margin-bottom:4px">Bundle price</div>
+      <div style="font-family:var(--font-display);font-size:32px;font-weight:700;color:var(--color-text)">$${final.toFixed(2)}</div>
+      <div style="font-size:13px;color:var(--color-text);margin-top:6px">$${discountAmt.toFixed(2)} off</div>
+    </div>`:''}
+    <button class="btn btn-primary" onclick="logBundleSale()" ${!items.length?'disabled':''}>Log this sale</button>
+  </div>`;
+}
+function addBundleItem(){
+  const el=document.getElementById('bundle-price-input');
+  const v=Number((el||{}).value||0);
+  if(!v||v<=0)return;
+  if(!UI.bundleItems)UI.bundleItems=[];
+  UI.bundleItems.push(v);
+  renderContent();
+}
+function removeBundleItem(i){
+  if(!UI.bundleItems)return;
+  UI.bundleItems.splice(i,1);
+  renderContent();
+}
+function bundleDiscount(pct){UI.bundleDiscountPct=(UI.bundleDiscountPct===pct)?null:pct;renderContent();}
+function logBundleSale(){
+  const items=UI.bundleItems||[];if(!items.length)return;
+  const subtotal=items.reduce((s,p)=>s+p,0);
+  const pct=UI.bundleDiscountPct||0;
+  const total=subtotal-(subtotal*(pct/100));
+  if(total<=0)return;
+  UI.bundleItems=[];UI.bundleDiscountPct=null;
+  logSale("Bundle deal",total,UI.calcPaymentMethod||"Cash");
+}
+
+function haggleCalc(pct){
+  if(pct!==undefined)UI.haggleLastPct=pct;
+  pct=UI.haggleLastPct;
+  const priceEl=document.getElementById('haggle-price');
+  const price=Number((priceEl||{}).value||0);
+  const result=document.getElementById('haggle-result');
+  if(!result)return;
+  if(!price||price<0||!pct){result.style.display='none';return;}
+  const giveUp=price*(pct/100);
+  const offer=price-giveUp;
+  document.getElementById('haggle-offer').textContent='$'+offer.toFixed(2);
+  document.getElementById('haggle-giveup').textContent="you're giving up $"+giveUp.toFixed(2);
+  result.style.display='block';
+}
+
+function setGivenAmount(v){
+  const el=document.getElementById('change-given');
+  if(el){el.value=v;calcChange();}
+}
+
+function denomBreakdown(amount){
+  let cents=Math.round(amount*100);
+  const denoms=[[10000,"Hundred"],[5000,"Fifty"],[2000,"Twenty"],[1000,"Ten"],[500,"Five"],[100,"One"],[25,"Quarter"],[10,"Dime"],[5,"Nickel"],[1,"Penny"]];
+  const parts=[];
+  for(const [c,label] of denoms){
+    const count=Math.floor(cents/c);
+    if(count>0){parts.push(`${count} ${label}${count>1?"s":""}`);cents-=count*c;}
+  }
+  return parts;
 }
 
 // ─── DIGITAL PAYMENTS (Sale Day) ───────────────────────────────────────────────
@@ -1932,6 +2134,7 @@ function calcChange(){
   const sub=calcSubtotal(P.calculatorRows);
   const result=document.getElementById('change-result');
   const amt=document.getElementById('change-amount');
+  const denomEl=document.getElementById('change-denom');
   if(!result||!amt)return;
   if(!given){result.style.display='none';return;}
   if(given<sub){
@@ -1939,12 +2142,18 @@ function calcChange(){
     result.style.background='#F5C4A8';
     amt.style.color='#252535';
     amt.textContent='Short by $'+(sub-given).toFixed(2);
+    if(denomEl)denomEl.textContent='';
     return;
   }
+  const change=given-sub;
   result.style.display='block';
   result.style.background='#facfd4';
   amt.style.color='var(--color-text)';
-  amt.textContent='$'+(given-sub).toFixed(2);
+  amt.textContent='$'+change.toFixed(2);
+  if(denomEl){
+    const parts=change>0?denomBreakdown(change):[];
+    denomEl.textContent=parts.length?('Give back: '+parts.join(' + ')):'';
+  }
 }
 
 function updateCalcRow(id,k,v){const row=(P.calculatorRows||[]).find(r=>r.id===id);if(row){if(k==='price'&&(isNaN(Number(v))||Number(v)<0))v='0';if(k==='quantity'&&(isNaN(Number(v))||Number(v)<1))v='1';row[k]=v;P.isDemo=false;save();refreshSubtotal()}}
@@ -1961,8 +2170,9 @@ function addCalcToSales(){
 }
 function logSale(desc,amt,method){
   if(!Number(amt)||Number(amt)<=0)return;
-  const time=new Date().toLocaleTimeString([],{hour:"numeric",minute:"2-digit"});
-  P.transactions=[{id:makeId(),description:desc||"Garage sale purchase",amount:Number(amt).toFixed(2),method,time},...(P.transactions||[])];
+  const now=new Date();
+  const time=now.toLocaleTimeString([],{hour:"numeric",minute:"2-digit"});
+  P.transactions=[{id:makeId(),description:desc||"Garage sale purchase",amount:Number(amt).toFixed(2),method,time,timestamp:now.toISOString()},...(P.transactions||[])];
   P.isDemo=false;save();checkGoalNotifs();refreshHeaderStat();renderContent();
 }
 function logQuickSale(){
@@ -2009,13 +2219,13 @@ function renderPrintCenter(){
     :renderPCFlyersContent();
 
   return`
-  ${renderTipStrip(TIPS.print)}
   ${renderTourNote("Print price tags directly from your inventory, area signs for each table, and a sale flyer with tear-off address strips for neighborhood posts.")}
   <div class="gap-y">
     <div>
       <h2 class="page-title">Print Center</h2>
       <p class="page-sub">Price tags, area signs, and flyers — preview here, then print.</p>
     </div>
+    ${renderTipStrip(TIPS.print)}
     <div class="pc-tabs" role="tablist">
       <button class="pc-tab-btn${UI.pcTab==='tags'?' active':''}" onclick="UI.pcTab='tags';renderContent()">Price Tags</button>
       <button class="pc-tab-btn${UI.pcTab==='area'?' active':''}" onclick="UI.pcTab='area';renderContent()">Area Signs</button>
@@ -2282,37 +2492,117 @@ function renderPCFlyersContent(){
 }
 
 // ─── SECTION: WRAP UP ────────────────────────────────────────────────────────
-function renderWrap(){
+function fmtHourLabel(h){
+  const period=h>=12?'pm':'am';
+  let h12=h%12;if(h12===0)h12=12;
+  return`${h12}${period}`;
+}
+function renderTimeOfDayPattern(){
+  const tx=(P.transactions||[]).filter(t=>t.timestamp);
+  if(tx.length<3)return"";
+  const buckets={};
+  tx.forEach(t=>{
+    const h=new Date(t.timestamp).getHours();
+    if(!buckets[h])buckets[h]={hour:h,count:0,total:0};
+    buckets[h].count++;buckets[h].total+=Number(t.amount||0);
+  });
+  const byTotal=Object.values(buckets).sort((a,b)=>b.total-a.total);
+  const peak=byTotal[0];
+  const peakLabel=`${fmtHourLabel(peak.hour)}–${fmtHourLabel((peak.hour+1)%24)}`;
+  const peakLine=`<div style="font-family:var(--font-body);font-size:14px;color:#FFF8EE">Your busiest hour: ${peakLabel}. ${peak.count} sale${peak.count===1?"":"s"}, $${peak.total.toFixed(2)}.</div>`;
+  if(tx.length<6)return`<div style="margin-top:16px">${peakLine}</div>`;
+  const byHour=Object.values(buckets).sort((a,b)=>a.hour-b.hour);
+  const maxTotal=Math.max(...byHour.map(b=>b.total));
+  return`
+  <div style="margin-top:16px">
+    ${peakLine}
+    <div style="display:flex;align-items:flex-end;gap:6px;height:90px;margin-top:12px">
+      ${byHour.map(b=>`
+        <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%">
+          <div style="width:100%;background:#E87AAA;height:${Math.max(4,Math.round((b.total/maxTotal)*100))}%"></div>
+          <div style="font-size:10px;color:#A8C5DA;margin-top:4px">${fmtHourLabel(b.hour)}</div>
+        </div>`).join("")}
+    </div>
+  </div>`;
+}
+
+const emotionalCheckInOptions=["Exhausted.","Excited — one step closer.","Proud of myself."];
+function setEmotionalCheckIn(val){
+  P.wrap=P.wrap||{};
+  P.wrap.emotionalCheckIn=P.wrap.emotionalCheckIn===val?"":val;
+  P.isDemo=false;save();renderContent();
+}
+
+function buildWrapCompletion(){
   const w=P.wrap||{};const stats=getStats(P);
   const saleComplete=stats.earned>0&&(w.donate||w.notes||w.sellOnline||w.keep||w.trash);
-  const completionScreen=saleComplete?`
-  <div style="background:#252535;padding:40px 36px;text-align:center;margin-bottom:8px;">
+  if(!saleComplete)return`<div id="wrap-completion"></div>`;
+  const salesCount=(P.transactions||[]).length;
+  const memoryCount=(P.memoryBox||[]).length;
+  const dataLines=[
+    salesCount?`<div style="display:flex;justify-content:space-between;gap:16px"><span style="color:#A8C5DA">Items sold</span><span style="color:#FFF8EE;font-weight:700">${salesCount}</span></div>`:"",
+    stats.goal?`<div style="display:flex;justify-content:space-between;gap:16px"><span style="color:#A8C5DA">Hit your goal?</span><span style="color:#FFF8EE;font-weight:700">${stats.earned>=stats.goal?"Yes":"Not yet"}</span></div>`:"",
+    memoryCount?`<div style="display:flex;justify-content:space-between;gap:16px"><span style="color:#A8C5DA">Memory Box items</span><span style="color:#FFF8EE;font-weight:700">${memoryCount}</span></div>`:"",
+  ].filter(Boolean).join("");
+  const memories=P.memoryBox||[];
+  const memoryList=memories.length?`
+    <div style="margin-top:24px;text-align:left;max-width:480px;margin-left:auto;margin-right:auto">
+      <h3 style="font-family:var(--font-display);font-weight:700;font-size:16px;color:#FFF8EE;margin:0 0 12px">What you let go of</h3>
+      ${memories.map(m=>`
+        <div style="margin-bottom:12px">
+          <div style="font-family:var(--font-body);font-weight:700;font-size:14px;color:#FFF8EE">${esc(m.itemName||"Memory")}</div>
+          ${m.caption?`<div style="font-family:var(--font-body);font-weight:400;font-size:13px;color:#A8C5DA;margin-top:2px">${esc(m.caption)}</div>`:""}
+        </div>`).join("")}
+    </div>`:"";
+  const emotionalCheckIn=`
+    <div style="margin-top:24px;display:flex;gap:8px;justify-content:center;flex-wrap:wrap">
+      ${emotionalCheckInOptions.map(opt=>`<button class="toggle-chip" onclick="setEmotionalCheckIn('${esc(opt)}')" style="font-family:var(--font-body);font-size:13px;font-weight:600;padding:8px 16px;cursor:pointer;${w.emotionalCheckIn===opt?'background:#FFF8EE;color:#252535;border:1px solid #FFF8EE':'background:transparent;color:#FFF8EE;border:1px solid rgba(255,248,238,0.4)'}">${esc(opt)}</button>`).join("")}
+    </div>`;
+  return`
+  <div id="wrap-completion" style="background:#252535;padding:40px 36px;text-align:center;margin-bottom:8px;">
     <p style="font-family:var(--font-display);font-weight:800;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#E87AAA;margin:0 0 14px;">Sale Complete</p>
     <h2 style="font-family:var(--font-display);font-weight:800;font-size:26px;color:#FDFBF7;margin:0 0 10px;line-height:1.3;">You earned $${stats.earned.toFixed(2)}.</h2>
     ${stats.goal?`<p style="font-family:'DM Sans',sans-serif;font-size:15px;color:rgba(255,248,238,0.75);margin:0 0 6px;">${stats.goalProgress}% of your $${stats.goal} goal reached.</p>`:""}
     ${P.setup?.moneyPurpose?`<p style="font-family:'DM Sans',sans-serif;font-size:14px;color:#A8C5DA;margin:0 0 20px;font-style:italic;">${esc(P.setup.moneyPurpose)}</p>`:"<div style='margin-bottom:20px'></div>"}
     <p style="font-family:'DM Sans',sans-serif;font-size:15px;color:rgba(255,248,238,0.78);line-height:1.7;max-width:480px;margin:0 auto 24px;">Every item sorted, priced, and moved out the door. That took real effort. Here&rsquo;s to your next chapter.</p>
-    <p style="font-family:var(--font-display);font-size:12px;color:#8BA7D4;margin:0;">— Cece</p>
-  </div>`:""
+    ${dataLines?`<div style="max-width:320px;margin:0 auto 20px;display:flex;flex-direction:column;gap:8px">${dataLines}</div>`:""}
+    ${memoryList}
+    ${renderTimeOfDayPattern()}
+    <p style="font-family:var(--font-display);font-size:12px;color:#8BA7D4;margin:24px 0 0;">— Cece</p>
+    ${emotionalCheckIn}
+  </div>`;
+}
+function refreshWrapCompletion(){
+  const el=document.getElementById('wrap-completion');
+  if(!el)return;
+  el.outerHTML=buildWrapCompletion();
+}
+
+function renderWrap(){
+  const w=P.wrap||{};const stats=getStats(P);
   return`
-  ${renderTipStrip(TIPS.wrap)}
   ${renderTourNote("Decide what happens to leftovers before the sale ends — donate, sell online, keep, or trash. Fill this in while you're still outside. Once it's back inside, it stays inside.")}
   <div class="gap-y">
-    ${completionScreen}
+    ${buildWrapCompletion()}
     <div>
       <h2 class="page-title">Wrap Up</h2>
       <p class="page-sub">Decide what happens to leftovers before the sale ends. Make the plan now so nothing sneaks back inside.</p>
     </div>
+    ${renderTipStrip(TIPS.wrap)}
     <div class="grid-2">
       <div class="card">
         <div class="card-title">Leftovers plan</div>
         <div class="gap-y-sm">
           ${areaField("Donate","wrap.donate",w.donate,"Which items go directly to donation after the sale?")}
           ${w.donate?`<div style="background:#B5CC6A;border:1px solid #B5CC6A;padding:12px 16px;font-size:var(--text-sm);color:#252535;line-height:1.7">Someone else will find exactly what they need from what you are letting go.</div>`:""}
+          ${P.setup?.charityName?`<div class="info-box"><strong>${esc(P.setup.charityName)}</strong>${P.setup.charityPhone?` — <a href="tel:${esc(P.setup.charityPhone.replace(/[^\d+]/g,''))}" style="color:#252535;text-decoration:underline">${esc(P.setup.charityPhone)}</a>`:""}${P.setup.charityAddress?`<br>${esc(P.setup.charityAddress)}`:""}</div>`
+            :`<div class="text-muted text-sm">Add your local donation center on the <a href="#" onclick="goTab('start','start');return false" style="color:#E87AAA;font-weight:700;text-decoration:underline">Start tab →</a></div>`}
+          <div style="font-size:14px;color:var(--color-text);line-height:1.6">Before you close: move the $1-and-under stuff to the curb with a FREE sign. It'll be gone before you're done packing up.</div>
           ${areaField("Sell online after","wrap.sellOnline",w.sellOnline,"Any items worth listing if they did not sell today?")}
           ${areaField("Keep","wrap.keep",w.keep,"Anything you changed your mind about? Note it here.")}
           ${areaField("Trash","wrap.trash",w.trash,"Broken, expired, or truly useless items.")}
           ${areaField("Notes + lessons learned","wrap.notes",w.notes,"What worked? What would you do differently?")}
+          <div style="text-align:right"><button class="btn btn-ghost btn-sm" onclick="sectionClear('wrapLeftovers')">Clear</button></div>
         </div>
       </div>
       <div class="gap-y">
@@ -2340,9 +2630,8 @@ function renderWrap(){
           <div class="gap-y-sm" style="margin-top:10px">
             <button class="btn btn-secondary" onclick="exportPDF()">Download sale summary (PDF)</button>
             <button class="btn btn-secondary" onclick="exportData()">Export planner data (JSON)</button>
-            <button class="btn btn-danger" onclick="startFresh()">Start fresh</button>
           </div>
-          <div class="text-muted text-xs" style="margin-top:10px">Start fresh clears all data. Export first if you want to save a record.</div>
+          <div class="text-muted text-xs" style="margin-top:10px">Want to wipe every field in this planner? That's on the Start tab. Export first if you want to save a record.</div>
         </div>
       </div>
     </div>
@@ -2817,13 +3106,22 @@ function advanceDemo(){
 }
 
 function startFresh(){
-  mncConfirm("Clear all data and start fresh?",()=>{
+  mncConfirm("This clears everything you've entered and can't be undone.",()=>{
     P=normalizePlanner(clone(blankPlanner));save();
     UI={tab:"start",section:"start",invView:"table",showAddForm:false,demo:false,demoStep:0,calMenu:false,bellOpen:false};
     itemSearch="";invCatFilter="All";invDecFilter="All";
     draft={item:{name:"",category:"Decor",condition:"Good",quantity:"1",decision:"Garage Sale",price:"",notes:""},box:{title:"",price:"2",category:"Other",description:""},memory:{itemName:"",caption:""},sale:{description:"",amount:"",method:"Cash"}};
     render();
-  });
+  },{confirmLabel:"Reset Everything",confirmBg:"#252535",confirmColor:"#FFF8EE"});
+}
+
+function sectionClear(key){
+  if(key==="start"){P.setup=clone(blankPlanner.setup);}
+  else if(key==="advertising"){P.advertising=clone(blankPlanner.advertising);}
+  else if(key==="safetyNotes"){P.safety=P.safety||clone(blankPlanner.safety);P.safety.safetyNotes="";}
+  else if(key==="wrapLeftovers"){P.wrap=P.wrap||clone(blankPlanner.wrap);Object.assign(P.wrap,{donate:"",sellOnline:"",keep:"",trash:"",notes:""});}
+  else return;
+  P.isDemo=false;save();renderContent();refreshHeaderStat();refreshMetrics();showToast("Cleared");
 }
 
 function exportData(){
@@ -2958,6 +3256,7 @@ function sf(el,...path){
     if(rb){rb.disabled=!P.setup?.saleDate;rb.textContent=P.setup?.saleDate?"Set reminder":"Set reminder (set date first)";}
   }
   if(UI.tab==="saleWrap"&&UI.section==="sale")refreshSubtotal();
+  if(UI.tab==="saleWrap"&&UI.section==="wrap"&&path[0]==="wrap")refreshWrapCompletion();
 }
 
 function field(label,type,pathStr,value,placeholder){
@@ -3465,6 +3764,30 @@ function renderHelpOverlay(){
   </div>`;
 }
 
+// ─── QUICK-CAPTURE SCRATCH PAD ────────────────────────────────────────────────
+let _scratchTimer;
+function toggleScratchPad(){
+  UI.scratchOpen=!UI.scratchOpen;
+  const panel=document.getElementById('scratch-panel');
+  const btn=document.getElementById('scratch-toggle');
+  if(!panel||!btn)return;
+  panel.style.display=UI.scratchOpen?'block':'none';
+  btn.setAttribute('aria-expanded',UI.scratchOpen?'true':'false');
+  if(UI.scratchOpen){
+    const ta=document.getElementById('scratch-textarea');
+    if(ta)ta.value=P.scratchPad||'';
+  }
+}
+function onScratchInput(v){
+  clearTimeout(_scratchTimer);
+  _scratchTimer=setTimeout(()=>{P.scratchPad=v;save();},500);
+}
+function clearScratchPad(){
+  P.scratchPad='';save();
+  const ta=document.getElementById('scratch-textarea');
+  if(ta)ta.value='';
+}
+
 // ─── INIT ─────────────────────────────────────────────────────────────────────
 render();
 refreshStickyBar();
@@ -3484,6 +3807,12 @@ window.addEventListener('resize',()=>{
 </script>
 
 <div id="sticky-bar"></div>
+
+<button id="scratch-toggle" class="no-print" onclick="toggleScratchPad()" aria-expanded="false" aria-controls="scratch-panel">Quick notes</button>
+<div id="scratch-panel" class="no-print" role="region" aria-label="Quick notes">
+  <div class="scratch-header"><span>Quick notes</span><button class="scratch-clear" onclick="clearScratchPad()">Clear</button></div>
+  <textarea id="scratch-textarea" placeholder="Jot something down before you lose it..." oninput="onScratchInput(this.value)"></textarea>
+</div>
 
 <div id="tour-overlay" style="position:fixed;inset:0;z-index:9000;display:none;overflow:hidden;pointer-events:none;transition:opacity 180ms ease;opacity:0"></div>
 <div id="payment-overlay" style="position:fixed;inset:0;z-index:9100;display:none;overflow:hidden;pointer-events:auto;transition:opacity 180ms ease;opacity:0"></div>
