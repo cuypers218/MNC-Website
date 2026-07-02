@@ -31,10 +31,7 @@ $stats = [
 
 $actionItems = [
     'Upload thumbnail images for: 6pm Cheat Sheet, Coloring Pages, Someday List Builder',
-    'Build Exclusive Content section on dashboard.php for members',
-    'Add Slot 3 to exclusive content drip queue (Weekend Structure Sheet)',
-    'Fix banned phrase in Quiet House Meter description (site/index.php ~line 429)',
-    'Fix banned word "Carried" in workbook.php ~line 722',
+    'Add Slot 3 to exclusive content drip queue (Weekend Structure Sheet — not yet built)',
 ];
 ?>
 
