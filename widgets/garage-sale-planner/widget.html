@@ -129,7 +129,7 @@
 
     .icon-btn {
       width:36px;height:36px;display:flex;align-items:center;justify-content:center;
-      border-radius:var(--radius-full);color:var(--color-text-muted);
+      border-radius:0;color:var(--color-text-muted);
       border:1px solid var(--color-divider);flex-shrink:0;
     }
     .icon-btn:hover{color:var(--color-text);background:var(--color-surface)}
@@ -187,7 +187,7 @@
       display:flex;flex-wrap:wrap;gap:var(--space-1);margin-bottom:var(--space-5);
     }
     .sec-btn{
-      border-radius:var(--radius-lg);padding:var(--space-2) var(--space-4);
+      border-radius:0;padding:var(--space-2) var(--space-4);
       font-size:var(--text-sm);font-weight:500;cursor:pointer;
       transition:background var(--t),color var(--t);
       background:transparent;color:var(--color-text-muted);
@@ -198,7 +198,7 @@
     /* ─── BUTTONS ─── */
     .btn{
       display:inline-flex;align-items:center;justify-content:center;gap:var(--space-2);
-      border-radius:var(--radius-full);cursor:pointer;font-weight:500;
+      border-radius:0;cursor:pointer;font-weight:500;
       font-size:var(--text-sm);padding:var(--space-3) var(--space-5);
       transition:background var(--t),color var(--t),border-color var(--t);
       white-space:nowrap;
@@ -307,7 +307,6 @@
       border-radius:var(--radius-lg);padding:var(--space-5);
       display:flex;flex-direction:column;gap:var(--space-3);
     }
-    .memory-img{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:var(--radius-md);background:var(--color-surface-2)}
     .memory-name{font-weight:600;font-size:var(--text-sm);color:var(--color-text)}
     .memory-caption{font-size:var(--text-sm);color:var(--color-text-muted);line-height:1.7;font-style:italic}
 
@@ -1409,7 +1408,6 @@ function deleteBox(id){mncConfirm("Remove this box?",()=>{P.batchBoxes=(P.batchB
 
 // ─── SECTION: MEMORY BOX ─────────────────────────────────────────────────────
 function renderMemory(){
-  _memPhotoData="";
   const memories=P.memoryBox||[];
   return`
   ${renderTipStrip(TIPS.memory)}
@@ -1420,6 +1418,16 @@ function renderMemory(){
       <p class="page-sub">Before something goes, note what it meant. Photograph it, write the story, then decide.</p>
       <p style="font-size:13px;color:var(--color-text-muted);font-style:italic;margin-top:6px;line-height:1.6">"You don't have to hold on to something to hold on to the memory." — Cece</p>
     </div>
+    ${memories.length>0?`<div><button class="btn btn-secondary btn-sm" onclick="printMemoryPage()">Print your Memory Page</button></div>`:""}
+    ${memories.length===0?`<div class="empty-state">No memories saved yet.</div>`:
+    `<div class="grid-3">${memories.map(m=>`
+      <div class="memory-card">
+        <div class="memory-name">${esc(m.itemName||"Memory")}</div>
+        ${m.caption?`<div class="memory-caption">${esc(m.caption)}</div>`:""}
+        <div class="text-xs text-muted">${esc(m.createdAt||"")}</div>
+        <button class="btn btn-danger btn-xs" onclick="deleteMemory('${esc(m.id)}')">Remove</button>
+      </div>`).join("")}
+    </div>`}
     <div class="card">
       <div class="card-title">Add a memory</div>
       <div class="form-row" style="margin-bottom:14px">
@@ -1432,32 +1440,15 @@ function renderMemory(){
         <label class="form-label">Caption or memory note</label>
         <textarea class="textarea" id="mem-cap" rows="3" placeholder="Add a note, or leave it. The name is enough." oninput="draft.memory.caption=this.value"></textarea>
       </div>
-      <div class="form-field" style="margin-bottom:14px">
-        <label class="form-label">Photo (optional)</label>
-        <input type="file" accept="image/*" onchange="handleMemPhoto(this)" style="font-size:13px" />
-      </div>
       <button class="btn btn-primary" onclick="addMemory()">Save memory</button>
     </div>
-    ${memories.length>0?`<div style="margin-top:4px"><button class="btn btn-secondary btn-sm" onclick="printMemoryPage()">Print your Memory Page</button></div>`:""}
-    ${memories.length===0?`<div class="empty-state">No memories saved yet.</div>`:
-    `<div class="grid-3">${memories.map(m=>`
-      <div class="memory-card">
-        ${m.photo?`<img src="${m.photo}" class="memory-img" alt="${esc(m.itemName)}" />`:""}
-        <div class="memory-name">${esc(m.itemName||"Memory")}</div>
-        ${m.caption?`<div class="memory-caption">${esc(m.caption)}</div>`:""}
-        <div class="text-xs text-muted">${esc(m.createdAt||"")}</div>
-        <button class="btn btn-danger btn-xs" onclick="deleteMemory('${esc(m.id)}')">Remove</button>
-      </div>`).join("")}
-    </div>`}
   </div>`;
 }
 
-let _memPhotoData="";
-function handleMemPhoto(input){const f=input.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{_memPhotoData=r.result};r.readAsDataURL(f)}
 function addMemory(){
   const d=draft.memory;
-  P.memoryBox=[{id:makeId(),itemName:d.itemName||"Memory",caption:d.caption||"",photo:_memPhotoData,createdAt:new Date().toLocaleDateString()},...(P.memoryBox||[])];
-  P.isDemo=false;save();_memPhotoData="";draft.memory={itemName:"",caption:""};renderContent();
+  P.memoryBox=[{id:makeId(),itemName:d.itemName||"Memory",caption:d.caption||"",photo:"",createdAt:new Date().toLocaleDateString()},...(P.memoryBox||[])];
+  P.isDemo=false;save();draft.memory={itemName:"",caption:""};renderContent();
 }
 function deleteMemory(id){mncConfirm("Remove this memory?",()=>{P.memoryBox=(P.memoryBox||[]).filter(m=>m.id!==id);P.isDemo=false;save();renderContent()})}
 
