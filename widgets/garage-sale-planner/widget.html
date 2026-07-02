@@ -530,6 +530,7 @@
     </div>
     <button class="btn btn-ghost btn-sm" onclick="save();showToast('Saved!')" title="Save your planner">Save</button>
     <button class="btn btn-ghost btn-sm" onclick="openTour()" title="How this works">How it works</button>
+    <button class="btn btn-ghost btn-sm" onclick="openHelp()" title="Help">Help</button>
     <button class="btn btn-ghost btn-sm" onclick="startFresh()" title="Clear all data and start over">Start Over</button>
     <div id="hdr-demo-pill"></div>
   </div>
@@ -554,7 +555,7 @@ const STORAGE_KEY = "my-nest-chapter-simple-sale-planner-v8";
 const categories = ["Clothing","Books","Decor","Furniture","Kitchen","Electronics","Toys","Tools","Keepsakes","Home Goods","Other"];
 const conditions = ["New","Excellent","Good","Fair","Needs Repair"];
 const decisions = ["Keep","Garage Sale","Sell Online","Donate","Trash","Not Sure"];
-const paymentMethods = ["Cash","Venmo","Cash App","Zelle","Other"];
+const paymentMethods = ["Cash","PayPal","Venmo","Cash App","Zelle","Other"];
 
 const prepTasks = [
   "Choose sale date and time",
@@ -870,7 +871,7 @@ function chipClass(dec){return{
 
 // ─── STATE ────────────────────────────────────────────────────────────────────
 const blankPlanner={
-  setup:{saleTitle:"",saleDate:"",backupDate:"",saleEndTime:"",moneyPurpose:"",moneyGoal:"",notes:""},
+  setup:{saleTitle:"",saleDate:"",backupDate:"",saleEndTime:"",moneyPurpose:"",moneyGoal:"",notes:"",venmoHandle:"",cashappHandle:"",paypalHandle:"",zelleHandle:""},
   advertising:{featuredItems:"",adCopy:"",signHeadline:"",signDetails:"",facebookPosted:false,nextdoorPosted:false,localGroupsPosted:false,signsPrinted:false},
   safety:{tasks:{},change:{ones:"40",fives:"20",quarters:"20"},bankReminderDone:false,safetyNotes:""},
   items:[],prep:{},customPrepTasks:[],calculatorRows:[{id:"r1",name:"",quantity:"1",price:""}],
@@ -978,6 +979,38 @@ function refreshMetrics(){
 
 function refreshDemoBanner(){}
 
+function renderCountdownBody(){
+  const s=P.setup||{};
+  const days=daysUntilSale(s.saleDate);
+  const daysStr=days===null?"Set a date to see the countdown":days===0?"Sale day is today!":days<0?`Sale was ${Math.abs(days)} day${Math.abs(days)===1?"":"s"} ago`:`${days} day${days===1?"":"s"} until sale day`;
+  const saleDateLabel=s.saleDate?new Date(s.saleDate+"T00:00:00").toLocaleDateString("en-US",{weekday:"long",month:"long",day:"numeric",year:"numeric"}):"";
+  return`
+  <div class="metric-value" style="font-size:28px;line-height:1.15">${daysStr}</div>
+  ${s.saleDate?`
+  <div class="text-muted" style="margin-top:8px;font-size:15px">${saleDateLabel}</div>
+  <div style="margin-top:16px;position:relative;display:inline-block">
+    <button class="btn btn-secondary btn-sm" onclick="UI.calMenu=!UI.calMenu;renderContent()">Add to calendar ▾</button>
+    ${UI.calMenu?`<div style="position:absolute;top:calc(100% + 6px);left:0;z-index:300;background:#fff;border:1.5px solid var(--color-divider);min-width:200px;overflow:hidden">
+      <button class="cal-opt-btn" onclick="openGoogleCal()">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><rect x="3" y="4" width="18" height="17" rx="2" stroke="#4285F4" stroke-width="2"/><line x1="3" y1="9" x2="21" y2="9" stroke="#4285F4" stroke-width="2"/><line x1="8" y1="2" x2="8" y2="6" stroke="#4285F4" stroke-width="2"/><line x1="16" y1="2" x2="16" y2="6" stroke="#4285F4" stroke-width="2"/><text x="12" y="19" text-anchor="middle" font-size="7" font-weight="900" fill="#EA4335">G</text></svg>
+        Google Calendar
+      </button>
+      <button class="cal-opt-btn" style="border-top:1px solid var(--color-divider)" onclick="openOutlookCal()">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><rect x="2" y="3" width="20" height="18" rx="2" stroke="#0078D4" stroke-width="2"/><path d="M2 8h20" stroke="#0078D4" stroke-width="2"/><path d="M8 3v5" stroke="#0078D4" stroke-width="2"/><path d="M16 3v5" stroke="#0078D4" stroke-width="2"/><circle cx="12" cy="15" r="3" stroke="#0078D4" stroke-width="1.5"/></svg>
+        Outlook / Microsoft
+      </button>
+      <button class="cal-opt-btn" style="border-top:1px solid var(--color-divider)" onclick="downloadCalendar()">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><rect x="3" y="4" width="18" height="17" rx="2" stroke="#252535" stroke-width="2"/><line x1="3" y1="9" x2="21" y2="9" stroke="#252535" stroke-width="2"/><line x1="8" y1="2" x2="8" y2="6" stroke="#252535" stroke-width="2"/><line x1="16" y1="2" x2="16" y2="6" stroke="#252535" stroke-width="2"/></svg>
+        Apple / Other (.ics)
+      </button>
+    </div>`:""}
+  </div>`:""}`;
+}
+function refreshCountdown(){
+  const el=document.getElementById("countdown-body");if(!el)return;
+  el.innerHTML=renderCountdownBody();
+}
+
 function refreshGoalProgress(){
   const el=document.getElementById("goal-pct");if(!el)return;
   const stats=getStats(P);
@@ -1023,9 +1056,6 @@ function renderContent(){
 // ─── SECTION: START ───────────────────────────────────────────────────────────
 function renderStart(){
   const s=P.setup||{};const stats=getStats(P);
-  const days=daysUntilSale(s.saleDate);
-  const daysStr=days===null?"Set a date to see the countdown":days===0?"Sale day is today!":days<0?`Sale was ${Math.abs(days)} day${Math.abs(days)===1?"":"s"} ago`:`${days} day${days===1?"":"s"} until sale day`;
-  const saleDateLabel=s.saleDate?new Date(s.saleDate+"T00:00:00").toLocaleDateString("en-US",{weekday:"long",month:"long",day:"numeric",year:"numeric"}):"";
   const welcome=isFreshPlanner()?`
   <div style="background:#252535;color:#FFF8EE;padding:32px 32px 28px;margin-bottom:20px">
     <p style="font-family:var(--font-display);font-size:11px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:#E87AAA;margin-bottom:10px">My Nest Chapter</p>
@@ -1083,26 +1113,7 @@ function renderStart(){
       <!-- Sale countdown -->
       <div style="background:#fff;border:1px solid var(--color-divider);padding:24px">
         <div class="card-title" style="margin-bottom:12px">Sale countdown</div>
-        <div class="metric-value" style="font-size:28px;line-height:1.15">${daysStr}</div>
-        ${s.saleDate?`
-        <div class="text-muted" style="margin-top:8px;font-size:15px">${saleDateLabel}</div>
-        <div style="margin-top:16px;position:relative;display:inline-block">
-          <button class="btn btn-secondary btn-sm" onclick="UI.calMenu=!UI.calMenu;renderContent()">Add to calendar ▾</button>
-          ${UI.calMenu?`<div style="position:absolute;top:calc(100% + 6px);left:0;z-index:300;background:#fff;border:1.5px solid var(--color-divider);min-width:200px;overflow:hidden">
-            <button class="cal-opt-btn" onclick="openGoogleCal()">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><rect x="3" y="4" width="18" height="17" rx="2" stroke="#4285F4" stroke-width="2"/><line x1="3" y1="9" x2="21" y2="9" stroke="#4285F4" stroke-width="2"/><line x1="8" y1="2" x2="8" y2="6" stroke="#4285F4" stroke-width="2"/><line x1="16" y1="2" x2="16" y2="6" stroke="#4285F4" stroke-width="2"/><text x="12" y="19" text-anchor="middle" font-size="7" font-weight="900" fill="#EA4335">G</text></svg>
-              Google Calendar
-            </button>
-            <button class="cal-opt-btn" style="border-top:1px solid var(--color-divider)" onclick="openOutlookCal()">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><rect x="2" y="3" width="20" height="18" rx="2" stroke="#0078D4" stroke-width="2"/><path d="M2 8h20" stroke="#0078D4" stroke-width="2"/><path d="M8 3v5" stroke="#0078D4" stroke-width="2"/><path d="M16 3v5" stroke="#0078D4" stroke-width="2"/><circle cx="12" cy="15" r="3" stroke="#0078D4" stroke-width="1.5"/></svg>
-              Outlook / Microsoft
-            </button>
-            <button class="cal-opt-btn" style="border-top:1px solid var(--color-divider)" onclick="downloadCalendar()">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><rect x="3" y="4" width="18" height="17" rx="2" stroke="#252535" stroke-width="2"/><line x1="3" y1="9" x2="21" y2="9" stroke="#252535" stroke-width="2"/><line x1="8" y1="2" x2="8" y2="6" stroke="#252535" stroke-width="2"/><line x1="16" y1="2" x2="16" y2="6" stroke="#252535" stroke-width="2"/></svg>
-              Apple / Other (.ics)
-            </button>
-          </div>`:""}
-        </div>`:""}
+        <div id="countdown-body">${renderCountdownBody()}</div>
       </div>
 
       <!-- Weather -->
@@ -1788,6 +1799,17 @@ function renderSaleDay(){
       <h2 class="page-title">Sale Day</h2>
       <p class="page-sub">Calculate purchases, log sales, and track what you've earned.</p>
     </div>
+    <div class="card">
+      <div class="card-title">Digital Payments</div>
+      <p style="font-size:14px;color:var(--color-text-muted);line-height:1.55;margin-bottom:14px">Add your handles once. Show buyers this screen when they ask.</p>
+      <div class="grid-2">
+        ${field("PayPal email or phone number","text","setup.paypalHandle",P.setup?.paypalHandle,"you@email.com")}
+        ${field("Venmo @handle","text","setup.venmoHandle",P.setup?.venmoHandle,"@yourname")}
+        ${field("Cash App $cashtag","text","setup.cashappHandle",P.setup?.cashappHandle,"$yourname")}
+        ${field("Zelle email or phone number","text","setup.zelleHandle",P.setup?.zelleHandle,"you@email.com")}
+      </div>
+      <button class="btn btn-secondary btn-sm" id="show-buyer-btn" onclick="showBuyerPayment()" ${hasAnyDigitalPayment()?'':'disabled'} style="margin-top:6px">Show Buyer</button>
+    </div>
     <div class="grid-2">
       <div class="card">
         <div class="card-title">Calculator</div>
@@ -1859,6 +1881,54 @@ function renderSaleDay(){
               </div>`).join("")}
           </div>`}
         </div>
+      </div>
+    </div>
+  </div>`;
+}
+
+// ─── DIGITAL PAYMENTS (Sale Day) ───────────────────────────────────────────────
+function hasAnyDigitalPayment(){
+  const s=P.setup||{};
+  return!!(s.paypalHandle||s.venmoHandle||s.cashappHandle||s.zelleHandle);
+}
+function refreshDigitalPaymentsButton(){
+  const btn=document.getElementById("show-buyer-btn");if(!btn)return;
+  btn.disabled=!hasAnyDigitalPayment();
+  if(document.getElementById("buyer-overlay-body"))renderBuyerOverlay();
+}
+function showBuyerPayment(){
+  if(!hasAnyDigitalPayment())return;
+  const ov=document.getElementById('payment-overlay');
+  if(!ov)return;
+  renderBuyerOverlay();
+  ov.style.display='block';
+  ov.style.opacity='0';
+  requestAnimationFrame(()=>requestAnimationFrame(()=>{ov.style.opacity='1';}));
+}
+function closeBuyerPayment(){
+  const ov=document.getElementById('payment-overlay');
+  if(ov){ov.style.opacity='0';setTimeout(()=>{ov.style.display='none';},180);}
+}
+function renderBuyerOverlay(){
+  const ov=document.getElementById('payment-overlay');if(!ov)return;
+  const s=P.setup||{};
+  const rows=[
+    {label:"PayPal",value:s.paypalHandle},
+    {label:"Venmo",value:s.venmoHandle},
+    {label:"Cash App",value:s.cashappHandle},
+    {label:"Zelle",value:s.zelleHandle},
+  ].filter(r=>r.value);
+  ov.innerHTML=`
+  <div style="position:absolute;inset:0;background:#252535;display:flex;align-items:center;justify-content:center;padding:32px 24px">
+    <button onclick="closeBuyerPayment()" aria-label="Close" style="position:absolute;top:20px;right:20px;background:transparent;border:1.5px solid rgba(255,248,238,0.35);color:#FFF8EE;font-family:var(--font-display);font-weight:800;font-size:13px;padding:10px 20px;cursor:pointer">Done</button>
+    <div style="max-width:560px;width:100%;text-align:center">
+      <p style="font-family:var(--font-display);font-size:11px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:#E87AAA;margin-bottom:24px">Pay here</p>
+      <div style="display:flex;flex-direction:column;gap:22px">
+        ${rows.map(r=>`
+        <div>
+          <div style="font-family:var(--font-body);font-size:14px;color:rgba(255,248,238,0.6);margin-bottom:4px">${esc(r.label)}</div>
+          <div style="font-family:var(--font-display);font-size:clamp(24px,6vw,36px);font-weight:800;color:#FFF8EE">${esc(r.value)}</div>
+        </div>`).join('')}
       </div>
     </div>
   </div>`;
@@ -2873,13 +2943,25 @@ function exportPDF(){
 
 // ─── FORM HELPERS ─────────────────────────────────────────────────────────────
 // sf() = "set field" — safe varargs alternative to setField; path as spread args avoids JSON-in-HTML quoting issues
+let _weatherFetchTimer,_lastWeatherSaleDate;
 function sf(el,...path){
   const v=el.type==="checkbox"?el.checked:el.value;
   deepSet(P,path,v);P.isDemo=false;save();
   refreshHeaderStat();refreshMetrics();
   if(UI.tab==="start")refreshGoalProgress();
+  if(UI.tab==="start"&&(path.includes("saleDate")||path.includes("backupDate")))refreshCountdown();
+  if(path.includes("venmoHandle")||path.includes("cashappHandle")||path.includes("paypalHandle")||path.includes("zelleHandle"))refreshDigitalPaymentsButton();
   if(UI.tab==="start"&&path.includes("saleDate")){
-    setTimeout(()=>fetchWeather(P.setup?.saleDate||null),50);
+    // oninput and onblur both call sf() — onblur fires again even when the date didn't
+    // change (e.g. user just tabs into the zip field). Without this guard that no-op
+    // edit still reschedules fetchWeather(), which re-renders the zip prompt from
+    // scratch and wipes out whatever zip the user is mid-typing.
+    const newDate=P.setup?.saleDate||null;
+    if(newDate!==_lastWeatherSaleDate){
+      _lastWeatherSaleDate=newDate;
+      clearTimeout(_weatherFetchTimer);
+      _weatherFetchTimer=setTimeout(()=>fetchWeather(newDate),150);
+    }
     const rb=document.getElementById("reminder-btn");
     if(rb){rb.disabled=!P.setup?.saleDate;rb.textContent=P.setup?.saleDate?"Set reminder":"Set reminder (set date first)";}
   }
@@ -3013,14 +3095,27 @@ function checkConfetti(stats){
 // ─── WEATHER ──────────────────────────────────────────────────────────────────
 const W={data:null,loading:false,forDate:null,forZip:null,viewStart:0,latLon:null,latLonZip:null};
 function wCodeInfo(c){
-  if(c===0)return{icon:'CLEAR',label:'Clear sky',good:true};
-  if(c<=2)return{icon:'PARTLY CLOUDY',label:'Partly cloudy',good:true};
-  if(c<=3)return{icon:'CLOUDY',label:'Overcast',good:true};
-  if(c<=48)return{icon:'FOG',label:'Foggy',good:false};
-  if(c<=67)return{icon:'RAIN',label:'Rain',good:false};
-  if(c<=77)return{icon:'SNOW',label:'Snow',good:false};
-  if(c<=82)return{icon:'SHOWERS',label:'Rain showers',good:false};
-  return{icon:'STORM',label:'Thunderstorms',good:false};
+  if(c===0)return{label:'Clear sky',good:true};
+  if(c<=2)return{label:'Partly cloudy',good:true};
+  if(c<=3)return{label:'Overcast',good:true};
+  if(c<=48)return{label:'Foggy',good:false};
+  if(c<=67)return{label:'Rain',good:false};
+  if(c<=77)return{label:'Snow',good:false};
+  if(c<=82)return{label:'Rain showers',good:false};
+  return{label:'Thunderstorms',good:false};
+}
+function weatherIconSvg(code,size){
+  size=size||24;
+  const cloud='#8BA7D4',sun='#EDD96A',accent='#A8C5DA',warn='#F2A57A';
+  const wrap=inner=>`<svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${inner}</svg>`;
+  if(code===0)return wrap(`<circle cx="12" cy="12" r="5" stroke="${sun}"/><g stroke="${sun}"><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></g>`);
+  if(code<=2)return wrap(`<circle cx="7.2" cy="7.2" r="3" stroke="${sun}"/><g stroke="${sun}"><line x1="7.2" y1="1.2" x2="7.2" y2="2.6"/><line x1="1.4" y1="7.2" x2="2.8" y2="7.2"/><line x1="2.85" y1="2.85" x2="3.85" y2="3.85"/></g><path d="M9 20h8a4 4 0 0 0 0-8h-.74A6 6 0 0 0 5 13.3 4.5 4.5 0 0 0 9 20z" stroke="${cloud}"/>`);
+  if(code<=3)return wrap(`<path d="M18 18H6a5 5 0 0 1 .4-9.98A7 7 0 0 1 20 10a4 4 0 0 1-2 8z" stroke="${cloud}"/>`);
+  if(code<=48)return wrap(`<path d="M17 14H8a4.5 4.5 0 0 1 .3-8.98A6.5 6.5 0 0 1 19 8.5" stroke="${cloud}"/><line x1="3" y1="17" x2="21" y2="17" stroke="${accent}"/><line x1="5" y1="21" x2="19" y2="21" stroke="${accent}"/>`);
+  if(code<=67)return wrap(`<path d="M19 15.58A4.5 4.5 0 0 0 17.5 7h-1.14A7 7 0 1 0 5 14.5" stroke="${cloud}"/><line x1="8" y1="17" x2="8" y2="22" stroke="${accent}"/><line x1="12" y1="17" x2="12" y2="22" stroke="${accent}"/><line x1="16" y1="17" x2="16" y2="22" stroke="${accent}"/>`);
+  if(code<=77)return wrap(`<path d="M19 15.58A4.5 4.5 0 0 0 17.5 7h-1.14A7 7 0 1 0 5 14.5" stroke="${cloud}"/><g stroke="${accent}"><line x1="8" y1="17" x2="8" y2="17.01"/><line x1="8" y1="21" x2="8" y2="21.01"/><line x1="12" y1="19" x2="12" y2="19.01"/><line x1="12" y1="23" x2="12" y2="23.01"/><line x1="16" y1="17" x2="16" y2="17.01"/><line x1="16" y1="21" x2="16" y2="21.01"/></g>`);
+  if(code<=82)return wrap(`<path d="M19 13.58A4.5 4.5 0 0 0 17.5 5h-1.14A7 7 0 1 0 5 12.5" stroke="${cloud}"/><line x1="8" y1="15" x2="7" y2="19" stroke="${accent}"/><line x1="12" y1="15" x2="11" y2="19" stroke="${accent}"/><line x1="16" y1="15" x2="15" y2="19" stroke="${accent}"/>`);
+  return wrap(`<path d="M19 13.58A4.5 4.5 0 0 0 17.5 5h-1.14A7 7 0 1 0 5 12.5" stroke="${cloud}"/><polyline points="13 12 9 18 13 18 11 23" stroke="${warn}"/>`);
 }
 function shiftWeather(delta){
   if(!W.data||!W.data.days)return;
@@ -3078,7 +3173,11 @@ async function fetchWeather(saleDate){
     return;
   }
   const zip=P.setup?.weatherZip;
-  if(!zip){renderWeatherZipPrompt();return;}
+  if(!zip){
+    // don't redraw the prompt out from under someone actively typing their zip into it
+    if(document.activeElement&&document.activeElement.id==='weather-zip-input')return;
+    renderWeatherZipPrompt();return;
+  }
   if(W.forDate===saleDate&&W.forZip===zip&&W.data){renderWeatherCard();return;}
   W.forDate=saleDate;W.forZip=zip;W.loading=true;W.data=null;
   el.innerHTML=`<div class="card-title">Sale day weather</div><div class="text-muted" style="font-size:var(--text-sm);margin-top:6px">Checking forecast…</div>`;
@@ -3138,8 +3237,8 @@ function renderWeatherCard(){
     const topLabel=d.isToday&&!d.isSaleDay?'Today':d.isSaleDay?`${d.day} — SALE`:d.day;
     return`<div style="flex:1;text-align:center;padding:10px 4px;${highlight}">
       <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:${labelColor};margin-bottom:2px">${topLabel}</div>
-      <div style="font-size:10px;color:${d.isSaleDay?'var(--color-primary)':'var(--color-text-muted)'};margin-bottom:5px">${d.dateNum}</div>
-      <div style="font-size:9px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--color-text-muted);margin-bottom:5px;line-height:1.2">${info.icon}</div>
+      <div style="font-size:10px;color:${d.isSaleDay?'var(--color-primary)':'var(--color-text-muted)'};margin-bottom:6px">${d.dateNum}</div>
+      <div style="display:flex;justify-content:center;margin-bottom:6px" title="${info.label}">${weatherIconSvg(d.code,26)}</div>
       <div style="font-size:13px;font-weight:700;color:var(--color-text)">${d.high}°</div>
       <div style="font-size:11px;color:var(--color-text-muted)">${d.low}°</div>
       <div style="font-size:10px;color:${d.rain>=40?'#F2A57A':'var(--color-text-muted)'};margin-top:3px">${d.rain}% rain</div>
@@ -3148,9 +3247,9 @@ function renderWeatherCard(){
   el.innerHTML=`
     <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
       <div class="card-title" style="margin-bottom:0">Sale day weather</div>
-      <div style="display:flex;align-items:center;gap:5px">
-        <span style="font-size:9px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--color-text-muted)">${curInfo.icon}</span>
-        <span style="font-size:13px;font-weight:700;color:var(--color-text)">${cur.temp}°F</span>
+      <div style="display:flex;align-items:center;gap:6px" title="${curInfo.label}">
+        ${weatherIconSvg(cur.code,24)}
+        <span style="font-family:var(--font-display);font-size:18px;font-weight:800;color:var(--color-text)">${cur.temp}°</span>
         <span style="font-size:11px;color:var(--color-text-muted)">now</span>
       </div>
     </div>
@@ -3296,6 +3395,84 @@ function renderTourOverlay(){
   ov.innerHTML=html;
 }
 
+// ─── HELP ─────────────────────────────────────────────────────────────────────
+const helpTopics=[
+  {id:'digital-payments',title:'How to Accept Digital Payments',available:true,body:`
+    <div style="font-family:var(--font-body);font-size:14px;line-height:1.7;color:var(--color-text)">
+      <h4 style="font-family:var(--font-display);font-size:15px;font-weight:800;color:var(--color-text);margin-bottom:6px">PayPal</h4>
+      <p style="margin-bottom:18px">To accept PayPal at your sale, you need a PayPal account. If you don't have one, create a free personal account at paypal.com.</p>
+      <p style="margin-bottom:18px">When a buyer pays you, always ask them to send as "Goods &amp; Services" — not "Friends &amp; Family." Friends &amp; Family payments have no buyer or seller protection. If a buyer sends the wrong way, you can ask them to cancel and resend.</p>
+      <p style="margin-bottom:24px">Your PayPal handle is your email address or phone number on file with your account. Share whichever you use to log in.</p>
+
+      <h4 style="font-family:var(--font-display);font-size:15px;font-weight:800;color:var(--color-text);margin-bottom:6px">Venmo</h4>
+      <p style="margin-bottom:18px">Venmo is free to set up at venmo.com or through the Venmo app. Your handle is your @username — buyers search for it or scan your QR code (found in the Venmo app under your profile).</p>
+      <p style="margin-bottom:24px">Payments from buyers go to your Venmo balance. Transfer to your bank account at any time — standard transfers are free and take 1–3 business days. Instant transfers have a small fee.</p>
+
+      <h4 style="font-family:var(--font-display);font-size:15px;font-weight:800;color:var(--color-text);margin-bottom:6px">Cash App</h4>
+      <p style="margin-bottom:18px">Cash App is free at cash.app or through the Cash App app. Your handle is your $Cashtag — a unique name you choose when you set up your account.</p>
+      <p style="margin-bottom:24px">Buyers search your $Cashtag or scan your QR code (found in the Cash App under your profile). Payments go to your Cash App balance and can be transferred to your bank account.</p>
+
+      <h4 style="font-family:var(--font-display);font-size:15px;font-weight:800;color:var(--color-text);margin-bottom:6px">Zelle</h4>
+      <p style="margin-bottom:18px">Zelle is built into most major bank apps — check your bank's app to see if it's available. If your bank supports Zelle, you're already enrolled; no separate account needed.</p>
+      <p style="margin-bottom:24px">Buyers send to your email address or phone number. Zelle transfers go directly to your bank account, usually within minutes. Zelle does not have a QR code — buyers need your email or phone number.</p>
+
+      <h4 style="font-family:var(--font-display);font-size:15px;font-weight:800;color:var(--color-text);margin-bottom:6px">A note on chargebacks</h4>
+      <p>Cash has no chargeback risk. Digital payments are generally safe for small transactions but it's worth knowing: PayPal Goods &amp; Services allows buyers to file a dispute. For garage sale items, this is rare — but if someone pays and later disputes the charge, PayPal may hold the funds while they investigate. For high-value items, cash is always the safest option.</p>
+    </div>`},
+  {id:'pricing',title:'How to price items',available:false},
+  {id:'unsold',title:"What to do with items that don't sell",available:false},
+  {id:'marketplace',title:'How to create a Facebook Marketplace listing',available:false},
+];
+let _helpTopic=null;
+function openHelp(){
+  _helpTopic=null;
+  const ov=document.getElementById('help-overlay');
+  if(!ov)return;
+  ov.style.display='block';
+  ov.style.opacity='0';
+  renderHelpOverlay();
+  requestAnimationFrame(()=>requestAnimationFrame(()=>{ov.style.opacity='1';}));
+}
+function closeHelp(){
+  const ov=document.getElementById('help-overlay');
+  if(ov){ov.style.opacity='0';setTimeout(()=>{ov.style.display='none';},180);}
+}
+function openHelpTopic(id){
+  const topic=helpTopics.find(t=>t.id===id);
+  if(!topic||!topic.available)return;
+  _helpTopic=id;
+  renderHelpOverlay();
+}
+function backToHelpList(){
+  _helpTopic=null;
+  renderHelpOverlay();
+}
+function renderHelpTopicList(){
+  return`<div style="display:flex;flex-direction:column">
+    ${helpTopics.map(t=>t.available
+      ?`<button onclick="openHelpTopic('${t.id}')" style="text-align:left;background:none;border:none;border-bottom:1px solid var(--color-divider);padding:16px 0;font-family:var(--font-body);font-size:15px;color:var(--color-text);cursor:pointer;display:flex;justify-content:space-between;align-items:center;width:100%">${esc(t.title)}<span style="color:var(--color-primary)">→</span></button>`
+      :`<div style="padding:16px 0;border-bottom:1px solid var(--color-divider);font-family:var(--font-body);font-size:15px;color:var(--color-text-muted);display:flex;justify-content:space-between;align-items:center">${esc(t.title)}<span style="font-size:11px;text-transform:uppercase;letter-spacing:.06em;font-weight:700">Coming soon</span></div>`
+    ).join('')}
+  </div>`;
+}
+function renderHelpOverlay(){
+  const ov=document.getElementById('help-overlay');if(!ov)return;
+  const topic=_helpTopic?helpTopics.find(t=>t.id===_helpTopic):null;
+  ov.innerHTML=`
+  <div style="position:absolute;inset:0;background:rgba(37,37,53,0.55);display:flex;align-items:center;justify-content:center;padding:24px">
+    <div style="background:var(--color-surface);max-width:640px;width:100%;max-height:82vh;display:flex;flex-direction:column">
+      <div style="display:flex;align-items:center;gap:12px;padding:20px 24px;border-bottom:1px solid var(--color-divider);flex-shrink:0">
+        ${topic?`<button onclick="backToHelpList()" style="background:none;border:none;font-family:var(--font-display);font-weight:800;font-size:13px;color:var(--color-primary);cursor:pointer;padding:0">← Back</button>`:''}
+        <div style="flex:1;font-family:var(--font-display);font-weight:800;font-size:18px;color:var(--color-text)">${topic?esc(topic.title):'Help'}</div>
+        <button onclick="closeHelp()" aria-label="Close help" style="background:none;border:none;font-size:22px;line-height:1;color:var(--color-text-muted);cursor:pointer;padding:0">×</button>
+      </div>
+      <div style="padding:24px;overflow-y:auto">
+        ${topic?topic.body:renderHelpTopicList()}
+      </div>
+    </div>
+  </div>`;
+}
+
 // ─── INIT ─────────────────────────────────────────────────────────────────────
 render();
 refreshStickyBar();
@@ -3317,6 +3494,8 @@ window.addEventListener('resize',()=>{
 <div id="sticky-bar"></div>
 
 <div id="tour-overlay" style="position:fixed;inset:0;z-index:9000;display:none;overflow:hidden;pointer-events:none;transition:opacity 180ms ease;opacity:0"></div>
+<div id="payment-overlay" style="position:fixed;inset:0;z-index:9100;display:none;overflow:hidden;pointer-events:auto;transition:opacity 180ms ease;opacity:0"></div>
+<div id="help-overlay" style="position:fixed;inset:0;z-index:9100;display:none;overflow:hidden;pointer-events:auto;transition:opacity 180ms ease;opacity:0"></div>
 
 <footer style="max-width:1100px;margin:0 auto;padding:var(--space-5) var(--space-6);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:var(--space-3);border-top:1px solid var(--color-divider);margin-top:var(--space-8)">
   <span style="font-size:var(--text-xs);color:var(--color-text-muted)">© My Nest Chapter · <a href="https://mynestchapter.com" style="color:var(--color-text-muted)">mynestchapter.com</a> · Written by Cece</span>
