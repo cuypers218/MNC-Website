@@ -12,8 +12,8 @@
     * { box-sizing: border-box; }
     *, *::before, *::after { margin: 0; padding: 0; }
     html, body, #root, [data-framework], main, .app-container {
-      background-color: #FFF8EE !important;
-      background: #FFF8EE !important;
+      background-color: #FDFBF7 !important;
+      background: #FDFBF7 !important;
       margin: 0;
       padding: 0;
       width: 100% !important;
@@ -35,7 +35,7 @@
       --color-bg:             #FFFFFF;
       --color-surface:        #FFFFFF;
       --color-surface-2:      #facfd4;
-      --color-surface-3:      #FFF8EE;
+      --color-surface-3:      #FDFBF7;
       --color-divider:        #E6E2DA;
       --color-border:         #D6D1C8;
       --color-text:           #252535;
@@ -447,7 +447,7 @@
     /* ─── STICKY TOTAL BAR ─── */
     #sticky-bar{
       position:fixed;bottom:0;left:0;right:0;z-index:500;
-      background:#252535;color:#FFF8EE;
+      background:#252535;color:#FDFBF7;
       display:none;align-items:center;gap:16px;
       padding:10px 20px;
       font-family:var(--font-body);
@@ -497,7 +497,7 @@
     .bell-action-btn{font-family:'DM Sans',sans-serif;font-size:11px;font-weight:700;color:#E87AAA;background:#facfd4;border:none;padding:6px 12px;cursor:pointer}
     .bell-action-btn:hover{background:#facfd4}
     .bell-dismiss-btn{font-family:'DM Sans',sans-serif;font-size:11px;color:var(--color-text-muted);background:none;border:1px solid var(--color-border);padding:6px 12px;cursor:pointer}
-    .bell-dismiss-btn:hover{background:#FFF8EE}
+    .bell-dismiss-btn:hover{background:#FDFBF7}
     .bell-empty{padding:28px 16px;text-align:center;font-family:'DM Sans',sans-serif;font-size:13px;color:var(--color-text-muted)}
 
 </style>
@@ -772,7 +772,7 @@ function getSectionTips(){
   return map[UI.tab+"|"+UI.section]||TIPS.start;
 }
 function renderTipStrip(tips){
-  return`<div style="background:#252535;color:#FFF8EE;padding:11px 20px;font-family:var(--font-body);font-size:14px;line-height:1.4;margin-bottom:16px"><span id="tip-text">${esc(tips[0])}</span></div>`;
+  return`<div style="background:#252535;color:#FDFBF7;padding:11px 20px;font-family:var(--font-body);font-size:14px;line-height:1.4;margin-bottom:16px"><span id="tip-text">${esc(tips[0])}</span></div>`;
 }
 function renderTourNote(text){
   if(!P.isDemo)return'';
@@ -1056,9 +1056,9 @@ function renderContent(){
 function renderStart(){
   const s=P.setup||{};const stats=getStats(P);
   const welcome=isFreshPlanner()?`
-  <div style="background:#252535;color:#FFF8EE;padding:32px 32px 28px;margin-bottom:20px">
+  <div style="background:#252535;color:#FDFBF7;padding:32px 32px 28px;margin-bottom:20px">
     <p style="font-family:var(--font-display);font-size:11px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:#E87AAA;margin-bottom:10px">My Nest Chapter</p>
-    <h2 style="font-family:var(--font-display);font-size:24px;font-weight:800;color:#FFF8EE;margin-bottom:8px;line-height:1.25">Your complete garage sale plan — from the first box to the last sale.</h2>
+    <h2 style="font-family:var(--font-display);font-size:24px;font-weight:800;color:#FDFBF7;margin-bottom:8px;line-height:1.25">Your complete garage sale plan — from the first box to the last sale.</h2>
     <p style="font-size:14px;color:rgba(255,248,238,0.75);line-height:1.6;margin-bottom:24px">Work through the five steps below at your own pace. Everything saves automatically. You can close the tab and pick up right where you left off.</p>
     <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:10px;margin-bottom:24px">
       ${[["1","Start","Set your date, goal, and the reason behind the money."],["2","Sort + Price","Inventory your items, record memories, and price everything."],["3","Sell + Promote","Post your ad, plan your signs, and list the high-value items online."],["4","Prep + Safety","Check off everything before sale day so nothing gets missed."],["5","Sale Day + Wrap","Log sales, calculate change, and close out when it's done."]].map(([n,label,desc])=>`
@@ -1069,7 +1069,7 @@ function renderStart(){
     </div>
     <div style="display:flex;gap:10px;flex-wrap:wrap">
       <button class="btn" style="background:#E87AAA;color:#fff;font-family:var(--font-display);font-weight:800;font-size:13px;letter-spacing:.5px;padding:12px 24px" onclick="showToast('Ready. Fill in your sale details below.')">Start my planner →</button>
-      <button class="btn" style="background:transparent;color:#FFF8EE;border:1.5px solid rgba(255,248,238,0.4);font-family:var(--font-display);font-weight:800;font-size:13px;padding:12px 24px" onclick="openTour()">How it works →</button>
+      <button class="btn" style="background:transparent;color:#FDFBF7;border:1.5px solid rgba(255,248,238,0.4);font-family:var(--font-display);font-weight:800;font-size:13px;padding:12px 24px" onclick="openTour()">How it works →</button>
       <a href="mailto:cece@mynestchapter.com?subject=Garage Sale Planner" style="font-family:var(--font-display);font-size:12px;color:rgba(255,248,238,0.55);text-decoration:underline;margin-left:4px">Questions or feedback? Email Cece</a>
     </div>
   </div>`:'';
@@ -1911,14 +1911,14 @@ function renderBuyerOverlay(){
   ].filter(r=>r.value);
   ov.innerHTML=`
   <div style="position:absolute;inset:0;background:#252535;display:flex;align-items:center;justify-content:center;padding:32px 24px">
-    <button onclick="closeBuyerPayment()" aria-label="Close" style="position:absolute;top:20px;right:20px;background:transparent;border:1.5px solid rgba(255,248,238,0.35);color:#FFF8EE;font-family:var(--font-display);font-weight:800;font-size:13px;padding:10px 20px;cursor:pointer">Done</button>
+    <button onclick="closeBuyerPayment()" aria-label="Close" style="position:absolute;top:20px;right:20px;background:transparent;border:1.5px solid rgba(255,248,238,0.35);color:#FDFBF7;font-family:var(--font-display);font-weight:800;font-size:13px;padding:10px 20px;cursor:pointer">Done</button>
     <div style="max-width:560px;width:100%;text-align:center">
       <p style="font-family:var(--font-display);font-size:11px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:#E87AAA;margin-bottom:24px">Pay here</p>
       <div style="display:flex;flex-direction:column;gap:22px">
         ${rows.map(r=>`
         <div>
           <div style="font-family:var(--font-body);font-size:14px;color:rgba(255,248,238,0.6);margin-bottom:4px">${esc(r.label)}</div>
-          <div style="font-family:var(--font-display);font-size:clamp(24px,6vw,36px);font-weight:800;color:#FFF8EE">${esc(r.value)}</div>
+          <div style="font-family:var(--font-display);font-size:clamp(24px,6vw,36px);font-weight:800;color:#FDFBF7">${esc(r.value)}</div>
         </div>`).join('')}
       </div>
     </div>
@@ -2287,7 +2287,7 @@ function renderWrap(){
   const completionScreen=saleComplete?`
   <div style="background:#252535;padding:40px 36px;text-align:center;margin-bottom:8px;">
     <p style="font-family:var(--font-display);font-weight:800;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#E87AAA;margin:0 0 14px;">Sale Complete</p>
-    <h2 style="font-family:var(--font-display);font-weight:800;font-size:26px;color:#FFF8EE;margin:0 0 10px;line-height:1.3;">You earned $${stats.earned.toFixed(2)}.</h2>
+    <h2 style="font-family:var(--font-display);font-weight:800;font-size:26px;color:#FDFBF7;margin:0 0 10px;line-height:1.3;">You earned $${stats.earned.toFixed(2)}.</h2>
     ${stats.goal?`<p style="font-family:'DM Sans',sans-serif;font-size:15px;color:rgba(255,248,238,0.75);margin:0 0 6px;">${stats.goalProgress}% of your $${stats.goal} goal reached.</p>`:""}
     ${P.setup?.moneyPurpose?`<p style="font-family:'DM Sans',sans-serif;font-size:14px;color:#A8C5DA;margin:0 0 20px;font-style:italic;">${esc(P.setup.moneyPurpose)}</p>`:"<div style='margin-bottom:20px'></div>"}
     <p style="font-family:'DM Sans',sans-serif;font-size:15px;color:rgba(255,248,238,0.78);line-height:1.7;max-width:480px;margin:0 auto 24px;">Every item sorted, priced, and moved out the door. That took real effort. Here&rsquo;s to your next chapter.</p>
@@ -2719,7 +2719,7 @@ function renderBellPanel(){
   const notifs=activeNotifs();
   p.innerHTML=`
     <div style="display:flex;align-items:center;justify-content:space-between;padding:12px 16px;border-bottom:1px solid #E6E2DA;background:#252535;flex-shrink:0">
-      <span style="font-family:'DM Sans',sans-serif;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#FFF8EE">Notifications</span>
+      <span style="font-family:'DM Sans',sans-serif;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#FDFBF7">Notifications</span>
       ${notifs.length?`<button onclick="dismissAllNotifs()" style="font-family:'DM Sans',sans-serif;font-size:11px;color:#8BA7D4;background:none;border:none;cursor:pointer;padding:0;text-decoration:underline">Clear all</button>`:''}
     </div>
     ${notifs.length===0
@@ -3078,7 +3078,7 @@ function checkConfetti(stats){
   if(sessionStorage.getItem(key))return;
   sessionStorage.setItem(key,'1');
   if(typeof confetti==='function'){
-    confetti({particleCount:140,spread:80,origin:{y:0.55},colors:['#E87AAA','#8BA7D4','#FFF8EE','#252535','#C4B0E8']});
+    confetti({particleCount:140,spread:80,origin:{y:0.55},colors:['#E87AAA','#8BA7D4','#FDFBF7','#252535','#C4B0E8']});
     setTimeout(()=>confetti({particleCount:60,spread:50,origin:{y:0.4},colors:['#E87AAA','#8BA7D4']}),400);
   }
 }
@@ -3351,12 +3351,12 @@ function renderTourOverlay(){
     html=`<div style="position:absolute;inset:0;background:#252535;display:flex;align-items:center;justify-content:center;padding:32px 24px">
       <div style="max-width:520px;width:100%;text-align:center">
         <p style="font-family:'DM Sans',sans-serif;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#E87AAA;margin-bottom:14px">MY NEST CHAPTER</p>
-        <h2 style="font-family:'Lora',serif;font-weight:800;font-size:clamp(1.25rem,4vw,1.9rem);color:#FFF8EE;margin-bottom:14px;line-height:1.25">${esc(step.title)}</h2>
+        <h2 style="font-family:'Lora',serif;font-weight:800;font-size:clamp(1.25rem,4vw,1.9rem);color:#FDFBF7;margin-bottom:14px;line-height:1.25">${esc(step.title)}</h2>
         <p style="font-family:'DM Sans',sans-serif;font-size:clamp(13px,2vw,15px);color:rgba(255,248,238,0.78);line-height:1.75;margin-bottom:28px;white-space:pre-line">${esc(step.body)}</p>
         ${step.done
           ?`<div style="display:flex;flex-direction:column;gap:10px;align-items:center">
               <button onclick="closeTour();goTab('start','start')" style="font-family:'Lora',serif;font-weight:800;font-size:14px;background:#E87AAA;color:#fff;border:none;padding:14px 32px;cursor:pointer;width:100%;max-width:300px">Start my planner →</button>
-              <button onclick="openTour(0)" style="font-family:'Lora',serif;font-weight:800;font-size:14px;background:transparent;color:#FFF8EE;border:1.5px solid rgba(255,248,238,0.35);padding:14px 32px;cursor:pointer;width:100%;max-width:300px">Watch it again →</button>
+              <button onclick="openTour(0)" style="font-family:'Lora',serif;font-weight:800;font-size:14px;background:transparent;color:#FDFBF7;border:1.5px solid rgba(255,248,238,0.35);padding:14px 32px;cursor:pointer;width:100%;max-width:300px">Watch it again →</button>
               <a href="mailto:cece@mynestchapter.com?subject=Garage Sale Planner Question" style="font-family:'DM Sans',sans-serif;font-size:13px;color:rgba(255,248,238,0.45);text-decoration:underline;margin-top:6px">Questions? Email Cece →</a>
             </div>`
           :`<button onclick="nextTourStep()" style="font-family:'Lora',serif;font-weight:800;font-size:14px;background:#E87AAA;color:#fff;border:none;padding:14px 40px;cursor:pointer">Let's go →</button>`
@@ -3374,10 +3374,10 @@ function renderTourOverlay(){
           <span style="font-family:'DM Sans',sans-serif;font-size:11px;color:rgba(255,248,238,0.4);white-space:nowrap;flex-shrink:0">${_tourStep} of ${total}</span>
           <button onclick="closeTour()" style="font-family:'DM Sans',sans-serif;font-size:11px;font-weight:700;color:rgba(255,248,238,0.45);background:none;border:none;cursor:pointer;padding:0;text-transform:uppercase;letter-spacing:.06em;flex-shrink:0">Skip</button>
         </div>
-        <h3 style="font-family:'Lora',serif;font-weight:800;font-size:clamp(13px,2.5vw,17px);color:#FFF8EE;margin-bottom:5px">${esc(step.title)}</h3>
+        <h3 style="font-family:'Lora',serif;font-weight:800;font-size:clamp(13px,2.5vw,17px);color:#FDFBF7;margin-bottom:5px">${esc(step.title)}</h3>
         <p style="font-family:'DM Sans',sans-serif;font-size:clamp(12px,1.8vw,14px);color:rgba(255,248,238,0.75);line-height:1.65;margin-bottom:12px;white-space:pre-line">${esc(step.body)}</p>
         <div style="display:flex;gap:10px;align-items:center">
-          ${canGoBack?`<button onclick="prevTourStep()" style="font-family:'Lora',serif;font-weight:800;font-size:13px;background:transparent;color:#FFF8EE;border:1.5px solid rgba(255,248,238,0.3);padding:10px 20px;cursor:pointer;pointer-events:auto">← Back</button>`:''}
+          ${canGoBack?`<button onclick="prevTourStep()" style="font-family:'Lora',serif;font-weight:800;font-size:13px;background:transparent;color:#FDFBF7;border:1.5px solid rgba(255,248,238,0.3);padding:10px 20px;cursor:pointer;pointer-events:auto">← Back</button>`:''}
           <button onclick="nextTourStep()" style="font-family:'Lora',serif;font-weight:800;font-size:13px;background:#E87AAA;color:#fff;border:none;padding:10px 24px;cursor:pointer;pointer-events:auto">${isLast?'Finish →':'Next →'}</button>
         </div>
       </div>
