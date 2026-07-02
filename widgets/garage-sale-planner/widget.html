@@ -126,6 +126,7 @@
     }
     .tab-btn.active{background:#facfd4;color:var(--color-text);box-shadow:var(--shadow-sm)}
     .tab-btn:hover:not(.active){color:var(--color-text);background:var(--color-surface-2)}
+    .tab-btn.tour-spotlight-tab{outline:2px solid #E87AAA;outline-offset:-2px}
 
     .icon-btn {
       width:36px;height:36px;display:flex;align-items:center;justify-content:center;
@@ -503,6 +504,10 @@
     .bell-dismiss-btn:hover{background:#FDFBF7}
     .bell-empty{padding:28px 16px;text-align:center;font-family:'DM Sans',sans-serif;font-size:13px;color:var(--color-text-muted)}
 
+    /* ─── FIRST-OPEN WALKTHROUGH ─── */
+    #tour-scrim{position:fixed;inset:0;background:rgba(37,37,53,0.75);z-index:150;display:none}
+    #howto-btn:hover{background:#facfd4}
+
     /* ─── QUICK-CAPTURE SCRATCH PAD ─── */
     #scratch-toggle{position:fixed;bottom:70px;right:16px;z-index:600;background:#FFF8EE;border:1px solid #ABABAB;color:#252535;font-family:var(--font-body);font-size:13px;font-weight:600;padding:10px 16px;min-height:44px;cursor:pointer;touch-action:manipulation}
     #scratch-toggle:hover{background:#facfd4}
@@ -538,6 +543,7 @@
       </button>
       <span id="bell-badge" style="display:none;position:absolute;top:2px;right:2px;background:#E87AAA;color:#fff;font-family:'DM Sans',sans-serif;font-size:9px;font-weight:700;min-width:16px;height:16px;align-items:center;justify-content:center;pointer-events:none;padding:0 3px;line-height:1">0</span>
     </div>
+    <button class="btn btn-ghost btn-sm" id="howto-btn" onclick="openHowTo()" aria-label="How this works" title="How this works" style="width:24px;height:24px;padding:0;border:1px solid #ABABAB;background:#FFF8EE;color:#252535;font-family:var(--font-body);font-weight:700;font-size:13px;flex-shrink:0">?</button>
     <button class="btn btn-ghost btn-sm" onclick="save();showToast('Saved!')" title="Save your planner">Save</button>
     <button class="btn btn-ghost btn-sm" onclick="openTour()" title="How this works">How it works</button>
     <button class="btn btn-ghost btn-sm" onclick="openHelp()" title="Help">Help</button>
@@ -801,7 +807,6 @@ function renderTourNote(text){
   if(!P.isDemo)return'';
   return`<div style="background:#C4B0E8;color:#252535;padding:9px 20px;font-family:var(--font-body);font-size:13px;line-height:1.4;margin-bottom:12px;display:flex;align-items:flex-start;justify-content:space-between;gap:16px"><span><strong>Tour:</strong> ${text}</span><button onclick="P.isDemo=false;save();renderContent()" style="font-size:11px;font-family:var(--font-display);font-weight:700;color:#252535;text-transform:uppercase;letter-spacing:.08em;white-space:nowrap;flex-shrink:0">Exit tour</button></div>`;
 }
-function isFreshPlanner(){return!P.setup?.saleTitle&&!P.isDemo&&!(P.items?.length)&&!P.setup?.saleDate;}
 let _tipInterval=null;let _tipIdx=0;
 function startTipRotation(tips){
   if(_tipInterval)clearInterval(_tipInterval);
@@ -1083,26 +1088,7 @@ function renderContent(){
 // ─── SECTION: START ───────────────────────────────────────────────────────────
 function renderStart(){
   const s=P.setup||{};const stats=getStats(P);
-  const welcome=isFreshPlanner()?`
-  <div style="background:#252535;color:#FDFBF7;padding:32px 32px 28px;margin-bottom:20px">
-    <p style="font-family:var(--font-display);font-size:11px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:#E87AAA;margin-bottom:10px">My Nest Chapter</p>
-    <h2 style="font-family:var(--font-display);font-size:24px;font-weight:800;color:#FDFBF7;margin-bottom:8px;line-height:1.25">Your complete garage sale plan — from the first box to the last sale.</h2>
-    <p style="font-size:14px;color:rgba(255,248,238,0.75);line-height:1.6;margin-bottom:24px">Work through the five steps below at your own pace. Everything saves automatically. You can close the tab and pick up right where you left off.</p>
-    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:10px;margin-bottom:24px">
-      ${[["1","Start","Set your date, goal, and the reason behind the money."],["2","Sort + Price","Inventory your items, record memories, and price everything."],["3","Sell + Promote","Post your ad, plan your signs, and list the high-value items online."],["4","Prep + Safety","Check off everything before sale day so nothing gets missed."],["5","Sale Day + Wrap","Log sales, calculate change, and close out when it's done."]].map(([n,label,desc])=>`
-      <div style="background:rgba(255,248,238,0.07);padding:14px 16px">
-        <div style="font-family:var(--font-display);font-size:11px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:#E87AAA;margin-bottom:4px">Step ${n} — ${label}</div>
-        <div style="font-size:13px;color:rgba(255,248,238,0.8);line-height:1.5">${desc}</div>
-      </div>`).join('')}
-    </div>
-    <div style="display:flex;gap:10px;flex-wrap:wrap">
-      <button class="btn" style="background:#E87AAA;color:#fff;font-family:var(--font-display);font-weight:800;font-size:13px;letter-spacing:.5px;padding:12px 24px" onclick="showToast('Ready. Fill in your sale details below.')">Start my planner →</button>
-      <button class="btn" style="background:transparent;color:#FDFBF7;border:1.5px solid rgba(255,248,238,0.4);font-family:var(--font-display);font-weight:800;font-size:13px;padding:12px 24px" onclick="openTour()">How it works →</button>
-      <a href="mailto:cece@mynestchapter.com?subject=Garage Sale Planner" style="font-family:var(--font-display);font-size:12px;color:rgba(255,248,238,0.55);text-decoration:underline;margin-left:4px">Questions or feedback? Email Cece</a>
-    </div>
-  </div>`:'';
   return`
-  ${welcome}
   ${renderTipStrip(TIPS.start)}
   ${renderTourNote("This is the Start tab. Set your sale date and money goal — the tool uses both throughout. The sidebar tracks your progress in real time.")}
   <div style="display:flex;gap:20px;flex-wrap:wrap;align-items:flex-start;padding-top:8px">
@@ -3559,131 +3545,113 @@ function renderWeatherCard(){
   checkWeatherNotif();
 }
 
-// ─── GUIDED TOUR ──────────────────────────────────────────────────────────────
-const TOUR_KEY='mnc_tour_seen_v1';
-let _tourStep=0;
+// ─── FIRST-OPEN WALKTHROUGH ────────────────────────────────────────────────────
+const TOUR_KEY='mnc_gsp_tour_seen';
+let _tourStep=-1; // -1 = welcome overlay, 0-4 = spotlight steps, 5 = closing card
 
-const tourSteps=[
-  {fullScreen:true,
-    title:"Your complete garage sale plan.",
-    body:"Five steps — from setting your date to logging your last sale.\n\nEverything saves automatically. Close the tab, come back later — your work is right here.\n\nHere's a quick look at each section."},
-  {tab:"start",section:"start",title:"Step 1 — Start",
-    body:"Set your sale name, date, and the reason behind the money goal. That reason is what keeps you going when things feel like a lot. The sidebar tracks your countdown and goal progress in real time."},
-  {tab:"sortPrice",section:"inventory",title:"Step 2 — Sort + Price — Items",
-    body:"Add what you're selling. Name, category, condition, your price. The tool suggests a fair price range and the best place to sell it — garage sale, Facebook Marketplace, Poshmark — based on what you enter."},
-  {tab:"sortPrice",section:"batch",title:"Sort + Price — Batch Boxes",
-    body:"For the low-dollar stuff — mugs, paperbacks, odds and ends — batch it. One box, one price. Set it at the edge of the driveway and let people sort through it themselves."},
-  {tab:"sortPrice",section:"memory",title:"Sort + Price — Memory Box",
-    body:"Some things will stop you. Before they go, photograph them and write one line about what they meant. You don't have to keep the item to keep the memory."},
-  {tab:"sortPrice",section:"pricing",title:"Sort + Price — Pricing Guide",
-    body:"A full reference chart for every category — what a fair garage sale price looks like, which items are better online, and where to list them. Use this before you sticker everything."},
-  {tab:"sellPromote",section:"online",title:"Step 3 — Sell + Promote — Online Selling",
-    body:"Some items are worth more than a driveway price. Check this before everything goes out. Furniture, electronics, brand-name clothing — it tells you what to pull out and where to list it."},
-  {tab:"sellPromote",section:"advertising",title:"Sell + Promote — Ads + Signs",
-    body:"Ready-to-post ad copy for Facebook, Nextdoor, Craigslist, and more. Fill in your details, copy it, and post. Sign wording is here too — the headline is the only thing most people read, so make it count."},
-  {tab:"prepSafety",section:"prep",title:"Step 4 — Prep + Safety — Prep Checklist",
-    body:"Everything you need ready before sale day — tables, bags, cash, signs, a plan for leftover items. Check each item off. Add anything specific to your setup."},
-  {tab:"prepSafety",section:"safety",title:"Prep + Safety — Safety + Logistics",
-    body:"Running this solo means thinking ahead. This covers what to do with your cash, who to tell you're out there, and what to trust if something feels off."},
-  {tab:"saleWrap",section:"sale",title:"Step 5 — Sale Day",
-    body:"Log each sale as it happens — the total updates live and shows your goal progress. The change calculator tells you exactly what to hand back for any amount."},
-  {tab:"saleWrap",section:"tags",title:"Sale Day — Print Center",
-    body:"Price tags, area signs, box signs, sale flyers — all ready to print. Do this the night before. You don't want to be at the printer at 6 AM."},
-  {tab:"saleWrap",section:"wrap",title:"Sale Day — Wrap Up",
-    body:"When it's done, log what's left. What's going to donation, what stays online, what goes in the trash. Close it out so you actually close it out."},
-  {fullScreen:true,done:true,
-    title:"You're ready to plan.",
-    body:"Everything saves automatically to this browser.\nCome back any time — your planner will be right here."}
+const tourSpotlightSteps=[
+  {tabIdx:0,body:"Set your sale date, your money goal, and why you need it. The tool uses this the whole way through."},
+  {tabIdx:1,body:"Everything you're selling goes here. Add items as you sort — price them, decide where they go, flag the ones that are hard to let go."},
+  {tabIdx:2,body:"Get your listings and ads ready before sale day. Facebook Marketplace, Nextdoor, your signs — all here."},
+  {tabIdx:3,body:"The checklist you run before buyers show up. Setup, cash, safety — everything that protects you."},
+  {tabIdx:4,body:"Where you run the sale. Log sales, calculate change, haggle on the spot, and close out when it's done."},
 ];
 
-function openTour(step){
-  _tourStep=(step!==undefined&&step!==null)?step:0;
+function openTour(){
+  _tourStep=-1;
   const ov=document.getElementById('tour-overlay');
   if(!ov)return;
   ov.style.display='block';
   ov.style.opacity='0';
-  renderTourOverlay();
+  renderTourStep();
   requestAnimationFrame(()=>requestAnimationFrame(()=>{ov.style.opacity='1';}));
 }
 function closeTour(){
   const ov=document.getElementById('tour-overlay');
-  if(ov){ov.style.opacity='0';setTimeout(()=>{ov.style.display='none';},180);}
-  _removeTourHL();
+  if(ov){ov.style.opacity='0';setTimeout(()=>{ov.style.display='none';ov.innerHTML='';},180);}
+  const scrim=document.getElementById('tour-scrim');
+  if(scrim)scrim.style.display='none';
+  _clearTourSpotlight();
 }
+function finishTour(){
+  localStorage.setItem(TOUR_KEY,'true');
+  closeTour();
+}
+function skipTour(){finishTour();}
+function jumpIn(){finishTour();}
+function startSpotlightTour(){_tourStep=0;renderTourStep();}
 function nextTourStep(){
-  _tourStep++;
-  if(_tourStep>=tourSteps.length){closeTour();return;}
-  renderTourOverlay();
+  _tourStep=Math.min(_tourStep+1,tourSpotlightSteps.length);
+  renderTourStep();
 }
-function prevTourStep(){
-  if(_tourStep>0){_tourStep--;renderTourOverlay();}
+function _clearTourSpotlight(){
+  const nav=document.getElementById('main-nav');
+  if(nav)Array.from(nav.children).forEach(b=>b.classList.remove('tour-spotlight-tab'));
 }
-function _removeTourHL(){
-  const c=document.getElementById('content');
-  if(c){c.style.outline='';c.style.outlineOffset='';}
-}
-function renderTourOverlay(){
-  const step=tourSteps[_tourStep];
+function renderTourStep(){
   const ov=document.getElementById('tour-overlay');
+  const scrim=document.getElementById('tour-scrim');
   if(!ov)return;
+  _clearTourSpotlight();
 
-  if(!step.fullScreen&&step.tab){
-    // Let the widget behind be fully visible and interactive
-    ov.style.pointerEvents='none';
-    UI.tab=step.tab;UI.section=step.section;
-    buildNav();renderSectionNav();renderContent();refreshHeaderStat();refreshMetrics();
-    setTimeout(()=>{
-      const c=document.getElementById('content');
-      if(c){c.style.outline='2.5px solid #E87AAA';c.style.outlineOffset='4px';}
-    },160);
-  }else{
+  if(_tourStep===-1){
+    if(scrim)scrim.style.display='none';
     ov.style.pointerEvents='auto';
-    _removeTourHL();
-  }
-
-  const total=tourSteps.length-1;
-  const pct=Math.round((_tourStep/total)*100);
-  const isLast=_tourStep===tourSteps.length-2;
-  const canGoBack=_tourStep>1;
-
-  let html='';
-  if(step.fullScreen){
-    html=`<div style="position:absolute;inset:0;background:#252535;display:flex;align-items:center;justify-content:center;padding:32px 24px">
-      <div style="max-width:520px;width:100%;text-align:center">
-        <p style="font-family:'DM Sans',sans-serif;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#E87AAA;margin-bottom:14px">MY NEST CHAPTER</p>
-        <h2 style="font-family:'Lora',serif;font-weight:800;font-size:clamp(1.25rem,4vw,1.9rem);color:#FDFBF7;margin-bottom:14px;line-height:1.25">${esc(step.title)}</h2>
-        <p style="font-family:'DM Sans',sans-serif;font-size:clamp(13px,2vw,15px);color:rgba(255,248,238,0.78);line-height:1.75;margin-bottom:28px;white-space:pre-line">${esc(step.body)}</p>
-        ${step.done
-          ?`<div style="display:flex;flex-direction:column;gap:10px;align-items:center">
-              <button onclick="closeTour();goTab('start','start')" style="font-family:'Lora',serif;font-weight:800;font-size:14px;background:#E87AAA;color:#fff;border:none;padding:14px 32px;cursor:pointer;width:100%;max-width:300px">Start my planner →</button>
-              <button onclick="openTour(0)" style="font-family:'Lora',serif;font-weight:800;font-size:14px;background:transparent;color:#FDFBF7;border:1.5px solid rgba(255,248,238,0.35);padding:14px 32px;cursor:pointer;width:100%;max-width:300px">Watch it again →</button>
-              <a href="mailto:cece@mynestchapter.com?subject=Garage Sale Planner Question" style="font-family:'DM Sans',sans-serif;font-size:13px;color:rgba(255,248,238,0.45);text-decoration:underline;margin-top:6px">Questions? Email Cece →</a>
-            </div>`
-          :`<button onclick="nextTourStep()" style="font-family:'Lora',serif;font-weight:800;font-size:14px;background:#E87AAA;color:#fff;border:none;padding:14px 40px;cursor:pointer">Let's go →</button>`
-        }
-      </div>
-    </div>`;
-  }else{
-    html=`
-    <div style="position:fixed;bottom:0;left:0;right:0;background:#252535;border-top:2px solid rgba(232,122,170,0.5);padding:18px 24px;pointer-events:auto;z-index:1">
-      <div style="max-width:900px;margin:0 auto">
-        <div style="display:flex;align-items:center;gap:12px;margin-bottom:10px">
-          <div style="flex:1;height:3px;background:rgba(255,248,238,0.12)">
-            <div style="height:100%;width:${pct}%;background:#E87AAA;transition:width 240ms ease"></div>
-          </div>
-          <span style="font-family:'DM Sans',sans-serif;font-size:11px;color:rgba(255,248,238,0.4);white-space:nowrap;flex-shrink:0">${_tourStep} of ${total}</span>
-          <button onclick="closeTour()" style="font-family:'DM Sans',sans-serif;font-size:11px;font-weight:700;color:rgba(255,248,238,0.45);background:none;border:none;cursor:pointer;padding:0;text-transform:uppercase;letter-spacing:.06em;flex-shrink:0">Skip</button>
-        </div>
-        <h3 style="font-family:'Lora',serif;font-weight:800;font-size:clamp(13px,2.5vw,17px);color:#FDFBF7;margin-bottom:5px">${esc(step.title)}</h3>
-        <p style="font-family:'DM Sans',sans-serif;font-size:clamp(12px,1.8vw,14px);color:rgba(255,248,238,0.75);line-height:1.65;margin-bottom:12px;white-space:pre-line">${esc(step.body)}</p>
-        <div style="display:flex;gap:10px;align-items:center">
-          ${canGoBack?`<button onclick="prevTourStep()" style="font-family:'Lora',serif;font-weight:800;font-size:13px;background:transparent;color:#FDFBF7;border:1.5px solid rgba(255,248,238,0.3);padding:10px 20px;cursor:pointer;pointer-events:auto">← Back</button>`:''}
-          <button onclick="nextTourStep()" style="font-family:'Lora',serif;font-weight:800;font-size:13px;background:#E87AAA;color:#fff;border:none;padding:10px 24px;cursor:pointer;pointer-events:auto">${isLast?'Finish →':'Next →'}</button>
+    ov.innerHTML=`
+    <div style="position:absolute;inset:0;background:rgba(37,37,53,0.75);display:flex;align-items:center;justify-content:center;padding:24px">
+      <div style="background:#FFF8EE;max-width:480px;width:100%;padding:36px 32px;text-align:center">
+        <p style="font-family:var(--font-body);font-size:16px;color:#252535;line-height:1.6;margin-bottom:26px">I built this so nothing gets missed. Let me show you where everything lives.</p>
+        <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap">
+          <button onclick="startSpotlightTour()" style="font-family:var(--font-display);font-weight:800;font-size:14px;background:#252535;color:#FFF8EE;border:none;padding:13px 26px;cursor:pointer">Show me around</button>
+          <button onclick="jumpIn()" style="font-family:var(--font-display);font-weight:800;font-size:14px;background:transparent;color:#252535;border:1.5px solid #252535;padding:13px 26px;cursor:pointer">Jump in</button>
         </div>
       </div>
     </div>`;
+    return;
   }
-  ov.innerHTML=html;
+
+  if(_tourStep<tourSpotlightSteps.length){
+    const step=tourSpotlightSteps[_tourStep];
+    if(scrim)scrim.style.display='block';
+    ov.style.pointerEvents='none';
+    const nav=document.getElementById('main-nav');
+    const tabBtn=nav?nav.children[step.tabIdx]:null;
+    if(tabBtn)tabBtn.classList.add('tour-spotlight-tab');
+    const isLast=_tourStep===tourSpotlightSteps.length-1;
+
+    const cardW=320;
+    const vw=window.innerWidth;
+    let top=120,left=16;
+    if(tabBtn){
+      const r=tabBtn.getBoundingClientRect();
+      top=r.bottom+10;
+      left=r.left;
+    }
+    if(left+cardW+16>vw)left=Math.max(16,vw-cardW-16);
+    if(left<16)left=16;
+
+    ov.innerHTML=`
+    <div style="position:absolute;top:${top}px;left:${left}px;width:${cardW}px;max-width:calc(100vw - 32px);background:#FFF8EE;border:1px solid #ABABAB;padding:18px 20px;pointer-events:auto">
+      <div style="font-family:var(--font-body);font-size:12px;color:#4B4B4B;margin-bottom:8px">Step ${_tourStep+1} of 5</div>
+      <div style="font-family:var(--font-body);font-size:14px;color:#252535;line-height:1.55;margin-bottom:16px">${esc(step.body)}</div>
+      <div style="display:flex;align-items:center;gap:16px">
+        <button onclick="nextTourStep()" style="font-family:var(--font-display);font-weight:700;font-size:13px;background:#252535;color:#FFF8EE;border:none;padding:9px 20px;cursor:pointer">${isLast?'Got it':'Next'}</button>
+        <button onclick="skipTour()" style="font-family:var(--font-body);font-size:13px;color:#4B4B4B;background:none;border:none;cursor:pointer;padding:0">Skip tour</button>
+      </div>
+    </div>`;
+    return;
+  }
+
+  // Closing card
+  if(scrim)scrim.style.display='none';
+  ov.style.pointerEvents='auto';
+  ov.innerHTML=`
+  <div style="position:absolute;inset:0;background:rgba(37,37,53,0.75);display:flex;align-items:center;justify-content:center;padding:24px">
+    <div style="background:#FFF8EE;max-width:480px;width:100%;padding:36px 32px;text-align:center">
+      <p style="font-family:var(--font-body);font-size:16px;color:#252535;line-height:1.6;margin-bottom:26px">That's it. Everything saves automatically as you go.</p>
+      <button onclick="finishTour()" style="font-family:var(--font-display);font-weight:800;font-size:14px;background:#252535;color:#FFF8EE;border:none;padding:13px 26px;cursor:pointer">Got it</button>
+    </div>
+  </div>`;
 }
 
 // ─── HELP ─────────────────────────────────────────────────────────────────────
@@ -3764,6 +3732,63 @@ function renderHelpOverlay(){
   </div>`;
 }
 
+// ─── HOW THIS WORKS PANEL ───────────────────────────────────────────────────────
+function openHowTo(){
+  const ov=document.getElementById('howto-overlay');
+  if(!ov)return;
+  ov.style.display='block';
+  ov.style.opacity='0';
+  renderHowToOverlay();
+  requestAnimationFrame(()=>requestAnimationFrame(()=>{ov.style.opacity='1';}));
+}
+function closeHowTo(){
+  const ov=document.getElementById('howto-overlay');
+  if(ov){ov.style.opacity='0';setTimeout(()=>{ov.style.display='none';},180);}
+}
+function retakeTour(){
+  closeHowTo();
+  localStorage.removeItem(TOUR_KEY);
+  setTimeout(()=>openTour(),200);
+}
+function renderHowToOverlay(){
+  const ov=document.getElementById('howto-overlay');if(!ov)return;
+  const h=`font-family:var(--font-body);font-weight:700;font-size:15px;color:#252535;margin-bottom:8px`;
+  const p=`font-family:var(--font-body);font-size:14px;color:#4B4B4B;line-height:1.65;margin-bottom:24px`;
+  ov.innerHTML=`
+  <div style="position:absolute;inset:0;background:rgba(37,37,53,0.75);display:flex;align-items:center;justify-content:center;padding:24px">
+    <div style="background:#FFF8EE;max-width:640px;width:100%;max-height:82vh;display:flex;flex-direction:column">
+      <div style="display:flex;align-items:center;gap:12px;padding:20px 24px;border-bottom:1px solid #ABABAB;flex-shrink:0">
+        <div style="flex:1;font-family:var(--font-display);font-weight:800;font-size:18px;color:#252535">How this works</div>
+        <button onclick="closeHowTo()" aria-label="Close help" style="background:none;border:none;font-size:22px;line-height:1;color:#4B4B4B;cursor:pointer;padding:0">×</button>
+      </div>
+      <div style="padding:24px;overflow-y:auto">
+        <button class="btn btn-secondary" onclick="retakeTour()" style="margin-bottom:26px">Take the tour again</button>
+
+        <h4 style="${h}">Saving</h4>
+        <p style="${p}">Everything saves automatically as you type. You don't need to hit save — but there's a Save button in the top nav if you want to force it. You can close the tab and come back. Your work will be there.</p>
+
+        <h4 style="${h}">The 5 sections</h4>
+        <p style="${p}"><strong style="color:#252535">Start</strong> — Set your sale up: date, money goal, address. Fill this in first. The rest of the tool pulls from it.</p>
+        <p style="${p}"><strong style="color:#252535">Sort + Price</strong> — Your inventory. Add items as you sort through your stuff. Mark what you're selling, donating, keeping, or passing to your kids. Price everything here before sale day.</p>
+        <p style="${p}"><strong style="color:#252535">Sell + Promote</strong> — Online listings and advertising. Get your Facebook Marketplace and Nextdoor posts ready, build your signs, plan your advertising before the day hits.</p>
+        <p style="${p}"><strong style="color:#252535">Prep + Safety</strong> — The pre-sale checklist. Physical setup, cash security, and scripted responses for uncomfortable situations. Run through this the morning of.</p>
+        <p style="${p}"><strong style="color:#252535">Sale Day + Wrap Up</strong> — Where you run the actual sale. Log every sale, calculate change, use the haggle helper when someone lowballs you. The Wrap Up screen shows you your numbers when it's done.</p>
+
+        <h4 style="${h}">Memory Box</h4>
+        <p style="${p}">On the Sort + Price tab. For items that are hard to let go of. Add the item, write a note about why it matters. Mark what you did with it after — photographed it, passed it on, donated it. It shows up at the end of the sale on the Wrap Up screen.</p>
+
+        <h4 style="${h}">Print Center</h4>
+        <p style="${p}">On the Sale Day + Wrap Up tab. Prints price tags, price-point signs, table signs, and box labels. Size everything before you print — the defaults are a good starting point.</p>
+
+        <h4 style="${h}">Reset Everything</h4>
+        <p style="${p}">On the Start tab. Clears all your data back to zero — every field, every item, every sale log. There's a confirmation step before it runs. This cannot be undone.</p>
+
+        <p style="font-family:var(--font-body);font-size:14px;color:#4B4B4B;line-height:1.65">Questions or feedback? <a href="mailto:cece@mynestchapter.com?subject=Garage Sale Planner" style="color:#E87AAA;text-decoration:none">Email Cece →</a></p>
+      </div>
+    </div>
+  </div>`;
+}
+
 // ─── QUICK-CAPTURE SCRATCH PAD ────────────────────────────────────────────────
 let _scratchTimer;
 function toggleScratchPad(){
@@ -3795,7 +3820,7 @@ refreshBell();
 checkTimeNotifs();
 checkGoalNotifs();
 checkUnpricedNotif();
-if(!localStorage.getItem(TOUR_KEY)){localStorage.setItem(TOUR_KEY,'1');setTimeout(()=>openTour(0),700);}
+if(localStorage.getItem(TOUR_KEY)!=='true'){setTimeout(()=>openTour(),700);}
 setInterval(checkTimeNotifs,60000);
 let _resizeTimer;
 window.addEventListener('resize',()=>{
@@ -3814,9 +3839,11 @@ window.addEventListener('resize',()=>{
   <textarea id="scratch-textarea" placeholder="Jot something down before you lose it..." oninput="onScratchInput(this.value)"></textarea>
 </div>
 
+<div id="tour-scrim"></div>
 <div id="tour-overlay" style="position:fixed;inset:0;z-index:9000;display:none;overflow:hidden;pointer-events:none;transition:opacity 180ms ease;opacity:0"></div>
 <div id="payment-overlay" style="position:fixed;inset:0;z-index:9100;display:none;overflow:hidden;pointer-events:auto;transition:opacity 180ms ease;opacity:0"></div>
 <div id="help-overlay" style="position:fixed;inset:0;z-index:9100;display:none;overflow:hidden;pointer-events:auto;transition:opacity 180ms ease;opacity:0"></div>
+<div id="howto-overlay" style="position:fixed;inset:0;z-index:9100;display:none;overflow:hidden;pointer-events:auto;transition:opacity 180ms ease;opacity:0"></div>
 
 <footer style="max-width:1100px;margin:0 auto;padding:var(--space-5) var(--space-6);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:var(--space-3);border-top:1px solid var(--color-divider);margin-top:var(--space-8)">
   <span style="font-size:var(--text-xs);color:var(--color-text-muted)">© My Nest Chapter · <a href="https://mynestchapter.com" style="color:var(--color-text-muted)">mynestchapter.com</a> · Written by Cece</span>
