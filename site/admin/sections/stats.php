@@ -32,6 +32,7 @@ $stats = [
 $actionItems = [
     'Upload thumbnail images for: 6pm Cheat Sheet, Coloring Pages, Someday List Builder',
     'Add Slot 3 to exclusive content drip queue (Weekend Structure Sheet — not yet built)',
+    'Garage Sale Planner: decide where the Digital Payments help guide (PayPal/Venmo/Cash App/Zelle) goes now that the topbar Help button is gone — code still exists but is currently unreachable from the UI',
 ];
 ?>
 

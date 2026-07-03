@@ -31,7 +31,7 @@ Zero border-radius has no exceptions — not even pill-shaped buttons.
 
 ## ACTION ITEMS — FIX NOW
 
-*(None — all clear as of 2026-06-22)*
+- **Garage Sale Planner Digital Payments help guide** — the topbar "Help" button was removed 2026-07-03 as part of a nav redundancy cleanup. It was the only touchpoint for `openHelp()` / the `helpTopics` content, which includes a full written guide (PayPal/Venmo/Cash App/Zelle setup + chargeback note) plus 3 "coming soon" stubs. That guide content still exists in `widgets/garage-sale-planner/widget.html` but is currently unreachable from the UI. Needs Cece's call: surface it elsewhere (e.g. inside the Digital Payments card on Sale Day + Wrap Up) or delete the dead code.
 
 ## BACK BURNER (not urgent — do not touch without a new brief)
 
@@ -291,6 +291,8 @@ GitHub Action is a second layer — it catches the same CSS and color violations
 ---
 
 ## CHANGE LOG
+
+**2026-07-03 (Garage Sale Planner nav + copy pass)** — Fixed nav redundancy: topbar had four help touchpoints (`?` icon, "How it works," "Help," plus an in-form "How it works →"). Removed the `?` icon and "Help" buttons; the one surviving topbar "How it works" link now opens the fuller reference panel (`openHowTo()` — saving behavior, the 5 sections, Memory Box, Print Center, Reset, "Take the tour again," Email Cece) instead of jumping straight into the interactive tour. The in-form "How it works →" button is unchanged and still launches the tour directly. This orphaned the Digital Payments help guide that lived behind "Help" — logged above under Action Items, needs Cece's call on where it goes. Also moved the three donation-center fields (name/phone/address) from the Start tab to Sale Day + Wrap Up, next to the Leftovers plan card where the info is actually used — data binding is global so nothing else broke. Copy fixes: "we'll pull the forecast" → "I'll pull the forecast" (voice consistency, only instance in the file), and rewrote the garbled Money Goal tip ("designer purse that I'd been saying someday to for so long" → "designer purse I'd been telling myself 'someday' about for years") in both `widget.html` and `GarageSalePlanner_Tips.md`. Deployed to live server via FTP to `widget.html` (not `index.html`), committed and pushed to GitHub (`19e0e04`). Admin panel Action Items checklist (`site/admin/sections/stats.php`) updated to match.
 
 **2026-06-19** — Created this file. Logged the two banned-language fixes found in `seed-products.php`, `index.php`, and `workbook.php`. Documented full dashboard gating logic and per-product placement table from the June 13 planning session, which had been locked in chat but never made it into code.
 
