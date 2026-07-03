@@ -514,6 +514,8 @@
     #scratch-panel{position:fixed;bottom:114px;right:16px;z-index:600;width:280px;max-width:calc(100vw - 32px);background:#FFF8EE;border:1px solid #ABABAB;padding:14px;display:none}
     #scratch-panel .scratch-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;font-family:var(--font-display);font-weight:700;font-size:13px;color:#252535}
     #scratch-panel .scratch-clear{background:none;border:none;font-family:var(--font-body);font-size:12px;color:var(--color-text-muted);text-decoration:underline;cursor:pointer;padding:0}
+    .scratch-close{background:none;border:none;font-size:20px;line-height:1;color:#252535;cursor:pointer;padding:0;min-width:24px;min-height:24px}
+    .scratch-close:hover{color:var(--color-primary)}
     #scratch-textarea{width:100%;min-height:140px;border:1px solid #ABABAB;background:#fff;padding:10px;font-family:var(--font-body);font-size:14px;color:#252535;resize:vertical;box-sizing:border-box}
     .scratch-footer{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:10px}
     .scratch-status{font-family:var(--font-body);font-size:11px;color:var(--color-text-muted)}
@@ -3834,18 +3836,26 @@ function renderHowToOverlay(){
 // ─── QUICK-CAPTURE SCRATCH PAD ────────────────────────────────────────────────
 let _scratchTimer;
 function toggleScratchPad(){
-  UI.scratchOpen=!UI.scratchOpen;
+  if(UI.scratchOpen)closeScratchPad();else openScratchPad();
+}
+function openScratchPad(){
+  UI.scratchOpen=true;
   const panel=document.getElementById('scratch-panel');
   const btn=document.getElementById('scratch-toggle');
   if(!panel||!btn)return;
-  if(!UI.scratchOpen)flushScratchPad();
-  panel.style.display=UI.scratchOpen?'block':'none';
-  btn.setAttribute('aria-expanded',UI.scratchOpen?'true':'false');
-  if(UI.scratchOpen){
-    const ta=document.getElementById('scratch-textarea');
-    if(ta)ta.value=P.scratchPad||'';
-    setScratchStatus(P.scratchPad?'Saved to this browser':'Not saved yet');
-  }
+  panel.style.display='block';
+  btn.setAttribute('aria-expanded','true');
+  const ta=document.getElementById('scratch-textarea');
+  if(ta)ta.value=P.scratchPad||'';
+  setScratchStatus(P.scratchPad?'Saved to this browser':'Not saved yet');
+}
+function closeScratchPad(){
+  flushScratchPad();
+  UI.scratchOpen=false;
+  const panel=document.getElementById('scratch-panel');
+  const btn=document.getElementById('scratch-toggle');
+  if(panel)panel.style.display='none';
+  if(btn)btn.setAttribute('aria-expanded','false');
 }
 function onScratchInput(v){
   setScratchStatus('Typing…');
@@ -3859,8 +3869,8 @@ function flushScratchPad(){
 }
 function saveScratchPad(){
   flushScratchPad();
-  setScratchStatus('Saved to this browser');
   showToast('Notes saved');
+  closeScratchPad();
 }
 function setScratchStatus(msg){
   const el=document.getElementById('scratch-status');
@@ -3897,7 +3907,13 @@ window.addEventListener('resize',()=>{
 
 <button id="scratch-toggle" class="no-print" onclick="toggleScratchPad()" aria-expanded="false" aria-controls="scratch-panel">Quick notes</button>
 <div id="scratch-panel" class="no-print" role="region" aria-label="Quick notes">
-  <div class="scratch-header"><span>Quick notes</span><button class="scratch-clear" onclick="clearScratchPad()">Clear</button></div>
+  <div class="scratch-header">
+    <span>Quick notes</span>
+    <div style="display:flex;align-items:center;gap:12px">
+      <button class="scratch-clear" onclick="clearScratchPad()">Clear</button>
+      <button class="scratch-close" onclick="closeScratchPad()" aria-label="Close quick notes">×</button>
+    </div>
+  </div>
   <textarea id="scratch-textarea" placeholder="Jot something down before you lose it..." oninput="onScratchInput(this.value)"></textarea>
   <div class="scratch-footer">
     <button class="btn btn-primary btn-sm" onclick="saveScratchPad()">Save</button>
