@@ -1174,11 +1174,11 @@ function renderStart(){
       <div class="gap-y-sm">
         ${field("Sale name","text","setup.saleTitle",s.saleTitle,"My Nest Chapter Sale")}
         ${field("Sale address","text","setup.address",s.address,"123 Maple St, Anytown")}
-        ${areaField("What would you like to use the money for?","setup.moneyPurpose",s.moneyPurpose,"A weekend away, fresh bedding, savings, dinner with friends...")}
         ${field("Sale date","date","setup.saleDate",s.saleDate,"")}
         ${field("Sale end time (optional)","time","setup.saleEndTime",s.saleEndTime||"","")}
         ${field("Backup date (optional)","date","setup.backupDate",s.backupDate||"","")}
         ${field("Money goal ($)","number","setup.moneyGoal",s.moneyGoal,"250")}
+        ${areaField("What would you like to use the money for?","setup.moneyPurpose",s.moneyPurpose,"A weekend away, fresh bedding, savings, dinner with friends...")}
         ${areaField("Notes before I start","setup.notes",s.notes,"What areas feel easiest? What items feel emotional?")}
       </div>
       <div style="margin-top:20px;display:flex;gap:10px;align-items:center;flex-wrap:wrap">
