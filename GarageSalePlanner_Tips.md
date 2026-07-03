@@ -29,7 +29,7 @@ Written in Cece's voice. Brand-checked against YNC_Brand_SKILL_v4_June2026.md.
 
 3. If you're splitting it between something fun and something necessary, price the necessary stuff to actually move. The fun half can wait.
 
-4. I used my garage sale money for a designer purse that I'd been saying someday to for so long.
+4. I used my garage sale money for a designer purse I'd been telling myself "someday" about for years.
 
 ---
 

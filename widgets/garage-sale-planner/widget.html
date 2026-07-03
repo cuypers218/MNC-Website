@@ -532,7 +532,6 @@
 
     /* ─── FIRST-OPEN WALKTHROUGH ─── */
     #tour-scrim{position:fixed;inset:0;background:rgba(37,37,53,0.75);z-index:150;display:none}
-    #howto-btn:hover{background:#facfd4}
 
     /* ─── QUICK-CAPTURE SCRATCH PAD ─── */
     #scratch-toggle{position:fixed;bottom:70px;right:16px;z-index:600;background:#FFF8EE;border:1px solid #ABABAB;color:#252535;font-family:var(--font-body);font-size:13px;font-weight:600;padding:10px 16px;min-height:44px;cursor:pointer;touch-action:manipulation}
@@ -573,10 +572,8 @@
       </button>
       <span id="bell-badge" style="display:none;position:absolute;top:2px;right:2px;background:#D92674;color:#fff;font-family:'DM Sans',sans-serif;font-size:9px;font-weight:700;min-width:16px;height:16px;align-items:center;justify-content:center;pointer-events:none;padding:0 3px;line-height:1">0</span>
     </div>
-    <button class="btn btn-ghost btn-sm" id="howto-btn" onclick="openHowTo()" aria-label="How this works" title="How this works" style="width:24px;height:24px;padding:0;border:1px solid #ABABAB;background:#FFF8EE;color:#252535;font-family:var(--font-body);font-weight:700;font-size:13px;flex-shrink:0">?</button>
     <button class="btn btn-ghost btn-sm" onclick="save();showToast('Saved!')" title="Save your planner">Save</button>
-    <button class="btn btn-ghost btn-sm" onclick="openTour()" title="How this works">How it works</button>
-    <button class="btn btn-ghost btn-sm" onclick="openHelp()" title="Help">Help</button>
+    <button class="btn btn-ghost btn-sm" onclick="openHowTo()" title="How this works">How it works</button>
     <div id="hdr-demo-pill"></div>
   </div>
 </div>
@@ -835,7 +832,7 @@ function renderAdAccordionRow(p,i){
 }
 
 const TIPS={
-  start:["Pick a date and put it in this tool right now. The amount of stuff sitting in closets waiting for \"the right weekend\" is exactly what garage sales are for.","7am is not too early. People who shop garage sales are up before you are. They will sit in front of your house at 6:45. This is not an exaggeration.","Set your money goal and put a reason behind it. \"I want $300 for a weekend trip\" prices differently than \"I want to get rid of stuff.\" Know which one this is before you start sorting.","Do you have boxes that you just move from room to room? Start going through them, one at a time.","You took care of everything by yourself for years. A garage sale will be easy.","Be specific. \"$300 for the electric bill\" keeps you at the table longer than \"whatever I make.\"","You will absolutely think of something better to spend this money on five minutes after you hit your goal. You earned it, spend it how you want.","If you're splitting it between something fun and something necessary, price the necessary stuff to actually move. The fun half can wait.","I used my garage sale money for a designer purse that I'd been saying someday to for so long."],
+  start:["Pick a date and put it in this tool right now. The amount of stuff sitting in closets waiting for \"the right weekend\" is exactly what garage sales are for.","7am is not too early. People who shop garage sales are up before you are. They will sit in front of your house at 6:45. This is not an exaggeration.","Set your money goal and put a reason behind it. \"I want $300 for a weekend trip\" prices differently than \"I want to get rid of stuff.\" Know which one this is before you start sorting.","Do you have boxes that you just move from room to room? Start going through them, one at a time.","You took care of everything by yourself for years. A garage sale will be easy.","Be specific. \"$300 for the electric bill\" keeps you at the table longer than \"whatever I make.\"","You will absolutely think of something better to spend this money on five minutes after you hit your goal. You earned it, spend it how you want.","If you're splitting it between something fun and something necessary, price the necessary stuff to actually move. The fun half can wait.","I used my garage sale money for a designer purse I'd been telling myself \"someday\" about for years."],
   inventory:["When you're not sure whether to price it $2 or $5, ask yourself which one means you don't have to carry it back inside. That usually answers it.","\"But I paid so much for this\" is the most expensive thought you can have at a garage sale. Price what it's worth today, not what it cost then.","Condition matters more than original price. A great item in rough shape sells for less than a good item in good shape. Price what they're buying.","If you're going room by room, do the easy rooms first. You'll make better decisions when you're not already worn out.","A price on everything means she keeps moving. No price means she puts it down and walks away. Sticker everything before the day."],
   memory:["You don't have to keep it to keep the memory. That's what this is for.","Take a photo. Write one line about it. Then let it go to someone who's going to use it. That's not losing it. That's passing it on.","I have one t-shirt from every sport each of my kids played. Those stay. Always. But the equipment, the gear, the extra everything from those years — that all goes. Knowing what I'm keeping makes it a lot easier to let go of the rest.","The Memory Box isn't about holding on. It's about making a record before you let go. There's a difference.","Some of it will stop you. That happens. Take a minute. Then keep going."],
   pricing:["The goal is for it to leave your house. Price it like you mean that.","Round numbers move faster. $2, $5, $10. Nobody wants to make change for $3.75. Nobody.","Put your high-ticket items at the front of the driveway. People stop for them on the way in and stay for everything else.","If you've got a box of stuff that's all worth a dollar or less, make it a free table. It clears fast and buyers feel good about you.","Bundling works. \"3 for $5\" sells three items you'd have gotten $1 each for. Do the math."],
@@ -1181,9 +1178,6 @@ function renderStart(){
         ${field("Backup date (optional)","date","setup.backupDate",s.backupDate||"","")}
         ${field("Money goal ($)","number","setup.moneyGoal",s.moneyGoal,"250")}
         ${areaField("Notes before I start","setup.notes",s.notes,"What areas feel easiest? What items feel emotional?")}
-        ${field("Local donation center (optional)","text","setup.charityName",s.charityName,"Goodwill — Main St")}
-        ${field("Donation center phone","tel","setup.charityPhone",s.charityPhone,"(555) 123-4567")}
-        ${field("Donation center address","text","setup.charityAddress",s.charityAddress,"456 Oak Ave")}
       </div>
       <div style="margin-top:20px;display:flex;gap:10px;align-items:center;flex-wrap:wrap">
         <button class="btn btn-primary" onclick="save();showToast('Saved!')">Save and keep going →</button>
@@ -2676,8 +2670,10 @@ function renderWrap(){
         <div class="gap-y-sm">
           ${areaField("Donate","wrap.donate",w.donate,"Which items go directly to donation after the sale?")}
           ${w.donate?`<div style="background:#B5CC6A;border:1px solid #B5CC6A;padding:12px 16px;font-size:var(--text-sm);color:#252535;line-height:1.7">Someone else will find exactly what they need from what you are letting go.</div>`:""}
-          ${P.setup?.charityName?`<div class="info-box"><strong>${esc(P.setup.charityName)}</strong>${P.setup.charityPhone?` — <a href="tel:${esc(P.setup.charityPhone.replace(/[^\d+]/g,''))}" style="color:#252535;text-decoration:underline">${esc(P.setup.charityPhone)}</a>`:""}${P.setup.charityAddress?`<br>${esc(P.setup.charityAddress)}`:""}</div>`
-            :`<div class="text-muted text-sm">Add your local donation center on the <a href="#" onclick="goTab('start','start');return false" style="color:#D92674;font-weight:700;text-decoration:underline">Start tab →</a></div>`}
+          <div class="card-title" style="font-size:15px;margin-top:6px;margin-bottom:4px">Donation center</div>
+          ${field("Local donation center (optional)","text","setup.charityName",P.setup?.charityName,"Goodwill — Main St")}
+          ${field("Donation center phone","tel","setup.charityPhone",P.setup?.charityPhone,"(555) 123-4567")}
+          ${field("Donation center address","text","setup.charityAddress",P.setup?.charityAddress,"456 Oak Ave")}
           <div style="font-size:14px;color:var(--color-text);line-height:1.6">Before you close: move the $1-and-under stuff to the curb with a FREE sign. It'll be gone before you're done packing up.</div>
           ${areaField("Sell online after","wrap.sellOnline",w.sellOnline,"Any items worth listing if they did not sell today?")}
           ${areaField("Keep","wrap.keep",w.keep,"Anything you changed your mind about? Note it here.")}
@@ -3541,7 +3537,7 @@ async function fetchWeather(saleDate){
   const el=document.getElementById('weather-card');if(!el)return;
   el.style.display='';
   if(!saleDate){
-    el.innerHTML=`<div class="card-title" style="margin-bottom:8px">Sale day weather</div><div style="font-size:14px;color:var(--color-text-muted);line-height:1.6">Set your sale date above and we'll pull the forecast for you.</div>`;
+    el.innerHTML=`<div class="card-title" style="margin-bottom:8px">Sale day weather</div><div style="font-size:14px;color:var(--color-text-muted);line-height:1.6">Set your sale date above and I'll pull the forecast for you.</div>`;
     return;
   }
   const zip=P.setup?.weatherZip;
