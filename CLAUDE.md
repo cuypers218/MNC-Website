@@ -27,6 +27,8 @@ Follow `MNC-BUILD-PLAYBOOK.md` in full. Mandatory, no skipping phases — the tw
 
 Zero border-radius has no exceptions — not even pill-shaped buttons.
 
+**Exception (2026-07-03, Cece's explicit call):** `widgets/garage-sale-planner/widget.html` now uses rounded corners (`--radius-sm/md/lg/xl/full: 6/10/14/20/9999px`), matching a wireframe Cece provided. This is a deliberate, one-file-only deviation — every other widget and the main site remain zero-border-radius. Do not silently "fix" this back to square, and do not extend rounded corners to any other widget without a new, explicit instruction from Cece. Box-shadow was NOT part of this exception and remains `none` in this file.
+
 ---
 
 ## ACTION ITEMS — FIX NOW
@@ -291,6 +293,8 @@ GitHub Action is a second layer — it catches the same CSS and color violations
 ---
 
 ## CHANGE LOG
+
+**2026-07-03 (Garage Sale Planner rounded-corner exception)** — Cece explicitly asked to override the site-wide zero-border-radius rule for this one widget, to match a wireframe reference. Implemented via the widget's own `--radius-*` CSS custom property scale (6/10/14/20/9999px), which cascaded through 37 `.card` instances plus chips, pills, tables, and progress bars automatically. Also manually added radius to ~15 inline-styled elements that had no radius property at all (Start tab cards, form inputs, confirm dialog, tour cards, help/how-it-works modals, bell panel, quick-notes pad). Box-shadow was left at `none` — not part of the ask. Scoped to this file only; noted as an explicit exception above so it isn't reverted by mistake in a future session.
 
 **2026-07-03 (Garage Sale Planner nav + copy pass)** — Fixed nav redundancy: topbar had four help touchpoints (`?` icon, "How it works," "Help," plus an in-form "How it works →"). Removed the `?` icon and "Help" buttons; the one surviving topbar "How it works" link now opens the fuller reference panel (`openHowTo()` — saving behavior, the 5 sections, Memory Box, Print Center, Reset, "Take the tour again," Email Cece) instead of jumping straight into the interactive tour. The in-form "How it works →" button is unchanged and still launches the tour directly. This orphaned the Digital Payments help guide that lived behind "Help" — logged above under Action Items, needs Cece's call on where it goes. Also moved the three donation-center fields (name/phone/address) from the Start tab to Sale Day + Wrap Up, next to the Leftovers plan card where the info is actually used — data binding is global so nothing else broke. Copy fixes: "we'll pull the forecast" → "I'll pull the forecast" (voice consistency, only instance in the file), and rewrote the garbled Money Goal tip ("designer purse that I'd been saying someday to for so long" → "designer purse I'd been telling myself 'someday' about for years") in both `widget.html` and `GarageSalePlanner_Tips.md`. Deployed to live server via FTP to `widget.html` (not `index.html`), committed and pushed to GitHub (`19e0e04`). Admin panel Action Items checklist (`site/admin/sections/stats.php`) updated to match.
 
