@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Someday List Companion – Product Mockup</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;800&family=Lora:wght@700&display=swap');
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: #f2ede8;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 60px 20px;
+    min-height: 100vh;
+    font-family: Arial, sans-serif;
+  }
+
+  .card {
+    background: #FFF8EE;
+    border-radius: 16px;
+    overflow: hidden;
+    width: 420px;
+    box-shadow: 0 8px 40px rgba(37,37,53,0.14), 0 2px 8px rgba(37,37,53,0.08);
+  }
+
+  /* ── TOP IMAGE AREA ── */
+  .card-image {
+    position: relative;
+    background: #252535;
+    padding: 36px 36px 28px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  /* Layered shadow to give "floating PDF" feel */
+  .pdf-stack {
+    position: relative;
+    width: 220px;
+  }
+
+  .pdf-shadow {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    width: 220px;
+    height: 311px; /* matches cover aspect ratio */
+    border-radius: 3px;
+    background: #E87AAA;
+    opacity: 0.25;
+  }
+
+  .pdf-cover {
+    position: relative;
+    width: 220px;
+    display: block;
+    border-radius: 3px;
+    box-shadow: 0 16px 40px rgba(0,0,0,0.55);
+  }
+
+  /* PDF badge */
+  .badge-pdf {
+    position: absolute;
+    bottom: 18px;
+    right: 18px;
+    background: #E87AAA;
+    color: #fff;
+    font-family: 'Montserrat', Arial, sans-serif;
+    font-weight: 800;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 5px 12px;
+    border-radius: 20px;
+  }
+
+  /* ── CARD BODY ── */
+  .card-body {
+    padding: 28px 28px 32px;
+  }
+
+  .label-brand {
+    font-family: 'Montserrat', Arial, sans-serif;
+    font-weight: 800;
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #8BA7D4;
+    margin-bottom: 8px;
+  }
+
+  .product-title {
+    font-family: 'Lora', Georgia, serif;
+    font-weight: 700;
+    font-size: 22px;
+    color: #252535;
+    line-height: 1.25;
+    margin-bottom: 6px;
+  }
+
+  .product-subtitle {
+    font-family: Arial, sans-serif;
+    font-size: 13px;
+    color: #8BA7D4;
+    font-weight: normal;
+    margin-bottom: 16px;
+    letter-spacing: 0.02em;
+  }
+
+  .divider {
+    width: 40px;
+    height: 3px;
+    background: #E87AAA;
+    border-radius: 2px;
+    margin-bottom: 16px;
+  }
+
+  .description {
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    line-height: 1.65;
+    color: #444455;
+    margin-bottom: 20px;
+  }
+
+  /* what's inside list */
+  .includes {
+    margin-bottom: 24px;
+  }
+
+  .includes-label {
+    font-family: 'Montserrat', Arial, sans-serif;
+    font-weight: 800;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #252535;
+    margin-bottom: 10px;
+  }
+
+  .includes ul {
+    list-style: none;
+    padding: 0;
+  }
+
+  .includes ul li {
+    font-family: Arial, sans-serif;
+    font-size: 13px;
+    color: #444455;
+    padding: 4px 0 4px 20px;
+    position: relative;
+    line-height: 1.5;
+  }
+
+  .includes ul li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 10px;
+    width: 8px;
+    height: 8px;
+    background: #E87AAA;
+    border-radius: 50%;
+  }
+
+  /* price + CTA row */
+  .purchase-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-top: 24px;
+    padding-top: 20px;
+    border-top: 1px solid #EDE6D8;
+  }
+
+  .price-block {}
+
+  .price {
+    font-family: 'Montserrat', Arial, sans-serif;
+    font-weight: 800;
+    font-size: 26px;
+    color: #252535;
+    line-height: 1;
+  }
+
+  .price-note {
+    font-family: Arial, sans-serif;
+    font-size: 11px;
+    color: #888;
+    margin-top: 3px;
+  }
+
+  .btn-buy {
+    background: #E87AAA;
+    color: #fff;
+    font-family: 'Montserrat', Arial, sans-serif;
+    font-weight: 800;
+    font-size: 13px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 14px 22px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.18s;
+    flex-shrink: 0;
+  }
+
+  .btn-buy:hover {
+    background: #d4608e;
+  }
+</style>
+</head>
+<body>
+
+<div class="card">
+
+  <!-- IMAGE ZONE -->
+  <div class="card-image">
+    <div class="pdf-stack">
+      <div class="pdf-shadow"></div>
+      <img
+        class="pdf-cover"
+        src="https://mynestchapter.com/assets/images/someday-companion-cover.png"
+        alt="The Someday List Companion"
+      >
+    </div>
+    <span class="badge-pdf">PDF Guide</span>
+  </div>
+
+  <!-- CARD BODY -->
+  <div class="card-body">
+
+    <p class="label-brand">My Nest Chapter</p>
+
+    <h2 class="product-title">The Someday List Companion</h2>
+    <p class="product-subtitle">For when someday needs to become something real</p>
+
+    <div class="divider"></div>
+
+    <p class="description">
+      You made the list. You finally wrote down all those things you've been calling
+      "someday" for years. Now it's sitting there — and you're not sure what to do with it.
+      <br><br>
+      This companion doesn't pressure you to do everything. It helps you figure out
+      which one you're actually ready for right now — and gives you a gentle, honest
+      way to start.
+    </p>
+
+    <div class="includes">
+      <p class="includes-label">What's Inside</p>
+      <ul>
+        <li>A reflection prompt for every item on your list</li>
+        <li>"What's really stopping me" — a 10-minute honest exercise</li>
+        <li>The One Someday method: choosing without guilt</li>
+        <li>A simple first-step planner (no 50-step goal sheets)</li>
+        <li>Space to write what "done" actually looks like for you</li>
+        <li>A note from Cece on giving yourself permission to start</li>
+      </ul>
+    </div>
+
+    <div class="purchase-row">
+      <div class="price-block">
+        <div class="price">$9.99</div>
+        <div class="price-note">Instant PDF download</div>
+      </div>
+      <button class="btn-buy">Get the Companion</button>
+    </div>
+
+  </div>
+</div>
+
+</body>
+</html>
