@@ -135,6 +135,32 @@
     }
     .icon-btn:hover{color:var(--color-text);background:var(--color-surface)}
 
+    /* ─── TIP STRIP ─── */
+    .tip-strip{
+      display:flex;align-items:center;gap:14px;
+      background:#FFF8EE;border:1px solid #ABABAB;border-radius:0;box-shadow:none;
+      color:#252535;padding:11px 16px;
+      font-family:var(--font-body);font-size:14px;line-height:1.4;margin-bottom:16px;
+    }
+    .tip-nav{
+      flex-shrink:0;min-width:44px;min-height:44px;
+      display:flex;align-items:center;justify-content:center;
+      border:1px solid #ABABAB;border-radius:0;box-shadow:none;background:#FFF8EE;
+      font-family:var(--font-body);font-size:18px;font-weight:600;color:#252535;
+    }
+    .tip-nav:hover{background:#F5C4A8}
+    .tip-text{flex:1}
+    .tip-counter{
+      flex-shrink:0;font-family:var(--font-body);font-size:12px;font-weight:600;
+      color:var(--color-text-muted);white-space:nowrap;
+    }
+    @media(max-width:480px){
+      .tip-strip{flex-wrap:wrap;gap:10px}
+      .tip-text{flex:1 1 100%;order:1}
+      .tip-nav{order:2}
+      .tip-counter{order:3;margin-left:auto}
+    }
+
     /* ─── LAYOUT ─── */
     .outer{max-width:1400px;margin:0 auto;padding:var(--space-6) var(--space-6);background:transparent}
     .metrics-bar{max-width:1400px;margin:0 auto;padding:var(--space-5) var(--space-6) 0;background:transparent}
@@ -809,16 +835,16 @@ function renderAdAccordionRow(p,i){
 }
 
 const TIPS={
-  start:["Pick a date and put it in this tool right now. The amount of stuff sitting in closets waiting for the right weekend is exactly what garage sales are for.","7am is not too early. People who shop garage sales are up before you are. They will sit in front of your house at 6:45. This is not an exaggeration.","Set your money goal and put a reason behind it. A want of $300 for a weekend trip prices differently than wanting to get rid of stuff. Know which one this is before you start sorting.","Do you have boxes that you just move from room to room? Start going through them, one at a time.","You took care of everything by yourself for years. A garage sale will be easy.","Be specific. $300 for the electric bill keeps you at the table longer than whatever I make.","You will absolutely think of something better to spend this money on five minutes after you hit your goal. You earned it, spend it how you want.","If you're splitting it between something fun and something necessary, price the necessary stuff to actually move. The fun half can wait.","I used my garage sale money for a designer purse that I'd been saying someday to for so long."],
-  inventory:["When you're not sure whether to price it $2 or $5, ask yourself which one means you don't have to carry it back inside. That usually answers it.","But I paid so much for this is the most expensive thought you can have at a garage sale. Price what it's worth today, not what it cost then.","Condition matters more than original price. A great item in rough shape sells for less than a good item in good shape. Price what they're buying.","If you're going room by room, do the easy rooms first. You'll make better decisions when you're not already worn out.","A price on everything means she keeps moving. No price means she puts it down and walks away. Sticker everything before the day."],
+  start:["Pick a date and put it in this tool right now. The amount of stuff sitting in closets waiting for \"the right weekend\" is exactly what garage sales are for.","7am is not too early. People who shop garage sales are up before you are. They will sit in front of your house at 6:45. This is not an exaggeration.","Set your money goal and put a reason behind it. \"I want $300 for a weekend trip\" prices differently than \"I want to get rid of stuff.\" Know which one this is before you start sorting.","Do you have boxes that you just move from room to room? Start going through them, one at a time.","You took care of everything by yourself for years. A garage sale will be easy.","Be specific. \"$300 for the electric bill\" keeps you at the table longer than \"whatever I make.\"","You will absolutely think of something better to spend this money on five minutes after you hit your goal. You earned it, spend it how you want.","If you're splitting it between something fun and something necessary, price the necessary stuff to actually move. The fun half can wait.","I used my garage sale money for a designer purse that I'd been saying someday to for so long."],
+  inventory:["When you're not sure whether to price it $2 or $5, ask yourself which one means you don't have to carry it back inside. That usually answers it.","\"But I paid so much for this\" is the most expensive thought you can have at a garage sale. Price what it's worth today, not what it cost then.","Condition matters more than original price. A great item in rough shape sells for less than a good item in good shape. Price what they're buying.","If you're going room by room, do the easy rooms first. You'll make better decisions when you're not already worn out.","A price on everything means she keeps moving. No price means she puts it down and walks away. Sticker everything before the day."],
   memory:["You don't have to keep it to keep the memory. That's what this is for.","Take a photo. Write one line about it. Then let it go to someone who's going to use it. That's not losing it. That's passing it on.","I have one t-shirt from every sport each of my kids played. Those stay. Always. But the equipment, the gear, the extra everything from those years — that all goes. Knowing what I'm keeping makes it a lot easier to let go of the rest.","The Memory Box isn't about holding on. It's about making a record before you let go. There's a difference.","Some of it will stop you. That happens. Take a minute. Then keep going."],
-  pricing:["The goal is for it to leave your house. Price it like you mean that.","Round numbers move faster. $2, $5, $10. Nobody wants to make change for $3.75. Nobody.","Put your high-ticket items at the front of the driveway. People stop for them on the way in and stay for everything else.","If you've got a box of stuff that's all worth a dollar or less, make it a free table. It clears fast and buyers feel good about you.","Bundling works. 3 for $5 sells three items you'd have gotten $1 each for. Do the math."],
+  pricing:["The goal is for it to leave your house. Price it like you mean that.","Round numbers move faster. $2, $5, $10. Nobody wants to make change for $3.75. Nobody.","Put your high-ticket items at the front of the driveway. People stop for them on the way in and stay for everything else.","If you've got a box of stuff that's all worth a dollar or less, make it a free table. It clears fast and buyers feel good about you.","Bundling works. \"3 for $5\" sells three items you'd have gotten $1 each for. Do the math."],
   online:["Facebook Marketplace is the easiest place to start for big items. Post it today — furniture moves fast if you price it right.","Poshmark is for your good stuff. Not for the $2 rack. If you wouldn't pay that price for it online, neither will anyone else.","A blurry photo costs you a sale every time. Set the item by a window. That's it. That's the whole photography tip.","eBay is for items with a brand name people search for — electronics, collectibles, name brands. Not random kitchen stuff.","Post the same item on two platforms. First one to sell, you pull the other listing. It costs nothing and doubles your chances."],
-  advertising:["The headline is the only thing most people read. Big garage sale Saturday is not a headline. List what you actually have.","Furniture, kids items, kitchen, tools, clothing moves people. Categories tell them whether it's worth the drive before they even leave the house.","Post Thursday night. People plan their Saturday morning route on Friday. Be there before they make the list.","Don't put your full address in the ad until 24 hours before. Share it by DM when someone asks. Small thing, worth doing.","Photos in the ad get more clicks. Take three. They don't have to be perfect. Post them anyway."],
+  advertising:["The headline is the only thing most people read. \"Big garage sale Saturday\" is not a headline. List what you actually have.","\"Furniture, kids' items, kitchen, tools, clothing\" moves people. Categories tell them whether it's worth the drive before they even leave the house.","Post Thursday night. People plan their Saturday morning route on Friday. Be there before they make the list.","Don't put your full address in the ad until 24 hours before. Share it by DM when someone asks. Small thing, worth doing.","Photos in the ad get more clicks. Take three. They don't have to be perfect. Post them anyway."],
   print:["Signs at every turn, not just the corner. If she turns and can't see the next arrow, she keeps driving.","People find your sale from the car. Make the arrow bigger than you think.","Print your price tags the night before. Stickering on the morning of is how things end up unpriced and sit there all day.","Category signs on your tables move people through faster. When she knows where the kitchen stuff is, she goes straight there. Without signs, she wanders and leaves.","Print your half-price sign before the day. You'll want it up fast when the last hour hits and you're already tired."],
   prep:["Tables. You need more than you think. Folding tables, card tables, a board across sawhorses — buyers don't want to dig through boxes on the ground.","Start your cash box with $50 in small bills. Enough to make change without running back inside every five minutes.","Charge your phone the night before. You're taking Venmo, looking things up, texting your check-in person. You need a full battery before 7am.","Have bags. People buy more when they can carry more. Paper grocery bags from under the sink are fine.","Set up as much as you can the night before. Moving furniture at 6am in the dark is a lot. Give yourself a head start."],
-  safety:["Tell someone you're out there. A text at the start of the day and a text when you close up. That's the minimum.","Keep your cash on your body, not on the table. Crossbody bag. Front pocket. Somewhere that moves when you move.","You're allowed to say no to anyone for any reason. Cash only, sorry is a complete answer. So is I'm closing up for a bit.","If something feels wrong, it probably is. You've been reading people your whole life. Trust that.","A neighbor who can see your driveway is worth more than any security system. Text them you're having a sale. Let them know."],
-  saleDay:["Log each sale as it happens. At the end of the day you'll want to know where the money came from. And watching the number go up is actually really good.","The first hour is always the slowest. By 9am it picks up. Don't let the first 45 minutes tell you how the whole day is going.","Someone's going to offer you half price. You can say no. You can also say yes. You're the one carrying it back inside if it doesn't sell.","Bundle deals in the last hour. Pick any 5 items for $5. You'll move things you'd be donating in an hour anyway.","When you hit your goal — stop for a second. Notice it. You set a number and you got there. That doesn't just happen."],
+  safety:["Tell someone you're out there. A text at the start of the day and a text when you close up. That's the minimum.","Keep your cash on your body, not on the table. Crossbody bag. Front pocket. Somewhere that moves when you move.","You're allowed to say no to anyone for any reason. \"Cash only, sorry\" is a complete answer. So is \"I'm closing up for a bit.\"","If something feels wrong, it probably is. You've been reading people your whole life. Trust that.","A neighbor who can see your driveway is worth more than any security system. Text them you're having a sale. Let them know."],
+  saleDay:["Log each sale as it happens. At the end of the day you'll want to know where the money came from. And watching the number go up is actually really good.","The first hour is always the slowest. By 9am it picks up. Don't let the first 45 minutes tell you how the whole day is going.","Someone's going to offer you half price. You can say no. You can also say yes. You're the one carrying it back inside if it doesn't sell.","Bundle deals in the last hour. \"Pick any 5 items for $5.\" You'll move things you'd be donating in an hour anyway.","When you hit your goal — stop for a second. Notice it. You set a number and you got there. That doesn't just happen."],
   wrap:["Whatever's left — have a plan before you close up. Donation box in the trunk, neighbor who wants first pick, straight to Goodwill. Don't bring it back inside.","When the last person leaves, I always feel good. Less stuff. More room. Money in my pocket. I don't know why I always waited so long to do it.","Take a photo of what's left before you donate it. For your records. And because seeing how much actually left the house — that's the real number.","The money is real. Go do the thing you said you were going to do with it."]
 };
 function getSectionTips(){
@@ -826,22 +852,47 @@ function getSectionTips(){
   return map[UI.tab+"|"+UI.section]||TIPS.start;
 }
 function renderTipStrip(tips){
-  return`<div style="background:#FFF8EE;border:1px solid #ABABAB;color:#252535;padding:11px 20px;font-family:var(--font-body);font-size:14px;line-height:1.4;margin-bottom:16px"><span id="tip-text">${esc(tips[0])}</span></div>`;
+  return`<div class="tip-strip">
+    <button class="tip-nav" aria-label="Previous tip" onclick="tipPrev()">&lt;</button>
+    <span class="tip-text" id="tip-text">${esc(tips[0])}</span>
+    <span class="tip-counter" id="tip-counter">1 / ${tips.length}</span>
+    <button class="tip-nav" aria-label="Next tip" onclick="tipNext()">&gt;</button>
+  </div>`;
 }
 function renderTourNote(text){
   if(!P.isDemo)return'';
   return`<div style="background:#C4B0E8;color:#252535;padding:9px 20px;font-family:var(--font-body);font-size:13px;line-height:1.4;margin-bottom:12px;display:flex;align-items:flex-start;justify-content:space-between;gap:16px"><span><strong>Tour:</strong> ${text}</span><button onclick="P.isDemo=false;save();renderContent()" style="font-size:11px;font-family:var(--font-display);font-weight:700;color:#252535;text-transform:uppercase;letter-spacing:.08em;white-space:nowrap;flex-shrink:0">Exit tour</button></div>`;
 }
-let _tipInterval=null;let _tipIdx=0;
-function startTipRotation(tips){
+let _tipInterval=null;let _tipIdx=0;let _tipTips=null;
+function renderTipAt(){
+  const t=document.getElementById('tip-text');const c=document.getElementById('tip-counter');
+  if(!t||!_tipTips){return false}
+  t.textContent=_tipTips[_tipIdx];
+  if(c)c.textContent=`${_tipIdx+1} / ${_tipTips.length}`;
+  return true;
+}
+function restartTipTimer(){
   if(_tipInterval)clearInterval(_tipInterval);
-  _tipIdx=0;
   _tipInterval=setInterval(()=>{
-    _tipIdx=(_tipIdx+1)%tips.length;
-    const t=document.getElementById('tip-text');
-    if(!t){clearInterval(_tipInterval);_tipInterval=null;return;}
-    t.textContent=tips[_tipIdx];
+    _tipIdx=(_tipIdx+1)%_tipTips.length;
+    if(!renderTipAt()){clearInterval(_tipInterval);_tipInterval=null;}
   },8000);
+}
+function startTipRotation(tips){
+  _tipTips=tips;_tipIdx=0;
+  restartTipTimer();
+}
+function tipNext(){
+  if(!_tipTips)return;
+  _tipIdx=(_tipIdx+1)%_tipTips.length;
+  renderTipAt();
+  restartTipTimer();
+}
+function tipPrev(){
+  if(!_tipTips)return;
+  _tipIdx=(_tipIdx-1+_tipTips.length)%_tipTips.length;
+  renderTipAt();
+  restartTipTimer();
 }
 
 const changePlanRows = [
