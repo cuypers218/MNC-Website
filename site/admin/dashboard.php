@@ -403,7 +403,10 @@ select.form-control { cursor: pointer; }
             <?php if ($errorMsg): ?>
                 <div class="alert alert-error"><?= htmlspecialchars($errorMsg) ?></div>
             <?php endif; ?>
-            <?php include __DIR__ . '/sections/' . $page . '.php'; ?>
+            <?php
+            $sectionFile = $page === 'dashboard' ? 'stats' : $page;
+            include __DIR__ . '/sections/' . $sectionFile . '.php';
+            ?>
         </div>
     </div>
 
