@@ -1658,6 +1658,7 @@ function renderAdvertising(){
     <div>
       <h2 class="page-title">Ads + Signs</h2>
       <p class="page-sub">Get the word out. Then get your signs ready.</p>
+      <button class="btn btn-ghost btn-sm" onclick="openHelp('ad-timing')" style="margin-top:8px">When should I post? →</button>
     </div>
     ${renderTipStrip(TIPS.advertising)}
 
@@ -1965,6 +1966,7 @@ function renderSaleDay(){
         ${field("Zelle email or phone number","text","setup.zelleHandle",P.setup?.zelleHandle,"you@email.com")}
       </div>
       <button class="btn btn-secondary btn-sm" id="show-buyer-btn" onclick="showBuyerPayment()" ${hasAnyDigitalPayment()?'':'disabled'} style="margin-top:6px">Show Buyer</button>
+      <button class="btn btn-ghost btn-sm" onclick="openHelp('digital-payments')" style="margin-top:6px;margin-left:8px">Help setting these up →</button>
     </div>
     <div class="grid-2">
       <div class="card">
@@ -2675,6 +2677,7 @@ function renderWrap(){
           ${field("Donation center phone","tel","setup.charityPhone",P.setup?.charityPhone,"(555) 123-4567")}
           ${field("Donation center address","text","setup.charityAddress",P.setup?.charityAddress,"456 Oak Ave")}
           <div style="font-size:14px;color:var(--color-text);line-height:1.6">Before you close: move the $1-and-under stuff to the curb with a FREE sign. It'll be gone before you're done packing up.</div>
+          <button class="btn btn-ghost btn-sm" onclick="openHelp('unsold')">What to do with what's left →</button>
           ${areaField("Sell online after","wrap.sellOnline",w.sellOnline,"Any items worth listing if they did not sell today?")}
           ${areaField("Keep","wrap.keep",w.keep,"Anything you changed your mind about? Note it here.")}
           ${areaField("Trash","wrap.trash",w.trash,"Broken, expired, or truly useless items.")}
@@ -3769,13 +3772,32 @@ const helpTopics=[
       <h4 style="font-family:var(--font-display);font-size:15px;font-weight:800;color:var(--color-text);margin-bottom:6px">A note on chargebacks</h4>
       <p>Cash has no chargeback risk. Digital payments are generally safe for small transactions but it's worth knowing: PayPal Goods &amp; Services allows buyers to file a dispute. For garage sale items, this is rare — but if someone pays and later disputes the charge, PayPal may hold the funds while they investigate. For high-value items, cash is always the safest option.</p>
     </div>`},
+  {id:'ad-timing',title:'When to Post Your Ads',available:true,body:`
+    <div style="font-family:var(--font-body);font-size:14px;line-height:1.7;color:var(--color-text)">
+      <h4 style="font-family:var(--font-display);font-size:15px;font-weight:800;color:var(--color-text);margin-bottom:6px">Online</h4>
+      <p style="margin-bottom:18px">Post Thursday night. People plan their Saturday route on Friday — if you're not in their feed by then, you don't make the list.</p>
+      <p style="margin-bottom:18px">Hold the full address until 24 hours before. Share it by DM when someone asks — the morning before at the earliest.</p>
+      <p style="margin-bottom:18px">Take three photos before you post: a wide shot of your whole setup, a close-up of anything with obvious value. They don't have to be perfect.</p>
+      <p style="margin-bottom:24px">Nextdoor won't let you post a garage sale listing too far in advance. Wait until Friday or the post may not stay visible through Saturday.</p>
+
+      <h4 style="font-family:var(--font-display);font-size:15px;font-weight:800;color:var(--color-text);margin-bottom:6px">Signs</h4>
+      <p style="margin-bottom:18px">Put signs up Friday evening if weather allows — morning of the sale if there's rain overnight.</p>
+      <p style="margin-bottom:18px">Put a sign at every turn someone has to make to reach your house. Arrows matter more than your address. Someone driving at 25mph can't read a street number.</p>
+      <p>Take them down the same day. It's a courtesy. In some neighborhoods it's required.</p>
+    </div>`},
   {id:'pricing',title:'How to price items',available:false},
-  {id:'unsold',title:"What to do with items that don't sell",available:false},
+  {id:'unsold',title:"What to do with items that don't sell",available:true,body:`
+    <div style="font-family:var(--font-body);font-size:14px;line-height:1.7;color:var(--color-text)">
+      <p style="margin-bottom:18px">Decide before the sale, not after. Know where unsold stuff is going before you open your doors — otherwise you're making tired decisions at 2pm when the adrenaline wears off.</p>
+      <p style="margin-bottom:18px">Have a donation box or empty car trunk ready to load the moment you close. The goal is that nothing unsold re-enters the house.</p>
+      <p style="margin-bottom:18px">Options in order: load the car and donate same day. Free pile on the curb for the last hour with a sign. Facebook Marketplace for anything valuable that didn't move — do it before it goes back in a closet. Trash what isn't worth donating.</p>
+      <p>The longer something sits in the garage after the sale, the more likely it is to migrate back inside. Same-day decisions are always easier than next-week ones.</p>
+    </div>`},
   {id:'marketplace',title:'How to create a Facebook Marketplace listing',available:false},
 ];
 let _helpTopic=null;
-function openHelp(){
-  _helpTopic=null;
+function openHelp(topicId){
+  _helpTopic=topicId||null;
   const ov=document.getElementById('help-overlay');
   if(!ov)return;
   ov.style.display='block';
