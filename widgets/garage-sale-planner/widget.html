@@ -515,6 +515,8 @@
     #scratch-panel .scratch-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;font-family:var(--font-display);font-weight:700;font-size:13px;color:#252535}
     #scratch-panel .scratch-clear{background:none;border:none;font-family:var(--font-body);font-size:12px;color:var(--color-text-muted);text-decoration:underline;cursor:pointer;padding:0}
     #scratch-textarea{width:100%;min-height:140px;border:1px solid #ABABAB;background:#fff;padding:10px;font-family:var(--font-body);font-size:14px;color:#252535;resize:vertical;box-sizing:border-box}
+    .scratch-footer{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:10px}
+    .scratch-status{font-family:var(--font-body);font-size:11px;color:var(--color-text-muted)}
 
 </style>
 </head>
@@ -3836,22 +3838,42 @@ function toggleScratchPad(){
   const panel=document.getElementById('scratch-panel');
   const btn=document.getElementById('scratch-toggle');
   if(!panel||!btn)return;
+  if(!UI.scratchOpen)flushScratchPad();
   panel.style.display=UI.scratchOpen?'block':'none';
   btn.setAttribute('aria-expanded',UI.scratchOpen?'true':'false');
   if(UI.scratchOpen){
     const ta=document.getElementById('scratch-textarea');
     if(ta)ta.value=P.scratchPad||'';
+    setScratchStatus(P.scratchPad?'Saved to this browser':'Not saved yet');
   }
 }
 function onScratchInput(v){
+  setScratchStatus('Typing…');
   clearTimeout(_scratchTimer);
-  _scratchTimer=setTimeout(()=>{P.scratchPad=v;save();},500);
+  _scratchTimer=setTimeout(()=>{P.scratchPad=v;save();setScratchStatus('Saved to this browser');},500);
+}
+function flushScratchPad(){
+  clearTimeout(_scratchTimer);
+  const ta=document.getElementById('scratch-textarea');
+  if(ta&&P.scratchPad!==ta.value){P.scratchPad=ta.value;save();}
+}
+function saveScratchPad(){
+  flushScratchPad();
+  setScratchStatus('Saved to this browser');
+  showToast('Notes saved');
+}
+function setScratchStatus(msg){
+  const el=document.getElementById('scratch-status');
+  if(el)el.textContent=msg;
 }
 function clearScratchPad(){
+  clearTimeout(_scratchTimer);
   P.scratchPad='';save();
   const ta=document.getElementById('scratch-textarea');
   if(ta)ta.value='';
+  setScratchStatus('Not saved yet');
 }
+window.addEventListener('beforeunload',flushScratchPad);
 
 // ─── INIT ─────────────────────────────────────────────────────────────────────
 render();
@@ -3877,6 +3899,10 @@ window.addEventListener('resize',()=>{
 <div id="scratch-panel" class="no-print" role="region" aria-label="Quick notes">
   <div class="scratch-header"><span>Quick notes</span><button class="scratch-clear" onclick="clearScratchPad()">Clear</button></div>
   <textarea id="scratch-textarea" placeholder="Jot something down before you lose it..." oninput="onScratchInput(this.value)"></textarea>
+  <div class="scratch-footer">
+    <button class="btn btn-primary btn-sm" onclick="saveScratchPad()">Save</button>
+    <span class="scratch-status" id="scratch-status">Saved to this browser</span>
+  </div>
 </div>
 
 <div id="tour-scrim"></div>
