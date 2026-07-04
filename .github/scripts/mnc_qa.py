@@ -215,12 +215,16 @@ def scan_file(filepath: Path):
 # RUN THE SCAN
 # ─────────────────────────────────────────────────────────────────
 
+VENDOR_DIR_NAMES = {'phpmailer', 'vendor', 'node_modules'}
+
 for scan_dir in SCAN_DIRS:
     dir_path = Path(scan_dir)
     if not dir_path.exists():
         continue
     for filepath in sorted(dir_path.rglob('*')):
         if filepath.suffix in SCAN_EXTENSIONS and filepath.is_file():
+            if VENDOR_DIR_NAMES.intersection(p.lower() for p in filepath.parts):
+                continue
             scan_file(filepath)
 
 # ─────────────────────────────────────────────────────────────────
