@@ -56,6 +56,17 @@ RETIRED_COLORS = [
 WIDGET_BANNED_FONTS = ['Montserrat', 'Arial']
 
 # ─────────────────────────────────────────────────────────────────
+# PER-FILE EXEMPTIONS FROM BORDER-RADIUS / BOX-SHADOW RULES
+# Cece explicitly approved a one-file deviation (2026-07-03/04) to match
+# a wireframe — rounded corners + soft card shadows, documented in
+# CLAUDE.md. Other checks (colors, fonts, banned phrases) still apply.
+# ─────────────────────────────────────────────────────────────────
+
+RADIUS_SHADOW_EXEMPT_FILES = [
+    'widgets/garage-sale-planner/widget.html',
+]
+
+# ─────────────────────────────────────────────────────────────────
 # BANNED PHRASES
 # Exact string matches, case-insensitive.
 # Only phrases specific enough to catch without false positives.
@@ -138,6 +149,7 @@ def scan_file(filepath: Path):
     global files_scanned
     files_scanned += 1
     is_widget = 'widgets' in filepath.parts
+    is_radius_shadow_exempt = filepath.as_posix() in RADIUS_SHADOW_EXEMPT_FILES
 
     try:
         lines = filepath.read_text(encoding='utf-8', errors='ignore').splitlines()
@@ -160,7 +172,7 @@ def scan_file(filepath: Path):
         # 2 — border-radius violations
         #     Allowed: border-radius: 0 | 0px | 9999px | var(--something)
         #     CSS variable declarations are allowed (e.g. --radius-pill: 9999px)
-        if 'border-radius' in line_lower:
+        if 'border-radius' in line_lower and not is_radius_shadow_exempt:
             # Skip CSS variable declarations (--variable-name: value)
             is_var_declaration = bool(re.search(r'--[\w-]+\s*:', line))
             if not is_var_declaration:
@@ -174,7 +186,7 @@ def scan_file(filepath: Path):
 
         # 3 — box-shadow violations
         #     Allowed: box-shadow: none | var(--something)
-        if 'box-shadow' in line_lower:
+        if 'box-shadow' in line_lower and not is_radius_shadow_exempt:
             is_var_declaration = bool(re.search(r'--[\w-]+\s*:', line))
             if not is_var_declaration:
                 allowed = bool(re.search(
