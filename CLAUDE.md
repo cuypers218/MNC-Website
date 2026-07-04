@@ -27,7 +27,7 @@ Follow `MNC-BUILD-PLAYBOOK.md` in full. Mandatory, no skipping phases — the tw
 
 Zero border-radius has no exceptions — not even pill-shaped buttons.
 
-**Exception (2026-07-03, Cece's explicit call):** `widgets/garage-sale-planner/widget.html` now uses rounded corners (`--radius-sm/md/lg/xl/full: 6/10/14/20/9999px`), matching a wireframe Cece provided. This is a deliberate, one-file-only deviation — every other widget and the main site remain zero-border-radius. Do not silently "fix" this back to square, and do not extend rounded corners to any other widget without a new, explicit instruction from Cece. Box-shadow was NOT part of this exception and remains `none` in this file.
+**Exception (2026-07-03/04, Cece's explicit call):** `widgets/garage-sale-planner/widget.html` now uses rounded corners (`--radius-sm/md/lg/xl/full: 6/10/14/20/9999px`) and soft box-shadows on cards (`0 10px 40px rgba(37,37,53,.07)`, borders removed), matching a wireframe Cece provided. Card titles and the hero headline use Lora weight 300 instead of 700. This is a deliberate, one-file-only deviation — every other widget and the main site remain zero-border-radius/zero-box-shadow. Do not silently "fix" this back to square/flat/bold, and do not extend any of this to another widget without a new, explicit instruction from Cece.
 
 ---
 
