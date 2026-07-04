@@ -6,7 +6,7 @@
 <title>My Nest Chapter — Garage Sale Planner</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,700;1,400&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,300;0,400;0,700;1,400&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
 <style>
     * { box-sizing: border-box; }
@@ -149,7 +149,7 @@
       color:var(--color-text-muted);display:block;margin-bottom:8px;
     }
     .hero-title{
-      font-family:var(--font-display);font-weight:700;font-size:clamp(24px,3vw,34px);
+      font-family:var(--font-display);font-weight:300;font-size:clamp(24px,3vw,34px);
       color:var(--color-text);margin:0;letter-spacing:-0.01em;
     }
     .hero-sub{
@@ -160,10 +160,10 @@
     .hero-stat{text-align:right}
     .hero-stat+.hero-stat{border-left:1px solid var(--color-divider);padding-left:32px}
     .hero-stat-value{
-      font-family:var(--font-display);font-weight:700;font-size:30px;
+      font-family:var(--font-display);font-weight:300;font-size:30px;
       color:var(--color-text);line-height:1;display:block;
     }
-    .hero-stat.is-goal .hero-stat-value{color:var(--color-primary)}
+    .hero-stat.is-goal .hero-stat-value{color:var(--color-primary);font-weight:400}
     .hero-stat-label{
       font-size:10.5px;text-transform:uppercase;letter-spacing:.06em;
       color:var(--color-text-muted);display:block;margin-top:6px;white-space:nowrap;
@@ -276,12 +276,13 @@
 
     /* ─── CARDS ─── */
     .card{
-      background:var(--color-surface);border:1px solid var(--color-border);
+      background:var(--color-surface);border:none;
+      box-shadow:0 10px 40px rgba(37,37,53,0.07);
       border-radius:var(--radius-xl);padding:var(--space-6);
     }
     .card+.card{margin-top:var(--space-4)}
     .card-title{
-      font-size:21px;font-weight:700;font-family:var(--font-display);
+      font-size:21px;font-weight:400;font-family:var(--font-display);
       margin-bottom:var(--space-4);color:var(--color-text);
     }
     .card-sub{font-size:var(--text-sm);color:var(--color-text-muted);margin-bottom:var(--space-5);line-height:1.7}
@@ -1205,7 +1206,7 @@ function renderStart(){
   <div style="display:flex;gap:32px;flex-wrap:wrap;align-items:flex-start;padding-top:8px">
 
     <!-- LEFT: form -->
-    <div style="flex:1.7 1 430px;background:#fff;border:1px solid var(--color-divider);border-radius:var(--radius-xl);padding:36px">
+    <div style="flex:1.7 1 430px;background:#fff;border:none;box-shadow:0 10px 40px rgba(37,37,53,0.07);border-radius:var(--radius-xl);padding:36px">
       <div class="card-title" style="font-size:28px;margin-bottom:28px">Sale Setup</div>
       <div class="gap-y-sm" style="gap:22px">
         ${field("Sale name","text","setup.saleTitle",s.saleTitle,"My Nest Chapter Sale")}
@@ -1218,7 +1219,7 @@ function renderStart(){
         ${areaField("Notes before I start","setup.notes",s.notes,"What areas feel easiest? What items feel emotional?")}
       </div>
       <div style="margin-top:28px;display:flex;gap:14px;align-items:center;flex-wrap:wrap">
-        <button class="btn btn-primary" onclick="save();showToast('Saved!')">Save and keep going →</button>
+        <button class="btn btn-primary" onclick="save();showToast('Saved!')" style="border-radius:var(--radius-full);padding:14px 28px">Save and keep going →</button>
         <button class="btn btn-secondary" onclick="openTour()">How it works →</button>
         <button class="btn btn-ghost btn-sm" onclick="sectionClear('start')" style="margin-left:auto">Clear</button>
       </div>
@@ -1228,25 +1229,25 @@ function renderStart(){
     <div style="flex:1 1 300px;display:flex;flex-direction:column;gap:28px">
 
       <!-- Money goal -->
-      <div style="background:#fff;border:1px solid var(--color-divider);border-radius:var(--radius-xl);padding:30px">
+      <div style="background:#fff;border:none;box-shadow:0 10px 40px rgba(37,37,53,0.07);border-radius:var(--radius-xl);padding:30px">
         <div class="card-title" style="margin-bottom:8px">Money goal</div>
-        <div id="goal-pct" class="metric-value" style="font-size:44px;line-height:1">${stats.goalProgress}%</div>
+        <div id="goal-pct" class="metric-value" style="font-size:44px;font-weight:300;line-height:1">${stats.goalProgress}%</div>
         <div id="goal-sub" class="text-muted" style="margin-top:8px">$${stats.earned.toFixed(2)} earned · $${stats.goalLeft.toFixed(2)} left</div>
         <div class="progress progress-lg" role="progressbar" aria-valuenow="${stats.goalProgress}" aria-valuemin="0" aria-valuemax="100" aria-label="Goal progress" style="margin-top:14px;margin-bottom:18px"><div class="progress-fill" id="goal-bar" style="width:${stats.goalProgress}%"></div></div>
         <div style="background:#facfd4;border-radius:var(--radius-lg);padding:16px 18px;font-size:14px;color:var(--color-text);line-height:1.55">Set a goal that means something to you — not just a number.</div>
       </div>
 
       <!-- Sale countdown -->
-      <div style="background:#fff;border:1px solid var(--color-divider);border-radius:var(--radius-xl);padding:30px">
+      <div style="background:#fff;border:none;box-shadow:0 10px 40px rgba(37,37,53,0.07);border-radius:var(--radius-xl);padding:30px">
         <div class="card-title" style="margin-bottom:12px">Sale countdown</div>
         <div id="countdown-body">${renderCountdownBody()}</div>
       </div>
 
       <!-- Weather -->
-      <div style="background:#fff;border:1px solid var(--color-divider);border-radius:var(--radius-xl);padding:28px" id="weather-card"></div>
+      <div style="background:#fff;border:none;box-shadow:0 10px 40px rgba(37,37,53,0.07);border-radius:var(--radius-xl);padding:28px" id="weather-card"></div>
 
       <!-- Day-before reminder -->
-      <div style="background:#fff;border:1px solid var(--color-divider);border-radius:var(--radius-xl);padding:30px">
+      <div style="background:#fff;border:none;box-shadow:0 10px 40px rgba(37,37,53,0.07);border-radius:var(--radius-xl);padding:30px">
         <div class="card-title" style="margin-bottom:6px">Day-before reminder</div>
         <p style="font-size:14px;color:var(--color-muted);line-height:1.55;margin-bottom:14px">Get a prep email the morning before sale day — your items, your goal, and a link back here.</p>
         <div class="form-field" style="margin-bottom:12px">
