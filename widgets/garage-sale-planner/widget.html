@@ -103,7 +103,7 @@
     .topbar-sub {font-size:var(--text-xs);color:var(--color-text-muted);}
     .topbar-center {flex:1;display:flex;justify-content:center;padding:0 var(--space-3);}
     .topbar-tabs {
-      display:flex;gap:2px;background:transparent;
+      display:flex;gap:14px;background:transparent;
       padding:0;
       border:none;overflow-x:auto;width:100%;
     }
@@ -118,8 +118,8 @@
 
     /* ─── TAB BUTTONS ─── */
     .tab-btn {
-      flex:1;text-align:center;
-      padding:9px 12px 7px;
+      flex:0 1 auto;text-align:center;
+      padding:9px 4px 7px;
       font-size:var(--text-sm);font-weight:500;white-space:nowrap;
       color:var(--color-text-muted);
       background:transparent;
@@ -1202,12 +1202,12 @@ function renderStart(){
   return`
   ${renderTipStrip(TIPS.start)}
   ${renderTourNote("This is the Start tab. Set your sale date and money goal — the tool uses both throughout. The sidebar tracks your progress in real time.")}
-  <div style="display:flex;gap:20px;flex-wrap:wrap;align-items:flex-start;padding-top:8px">
+  <div style="display:flex;gap:32px;flex-wrap:wrap;align-items:flex-start;padding-top:8px">
 
     <!-- LEFT: form -->
-    <div style="flex:1.7 1 430px;background:#fff;border:1px solid var(--color-divider);border-radius:var(--radius-xl);padding:26px 26px 28px">
-      <div class="card-title" style="font-size:25px;margin-bottom:20px">Sale Setup</div>
-      <div class="gap-y-sm">
+    <div style="flex:1.7 1 430px;background:#fff;border:1px solid var(--color-divider);border-radius:var(--radius-xl);padding:36px">
+      <div class="card-title" style="font-size:28px;margin-bottom:28px">Sale Setup</div>
+      <div class="gap-y-sm" style="gap:22px">
         ${field("Sale name","text","setup.saleTitle",s.saleTitle,"My Nest Chapter Sale")}
         ${field("Sale address","text","setup.address",s.address,"123 Maple St, Anytown")}
         ${field("Sale date","date","setup.saleDate",s.saleDate,"")}
@@ -1217,7 +1217,7 @@ function renderStart(){
         ${areaField("What would you like to use the money for?","setup.moneyPurpose",s.moneyPurpose,"A weekend away, fresh bedding, savings, dinner with friends...")}
         ${areaField("Notes before I start","setup.notes",s.notes,"What areas feel easiest? What items feel emotional?")}
       </div>
-      <div style="margin-top:20px;display:flex;gap:10px;align-items:center;flex-wrap:wrap">
+      <div style="margin-top:28px;display:flex;gap:14px;align-items:center;flex-wrap:wrap">
         <button class="btn btn-primary" onclick="save();showToast('Saved!')">Save and keep going →</button>
         <button class="btn btn-secondary" onclick="openTour()">How it works →</button>
         <button class="btn btn-ghost btn-sm" onclick="sectionClear('start')" style="margin-left:auto">Clear</button>
@@ -1225,10 +1225,10 @@ function renderStart(){
     </div>
 
     <!-- RIGHT: sidebar -->
-    <div style="flex:1 1 300px;display:flex;flex-direction:column;gap:20px">
+    <div style="flex:1 1 300px;display:flex;flex-direction:column;gap:28px">
 
       <!-- Money goal -->
-      <div style="background:#fff;border:1px solid var(--color-divider);border-radius:var(--radius-xl);padding:24px">
+      <div style="background:#fff;border:1px solid var(--color-divider);border-radius:var(--radius-xl);padding:30px">
         <div class="card-title" style="margin-bottom:8px">Money goal</div>
         <div id="goal-pct" class="metric-value" style="font-size:44px;line-height:1">${stats.goalProgress}%</div>
         <div id="goal-sub" class="text-muted" style="margin-top:8px">$${stats.earned.toFixed(2)} earned · $${stats.goalLeft.toFixed(2)} left</div>
@@ -1237,16 +1237,16 @@ function renderStart(){
       </div>
 
       <!-- Sale countdown -->
-      <div style="background:#fff;border:1px solid var(--color-divider);border-radius:var(--radius-xl);padding:24px">
+      <div style="background:#fff;border:1px solid var(--color-divider);border-radius:var(--radius-xl);padding:30px">
         <div class="card-title" style="margin-bottom:12px">Sale countdown</div>
         <div id="countdown-body">${renderCountdownBody()}</div>
       </div>
 
       <!-- Weather -->
-      <div style="background:#fff;border:1px solid var(--color-divider);border-radius:var(--radius-xl);padding:20px" id="weather-card"></div>
+      <div style="background:#fff;border:1px solid var(--color-divider);border-radius:var(--radius-xl);padding:28px" id="weather-card"></div>
 
       <!-- Day-before reminder -->
-      <div style="background:#fff;border:1px solid var(--color-divider);border-radius:var(--radius-xl);padding:24px">
+      <div style="background:#fff;border:1px solid var(--color-divider);border-radius:var(--radius-xl);padding:30px">
         <div class="card-title" style="margin-bottom:6px">Day-before reminder</div>
         <p style="font-size:14px;color:var(--color-muted);line-height:1.55;margin-bottom:14px">Get a prep email the morning before sale day — your items, your goal, and a link back here.</p>
         <div class="form-field" style="margin-bottom:12px">
@@ -1258,7 +1258,7 @@ function renderStart(){
       </div>
 
       <!-- Reset everything -->
-      <div style="border:1px solid #ABABAB;border-radius:var(--radius-xl);padding:16px 20px">
+      <div style="border:1px solid #ABABAB;border-radius:var(--radius-xl);padding:20px 24px">
         <div style="font-family:var(--font-body);font-size:13px;color:var(--color-text-muted);line-height:1.6;margin-bottom:10px">Want to wipe every field in this planner?</div>
         <button class="btn btn-ghost btn-sm" onclick="startFresh()">Reset Everything</button>
       </div>
