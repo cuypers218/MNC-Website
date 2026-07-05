@@ -39,14 +39,14 @@
       --color-divider:        #E6E2DA;
       --color-border:         #D6D1C8;
       --color-text:           #252535;
-      --color-text-muted:     #426DB3;
-      --color-text-faint:     #426DB3;
+      --color-text-muted:     #6e6e6e;
+      --color-text-faint:     #6e6e6e;
       --color-primary:        #D92674;
       --color-primary-hover:  #D92674;
       --color-primary-active: #D92674;
       --color-primary-hl:     #facfd4;
-      --radius-sm:12px;--radius-md:12px;--radius-lg:12px;
-      --radius-xl:12px;--radius-2xl:12px;--radius-full:12px;
+      --radius-sm:8px;--radius-md:8px;--radius-lg:8px;
+      --radius-xl:8px;--radius-2xl:8px;--radius-full:9999px;
       --shadow-sm:none;
       --shadow-md:none;
       --shadow-lg:none;
@@ -226,8 +226,12 @@
     }
     .sec-btn.active{background:var(--color-primary);color:#fff}
     .sec-btn:hover:not(.active){background:var(--color-primary-hl);color:var(--color-primary)}
+    .sec-btn:active:not(.active){background:#F0A8C7;color:#fff}
 
-    /* ─── BUTTONS ─── */
+    /* ─── BUTTONS ───
+       State scale (Sweet Peony): hover = darken one step, active/press = darken two steps.
+       Selected/persistent (e.g. .sec-btn.active tabs) stays a flat solid fill so it reads
+       differently from a momentary hover/press. */
     .btn{
       display:inline-flex;align-items:center;justify-content:center;gap:var(--space-2);
       border-radius:var(--radius-md);cursor:pointer;font-weight:500;
@@ -236,18 +240,21 @@
       white-space:nowrap;
     }
     .btn:disabled{opacity:.45;cursor:not-allowed}
-    .btn-primary{background:#D92674;color:#FFFFFF;border:1.5px solid #D92674;padding:11px 20px;font-family:var(--font-display);font-weight:700;font-size:13.5px;letter-spacing:0.2px}
-    .btn-primary:hover{background:#D92674;border-color:#D92674}
-    .btn-primary:active{background:#D92674;border-color:#D92674;transform:translateY(1px)}
-    .btn-secondary{background:transparent;color:#D92674;border:1.5px solid #D92674;padding:11px 20px;font-family:var(--font-display);font-weight:700;font-size:13.5px;letter-spacing:0.2px}
-    .btn-secondary:hover{background:#facfd4}
-    .btn-secondary:active{background:#facfd4;transform:translateY(1px)}
+    .btn-primary{background:var(--color-primary);color:#FFFFFF;border:1.5px solid var(--color-primary);padding:11px 20px;font-family:var(--font-display);font-weight:700;font-size:13.5px;letter-spacing:0.2px}
+    .btn-primary:hover{background:#AE1E5C;border-color:#AE1E5C}
+    .btn-primary:active{background:#831645;border-color:#831645;transform:translateY(1px)}
+    .btn-secondary{background:transparent;color:var(--color-primary);border:1.5px solid var(--color-primary);padding:11px 20px;font-family:var(--font-display);font-weight:700;font-size:13.5px;letter-spacing:0.2px}
+    .btn-secondary:hover{background:#FBE9F1}
+    .btn-secondary:active{background:#F0A8C7;color:#fff;transform:translateY(1px)}
     .btn-ghost{background:transparent;color:var(--color-primary);border:1.5px solid transparent;padding:var(--space-2) var(--space-3)}
     .btn-ghost:hover{background:var(--color-primary-hl)}
+    .btn-ghost:active{background:#F0A8C7;color:#fff}
     .btn-white{background:#fff;color:var(--color-primary);border:1.5px solid rgba(255,255,255,.3)}
     .btn-white:hover{background:rgba(255,255,255,.9)}
+    .btn-white:active{background:#FBE9F1}
     .btn-danger{background:var(--color-surface);color:#252535;border:1.5px solid #F5C4A8}
     .btn-danger:hover{background:#F5C4A8}
+    .btn-danger:active{background:#F2A57A}
     .btn-sm{font-size:var(--text-xs);padding:var(--space-2) var(--space-3)}
     .btn-xs{font-size:var(--text-xs);padding:var(--space-1) var(--space-3)}
 
@@ -293,9 +300,30 @@
     input[type="date"]:focus,input[type="time"]:focus{box-shadow:0 0 0 3px var(--color-primary-hl)}
     .select{
       appearance:none;
-      background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%238BA7D4' d='M1 1l5 5 5-5'/%3E%3C/svg%3E");
+      background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%23D92674' d='M1 1l5 5 5-5'/%3E%3C/svg%3E");
       background-repeat:no-repeat;background-position:right 14px center;padding-right:36px;cursor:pointer;
     }
+    /* ─── CUSTOM CALENDAR PICKER ─── */
+    .cal-trigger{font-family:var(--font-body)}
+    .cal-panel{
+      position:absolute;z-index:1000;width:260px;background:#fff;
+      border:1px solid var(--color-divider);border-radius:var(--radius-lg);
+      box-shadow:0 10px 30px rgba(37,37,53,.15);padding:14px;
+    }
+    .cal-panel-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;font-family:var(--font-display);font-weight:700;font-size:14px;color:var(--color-text)}
+    .cal-nav-btn{width:28px;height:28px;border-radius:9999px;background:none;font-size:18px;line-height:1;color:var(--color-primary);display:flex;align-items:center;justify-content:center;cursor:pointer}
+    .cal-nav-btn:hover{background:#FBE9F1}
+    .cal-panel-dow{display:grid;grid-template-columns:repeat(7,1fr);text-align:center;font-size:11px;font-weight:600;color:#6e6e6e;margin-bottom:4px}
+    .cal-panel-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:2px}
+    .cal-day{
+      aspect-ratio:1;width:100%;border-radius:9999px;background:none;
+      font-size:13px;color:var(--color-text);cursor:pointer;display:flex;align-items:center;justify-content:center;
+      transition:background var(--t),color var(--t);
+    }
+    .cal-day:hover{background:#FBE9F1}
+    .cal-day.is-today{border:1.5px solid var(--color-primary);font-weight:700}
+    .cal-day.is-selected{background:var(--color-primary);color:#fff;font-weight:700}
+    .cal-today-link{margin-top:10px;width:100%;text-align:center;background:none;color:var(--color-primary);font-size:12px;font-weight:700;text-decoration:underline;cursor:pointer}
     .form-hint{font-size:var(--text-xs);color:var(--color-text-muted);line-height:1.5}
     .form-row{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:var(--space-4)}
     .form-actions{display:flex;gap:var(--space-3);flex-wrap:wrap;padding-top:var(--space-2)}
@@ -498,7 +526,7 @@
       font-family:var(--font-body);
       opacity:0;transition:opacity 200ms ease;
     }
-    #sticky-bar .sb-label{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;color:#426DB3;line-height:1}
+    #sticky-bar .sb-label{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;color:#6e6e6e;line-height:1}
     #sticky-bar .sb-earned{font-size:18px;font-weight:700;color:#D92674;line-height:1;margin-top:3px}
     .sb-track{flex:1;height:5px;background:rgba(255,255,255,.15);max-width:200px}
     .sb-fill{height:100%;background:#D92674;transition:width .35s ease}
@@ -1042,6 +1070,10 @@ function deepSet(obj,path,value){
   let o=obj;for(let i=0;i<path.length-1;i++){if(!o[path[i]])o[path[i]]={};o=o[path[i]]}
   o[path[path.length-1]]=value;
 }
+function deepGet(obj,path){
+  let o=obj;for(let i=0;i<path.length;i++){if(o==null)return undefined;o=o[path[i]]}
+  return o;
+}
 
 // ─── NAVIGATION ───────────────────────────────────────────────────────────────
 function goTab(tab,sec){UI.tab=tab;UI.section=sec||defaultSection[tab];window.scrollTo(0,0);render()}
@@ -1185,8 +1217,8 @@ function renderStart(){
           <div id="pin-status" class="form-hint" style="display:none;margin-top:4px"></div>
         </div>
         <div class="grid-2">
-          ${field("Sale date","date","setup.saleDate",s.saleDate,"")}
-          ${field("Backup date (optional)","date","setup.backupDate",s.backupDate||"","")}
+          ${dateField("Sale date","setup.saleDate",s.saleDate,"sale")}
+          ${dateField("Backup date (optional)","setup.backupDate",s.backupDate||"","backup")}
         </div>
         <div class="grid-2">
           ${field("Sale start time","time","setup.saleStartTime",s.saleStartTime||"","")}
@@ -2665,7 +2697,7 @@ function buildWrapCompletion(){
     ${dataLines?`<div style="max-width:320px;margin:0 auto 20px;display:flex;flex-direction:column;gap:8px">${dataLines}</div>`:""}
     ${memoryList}
     ${renderTimeOfDayPattern()}
-    <p style="font-family:var(--font-display);font-size:12px;color:#426DB3;margin:24px 0 0;">— Cece</p>
+    <p style="font-family:var(--font-display);font-size:12px;color:#6e6e6e;margin:24px 0 0;">— Cece</p>
     ${emotionalCheckIn}
   </div>`;
 }
@@ -2809,7 +2841,7 @@ function printSelectedTags(){
       <div style="font-size:9px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:#D92674">My Nest Chapter</div>
       <div style="font-size:14px;font-weight:700;margin:8px 0;min-height:36px">${esc(i.name||"Item")}</div>
       <div style="font-size:36px;font-weight:800;font-family:var(--font-display);color:#D92674">$${esc(i.price||"___")}</div>
-      <div style="font-size:10px;color:#426DB3;margin-top:4px">${esc(i.category||"")}</div>
+      <div style="font-size:10px;color:#6e6e6e;margin-top:4px">${esc(i.category||"")}</div>
     </div>`).join("")}</div>`;
   document.getElementById("print-inner").innerHTML=tagsHTML;
   document.getElementById("print-section").style.display="block";
@@ -2832,7 +2864,7 @@ function printPricePointTags(){
     <div class="print-tag">
       <div style="font-size:9px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:#D92674">My Nest Chapter</div>
       <div style="font-size:40px;font-weight:800;font-family:var(--font-display);color:#D92674;margin:10px 0">${p.label||"____"}</div>
-      <div style="font-size:9px;color:#426DB3">Thank you!</div>
+      <div style="font-size:9px;color:#6e6e6e">Thank you!</div>
     </div>`).join("")}</div>`;
   document.getElementById("print-inner").innerHTML=tagsHTML;
   document.getElementById("print-section").style.display="block";
@@ -2874,13 +2906,13 @@ function printTags(){
       <div class="print-sign">
         <div style="font-size:11px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:#D92674;margin-bottom:16px">My Nest Chapter</div>
         <div style="font-size:36px;font-weight:700;font-family:var(--font-display);color:#D92674;line-height:1.3;white-space:pre-line">${esc(P.advertising?.signHeadline||"GARAGE SALE")}\n${esc(P.advertising?.signDetails||"Today · Priced to Move")}</div>
-        <div style="margin-top:16px;font-size:14px;color:#426DB3">${esc(P.advertising?.featuredItems||"")}</div>
+        <div style="margin-top:16px;font-size:14px;color:#6e6e6e">${esc(P.advertising?.featuredItems||"")}</div>
       </div>
       <div class="print-sign">
         <div style="font-size:11px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:#D92674;margin-bottom:16px">My Nest Chapter</div>
         <div style="font-size:32px;font-weight:800;font-family:var(--font-display);color:#D92674">PRICED TO MOVE</div>
         <div style="font-size:20px;font-weight:700;margin-top:14px">Cash + Digital Payments</div>
-        <div style="font-size:13px;color:#426DB3;margin-top:14px">Thank you for helping these items begin their next chapter.</div>
+        <div style="font-size:13px;color:#6e6e6e;margin-top:14px">Thank you for helping these items begin their next chapter.</div>
       </div>
     </div>`;
   const tagsHTML=`<div class="print-grid-tags">${items.map(i=>`
@@ -2888,7 +2920,7 @@ function printTags(){
       <div style="font-size:9px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:#D92674">My Nest Chapter</div>
       <div style="font-size:14px;font-weight:700;margin:8px 0;min-height:36px">${esc(i.name||"Item")}</div>
       <div style="font-size:36px;font-weight:800;font-family:var(--font-display);color:#D92674">$${esc(i.price||"___")}</div>
-      <div style="font-size:10px;color:#426DB3;margin-top:4px">${esc(i.category||"")}</div>
+      <div style="font-size:10px;color:#6e6e6e;margin-top:4px">${esc(i.category||"")}</div>
     </div>`).join("")}</div>`;
   document.getElementById("print-inner").innerHTML=signHTML+tagsHTML;
   document.getElementById("print-section").style.display="block";
@@ -2906,7 +2938,7 @@ function printBoxSigns(){
         <div style="font-size:36px;font-weight:800;font-family:var(--font-display)">BOX #${esc(b.boxNumber)}</div>
         <div style="font-size:32px;font-weight:800;font-family:var(--font-display);color:#D92674;margin-top:10px">ALL ITEMS $${esc(b.price||"___")}</div>
         <div style="font-size:18px;font-weight:700;margin-top:12px">${esc(b.title||b.category||"Mixed items")}</div>
-        <div style="font-size:12px;color:#426DB3;margin-top:8px">${esc(b.description||"Browse and choose.")}</div>
+        <div style="font-size:12px;color:#6e6e6e;margin-top:8px">${esc(b.description||"Browse and choose.")}</div>
       </div>`).join("")}
     </div>`;
   document.getElementById("print-section").style.display="block";
@@ -2926,7 +2958,7 @@ function buildAreaSignPreviewHTML(mainText,priceText){
     return`<div style="border:2px solid #252535;padding:20px;text-align:center;background:#fff">
       <div style="font-family:var(--font-display);font-size:clamp(18px,3vw,26px);font-weight:800;line-height:1.3;color:#252535">${esc(mainText)||'—'}</div>
       ${priceText?`<div style="font-family:var(--font-display);font-size:clamp(22px,4vw,34px);font-weight:800;color:#252535;margin-top:8px">${esc(priceText)}</div>`:''}
-      <div style="font-size:9px;font-family:var(--font-body);color:#426DB3;letter-spacing:.1em;text-transform:uppercase;margin-top:10px">My Nest Chapter</div>
+      <div style="font-size:9px;font-family:var(--font-body);color:#6e6e6e;letter-spacing:.1em;text-transform:uppercase;margin-top:10px">My Nest Chapter</div>
     </div>`;
   }
   return signCard()+
@@ -2948,7 +2980,7 @@ function buildFlyerPreviewHTML(type){
     ${f.address?`<div style="font-size:14px;font-family:var(--font-body);margin-bottom:10px;color:#252535">${esc(f.address)}</div>`:''}
     ${f.featured?`<div style="font-size:13px;font-family:var(--font-body);color:var(--color-text-muted);margin-bottom:6px">${esc(f.featured)}</div>`:''}
     ${f.tagline?`<div style="font-size:12px;font-family:var(--font-body);color:var(--color-text-muted)">${esc(f.tagline)}</div>`:''}
-    <div style="font-size:9px;font-family:var(--font-body);color:#426DB3;margin-top:14px;letter-spacing:.1em;text-transform:uppercase">My Nest Chapter</div>
+    <div style="font-size:9px;font-family:var(--font-body);color:#6e6e6e;margin-top:14px;letter-spacing:.1em;text-transform:uppercase">My Nest Chapter</div>
     ${tearoffs}`;
 }
 
@@ -2983,7 +3015,7 @@ function printQuickTags(type){
   function qtHTML(price){
     return`<div class="print-quick-tag">
       <div style="font-family:'Lora',serif;font-size:18pt;font-weight:700;color:#252535;line-height:1">${price}</div>
-      <div style="font-family:'DM Sans',sans-serif;font-size:5pt;color:#426DB3;margin-top:4pt;letter-spacing:.1em;text-transform:uppercase">My Nest Chapter</div>
+      <div style="font-family:'DM Sans',sans-serif;font-size:5pt;color:#6e6e6e;margin-top:4pt;letter-spacing:.1em;text-transform:uppercase">My Nest Chapter</div>
     </div>`;
   }
   function grid(price,count){
@@ -3018,7 +3050,7 @@ function printAreaSigns(){
     return`<div class="print-area-sign">
       <div style="font-family:'Lora',serif;font-size:36pt;font-weight:700;line-height:1.2;color:#252535">${esc(mainText)}</div>
       ${priceText?`<div style="font-family:'Lora',serif;font-size:48pt;font-weight:700;color:#252535;margin-top:12pt">${esc(priceText)}</div>`:''}
-      <div style="font-family:'DM Sans',sans-serif;font-size:7pt;color:#426DB3;margin-top:20pt;letter-spacing:.1em;text-transform:uppercase">My Nest Chapter</div>
+      <div style="font-family:'DM Sans',sans-serif;font-size:7pt;color:#6e6e6e;margin-top:20pt;letter-spacing:.1em;text-transform:uppercase">My Nest Chapter</div>
     </div>`;
   }
   document.getElementById('print-inner').innerHTML=signHTML()+`<div class="print-sign-cut"></div>`+signHTML();
@@ -3040,8 +3072,8 @@ function printFlyer(type){
       ${dateTime?`<div style="font-family:'DM Sans',sans-serif;font-size:18pt;font-weight:700;color:#252535;margin-bottom:6pt">${dateTime}</div>`:''}
       ${f.address?`<div style="font-family:'DM Sans',sans-serif;font-size:15pt;color:#252535;margin-bottom:12pt">${esc(f.address)}</div>`:''}
       ${f.featured?`<div style="font-family:'DM Sans',sans-serif;font-size:12pt;color:#252535;margin-bottom:8pt">${esc(f.featured)}</div>`:''}
-      ${f.tagline?`<div style="font-family:'DM Sans',sans-serif;font-size:11pt;color:#426DB3">${esc(f.tagline)}</div>`:''}
-      <div style="font-family:'DM Sans',sans-serif;font-size:7pt;color:#426DB3;margin-top:auto;padding-top:20pt;letter-spacing:.1em;text-transform:uppercase">My Nest Chapter</div>
+      ${f.tagline?`<div style="font-family:'DM Sans',sans-serif;font-size:11pt;color:#6e6e6e">${esc(f.tagline)}</div>`:''}
+      <div style="font-family:'DM Sans',sans-serif;font-size:7pt;color:#6e6e6e;margin-top:auto;padding-top:20pt;letter-spacing:.1em;text-transform:uppercase">My Nest Chapter</div>
       ${tearStrips}
     </div>`;
   document.getElementById('print-section').style.display='block';
@@ -3061,9 +3093,9 @@ function printMemoryPage(){
       ${memories.map(m=>`
         <div style="margin-bottom:22px;padding-bottom:22px;border-bottom:1px solid #E6E2DA">
           <div style="font-size:15px;font-weight:700;color:#252535;font-family:'Lora',serif">${esc(m.itemName||"Memory")}</div>
-          ${m.caption?`<div style="font-size:13px;color:#426DB3;margin-top:6px;font-style:italic;line-height:1.65">${esc(m.caption)}</div>`:""}
+          ${m.caption?`<div style="font-size:13px;color:#6e6e6e;margin-top:6px;font-style:italic;line-height:1.65">${esc(m.caption)}</div>`:""}
         </div>`).join("")}
-      <div style="margin-top:36px;font-size:10px;color:#426DB3">My Nest Chapter · mynestchapter.com</div>
+      <div style="margin-top:36px;font-size:10px;color:#6e6e6e">My Nest Chapter · mynestchapter.com</div>
     </div>`;
   document.getElementById("print-section").style.display="block";
   window.print();
@@ -3110,7 +3142,7 @@ function renderBellPanel(){
   p.innerHTML=`
     <div style="display:flex;align-items:center;justify-content:space-between;padding:12px 16px;border-bottom:1px solid #E6E2DA;background:#252535;flex-shrink:0">
       <span style="font-family:'DM Sans',sans-serif;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#FDFBF7">Notifications</span>
-      ${notifs.length?`<button onclick="dismissAllNotifs()" style="font-family:'DM Sans',sans-serif;font-size:11px;color:#426DB3;background:none;border:none;cursor:pointer;padding:0;text-decoration:underline">Clear all</button>`:''}
+      ${notifs.length?`<button onclick="dismissAllNotifs()" style="font-family:'DM Sans',sans-serif;font-size:11px;color:#6e6e6e;background:none;border:none;cursor:pointer;padding:0;text-decoration:underline">Clear all</button>`:''}
     </div>
     ${notifs.length===0
       ?`<div class="bell-empty">Nothing new right now.</div>`
@@ -3243,27 +3275,27 @@ function exportPDF(){
   const itemRows=items.slice(0,50).map(i=>`
     <tr>
       <td style="padding:7px 8px;border-bottom:1px solid #E6E2DA;font-size:12px;font-family:'DM Sans',sans-serif;color:#252535">${esc(i.name)}</td>
-      <td style="padding:7px 8px;border-bottom:1px solid #E6E2DA;font-size:12px;font-family:'DM Sans',sans-serif;color:#426DB3">${esc(i.category)}</td>
-      <td style="padding:7px 8px;border-bottom:1px solid #E6E2DA;font-size:12px;font-family:'DM Sans',sans-serif;color:#426DB3">${esc(i.decision)}</td>
+      <td style="padding:7px 8px;border-bottom:1px solid #E6E2DA;font-size:12px;font-family:'DM Sans',sans-serif;color:#6e6e6e">${esc(i.category)}</td>
+      <td style="padding:7px 8px;border-bottom:1px solid #E6E2DA;font-size:12px;font-family:'DM Sans',sans-serif;color:#6e6e6e">${esc(i.decision)}</td>
       <td style="padding:7px 8px;border-bottom:1px solid #E6E2DA;font-size:12px;font-family:'DM Sans',sans-serif;color:#252535;font-weight:700">${i.price?"$"+esc(i.price):""}</td>
-      <td style="padding:7px 8px;border-bottom:1px solid #E6E2DA;font-size:12px;font-family:'DM Sans',sans-serif;color:#426DB3">${i.sold?"Sold":""}</td>
+      <td style="padding:7px 8px;border-bottom:1px solid #E6E2DA;font-size:12px;font-family:'DM Sans',sans-serif;color:#6e6e6e">${i.sold?"Sold":""}</td>
     </tr>`).join("");
 
   const txRows=tx.map(t=>`
     <tr>
       <td style="padding:7px 8px;border-bottom:1px solid #E6E2DA;font-size:12px;font-family:'DM Sans',sans-serif;color:#252535">${esc(t.description||"Sale")}</td>
-      <td style="padding:7px 8px;border-bottom:1px solid #E6E2DA;font-size:12px;font-family:'DM Sans',sans-serif;color:#426DB3">${esc(t.method||"Cash")}</td>
-      <td style="padding:7px 8px;border-bottom:1px solid #E6E2DA;font-size:12px;font-family:'DM Sans',sans-serif;color:#426DB3">${esc(t.time||"")}</td>
+      <td style="padding:7px 8px;border-bottom:1px solid #E6E2DA;font-size:12px;font-family:'DM Sans',sans-serif;color:#6e6e6e">${esc(t.method||"Cash")}</td>
+      <td style="padding:7px 8px;border-bottom:1px solid #E6E2DA;font-size:12px;font-family:'DM Sans',sans-serif;color:#6e6e6e">${esc(t.time||"")}</td>
       <td style="padding:7px 8px;border-bottom:1px solid #E6E2DA;font-size:12px;font-family:'DM Sans',sans-serif;font-weight:700;color:#D92674">$${Number(t.amount||0).toFixed(2)}</td>
     </tr>`).join("");
 
   const html=`
   <div style="max-width:680px;margin:0 auto;padding:40px 32px;font-family:'DM Sans',sans-serif">
     <div style="background:#252535;padding:20px 28px;margin-bottom:32px">
-      <div style="font-family:'DM Sans',sans-serif;font-size:9px;font-weight:800;letter-spacing:3px;text-transform:uppercase;color:#426DB3">MY NEST CHAPTER</div>
+      <div style="font-family:'DM Sans',sans-serif;font-size:9px;font-weight:800;letter-spacing:3px;text-transform:uppercase;color:#6e6e6e">MY NEST CHAPTER</div>
     </div>
     <h1 style="font-family:'DM Sans',sans-serif;font-weight:800;font-size:22px;color:#252535;margin:0 0 4px">${esc(s.saleTitle||"My Garage Sale")}</h1>
-    ${saleDate?`<p style="font-size:13px;color:#426DB3;margin:0 0 28px">${saleDate}</p>`:"<div style='margin-bottom:28px'></div>"}
+    ${saleDate?`<p style="font-size:13px;color:#6e6e6e;margin:0 0 28px">${saleDate}</p>`:"<div style='margin-bottom:28px'></div>"}
 
     <div style="background:#facfd4;padding:18px 22px;margin-bottom:28px;display:flex;justify-content:space-between;align-items:center">
       <div><div style="font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#D92674;margin-bottom:2px">Total Earned</div>
@@ -3272,8 +3304,8 @@ function exportPDF(){
     </div>
 
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:28px">
-      <div style="border:1px solid #E6E2DA;padding:14px 16px"><div style="font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#426DB3;margin-bottom:2px">Total Items</div><div style="font-size:18px;font-weight:800;color:#252535">${stats.totalItems}</div></div>
-      <div style="border:1px solid #E6E2DA;padding:14px 16px"><div style="font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#426DB3;margin-bottom:2px">Transactions</div><div style="font-size:18px;font-weight:800;color:#252535">${tx.length}</div></div>
+      <div style="border:1px solid #E6E2DA;padding:14px 16px"><div style="font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#6e6e6e;margin-bottom:2px">Total Items</div><div style="font-size:18px;font-weight:800;color:#252535">${stats.totalItems}</div></div>
+      <div style="border:1px solid #E6E2DA;padding:14px 16px"><div style="font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#6e6e6e;margin-bottom:2px">Transactions</div><div style="font-size:18px;font-weight:800;color:#252535">${tx.length}</div></div>
     </div>
 
     ${s.moneyPurpose?`<div style="border-left:3px solid #D92674;padding-left:16px;margin-bottom:28px">${row("What the money is for",s.moneyPurpose)}</div>`:""}
@@ -3282,11 +3314,11 @@ function exportPDF(){
     <h2 style="font-size:13px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:#252535;margin:0 0 12px;border-bottom:2px solid #252535;padding-bottom:8px">Item List</h2>
     <table width="100%" cellpadding="0" cellspacing="0" style="margin-bottom:28px;border:1px solid #E6E2DA">
       <thead><tr style="background:#252535">
-        <th style="padding:8px;text-align:left;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#426DB3">Item</th>
-        <th style="padding:8px;text-align:left;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#426DB3">Category</th>
-        <th style="padding:8px;text-align:left;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#426DB3">Decision</th>
-        <th style="padding:8px;text-align:left;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#426DB3">Price</th>
-        <th style="padding:8px;text-align:left;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#426DB3">Sold</th>
+        <th style="padding:8px;text-align:left;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#6e6e6e">Item</th>
+        <th style="padding:8px;text-align:left;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#6e6e6e">Category</th>
+        <th style="padding:8px;text-align:left;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#6e6e6e">Decision</th>
+        <th style="padding:8px;text-align:left;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#6e6e6e">Price</th>
+        <th style="padding:8px;text-align:left;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#6e6e6e">Sold</th>
       </tr></thead>
       <tbody>${itemRows}</tbody>
     </table>`:""}
@@ -3295,10 +3327,10 @@ function exportPDF(){
     <h2 style="font-size:13px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:#252535;margin:0 0 12px;border-bottom:2px solid #252535;padding-bottom:8px">Sales Log</h2>
     <table width="100%" cellpadding="0" cellspacing="0" style="margin-bottom:28px;border:1px solid #E6E2DA">
       <thead><tr style="background:#252535">
-        <th style="padding:8px;text-align:left;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#426DB3">Description</th>
-        <th style="padding:8px;text-align:left;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#426DB3">Payment</th>
-        <th style="padding:8px;text-align:left;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#426DB3">Time</th>
-        <th style="padding:8px;text-align:left;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#426DB3">Amount</th>
+        <th style="padding:8px;text-align:left;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#6e6e6e">Description</th>
+        <th style="padding:8px;text-align:left;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#6e6e6e">Payment</th>
+        <th style="padding:8px;text-align:left;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#6e6e6e">Time</th>
+        <th style="padding:8px;text-align:left;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#6e6e6e">Amount</th>
       </tr></thead>
       <tbody>${txRows}</tbody>
     </table>`:""}
@@ -3316,10 +3348,10 @@ function exportPDF(){
     ${(P.memories||[]).map(m=>`
       <div style="margin-bottom:14px;padding-bottom:14px;border-bottom:1px solid #E6E2DA">
         <div style="font-family:'DM Sans',sans-serif;font-size:13px;font-weight:700;color:#252535">${esc(m.itemName||"Memory")}</div>
-        ${m.caption?`<div style="font-family:'DM Sans',sans-serif;font-size:12px;color:#426DB3;margin-top:4px;font-style:italic;line-height:1.6">${esc(m.caption)}</div>`:""}
+        ${m.caption?`<div style="font-family:'DM Sans',sans-serif;font-size:12px;color:#6e6e6e;margin-top:4px;font-style:italic;line-height:1.6">${esc(m.caption)}</div>`:""}
       </div>`).join("")}`:""}
 
-    <div style="margin-top:40px;padding-top:20px;border-top:1px solid #E6E2DA;font-size:11px;color:#426DB3">
+    <div style="margin-top:40px;padding-top:20px;border-top:1px solid #E6E2DA;font-size:11px;color:#6e6e6e">
       My Nest Chapter &nbsp;·&nbsp; mynestchapter.com &nbsp;·&nbsp; Printed ${new Date().toLocaleDateString("en-US",{month:"long",day:"numeric",year:"numeric"})}
     </div>
   </div>`;
@@ -3367,6 +3399,89 @@ function field(label,type,pathStr,value,placeholder){
     <input class="input" type="${type}" value="${esc(value||"")}" placeholder="${esc(placeholder||"")}"
       oninput="sf(this,${args})" onblur="sf(this,${args})" />
   </div>`;
+}
+
+// ─── CUSTOM DATE FIELD (brand-styled calendar, replaces native <input type="date">) ──
+function dateField(label,pathStr,value,pickerId){
+  const display=value?new Date(value+"T00:00:00").toLocaleDateString("en-US",{month:"short",day:"numeric",year:"numeric"}):"";
+  return`<div class="form-field">
+    <label class="form-label">${esc(label)}</label>
+    <button type="button" class="input cal-trigger" id="cal-trigger-${pickerId}" onclick="openDatePicker('${pathStr}','${pickerId}')" style="display:flex;align-items:center;justify-content:space-between;text-align:left;cursor:pointer;color:${value?'var(--color-text)':'#9a9a9a'}">
+      <span id="cal-trigger-label-${pickerId}">${display||"mm/dd/yyyy"}</span>
+      <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="var(--color-primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="3"/><path d="M16 2v4M8 2v4M3 10h18"/><circle cx="8" cy="15" r="1.3" fill="var(--color-primary)" stroke="none"/></svg>
+    </button>
+  </div>`;
+}
+let _calPickerPath=null,_calPickerId=null,_calPickerMonth=null;
+function openDatePicker(pathStr,pickerId){
+  _calPickerPath=pathStr;_calPickerId=pickerId;
+  const current=deepGet(P,pathStr.split("."));
+  _calPickerMonth=current?new Date(current+"T00:00:00"):new Date();
+  renderDatePickerPanel();
+}
+function closeDatePicker(){
+  const ov=document.getElementById('cal-overlay');if(ov)ov.remove();
+  const p=document.getElementById('cal-panel');if(p)p.remove();
+  _calPickerPath=null;_calPickerId=null;_calPickerMonth=null;
+}
+function shiftPickerMonth(delta){
+  _calPickerMonth=new Date(_calPickerMonth.getFullYear(),_calPickerMonth.getMonth()+delta,1);
+  renderDatePickerPanel();
+}
+function pickCalendarDate(y,m,d){
+  const dateStr=`${y}-${String(m+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+  const path=_calPickerPath,id=_calPickerId;
+  sf({value:dateStr,type:'text'},...path.split("."));
+  const labelEl=document.getElementById(`cal-trigger-label-${id}`);
+  if(labelEl)labelEl.textContent=new Date(dateStr+"T00:00:00").toLocaleDateString("en-US",{month:"short",day:"numeric",year:"numeric"});
+  const trigEl=document.getElementById(`cal-trigger-${id}`);
+  if(trigEl)trigEl.style.color='var(--color-text)';
+  closeDatePicker();
+}
+function renderDatePickerPanel(){
+  let ov=document.getElementById('cal-overlay');
+  if(!ov){
+    ov=document.createElement('div');ov.id='cal-overlay';
+    ov.style.cssText='position:fixed;inset:0;z-index:999';
+    ov.onclick=closeDatePicker;
+    document.body.appendChild(ov);
+  }
+  let p=document.getElementById('cal-panel');
+  if(!p){p=document.createElement('div');p.id='cal-panel';p.className='cal-panel';document.body.appendChild(p);}
+  const trig=document.getElementById(`cal-trigger-${_calPickerId}`);
+  if(trig){
+    const r=trig.getBoundingClientRect();
+    p.style.top=`${r.bottom+window.scrollY+6}px`;
+    p.style.left=`${Math.min(r.left+window.scrollX,window.innerWidth-272)}px`;
+  }
+  const y=_calPickerMonth.getFullYear(),m=_calPickerMonth.getMonth();
+  const monthLabel=_calPickerMonth.toLocaleDateString("en-US",{month:"long",year:"numeric"});
+  const firstDow=new Date(y,m,1).getDay();
+  const daysInMonth=new Date(y,m+1,0).getDate();
+  const today=new Date();today.setHours(0,0,0,0);
+  const current=deepGet(P,_calPickerPath.split("."));
+  const selected=current?current:null;
+  let cells="";
+  for(let i=0;i<firstDow;i++)cells+=`<div></div>`;
+  for(let d=1;d<=daysInMonth;d++){
+    const cellDate=new Date(y,m,d);cellDate.setHours(0,0,0,0);
+    const iso=`${y}-${String(m+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+    const isToday=cellDate.getTime()===today.getTime();
+    const isSelected=iso===selected;
+    cells+=`<button type="button" onclick="pickCalendarDate(${y},${m},${d})" class="cal-day${isSelected?' is-selected':''}${isToday&&!isSelected?' is-today':''}">${d}</button>`;
+  }
+  p.innerHTML=`
+    <div class="cal-panel-header">
+      <button type="button" class="cal-nav-btn" onclick="shiftPickerMonth(-1)" aria-label="Previous month">‹</button>
+      <span>${monthLabel}</span>
+      <button type="button" class="cal-nav-btn" onclick="shiftPickerMonth(1)" aria-label="Next month">›</button>
+    </div>
+    <div class="cal-panel-dow">
+      <span>S</span><span>M</span><span>T</span><span>W</span><span>T</span><span>F</span><span>S</span>
+    </div>
+    <div class="cal-panel-grid">${cells}</div>
+    <button type="button" class="cal-today-link" onclick="const t=new Date();pickCalendarDate(t.getFullYear(),t.getMonth(),t.getDate())">Today</button>
+  `;
 }
 
 function areaField(label,pathStr,value,placeholder){
@@ -3516,8 +3631,8 @@ function checkConfetti(stats){
   if(sessionStorage.getItem(key))return;
   sessionStorage.setItem(key,'1');
   if(typeof confetti==='function'){
-    confetti({particleCount:140,spread:80,origin:{y:0.55},colors:['#D92674','#426DB3','#FDFBF7','#252535','#C4B0E8']});
-    setTimeout(()=>confetti({particleCount:60,spread:50,origin:{y:0.4},colors:['#D92674','#426DB3']}),400);
+    confetti({particleCount:140,spread:80,origin:{y:0.55},colors:['#D92674','#6e6e6e','#FDFBF7','#252535','#C4B0E8']});
+    setTimeout(()=>confetti({particleCount:60,spread:50,origin:{y:0.4},colors:['#D92674','#6e6e6e']}),400);
   }
 }
 
@@ -3535,7 +3650,7 @@ function wCodeInfo(c){
 }
 function weatherIconSvg(code,size){
   size=size||24;
-  const cloud='#426DB3',sun='#EDD96A',accent='#A8C5DA',warn='#F2A57A';
+  const cloud='#6e6e6e',sun='#EDD96A',accent='#A8C5DA',warn='#F2A57A';
   const wrap=inner=>`<svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${inner}</svg>`;
   if(code===0)return wrap(`<circle cx="12" cy="12" r="5" stroke="${sun}"/><g stroke="${sun}"><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></g>`);
   if(code<=2)return wrap(`<circle cx="7.2" cy="7.2" r="3" stroke="${sun}"/><g stroke="${sun}"><line x1="7.2" y1="1.2" x2="7.2" y2="2.6"/><line x1="1.4" y1="7.2" x2="2.8" y2="7.2"/><line x1="2.85" y1="2.85" x2="3.85" y2="3.85"/></g><path d="M9 20h8a4 4 0 0 0 0-8h-.74A6 6 0 0 0 5 13.3 4.5 4.5 0 0 0 9 20z" stroke="${cloud}"/>`);
