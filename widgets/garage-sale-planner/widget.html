@@ -34,7 +34,7 @@
 
       --color-bg:             #FFFFFF;
       --color-surface:        #FFFFFF;
-      --color-surface-2:      #facfd4;
+      --color-surface-2:      #FBE9F1;
       --color-surface-3:      #fffafa;
       --color-divider:        #E6E2DA;
       --color-border:         #D6D1C8;
@@ -44,7 +44,7 @@
       --color-primary:        #D92674;
       --color-primary-hover:  #D92674;
       --color-primary-active: #D92674;
-      --color-primary-hl:     #facfd4;
+      --color-primary-hl:     #FBE9F1;
       --radius-sm:8px;--radius-md:8px;--radius-lg:8px;
       --radius-xl:8px;--radius-2xl:8px;--radius-full:9999px;
       --shadow-sm:none;
@@ -226,7 +226,7 @@
     }
     .sec-btn.active{background:var(--color-primary);color:#fff}
     .sec-btn:hover:not(.active){background:var(--color-primary-hl);color:var(--color-primary)}
-    .sec-btn:active:not(.active){background:#F0A8C7;color:#fff}
+    .sec-btn:active:not(.active){background:#DA2573;color:#fff}
 
     /* ─── BUTTONS ───
        State scale (Sweet Peony): hover = darken one step, active/press = darken two steps.
@@ -245,10 +245,10 @@
     .btn-primary:active{background:#831645;border-color:#831645;transform:translateY(1px)}
     .btn-secondary{background:transparent;color:var(--color-primary);border:1.5px solid var(--color-primary);padding:11px 20px;font-family:var(--font-display);font-weight:700;font-size:13.5px;letter-spacing:0.2px}
     .btn-secondary:hover{background:#FBE9F1}
-    .btn-secondary:active{background:#F0A8C7;color:#fff;transform:translateY(1px)}
+    .btn-secondary:active{background:#DA2573;color:#fff;transform:translateY(1px)}
     .btn-ghost{background:transparent;color:var(--color-primary);border:1.5px solid transparent;padding:var(--space-2) var(--space-3)}
     .btn-ghost:hover{background:var(--color-primary-hl)}
-    .btn-ghost:active{background:#F0A8C7;color:#fff}
+    .btn-ghost:active{background:#DA2573;color:#fff}
     .btn-white{background:#fff;color:var(--color-primary);border:1.5px solid rgba(255,255,255,.3)}
     .btn-white:hover{background:rgba(255,255,255,.9)}
     .btn-white:active{background:#FBE9F1}
@@ -344,7 +344,7 @@
     tbody td{padding:var(--space-3) var(--space-4);vertical-align:middle}
     .td-name{font-weight:600;max-width:160px}
     .td-chip{display:inline-block;border-radius:var(--radius-full);padding:var(--space-1) var(--space-3);font-size:var(--text-xs);font-weight:600}
-    .chip-sale{background:#facfd4;color:#252535}
+    .chip-sale{background:#FBE9F1;color:#252535}
     .chip-online{background:#C4B0E8;color:#252535}
     .chip-donate{background:#B5CC6A;color:#252535}
     .chip-keep{background:#EDD96A;color:#252535}
@@ -567,8 +567,8 @@
     .bell-notif-msg{font-family:'DM Sans',sans-serif;font-size:13px;color:#252535;line-height:1.5}
     .bell-notif-time{font-family:'DM Sans',sans-serif;font-size:11px;color:var(--color-text-muted);margin-top:3px}
     .bell-notif-actions{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
-    .bell-action-btn{font-family:'DM Sans',sans-serif;font-size:11px;font-weight:700;color:#D92674;background:#facfd4;border:none;padding:6px 12px;cursor:pointer}
-    .bell-action-btn:hover{background:#facfd4}
+    .bell-action-btn{font-family:'DM Sans',sans-serif;font-size:11px;font-weight:700;color:#D92674;background:#FBE9F1;border:none;padding:6px 12px;cursor:pointer}
+    .bell-action-btn:hover{background:#FBE9F1}
     .bell-dismiss-btn{font-family:'DM Sans',sans-serif;font-size:11px;color:var(--color-text-muted);background:none;border:1px solid var(--color-border);padding:6px 12px;cursor:pointer}
     .bell-dismiss-btn:hover{background:#FDFBF7}
     .bell-empty{padding:28px 16px;text-align:center;font-family:'DM Sans',sans-serif;font-size:13px;color:var(--color-text-muted)}
@@ -579,7 +579,7 @@
     /* ─── QUICK-CAPTURE SCRATCH PAD ─── */
     #scratch-toggle{position:fixed;bottom:16px;right:16px;z-index:600;width:44px;height:44px;display:flex;align-items:center;justify-content:center;background:#FFF8EE;border:1.5px solid var(--color-primary);border-radius:var(--radius-full);color:var(--color-primary);cursor:pointer;touch-action:manipulation;transition:bottom 150ms}
     #scratch-toggle.lift-above-bar{bottom:70px}
-    #scratch-toggle:hover{background:#facfd4}
+    #scratch-toggle:hover{background:#FBE9F1}
     #scratch-panel{position:fixed;bottom:66px;right:16px;z-index:600;width:280px;max-width:calc(100vw - 32px);background:#FFF8EE;border:1px solid var(--color-border);border-radius:var(--radius-lg);padding:14px;display:none;transition:bottom 150ms}
     #scratch-panel.lift-above-bar{bottom:120px}
     #scratch-panel .scratch-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;font-family:var(--font-display);font-weight:700;font-size:13px;color:#252535}
@@ -1335,7 +1335,7 @@ function renderAddItemForm(){
         <input class="input" id="di-price" type="number" min="0" step="1" value="${esc(d.price)}" oninput="draftItem('price',this.value)" onblur="draftItemAndRefresh('price',this.value)" placeholder="0" />
       </div>
     </div>
-    <div class="info-box" style="margin-bottom:6px;background:#facfd4;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap">
+    <div class="info-box" style="margin-bottom:6px;background:#FBE9F1;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap">
       <span><strong>Suggested:</strong> ${suggested} &nbsp;·&nbsp; <strong>Best fit:</strong> ${platform}</span>
       <a href="#" onclick="goSection('pricing');return false" style="font-family:var(--font-display);font-size:12px;font-weight:700;color:#252535;text-decoration:underline;white-space:nowrap;flex-shrink:0">Full pricing guide →</a>
     </div>
@@ -1430,8 +1430,8 @@ function renderItemTable(){
     ${visible.length===0?`<div class="empty-state-prompt">${items.length===0?"Nothing sorted yet. Start with the room you've been avoiding. One item at a time.":"Nothing matches that filter. Try a different one or clear it to see everything."}</div>`:`
     <div class="tbl-wrap"><table>
       <thead><tr>
-        <th style="background:#facfd4">Sold</th><th style="background:#facfd4">Item</th><th style="background:#facfd4">Category</th><th style="background:#facfd4">Condition</th><th style="background:#facfd4">Decision</th>
-        <th style="background:#facfd4">Price</th><th style="background:#facfd4">Best Fit</th><th style="background:#facfd4"></th>
+        <th style="background:#FBE9F1">Sold</th><th style="background:#FBE9F1">Item</th><th style="background:#FBE9F1">Category</th><th style="background:#FBE9F1">Condition</th><th style="background:#FBE9F1">Decision</th>
+        <th style="background:#FBE9F1">Price</th><th style="background:#FBE9F1">Best Fit</th><th style="background:#FBE9F1"></th>
       </tr></thead>
       <tbody>${visible.map(item=>`
         <tr class="${item.sold?"sold-row":""}">
@@ -2050,7 +2050,7 @@ function renderSaleDay(){
             <label class="form-label" for="change-given">Customer gave me ($)</label>
             <input class="input" type="number" id="change-given" min="0" step="0.25" placeholder="0.00" oninput="calcChange()" style="font-size:20px;font-weight:700" />
           </div>
-          <div id="change-result" style="display:none;background:#facfd4;padding:16px 20px">
+          <div id="change-result" style="display:none;background:#FBE9F1;padding:16px 20px">
             <div style="font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--color-text-muted);margin-bottom:4px">Give back</div>
             <div id="change-amount" style="font-family:var(--font-display);font-size:40px;font-weight:700;color:var(--color-text)">$0.00</div>
             <div id="change-denom" style="font-family:var(--font-body);font-size:13px;color:var(--color-text);margin-top:8px"></div>
@@ -2109,7 +2109,7 @@ function renderSaleDay(){
           <button class="btn btn-secondary btn-sm" onclick="haggleCalc(25)">−25%</button>
           <button class="btn btn-secondary btn-sm" onclick="haggleCalc(50)">−50%</button>
         </div>
-        <div id="haggle-result" style="display:none;background:#facfd4;padding:16px 20px">
+        <div id="haggle-result" style="display:none;background:#FBE9F1;padding:16px 20px">
           <div style="font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--color-text-muted);margin-bottom:4px">Counter-offer</div>
           <div id="haggle-offer" style="font-family:var(--font-display);font-size:32px;font-weight:700;color:var(--color-text)">$0.00</div>
           <div id="haggle-giveup" style="font-family:var(--font-body);font-size:13px;color:var(--color-text);margin-top:6px"></div>
@@ -2146,7 +2146,7 @@ function renderBundleBuilder(){
       <button class="btn ${pct===20?'btn-primary':'btn-secondary'} btn-sm" onclick="bundleDiscount(20)">−20%</button>
       <button class="btn ${pct===30?'btn-primary':'btn-secondary'} btn-sm" onclick="bundleDiscount(30)">−30%</button>
     </div>
-    ${pct?`<div style="background:#facfd4;padding:16px 20px;margin-bottom:14px">
+    ${pct?`<div style="background:#FBE9F1;padding:16px 20px;margin-bottom:14px">
       <div style="font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--color-text-muted);margin-bottom:4px">Bundle price</div>
       <div style="font-family:var(--font-display);font-size:32px;font-weight:700;color:var(--color-text)">$${final.toFixed(2)}</div>
       <div style="font-size:13px;color:var(--color-text);margin-top:6px">$${discountAmt.toFixed(2)} off</div>
@@ -2276,7 +2276,7 @@ function calcChange(){
   }
   const change=given-sub;
   result.style.display='block';
-  result.style.background='#facfd4';
+  result.style.background='#FBE9F1';
   amt.style.color='var(--color-text)';
   amt.textContent='$'+change.toFixed(2);
   if(denomEl){
@@ -3297,7 +3297,7 @@ function exportPDF(){
     <h1 style="font-family:'DM Sans',sans-serif;font-weight:800;font-size:22px;color:#252535;margin:0 0 4px">${esc(s.saleTitle||"My Garage Sale")}</h1>
     ${saleDate?`<p style="font-size:13px;color:#6e6e6e;margin:0 0 28px">${saleDate}</p>`:"<div style='margin-bottom:28px'></div>"}
 
-    <div style="background:#facfd4;padding:18px 22px;margin-bottom:28px;display:flex;justify-content:space-between;align-items:center">
+    <div style="background:#FBE9F1;padding:18px 22px;margin-bottom:28px;display:flex;justify-content:space-between;align-items:center">
       <div><div style="font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#D92674;margin-bottom:2px">Total Earned</div>
       <div style="font-size:28px;font-weight:800;color:#252535">$${stats.earned.toFixed(2)}</div></div>
       ${stats.goal?`<div style="text-align:right"><div style="font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#D92674;margin-bottom:2px">Goal</div><div style="font-size:18px;font-weight:700;color:#252535">$${stats.goal} &nbsp;·&nbsp; ${stats.goalProgress}%</div></div>`:""}
@@ -3764,7 +3764,7 @@ function renderWeatherCard(){
   const sdInfo=wCodeInfo(sd.code);
   const good=sdInfo.good&&sd.rain<40;
   const dotColor=good?'#B5CC6A':'#F2A57A';
-  const indicatorBg=good?'#facfd4':'#F5C4A8';
+  const indicatorBg=good?'#FBE9F1':'#F5C4A8';
   const indicatorText=good?'Good sale weather'
     :sd.rain>=40?`Heads up — rain ${sd.day}`
     :`Heads up — ${sdInfo.label.toLowerCase()} ${sd.day}`;
@@ -3776,7 +3776,7 @@ function renderWeatherCard(){
   const arrowBtn=(dir,enabled)=>`<button onclick="shiftWeather(${dir})" style="background:none;border:1.5px solid ${enabled?'#D92674':'#E6E2DA'};width:30px;height:30px;display:flex;align-items:center;justify-content:center;cursor:${enabled?'pointer':'default'};color:${enabled?'#D92674':'#6e6e6e'};font-size:14px;flex-shrink:0" ${enabled?'':'disabled'}>${dir<0?'‹':'›'}</button>`;
   const stripHTML=visible.map(d=>{
     const info=wCodeInfo(d.code);
-    const highlight=d.isSaleDay?'background:#facfd4;':'';
+    const highlight=d.isSaleDay?'background:#FBE9F1;':'';
     const labelColor=d.isSaleDay?'var(--color-primary)':d.isToday?'var(--color-text)':'var(--color-text-muted)';
     const topLabel=d.isToday&&!d.isSaleDay?'Today':d.isSaleDay?`${d.day} — SALE`:d.day;
     return`<div style="flex:1;text-align:center;padding:10px 4px;${highlight}">
