@@ -74,7 +74,7 @@
     :focus-visible{outline:2px solid var(--color-primary);outline-offset:3px}
     h1,h2,h3,h4{font-family:var(--font-display);font-weight:800;line-height:1.2;color:var(--color-text);text-wrap:balance}
     p,li{text-wrap:pretty}
-    a{color:var(--color-primary);text-decoration:none}
+    a{color:var(--color-primary);font-weight:600;text-decoration:none}
 
     /* ─── TOPBAR ─── */
     .topbar {
@@ -117,7 +117,7 @@
       font-family:var(--font-display);font-size:var(--text-base);font-weight:600;
       color:var(--color-primary);
     }
-    .topbar-stat-label {font-size:var(--text-xs);color:var(--color-text-faint);}
+    .topbar-stat-label {font-size:12px;font-weight:500;color:var(--color-text);}
 
     /* ─── TAB BUTTONS ─── */
     .tab-btn {
@@ -219,10 +219,11 @@
       display:flex;flex-wrap:wrap;gap:var(--space-1);margin-bottom:var(--space-5);
     }
     .sec-btn{
+      font-family:var(--font-body);
       border-radius:var(--radius-full);padding:var(--space-2) var(--space-4);
-      font-size:var(--text-sm);font-weight:500;cursor:pointer;
+      font-size:14px;font-weight:600;cursor:pointer;
       transition:background var(--t),color var(--t);
-      background:transparent;color:var(--color-text-muted);
+      background:transparent;color:var(--color-primary);
     }
     .sec-btn.active{background:var(--color-primary);color:#fff}
     .sec-btn:hover:not(.active){background:var(--color-primary-hl);color:var(--color-primary)}
@@ -233,17 +234,18 @@
        Selected/persistent (e.g. .sec-btn.active tabs) stays a flat solid fill so it reads
        differently from a momentary hover/press. */
     .btn{
+      font-family:var(--font-body);
       display:inline-flex;align-items:center;justify-content:center;gap:var(--space-2);
-      border-radius:var(--radius-md);cursor:pointer;font-weight:500;
-      font-size:var(--text-sm);padding:var(--space-3) var(--space-5);
+      border-radius:var(--radius-md);cursor:pointer;font-weight:600;
+      font-size:14px;padding:var(--space-3) var(--space-5);
       transition:background var(--t),color var(--t),border-color var(--t);
       white-space:nowrap;
     }
     .btn:disabled{opacity:.45;cursor:not-allowed}
-    .btn-primary{background:var(--color-primary);color:#FFFFFF;border:1.5px solid var(--color-primary);padding:11px 20px;font-family:var(--font-display);font-weight:700;font-size:13.5px;letter-spacing:0.2px}
+    .btn-primary{background:var(--color-primary);color:#FFFFFF;border:1.5px solid var(--color-primary);padding:11px 20px;font-family:var(--font-body);font-weight:600;font-size:14px;letter-spacing:0.2px}
     .btn-primary:hover{background:#AE1E5C;border-color:#AE1E5C}
     .btn-primary:active{background:#831645;border-color:#831645;transform:translateY(1px)}
-    .btn-secondary{background:transparent;color:var(--color-primary);border:1.5px solid var(--color-primary);padding:11px 20px;font-family:var(--font-display);font-weight:700;font-size:13.5px;letter-spacing:0.2px}
+    .btn-secondary{background:transparent;color:var(--color-primary);border:1.5px solid var(--color-primary);padding:11px 20px;font-family:var(--font-body);font-weight:600;font-size:14px;letter-spacing:0.2px}
     .btn-secondary:hover{background:#FBE9F1}
     .btn-secondary:active{background:#DA2573;color:#fff;transform:translateY(1px)}
     .btn-ghost{background:transparent;color:var(--color-primary);border:1.5px solid transparent;padding:var(--space-2) var(--space-3)}
@@ -266,10 +268,10 @@
     }
     .card+.card{margin-top:var(--space-4)}
     .card-title{
-      font-size:21px;font-weight:400;font-family:var(--font-display);
+      font-size:21px;font-weight:700;font-family:var(--font-display);
       margin-bottom:var(--space-4);color:var(--color-text);
     }
-    .card-sub{font-size:var(--text-sm);color:var(--color-text-muted);margin-bottom:var(--space-5);line-height:1.7}
+    .card-sub{font-family:var(--font-body);font-size:14px;font-weight:400;color:var(--color-text);margin-bottom:var(--space-5);line-height:1.7}
 
     /* ─── GRIDS ─── */
     .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:var(--space-4)}
@@ -280,7 +282,7 @@
 
     /* ─── FORMS ─── */
     .form-field{display:flex;flex-direction:column;gap:var(--space-2)}
-    .form-label{font-size:13px;font-weight:700;letter-spacing:0;color:var(--color-text);font-family:var(--font-display)}
+    .form-label{font-size:14px;font-weight:500;letter-spacing:0;color:var(--color-text);font-family:var(--font-body)}
     .input,.select,.textarea{
       width:100%;border:1px solid var(--color-border);
       border-radius:var(--radius-md);
@@ -333,8 +335,8 @@
     table{width:100%;border-collapse:collapse;font-size:var(--text-sm);min-width:860px}
     thead th{
       padding:var(--space-3) var(--space-4);text-align:left;
-      font-size:var(--text-xs);font-weight:600;letter-spacing:.1em;
-      text-transform:uppercase;color:var(--color-text-faint);
+      font-size:13px;font-weight:500;letter-spacing:.1em;
+      text-transform:uppercase;color:var(--color-text);
       border-bottom:1px solid var(--color-divider);white-space:nowrap;
       background:var(--color-surface);
     }
@@ -420,8 +422,8 @@
     .tx-amount{font-size:var(--text-base);font-weight:600;font-family:var(--font-display);color:var(--color-primary)}
 
     /* ─── PAGE TITLES ─── */
-    .page-title{font-size:var(--text-lg);font-weight:600;font-family:var(--font-display);color:var(--color-text);margin-bottom:var(--space-2)}
-    .page-sub{font-size:var(--text-sm);color:var(--color-text-muted);line-height:1.7;margin-bottom:var(--space-5)}
+    .page-title{font-size:var(--text-lg);font-weight:700;font-family:var(--font-display);color:var(--color-text);margin-bottom:var(--space-2)}
+    .page-sub{font-family:var(--font-body);font-size:14px;font-weight:400;color:var(--color-text);line-height:1.7;margin-bottom:var(--space-5)}
 
     /* ─── INFO / WARN BOXES ─── */
     .info-box{background:var(--color-primary-hl);border-radius:var(--radius-lg);padding:var(--space-4) var(--space-5);font-size:var(--text-sm);color:var(--color-text);line-height:1.7}
@@ -911,7 +913,7 @@ function renderSectionTip(text){
 }
 function renderTourNote(text){
   if(!P.isDemo)return'';
-  return`<div style="background:#C4B0E8;color:#252535;padding:9px 20px;font-family:var(--font-body);font-size:13px;line-height:1.4;margin-bottom:12px;display:flex;align-items:flex-start;justify-content:space-between;gap:16px"><span><strong>Tour:</strong> ${text}</span><button onclick="P.isDemo=false;save();renderContent()" style="font-size:11px;font-family:var(--font-display);font-weight:700;color:#252535;text-transform:uppercase;letter-spacing:.08em;white-space:nowrap;flex-shrink:0">Exit tour</button></div>`;
+  return`<div style="background:#C4B0E8;color:#252535;padding:9px 20px;font-family:var(--font-body);font-size:13px;line-height:1.4;margin-bottom:12px;display:flex;align-items:flex-start;justify-content:space-between;gap:16px"><span><strong>Tour:</strong> ${text}</span><button onclick="P.isDemo=false;save();renderContent()" style="font-size:12px;font-family:var(--font-body);font-weight:600;color:var(--color-primary);text-transform:uppercase;letter-spacing:.08em;white-space:nowrap;flex-shrink:0">Exit tour</button></div>`;
 }
 const changePlanRows = [
   {label:"$1 bills",key:"ones",suggested:"40",note:"Great for $1, $2, and $3 items."},
@@ -947,8 +949,8 @@ function mncConfirm(msg,onConfirm,opts){
   ov.innerHTML=`<div style="background:#fff;border:1px solid var(--color-border);border-radius:var(--radius-xl);padding:32px 36px;max-width:400px;width:90%;box-sizing:border-box">
     <p style="font-family:'DM Sans',sans-serif;font-size:12pt;color:#252535;margin:0 0 24px;line-height:1.5">${esc(msg)}</p>
     <div style="display:flex;gap:12px;justify-content:flex-end">
-      <button id="mnc-cancel-btn" style="font-family:var(--font-display);font-weight:800;font-size:11pt;color:#D92674;background:#fff;border:1px solid #D92674;padding:10px 20px;cursor:pointer;text-transform:uppercase;touch-action:manipulation">Cancel</button>
-      <button id="mnc-ok-btn" style="font-family:var(--font-display);font-weight:800;font-size:11pt;color:${confirmColor};background:${confirmBg};border:none;padding:10px 20px;cursor:pointer;text-transform:uppercase;touch-action:manipulation">${esc(confirmLabel)}</button>
+      <button id="mnc-cancel-btn" style="font-family:var(--font-body);font-weight:600;font-size:14px;color:#D92674;background:#fff;border:1px solid #D92674;padding:10px 20px;cursor:pointer;text-transform:uppercase;touch-action:manipulation">Cancel</button>
+      <button id="mnc-ok-btn" style="font-family:var(--font-body);font-weight:600;font-size:14px;color:${confirmColor};background:${confirmBg};border:none;padding:10px 20px;cursor:pointer;text-transform:uppercase;touch-action:manipulation">${esc(confirmLabel)}</button>
     </div>
   </div>`;
   document.body.appendChild(ov);
@@ -1264,7 +1266,7 @@ function renderStart(){
           <label class="form-label" style="font-family:var(--font-display);font-size:13px;font-weight:700;color:var(--color-text)">Your email</label>
           <input class="input" type="email" id="reminder-email" placeholder="you@email.com" />
         </div>
-        <button class="btn btn-secondary btn-sm" onclick="setReminder()" id="reminder-btn" ${!s.saleDate?'disabled':''} style="font-family:var(--font-display)">${!s.saleDate?'Set reminder (set date first)':'Set reminder'}</button>
+        <button class="btn btn-secondary btn-sm" onclick="setReminder()" id="reminder-btn" ${!s.saleDate?'disabled':''}>${!s.saleDate?'Set reminder (set date first)':'Set reminder'}</button>
         <div id="reminder-msg" style="display:none;margin-top:10px"></div>
       </div>
 
@@ -2243,7 +2245,7 @@ function renderBuyerOverlay(){
   ].filter(r=>r.value);
   ov.innerHTML=`
   <div style="position:absolute;inset:0;background:#252535;display:flex;align-items:center;justify-content:center;padding:32px 24px">
-    <button onclick="closeBuyerPayment()" aria-label="Close" style="position:absolute;top:20px;right:20px;background:transparent;border:1.5px solid rgba(255,248,238,0.35);color:#FDFBF7;font-family:var(--font-display);font-weight:800;font-size:13px;padding:10px 20px;cursor:pointer">Done</button>
+    <button onclick="closeBuyerPayment()" aria-label="Close" style="position:absolute;top:20px;right:20px;background:transparent;border:1.5px solid rgba(255,248,238,0.35);color:#FDFBF7;font-family:var(--font-body);font-weight:600;font-size:14px;padding:10px 20px;cursor:pointer">Done</button>
     <div style="max-width:560px;width:100%;text-align:center">
       <p style="font-family:var(--font-display);font-size:11px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:#D92674;margin-bottom:24px">Pay here</p>
       <div style="display:flex;flex-direction:column;gap:22px">
@@ -3757,7 +3759,7 @@ async function fetchWeather(saleDate){
 function renderWeatherCard(){
   const el=document.getElementById('weather-card');if(!el)return;
   if(!W.data){el.innerHTML=`<div class="card-title">Sale day weather</div><div class="text-muted" style="font-size:var(--text-sm);margin-top:6px">Checking forecast…</div>`;return;}
-  if(W.data.msg){el.innerHTML=`<div class="card-title">Sale day weather</div><div class="text-muted" style="font-size:var(--text-sm);margin-top:6px">${W.data.msg}</div>${W.data.zipError?'<button onclick="clearWeatherZip()" style="margin-top:8px;font-family:var(--font-display);font-size:12px;font-weight:700;color:#D92674;background:none;border:none;cursor:pointer;padding:0">Try a different zip →</button>':''}`;return;}
+  if(W.data.msg){el.innerHTML=`<div class="card-title">Sale day weather</div><div class="text-muted" style="font-size:var(--text-sm);margin-top:6px">${W.data.msg}</div>${W.data.zipError?'<button onclick="clearWeatherZip()" style="margin-top:8px;font-family:var(--font-body);font-size:14px;font-weight:600;color:#D92674;background:none;border:none;cursor:pointer;padding:0">Try a different zip →</button>':''}`;return;}
   const cur=W.data.current;
   const curInfo=wCodeInfo(cur.code);
   const sd=W.data.saleDay;
@@ -3869,8 +3871,8 @@ function renderTourStep(){
       <div style="background:#FFF8EE;border-radius:var(--radius-xl);max-width:480px;width:100%;padding:36px 32px;text-align:center">
         <p style="font-family:var(--font-body);font-size:16px;color:#252535;line-height:1.6;margin-bottom:26px">I built this so nothing gets missed. Let me show you where everything lives.</p>
         <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap">
-          <button onclick="startSpotlightTour()" style="font-family:var(--font-display);font-weight:800;font-size:14px;background:#252535;color:#FFF8EE;border:none;padding:13px 26px;cursor:pointer">Show me around</button>
-          <button onclick="jumpIn()" style="font-family:var(--font-display);font-weight:800;font-size:14px;background:transparent;color:#252535;border:1.5px solid #252535;padding:13px 26px;cursor:pointer">Jump in</button>
+          <button onclick="startSpotlightTour()" style="font-family:var(--font-body);font-weight:600;font-size:14px;background:#252535;color:#FFF8EE;border:none;padding:13px 26px;cursor:pointer">Show me around</button>
+          <button onclick="jumpIn()" style="font-family:var(--font-body);font-weight:600;font-size:14px;background:transparent;color:#252535;border:1.5px solid #252535;padding:13px 26px;cursor:pointer">Jump in</button>
         </div>
       </div>
     </div>`;
@@ -3902,7 +3904,7 @@ function renderTourStep(){
       <div style="font-family:var(--font-body);font-size:12px;color:#4B4B4B;margin-bottom:8px">Step ${_tourStep+1} of 5</div>
       <div style="font-family:var(--font-body);font-size:14px;color:#252535;line-height:1.55;margin-bottom:16px">${esc(step.body)}</div>
       <div style="display:flex;align-items:center;gap:16px">
-        <button onclick="nextTourStep()" style="font-family:var(--font-display);font-weight:700;font-size:13px;background:#252535;color:#FFF8EE;border:none;padding:9px 20px;cursor:pointer">${isLast?'Got it':'Next'}</button>
+        <button onclick="nextTourStep()" style="font-family:var(--font-body);font-weight:600;font-size:14px;background:#252535;color:#FFF8EE;border:none;padding:9px 20px;cursor:pointer">${isLast?'Got it':'Next'}</button>
         <button onclick="skipTour()" style="font-family:var(--font-body);font-size:13px;color:#4B4B4B;background:none;border:none;cursor:pointer;padding:0">Skip tour</button>
       </div>
     </div>`;
@@ -3916,7 +3918,7 @@ function renderTourStep(){
   <div style="position:absolute;inset:0;background:rgba(37,37,53,0.75);display:flex;align-items:center;justify-content:center;padding:24px">
     <div style="background:#FFF8EE;max-width:480px;width:100%;padding:36px 32px;text-align:center">
       <p style="font-family:var(--font-body);font-size:16px;color:#252535;line-height:1.6;margin-bottom:26px">That's it. Everything saves automatically as you go.</p>
-      <button onclick="finishTour()" style="font-family:var(--font-display);font-weight:800;font-size:14px;background:#252535;color:#FFF8EE;border:none;padding:13px 26px;cursor:pointer">Got it</button>
+      <button onclick="finishTour()" style="font-family:var(--font-body);font-weight:600;font-size:14px;background:#252535;color:#FFF8EE;border:none;padding:13px 26px;cursor:pointer">Got it</button>
     </div>
   </div>`;
 }
@@ -4032,7 +4034,7 @@ function renderHelpOverlay(){
   <div style="position:absolute;inset:0;background:rgba(37,37,53,0.55);display:flex;align-items:center;justify-content:center;padding:24px">
     <div style="background:var(--color-surface);border-radius:var(--radius-xl);max-width:640px;width:100%;max-height:82vh;display:flex;flex-direction:column;overflow:hidden">
       <div style="display:flex;align-items:center;gap:12px;padding:20px 24px;border-bottom:1px solid var(--color-divider);flex-shrink:0">
-        ${topic?`<button onclick="backToHelpList()" style="background:none;border:none;font-family:var(--font-display);font-weight:800;font-size:13px;color:var(--color-primary);cursor:pointer;padding:0">← Back</button>`:''}
+        ${topic?`<button onclick="backToHelpList()" style="background:none;border:none;font-family:var(--font-body);font-weight:600;font-size:14px;color:var(--color-primary);cursor:pointer;padding:0">← Back</button>`:''}
         <div style="flex:1;font-family:var(--font-display);font-weight:800;font-size:18px;color:var(--color-text)">${topic?esc(topic.title):'Help'}</div>
         <button onclick="closeHelp()" aria-label="Close help" style="background:none;border:none;font-size:22px;line-height:1;color:var(--color-text-muted);cursor:pointer;padding:0">×</button>
       </div>
