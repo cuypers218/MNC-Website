@@ -12,8 +12,8 @@
     * { box-sizing: border-box; }
     *, *::before, *::after { margin: 0; padding: 0; }
     html, body, #root, [data-framework], main, .app-container {
-      background-color: #FDFBF7 !important;
-      background: #FDFBF7 !important;
+      background-color: #fffafa !important;
+      background: #fffafa !important;
       margin: 0;
       padding: 0;
       width: 100% !important;
@@ -35,7 +35,7 @@
       --color-bg:             #FFFFFF;
       --color-surface:        #FFFFFF;
       --color-surface-2:      #facfd4;
-      --color-surface-3:      #FDFBF7;
+      --color-surface-3:      #fffafa;
       --color-divider:        #E6E2DA;
       --color-border:         #D6D1C8;
       --color-text:           #252535;
@@ -82,7 +82,7 @@
       background:#FFFFFF;
       border-bottom:1px solid var(--color-divider);
       padding:var(--space-3) var(--space-6);
-      display:flex;align-items:center;gap:var(--space-4);
+      display:flex;align-items:center;justify-content:space-between;gap:var(--space-4);
     }
     .topbar-logo {
       display:flex;align-items:center;gap:var(--space-2);flex-shrink:0;
@@ -102,7 +102,7 @@
     }
     .topbar-sub {font-size:var(--text-xs);color:var(--color-text-muted);}
     .main-nav-wrap{
-      max-width:1400px;margin:0 auto;padding:16px var(--space-6) 0;
+      max-width:1140px;margin:0 auto;padding:16px var(--space-6) 0;
       border-bottom:1px solid var(--color-divider);
     }
     .topbar-tabs {
@@ -142,7 +142,7 @@
 
     /* ─── HERO BANNER ─── */
     .hero-banner{
-      max-width:1400px;margin:0 auto;padding:28px var(--space-6) 22px;
+      max-width:1140px;margin:0 auto;padding:28px var(--space-6) 22px;
       display:flex;justify-content:space-between;align-items:flex-end;
       gap:24px;flex-wrap:wrap;
       border-bottom:1px solid var(--color-divider);
@@ -172,7 +172,7 @@
       color:var(--color-text-muted);display:block;margin-top:6px;white-space:nowrap;
     }
     .hero-stat.is-goal .hero-stat-label{color:var(--color-primary);font-weight:600}
-    .section-nav-wrap{max-width:1400px;margin:0 auto;padding:0 var(--space-6)}
+    .section-nav-wrap{max-width:1140px;margin:0 auto;padding:0 var(--space-6)}
     @media(max-width:760px){
       .hero-banner{padding:20px var(--space-4) 16px}
       .hero-stats{gap:18px}
@@ -181,7 +181,7 @@
     }
 
     /* ─── LAYOUT ─── */
-    .outer{max-width:1400px;margin:0 auto;padding:var(--space-6) var(--space-6);background:transparent}
+    .outer{max-width:1140px;margin:0 auto;padding:var(--space-6) var(--space-6);background:transparent}
     /* ─── METRICS ─── */
     .metric-value{
       font-size:28px;font-weight:700;line-height:1.3;
@@ -283,6 +283,14 @@
     }
     .input:focus,.select:focus,.textarea:focus{border-color:var(--color-primary)}
     .textarea{resize:none;min-height:80px}
+    input[type="date"],input[type="time"]{cursor:pointer}
+    input[type="date"]::-webkit-calendar-picker-indicator,input[type="time"]::-webkit-calendar-picker-indicator{
+      cursor:pointer;padding:5px;border-radius:var(--radius-sm);opacity:.6;transition:opacity 150ms,background 150ms;
+    }
+    input[type="date"]::-webkit-calendar-picker-indicator:hover,input[type="time"]::-webkit-calendar-picker-indicator:hover{
+      opacity:1;background:var(--color-primary-hl);
+    }
+    input[type="date"]:focus,input[type="time"]:focus{box-shadow:0 0 0 3px var(--color-primary-hl)}
     .select{
       appearance:none;
       background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%238BA7D4' d='M1 1l5 5 5-5'/%3E%3C/svg%3E");
@@ -541,9 +549,11 @@
     #tour-scrim{position:fixed;inset:0;background:rgba(37,37,53,0.75);z-index:150;display:none}
 
     /* ─── QUICK-CAPTURE SCRATCH PAD ─── */
-    #scratch-toggle{position:fixed;bottom:70px;right:16px;z-index:600;background:#FFF8EE;border:1px solid #ABABAB;border-radius:var(--radius-full);color:#252535;font-family:var(--font-body);font-size:13px;font-weight:600;padding:10px 16px;min-height:44px;cursor:pointer;touch-action:manipulation}
+    #scratch-toggle{position:fixed;bottom:16px;right:16px;z-index:600;width:44px;height:44px;display:flex;align-items:center;justify-content:center;background:#FFF8EE;border:1px solid #ABABAB;border-radius:var(--radius-full);color:#252535;cursor:pointer;touch-action:manipulation;transition:bottom 150ms}
+    #scratch-toggle.lift-above-bar{bottom:70px}
     #scratch-toggle:hover{background:#facfd4}
-    #scratch-panel{position:fixed;bottom:114px;right:16px;z-index:600;width:280px;max-width:calc(100vw - 32px);background:#FFF8EE;border:1px solid #ABABAB;border-radius:var(--radius-lg);padding:14px;display:none}
+    #scratch-panel{position:fixed;bottom:66px;right:16px;z-index:600;width:280px;max-width:calc(100vw - 32px);background:#FFF8EE;border:1px solid #ABABAB;border-radius:var(--radius-lg);padding:14px;display:none;transition:bottom 150ms}
+    #scratch-panel.lift-above-bar{bottom:120px}
     #scratch-panel .scratch-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;font-family:var(--font-display);font-weight:700;font-size:13px;color:#252535}
     #scratch-panel .scratch-clear{background:none;border:none;font-family:var(--font-body);font-size:12px;color:var(--color-text-muted);text-decoration:underline;cursor:pointer;padding:0}
     .scratch-close{background:none;border:none;font-size:20px;line-height:1;color:#252535;cursor:pointer;padding:0;min-width:24px;min-height:24px}
@@ -593,7 +603,6 @@
       <span id="bell-badge" style="display:none;position:absolute;top:2px;right:2px;background:#D92674;color:#fff;font-family:'DM Sans',sans-serif;font-size:9px;font-weight:700;min-width:16px;height:16px;align-items:center;justify-content:center;pointer-events:none;padding:0 3px;line-height:1">0</span>
     </div>
     <button class="btn btn-ghost btn-sm" onclick="save();showToast('Saved!')" title="Save your planner">Save</button>
-    <button class="btn btn-ghost btn-sm" onclick="openHowTo()" title="How this works">How it works</button>
     <div id="hdr-demo-pill"></div>
   </div>
 </div>
@@ -601,7 +610,7 @@
 <div class="hero-banner no-print">
   <div>
     <span class="hero-label">My Nest Chapter</span>
-    <div class="hero-title">Your New Spaces</div>
+    <div class="hero-title" id="hero-title">Your New Spaces</div>
     <div class="hero-sub">Taking things one step, one memory, at a time.</div>
   </div>
   <div class="hero-stats" id="hero-stats"></div>
@@ -942,6 +951,7 @@ function getStats(P){
   return{
     totalItems:items.length,
     garageSale:items.filter(i=>i.decision==="Garage Sale").length,
+    itemsPriced:items.filter(i=>Number(i.price)>0).length,
     online:items.filter(i=>i.decision==="Sell Online").length,
     donate:items.filter(i=>i.decision==="Donate").length,
     earned,estimated,goal,
@@ -959,7 +969,7 @@ function chipClass(dec){return{
 
 // ─── STATE ────────────────────────────────────────────────────────────────────
 const blankPlanner={
-  setup:{saleTitle:"",saleDate:"",backupDate:"",saleEndTime:"",moneyPurpose:"",moneyGoal:"",notes:"",venmoHandle:"",cashappHandle:"",paypalHandle:"",zelleHandle:"",address:"",emergencyContact:"",charityName:"",charityPhone:"",charityAddress:""},
+  setup:{yourName:"",saleTitle:"",saleDate:"",backupDate:"",saleStartTime:"",saleEndTime:"",moneyPurpose:"",moneyGoal:"",notes:"",venmoHandle:"",cashappHandle:"",paypalHandle:"",zelleHandle:"",address:"",emergencyContact:"",charityName:"",charityPhone:"",charityAddress:""},
   advertising:{featuredItems:"",adCopy:"",signHeadline:"",signDetails:"",facebookPosted:false,nextdoorPosted:false,localGroupsPosted:false,signsPrinted:false},
   safety:{tasks:{},tasksPhysical:{},tasksCash:{},petLocked:false,change:{ones:"40",fives:"20",quarters:"20"},bankReminderDone:false,safetyNotes:""},
   items:[],prep:{},customPrepTasks:[],calculatorRows:[{id:"r1",name:"",quantity:"1",price:""}],
@@ -1051,6 +1061,12 @@ function renderSectionNav(){
 }
 
 // ─── HEADER + METRICS ─────────────────────────────────────────────────────────
+function refreshHeroTitle(){
+  const el=document.getElementById('hero-title');
+  if(!el)return;
+  const name=(P.setup?.yourName||'').trim();
+  el.textContent=name?`Welcome back, ${name}.`:'Your New Spaces';
+}
 function refreshHeaderStat(){
   const stats=getStats(P);
   document.getElementById("hdr-earned").textContent=`$${stats.earned.toFixed(2)}`;
@@ -1063,7 +1079,7 @@ function refreshMetrics(){
   const stats=getStats(P);
   document.getElementById("hero-stats").innerHTML=[
     {label:"Items Cataloged",value:stats.totalItems},
-    {label:"Set For Yard Sale",value:stats.garageSale},
+    {label:"Items Priced",value:stats.itemsPriced},
     {label:"Selling Online",value:stats.online},
     {label:"Goal Progress",value:stats.goalProgress+"%",goal:true},
   ].map(m=>`<div class="hero-stat${m.goal?" is-goal":""}"><span class="hero-stat-value">${m.value}</span><span class="hero-stat-label">${m.label}</span></div>`).join("");
@@ -1118,7 +1134,7 @@ function refreshSubtotal(){
 
 // ─── MAIN RENDER ──────────────────────────────────────────────────────────────
 function render(){
-  buildNav();renderSectionNav();refreshHeaderStat();refreshMetrics();renderContent();
+  buildNav();renderSectionNav();refreshHeaderStat();refreshMetrics();refreshHeroTitle();renderContent();
 }
 
 function renderContent(){
@@ -1155,18 +1171,33 @@ function renderStart(){
     <div style="flex:1.7 1 430px;background:#fff;border:none;box-shadow:0 10px 40px rgba(37,37,53,0.07);border-radius:var(--radius-xl);padding:36px">
       <div class="card-title" style="font-size:28px;margin-bottom:28px">Sale Setup</div>
       <div class="gap-y-sm" style="gap:22px">
+        ${field("Your first name","text","setup.yourName",s.yourName,"Cece")}
         ${field("Sale name","text","setup.saleTitle",s.saleTitle,"My Nest Chapter Sale")}
-        ${field("Sale address","text","setup.address",s.address,"123 Maple St, Anytown")}
-        ${field("Sale date","date","setup.saleDate",s.saleDate,"")}
-        ${field("Sale end time (optional)","time","setup.saleEndTime",s.saleEndTime||"","")}
-        ${field("Backup date (optional)","date","setup.backupDate",s.backupDate||"","")}
+        <div class="form-field">
+          <label class="form-label">Sale address</label>
+          <div style="display:flex;gap:8px">
+            <input class="input" type="text" id="setup-address-input" value="${esc(s.address||"")}" placeholder="123 Maple St, Anytown" style="flex:1" oninput="sf(this,'setup','address')" onblur="sf(this,'setup','address')" />
+            <button type="button" class="btn btn-ghost btn-sm" onclick="pinSaleLocation()" title="Use my current location" style="flex-shrink:0;display:flex;align-items:center;gap:6px;white-space:nowrap">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+              Tap to Pin
+            </button>
+          </div>
+          <div id="pin-status" class="form-hint" style="display:none;margin-top:4px"></div>
+        </div>
+        <div class="grid-2">
+          ${field("Sale date","date","setup.saleDate",s.saleDate,"")}
+          ${field("Backup date (optional)","date","setup.backupDate",s.backupDate||"","")}
+        </div>
+        <div class="grid-2">
+          ${field("Sale start time","time","setup.saleStartTime",s.saleStartTime||"","")}
+          ${field("Sale end time (optional)","time","setup.saleEndTime",s.saleEndTime||"","")}
+        </div>
         ${field("Money goal ($)","number","setup.moneyGoal",s.moneyGoal,"250")}
         ${areaField("What would you like to use the money for?","setup.moneyPurpose",s.moneyPurpose,"A weekend away, fresh bedding, savings, dinner with friends...")}
         ${areaField("Notes before I start","setup.notes",s.notes,"What areas feel easiest? What items feel emotional?")}
       </div>
       <div style="margin-top:28px;display:flex;gap:14px;align-items:center;flex-wrap:wrap">
-        <button class="btn btn-primary" onclick="save();showToast('Saved!')" style="border-radius:var(--radius-full);padding:14px 28px">Save and keep going →</button>
-        <button class="btn btn-secondary" onclick="openTour()">How it works →</button>
+        <button class="btn btn-primary" onclick="save();showToast('Saved!')">Save and keep going →</button>
         <button class="btn btn-ghost btn-sm" onclick="sectionClear('start')" style="margin-left:auto">Clear</button>
       </div>
       ${renderSectionTip("The stuff in the corner you walk past every day — you already know it needs to go. Start there.")}
@@ -1181,7 +1212,6 @@ function renderStart(){
         <div id="goal-pct" class="metric-value" style="font-size:44px;font-weight:300;line-height:1">${stats.goalProgress}%</div>
         <div id="goal-sub" class="text-muted" style="margin-top:8px">$${stats.earned.toFixed(2)} earned · $${stats.goalLeft.toFixed(2)} left</div>
         <div class="progress progress-lg" role="progressbar" aria-valuenow="${stats.goalProgress}" aria-valuemin="0" aria-valuemax="100" aria-label="Goal progress" style="margin-top:14px;margin-bottom:18px"><div class="progress-fill" id="goal-bar" style="width:${stats.goalProgress}%"></div></div>
-        <div style="background:#facfd4;border-radius:var(--radius-lg);padding:16px 18px;font-size:14px;color:var(--color-text);line-height:1.55">Set a goal that means something to you — not just a number.</div>
         ${renderSectionTip("I used my garage sale money for a designer purse I'd been telling myself someday about for years.")}
       </div>
 
@@ -1206,12 +1236,6 @@ function renderStart(){
         <div id="reminder-msg" style="display:none;margin-top:10px"></div>
       </div>
 
-      <!-- Reset everything -->
-      <div style="border:1px solid #ABABAB;border-radius:var(--radius-xl);padding:20px 24px">
-        <div style="font-family:var(--font-body);font-size:13px;color:var(--color-text-muted);line-height:1.6;margin-bottom:10px">Want to wipe every field in this planner?</div>
-        <button class="btn btn-ghost btn-sm" onclick="startFresh()">Reset Everything</button>
-      </div>
-
     </div>
   </div>`;
 }
@@ -1229,7 +1253,7 @@ function renderInventory(){
     </div>
     ${UI.showAddForm?renderAddItemForm():""}
     ${renderItemTable()}
-    ${renderSectionTip("When you're not sure whether to price it 50 cents or $1, ask yourself which one means you don't have to carry it back inside. That's your answer.")}
+    ${renderSectionTip("When you're not sure whether to price it .50¢ or $1, ask yourself which one means you don't have to carry it back inside. That's your answer.")}
   </div>`;
 }
 
@@ -3314,6 +3338,7 @@ function sf(el,...path){
   const v=el.type==="checkbox"?el.checked:el.value;
   deepSet(P,path,v);P.isDemo=false;save();
   refreshHeaderStat();refreshMetrics();
+  if(path.includes("yourName"))refreshHeroTitle();
   if(UI.tab==="start")refreshGoalProgress();
   if(UI.tab==="start"&&(path.includes("saleDate")||path.includes("backupDate")))refreshCountdown();
   if(path.includes("venmoHandle")||path.includes("cashappHandle")||path.includes("paypalHandle")||path.includes("zelleHandle"))refreshDigitalPaymentsButton();
@@ -3351,6 +3376,34 @@ function areaField(label,pathStr,value,placeholder){
     <textarea class="textarea" placeholder="${esc(placeholder||"")}"
       oninput="sf(this,${args})" onblur="sf(this,${args})">${esc(value||"")}</textarea>
   </div>`;
+}
+
+// ─── PIN SALE LOCATION ───────────────────────────────────────────────────────
+function pinSaleLocation(){
+  const statusEl=document.getElementById('pin-status');
+  const setStatus=(msg)=>{if(statusEl){statusEl.style.display='block';statusEl.textContent=msg;}};
+  if(!navigator.geolocation){setStatus("Location isn't available on this device — go ahead and type your address.");return;}
+  setStatus('Finding your location…');
+  navigator.geolocation.getCurrentPosition(async(pos)=>{
+    try{
+      const{latitude,longitude}=pos.coords;
+      const res=await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}`);
+      const data=await res.json();
+      const addr=data&&data.display_name;
+      if(addr){
+        deepSet(P,['setup','address'],addr);save();
+        const input=document.getElementById('setup-address-input');
+        if(input)input.value=addr;
+        setStatus('Address filled in from your location.');
+      }else{
+        setStatus("Couldn't find an address for that location — go ahead and type it in.");
+      }
+    }catch(e){
+      setStatus("Couldn't look up that address — go ahead and type it in.");
+    }
+  },()=>{
+    setStatus('Location access was denied — go ahead and type your address instead.');
+  },{timeout:10000});
 }
 
 // ─── CALENDAR + REMINDER ─────────────────────────────────────────────────────
@@ -3432,7 +3485,16 @@ function refreshStickyBar(){
   const stats=getStats(P);
   const bar=document.getElementById('sticky-bar');
   if(!bar)return;
-  if(!stats.earned&&!stats.goal){bar.style.display='none';bar.style.opacity='0';return;}
+  const toggle=document.getElementById('scratch-toggle');
+  const panel=document.getElementById('scratch-panel');
+  if(!stats.earned&&!stats.goal){
+    bar.style.display='none';bar.style.opacity='0';
+    if(toggle)toggle.classList.remove('lift-above-bar');
+    if(panel)panel.classList.remove('lift-above-bar');
+    return;
+  }
+  if(toggle)toggle.classList.add('lift-above-bar');
+  if(panel)panel.classList.add('lift-above-bar');
   const wasHidden=!bar.style.display||bar.style.display==='none';
   bar.style.display='flex';
   const pct=Math.min(stats.goalProgress||0,100);
@@ -3746,6 +3808,31 @@ function renderTourStep(){
 
 // ─── HELP ─────────────────────────────────────────────────────────────────────
 const helpTopics=[
+  {id:'overview',title:'How This Tool Works',available:true,body:`
+    <div style="font-family:var(--font-body);font-size:14px;line-height:1.7;color:var(--color-text)">
+      <button class="btn btn-secondary" onclick="retakeTourFromHelp()" style="margin-bottom:26px">Take the tour again</button>
+
+      <h4 style="font-family:var(--font-display);font-size:15px;font-weight:800;color:var(--color-text);margin-bottom:6px">Saving</h4>
+      <p style="margin-bottom:24px">Everything saves automatically as you type. You don't need to hit save — but there's a Save button in the top nav if you want to force it. You can close the tab and come back. Your work will be there.</p>
+
+      <h4 style="font-family:var(--font-display);font-size:15px;font-weight:800;color:var(--color-text);margin-bottom:6px">The 5 sections</h4>
+      <p style="margin-bottom:18px"><strong style="color:var(--color-text)">Start</strong> — Set your sale up: date, money goal, address. Fill this in first. The rest of the tool pulls from it.</p>
+      <p style="margin-bottom:18px"><strong style="color:var(--color-text)">Sort + Price</strong> — Your inventory. Add items as you sort through your stuff. Mark what you're selling, donating, keeping, or passing to your kids. Price everything here before sale day.</p>
+      <p style="margin-bottom:18px"><strong style="color:var(--color-text)">Sell + Promote</strong> — Online listings and advertising. Get your Facebook Marketplace and Nextdoor posts ready, build your signs, plan your advertising before the day hits.</p>
+      <p style="margin-bottom:18px"><strong style="color:var(--color-text)">Prep + Safety</strong> — The pre-sale checklist. Physical setup, cash security, and scripted responses for uncomfortable situations. Run through this the morning of.</p>
+      <p style="margin-bottom:24px"><strong style="color:var(--color-text)">Sale Day + Wrap Up</strong> — Where you run the actual sale. Log every sale, calculate change, use the haggle helper when someone lowballs you. The Wrap Up screen shows you your numbers when it's done.</p>
+
+      <h4 style="font-family:var(--font-display);font-size:15px;font-weight:800;color:var(--color-text);margin-bottom:6px">Memories</h4>
+      <p style="margin-bottom:24px">On the Sort + Price tab. For items that are hard to let go of. Add the item, write a note about why it matters. Mark what you did with it after — photographed it, passed it on, donated it. It shows up at the end of the sale on the Wrap Up screen.</p>
+
+      <h4 style="font-family:var(--font-display);font-size:15px;font-weight:800;color:var(--color-text);margin-bottom:6px">Print Center</h4>
+      <p style="margin-bottom:24px">On the Sale Day + Wrap Up tab. Prints price tags, price-point signs, table signs, and box labels. Size everything before you print — the defaults are a good starting point.</p>
+
+      <h4 style="font-family:var(--font-display);font-size:15px;font-weight:800;color:var(--color-text);margin-bottom:6px">Reset Everything</h4>
+      <p style="margin-bottom:24px">In the footer. Clears all your data back to zero — every field, every item, every sale log. There's a confirmation step before it runs. This cannot be undone.</p>
+
+      <p>Questions or feedback? <a href="mailto:cece@mynestchapter.com?subject=Garage%20Sale%20Planner" style="color:var(--color-primary);text-decoration:none">Email Cece →</a></p>
+    </div>`},
   {id:'digital-payments',title:'How to Accept Digital Payments',available:true,body:`
     <div style="font-family:var(--font-body);font-size:14px;line-height:1.7;color:var(--color-text)">
       <h4 style="font-family:var(--font-display);font-size:15px;font-weight:800;color:var(--color-text);margin-bottom:6px">PayPal</h4>
@@ -3841,61 +3928,11 @@ function renderHelpOverlay(){
   </div>`;
 }
 
-// ─── HOW THIS WORKS PANEL ───────────────────────────────────────────────────────
-function openHowTo(){
-  const ov=document.getElementById('howto-overlay');
-  if(!ov)return;
-  ov.style.display='block';
-  ov.style.opacity='0';
-  renderHowToOverlay();
-  requestAnimationFrame(()=>requestAnimationFrame(()=>{ov.style.opacity='1';}));
-}
-function closeHowTo(){
-  const ov=document.getElementById('howto-overlay');
-  if(ov){ov.style.opacity='0';setTimeout(()=>{ov.style.display='none';},180);}
-}
-function retakeTour(){
-  closeHowTo();
+// ─── HELP: RETAKE TOUR ───────────────────────────────────────────────────────
+function retakeTourFromHelp(){
+  closeHelp();
   localStorage.removeItem(TOUR_KEY);
   setTimeout(()=>openTour(),200);
-}
-function renderHowToOverlay(){
-  const ov=document.getElementById('howto-overlay');if(!ov)return;
-  const h=`font-family:var(--font-body);font-weight:700;font-size:15px;color:#252535;margin-bottom:8px`;
-  const p=`font-family:var(--font-body);font-size:14px;color:#4B4B4B;line-height:1.65;margin-bottom:24px`;
-  ov.innerHTML=`
-  <div style="position:absolute;inset:0;background:rgba(37,37,53,0.75);display:flex;align-items:center;justify-content:center;padding:24px">
-    <div style="background:#FFF8EE;border-radius:var(--radius-xl);max-width:640px;width:100%;max-height:82vh;display:flex;flex-direction:column;overflow:hidden">
-      <div style="display:flex;align-items:center;gap:12px;padding:20px 24px;border-bottom:1px solid #ABABAB;flex-shrink:0">
-        <div style="flex:1;font-family:var(--font-display);font-weight:800;font-size:18px;color:#252535">How this works</div>
-        <button onclick="closeHowTo()" aria-label="Close help" style="background:none;border:none;font-size:22px;line-height:1;color:#4B4B4B;cursor:pointer;padding:0">×</button>
-      </div>
-      <div style="padding:24px;overflow-y:auto">
-        <button class="btn btn-secondary" onclick="retakeTour()" style="margin-bottom:26px">Take the tour again</button>
-
-        <h4 style="${h}">Saving</h4>
-        <p style="${p}">Everything saves automatically as you type. You don't need to hit save — but there's a Save button in the top nav if you want to force it. You can close the tab and come back. Your work will be there.</p>
-
-        <h4 style="${h}">The 5 sections</h4>
-        <p style="${p}"><strong style="color:#252535">Start</strong> — Set your sale up: date, money goal, address. Fill this in first. The rest of the tool pulls from it.</p>
-        <p style="${p}"><strong style="color:#252535">Sort + Price</strong> — Your inventory. Add items as you sort through your stuff. Mark what you're selling, donating, keeping, or passing to your kids. Price everything here before sale day.</p>
-        <p style="${p}"><strong style="color:#252535">Sell + Promote</strong> — Online listings and advertising. Get your Facebook Marketplace and Nextdoor posts ready, build your signs, plan your advertising before the day hits.</p>
-        <p style="${p}"><strong style="color:#252535">Prep + Safety</strong> — The pre-sale checklist. Physical setup, cash security, and scripted responses for uncomfortable situations. Run through this the morning of.</p>
-        <p style="${p}"><strong style="color:#252535">Sale Day + Wrap Up</strong> — Where you run the actual sale. Log every sale, calculate change, use the haggle helper when someone lowballs you. The Wrap Up screen shows you your numbers when it's done.</p>
-
-        <h4 style="${h}">Memories</h4>
-        <p style="${p}">On the Sort + Price tab. For items that are hard to let go of. Add the item, write a note about why it matters. Mark what you did with it after — photographed it, passed it on, donated it. It shows up at the end of the sale on the Wrap Up screen.</p>
-
-        <h4 style="${h}">Print Center</h4>
-        <p style="${p}">On the Sale Day + Wrap Up tab. Prints price tags, price-point signs, table signs, and box labels. Size everything before you print — the defaults are a good starting point.</p>
-
-        <h4 style="${h}">Reset Everything</h4>
-        <p style="${p}">On the Start tab. Clears all your data back to zero — every field, every item, every sale log. There's a confirmation step before it runs. This cannot be undone.</p>
-
-        <p style="font-family:var(--font-body);font-size:14px;color:#4B4B4B;line-height:1.65">Questions or feedback? <a href="mailto:cece@mynestchapter.com?subject=Garage%20Sale%20Planner" style="color:#D92674;text-decoration:none">Email Cece →</a></p>
-      </div>
-    </div>
-  </div>`;
 }
 
 // ─── QUICK-CAPTURE SCRATCH PAD ────────────────────────────────────────────────
@@ -3970,7 +4007,9 @@ window.addEventListener('resize',()=>{
 
 <div id="sticky-bar"></div>
 
-<button id="scratch-toggle" class="no-print" onclick="toggleScratchPad()" aria-expanded="false" aria-controls="scratch-panel">Quick notes</button>
+<button id="scratch-toggle" class="no-print" onclick="toggleScratchPad()" aria-expanded="false" aria-controls="scratch-panel" aria-label="Quick notes" title="Quick notes">
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>
+</button>
 <div id="scratch-panel" class="no-print" role="region" aria-label="Quick notes">
   <div class="scratch-header">
     <span>Quick notes</span>
@@ -3990,10 +4029,13 @@ window.addEventListener('resize',()=>{
 <div id="tour-overlay" style="position:fixed;inset:0;z-index:9000;display:none;overflow:hidden;pointer-events:none;transition:opacity 180ms ease;opacity:0"></div>
 <div id="payment-overlay" style="position:fixed;inset:0;z-index:9100;display:none;overflow:hidden;pointer-events:auto;transition:opacity 180ms ease;opacity:0"></div>
 <div id="help-overlay" style="position:fixed;inset:0;z-index:9100;display:none;overflow:hidden;pointer-events:auto;transition:opacity 180ms ease;opacity:0"></div>
-<div id="howto-overlay" style="position:fixed;inset:0;z-index:9100;display:none;overflow:hidden;pointer-events:auto;transition:opacity 180ms ease;opacity:0"></div>
 
 <footer style="max-width:1100px;margin:0 auto;padding:var(--space-5) var(--space-6);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:var(--space-3);border-top:1px solid var(--color-divider);margin-top:var(--space-8)">
   <span style="font-size:var(--text-xs);color:var(--color-text-muted)">© My Nest Chapter · <a href="https://mynestchapter.com" style="color:var(--color-text-muted)">mynestchapter.com</a> · Written by Cece</span>
+  <div style="display:flex;align-items:center;gap:16px">
+    <button class="btn btn-ghost btn-sm" onclick="openHelp()">Help</button>
+    <button class="btn btn-ghost btn-sm" onclick="startFresh()">Reset Everything</button>
+  </div>
   <span style="font-size:var(--text-xs);color:var(--color-text-muted)">Saved to this browser · v2.0</span>
 </footer>
 
