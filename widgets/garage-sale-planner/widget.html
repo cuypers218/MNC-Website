@@ -1128,7 +1128,7 @@ function renderCountdownBody(){
   const daysStr=days===null?"Set a date to see the countdown":days===0?"Sale day is today!":days<0?`Sale was ${Math.abs(days)} day${Math.abs(days)===1?"":"s"} ago`:`${days} day${days===1?"":"s"} until sale day`;
   const saleDateLabel=s.saleDate?new Date(s.saleDate+"T00:00:00").toLocaleDateString("en-US",{weekday:"long",month:"long",day:"numeric",year:"numeric"}):"";
   return`
-  <div class="metric-value" style="font-size:28px;line-height:1.15">${daysStr}</div>
+  <div class="${days===null?'':'metric-value'}" style="${days===null?'font-family:var(--font-body);font-size:16px;font-weight:400;color:var(--color-text);line-height:1.5':'font-size:28px;line-height:1.15'}">${daysStr}</div>
   ${s.saleDate?`
   <div class="text-muted" style="margin-top:8px;font-size:15px">${saleDateLabel}</div>
   <div style="margin-top:16px;position:relative;display:inline-block">
@@ -1751,7 +1751,7 @@ function renderAdvertising(){
         <div class="card-title">Sign builder</div>
         ${field("Headline","text","advertising.signHeadline",a.signHeadline,"GARAGE SALE TODAY")}
         <div style="margin-top:10px">${field("Time, categories, or anything else","text","advertising.signDetails",a.signDetails,"8 AM–2 PM · Home Decor · Furniture · Kitchen")}</div>
-        <div style="font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--color-text-muted);margin-top:16px;margin-bottom:6px">Preview</div>
+        <div style="font-size:11px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--color-text);margin-top:16px;margin-bottom:6px">Preview</div>
         <div class="sign-preview">
           <div class="sign-headline">${esc(a.signHeadline||"GARAGE SALE")}</div>
           <div class="sign-details">${esc(a.signDetails||"Today · Priced to Move")}</div>
@@ -2002,7 +2002,7 @@ function renderSaleDay(){
     </div>
     ${sdGoal?`<div style="background:#fff;border:1px solid var(--color-divider);border-radius:var(--radius-xl);padding:16px 20px;display:flex;align-items:center;gap:20px;flex-wrap:wrap">
       <div style="flex:1;min-width:200px">
-        <div style="font-family:var(--font-display);font-size:13px;font-weight:700;color:var(--color-text-muted);text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px">Earned so far</div>
+        <div style="font-family:var(--font-display);font-size:13px;font-weight:500;color:var(--color-text);text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px">Earned so far</div>
         <div style="font-family:var(--font-display);font-size:28px;font-weight:800;color:var(--color-text);line-height:1">$${totalEarned.toFixed(2)}<span style="font-size:14px;font-weight:500;color:var(--color-text-muted);margin-left:8px">of $${sdGoal} goal</span></div>
         <div class="progress" style="margin-top:10px"><div class="progress-fill" style="width:${sdPct}%"></div></div>
         ${sdGoalReached&&P.setup?.moneyPurpose?`<div style="margin-top:8px;font-size:13px;color:var(--color-text);font-style:italic">$${sdGoal} for ${esc(P.setup.moneyPurpose)} — done.</div>`:''}
@@ -2054,7 +2054,7 @@ function renderSaleDay(){
             <input class="input" type="number" id="change-given" min="0" step="0.25" placeholder="0.00" oninput="calcChange()" style="font-size:20px;font-weight:700" />
           </div>
           <div id="change-result" style="display:none;background:#FBE9F1;padding:16px 20px">
-            <div style="font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--color-text-muted);margin-bottom:4px">Give back</div>
+            <div style="font-size:11px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--color-text);margin-bottom:4px">Give back</div>
             <div id="change-amount" style="font-family:var(--font-display);font-size:40px;font-weight:700;color:var(--color-text)">$0.00</div>
             <div id="change-denom" style="font-family:var(--font-body);font-size:13px;color:var(--color-text);margin-top:8px"></div>
           </div>
@@ -2113,7 +2113,7 @@ function renderSaleDay(){
           <button class="btn btn-secondary btn-sm" onclick="haggleCalc(50)">−50%</button>
         </div>
         <div id="haggle-result" style="display:none;background:#FBE9F1;padding:16px 20px">
-          <div style="font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--color-text-muted);margin-bottom:4px">Counter-offer</div>
+          <div style="font-size:11px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--color-text);margin-bottom:4px">Counter-offer</div>
           <div id="haggle-offer" style="font-family:var(--font-display);font-size:32px;font-weight:700;color:var(--color-text)">$0.00</div>
           <div id="haggle-giveup" style="font-family:var(--font-body);font-size:13px;color:var(--color-text);margin-top:6px"></div>
         </div>
@@ -2150,7 +2150,7 @@ function renderBundleBuilder(){
       <button class="btn ${pct===30?'btn-primary':'btn-secondary'} btn-sm" onclick="bundleDiscount(30)">−30%</button>
     </div>
     ${pct?`<div style="background:#FBE9F1;padding:16px 20px;margin-bottom:14px">
-      <div style="font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--color-text-muted);margin-bottom:4px">Bundle price</div>
+      <div style="font-size:11px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--color-text);margin-bottom:4px">Bundle price</div>
       <div style="font-family:var(--font-display);font-size:32px;font-weight:700;color:var(--color-text)">$${final.toFixed(2)}</div>
       <div style="font-size:13px;color:var(--color-text);margin-top:6px">$${discountAmt.toFixed(2)} off</div>
     </div>`:''}
@@ -2431,7 +2431,7 @@ function renderPCTagsContent(tagItems,selItems,allSigns,chosenSign,boxes){
         </div>
         ${selItems.length>0?`
         <div style="background:var(--color-surface-2);padding:14px;margin-bottom:16px">
-          <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--color-text-muted);margin-bottom:10px">Preview — first ${Math.min(selItems.length,6)} of ${selItems.length} tags</div>
+          <div style="font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:1.5px;color:var(--color-text);margin-bottom:10px">Preview — first ${Math.min(selItems.length,6)} of ${selItems.length} tags</div>
           <div class="grid-3">
             ${selItems.slice(0,6).map(i=>`
               <div style="border:2px dashed var(--color-primary);padding:10px;text-align:center;background:#fff">
@@ -2465,7 +2465,7 @@ function renderPCTagsContent(tagItems,selItems,allSigns,chosenSign,boxes){
         }).join("")}
       </div>
       <div style="background:var(--color-surface-2);padding:12px;margin-bottom:16px">
-        <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--color-text-muted);margin-bottom:10px">Preview</div>
+        <div style="font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:1.5px;color:var(--color-text);margin-bottom:10px">Preview</div>
         <div class="grid-3">
           ${pricePoints.filter((_,i)=>(UI.ppQty?.[i]??3)>0).slice(0,6).map(p=>`
             <div style="border:2px dashed var(--color-primary);padding:10px;text-align:center;background:#fff">
@@ -2527,7 +2527,7 @@ function renderPCAreaContent(areaTmpls,isCustomArea,areaMainText,areaPriceText){
       <p class="card-sub" style="margin-bottom:16px">Pick a template, type your price, then print. Two signs per page — cut on the dashed line.</p>
       <div style="display:flex;flex-direction:column;gap:14px;margin-bottom:20px">
         <div>
-          <label style="display:block;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--color-text-muted);margin-bottom:6px">Sign text</label>
+          <label style="display:block;font-size:12px;font-weight:500;text-transform:uppercase;letter-spacing:.08em;color:var(--color-text);margin-bottom:6px">Sign text</label>
           <select onchange="setAreaSignField('tmpl',Number(this.value))"
             style="width:100%;border:1px solid var(--color-divider);padding:10px;font-family:var(--font-body);font-size:14px;background:var(--color-surface);color:var(--color-text)">
             ${areaTmpls.map((t,i)=>`<option value="${i}"${UI.areaSign.tmpl===i?' selected':''}>${esc(t)}</option>`).join('')}
@@ -2535,21 +2535,21 @@ function renderPCAreaContent(areaTmpls,isCustomArea,areaMainText,areaPriceText){
         </div>
         ${isCustomArea?`
         <div>
-          <label style="display:block;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--color-text-muted);margin-bottom:6px">Your sign text (include price if you want one)</label>
+          <label style="display:block;font-size:12px;font-weight:500;text-transform:uppercase;letter-spacing:.08em;color:var(--color-text);margin-bottom:6px">Your sign text (include price if you want one)</label>
           <textarea rows="3" placeholder="Everything here — $1"
             style="width:100%;border:1px solid var(--color-divider);padding:10px;font-family:var(--font-body);font-size:14px;resize:vertical;background:var(--color-surface)"
             oninput="setAreaSignField('custom',this.value)">${esc(UI.areaSign.custom)}</textarea>
         </div>
         `:`
         <div>
-          <label style="display:block;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--color-text-muted);margin-bottom:6px">Price</label>
+          <label style="display:block;font-size:12px;font-weight:500;text-transform:uppercase;letter-spacing:.08em;color:var(--color-text);margin-bottom:6px">Price</label>
           <input type="text" value="${esc(UI.areaSign.price)}" placeholder="e.g. $1 or 50¢"
             style="border:1px solid var(--color-divider);padding:10px;font-family:var(--font-body);font-size:14px;width:180px;background:var(--color-surface)"
             oninput="setAreaSignField('price',this.value)">
         </div>
         `}
       </div>
-      <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--color-text-muted);margin-bottom:12px">Preview — 2 signs per page</div>
+      <div style="font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:1.5px;color:var(--color-text);margin-bottom:12px">Preview — 2 signs per page</div>
       <div id="area-sign-preview" style="margin-bottom:16px">
         ${buildAreaSignPreviewHTML(areaMainText,areaPriceText)}
       </div>
@@ -2565,38 +2565,38 @@ function renderPCFlyersContent(){
       <p class="card-sub" style="margin-bottom:16px">Auto-filled from your Start tab. Edit here — changes don't affect your main setup.</p>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px">
         <div>
-          <label style="display:block;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--color-text-muted);margin-bottom:5px">Sale name</label>
+          <label style="display:block;font-size:12px;font-weight:500;text-transform:uppercase;letter-spacing:.08em;color:var(--color-text);margin-bottom:5px">Sale name</label>
           <input type="text" value="${esc(f.title)}" placeholder="Garage Sale"
             style="width:100%;border:1px solid var(--color-divider);padding:9px;font-family:var(--font-body);font-size:13px;background:var(--color-surface)"
             oninput="setFlyerField('title',this.value)">
         </div>
         <div>
-          <label style="display:block;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--color-text-muted);margin-bottom:5px">Date</label>
+          <label style="display:block;font-size:12px;font-weight:500;text-transform:uppercase;letter-spacing:.08em;color:var(--color-text);margin-bottom:5px">Date</label>
           <input type="text" value="${esc(f.date)}" placeholder="Saturday, July 12"
             style="width:100%;border:1px solid var(--color-divider);padding:9px;font-family:var(--font-body);font-size:13px;background:var(--color-surface)"
             oninput="setFlyerField('date',this.value)">
         </div>
         <div>
-          <label style="display:block;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--color-text-muted);margin-bottom:5px">Time</label>
+          <label style="display:block;font-size:12px;font-weight:500;text-transform:uppercase;letter-spacing:.08em;color:var(--color-text);margin-bottom:5px">Time</label>
           <input type="text" value="${esc(f.time)}" placeholder="8 AM – 2 PM"
             style="width:100%;border:1px solid var(--color-divider);padding:9px;font-family:var(--font-body);font-size:13px;background:var(--color-surface)"
             oninput="setFlyerField('time',this.value)">
         </div>
         <div>
-          <label style="display:block;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--color-text-muted);margin-bottom:5px">Address</label>
+          <label style="display:block;font-size:12px;font-weight:500;text-transform:uppercase;letter-spacing:.08em;color:var(--color-text);margin-bottom:5px">Address</label>
           <input type="text" value="${esc(f.address)}" placeholder="123 Maple St"
             style="width:100%;border:1px solid var(--color-divider);padding:9px;font-family:var(--font-body);font-size:13px;background:var(--color-surface)"
             oninput="setFlyerField('address',this.value)">
         </div>
       </div>
       <div style="margin-bottom:12px">
-        <label style="display:block;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--color-text-muted);margin-bottom:5px">Featured items</label>
+        <label style="display:block;font-size:12px;font-weight:500;text-transform:uppercase;letter-spacing:.08em;color:var(--color-text);margin-bottom:5px">Featured items</label>
         <input type="text" value="${esc(f.featured)}" placeholder="Furniture, clothing, kitchen items"
           style="width:100%;border:1px solid var(--color-divider);padding:9px;font-family:var(--font-body);font-size:13px;background:var(--color-surface)"
           oninput="setFlyerField('featured',this.value)">
       </div>
       <div>
-        <label style="display:block;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--color-text-muted);margin-bottom:5px">Tagline (optional)</label>
+        <label style="display:block;font-size:12px;font-weight:500;text-transform:uppercase;letter-spacing:.08em;color:var(--color-text);margin-bottom:5px">Tagline (optional)</label>
         <input type="text" value="${esc(f.tagline)}" placeholder="Cash + Venmo welcome"
           style="width:100%;border:1px solid var(--color-divider);padding:9px;font-family:var(--font-body);font-size:13px;background:var(--color-surface)"
           oninput="setFlyerField('tagline',this.value)">
@@ -3930,58 +3930,58 @@ const helpTopics=[
     <div style="font-family:var(--font-body);font-size:14px;line-height:1.7;color:var(--color-text)">
       <button class="btn btn-secondary" onclick="retakeTourFromHelp()" style="margin-bottom:26px">Take the tour again</button>
 
-      <h4 style="font-family:var(--font-display);font-size:15px;font-weight:800;color:var(--color-text);margin-bottom:6px">Saving</h4>
+      <h4 style="font-family:var(--font-display);font-size:15px;font-weight:500;color:var(--color-text);margin-bottom:6px">Saving</h4>
       <p style="margin-bottom:24px">Everything saves automatically as you type. You don't need to hit save — but there's a Save button in the top nav if you want to force it. You can close the tab and come back. Your work will be there.</p>
 
-      <h4 style="font-family:var(--font-display);font-size:15px;font-weight:800;color:var(--color-text);margin-bottom:6px">The 5 sections</h4>
+      <h4 style="font-family:var(--font-display);font-size:15px;font-weight:500;color:var(--color-text);margin-bottom:6px">The 5 sections</h4>
       <p style="margin-bottom:18px"><strong style="color:var(--color-text)">Start</strong> — Set your sale up: date, money goal, address. Fill this in first. The rest of the tool pulls from it.</p>
       <p style="margin-bottom:18px"><strong style="color:var(--color-text)">Sort + Price</strong> — Your inventory. Add items as you sort through your stuff. Mark what you're selling, donating, keeping, or passing to your kids. Price everything here before sale day.</p>
       <p style="margin-bottom:18px"><strong style="color:var(--color-text)">Sell + Promote</strong> — Online listings and advertising. Get your Facebook Marketplace and Nextdoor posts ready, build your signs, plan your advertising before the day hits.</p>
       <p style="margin-bottom:18px"><strong style="color:var(--color-text)">Prep + Safety</strong> — The pre-sale checklist. Physical setup, cash security, and scripted responses for uncomfortable situations. Run through this the morning of.</p>
       <p style="margin-bottom:24px"><strong style="color:var(--color-text)">Sale Day + Wrap Up</strong> — Where you run the actual sale. Log every sale, calculate change, use the haggle helper when someone lowballs you. The Wrap Up screen shows you your numbers when it's done.</p>
 
-      <h4 style="font-family:var(--font-display);font-size:15px;font-weight:800;color:var(--color-text);margin-bottom:6px">Memories</h4>
+      <h4 style="font-family:var(--font-display);font-size:15px;font-weight:500;color:var(--color-text);margin-bottom:6px">Memories</h4>
       <p style="margin-bottom:24px">On the Sort + Price tab. For items that are hard to let go of. Add the item, write a note about why it matters. Mark what you did with it after — photographed it, passed it on, donated it. It shows up at the end of the sale on the Wrap Up screen.</p>
 
-      <h4 style="font-family:var(--font-display);font-size:15px;font-weight:800;color:var(--color-text);margin-bottom:6px">Print Center</h4>
+      <h4 style="font-family:var(--font-display);font-size:15px;font-weight:500;color:var(--color-text);margin-bottom:6px">Print Center</h4>
       <p style="margin-bottom:24px">On the Sale Day + Wrap Up tab. Prints price tags, price-point signs, table signs, and box labels. Size everything before you print — the defaults are a good starting point.</p>
 
-      <h4 style="font-family:var(--font-display);font-size:15px;font-weight:800;color:var(--color-text);margin-bottom:6px">Reset Everything</h4>
+      <h4 style="font-family:var(--font-display);font-size:15px;font-weight:500;color:var(--color-text);margin-bottom:6px">Reset Everything</h4>
       <p style="margin-bottom:24px">In the footer. Clears all your data back to zero — every field, every item, every sale log. There's a confirmation step before it runs. This cannot be undone.</p>
 
       <p>Questions or feedback? <a href="mailto:cece@mynestchapter.com?subject=Garage%20Sale%20Planner" style="color:var(--color-primary);text-decoration:none">Email Cece →</a></p>
     </div>`},
   {id:'digital-payments',title:'How to Accept Digital Payments',available:true,body:`
     <div style="font-family:var(--font-body);font-size:14px;line-height:1.7;color:var(--color-text)">
-      <h4 style="font-family:var(--font-display);font-size:15px;font-weight:800;color:var(--color-text);margin-bottom:6px">PayPal</h4>
+      <h4 style="font-family:var(--font-display);font-size:15px;font-weight:500;color:var(--color-text);margin-bottom:6px">PayPal</h4>
       <p style="margin-bottom:18px">To accept PayPal at your sale, you need a PayPal account. If you don't have one, create a free personal account at paypal.com.</p>
       <p style="margin-bottom:18px">When a buyer pays you, always ask them to send as "Goods &amp; Services" — not "Friends &amp; Family." Friends &amp; Family payments have no buyer or seller protection. If a buyer sends the wrong way, you can ask them to cancel and resend.</p>
       <p style="margin-bottom:24px">Your PayPal handle is your email address or phone number on file with your account. Share whichever you use to log in.</p>
 
-      <h4 style="font-family:var(--font-display);font-size:15px;font-weight:800;color:var(--color-text);margin-bottom:6px">Venmo</h4>
+      <h4 style="font-family:var(--font-display);font-size:15px;font-weight:500;color:var(--color-text);margin-bottom:6px">Venmo</h4>
       <p style="margin-bottom:18px">Venmo is free to set up at venmo.com or through the Venmo app. Your handle is your @username — buyers search for it or scan your QR code (found in the Venmo app under your profile).</p>
       <p style="margin-bottom:24px">Payments from buyers go to your Venmo balance. Transfer to your bank account at any time — standard transfers are free and take 1–3 business days. Instant transfers have a small fee.</p>
 
-      <h4 style="font-family:var(--font-display);font-size:15px;font-weight:800;color:var(--color-text);margin-bottom:6px">Cash App</h4>
+      <h4 style="font-family:var(--font-display);font-size:15px;font-weight:500;color:var(--color-text);margin-bottom:6px">Cash App</h4>
       <p style="margin-bottom:18px">Cash App is free at cash.app or through the Cash App app. Your handle is your $Cashtag — a unique name you choose when you set up your account.</p>
       <p style="margin-bottom:24px">Buyers search your $Cashtag or scan your QR code (found in the Cash App under your profile). Payments go to your Cash App balance and can be transferred to your bank account.</p>
 
-      <h4 style="font-family:var(--font-display);font-size:15px;font-weight:800;color:var(--color-text);margin-bottom:6px">Zelle</h4>
+      <h4 style="font-family:var(--font-display);font-size:15px;font-weight:500;color:var(--color-text);margin-bottom:6px">Zelle</h4>
       <p style="margin-bottom:18px">Zelle is built into most major bank apps — check your bank's app to see if it's available. If your bank supports Zelle, you're already enrolled; no separate account needed.</p>
       <p style="margin-bottom:24px">Buyers send to your email address or phone number. Zelle transfers go directly to your bank account, usually within minutes. Zelle does not have a QR code — buyers need your email or phone number.</p>
 
-      <h4 style="font-family:var(--font-display);font-size:15px;font-weight:800;color:var(--color-text);margin-bottom:6px">A note on chargebacks</h4>
+      <h4 style="font-family:var(--font-display);font-size:15px;font-weight:500;color:var(--color-text);margin-bottom:6px">A note on chargebacks</h4>
       <p>Cash has no chargeback risk. Digital payments are generally safe for small transactions but it's worth knowing: PayPal Goods &amp; Services allows buyers to file a dispute. For garage sale items, this is rare — but if someone pays and later disputes the charge, PayPal may hold the funds while they investigate. For high-value items, cash is always the safest option.</p>
     </div>`},
   {id:'ad-timing',title:'When to Post Your Ads',available:true,body:`
     <div style="font-family:var(--font-body);font-size:14px;line-height:1.7;color:var(--color-text)">
-      <h4 style="font-family:var(--font-display);font-size:15px;font-weight:800;color:var(--color-text);margin-bottom:6px">Online</h4>
+      <h4 style="font-family:var(--font-display);font-size:15px;font-weight:500;color:var(--color-text);margin-bottom:6px">Online</h4>
       <p style="margin-bottom:18px">Post Thursday night. People plan their Saturday route on Friday — if you're not in their feed by then, you don't make the list.</p>
       <p style="margin-bottom:18px">Hold the full address until 24 hours before. Share it by DM when someone asks — the morning before at the earliest.</p>
       <p style="margin-bottom:18px">Take three photos before you post: a wide shot of your whole setup, a close-up of anything with obvious value. They don't have to be perfect.</p>
       <p style="margin-bottom:24px">Nextdoor won't let you post a garage sale listing too far in advance. Wait until Friday or the post may not stay visible through Saturday.</p>
 
-      <h4 style="font-family:var(--font-display);font-size:15px;font-weight:800;color:var(--color-text);margin-bottom:6px">Signs</h4>
+      <h4 style="font-family:var(--font-display);font-size:15px;font-weight:500;color:var(--color-text);margin-bottom:6px">Signs</h4>
       <p style="margin-bottom:18px">Put signs up Friday evening if weather allows — morning of the sale if there's rain overnight.</p>
       <p style="margin-bottom:18px">Put a sign at every turn someone has to make to reach your house. Arrows matter more than your address. Someone driving at 25mph can't read a street number.</p>
       <p>Take them down the same day. It's a courtesy. In some neighborhoods it's required.</p>
