@@ -349,7 +349,7 @@
     .chip-donate{background:#B5CC6A;color:#252535}
     .chip-keep{background:#EDD96A;color:#252535}
     .chip-kids{background:#F2A57A;color:#252535}
-    .chip-trash{background:#A8C5DA;color:#252535}
+    .chip-trash{background:#E6E2DA;color:#252535}
     .chip-notsure{background:#F5C4A8;color:#252535}
     .sold-row{opacity:.5}
 
@@ -441,7 +441,7 @@
     .serif{font-family:var(--font-display)}
     .pill{display:inline-block;border-radius:var(--radius-full);padding:var(--space-1) var(--space-3);font-size:var(--text-xs);font-weight:600;background:var(--color-primary-hl);color:var(--color-primary)}
     .empty-state{text-align:center;padding:var(--space-10) var(--space-6);color:var(--color-text-muted);font-size:var(--text-sm)}
-    .empty-state-prompt{font-family:var(--font-body);font-size:14px;color:#9A96A0;text-align:center;padding:24px 16px;font-weight:400;border-radius:var(--radius-lg);box-shadow:none}
+    .empty-state-prompt{font-family:var(--font-body);font-size:14px;color:#6e6e6e;text-align:center;padding:24px 16px;font-weight:400;border-radius:var(--radius-lg);box-shadow:none}
     .divider{height:1px;background:var(--color-divider);margin:var(--space-4) 0}
     .sign-preview{padding:var(--space-8);text-align:center;background:var(--color-primary-hl)}
     .sign-headline{font-size:clamp(1.25rem,1rem + 1vw,1.75rem);font-weight:600;font-family:var(--font-display);color:var(--color-primary);line-height:1.3}
@@ -530,7 +530,7 @@
     #sticky-bar .sb-earned{font-size:18px;font-weight:700;color:#D92674;line-height:1;margin-top:3px}
     .sb-track{flex:1;height:5px;background:rgba(255,255,255,.15);max-width:200px}
     .sb-fill{height:100%;background:#D92674;transition:width .35s ease}
-    #sticky-bar .sb-goal-text{font-size:12px;color:#C4B0E8;white-space:nowrap}
+    #sticky-bar .sb-goal-text{font-size:12px;color:rgba(255,248,238,0.7);white-space:nowrap}
     body{padding-bottom:58px}
     /* ─── TRANSITIONS ─── */
     #content{transition:opacity 120ms ease}
@@ -577,34 +577,34 @@
     #tour-scrim{position:fixed;inset:0;background:rgba(37,37,53,0.75);z-index:150;display:none}
 
     /* ─── QUICK-CAPTURE SCRATCH PAD ─── */
-    #scratch-toggle{position:fixed;bottom:16px;right:16px;z-index:600;width:44px;height:44px;display:flex;align-items:center;justify-content:center;background:#FFF8EE;border:1px solid #ABABAB;border-radius:var(--radius-full);color:#252535;cursor:pointer;touch-action:manipulation;transition:bottom 150ms}
+    #scratch-toggle{position:fixed;bottom:16px;right:16px;z-index:600;width:44px;height:44px;display:flex;align-items:center;justify-content:center;background:#FFF8EE;border:1.5px solid var(--color-primary);border-radius:var(--radius-full);color:var(--color-primary);cursor:pointer;touch-action:manipulation;transition:bottom 150ms}
     #scratch-toggle.lift-above-bar{bottom:70px}
     #scratch-toggle:hover{background:#facfd4}
-    #scratch-panel{position:fixed;bottom:66px;right:16px;z-index:600;width:280px;max-width:calc(100vw - 32px);background:#FFF8EE;border:1px solid #ABABAB;border-radius:var(--radius-lg);padding:14px;display:none;transition:bottom 150ms}
+    #scratch-panel{position:fixed;bottom:66px;right:16px;z-index:600;width:280px;max-width:calc(100vw - 32px);background:#FFF8EE;border:1px solid var(--color-border);border-radius:var(--radius-lg);padding:14px;display:none;transition:bottom 150ms}
     #scratch-panel.lift-above-bar{bottom:120px}
     #scratch-panel .scratch-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;font-family:var(--font-display);font-weight:700;font-size:13px;color:#252535}
     #scratch-panel .scratch-clear{background:none;border:none;font-family:var(--font-body);font-size:12px;color:var(--color-text-muted);text-decoration:underline;cursor:pointer;padding:0}
     .scratch-close{background:none;border:none;font-size:20px;line-height:1;color:#252535;cursor:pointer;padding:0;min-width:24px;min-height:24px}
     .scratch-close:hover{color:var(--color-primary)}
-    #scratch-textarea{width:100%;min-height:140px;border:1px solid #ABABAB;background:#fff;padding:10px;font-family:var(--font-body);font-size:14px;color:#252535;resize:vertical;box-sizing:border-box}
+    #scratch-textarea{width:100%;min-height:140px;border:1px solid var(--color-border);background:#fff;padding:10px;font-family:var(--font-body);font-size:14px;color:#252535;resize:vertical;box-sizing:border-box}
     .scratch-footer{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:10px}
     .scratch-status{font-family:var(--font-body);font-size:11px;color:var(--color-text-muted)}
 
     /* ─── SECTION TIP STRIP ─── */
-    .section-tip{border-top:1px solid #D3D3D3;border-bottom:1px solid #D3D3D3;padding:13px 0;margin-top:24px;display:flex;align-items:baseline;gap:10px}
+    .section-tip{border-top:1px solid var(--color-border);border-bottom:1px solid var(--color-border);padding:13px 0;margin-top:24px;display:flex;align-items:baseline;gap:10px}
     .section-tip-label{font-family:'DM Sans',sans-serif;font-weight:800;font-size:7.5pt;letter-spacing:2px;text-transform:uppercase;color:var(--color-primary);flex-shrink:0;white-space:nowrap}
     .section-tip-text{font-family:'DM Sans',sans-serif;font-size:10pt;color:#252535;line-height:1.5;flex:1}
 
     /* ─── NIGHT BEFORE CHECKLIST ─── */
     .night-before{margin-bottom:28px}
     .night-before-heading{font-family:'DM Sans',sans-serif;font-weight:800;font-size:7.5pt;letter-spacing:2px;text-transform:uppercase;color:var(--color-primary);margin-bottom:10px}
-    .night-before-item{display:flex;align-items:flex-start;gap:10px;padding:8px 0;border-bottom:1px solid #D3D3D3;cursor:pointer}
-    .night-before-item:first-of-type{border-top:1px solid #D3D3D3}
-    .night-before-cb{width:16px;height:16px;border:1.5px solid #D3D3D3;flex-shrink:0;margin-top:2px;appearance:none;-webkit-appearance:none;cursor:pointer;background:#fff;border-radius:0}
+    .night-before-item{display:flex;align-items:flex-start;gap:10px;padding:8px 0;border-bottom:1px solid var(--color-border);cursor:pointer}
+    .night-before-item:first-of-type{border-top:1px solid var(--color-border)}
+    .night-before-cb{width:16px;height:16px;border:1.5px solid var(--color-border);flex-shrink:0;margin-top:2px;appearance:none;-webkit-appearance:none;cursor:pointer;background:#fff;border-radius:0}
     .night-before-cb:checked{background:#252535;border-color:#252535}
     .night-before-cb:checked::after{content:'';display:block;width:8px;height:5px;border-left:2px solid #FFF8EE;border-bottom:2px solid #FFF8EE;transform:rotate(-45deg);margin:3px auto 0}
     .night-before-text{font-family:'DM Sans',sans-serif;font-size:10pt;color:#252535;line-height:1.5}
-    .night-before-item.checked .night-before-text{color:#ABABAB;text-decoration:line-through}
+    .night-before-item.checked .night-before-text{color:#6e6e6e;text-decoration:line-through}
 
 </style>
 </head>
@@ -1567,7 +1567,7 @@ function renderMemory(){
         ${m.caption?`<div class="memory-caption">${esc(m.caption)}</div>`:""}
         <div class="text-xs text-muted">${esc(m.createdAt||"")}</div>
         <div style="display:flex;gap:6px;flex-wrap:wrap">
-          ${memoryStatuses.map(st=>`<button class="toggle-chip" onclick="setMemoryStatus('${esc(m.id)}','${st}')" style="font-family:var(--font-body);font-size:12px;font-weight:600;padding:6px 10px;cursor:pointer;${m.status===st?'background:#252535;color:#FFF8EE;border:1px solid #252535':'background:transparent;color:#252535;border:1px solid #ABABAB'}">${st}</button>`).join("")}
+          ${memoryStatuses.map(st=>`<button class="toggle-chip" onclick="setMemoryStatus('${esc(m.id)}','${st}')" style="font-family:var(--font-body);font-size:12px;font-weight:600;padding:6px 10px;cursor:pointer;${m.status===st?'background:#252535;color:#FFF8EE;border:1px solid #252535':'background:transparent;color:var(--color-primary);border:1px solid var(--color-primary)'}">${st}</button>`).join("")}
         </div>
         <button class="btn btn-danger btn-xs" onclick="deleteMemory('${esc(m.id)}')">Remove</button>
       </div>`).join("")}
@@ -1934,7 +1934,7 @@ function renderSafety(){
     </div>
 
     <!-- EMERGENCY INFO -->
-    <div class="card" style="border:1px solid #ABABAB">
+    <div class="card" style="border:1px solid var(--color-border)">
       <div class="card-title" style="margin-bottom:10px">Emergency info</div>
       ${addr?`<div style="font-family:var(--font-display);font-size:22px;font-weight:700;color:#252535;line-height:1.3;margin-bottom:14px">${esc(addr)}</div>`
         :`<div style="font-size:14px;color:var(--color-text-muted);margin-bottom:14px">Add your address on the <a href="#" onclick="goTab('start','start');return false" style="color:#D92674;font-weight:700;text-decoration:underline">Start tab →</a></div>`}
@@ -2649,7 +2649,7 @@ function renderTimeOfDayPattern(){
       ${byHour.map(b=>`
         <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%">
           <div style="width:100%;background:#D92674;height:${Math.max(4,Math.round((b.total/maxTotal)*100))}%"></div>
-          <div style="font-size:10px;color:#A8C5DA;margin-top:4px">${fmtHourLabel(b.hour)}</div>
+          <div style="font-size:10px;color:rgba(255,248,238,0.6);margin-top:4px">${fmtHourLabel(b.hour)}</div>
         </div>`).join("")}
     </div>
   </div>`;
@@ -2669,9 +2669,9 @@ function buildWrapCompletion(){
   const salesCount=(P.transactions||[]).length;
   const memoryCount=(P.memories||[]).length;
   const dataLines=[
-    salesCount?`<div style="display:flex;justify-content:space-between;gap:16px"><span style="color:#A8C5DA">Items sold</span><span style="color:#FFF8EE;font-weight:700">${salesCount}</span></div>`:"",
-    stats.goal?`<div style="display:flex;justify-content:space-between;gap:16px"><span style="color:#A8C5DA">Hit your goal?</span><span style="color:#FFF8EE;font-weight:700">${stats.earned>=stats.goal?"Yes":"Not yet"}</span></div>`:"",
-    memoryCount?`<div style="display:flex;justify-content:space-between;gap:16px"><span style="color:#A8C5DA">Memories saved</span><span style="color:#FFF8EE;font-weight:700">${memoryCount}</span></div>`:"",
+    salesCount?`<div style="display:flex;justify-content:space-between;gap:16px"><span style="color:rgba(255,248,238,0.6)">Items sold</span><span style="color:#FFF8EE;font-weight:700">${salesCount}</span></div>`:"",
+    stats.goal?`<div style="display:flex;justify-content:space-between;gap:16px"><span style="color:rgba(255,248,238,0.6)">Hit your goal?</span><span style="color:#FFF8EE;font-weight:700">${stats.earned>=stats.goal?"Yes":"Not yet"}</span></div>`:"",
+    memoryCount?`<div style="display:flex;justify-content:space-between;gap:16px"><span style="color:rgba(255,248,238,0.6)">Memories saved</span><span style="color:#FFF8EE;font-weight:700">${memoryCount}</span></div>`:"",
   ].filter(Boolean).join("");
   const memories=P.memories||[];
   const memoryList=memories.length?`
@@ -2680,7 +2680,7 @@ function buildWrapCompletion(){
       ${memories.map(m=>`
         <div style="margin-bottom:12px">
           <div style="font-family:var(--font-body);font-weight:700;font-size:14px;color:#FFF8EE">${esc(m.itemName||"Memory")}</div>
-          ${m.caption?`<div style="font-family:var(--font-body);font-weight:400;font-size:13px;color:#A8C5DA;margin-top:2px">${esc(m.caption)}</div>`:""}
+          ${m.caption?`<div style="font-family:var(--font-body);font-weight:400;font-size:13px;color:rgba(255,248,238,0.6);margin-top:2px">${esc(m.caption)}</div>`:""}
         </div>`).join("")}
     </div>`:"";
   const emotionalCheckIn=`
@@ -2692,7 +2692,7 @@ function buildWrapCompletion(){
     <p style="font-family:var(--font-display);font-weight:800;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#D92674;margin:0 0 14px;">Sale Complete</p>
     <h2 style="font-family:var(--font-display);font-weight:800;font-size:26px;color:#FDFBF7;margin:0 0 10px;line-height:1.3;">You earned $${stats.earned.toFixed(2)}.</h2>
     ${stats.goal?`<p style="font-family:'DM Sans',sans-serif;font-size:15px;color:rgba(255,248,238,0.75);margin:0 0 6px;">${stats.goalProgress}% of your $${stats.goal} goal reached.</p>`:""}
-    ${P.setup?.moneyPurpose?`<p style="font-family:'DM Sans',sans-serif;font-size:14px;color:#A8C5DA;margin:0 0 20px;font-style:italic;">${esc(P.setup.moneyPurpose)}</p>`:"<div style='margin-bottom:20px'></div>"}
+    ${P.setup?.moneyPurpose?`<p style="font-family:'DM Sans',sans-serif;font-size:14px;color:rgba(255,248,238,0.75);margin:0 0 20px;font-style:italic;">${esc(P.setup.moneyPurpose)}</p>`:"<div style='margin-bottom:20px'></div>"}
     <p style="font-family:'DM Sans',sans-serif;font-size:15px;color:rgba(255,248,238,0.78);line-height:1.7;max-width:480px;margin:0 auto 24px;">Every item sorted, priced, and moved out the door. That took real effort. Here&rsquo;s to your next chapter.</p>
     ${dataLines?`<div style="max-width:320px;margin:0 auto 20px;display:flex;flex-direction:column;gap:8px">${dataLines}</div>`:""}
     ${memoryList}
@@ -3650,7 +3650,7 @@ function wCodeInfo(c){
 }
 function weatherIconSvg(code,size){
   size=size||24;
-  const cloud='#6e6e6e',sun='#EDD96A',accent='#A8C5DA',warn='#F2A57A';
+  const cloud='#6e6e6e',sun='#EDD96A',accent='#F5C4A8',warn='#F2A57A';
   const wrap=inner=>`<svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${inner}</svg>`;
   if(code===0)return wrap(`<circle cx="12" cy="12" r="5" stroke="${sun}"/><g stroke="${sun}"><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></g>`);
   if(code<=2)return wrap(`<circle cx="7.2" cy="7.2" r="3" stroke="${sun}"/><g stroke="${sun}"><line x1="7.2" y1="1.2" x2="7.2" y2="2.6"/><line x1="1.4" y1="7.2" x2="2.8" y2="7.2"/><line x1="2.85" y1="2.85" x2="3.85" y2="3.85"/></g><path d="M9 20h8a4 4 0 0 0 0-8h-.74A6 6 0 0 0 5 13.3 4.5 4.5 0 0 0 9 20z" stroke="${cloud}"/>`);
@@ -3773,7 +3773,7 @@ function renderWeatherCard(){
   const visible=days.slice(vs,vs+3);
   const canLeft=vs>0;
   const canRight=vs+3<days.length;
-  const arrowBtn=(dir,enabled)=>`<button onclick="shiftWeather(${dir})" style="background:none;border:1.5px solid ${enabled?'#D92674':'#E6E2DA'};width:30px;height:30px;display:flex;align-items:center;justify-content:center;cursor:${enabled?'pointer':'default'};color:${enabled?'#D92674':'#A8C5DA'};font-size:14px;flex-shrink:0" ${enabled?'':'disabled'}>${dir<0?'‹':'›'}</button>`;
+  const arrowBtn=(dir,enabled)=>`<button onclick="shiftWeather(${dir})" style="background:none;border:1.5px solid ${enabled?'#D92674':'#E6E2DA'};width:30px;height:30px;display:flex;align-items:center;justify-content:center;cursor:${enabled?'pointer':'default'};color:${enabled?'#D92674':'#6e6e6e'};font-size:14px;flex-shrink:0" ${enabled?'':'disabled'}>${dir<0?'‹':'›'}</button>`;
   const stripHTML=visible.map(d=>{
     const info=wCodeInfo(d.code);
     const highlight=d.isSaleDay?'background:#facfd4;':'';
@@ -3898,7 +3898,7 @@ function renderTourStep(){
     if(left<16)left=16;
 
     ov.innerHTML=`
-    <div style="position:absolute;top:${top}px;left:${left}px;width:${cardW}px;max-width:calc(100vw - 32px);background:#FFF8EE;border:1px solid #ABABAB;border-radius:var(--radius-lg);padding:18px 20px;pointer-events:auto">
+    <div style="position:absolute;top:${top}px;left:${left}px;width:${cardW}px;max-width:calc(100vw - 32px);background:#FFF8EE;border:1px solid var(--color-border);border-radius:var(--radius-lg);padding:18px 20px;pointer-events:auto">
       <div style="font-family:var(--font-body);font-size:12px;color:#4B4B4B;margin-bottom:8px">Step ${_tourStep+1} of 5</div>
       <div style="font-family:var(--font-body);font-size:14px;color:#252535;line-height:1.55;margin-bottom:16px">${esc(step.body)}</div>
       <div style="display:flex;align-items:center;gap:16px">
