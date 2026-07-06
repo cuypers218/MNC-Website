@@ -733,12 +733,12 @@ const flowTabs = [
 const flowSections = {
   start:[{id:"start",label:"Start"}],
   sortPrice:[{id:"inventory",label:"Items"},{id:"batch",label:"Batch Boxes"},{id:"memory",label:"Memories"},{id:"pricing",label:"Pricing Guide"}],
-  sellPromote:[{id:"online",label:"Online Selling"},{id:"advertising",label:"Ads + Signs"}],
+  sellPromote:[{id:"promote",label:"Promote"},{id:"writeAd",label:"Write Your Ad"},{id:"platformGuide",label:"Sell Online"}],
   prepSafety:[{id:"prep",label:"Prep"},{id:"safety",label:"Safety + Logistics"}],
   saleWrap:[{id:"sale",label:"Sale Day"},{id:"tags",label:"Print Center"},{id:"wrap",label:"Wrap Up"}],
 };
 
-const defaultSection = {start:"start",sortPrice:"inventory",sellPromote:"online",prepSafety:"prep",saleWrap:"sale"};
+const defaultSection = {start:"start",sortPrice:"inventory",sellPromote:"promote",prepSafety:"prep",saleWrap:"sale"};
 
 const pricingGuide = {
   Clothing:{Good:[2,8],Excellent:[5,12],New:[8,18],Fair:[1,4],"Needs Repair":[0,1],note:"Garage sale basics move fastest around $2–$8. Better brands, coats, dresses, and handbags may deserve online resale."},
@@ -777,14 +777,35 @@ const itemPricingRows = [
   {item:"Holiday decor",garage:"$1–$15",online:"$20–$100+ for vintage/large lots",best:"Garage Sale, Facebook Marketplace"},
 ];
 
-const onlineSellingGuides = [
-  {platform:"Facebook Marketplace",bestFor:"Furniture, local pickup items, tools, decor lots, small appliances, rugs, exercise gear",avoid:"Tiny low-dollar items unless bundled",tip:"Use bright photos, measurements, pickup area, and honest condition notes."},
-  {platform:"eBay",bestFor:"Collectibles, electronics, vintage kitchen, books, replacement parts, specialty items",avoid:"Large fragile items unless you know how to ship",tip:"Search sold listings before pricing. Shipping matters."},
-  {platform:"Poshmark",bestFor:"Women's clothing, shoes, handbags, accessories, better brands",avoid:"Low-value basics unless bundled",tip:"Good lighting and brand/size details matter more than poetic descriptions."},
-  {platform:"Mercari",bestFor:"Toys, clothing, shoes, small electronics, home goods, bundles",avoid:"Heavy items with awkward shipping",tip:"Bundle related items and price with room for offers."},
-  {platform:"Garage Sale",bestFor:"Low-dollar household items, kitchen duplicates, books, mugs, decor, baskets, basic clothing",avoid:"High-value items you would regret selling too cheaply",tip:"Price to move. The goal is space, cash, and peace."},
-  {platform:"Craigslist",bestFor:"Furniture, appliances, tools, local buyers only",avoid:"Small items under $20",tip:"List multiple items in one post."},
-  {platform:"ThredUp/Swap.com",bestFor:"Clothing you don't want to list individually",avoid:"Designer or high-value pieces — sell those yourself",tip:"Payout is low but the effort is zero."},
+const promoteChecklistTiers = [
+  {key:"tier1",label:"2 Weeks Out",note:"Tier 1 done.",items:[
+    {key:"permit",label:"Check whether your city or HOA requires a permit"},
+    {key:"neighbors",label:"Tell your neighbors — they become helpers and early buyers"},
+    {key:"nextdoor",label:"Post to Nextdoor (For Sale & Free section, not just a general post)"},
+    {key:"facebook",label:"Create a Facebook event or post in local garage sale groups"},
+  ]},
+  {key:"tier2",label:"2–3 Days Out",note:"Tier 2 done.",items:[
+    {key:"craigslist",label:"Post to Craigslist with photos of big items"},
+    {key:"apps",label:"Post to garage sale apps (GarageSaleFinder, Gsalr, EstateSales.net)"},
+    {key:"photos",label:"Take preview photos of furniture, tools, or anything unusual"},
+    {key:"writeAd",label:"Write your ad",anchor:true},
+  ]},
+  {key:"tier3",label:"Morning Of",note:"Tier 3 done.",items:[
+    {key:"signs",label:"Put up directional signs at key turns near your address"},
+    {key:"marketplace",label:"Post to Facebook Marketplace with fresh photos — buyers check it day-of"},
+    {key:"updateListings",label:"Update any existing listings: add \"Sale today!\" or fresh photos"},
+  ]},
+];
+
+const platformGuideData = [
+  {key:"facebookMarketplace",name:"Facebook Marketplace",bestFor:"Local buyers. Furniture, appliances, exercise equipment — anything large that needs to be seen in person.",skipIf:"You don't want strangers messaging at all hours about porch pickups.",tip:"Post photos the morning of your sale. Buyers check Marketplace the day of.",linkLabel:"List on Facebook Marketplace",link:"https://www.facebook.com/marketplace/create/item"},
+  {key:"nextdoor",name:"Nextdoor",bestFor:"Neighbors and people within a few miles. Good for bulk lots, garden items, and kids' gear.",skipIf:"Your neighborhood isn't very active on it — check before you invest time.",tip:"Post in the \"For Sale & Free\" section, not as a general neighborhood post. More people see it there.",linkLabel:"List on Nextdoor",link:"https://nextdoor.com/sell"},
+  {key:"craigslist",name:"Craigslist",bestFor:"Furniture, tools, appliances, and anything a DIYer would want. Older buyers still use it.",skipIf:"You're selling mostly clothing or small items — not worth the effort for those.",tip:"Keep the ad short, include a price or price range, and refresh it the morning of your sale.",linkLabel:"List on Craigslist",link:"https://craigslist.org"},
+  {key:"ebay",name:"eBay",bestFor:"Collectibles, vintage items, electronics, name-brand anything. Nationwide reach.",skipIf:"You need it gone fast — eBay takes time to list, ship, and settle.",tip:"Search \"sold listings\" before you price anything. That's what it actually sells for, not what people are asking.",linkLabel:"List on eBay",link:"https://www.ebay.com/sell"},
+  {key:"poshmark",name:"Poshmark",bestFor:"Women's and kids' clothing, shoes, accessories — especially name brands in good condition.",skipIf:"Items are generic brands or not in excellent condition. Poshmark buyers are picky.",tip:"Bundle similar items and offer a small discount. You'll move more with less back-and-forth.",linkLabel:"List on Poshmark",link:"https://poshmark.com/sell"},
+  {key:"mercari",name:"Mercari",bestFor:"Almost anything — toys, home goods, electronics, clothing. More flexible than Poshmark.",skipIf:"You're not willing to ship. Local pickup is an option but less common on this platform.",tip:"Price slightly lower than eBay. Mercari buyers shop for deals, not rare finds.",linkLabel:"List on Mercari",link:"https://www.mercari.com/sell"},
+  {key:"thredup",name:"ThredUp",bestFor:"Women's and kids' clothing in good condition. You send a bag, they handle the listing.",skipIf:"You need the money quickly. Payouts can take weeks.",tip:"Use it for the stuff you'd donate anyway. The payout is small — better than a donation drop-off if you have the time.",linkLabel:"Learn more about ThredUp",link:"https://www.thredup.com/sell"},
+  {key:"kidizen",name:"Kidizen",bestFor:"Kids' clothing and accessories, especially brands like Mini Boden, Hanna Andersson, or Gymboree.",skipIf:"Kids' items are generic or heavily worn — this audience is brand-conscious.",tip:"Photos matter more than descriptions here. Natural light, clean background, show the label.",linkLabel:"List on Kidizen",link:"https://www.kidizen.com/sell"},
 ];
 
 const pricePoints = [
@@ -823,92 +844,6 @@ const signTypeGroups=[
   {label:"Day-of signs",note:"Print these before sale day. You'll want the half-price sign up fast when the last hour hits.",indices:[10,11,12,13]},
 ];
 
-const adPlatforms=[
-  {
-    label:'Facebook Marketplace',
-    howto:'Go to Facebook Marketplace and create a new listing. Set the category to Garage Sale if it appears, or use Miscellaneous. Set the price to $1 so the listing goes through — buyers know it\'s a sale, not a single item. Add your best wide shot as the first photo — that\'s what people see while scrolling.',
-    template:`GARAGE SALE — [Day, Month Date] — [Your City/Neighborhood]
-
-Clearing out the house. Lots of good stuff — [list 3–5 categories or standout items, e.g.: furniture, kids' clothes, kitchen items, tools, home décor].
-
-[Day, Date] | [Start time]–[End time]
-Address shared the morning before — message me here and I'll send it to you.
-
-Cash and Venmo welcome. No early birds, please.`,
-    note:'First photo = wide shot of your whole setup. Then close-ups of anything with obvious value — furniture, electronics, anything brand-name.',
-    rows:10
-  },
-  {
-    label:'Facebook Groups',
-    howto:'Search Facebook for \'[your town] garage sale\' or \'[your town] buy sell trade\' and join 1–2 active local groups. Post there separately from your Marketplace listing — you can drop your Marketplace link in the comments if the group allows it.',
-    template:`Garage sale at my place — [Day, Month Date]!
-[Start time]–[End time] | [Your city or neighborhood]
-
-Lots of [3–4 categories]. Everything priced to move.
-
-Address in my Marketplace listing, or message me — I'll send it the morning before. Cash and Venmo welcome.`,
-    note:'',
-    rows:8
-  },
-  {
-    label:'Nextdoor',
-    howto:'Open Nextdoor, tap the + button, and choose For Sale & Free, then Garage Sale. It automatically goes to neighbors in your area — no extra steps needed. Short and friendly works best here.',
-    template:`Garage sale at my place — [Day, Date]!
-[Start time] to [End time] | [Your street or cross streets]
-
-I've got [3–4 categories]. Priced to sell. Cash and Venmo welcome.
-
-Hope to see some familiar faces — come by.`,
-    note:'',
-    rows:8
-  },
-  {
-    label:'Craigslist',
-    howto:'Go to craigslist.org, find your city, and post under For Sale — Garage Sales. Your title is what gets you found, so list your best categories there, not just \'garage sale.\' Cash only is the norm on Craigslist — buyers come prepared.',
-    template:`TITLE: Garage Sale — [Neighborhood or Cross Streets] — [Day, Date] — [Start Time]
-
-[Day], [Month Date] — [Start time] to [End time]
-[Your address or cross streets — you can add the full address the morning before]
-
-Items include:
-- [Category 1, e.g. Furniture]
-- [Category 2, e.g. Women's and kids' clothing]
-- [Category 3, e.g. Kitchen and household]
-- [Category 4, e.g. Tools]
-- [Category 5, e.g. Electronics]
-[Add a standout item if you have one: solid wood dresser, kids' bikes, sewing machine, etc.]
-
-Everything priced to sell. Cash only. No early birds.`,
-    note:'',
-    rows:17
-  },
-  {
-    label:'YardSaleSearch.com',
-    howto:'Go to yardsalesearch.com and click List a Sale — it\'s mostly checkboxes and dropdowns, so it takes about two minutes. The description box at the end is the only real writing. Note: YardSaleSearch automatically shares your listing to several other garage sale finder sites, so one post gets you multiple places at once.',
-    template:`Clearing out the house — [list 3–5 categories]. Everything priced to sell. [Cash only / Cash and Venmo welcome]. [Day, Date] from [Start time] to [End time]. [Your address].`,
-    note:'',
-    rows:4
-  }
-];
-
-function renderAdAccordionRow(p,i){
-  const open=!!(UI.adAccordion?.[i]);
-  return`<div class="ad-accordion-row">
-    <button class="ad-accordion-trigger" onclick="toggleAdAccordion(${i})" aria-expanded="${open}">
-      <span>${esc(p.label)}</span>
-      <span class="ad-chevron" id="ad-chev-${i}">${open?'&#9650;':'&#9660;'}</span>
-    </button>
-    <div class="ad-accordion-body" id="ad-body-${i}" style="${open?'max-height:2000px;opacity:1':'display:none;max-height:0;opacity:0'}">
-      <p>${esc(p.howto)}</p>
-      <textarea class="ad-tmpl-ta" id="ad-tmpl-${i}" readonly rows="${p.rows}">${esc(p.template)}</textarea>
-      <div>
-        <button class="ad-copy-btn" onclick="copyAdTemplate(${i},this)">Copy</button>
-      </div>
-      ${p.note?`<p class="ad-note">${esc(p.note)}</p>`:''}
-    </div>
-  </div>`;
-}
-
 function renderSectionTip(text){
   return`<div class="section-tip"><span class="section-tip-label">Cece &mdash;</span><span class="section-tip-text">${text}</span></div>`;
 }
@@ -925,7 +860,7 @@ const changePlanRows = [
 const demoSteps = [
   {title:"Step 1: Start with the purpose",flow:"start",section:"start",text:"Set the sale name, date, money goal, and what the money is for. This gives the whole project a clear reason before sorting begins."},
   {title:"Step 2: Sort, price, batch, and protect memories",flow:"sortPrice",section:"inventory",text:"Add items, batch low-dollar boxes, save sentimental tribute photos, and check pricing guidance. This is the main decluttering workspace."},
-  {title:"Step 3: Decide what sells online and promote the sale",flow:"sellPromote",section:"online",text:"Review which items are better online, then create ad copy and simple sign wording so shoppers know what is worth stopping for."},
+  {title:"Step 3: Promote the sale, write your ad, and decide what sells online",flow:"sellPromote",section:"promote",text:"Work the promotion checklist by timeline, build your ad, then check the platform guide for anything worth listing online before or after the sale."},
   {title:"Step 4: Prep safely before sale day",flow:"prepSafety",section:"prep",text:"Work through the prep checklist, safety checklist, and bank-change plan so sale day feels controlled and secure."},
   {title:"Step 5: Run the sale and wrap it up",flow:"saleWrap",section:"sale",text:"Use the live calculator, print tags when needed, log sales, and decide what happens to leftovers so clutter does not sneak back inside."},
 ];
@@ -1001,7 +936,12 @@ function chipClass(dec){return{
 // ─── STATE ────────────────────────────────────────────────────────────────────
 const blankPlanner={
   setup:{yourName:"",saleTitle:"",saleDate:"",backupDate:"",saleStartTime:"",saleEndTime:"",moneyPurpose:"",moneyGoal:"",notes:"",venmoHandle:"",cashappHandle:"",paypalHandle:"",zelleHandle:"",address:"",emergencyContact:"",charityName:"",charityPhone:"",charityAddress:""},
-  advertising:{featuredItems:"",adCopy:"",signHeadline:"",signDetails:"",facebookPosted:false,nextdoorPosted:false,localGroupsPosted:false,signsPrinted:false},
+  advertising:{featuredItems:"",signHeadline:"",signDetails:"",signsPrinted:false},
+  sellPromote:{
+    promoteChecklist:{tier1:{permit:false,neighbors:false,nextdoor:false,facebook:false},tier2:{craigslist:false,apps:false,photos:false,writeAd:false},tier3:{signs:false,marketplace:false,updateListings:false}},
+    adBuilder:{date:"",address:"",startTime:"",endTime:"",highlights:"",rainOrShine:false,noEarlyBirds:false,includePhone:false,phone:"",multiFamily:false},
+    platformTracker:{facebookMarketplace:false,nextdoor:false,craigslist:false,ebay:false,poshmark:false,mercari:false,thredup:false,kidizen:false}
+  },
   safety:{tasks:{},tasksPhysical:{},tasksCash:{},petLocked:false,change:{ones:"40",fives:"20",quarters:"20"},bankReminderDone:false,safetyNotes:""},
   items:[],prep:{},customPrepTasks:[],calculatorRows:[{id:"r1",name:"",quantity:"1",price:""}],
   transactions:[],memories:[],batchBoxes:[],nightBefore:{},
@@ -1016,6 +956,15 @@ function normalizePlanner(src){
   return{...b,...s,
     setup:{...b.setup,...(s.setup||{})},
     advertising:{...b.advertising,...(s.advertising||{})},
+    sellPromote:{...b.sellPromote,...(s.sellPromote||{}),
+      promoteChecklist:{
+        tier1:{...b.sellPromote.promoteChecklist.tier1,...(s.sellPromote?.promoteChecklist?.tier1||{})},
+        tier2:{...b.sellPromote.promoteChecklist.tier2,...(s.sellPromote?.promoteChecklist?.tier2||{})},
+        tier3:{...b.sellPromote.promoteChecklist.tier3,...(s.sellPromote?.promoteChecklist?.tier3||{})},
+      },
+      adBuilder:{...b.sellPromote.adBuilder,...(s.sellPromote?.adBuilder||{})},
+      platformTracker:{...b.sellPromote.platformTracker,...(s.sellPromote?.platformTracker||{})},
+    },
     safety:{...b.safety,...(s.safety||{}),tasks:{...b.safety.tasks,...(s.safety?.tasks||{})},tasksPhysical:{...b.safety.tasksPhysical,...(s.safety?.tasksPhysical||{})},tasksCash:{...b.safety.tasksCash,...(s.safety?.tasksCash||{})},change:{...b.safety.change,...(s.safety?.change||{})}},
     items:Array.isArray(s.items)?s.items:b.items,
     prep:{...b.prep,...(s.prep||{})},
@@ -1037,7 +986,12 @@ function getDemoPlanner(){
   return{
     ...clone(blankPlanner),isDemo:true,
     setup:{saleTitle:"My Nest Chapter Sale",saleDate:"2026-05-16",moneyPurpose:"A peaceful weekend getaway to celebrate this new season",moneyGoal:"250",notes:"Start with low-emotion areas first, then handle keepsakes when you have more energy."},
-    advertising:{featuredItems:"Home decor, small furniture, kitchen bundles, books, and cozy household finds",signHeadline:"GARAGE SALE TODAY",signDetails:"8 AM–2 PM · Home Decor · Furniture · Kitchen",facebookPosted:true,nextdoorPosted:false,localGroupsPosted:true,signsPrinted:false},
+    advertising:{featuredItems:"Home decor, small furniture, kitchen bundles, books, and cozy household finds",signHeadline:"GARAGE SALE TODAY",signDetails:"8 AM–2 PM · Home Decor · Furniture · Kitchen",signsPrinted:false},
+    sellPromote:{
+      promoteChecklist:{tier1:{permit:true,neighbors:true,nextdoor:true,facebook:false},tier2:{craigslist:false,apps:false,photos:false,writeAd:false},tier3:{signs:false,marketplace:false,updateListings:false}},
+      adBuilder:{date:"",address:"",startTime:"8:00 AM",endTime:"2:00 PM",highlights:"Accent table, coffee mug bundle, kids' books, home decor",rainOrShine:true,noEarlyBirds:true,includePhone:false,phone:"",multiFamily:false},
+      platformTracker:{facebookMarketplace:true,nextdoor:false,craigslist:false,ebay:false,poshmark:false,mercari:false,thredup:false,kidizen:false}
+    },
     safety:{tasks:{"Keep house doors locked during the sale":true,"Wear a fanny pack or crossbody bag for cash":true,"Place large furniture near the curb or driveway edge":true},change:{ones:"40",fives:"20",quarters:"20"},bankReminderDone:false,safetyNotes:"Ask Diane next door to text at 10 AM and noon."},
     items:[
       {id:makeId(),name:"Guest room comforter set",category:"Home Goods",condition:"Good",quantity:"1",decision:"Garage Sale",price:"25",suggested:"$2–$12",platform:"Garage Sale",notes:"Freshly washed.",sold:false},
@@ -1183,8 +1137,9 @@ function renderContent(){
     "sortPrice|batch":renderBatch,
     "sortPrice|memory":renderMemory,
     "sortPrice|pricing":renderPricing,
-    "sellPromote|online":renderOnline,
-    "sellPromote|advertising":renderAdvertising,
+    "sellPromote|promote":renderPromote,
+    "sellPromote|writeAd":renderWriteAd,
+    "sellPromote|platformGuide":renderPlatformGuide,
     "prepSafety|prep":renderPrep,
     "prepSafety|safety":renderSafety,
     "saleWrap|sale":renderSaleDay,
@@ -1655,97 +1610,207 @@ function renderPricing(){
 }
 
 // ─── SECTION: ONLINE SELLING ─────────────────────────────────────────────────
-function renderOnline(){
-  const onlineItems=(P.items||[]).filter(i=>i.decision==="Sell Online");
+// ─── SECTION: PROMOTE YOUR SALE ──────────────────────────────────────────────
+function renderPromote(){
+  const cl=P.sellPromote?.promoteChecklist||{};
+  const totalChecked=promoteChecklistTiers.reduce((n,t)=>n+t.items.filter(it=>cl[t.key]?.[it.key]).length,0);
+  const totalItems=promoteChecklistTiers.reduce((n,t)=>n+t.items.length,0);
   return`
-  ${renderTourNote("Platform guide for your high-value items. Furniture goes on Facebook Marketplace. Clothing on Poshmark. Collectibles on eBay. The guide tells you exactly what goes where.")}
+  ${renderTourNote("Work this checklist by timeline — two weeks out, a few days out, morning of. Check off what applies to how much lead time you've got.")}
   <div class="gap-y">
-    <div>
-      <h2 class="page-title">Online Selling</h2>
-      <p class="page-sub">Platform guide plus a review of your items marked for online sale.</p>
+    <div style="border-left:3px solid var(--color-primary);padding-left:14px">
+      <h2 class="page-title" style="text-transform:uppercase">Promote Your Sale</h2>
     </div>
-    <div class="grid-3">
-      ${onlineSellingGuides.map(g=>`
-        <div class="platform-card">
-          <div class="platform-name">${esc(g.platform)}</div>
-          <div class="platform-row"><strong>Best for:</strong> ${esc(g.bestFor)}</div>
-          <div class="platform-row"><strong>Skip if:</strong> ${esc(g.avoid)}</div>
-          <div class="platform-tip">${esc(g.tip)}</div>
-        </div>`).join("")}
-    </div>
-    ${renderSectionTip("Facebook Marketplace is the easiest place to start for big items. Post it today — furniture moves fast if you price it right.")}
-    <div class="card">
-      <div class="card-title">Your online-sale items (${onlineItems.length})</div>
-      ${onlineItems.length===0?`<div class="empty-state">No items marked "Sell Online" yet. Add items and set decision to Sell Online.</div>`:
-      `<div class="tbl-wrap"><table>
-        <thead><tr><th>Item</th><th>Category</th><th>Condition</th><th>Price</th><th>Suggested platform</th><th>Notes</th></tr></thead>
-        <tbody>${onlineItems.map(i=>`
-          <tr>
-            <td class="td-name font-bold">${esc(i.name)}</td>
-            <td class="text-xs text-muted">${esc(i.category)}</td>
-            <td class="text-xs text-muted">${esc(i.condition)}</td>
-            <td class="font-bold">${i.price?"$"+esc(i.price):""}</td>
-            <td><span class="pill">${esc(i.platform||"")}</span></td>
-            <td class="text-xs text-muted">${esc(i.notes||"")}</td>
-          </tr>`).join("")}
-        </tbody>
-      </table></div>`}
-    </div>
+    ${totalChecked===totalItems?`<div style="background:#FDFBF7;border:1px solid var(--color-divider);padding:12px;font-family:var(--font-body);font-size:12pt;color:var(--color-text)">You're promoted. Now get some sleep.</div>`:""}
+    ${totalChecked===0?`
+    <div class="empty-state-prompt" style="border:1px dashed var(--color-divider);text-align:left">
+      <div style="font-family:var(--font-body);font-weight:800;font-size:9pt;letter-spacing:.1em;text-transform:uppercase;color:var(--color-primary);margin-bottom:8px">My Nest Chapter</div>
+      <div>People won't show up if they don't know you're having one. Start with the tier that matches where you are.</div>
+    </div>`:""}
+    ${renderSectionTip("The Facebook local garage sale groups get overlooked. Search your city name plus \"garage sale\" on Facebook — those groups are full of people who shop them every weekend. Post as soon as you've set a date, and again two days out if the rules allow it.")}
+    ${promoteChecklistTiers.map(tier=>{
+      const tierState=cl[tier.key]||{};
+      const tierDone=tier.items.every(it=>tierState[it.key]);
+      return`
+      <div class="card">
+        <div style="font-family:var(--font-body);font-weight:800;font-size:10pt;letter-spacing:.08em;text-transform:uppercase;color:var(--color-text-muted);margin-bottom:10px">${esc(tier.label)}</div>
+        ${tier.items.map(it=>`
+          <div class="check-item${tierState[it.key]?" checked":""}" role="checkbox" tabindex="0" aria-checked="${tierState[it.key]?"true":"false"}" onclick="togglePromoteItem('${tier.key}','${it.key}')${it.anchor?";goTab('sellPromote','writeAd')":""}" onkeydown="if(event.key===' '||event.key==='Enter'){event.preventDefault();togglePromoteItem('${tier.key}','${it.key}')${it.anchor?";goTab('sellPromote','writeAd')":""}}">
+            <div class="check-box" aria-hidden="true">${tierState[it.key]?"✓":""}</div>
+            <label>${esc(it.label)}${it.anchor?" →":""}</label>
+          </div>`).join("")}
+        ${tierDone?`<div style="font-family:var(--font-body);font-size:13px;color:var(--color-text-muted);margin-top:8px">${esc(tier.note)}</div>`:""}
+      </div>`;
+    }).join("")}
+    <div style="text-align:right"><button class="btn btn-ghost btn-sm" onclick="confirmClearPromoteChecklist()">Clear all</button></div>
   </div>`;
 }
+function togglePromoteItem(tierKey,itemKey){
+  const cur=P.sellPromote.promoteChecklist[tierKey][itemKey];
+  deepSet(P,["sellPromote","promoteChecklist",tierKey,itemKey],!cur);
+  P.isDemo=false;save();renderContent();
+}
+function confirmClearPromoteChecklist(){
+  mncConfirm("This will uncheck all promotion tasks. Clear them?",()=>{
+    P.sellPromote.promoteChecklist=clone(blankPlanner.sellPromote.promoteChecklist);
+    P.isDemo=false;save();renderContent();showToast("Cleared");
+  });
+}
 
-// ─── SECTION: ADVERTISING ────────────────────────────────────────────────────
-function renderAdvertising(){
+// ─── SECTION: WRITE YOUR AD (+ SIGNS) ────────────────────────────────────────
+// Date/address are read live from P.setup each render/refresh (no snapshot taken at
+// "build" time) — so there is no stale-date state to flag; if a snapshot model is
+// added later, this is where the "[sale date may have changed]" note would go.
+function buildAdOutputLines(){
+  const ab=P.sellPromote?.adBuilder||{};const s=P.setup||{};
+  const dateLabel=ab.date?ab.date:(s.saleDate?new Date(s.saleDate+"T00:00:00").toLocaleDateString("en-US",{weekday:"long",month:"long",day:"numeric"}):"");
+  const addressVal=ab.address||s.address||"";
+  const lines=["GARAGE SALE"+(dateLabel?" — "+dateLabel:"")];
+  if(ab.startTime||ab.endTime)lines.push(`${ab.startTime||""}${ab.startTime&&ab.endTime?"–":""}${ab.endTime||""}`);
+  if(addressVal)lines.push(addressVal);
+  lines.push("");
+  if(ab.highlights)lines.push(ab.highlights);
+  const extras=[];
+  if(ab.rainOrShine)extras.push("Rain or shine.");
+  if(ab.noEarlyBirds)extras.push("No early birds please.");
+  if(ab.multiFamily)extras.push("Multi-family sale!");
+  if(ab.includePhone&&ab.phone)extras.push(ab.phone);
+  if(extras.length){lines.push("");extras.forEach(e=>lines.push(e));}
+  return lines;
+}
+function adBuilderHasOutput(){
+  const ab=P.sellPromote?.adBuilder||{};const s=P.setup||{};
+  return!!(ab.highlights||ab.startTime||ab.endTime||ab.date||ab.address||s.saleDate||s.address);
+}
+function adEmptyStateHTML(){
+  return`<div class="empty-state-prompt" style="border:1px dashed var(--color-divider);text-align:left">
+    <div style="font-family:var(--font-body);font-weight:800;font-size:9pt;letter-spacing:.1em;text-transform:uppercase;color:var(--color-primary);margin-bottom:8px">My Nest Chapter</div>
+    <div>Fill in your details above and your ad will appear here.</div>
+  </div>`;
+}
+function adOutputBoxHTML(lines){
+  return`<div id="ad-output-box" style="border:1px solid var(--color-divider);background:#FDFBF7;padding:16px;font-family:var(--font-body);font-size:12px;color:var(--color-text);white-space:pre-wrap;line-height:1.7">${esc(lines.join("\n"))}</div>`;
+}
+function adBuilderInput(el,key){
+  deepSet(P,["sellPromote","adBuilder",key],el.value);
+  P.isDemo=false;save();
+  const wrap=document.getElementById('ad-output-wrap');
+  const btn=document.getElementById('ad-copy-btn');
+  if(wrap)wrap.innerHTML=adBuilderHasOutput()?adOutputBoxHTML(buildAdOutputLines()):adEmptyStateHTML();
+  if(btn)btn.style.display=adBuilderHasOutput()?'block':'none';
+}
+function toggleAdBuilderBool(key){
+  deepSet(P,["sellPromote","adBuilder",key],!P.sellPromote.adBuilder[key]);
+  P.isDemo=false;save();renderContent();
+}
+function copyAdBuilderOutput(){
+  const txt=buildAdOutputLines().join("\n");
+  const done=()=>showToast("Ad copied — paste it anywhere.");
+  if(navigator.clipboard){navigator.clipboard.writeText(txt).then(done).catch(()=>{fallbackCopyText(txt);done();})}
+  else{fallbackCopyText(txt);done();}
+}
+function fallbackCopyText(txt){const el=document.createElement("textarea");el.value=txt;document.body.appendChild(el);el.select();try{document.execCommand("copy");}catch(e){}el.remove();}
+function confirmClearAdBuilder(){
+  mncConfirm("Clear your ad and start over?",()=>{
+    P.sellPromote.adBuilder=clone(blankPlanner.sellPromote.adBuilder);
+    P.isDemo=false;save();renderContent();showToast("Cleared");
+  });
+}
+function fallbackCopy(txt){const el=document.createElement("textarea");el.value=txt;document.body.appendChild(el);el.select();document.execCommand("copy");el.remove();showToast("Sign text copied")}
+function copyTemplate(i){fallbackCopy(signTemplates[i])}
+function toggleAdCheck(k){deepSet(P,["advertising",k],!P.advertising[k]);P.isDemo=false;save();renderContent()}
+
+function renderWriteAd(){
+  const ab=P.sellPromote?.adBuilder||{};
+  const s=P.setup||{};
   const a=P.advertising||{};
+  const usingStartDate=!ab.date&&!!s.saleDate;
+  const usingStartAddress=!ab.address&&!!s.address;
+  const hasOutput=adBuilderHasOutput();
   return`
-  ${renderTourNote("Pick your platform, grab the template, fill in the brackets, post. Signs are below — same page.")}
+  ${renderTourNote("Fill in your sale details and the ad writes itself — copy it and post it anywhere. Signs are below, same tab.")}
   <div class="gap-y">
-    <div>
-      <h2 class="page-title">Ads + Signs</h2>
-      <p class="page-sub">Get the word out. Then get your signs ready.</p>
+    <div style="border-left:3px solid var(--color-primary);padding-left:14px">
+      <h2 class="page-title" style="text-transform:uppercase">Write Your Ad</h2>
       <button class="btn btn-ghost btn-sm" onclick="openHelp('ad-timing')" style="margin-top:8px">When should I post? →</button>
     </div>
-
-    <!-- FEATURED ITEMS — feeds ad templates AND sign preview -->
-    <div class="card">
-      <div class="card-title">What are you selling?</div>
-      <p style="font-family:var(--font-body);font-size:13px;color:var(--color-text-muted);line-height:1.6;margin:0 0 10px">List your best 3–5 categories or any standout items. This pulls into your ad templates and your sign preview below.</p>
-      ${areaField("Your categories / standout items","advertising.featuredItems",a.featuredItems,"Furniture, kitchen, home decor, kids' clothing, tools...")}
-    </div>
-
-    <!-- PLATFORM TEMPLATES -->
-    <div class="card">
-      <div class="card-title">Write your ad</div>
-      <p style="font-family:var(--font-body);font-size:14px;line-height:1.7;color:var(--color-text);margin:0 0 16px">Pick the platform. Fill in the brackets. Copy and post.</p>
-      <div style="border-top:1px solid var(--color-divider)">
-        ${adPlatforms.map((p,i)=>renderAdAccordionRow(p,i)).join('')}
+    ${renderSectionTip("Mention specific items by name. \"Furniture\" draws browsers. \"Dining table, sectional, and a box of power tools\" — that stops people mid-scroll.")}
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-title">Your sale details</div>
+        <div class="gap-y-sm">
+          ${usingStartDate?`
+          <div class="form-field">
+            <label class="form-label">Date</label>
+            <input class="input" type="text" value="${esc(new Date(s.saleDate+"T00:00:00").toLocaleDateString("en-US",{weekday:"long",month:"long",day:"numeric",year:"numeric"}))}" disabled style="color:var(--color-text-muted);background:var(--color-surface-2)" />
+            <div style="font-family:var(--font-body);font-size:10px;color:var(--color-text-muted)">Pulled from your Start tab</div>
+          </div>`:`
+          <div class="form-field">
+            <label class="form-label">Date</label>
+            <input class="input" type="text" value="${esc(ab.date||"")}" placeholder="Your sale date (e.g., Saturday, August 9)" oninput="adBuilderInput(this,'date')" onblur="adBuilderInput(this,'date')" />
+          </div>`}
+          ${usingStartAddress?`
+          <div class="form-field">
+            <label class="form-label">Address</label>
+            <input class="input" type="text" value="${esc(s.address)}" disabled style="color:var(--color-text-muted);background:var(--color-surface-2)" />
+            <div style="font-family:var(--font-body);font-size:10px;color:var(--color-text-muted)">Pulled from your Start tab</div>
+          </div>`:`
+          <div class="form-field">
+            <label class="form-label">Address</label>
+            <input class="input" type="text" value="${esc(ab.address||"")}" placeholder="Street address, city" oninput="adBuilderInput(this,'address')" onblur="adBuilderInput(this,'address')" />
+          </div>`}
+          <div class="grid-2">
+            <div class="form-field">
+              <label class="form-label">Start time</label>
+              <input class="input" type="text" value="${esc(ab.startTime||"")}" placeholder="Start time (e.g., 8:00 AM)" oninput="adBuilderInput(this,'startTime')" onblur="adBuilderInput(this,'startTime')" />
+            </div>
+            <div class="form-field">
+              <label class="form-label">End time</label>
+              <input class="input" type="text" value="${esc(ab.endTime||"")}" placeholder="End time (e.g., 2:00 PM)" oninput="adBuilderInput(this,'endTime')" onblur="adBuilderInput(this,'endTime')" />
+            </div>
+          </div>
+          <div class="form-field">
+            <label class="form-label">What are you selling — highlights</label>
+            <textarea class="textarea" rows="3" maxlength="300" placeholder="Furniture, tools, kids' gear — what are the draws? Name specific items if you can." oninput="adBuilderInput(this,'highlights')" onblur="adBuilderInput(this,'highlights')">${esc(ab.highlights||"")}</textarea>
+          </div>
+          <div class="check-item${ab.rainOrShine?" checked":""}" role="checkbox" tabindex="0" aria-checked="${ab.rainOrShine?"true":"false"}" onclick="toggleAdBuilderBool('rainOrShine')" onkeydown="if(event.key===' '||event.key==='Enter'){event.preventDefault();toggleAdBuilderBool('rainOrShine')}">
+            <div class="check-box" aria-hidden="true">${ab.rainOrShine?"✓":""}</div>
+            <label>Rain or shine — we're open regardless</label>
+          </div>
+          <div class="check-item${ab.noEarlyBirds?" checked":""}" role="checkbox" tabindex="0" aria-checked="${ab.noEarlyBirds?"true":"false"}" onclick="toggleAdBuilderBool('noEarlyBirds')" onkeydown="if(event.key===' '||event.key==='Enter'){event.preventDefault();toggleAdBuilderBool('noEarlyBirds')}">
+            <div class="check-box" aria-hidden="true">${ab.noEarlyBirds?"✓":""}</div>
+            <label>No early birds please</label>
+          </div>
+          <div class="check-item${ab.includePhone?" checked":""}" role="checkbox" tabindex="0" aria-checked="${ab.includePhone?"true":"false"}" onclick="toggleAdBuilderBool('includePhone')" onkeydown="if(event.key===' '||event.key==='Enter'){event.preventDefault();toggleAdBuilderBool('includePhone')}">
+            <div class="check-box" aria-hidden="true">${ab.includePhone?"✓":""}</div>
+            <label>Include a phone number</label>
+          </div>
+          ${ab.includePhone?`<div class="form-field"><label class="form-label">Your number</label><input class="input" type="tel" value="${esc(ab.phone||"")}" placeholder="Your number" oninput="adBuilderInput(this,'phone')" onblur="adBuilderInput(this,'phone')" /></div>`:""}
+          <div class="check-item${ab.multiFamily?" checked":""}" role="checkbox" tabindex="0" aria-checked="${ab.multiFamily?"true":"false"}" onclick="toggleAdBuilderBool('multiFamily')" onkeydown="if(event.key===' '||event.key==='Enter'){event.preventDefault();toggleAdBuilderBool('multiFamily')}">
+            <div class="check-box" aria-hidden="true">${ab.multiFamily?"✓":""}</div>
+            <label>Multi-family sale</label>
+          </div>
+        </div>
+        <div style="text-align:right;margin-top:14px"><button class="btn btn-ghost btn-sm" onclick="confirmClearAdBuilder()">Start over</button></div>
+      </div>
+      <div class="card">
+        <div class="card-title">Your ad</div>
+        <div id="ad-output-wrap">${hasOutput?adOutputBoxHTML(buildAdOutputLines()):adEmptyStateHTML()}</div>
+        <button class="btn btn-primary" id="ad-copy-btn" style="margin-top:14px;width:100%;${hasOutput?"":"display:none"}" onclick="copyAdBuilderOutput()">COPY AD</button>
       </div>
     </div>
 
-    <!-- WHERE POSTED CHECKLIST -->
-    <div class="card">
-      <div class="card-title">Where posted</div>
-      <div style="margin-top:6px">
-        ${[
-          ["facebookPosted","Facebook Marketplace / Groups"],
-          ["nextdoorPosted","Nextdoor"],
-          ["localGroupsPosted","Local community groups"],
-          ["signsPrinted","Signs printed or made"],
-        ].map(([k,lbl])=>`
-          <div class="check-item${a[k]?" checked":""}" role="checkbox" tabindex="0" aria-checked="${a[k]?"true":"false"}" onclick="toggleAdCheck('${k}')" onkeydown="if(event.key===' '||event.key==='Enter'){event.preventDefault();toggleAdCheck('${k}')}">
-            <div class="check-box" aria-hidden="true">${a[k]?"✓":""}</div>
-            <label>${lbl}</label>
-          </div>`).join("")}
-      </div>
-    </div>
-
-    <!-- SIGNS SECTION DIVIDER -->
     <div style="display:flex;align-items:center;gap:14px;margin:4px 0">
       <div style="font-family:var(--font-display);font-weight:700;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--color-text);white-space:nowrap">Signs</div>
       <div style="flex:1;height:1px;background:var(--color-divider)"></div>
     </div>
 
-    <!-- SIGN BUILDER + SIGN TYPE TEMPLATES -->
+    <div class="card">
+      <div class="card-title">What are you selling?</div>
+      <p style="font-family:var(--font-body);font-size:13px;color:var(--color-text-muted);line-height:1.6;margin:0 0 10px">List your best 3–5 categories or any standout items. This pulls into your sign preview below.</p>
+      ${areaField("Your categories / standout items","advertising.featuredItems",a.featuredItems,"Furniture, kitchen, home decor, kids' clothing, tools...")}
+    </div>
+
     <div class="grid-2">
       <div class="card">
         <div class="card-title">Sign builder</div>
@@ -1759,6 +1824,10 @@ function renderAdvertising(){
         </div>
         <div style="margin-top:14px">
           <button class="btn btn-secondary btn-sm" onclick="goTab('saleWrap','tags')">Print your signs →</button>
+        </div>
+        <div class="check-item${a.signsPrinted?" checked":""}" role="checkbox" tabindex="0" aria-checked="${a.signsPrinted?"true":"false"}" style="margin-top:14px" onclick="toggleAdCheck('signsPrinted')" onkeydown="if(event.key===' '||event.key==='Enter'){event.preventDefault();toggleAdCheck('signsPrinted')}">
+          <div class="check-box" aria-hidden="true">${a.signsPrinted?"✓":""}</div>
+          <label>Signs printed or made</label>
         </div>
       </div>
 
@@ -1779,49 +1848,62 @@ function renderAdvertising(){
       </div>
     </div>
 
-    <div style="text-align:right"><button class="btn btn-ghost btn-sm" onclick="sectionClear('advertising')">Clear</button></div>
+    <div style="text-align:right"><button class="btn btn-ghost btn-sm" onclick="sectionClear('advertising')">Clear signs</button></div>
     ${renderSectionTip("Post Thursday night. People plan their Saturday morning route on Friday. Post before they make the list.")}
   </div>`;
 }
 
-function copyAdCopy(){
-  const txt=P.advertising?.adCopy||"";
-  if(navigator.clipboard){navigator.clipboard.writeText(txt).then(()=>showToast("Ad copy copied")).catch(()=>fallbackCopy(txt))}
-  else fallbackCopy(txt);
+// ─── SECTION: PLATFORM GUIDE (SELL ONLINE) ───────────────────────────────────
+function renderPlatformGuide(){
+  const onlineItems=(P.items||[]).filter(i=>i.decision==="Sell Online");
+  const pt=P.sellPromote?.platformTracker||{};
+  const postedCount=platformGuideData.filter(p=>pt[p.key]).length;
+  return`
+  ${renderTourNote("Eight platforms, what each is good for, and a place to mark what you've already posted. Also shows anything you marked Sell Online back in your inventory.")}
+  <div class="gap-y">
+    <div>
+      <h2 class="page-title" style="text-transform:uppercase">Where To Sell What's Left</h2>
+      <p class="page-sub">For anything that didn't sell — or that you want to list before the sale even starts.</p>
+    </div>
+    ${renderSectionTip("Pick one or two of these before the sale. It's a lot harder to figure out on Sunday afternoon with a pile of unsold stuff and nowhere to start.")}
+    ${postedCount>0?`<div style="font-family:var(--font-body);font-size:11px;color:var(--color-text-muted)">Listed on ${postedCount} platform${postedCount===1?"":"s"}</div>`:""}
+    <div class="grid-2">
+      ${platformGuideData.map(p=>`
+        <div class="platform-card">
+          <div class="platform-name">${esc(p.name)}</div>
+          <div class="platform-row"><strong>Best for:</strong> ${esc(p.bestFor)}</div>
+          <div class="platform-row"><strong>Skip if:</strong> ${esc(p.skipIf)}</div>
+          <div class="platform-tip">${esc(p.tip)}</div>
+          <div style="margin-top:10px"><a href="${esc(p.link)}" target="_blank" rel="noopener" style="font-family:var(--font-body);font-weight:700;font-size:11px;color:var(--color-primary)">${esc(p.linkLabel)} →</a></div>
+          <div class="check-item${pt[p.key]?" checked":""}" role="checkbox" tabindex="0" aria-checked="${pt[p.key]?"true":"false"}" style="margin-top:10px;justify-content:flex-end" onclick="togglePlatformTracked('${p.key}')" onkeydown="if(event.key===' '||event.key==='Enter'){event.preventDefault();togglePlatformTracked('${p.key}')}">
+            <div class="check-box" aria-hidden="true">${pt[p.key]?"✓":""}</div>
+            <label style="flex:0;white-space:nowrap;font-size:10px;color:var(--color-text-muted)">Marked as posted</label>
+          </div>
+        </div>`).join("")}
+    </div>
+    <div class="card">
+      <div class="card-title">Your online-sale items (${onlineItems.length})</div>
+      ${onlineItems.length===0?`<div class="empty-state">No items marked "Sell Online" yet. Add items and set decision to Sell Online.</div>`:
+      `<div class="tbl-wrap"><table>
+        <thead><tr><th>Item</th><th>Category</th><th>Condition</th><th>Price</th><th>Suggested platform</th><th>Notes</th></tr></thead>
+        <tbody>${onlineItems.map(i=>`
+          <tr>
+            <td class="td-name font-bold">${esc(i.name)}</td>
+            <td class="text-xs text-muted">${esc(i.category)}</td>
+            <td class="text-xs text-muted">${esc(i.condition)}</td>
+            <td class="font-bold">${i.price?"$"+esc(i.price):""}</td>
+            <td><span class="pill">${esc(i.platform||"")}</span></td>
+            <td class="text-xs text-muted">${esc(i.notes||"")}</td>
+          </tr>`).join("")}
+        </tbody>
+      </table></div>`}
+    </div>
+  </div>`;
 }
-function fallbackCopy(txt){const el=document.createElement("textarea");el.value=txt;document.body.appendChild(el);el.select();document.execCommand("copy");el.remove();showToast("Ad copy copied")}
-function copyTemplate(i){fallbackCopy(signTemplates[i])}
-function toggleAdCheck(k){deepSet(P,["advertising",k],!P.advertising[k]);P.isDemo=false;save();renderContent()}
-
-function toggleAdAccordion(i){
-  if(!UI.adAccordion)UI.adAccordion={};
-  UI.adAccordion[i]=!UI.adAccordion[i];
-  const body=document.getElementById('ad-body-'+i);
-  const chev=document.getElementById('ad-chev-'+i);
-  if(body){
-    if(UI.adAccordion[i]){
-      body.style.display='block';
-      body.style.maxHeight='0';
-      body.style.opacity='0';
-      requestAnimationFrame(()=>{body.style.maxHeight=body.scrollHeight+'px';body.style.opacity='1';});
-    } else {
-      body.style.maxHeight=body.scrollHeight+'px';
-      requestAnimationFrame(()=>{body.style.maxHeight='0';body.style.opacity='0';});
-      setTimeout(()=>body.style.display='none',230);
-    }
-  }
-  if(chev)chev.innerHTML=UI.adAccordion[i]?'&#9650;':'&#9660;';
+function togglePlatformTracked(key){
+  deepSet(P,["sellPromote","platformTracker",key],!P.sellPromote.platformTracker[key]);
+  P.isDemo=false;save();renderContent();
 }
-
-function copyAdTemplate(i,btn){
-  const el=document.getElementById('ad-tmpl-'+i);
-  if(!el)return;
-  const txt=el.value;
-  function done(){btn.textContent='Copied';setTimeout(()=>{btn.textContent='Copy';},2000);}
-  if(navigator.clipboard){navigator.clipboard.writeText(txt).then(done).catch(()=>{adFallbackCopy(txt);done();});}
-  else{adFallbackCopy(txt);done();}
-}
-function adFallbackCopy(txt){const ta=document.createElement('textarea');ta.value=txt;document.body.appendChild(ta);ta.select();try{document.execCommand('copy');}catch(e){}ta.remove();}
 
 // ─── SECTION: PREP ───────────────────────────────────────────────────────────
 function renderPrep(){
@@ -2719,6 +2801,10 @@ function renderWrap(){
     <div>
       <h2 class="page-title">Wrap Up</h2>
       <p class="page-sub">Decide what happens to leftovers before the sale ends. Make the plan now so nothing sneaks back inside.</p>
+    </div>
+    <div style="border:1px solid #A8C5DA;background:#FDFBF7;padding:16px">
+      <div style="font-family:var(--font-body);font-weight:700;font-size:12px;color:var(--color-text);margin-bottom:6px">Have items that didn't sell?</div>
+      <div style="font-family:var(--font-body);font-size:12px;color:var(--color-text);line-height:1.6">Your platform guide is in the Sell + Promote tab — it covers eight options from Facebook Marketplace to ThredUp, with exactly what each one is good for.</div>
     </div>
     <div class="grid-2">
       <div class="card">
@@ -3936,7 +4022,7 @@ const helpTopics=[
       <h4 style="font-family:var(--font-display);font-size:15px;font-weight:500;color:var(--color-text);margin-bottom:6px">The 5 sections</h4>
       <p style="margin-bottom:18px"><strong style="color:var(--color-text)">Start</strong> — Set your sale up: date, money goal, address. Fill this in first. The rest of the tool pulls from it.</p>
       <p style="margin-bottom:18px"><strong style="color:var(--color-text)">Sort + Price</strong> — Your inventory. Add items as you sort through your stuff. Mark what you're selling, donating, keeping, or passing to your kids. Price everything here before sale day.</p>
-      <p style="margin-bottom:18px"><strong style="color:var(--color-text)">Sell + Promote</strong> — Online listings and advertising. Get your Facebook Marketplace and Nextdoor posts ready, build your signs, plan your advertising before the day hits.</p>
+      <p style="margin-bottom:18px"><strong style="color:var(--color-text)">Sell + Promote</strong> — Work the promotion checklist by timeline, build your ad and signs, and check the platform guide for anything worth selling online.</p>
       <p style="margin-bottom:18px"><strong style="color:var(--color-text)">Prep + Safety</strong> — The pre-sale checklist. Physical setup, cash security, and scripted responses for uncomfortable situations. Run through this the morning of.</p>
       <p style="margin-bottom:24px"><strong style="color:var(--color-text)">Sale Day + Wrap Up</strong> — Where you run the actual sale. Log every sale, calculate change, use the haggle helper when someone lowballs you. The Wrap Up screen shows you your numbers when it's done.</p>
 
