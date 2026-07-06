@@ -3591,14 +3591,17 @@ function pinSaleLocation(){
   navigator.geolocation.getCurrentPosition(async(pos)=>{
     try{
       const{latitude,longitude}=pos.coords;
-      const res=await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}`);
+      const res=await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&addressdetails=1&zoom=18&lat=${latitude}&lon=${longitude}`);
       const data=await res.json();
-      const addr=data&&data.display_name;
+      const a=data&&data.address;
+      const addr=a&&a.house_number&&a.road
+        ?`${a.house_number} ${a.road}, ${a.city||a.town||a.village||a.suburb||""}, ${a.state||""} ${a.postcode||""}`.replace(/\s+,/g,",").replace(/\s+/g," ").trim()
+        :(data&&data.display_name);
       if(addr){
         deepSet(P,['setup','address'],addr);save();
         const input=document.getElementById('setup-address-input');
         if(input)input.value=addr;
-        setStatus('Address filled in from your location.');
+        setStatus('Address filled in from your location — double-check it before printing signs, GPS can land a house or two off.');
       }else{
         setStatus("Couldn't find an address for that location — go ahead and type it in.");
       }
@@ -3607,7 +3610,7 @@ function pinSaleLocation(){
     }
   },()=>{
     setStatus('Location access was denied — go ahead and type your address instead.');
-  },{timeout:10000});
+  },{enableHighAccuracy:true,timeout:15000,maximumAge:0});
 }
 
 // ─── CALENDAR + REMINDER ─────────────────────────────────────────────────────
