@@ -349,11 +349,11 @@
     .td-chip{display:inline-block;border-radius:var(--radius-full);padding:var(--space-1) var(--space-3);font-size:var(--text-xs);font-weight:600}
     .chip-sale{background:#F9ECF0;color:#252535}
     .chip-online{background:#C4B0E8;color:#252535}
-    .chip-donate{background:#8BA7D4;color:#252535}
-    .chip-keep{background:#FCF0E8;color:#252535}
-    .chip-kids{background:#F5C4A8;color:#252535}
-    .chip-trash{background:#6D4C3E;color:#FAF7ED}
-    .chip-notsure{background:#EFA276;color:#252535}
+    .chip-donate{background:#FCF0E8;color:#252535}
+    .chip-keep{background:#EFA276;color:#252535}
+    .chip-kids{background:#6D4C3E;color:#FAF7ED}
+    .chip-trash{background:transparent;color:#252535;border:1.5px solid #EFA276}
+    .chip-notsure{background:transparent;color:#252535;border:1.5px solid #8BA7D4}
     .sold-row{opacity:.5}
 
     /* ─── PROGRESS ─── */
@@ -2811,7 +2811,7 @@ function renderWrap(){
         <div class="card-title">Leftovers plan</div>
         <div class="gap-y-sm">
           ${areaField("Donate","wrap.donate",w.donate,"Which items go directly to donation after the sale?")}
-          ${w.donate?`<div style="background:#8BA7D4;border:1px solid #8BA7D4;padding:12px 16px;font-size:var(--text-sm);color:#252535;line-height:1.7">Someone else will find exactly what they need from what you are letting go.</div>`:""}
+          ${w.donate?`<div style="background:#FCF0E8;border:1px solid #EFA276;padding:12px 16px;font-size:var(--text-sm);color:#252535;line-height:1.7">Someone else will find exactly what they need from what you are letting go.</div>`:""}
           <div class="card-title" style="font-size:15px;margin-top:6px;margin-bottom:4px">Donation center</div>
           ${field("Local donation center (optional)","text","setup.charityName",P.setup?.charityName,"Goodwill — Main St")}
           ${field("Donation center phone","tel","setup.charityPhone",P.setup?.charityPhone,"(555) 123-4567")}
