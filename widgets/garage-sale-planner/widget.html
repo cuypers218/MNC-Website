@@ -3824,11 +3824,17 @@ async function fetchWeather(saleDate){
     const todayObj=new Date();todayObj.setHours(0,0,0,0);
     const dateObj=new Date(saleDate+'T00:00:00');
     const daysAway=Math.round((dateObj-todayObj)/86400000);
-    if(daysAway<0){W.loading=false;W.data={msg:'Sale date has passed.'};renderWeatherCard();return;}
-    if(daysAway>15){W.loading=false;W.data={msg:'Forecast available within 16 days of sale day.'};renderWeatherCard();return;}
     const url=`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current_weather=true&daily=weathercode,temperature_2m_max,temperature_2m_min,precipitation_probability_max&temperature_unit=fahrenheit&forecast_days=16&timezone=auto`;
     const r=await fetch(url);const j=await r.json();
     const cw=j.current_weather||{};
+    const current={temp:Math.round(cw.temperature||0),code:cw.weathercode||0};
+    W.loading=false;
+    if(daysAway<0){W.data={current,msg:'Sale date has passed.'};renderWeatherCard();return;}
+    if(daysAway>15){
+      const waitDays=daysAway-15;
+      W.data={current,msg:`Right now, it's ${current.temp}° and ${wCodeInfo(current.code).label.toLowerCase()} nearby. Your sale-day forecast unlocks in ${waitDays} day${waitDays===1?'':'s'}, once it's within 16 days out.`};
+      renderWeatherCard();return;
+    }
     const times=j.daily.time||[];
     const todayStr=todayObj.toISOString().split('T')[0];
     const salei=times.indexOf(saleDate)>=0?times.indexOf(saleDate):Math.min(daysAway,times.length-1);
@@ -3838,8 +3844,8 @@ async function fetchWeather(saleDate){
         code:j.daily.weathercode[idx],high:Math.round(j.daily.temperature_2m_max[idx]),low:Math.round(j.daily.temperature_2m_min[idx]),
         rain:j.daily.precipitation_probability_max[idx],isToday:date===todayStr,isSaleDay:idx===salei};
     });
-    W.viewStart=Math.max(0,salei-1);W.loading=false;
-    W.data={current:{temp:Math.round(cw.temperature||0),code:cw.weathercode||0},days,saleDay:days[salei]};
+    W.viewStart=Math.max(0,salei-1);
+    W.data={current,days,saleDay:days[salei]};
   }catch(e){
     W.loading=false;
     W.data={msg:e.message==='zip_not_found'?'Zip code not found — try a nearby zip.':'Could not load forecast. Check your connection.',zipError:true};
@@ -3849,7 +3855,19 @@ async function fetchWeather(saleDate){
 function renderWeatherCard(){
   const el=document.getElementById('weather-card');if(!el)return;
   if(!W.data){el.innerHTML=`<div class="card-title">Sale day weather</div><div class="text-muted" style="font-size:var(--text-sm);margin-top:6px">Checking forecast…</div>`;return;}
-  if(W.data.msg){el.innerHTML=`<div class="card-title">Sale day weather</div><div class="text-muted" style="font-size:var(--text-sm);margin-top:6px">${W.data.msg}</div>${W.data.zipError?'<button onclick="clearWeatherZip()" style="margin-top:8px;font-family:var(--font-body);font-size:14px;font-weight:600;color:#C44570;background:none;border:none;cursor:pointer;padding:0">Try a different zip →</button>':''}`;return;}
+  if(W.data.msg){
+    const c=W.data.current;
+    const header=c?`<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
+      <div class="card-title" style="margin-bottom:0">Sale day weather</div>
+      <div style="display:flex;align-items:center;gap:6px" title="${wCodeInfo(c.code).label}">
+        ${weatherIconSvg(c.code,24)}
+        <span style="font-family:var(--font-display);font-size:18px;font-weight:800;color:var(--color-text)">${c.temp}°</span>
+        <span style="font-size:11px;color:var(--color-text-muted)">now</span>
+      </div>
+    </div>`:`<div class="card-title">Sale day weather</div>`;
+    el.innerHTML=`${header}<div class="text-muted" style="font-size:var(--text-sm);margin-top:6px">${W.data.msg}</div>${W.data.zipError?'<button onclick="clearWeatherZip()" style="margin-top:8px;font-family:var(--font-body);font-size:14px;font-weight:600;color:#C44570;background:none;border:none;cursor:pointer;padding:0">Try a different zip →</button>':''}`;
+    return;
+  }
   const cur=W.data.current;
   const curInfo=wCodeInfo(cur.code);
   const sd=W.data.saleDay;
