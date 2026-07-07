@@ -21,34 +21,53 @@
 
 ## 2. COLOR SYSTEM
 
-> All previous palettes are retired. Only the colors below are in use as of May 2026.
+> **Locked July 5, 2026** (`MNC_Color_Reference_July2026.html`, source: `Skill_File_07-05-2026_v4.md`). This supersedes the May 2026 palette below site-wide — web, print, and interactive tools all draw from this same set now. Previously each context (site vs. widgets) had drifted onto separately-patched colors; as of this lock there is one palette for everything carrying the My Nest Chapter brand.
 
 ### 2.1 Foundation Colors
 
 | Name | Hex | Role |
 |---|---|---|
-| Velvety Charcoal | `#252535` | Primary dark — backgrounds, hero overlays, section fills |
-| Vanilla Cream | `#FFF8EE` | Primary light — page backgrounds, card fills, high-contrast sections |
+| Velvety Charcoal | `#252535` | Primary dark — backgrounds, hero overlays, section fills. Never more than 20–30% of any page. |
+| Warm Antique White | `#FAF7ED` | Main page background — hero, all content sections. 70–80% of every page is this color. *(replaces Vanilla Cream `#FFF8EE`, retired)* |
 
 ### 2.2 Confident Colors
 
 | Name | Hex | Role |
 |---|---|---|
-| Vibrant Pink | `#E87AAA` | **Primary signature color** — CTAs, links, active states, brand highlights |
-| Lavender | `#C4B0E8` | Accent — secondary buttons, outlines, decorative accents |
-| Powder Blue | `#A8C5DA` | Accent — section backgrounds, illustration fills |
-| Periwinkle | `#8BA7D4` | Accent — logo wordmark ("MY NEST"), footer brand label, tagline |
+| Deep Rose | `#C44570` | **Primary signature color** — every CTA button, every hover state, active nav link, section-divider accent. Action only — never decorative. *(replaces Vibrant Pink `#E87AAA`, retired)* |
+| Periwinkle | `#8BA7D4` | Logo "MY NEST," eyebrow labels above headings, section category labels, supporting text accents/captions/metadata. Never on buttons. Never as a background. |
+| Lavender | `#C4B0E8` | Badges, tags, product category chips, small accent details. 1–2 instances per page max. Never a section background. |
+
+**Judgment call, flagged:** Powder Blue `#A8C5DA` (old role: section backgrounds, illustration fills) is retired outright with no direct replacement given by the color lock. Until Cece specifies otherwise, use Warm Antique White for any section that previously used Powder Blue as a background — consistent with the lock's own instruction that light background should dominate the page rather than colored section blocks.
 
 ### 2.3 Warm Colors
 
 | Name | Hex | Role |
 |---|---|---|
-| Peach | `#F2A57A` | Warm accent — secondary CTAs, warm illustration elements |
-| Soft Peach | `#F5C4A8` | Warm accent — logo accent bar, soft highlight fills |
-| Lemon | `#EDD96A` | Warm accent — decorative only |
-| Lime | `#B5CC6A` | Warm accent — decorative only |
+| Soft Peach | `#F5C4A8` | Section dividers, card borders, horizontal rules, one warm accent/callout section per page. Never used twice as a background on the same page. *(absorbs the old Peach `#F2A57A` role, now retired)* |
+
+**Judgment call, flagged:** Lemon `#EDD96A` and Lime `#B5CC6A` (old role: decorative only) are retired outright with no replacement given — the lock doc calls them "wrong emotional register." Remove decorative Lemon/Lime uses rather than substituting a color; if a genuine accent is still needed in that spot, use Lavender.
+
+### 2.3b Utility Colors (new — infrastructure only, not brand-facing)
+
+| Name | Hex | Role |
+|---|---|---|
+| Rose Tint | `#F9ECF0` | Hover state background on cards, selected-item backgrounds, focused input field tint |
+| Peach Tint | `#FCF0E8` | Product card fills, text box backgrounds, input field backgrounds |
+| Peach Mid | `#EFA276` | Input outlines, text box borders, form field edges needing more visible definition |
+| Warm Brown | `#6D4C3E` | Icons, small UI elements on light backgrounds |
+
+**Rule: no cool gray anywhere.** Any gray text/border/fill (`#666666`, `#999999`, `#6e6e6e`, `#ABABAB`-as-a-text-color, etc.) is a violation going forward — use Periwinkle for text, the utility tints above for fills/borders. The one exception is disabled-state UI affordance (grayed-out buttons/inputs to signal "not interactive") — that's a UI convention orthogonal to brand color, not a text/label choice, and is left alone pending an explicit call from Cece if she wants that changed too.
+
+### 2.3c Special Use
+
+| Name | Hex | Role |
+|---|---|---|
+| Tool Background | `#FDFBF7` | Interactive HTML tools only (Garage Sale Planner, trackers, widgets). Not a brand surface — not for site pages or product covers. |
 
 ### 2.4 Workbook / Document Element Colors
+
+**Unchanged by the July 5, 2026 lock.** Per §5.5/§9.2 below, workbook *content pages* (non-cover) are deliberately brand-color-free — neutral grays, off-whites, black text only, for print legibility. The lock doc has no print/workbook section; these technical grays are a separate, intentional exception, not a "cool gray" violation.
 
 | Name | Hex | Role |
 |---|---|---|
@@ -61,29 +80,31 @@
 
 | Name | Hex | Role |
 |---|---|---|
-| Near-Black | `#0D0D0D` | Main titles in print/PDF |
-| Dark Gray | `#333333` | Headings web + print |
+| Near-Black | `#0D0D0D` | Main titles in print/PDF, H1 on light web backgrounds |
+| Dark Gray | `#333333` | Headings web + print, H2/H3 on light web backgrounds |
 | Body Near-Black | `#101010` | All body/paragraph text |
-| Mid Gray | `#666666` | Category labels, metadata, captions |
-| Light Gray | `#999999` | Footer copyright, disabled states |
-| Disabled | `#ABABAB` | Borders, disabled button text |
+| ~~Mid Gray~~ `#666666` | **Retired for web captions/labels/metadata** — replace with Periwinkle `#8BA7D4` per the "no cool gray anywhere" rule in §2.3b. Still fine for workbook/PDF print context (§2.4). |
+| ~~Light Gray~~ `#999999` | **Retired for footer copyright text** — replace with Periwinkle `#8BA7D4`. |
+| Disabled | `#ABABAB` | Borders, disabled button/input affordance — left as-is, a UI-state convention rather than a brand text color (see §2.3b note) |
 
 ### 2.6 Utility / State Colors
 
 | Name | Hex | Role |
 |---|---|---|
-| Link Hover Pink | `#C45A84` | Vibrant Pink darkened — hover/active states |
+| Link Hover Pink | `#A33359` | Deep Rose, one shade darker — hover/active states *(recomputed off `#C44570`; matches the "Sweet Peony" hover/active step already established in the Garage Sale Planner widget — see CLAUDE.md 2026-07-06)* |
 | Error Red | `#C0392B` | Form errors |
 | Error BG | `#FDEDEC` | Error message background |
 | Success Green | `#1E7E34` | Form success |
 | Success BG | `#E8F5E9` | Success message background |
 | Page Gray | `#FAFAFA` | Default page background (not pure white) |
-| Alt Section BG | `#E8EEF4` | Dusty blue-gray section variant |
-| Input BG | `#FCFCFC` | Form input background |
+| Alt Section BG | `#E8EEF4` | Dusty blue-gray section variant — **flagged, not replaced**: this predates the lock and isn't in the approved list; needs a call from Cece on whether to retire it in favor of Warm Antique White or keep it as a distinct "alt section" fill |
+| Input BG | `#FCFCFC` | Form input background — **flagged**: close to but not identical to the lock's Peach Tint `#FCF0E8`; recommend switching to Peach Tint for consistency, not yet applied without confirmation |
 
 ### 2.7 Retired Colors — Never Use
 
-Deep Berry `#811453`, all Berry shades, Soft Pink `#F8BBD0`, Warm Cream `#F4E8C1`, Warm Tan `#C8A982`, Warm Mauve `#BCAAA4`, Coral Orange `#FF6F61`, Teal `#00CACA`, Bright Yellow `#FFDD00`, Deep Plum `#6B3B50`, Light Peach `#F5D4B1`, Warm Gray `#B19D8D`, Soft Linen `#EAD3B7`, Dusty Rose `#D7A8A4`, old widget palette (Sage Gold, Peach Tan, Sage Gray, Blush Pink, Linen White, Muted Mauve), Gold `#FFD700`, Navy `#000080`, and all prior pink/blue shades.
+**Newly retired July 5, 2026:** Vibrant Pink `#E87AAA`, Vanilla Cream `#FFF8EE`, Powder Blue `#A8C5DA`, Peach `#F2A57A`, Lemon `#EDD96A`, Lime `#B5CC6A`, cool gray as a text/label/caption color (`#666666`, `#999999`, `#6e6e6e` and similar — disabled-state UI gray excepted, see §2.5).
+
+**Retired previously:** Deep Berry `#811453`, all Berry shades, Soft Pink `#F8BBD0`, Warm Cream `#F4E8C1`, Warm Tan `#C8A982`, Warm Mauve `#BCAAA4`, Coral Orange `#FF6F61`, Teal `#00CACA`, Bright Yellow `#FFDD00`, Deep Plum `#6B3B50`, Light Peach `#F5D4B1`, Warm Gray `#B19D8D`, Soft Linen `#EAD3B7`, Dusty Rose `#D7A8A4`, old widget palette (Sage Gold, Peach Tan, Sage Gray, Blush Pink, Linen White, Muted Mauve), Gold `#FFD700`, Navy `#000080`, and all prior pink/blue shades.
 
 ---
 
@@ -128,7 +149,7 @@ Deep Berry `#811453`, all Berry shades, Soft Pink `#F8BBD0`, Warm Cream `#F4E8C1
 ### 3.4 Type Treatment Rules
 
 - All headings and nav elements: `text-transform: uppercase`
-- Hero tagline: Montserrat 800, 2.2rem, `#FFF8EE`, uppercase, `letter-spacing: 0.02em`, `line-height: 1.15`
+- Hero tagline: Montserrat 800, 2.2rem, `#FAF7ED`, uppercase, `letter-spacing: 0.02em`, `line-height: 1.15`
 - No italics in print context
 - No decorative fonts
 - Fragments allowed and encouraged when they "land harder"
@@ -137,17 +158,19 @@ Deep Berry `#811453`, all Berry shades, Soft Pink `#F8BBD0`, Warm Cream `#F4E8C1
 
 ## 4. LOGO SYSTEM
 
-### 4.1 Wordmark — Locked (May 2026)
+### 4.1 Wordmark — Locked (May 2026), colors updated to July 5, 2026 lock
 
-- **Stacked wordmark:** "MY NEST" in Periwinkle `#8BA7D4` | "Chapter" large in Vibrant Pink `#E87AAA` | Soft Peach `#F5C4A8` accent bar
+- **Stacked wordmark:** "MY NEST" in Periwinkle `#8BA7D4` | "Chapter" large in Deep Rose `#C44570` | Soft Peach `#F5C4A8` accent bar
 - **Tagline version adds:** "FOR SINGLE & SOLO MOMS." in Periwinkle `#8BA7D4`
 
-### 4.2 Favicon / Brand Mark — Option B (Locked)
+### 4.2 Favicon / Brand Mark — Option B (Locked), colors updated to July 5, 2026 lock
 
 - **Doorway icon** — slightly ajar door
-- **Standalone:** Velvety Charcoal `#252535` door frame | Vibrant Pink `#E87AAA` doorknob | Soft Peach `#F5C4A8` light spill
-- **Favicon:** Vanilla Cream `#FFF8EE` icon on Velvety Charcoal `#252535` background | Vibrant Pink doorknob
+- **Standalone:** Velvety Charcoal `#252535` door frame | Deep Rose `#C44570` doorknob | Soft Peach `#F5C4A8` light spill
+- **Favicon:** Warm Antique White `#FAF7ED` icon on Velvety Charcoal `#252535` background | Deep Rose doorknob
 - Files: `mnc-logo-black.svg`, `MNC_Brand_Mark_Doorway.svg`, `MNC_Logo_Stacked_Wordmark.svg`, `MNC_Logo_Tagline.svg`, `MNC_Favicon.svg`
+
+**Not yet done:** these are Canva-exported SVG assets living outside this repo (not found under `MNC-Website/`) — this doc update is text-only. The actual asset files still need to be re-exported from Canva with the new colors before the favicon/logo files themselves match this spec.
 
 ### 4.3 Usage Rules
 
@@ -176,11 +199,11 @@ Deep Berry `#811453`, all Berry shades, Soft Pink `#F8BBD0`, Warm Cream `#F4E8C1
 ### 5.3 Widget / Interactive Tool Aesthetic
 
 - Full-screen or large viewport experiences
-- Charcoal `#252535` base with Lora serif text in Vanilla Cream `#FFF8EE`
+- Charcoal `#252535` base with Lora serif text in Warm Antique White `#FAF7ED`
 - Scene backgrounds with 55% opacity overlay
 - `linear-gradient(to bottom, rgba(0,0,0,0.25) 0%, rgba(0,0,0,0.55) 100%)` text legibility overlay
 - Story text in Lora 22pt; italic intro text at 16pt
-- Brand tag: Montserrat 800, 9pt, Vibrant Pink `#E87AAA`, letter-spacing 3px
+- Brand tag: Montserrat 800, 9pt, Deep Rose `#C44570`, letter-spacing 3px
 
 ### 5.4 Design Rules — Hard Constraints
 
@@ -209,9 +232,9 @@ The CSS comment block at the top of the global stylesheet names these explicitly
 
 | Variant | Background | Text | Border | Notes |
 |---|---|---|---|---|
-| `.btn-primary` | `#E87AAA` | `#FFFFFF` | none | Hover: `#C45A84` |
-| `.btn-outline` | `#FFFFFF` | `#E87AAA` | 1px `#E87AAA` | Hover: `#FFF8EE` bg |
-| `.btn-dark` | `#101010` | `#FFFFFF` | none | Hover: `#E87AAA` bg |
+| `.btn-primary` | `#C44570` | `#FFFFFF` | none | Hover: `#A33359` |
+| `.btn-outline` | `#FFFFFF` | `#C44570` | 1px `#C44570` | Hover: `#FAF7ED` bg |
+| `.btn-dark` | `#101010` | `#FFFFFF` | none | Hover: `#C44570` bg |
 | `.btn-hero` | transparent | `#FFFFFF` | 2px rgba(255,255,255,0.7) | Glow pulse animation |
 | Disabled | `#DDDDDD` | `#ABABAB` | none | `cursor: not-allowed` |
 
@@ -227,7 +250,7 @@ The CSS comment block at the top of the global stylesheet names these explicitly
 - Background: `#FFFFFF`, border: `1px solid #ABABAB`, no radius, no shadow
 - Hover: `transform: translateY(-4px)`, `transition: 0.3s ease`
 - Image height: 220px, `object-fit: cover`
-- Category label: Montserrat 800, 0.7rem, uppercase, letter-spacing 0.1em, `#666666`
+- Category label: Montserrat 800, 0.7rem, uppercase, letter-spacing 0.1em, `#8BA7D4` (Periwinkle — was `#666666`)
 - Title: Montserrat 800, 1.15rem, uppercase, `#333333`
 - Description: Arial, 0.95rem, `#444444`
 - CTA: full-width button, always at bottom
@@ -239,15 +262,15 @@ The CSS comment block at the top of the global stylesheet names these explicitly
 - Same border/shadow system as product cards
 - Image height: 180px
 - Title: 1rem (smaller than product cards)
-- Date: Montserrat 400, 0.75rem, `#666666`
+- Date: Montserrat 400, 0.75rem, `#8BA7D4` (Periwinkle — was `#666666`)
 
 ### 6.3 Navigation
 
 **Desktop header:**
 - Sticky, white background, `border-bottom: 1px solid #ABABAB`
 - Nav links: Montserrat 800, 0.8rem, uppercase, letter-spacing 1px, `#101010`
-- Active/hover: `color: #E87AAA` + `border-bottom: 2px solid #E87AAA`
-- Auth link: `#E87AAA` text
+- Active/hover: `color: #C44570` + `border-bottom: 2px solid #C44570`
+- Auth link: `#C44570` text
 
 **Mobile nav:**
 - Slide-in panel from right, 280px wide, `border-left: 1px solid #ABABAB`
@@ -259,7 +282,7 @@ The CSS comment block at the top of the global stylesheet names these explicitly
 
 - Input border: `1px solid #ABABAB`, no radius
 - Input background: `#FCFCFC`
-- Focus: `border-color: #E87AAA`
+- Focus: `border-color: #C44570`
 - Placeholder: `#BCBCBC`
 - Labels: Montserrat 800, 0.75rem, uppercase, letter-spacing 0.05em, `#333333`
 - Error state: `1px solid #C0392B`, red `#C0392B` text, `#FDEDEC` background
@@ -277,20 +300,20 @@ The CSS comment block at the top of the global stylesheet names these explicitly
 ### 6.6 Filter Tabs
 
 - Montserrat 800, 0.8rem, uppercase
-- Active/hover: `color: #E87AAA` + `border-bottom: 2px solid #E87AAA`
+- Active/hover: `color: #C44570` + `border-bottom: 2px solid #C44570`
 - No background change on active
 - Mobile: horizontal scroll, `flex-wrap: nowrap`
 
 ### 6.7 Toast Notifications
 
-- Fixed top-center, Vibrant Pink `#E87AAA` background, white text
+- Fixed top-center, Deep Rose `#C44570` background, white text
 - Montserrat 800, 0.7rem, uppercase, letter-spacing 2px
-- `border-bottom: 2px solid #C45A84`
+- `border-bottom: 2px solid #A33359`
 - Fade in/out via opacity
 
 ### 6.8 Dashboard
 
-- Section titles: Montserrat 800, 0.85rem, uppercase, letter-spacing 0.1em, `#666666`, `border-bottom: 1px solid #4B4B4B`
+- Section titles: Montserrat 800, 0.85rem, uppercase, letter-spacing 0.1em, `#8BA7D4` (Periwinkle — was `#666666`), `border-bottom: 1px solid #4B4B4B`
 - Welcome: Montserrat 800, 1.5rem, uppercase, `#333333`
 
 ### 6.9 Footer
@@ -298,9 +321,9 @@ The CSS comment block at the top of the global stylesheet names these explicitly
 - White background, `border-top: 1px solid #ABABAB`
 - Centered text layout
 - Brand name: Montserrat 800, 0.9rem, uppercase, `#8BA7D4`, letter-spacing 2px
-- Tagline below: Montserrat 400, 0.7rem, uppercase, letter-spacing 0.1em, `#666666`
+- Tagline below: Montserrat 400, 0.7rem, uppercase, letter-spacing 0.1em, `#8BA7D4` (Periwinkle — was `#666666`)
 - Nav links: 0.7rem, uppercase
-- Copyright: Arial, 0.75rem, `#999999`
+- Copyright: Arial, 0.75rem, `#8BA7D4` (Periwinkle — was `#999999`)
 
 ### 6.10 Animations
 
@@ -346,8 +369,8 @@ The CSS comment block at the top of the global stylesheet names these explicitly
 |---|---|---|
 | `.section` | `#FAFAFA` | `4rem 0` |
 | `.section-alt` | `#FFFFFF` | `4rem 0` |
-| `.section-cream` | `#FFF8EE` | `4rem 0` |
-| `.section-warm` | `#FFF8EE` | `4rem 0` |
+| `.section-cream` | `#FAF7ED` | `4rem 0` |
+| `.section-warm` | `#FAF7ED` | `4rem 0` |
 | `.section-charcoal` | `#252535` | `4rem 0` |
 | `.section-dusty` | `#E8EEF4` | `4rem 0` |
 
@@ -514,7 +537,7 @@ Content pages (non-cover) in all products: neutral grays, off-whites, black text
 
 ## 12. ACCESSIBILITY BASELINE
 
-- Skip link implemented: `#E87AAA` bg, Montserrat 800, uppercase, appears on `:focus`
+- Skip link implemented: `#C44570` bg, Montserrat 800, uppercase, appears on `:focus`
 - `.sr-only` utility class present
 - All interactive elements minimum 44×44px on touch devices
 - ARIA labels and roles used on interactive widget elements
@@ -535,7 +558,7 @@ Content pages (non-cover) in all products: neutral grays, off-whites, black text
 - **No CSS custom properties (variables)** — entire color system is hardcoded throughout style.css. A token layer is missing and would be a major maintainability upgrade.
 - **No defined spacing scale** — spacing values exist in CSS but not as named tokens. No `--space-section`, `--space-card`, etc.
 - **No dark mode system** — charcoal sections exist but there is no `prefers-color-scheme` media query or formal dark-mode spec.
-- **Warm accent web usage undefined** — Lemon `#EDD96A`, Lime `#B5CC6A`, Lavender `#C4B0E8`, Peach `#F2A57A` have no assigned CSS classes or documented web use cases beyond "decorative."
+- **Lavender `#C4B0E8` web usage underspecified** — no assigned CSS classes yet beyond "decorative." (Lemon/Lime/Peach, previously flagged here too, are now retired outright per the July 5, 2026 lock — no longer a gap to fill.)
 - **Soft Peach `#F5C4A8`** — defined in brand spec as logo accent bar but not referenced in site CSS; web usage underspecified.
 
 ### 13.3 Typography — Missing
@@ -577,22 +600,29 @@ Content pages (non-cover) in all products: neutral grays, off-whites, black text
 ```css
 /* Foundation */
 --charcoal:      #252535;
---cream:         #FFF8EE;
+--warm-white:    #FAF7ED;   /* was --cream, #FFF8EE */
 
 /* Confident */
---pink:          #E87AAA;   /* Primary signature */
---pink-hover:    #C45A84;
+--deep-rose:     #C44570;   /* Primary signature — was --pink, #E87AAA */
+--deep-rose-hover: #A33359; /* was --pink-hover, #C45A84 */
+--periwinkle:    #8BA7D4;   /* text accent role only now — never buttons/bg */
 --lavender:      #C4B0E8;
---powder-blue:   #A8C5DA;
---periwinkle:    #8BA7D4;
 
 /* Warm */
---peach:         #F2A57A;
 --soft-peach:    #F5C4A8;
---lemon:         #EDD96A;
---lime:          #B5CC6A;
 
-/* Document elements */
+/* Utility (new, infrastructure only) */
+--rose-tint:     #F9ECF0;
+--peach-tint:    #FCF0E8;
+--peach-mid:     #EFA276;
+--warm-brown:    #6D4C3E;
+
+/* Special use */
+--tool-bg:       #FDFBF7;   /* interactive HTML tools only, not site pages */
+
+/* Retired, do not use: --powder-blue #A8C5DA, --peach #F2A57A, --lemon #EDD96A, --lime #B5CC6A */
+
+/* Document elements (print/workbook only — unaffected by the July 5 lock) */
 --icon-gray:     #4B4B4B;
 --rule-line:     #D3D3D3;
 --box-border:    #ABABAB;
@@ -602,8 +632,7 @@ Content pages (non-cover) in all products: neutral grays, off-whites, black text
 --text-title:    #0D0D0D;
 --text-heading:  #333333;
 --text-body:     #101010;
---text-mid:      #666666;
---text-light:    #999999;
+/* --text-mid #666666 and --text-light #999999 are retired for web use — use --periwinkle instead. Still fine in print/workbook context. */
 
 /* UI / States */
 --page-bg:       #FAFAFA;
