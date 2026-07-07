@@ -1001,6 +1001,7 @@ const blankPlanner={
     platformTracker:{facebookMarketplace:false,nextdoor:false,craigslist:false,ebay:false,poshmark:false,mercari:false,thredup:false,kidizen:false}
   },
   safety:{tasks:{},tasksPhysical:{},tasksCash:{},petLocked:false,change:{ones:"40",fives:"20",quarters:"20"},bankReminderDone:false,safetyNotes:""},
+  checkInPlan:{times:"",messageCopied:false},
   items:[],prep:{},customPrepTasks:[],calculatorRows:[{id:"r1",name:"",quantity:"1",price:""}],
   transactions:[],memories:[],batchItems:[],nightBefore:{},
   wrap:{donate:"",sellOnline:"",keep:"",trash:"",notes:"",emotionalCheckIn:""},
@@ -1024,6 +1025,7 @@ function normalizePlanner(src){
       platformTracker:{...b.sellPromote.platformTracker,...(s.sellPromote?.platformTracker||{})},
     },
     safety:{...b.safety,...(s.safety||{}),tasks:{...b.safety.tasks,...(s.safety?.tasks||{})},tasksPhysical:{...b.safety.tasksPhysical,...(s.safety?.tasksPhysical||{})},tasksCash:{...b.safety.tasksCash,...(s.safety?.tasksCash||{})},change:{...b.safety.change,...(s.safety?.change||{})}},
+    checkInPlan:{...b.checkInPlan,...(s.checkInPlan||{})},
     items:Array.isArray(s.items)?s.items:b.items,
     prep:{...b.prep,...(s.prep||{})},
     nightBefore:{...b.nightBefore,...(s.nightBefore||{})},
@@ -1061,6 +1063,7 @@ function getDemoPlanner(){
     memories:[{id:makeId(),itemName:"Old school art folder",caption:"This mattered. It had its season. I do not have to keep the item to keep the memory.",photo:"",createdAt:"Demo memory"}],
     batchItems:[{id:makeId(),type:"Box",title:"Kitchen odds + ends",price:"2",category:"Kitchen",description:"Utensils, extra mugs, small duplicate kitchen items",photo:"",createdAt:"Demo item"},{id:makeId(),type:"Table",title:"Books + paperbacks",price:"1",category:"Books",description:"Beach reads, cozy mysteries, and paperback books",photo:"",createdAt:"Demo item"}],
     prep:{"Choose sale date and time":true,"Pick 1–2 rooms or areas to sort first":true,"Make a small online resale pile for valuable items":true},
+    checkInPlan:{times:"10:00 AM, 12:00 PM, 2:00 PM",messageCopied:false},
     calculatorRows:[{id:makeId(),name:"Coffee mug bundle",quantity:"1",price:"6"},{id:makeId(),name:"Decor basket",quantity:"1",price:"12"}],
     transactions:[{id:makeId(),description:"Coffee mug bundle",amount:"6",method:"Cash",time:"9:15 AM"},{id:makeId(),description:"Small accent table",amount:"45",method:"Venmo",time:"10:05 AM"}],
     wrap:{donate:"Kitchen duplicates that do not sell",sellOnline:"Accent table if buyer does not pick up",keep:"A small memory box only",trash:"Broken frames and expired supplies",notes:"Bundles sold faster than single small items."},
@@ -2078,7 +2081,7 @@ function renderWriteAd(){
           ${a.featuredItems?`<div style="margin-top:10px;font-size:13px;color:var(--color-text-muted)">${esc(a.featuredItems)}</div>`:''}
         </div>
         <div style="margin-top:14px">
-          <button class="btn btn-secondary btn-sm" onclick="UI.pcTab='tags';goTab('saleWrap','tags')">Print your signs →</button>
+          <button class="btn btn-secondary btn-sm" onclick="goTab('saleWrap','tags')">Print your signs →</button>
         </div>
         <div class="check-item${a.signsPrinted?" checked":""}" role="checkbox" tabindex="0" aria-checked="${a.signsPrinted?"true":"false"}" style="margin-top:14px" onclick="toggleAdCheck('signsPrinted')" onkeydown="if(event.key===' '||event.key==='Enter'){event.preventDefault();toggleAdCheck('signsPrinted')}">
           <div class="check-box" aria-hidden="true">${a.signsPrinted?"✓":""}</div>
@@ -2225,6 +2228,7 @@ function renderPrep(){
         </div>
       </div>
     </div>
+    ${renderCheckInPlan()}
   </div>`;
 }
 
@@ -2323,6 +2327,70 @@ function toggleSafety(i){const task=safetyTasks[i];deepSet(P,["safety","tasks",t
 function toggleSafetyPhysical(i){const task=safetyTasksPhysical[i];deepSet(P,["safety","tasksPhysical",task],!P.safety?.tasksPhysical?.[task]);P.isDemo=false;save();renderContent()}
 function toggleSafetyCash(i){const task=safetyTasksCash[i];deepSet(P,["safety","tasksCash",task],!P.safety?.tasksCash?.[task]);P.isDemo=false;save();renderContent()}
 function togglePetLocked(){deepSet(P,["safety","petLocked"],!P.safety?.petLocked);P.isDemo=false;save();renderContent()}
+
+// ─── CHECK-IN PLAN ────────────────────────────────────────────────────────────
+function buildCheckInTimePlaceholder(){
+  const start=P.setup?.saleStartTime||'';
+  const end=P.setup?.saleEndTime||'';
+  if(!start||!end)return'10:00 AM, 12:00 PM, 2:00 PM';
+  return`${start}, ${end}`;
+}
+function buildCheckInMessage(){
+  const contact=P.setup?.emergencyContact||'';
+  const firstName=contact?contact.split(/[\s,\u2014\u2013\-]/)[0]:'you';
+  const times=P.checkInPlan?.times||'';
+  const saleDate=P.setup?.saleDate||'';
+  const dateStr=saleDate?new Date(saleDate+'T00:00:00').toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric'}):'';
+  const startTime=P.setup?.saleStartTime||'';
+  const endTime=P.setup?.saleEndTime||'';
+  let msg=`Hey ${firstName} — I'm running my garage sale`;
+  if(dateStr)msg+=` today, ${dateStr}`;
+  if(startTime&&endTime)msg+=`, from ${startTime} to ${endTime}`;
+  msg+='.';
+  if(times)msg+=` Can you check in on me at ${times}? If I don't respond within 20 minutes, come check on me.`;
+  return msg;
+}
+function copyCheckInMessage(){
+  const msg=buildCheckInMessage();if(!msg)return;
+  navigator.clipboard.writeText(msg).then(()=>{
+    deepSet(P,['checkInPlan','messageCopied'],true);P.isDemo=false;save();renderContent();
+    setTimeout(()=>{deepSet(P,['checkInPlan','messageCopied'],false);save();renderContent();},3000);
+  }).catch(()=>{});
+}
+function renderCheckInPlan(){
+  const contact=P.setup?.emergencyContact||'';
+  const times=P.checkInPlan?.times||'';
+  const copied=P.checkInPlan?.messageCopied||false;
+  const msg=buildCheckInMessage();
+  const placeholder=buildCheckInTimePlaceholder();
+  return`
+  <div class="card">
+    <div class="card-title">Check-In Plan</div>
+    <p class="text-muted text-sm" style="margin-bottom:14px">You're doing this solo. Someone needs to know when to check on you.</p>
+    <div style="margin-bottom:16px">
+      <div class="form-label" style="margin-bottom:6px">Your check-in person</div>
+      ${contact
+        ?`<div style="font-size:14px;color:var(--color-text);font-weight:600;margin-bottom:4px">${esc(contact)}</div>
+           <a href="#" onclick="goTab('start','start');return false" style="font-size:12px;color:var(--color-primary)">Edit on Start tab →</a>`
+        :`<div class="info-box">Add your emergency contact on the <a href="#" onclick="goTab('start','start');return false" style="color:var(--color-primary);font-weight:700;text-decoration:underline">Start tab</a> first.</div>`
+      }
+    </div>
+    <div class="form-field" style="margin-bottom:16px">
+      <label class="form-label">Check-in times</label>
+      <input class="input" type="text" value="${esc(times)}" placeholder="${esc(placeholder)}" onblur="sf(this,'checkInPlan','times')" style="font-size:14px" />
+      <div class="text-muted" style="font-size:11px;margin-top:4px">Separate multiple times with commas.</div>
+    </div>
+    ${contact&&times?`
+    <div>
+      <div class="form-label" style="margin-bottom:8px">Copy this and send it before sale day</div>
+      <div class="info-box" style="font-size:13px;line-height:1.65;text-align:left;font-style:italic">${esc(msg)}</div>
+      <div style="display:flex;align-items:center;gap:10px;margin-top:10px">
+        <button class="btn btn-secondary btn-sm" onclick="copyCheckInMessage()">Copy message</button>
+        ${copied?`<span style="font-size:12px;color:var(--color-primary);font-weight:600">Copied.</span>`:''}
+      </div>
+    </div>`:''}
+  </div>`;
+}
 
 // ─── SECTION: SALE DAY ────────────────────────────────────────────────────────
 function renderSaleDay(){
@@ -3542,6 +3610,13 @@ function checkTimeNotifs(){
   if(!P.notifFired?.saleDay&&days===0){
     if(!P.notifFired)P.notifFired={};P.notifFired.saleDay=true;
     addNotif('saleDay',"Today's the day. Everything is ready.");
+  }
+  if(days===0&&P.checkInPlan?.times&&P.setup?.emergencyContact){
+    if(!P.notifFired?.checkIn){
+      if(!P.notifFired)P.notifFired={};P.notifFired.checkIn=true;
+      const firstName=(P.setup.emergencyContact).split(/[\s,\u2014\u2013\-]/)[0]||'your contact';
+      addNotif('checkIn',`Check in with ${firstName} at your scheduled times today.`);
+    }
   }
   if(days===0&&s.saleEndTime){
     const endDate=new Date(s.saleDate+'T'+s.saleEndTime);
