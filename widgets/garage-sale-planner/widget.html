@@ -39,8 +39,8 @@
       --color-divider:        #F5C4A8;
       --color-border:         #EFA276;
       --color-text:           #252535;
-      --color-text-muted:     #6e6e6e;
-      --color-text-faint:     #6e6e6e;
+      --color-text-muted:     #8BA7D4;
+      --color-text-faint:     #8BA7D4;
       --color-primary:        #C44570;
       --color-primary-hover:  #C44570;
       --color-primary-active: #C44570;
@@ -355,7 +355,7 @@
     .cal-panel-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;font-family:var(--font-display);font-weight:700;font-size:14px;color:var(--color-text)}
     .cal-nav-btn{width:28px;height:28px;border-radius:9999px;background:none;font-size:18px;line-height:1;color:var(--color-primary);display:flex;align-items:center;justify-content:center;cursor:pointer}
     .cal-nav-btn:hover{background:#F9ECF0}
-    .cal-panel-dow{display:grid;grid-template-columns:repeat(7,1fr);text-align:center;font-size:11px;font-weight:600;color:#6e6e6e;margin-bottom:4px}
+    .cal-panel-dow{display:grid;grid-template-columns:repeat(7,1fr);text-align:center;font-size:11px;font-weight:600;color:#8BA7D4;margin-bottom:4px}
     .cal-panel-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:2px}
     .cal-day{
       aspect-ratio:1;width:100%;border-radius:9999px;background:none;
@@ -483,7 +483,7 @@
     .serif{font-family:var(--font-display)}
     .pill{display:inline-block;border-radius:var(--radius-full);padding:var(--space-1) var(--space-3);font-size:var(--text-xs);font-weight:600;background:var(--color-primary-hl);color:var(--color-primary)}
     .empty-state{text-align:center;padding:var(--space-10) var(--space-6);color:var(--color-text-muted);font-size:var(--text-sm)}
-    .empty-state-prompt{font-family:var(--font-body);font-size:14px;color:#6e6e6e;text-align:center;padding:24px 16px;font-weight:400;border-radius:var(--radius-lg);box-shadow:none}
+    .empty-state-prompt{font-family:var(--font-body);font-size:14px;color:#8BA7D4;text-align:center;padding:24px 16px;font-weight:400;border-radius:var(--radius-lg);box-shadow:none}
     .divider{height:1px;background:var(--color-divider);margin:var(--space-4) 0}
     .sign-preview{padding:var(--space-8);text-align:center;background:var(--color-primary-hl)}
     .sign-headline{font-size:clamp(1.25rem,1rem + 1vw,1.75rem);font-weight:600;font-family:var(--font-display);color:var(--color-primary);line-height:1.3}
@@ -540,10 +540,10 @@
       #print-section{display:block!important;position:absolute;top:0;left:0;width:100%;padding:16px}
       .print-grid-tags{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
       .print-grid-signs{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;margin-bottom:24px}
-      .print-grid-boxes{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
+      .print-grid-batches{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
       .print-tag{border:2px dashed #C44570;padding:18px;text-align:center;min-height:140px}
       .print-sign{border:3px solid #C44570;padding:28px;text-align:center;min-height:300px}
-      .print-box-sign{border:3px solid #C44570;padding:28px;text-align:center;min-height:240px}
+      .print-batch-sign{border:3px solid #C44570;padding:28px;text-align:center;min-height:240px;break-inside:avoid;page-break-inside:avoid}
       .print-page-break{break-after:page;page-break-after:always}
       /* ── Quick price tag sheets */
       .print-quick-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:0;width:100%}
@@ -568,7 +568,7 @@
       font-family:var(--font-body);
       opacity:0;transition:opacity 200ms ease;
     }
-    #sticky-bar .sb-label{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;color:#6e6e6e;line-height:1}
+    #sticky-bar .sb-label{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;color:#8BA7D4;line-height:1}
     #sticky-bar .sb-earned{font-size:18px;font-weight:700;color:#C44570;line-height:1;margin-top:3px}
     .sb-track{flex:1;height:5px;background:rgba(255,255,255,.15);max-width:200px}
     .sb-fill{height:100%;background:#C44570;transition:width .35s ease}
@@ -655,7 +655,7 @@
     .night-before-cb:checked{background:#252535;border-color:#252535}
     .night-before-cb:checked::after{content:'';display:block;width:8px;height:5px;border-left:2px solid #FAF7ED;border-bottom:2px solid #FAF7ED;transform:rotate(-45deg);margin:3px auto 0}
     .night-before-text{font-family:'DM Sans',sans-serif;font-size:10pt;color:#252535;line-height:1.5}
-    .night-before-item.checked .night-before-text{color:#6e6e6e;text-decoration:line-through}
+    .night-before-item.checked .night-before-text{color:#8BA7D4;text-decoration:line-through}
 
 </style>
 </head>
@@ -708,7 +708,7 @@
 <script>
 // ─── CONSTANTS ───────────────────────────────────────────────────────────────
 const STORAGE_KEY = "my-nest-chapter-simple-sale-planner-v8";
-const categories = ["Clothing","Books","Decor","Furniture","Kitchen","Electronics","Toys","Tools","Keepsakes","Home Goods","Other"];
+const categories = ["Clothing","Books","Decor","Furniture","Kitchen","Electronics","Toys","Tools","Sports","Keepsakes","Home Goods","Other"];
 const conditions = ["New","Excellent","Good","Fair","Needs Repair"];
 const decisions = ["Keep","Garage Sale","Sell Online","Donate","Given to kids","Trash","Not Sure"];
 const paymentMethods = ["Cash","PayPal","Venmo","Cash App","Zelle","Other"];
@@ -776,7 +776,7 @@ const flowTabs = [
 
 const flowSections = {
   start:[{id:"start",label:"Start"}],
-  sortPrice:[{id:"inventory",label:"Items"},{id:"batch",label:"Batch Boxes"},{id:"memory",label:"Memories"},{id:"pricing",label:"Pricing Guide"}],
+  sortPrice:[{id:"inventory",label:"Items"},{id:"batch",label:"Batch Items"},{id:"memory",label:"Memories"},{id:"pricing",label:"Pricing Guide"}],
   sellPromote:[{id:"promote",label:"Promote"},{id:"writeAd",label:"Write Your Ad"},{id:"platformGuide",label:"Sell Online"}],
   prepSafety:[{id:"prep",label:"Prep"},{id:"safety",label:"Safety + Logistics"}],
   saleWrap:[{id:"sale",label:"Sale Day"},{id:"tags",label:"Print Center"},{id:"wrap",label:"Wrap Up"}],
@@ -793,6 +793,7 @@ const pricingGuide = {
   Electronics:{Good:[10,50],Excellent:[20,100],New:[30,150],Fair:[3,20],"Needs Repair":[0,10],note:"Working electronics with cords/remotes are better online if over $25. Mark anything untested as-is."},
   Toys:{Good:[1,10],Excellent:[3,20],New:[5,30],Fair:[0.5,5],"Needs Repair":[0,1],note:"Bundle common toys. Lego, American Girl, vintage toys, gaming items, and complete sets should be checked online."},
   Tools:{Good:[5,25],Excellent:[10,45],New:[15,70],Fair:[2,10],"Needs Repair":[0,5],note:"Hand tools sell well at garage sales. Power tools, tool sets, and name brands may do better on Facebook Marketplace."},
+  Sports:{Good:[5,20],Excellent:[10,40],New:[15,60],Fair:[2,8],"Needs Repair":[0,3],note:"Bikes, golf clubs, fitness equipment, and outdoor gear sell well at garage sales. Check online for name brands — they often do better there."},
   Keepsakes:{Good:[0,0],Excellent:[0,0],New:[0,0],Fair:[0,0],"Needs Repair":[0,0],note:"Do not price your memories too fast. Photograph, write the story, then decide if the object still needs to stay."},
   "Home Goods":{Good:[2,12],Excellent:[5,25],New:[8,40],Fair:[1,6],"Needs Repair":[0,2],note:"Linens, baskets, pillows, lamps, rugs, and organizers sell better when clean, grouped, and clearly priced."},
   Other:{Good:[1,10],Excellent:[3,20],New:[5,30],Fair:[1,5],"Needs Repair":[0,1],note:"When unsure, price it so letting go feels easier than carrying it back inside."},
@@ -819,6 +820,12 @@ const itemPricingRows = [
   {item:"Toys",garage:"$1–$10",online:"$15–$75 for sets/brands",best:"Garage Sale, Mercari"},
   {item:"Tools",garage:"$3–$25",online:"$25–$150+ for power tools",best:"Facebook Marketplace"},
   {item:"Holiday decor",garage:"$1–$15",online:"$20–$100+ for vintage/large lots",best:"Garage Sale, Facebook Marketplace"},
+  {item:"Sports equipment (golf, tennis)",garage:"$5–$25",online:"$30–$150+ for name brands",best:"Facebook Marketplace"},
+  {item:"Bikes",garage:"$15–$50",online:"$75–$200+ for quality brands",best:"Facebook Marketplace"},
+  {item:"Fitness equipment",garage:"$10–$40",online:"$50–$200+ for name brands",best:"Facebook Marketplace"},
+  {item:"Rugs",garage:"$5–$25",online:"$30–$100+ for quality/vintage",best:"Facebook Marketplace"},
+  {item:"Handbags / purses",garage:"$3–$20",online:"$25–$200+ for name brands",best:"Poshmark, eBay"},
+  {item:"Outdoor / patio furniture",garage:"$10–$40",online:"$50–$150 for quality sets",best:"Facebook Marketplace"},
 ];
 
 const promoteChecklistTiers = [
@@ -947,6 +954,13 @@ function suggestPlatform(cat,cond,price,dec){
   if(cat==="Furniture"||amt>=35)return"Facebook Marketplace";
   if(cat==="Clothing"&&["New","Excellent"].includes(cond))return"Poshmark or Mercari";
   if(cat==="Electronics"&&amt>=25)return"eBay or Facebook Marketplace";
+  if(cat==="Books")return cond==="Excellent"||cond==="New"?"eBay":"Garage Sale";
+  if(cat==="Tools")return cond==="Excellent"||cond==="New"?"Facebook Marketplace":"Garage Sale";
+  if(cat==="Kitchen")return amt>=25?"Facebook Marketplace":"Garage Sale";
+  if(cat==="Decor")return amt>=20?"Facebook Marketplace":"Garage Sale";
+  if(cat==="Home Goods")return"Garage Sale";
+  if(cat==="Sports")return cond==="Excellent"||cond==="New"?"Facebook Marketplace":"Garage Sale";
+  if(cat==="Toys")return cond==="New"?"Mercari":"Garage Sale";
   if(dec==="Sell Online")return"Facebook Marketplace";
   return"Garage Sale";
 }
@@ -988,7 +1002,7 @@ const blankPlanner={
   },
   safety:{tasks:{},tasksPhysical:{},tasksCash:{},petLocked:false,change:{ones:"40",fives:"20",quarters:"20"},bankReminderDone:false,safetyNotes:""},
   items:[],prep:{},customPrepTasks:[],calculatorRows:[{id:"r1",name:"",quantity:"1",price:""}],
-  transactions:[],memories:[],batchBoxes:[],nightBefore:{},
+  transactions:[],memories:[],batchItems:[],nightBefore:{},
   wrap:{donate:"",sellOnline:"",keep:"",trash:"",notes:"",emotionalCheckIn:""},
   notifications:[],notifFired:{},
   scratchNotes:[],
@@ -1017,7 +1031,7 @@ function normalizePlanner(src){
     transactions:Array.isArray(s.transactions)?s.transactions:b.transactions,
     memories:Array.isArray(s.memories)?s.memories:(Array.isArray(s.memoryBox)?s.memoryBox:b.memories),
     scratchNotes:Array.isArray(s.scratchNotes)?s.scratchNotes:(typeof s.scratchPad==="string"&&s.scratchPad.trim()?[{id:makeId(),text:s.scratchPad,updatedAt:Date.now()}]:b.scratchNotes),
-    batchBoxes:Array.isArray(s.batchBoxes)?s.batchBoxes:b.batchBoxes,
+    batchItems:Array.isArray(s.batchItems)?s.batchItems:(Array.isArray(s.batchBoxes)?s.batchBoxes:b.batchItems),
     customPrepTasks:Array.isArray(s.customPrepTasks)?s.customPrepTasks:b.customPrepTasks,
     wrap:{...b.wrap,...(s.wrap||{})},
     notifications:Array.isArray(s.notifications)?s.notifications:b.notifications,
@@ -1045,7 +1059,7 @@ function getDemoPlanner(){
       {id:makeId(),name:"Old school art folder",category:"Keepsakes",condition:"Good",quantity:"1",decision:"Keep",price:"",suggested:"Memory check",platform:"Keep",notes:"Pick favorites and photograph the rest.",sold:false},
     ],
     memories:[{id:makeId(),itemName:"Old school art folder",caption:"This mattered. It had its season. I do not have to keep the item to keep the memory.",photo:"",createdAt:"Demo memory"}],
-    batchBoxes:[{id:makeId(),boxNumber:1,title:"Kitchen odds + ends",price:"2",category:"Kitchen",description:"Utensils, extra mugs, small duplicate kitchen items",photo:"",createdAt:"Demo box"},{id:makeId(),boxNumber:2,title:"Books + paperbacks",price:"1",category:"Books",description:"Beach reads, cozy mysteries, and paperback books",photo:"",createdAt:"Demo box"}],
+    batchItems:[{id:makeId(),type:"Box",title:"Kitchen odds + ends",price:"2",category:"Kitchen",description:"Utensils, extra mugs, small duplicate kitchen items",photo:"",createdAt:"Demo item"},{id:makeId(),type:"Table",title:"Books + paperbacks",price:"1",category:"Books",description:"Beach reads, cozy mysteries, and paperback books",photo:"",createdAt:"Demo item"}],
     prep:{"Choose sale date and time":true,"Pick 1–2 rooms or areas to sort first":true,"Make a small online resale pile for valuable items":true},
     calculatorRows:[{id:makeId(),name:"Coffee mug bundle",quantity:"1",price:"6"},{id:makeId(),name:"Decor basket",quantity:"1",price:"12"}],
     transactions:[{id:makeId(),description:"Coffee mug bundle",amount:"6",method:"Cash",time:"9:15 AM"},{id:makeId(),description:"Small accent table",amount:"45",method:"Venmo",time:"10:05 AM"}],
@@ -1054,11 +1068,11 @@ function getDemoPlanner(){
 }
 
 let P=loadPlanner();
-let UI={tab:"start",section:"start",invView:"table",showAddForm:false,demo:false,demoStep:0,calMenu:false,bellOpen:false,calcPaymentMethod:"Cash",scratchOpen:false,scratchNoteId:null,bundleItems:[],bundleDiscountPct:null,haggleLastPct:null};
+let UI={tab:"start",section:"start",showAddForm:false,demo:false,demoStep:0,calMenu:false,bellOpen:false,calcPaymentMethod:"Cash",scratchOpen:false,scratchNoteId:null,bundleItems:[],bundleDiscountPct:null,haggleLastPct:null};
 let draft={
-  item:{name:"",category:"Decor",condition:"Good",quantity:"1",decision:"Garage Sale",price:"",notes:""},
-  box:{title:"",price:"2",category:"Other",description:""},
-  memory:{itemName:"",caption:""},
+  item:{id:null,name:"",category:"Decor",condition:"Good",quantity:"1",decision:"Garage Sale",price:"",notes:""},
+  batch:{id:null,type:"Table",title:"",price:"2",category:"Other",description:""},
+  memory:{id:null,itemName:"",caption:""},
   sale:{description:"",amount:"",method:"Cash"},
 };
 let itemSearch="";
@@ -1328,6 +1342,7 @@ function renderStart(){
 
 // ─── SECTION: INVENTORY ───────────────────────────────────────────────────────
 function renderInventory(){
+  const stats=getStats(P);
   return`
   ${renderTourNote("Add items one by one — name, category, condition, and your price. The tool suggests a price range and the best place to sell it as you go.")}
   <div class="gap-y">
@@ -1335,7 +1350,8 @@ function renderInventory(){
       <p style="font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--color-muted);margin-bottom:4px">Sort + Price</p>
       <h2 class="page-title" style="margin-bottom:14px">Items</h2>
       ${renderDispositionCounter()}
-      <button class="btn btn-primary" onclick="UI.showAddForm=!UI.showAddForm;renderContent()" style="margin-bottom:20px">+ Add an item</button>
+      ${stats.estimated>0?`<div style="font-size:14px;color:var(--color-text);margin-top:4px">Estimated total: $${stats.estimated.toFixed(0)}</div>`:""}
+      <button class="btn btn-primary" onclick="toggleAddItemForm()" style="margin-bottom:20px;margin-top:14px">+ Add an item</button>
     </div>
     ${UI.showAddForm?renderAddItemForm():""}
     ${renderItemTable()}
@@ -1343,7 +1359,6 @@ function renderInventory(){
   </div>`;
 }
 
-function setInvView(v){UI.invView=v;renderContent()}
 let _invSearchTimer;
 function handleInvSearch(el){
   itemSearch=el.value;
@@ -1464,6 +1479,7 @@ function renderItemCards(){
         </div>
         <div class="inv-card-actions">
           ${heartBtnHtml(item)}
+          <button class="btn btn-ghost btn-xs" onclick="editItem('${esc(item.id)}')" aria-label="Edit ${esc(item.name)}">Edit</button>
           <button class="btn btn-danger btn-xs" onclick="deleteItem('${esc(item.id)}')" aria-label="Remove item">×</button>
         </div>
       </div>`).join("")}
@@ -1499,6 +1515,7 @@ function renderItemTable(){
           <td>
             <div class="row" style="gap:4px">
               ${heartBtnHtml(item)}
+              <button class="btn btn-ghost btn-xs" onclick="editItem('${esc(item.id)}')" aria-label="Edit ${esc(item.name)}">Edit</button>
               <button class="btn btn-danger btn-xs" onclick="deleteItem('${esc(item.id)}')" aria-label="Remove ${esc(item.name)}">×</button>
             </div>
           </td>
@@ -1517,9 +1534,24 @@ function addItem(){
   const qty=Number(draft.item.quantity);if(isNaN(qty)||qty<1)draft.item.quantity="1";
   const pr=Number(draft.item.price);if(isNaN(pr)||pr<0)draft.item.price="";
   const d=draft.item;
-  P.items=[{id:makeId(),name:d.name,category:d.category,condition:d.condition,quantity:d.quantity,decision:d.decision,price:d.price,notes:d.notes,suggested:priceRange(d.category,d.condition),platform:suggestPlatform(d.category,d.condition,d.price,d.decision),sold:false},...(P.items||[])];
-  P.isDemo=false;save();draft.item={name:"",category:"Decor",condition:"Good",quantity:"1",decision:"Garage Sale",price:"",notes:""};
+  const suggested=priceRange(d.category,d.condition);
+  const platform=suggestPlatform(d.category,d.condition,d.price,d.decision);
+  if(d.id){
+    P.items=(P.items||[]).map(i=>i.id===d.id?{...i,name:d.name,category:d.category,condition:d.condition,quantity:d.quantity,decision:d.decision,price:d.price,notes:d.notes,suggested,platform}:i);
+  }else{
+    P.items=[{id:makeId(),name:d.name,category:d.category,condition:d.condition,quantity:d.quantity,decision:d.decision,price:d.price,notes:d.notes,suggested,platform,sold:false},...(P.items||[])];
+  }
+  P.isDemo=false;save();draft.item={id:null,name:"",category:"Decor",condition:"Good",quantity:"1",decision:"Garage Sale",price:"",notes:""};
   UI.showAddForm=false;renderContent();refreshMetrics();checkUnpricedNotif();
+}
+function toggleAddItemForm(){
+  if(!UI.showAddForm)draft.item={id:null,name:"",category:"Decor",condition:"Good",quantity:"1",decision:"Garage Sale",price:"",notes:""};
+  UI.showAddForm=!UI.showAddForm;renderContent();
+}
+function editItem(id){
+  const item=(P.items||[]).find(i=>i.id===id);if(!item)return;
+  draft.item={id:item.id,name:item.name,category:item.category,condition:item.condition,quantity:item.quantity,decision:item.decision,price:item.price,notes:item.notes||""};
+  UI.showAddForm=true;renderContent();
 }
 function deleteItem(id){mncConfirm("Remove this item?",()=>{P.items=(P.items||[]).filter(i=>i.id!==id);P.isDemo=false;save();renderContent();refreshMetrics();checkUnpricedNotif()})}
 function toggleSold(id,v){const item=(P.items||[]).find(i=>i.id===id);if(item){item.sold=v;P.isDemo=false;save();renderContent()}}
@@ -1538,119 +1570,241 @@ function saveToMemory(id){
   showToast("Added to Memories");
 }
 
-// ─── SECTION: BATCH BOXES ────────────────────────────────────────────────────
+// ─── SECTION: BATCH ITEMS ────────────────────────────────────────────────────
+const batchTypes=["Table","Basket","Shelf","Box","Bag","Rack","Bin","Counter","Other"];
+function getBatchPrefix(type){
+  const map={
+    Table:"Everything on This Table",
+    Basket:"Everything in This Basket",
+    Shelf:"Everything on This Shelf",
+    Box:"Everything in This Box",
+    Bag:"Everything in This Bag",
+    Rack:"Everything on This Rack",
+    Bin:"Everything in This Bin",
+    Counter:"Everything on This Counter",
+    Other:"Everything Here"
+  };
+  return map[type]||"Everything Here";
+}
 function renderBatch(){
-  _boxPhotoData="";
-  const boxes=P.batchBoxes||[];
+  if(!draft.batch.id)_boxPhotoData="";
+  const items=P.batchItems||[];
   return`
   <div class="gap-y">
+    ${renderTourNote("For any table, basket, shelf, or box where everything sells at the same price. Add it, set the price, print the sign. Move on.")}
     <div>
-      <h2 class="page-title">Batch Boxes</h2>
-      <p class="page-sub">Box up the little stuff — the odds and ends, the duplicates, the small things that don't need their own price tag. One box, one price, done.</p>
+      <h2 class="page-title">Batch Items</h2>
+      <p class="page-sub">Price a whole section at once — a table, a basket, a shelf, a box. Set your price, print a sign, move on.</p>
     </div>
     <div class="card">
-      <div class="card-title">Create a batch box</div>
+      <div class="card-title">${draft.batch.id?"Edit batch":"Create a batch"}</div>
       <div class="form-row" style="margin-bottom:14px">
         <div class="form-field">
-          <label class="form-label">Box title</label>
-          <input class="input" id="bx-title" placeholder="Kitchen odds + ends" oninput="draft.box.title=this.value" />
+          <label class="form-label">Type</label>
+          <select class="select" id="bx-type" onchange="draft.batch.type=this.value">${batchTypes.map(t=>`<option${t===draft.batch.type?" selected":""}>${t}</option>`).join("")}</select>
         </div>
         <div class="form-field">
-          <label class="form-label">Everything in this box ($)</label>
-          <input class="input" type="number" min="0" step="0.5" id="bx-price" value="2" oninput="draft.box.price=this.value" />
+          <label class="form-label">Label</label>
+          <input class="input" id="bx-title" value="${esc(draft.batch.title)}" placeholder="Kitchen odds + ends" oninput="draft.batch.title=this.value" />
+        </div>
+        <div class="form-field">
+          <label class="form-label">Price — everything here ($)</label>
+          <input class="input" type="number" min="0" step="0.5" id="bx-price" value="${esc(draft.batch.price)}" oninput="draft.batch.price=this.value" />
         </div>
         <div class="form-field">
           <label class="form-label">Category</label>
-          <select class="select" id="bx-cat" onchange="draft.box.category=this.value">${categories.map(c=>`<option${c===draft.box.category?" selected":""}>${c}</option>`).join("")}</select>
+          <select class="select" id="bx-cat" onchange="draft.batch.category=this.value">${categories.map(c=>`<option${c===draft.batch.category?" selected":""}>${c}</option>`).join("")}</select>
         </div>
       </div>
       <div class="form-field" style="margin-bottom:14px">
         <label class="form-label">Description</label>
-        <textarea class="textarea" rows="2" id="bx-desc" placeholder="Utensils, extra mugs, small duplicate kitchen items..." oninput="draft.box.description=this.value"></textarea>
+        <textarea class="textarea" rows="2" id="bx-desc" placeholder="Utensils, extra mugs, small duplicate kitchen items..." oninput="draft.batch.description=this.value">${esc(draft.batch.description)}</textarea>
       </div>
       <div class="form-field" style="margin-bottom:14px">
-        <label class="form-label">Box photo (optional)</label>
+        <label class="form-label">Photo (optional)</label>
         <input type="file" accept="image/*" onchange="handleBoxPhoto(this)" style="font-size:13px" />
       </div>
       <div class="form-actions">
-        <button class="btn btn-primary" onclick="addBox()">Add box</button>
-        ${boxes.length?`<button class="btn btn-secondary" onclick="printBoxSigns()">Print box signs</button>`:""}
+        <button class="btn btn-primary" onclick="addBatch()">${draft.batch.id?"Save changes":"Add batch"}</button>
       </div>
     </div>
-    ${boxes.length===0?`<div class="empty-state-prompt">No boxes yet. Use batch boxes when everything in a box sells at the same price — add one and price the whole box at once.</div>`:
-    `<div class="grid-3">${boxes.map(box=>`
+    ${items.length===0?`<div class="empty-state-prompt">Nothing here yet. Use this for any spot where everything is the same price — a table, a basket, a shelf. One sign, whole section, done.</div>`:`
+    <button class="btn btn-secondary" onclick="openBatchPrintOverlay()">Preview & Print Signs</button>
+    <div class="grid-3">${items.map(b=>`
       <div class="box-card">
-        ${box.photo?`<img src="${box.photo}" style="width:100%;aspect-ratio:4/3;object-fit:cover;margin-bottom:10px" />`:""}
-        <div class="box-number">Box #${box.boxNumber} · ${box.category}</div>
-        <div class="box-title">${esc(box.title||"Untitled box")}</div>
-        <div class="box-price">All items $${esc(box.price||"__")}</div>
-        <div class="text-muted" style="margin-top:6px;font-size:13px">${esc(box.description||"")}</div>
-        <div style="margin-top:12px"><button class="btn btn-danger btn-xs" onclick="deleteBox('${esc(box.id)}')">Remove</button></div>
+        ${b.photo?`<img src="${b.photo}" style="width:100%;aspect-ratio:4/3;object-fit:cover;margin-bottom:10px" />`:""}
+        <div class="box-number">${esc(b.type||"Box")} · ${esc(b.category)}</div>
+        <div class="box-title">${esc(b.title||"Untitled")}</div>
+        <div class="box-price">All items $${esc(b.price||"__")}</div>
+        <div class="text-muted" style="margin-top:6px;font-size:13px">${esc(b.description||"")}</div>
+        <div style="margin-top:12px;display:flex;gap:8px">
+          <button class="btn btn-ghost btn-xs" onclick="editBatch('${esc(b.id)}')">Edit</button>
+          <button class="btn btn-danger btn-xs" onclick="deleteBatch('${esc(b.id)}')">Remove</button>
+        </div>
       </div>`).join("")}
     </div>`}
+    ${renderSectionTip("I spent too long trying to price individual mugs. At some point they all go in a box for a dollar. Add a batch, print a sign, move on.")}
   </div>`;
 }
 
 let _boxPhotoData="";
 function handleBoxPhoto(input){const f=input.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{_boxPhotoData=r.result};r.readAsDataURL(f)}
-function addBox(){
-  const d=draft.box;
-  const existing=P.batchBoxes||[];
-  const nextNum=existing.reduce((m,b)=>Math.max(m,Number(b.boxNumber||0)),0)+1;
-  P.batchBoxes=[{id:makeId(),boxNumber:nextNum,title:d.title,price:d.price,category:d.category,description:d.description,photo:_boxPhotoData,createdAt:new Date().toLocaleDateString()},...existing];
-  P.isDemo=false;save();_boxPhotoData="";draft.box={title:"",price:"2",category:"Other",description:""};renderContent();
+function addBatch(){
+  const d=draft.batch;
+  const existing=P.batchItems||[];
+  if(d.id){
+    P.batchItems=existing.map(b=>b.id===d.id?{...b,type:d.type,title:d.title,price:d.price,category:d.category,description:d.description,photo:_boxPhotoData||b.photo}:b);
+  }else{
+    P.batchItems=[{id:makeId(),type:d.type,title:d.title,price:d.price,category:d.category,description:d.description,photo:_boxPhotoData,createdAt:new Date().toLocaleDateString()},...existing];
+  }
+  P.isDemo=false;save();_boxPhotoData="";draft.batch={id:null,type:"Table",title:"",price:"2",category:"Other",description:""};renderContent();
 }
-function deleteBox(id){mncConfirm("Remove this box?",()=>{P.batchBoxes=(P.batchBoxes||[]).filter(b=>b.id!==id);P.isDemo=false;save();renderContent()})}
+function editBatch(id){
+  const b=(P.batchItems||[]).find(x=>x.id===id);if(!b)return;
+  draft.batch={id:b.id,type:b.type||"Table",title:b.title,price:b.price,category:b.category,description:b.description||""};
+  _boxPhotoData=b.photo||"";
+  renderContent();
+}
+function deleteBatch(id){mncConfirm("Remove this batch?",()=>{P.batchItems=(P.batchItems||[]).filter(b=>b.id!==id);P.isDemo=false;save();renderContent()})}
+
+let _batchSignOverrides={};
+function openBatchPrintOverlay(){
+  const ov=document.getElementById('batch-print-overlay');if(!ov)return;
+  _batchSignOverrides={};
+  renderBatchPrintOverlay();
+  ov.style.display='block';ov.style.opacity='0';
+  requestAnimationFrame(()=>requestAnimationFrame(()=>{ov.style.opacity='1';}));
+}
+function closeBatchPrintOverlay(){
+  const ov=document.getElementById('batch-print-overlay');
+  if(ov){ov.style.opacity='0';setTimeout(()=>{ov.style.display='none';},180);}
+}
+function renderBatchPrintOverlay(){
+  const ov=document.getElementById('batch-print-overlay');if(!ov)return;
+  const items=P.batchItems||[];
+  ov.innerHTML=`
+  <div style="position:absolute;inset:0;background:var(--color-bg);overflow-y:auto;padding:32px 20px 60px">
+    <div style="max-width:820px;margin:0 auto">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:24px;gap:12px;flex-wrap:wrap">
+        <h2 class="page-title" style="margin:0">Preview & Print Signs</h2>
+        <div style="display:flex;gap:10px;align-items:center">
+          <button class="btn btn-primary" onclick="printBatchSigns()">Print</button>
+          <button onclick="closeBatchPrintOverlay()" aria-label="Close" style="background:none;border:none;font-size:26px;line-height:1;color:var(--color-text);cursor:pointer;padding:0 4px">×</button>
+        </div>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px">
+        ${items.map(it=>{
+          const ovr=_batchSignOverrides[it.id]||{};
+          const mainLine=ovr.mainLine??getBatchPrefix(it.type);
+          const price=ovr.price??it.price;
+          return`
+          <div style="border:1.5px solid var(--color-divider);padding:24px;text-align:center">
+            <div style="font-family:var(--font-body);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:#C44570;margin-bottom:14px">My Nest Chapter</div>
+            <input class="input" value="${esc(mainLine)}" oninput="_batchSignOverrides['${esc(it.id)}']={...(_batchSignOverrides['${esc(it.id)}']||{}),mainLine:this.value}" style="font-family:var(--font-display);font-weight:800;font-size:16px;text-align:center;margin-bottom:12px" />
+            <div style="display:flex;align-items:center;justify-content:center;gap:4px;margin-bottom:12px">
+              <span style="font-family:var(--font-display);font-weight:800;font-size:26px;color:#C44570">$</span>
+              <input class="input" value="${esc(price)}" oninput="_batchSignOverrides['${esc(it.id)}']={...(_batchSignOverrides['${esc(it.id)}']||{}),price:this.value}" style="font-family:var(--font-display);font-weight:800;font-size:26px;color:#C44570;text-align:center;max-width:100px" />
+            </div>
+            <div style="font-family:var(--font-body);font-size:13px;color:var(--color-text-muted)">${esc(it.title||"")}</div>
+          </div>`;
+        }).join("")}
+      </div>
+      <div style="text-align:center;margin-top:28px"><button class="btn btn-primary" onclick="printBatchSigns()">Print</button></div>
+    </div>
+  </div>`;
+}
+function printBatchSigns(){
+  const items=P.batchItems||[];
+  const signs=items.length?items:[{id:"x",type:"Box",title:"Mixed items",price:"2"}];
+  document.getElementById("print-inner").innerHTML=`
+    <div class="print-grid-batches">${signs.map(it=>{
+      const ovr=_batchSignOverrides[it.id]||{};
+      const mainLine=ovr.mainLine??getBatchPrefix(it.type);
+      const price=ovr.price??it.price;
+      return`
+      <div class="print-batch-sign">
+        <div style="font-size:10px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:#C44570;margin-bottom:14px">My Nest Chapter</div>
+        <div style="font-size:26px;font-weight:800;font-family:var(--font-display)">${esc(mainLine)}</div>
+        <div style="font-size:36px;font-weight:800;font-family:var(--font-display);color:#C44570;margin-top:14px">$${esc(price||"___")}</div>
+        <div style="font-size:14px;font-family:var(--font-body);margin-top:12px">${esc(it.title||"")}</div>
+      </div>`;
+    }).join("")}
+    </div>`;
+  document.getElementById("print-section").style.display="block";
+  window.print();
+  setTimeout(()=>document.getElementById("print-section").style.display="none",2000);
+}
 
 // ─── SECTION: MEMORIES ───────────────────────────────────────────────────────
 function renderMemory(){
+  if(!draft.memory.id)_memPhotoData="";
   const memories=P.memories||[];
   return`
-  ${renderTourNote("Use Memories for anything that makes you pause. Photograph it, write one line about it, then decide. You don't have to keep the item to keep the memory.")}
+  ${renderTourNote("Use Memories for anything that makes you pause — whether it's going or staying. Add a name, write a line, take a photo. Decide what to do with it when you're ready.")}
   <div class="gap-y">
     <div>
       <h2 class="page-title">Memories</h2>
-      <p class="page-sub">Before something goes, note what it meant. Photograph it, write the story, then decide.</p>
+      <p class="page-sub">Some things you'll price and move on. Others will stop you. This is where those go — whether they end up at the sale or stay. Add a name, write a line, take a photo. Figure out the rest when you're ready.</p>
       <p style="font-size:13px;color:var(--color-text-muted);font-style:italic;margin-top:6px;line-height:1.6">"You don't have to hold on to something to hold on to the memory." — Cece</p>
     </div>
     ${memories.length>0?`<div><button class="btn btn-secondary btn-sm" onclick="printMemoryPage()">Print your Memory Page</button></div>`:""}
     ${memories.length===0?`<div class="empty-state-prompt">Nothing here yet. When you get to something you can't just price and move on — add it here. You don't have to decide what to do with it right now.</div>`:
     `<div class="grid-3">${memories.map(m=>`
-      <div class="memory-card"${m.status?' style="opacity:.6"':''}>
+      <div class="memory-card"${["Passed on","Donated","Sold"].includes(m.status)?' style="opacity:.6"':''}>
+        ${m.photo?`<img src="${m.photo}" style="width:100%;aspect-ratio:4/3;object-fit:cover;margin-bottom:10px" />`:""}
         <div class="memory-name">${esc(m.itemName||"Memory")}</div>
         ${m.caption?`<div class="memory-caption">${esc(m.caption)}</div>`:""}
         <div class="text-xs text-muted">${esc(m.createdAt||"")}</div>
         <div style="display:flex;gap:6px;flex-wrap:wrap">
           ${memoryStatuses.map(st=>`<button class="toggle-chip" onclick="setMemoryStatus('${esc(m.id)}','${st}')" style="font-family:var(--font-body);font-size:12px;font-weight:600;padding:6px 10px;cursor:pointer;${m.status===st?'background:#252535;color:#FAF7ED;border:1px solid #252535':'background:transparent;color:var(--color-primary);border:1px solid var(--color-primary)'}">${st}</button>`).join("")}
         </div>
-        <button class="btn btn-danger btn-xs" onclick="deleteMemory('${esc(m.id)}')">Remove</button>
+        <div style="display:flex;gap:8px">
+          <button class="btn btn-ghost btn-xs" onclick="editMemory('${esc(m.id)}')">Edit</button>
+          <button class="btn btn-danger btn-xs" onclick="deleteMemory('${esc(m.id)}')">Remove</button>
+        </div>
       </div>`).join("")}
     </div>`}
     <div class="card">
-      <div class="card-title">Add a memory</div>
+      <div class="card-title">${draft.memory.id?"Edit memory":"Add a memory"}</div>
       <div class="form-row" style="margin-bottom:14px">
         <div class="form-field">
           <label class="form-label">Item name</label>
-          <input class="input" id="mem-name" placeholder="Old school art folder" oninput="draft.memory.itemName=this.value" />
+          <input class="input" id="mem-name" value="${esc(draft.memory.itemName)}" placeholder="Old school art folder" oninput="draft.memory.itemName=this.value" />
         </div>
       </div>
       <div class="form-field" style="margin-bottom:14px">
         <label class="form-label">Caption or memory note</label>
-        <textarea class="textarea" id="mem-cap" rows="3" placeholder="Add a note, or leave it. The name is enough." oninput="draft.memory.caption=this.value"></textarea>
+        <textarea class="textarea" id="mem-cap" rows="3" placeholder="Add a note, or leave it. The name is enough." oninput="draft.memory.caption=this.value">${esc(draft.memory.caption)}</textarea>
       </div>
-      <button class="btn btn-primary" onclick="addMemory()">Save memory</button>
+      <div class="form-field" style="margin-bottom:14px">
+        <label class="form-label">Photo (optional)</label>
+        <input type="file" accept="image/*" onchange="handleMemoryPhoto(this)" style="font-size:13px" />
+      </div>
+      <button class="btn btn-primary" onclick="addMemory()">${draft.memory.id?"Save changes":"Save memory"}</button>
     </div>
     ${renderSectionTip("I have one t-shirt from every sport each of my kids played. Those stay. Always. But the equipment, the gear, the extra everything from those years — that all goes. Knowing what I'm keeping makes it a lot easier to let go of the rest.")}
   </div>`;
 }
 
+let _memPhotoData="";
+function handleMemoryPhoto(input){const f=input.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{_memPhotoData=r.result};r.readAsDataURL(f)}
 function addMemory(){
   const d=draft.memory;
-  P.memories=[{id:makeId(),itemName:d.itemName||"Memory",caption:d.caption||"",photo:"",status:"",createdAt:new Date().toLocaleDateString()},...(P.memories||[])];
-  P.isDemo=false;save();draft.memory={itemName:"",caption:""};renderContent();
+  if(d.id){
+    P.memories=(P.memories||[]).map(m=>m.id===d.id?{...m,itemName:d.itemName||"Memory",caption:d.caption||"",photo:_memPhotoData||m.photo}:m);
+  }else{
+    P.memories=[{id:makeId(),itemName:d.itemName||"Memory",caption:d.caption||"",photo:_memPhotoData,status:"",createdAt:new Date().toLocaleDateString()},...(P.memories||[])];
+  }
+  P.isDemo=false;save();_memPhotoData="";draft.memory={id:null,itemName:"",caption:""};renderContent();
+}
+function editMemory(id){
+  const m=(P.memories||[]).find(x=>x.id===id);if(!m)return;
+  draft.memory={id:m.id,itemName:m.itemName,caption:m.caption||""};
+  _memPhotoData="";
+  renderContent();
 }
 function deleteMemory(id){mncConfirm("Remove this memory?",()=>{P.memories=(P.memories||[]).filter(m=>m.id!==id);P.isDemo=false;save();renderContent()})}
-const memoryStatuses=["Photographed","Passed on","Donated"];
+const memoryStatuses=["Photographed","Keeping it","Passed on","Donated","Sold"];
 function setMemoryStatus(id,status){
   const m=(P.memories||[]).find(m=>m.id===id);if(!m)return;
   m.status=m.status===status?"":status;
@@ -1664,7 +1818,7 @@ function renderPricing(){
   <div class="gap-y">
     <div>
       <h2 class="page-title">Pricing Guide</h2>
-      <p class="page-sub">Reference ranges by category and condition. Trust your gut on the final number.</p>
+      <p class="page-sub">Reference ranges by category and condition.</p>
     </div>
     <div style="background:var(--color-surface-3);border:1px solid var(--color-divider);padding:18px 20px;font-size:14px;line-height:2;color:var(--color-text)">
       Price at 10–25% of original retail<br>
@@ -1700,6 +1854,11 @@ function renderPricing(){
           </tbody>
         </table>
       </div>
+    </div>
+    <div style="border:1.5px solid var(--color-divider);padding:20px 24px;background:var(--color-surface)">
+      <div style="font-family:var(--font-display);font-size:13px;font-weight:700;color:var(--color-text);margin-bottom:8px">Got something that might be worth more?</div>
+      <p style="font-family:var(--font-body);font-size:13px;color:var(--color-text);line-height:1.6;margin-bottom:12px">The prices here are for garage sale day. If you've got something you're not sure about — furniture, collectibles, vintage pieces — <em>Know Before You Sell</em> goes deeper.</p>
+      <a href="/shop" style="font-family:var(--font-display);font-size:13px;font-weight:700;color:var(--color-primary);text-decoration:underline">Know Before You Sell →</a>
     </div>
     ${renderSectionTip("Put your high-ticket items at the front of the driveway — people stop for them on the way in and stay for everything else. And bundling works: 3 for $5 sells three things you'd have gotten $1 each for.")}
   </div>`;
@@ -2506,7 +2665,7 @@ function renderPrintCenter(){
   if(UI.quickPrice===undefined)UI.quickPrice='';
 
   const tagItems=(P.items||[]).filter(i=>["Garage Sale","Sell Online"].includes(i.decision));
-  const boxes=P.batchBoxes||[];
+  const boxes=P.batchItems||[];
   const a=P.advertising||{};
   if(UI.printSelected===undefined)UI.printSelected=tagItems.map(i=>i.id);
   if(UI.printSign===undefined)UI.printSign=-1;
@@ -2680,20 +2839,20 @@ function renderPCTagsContent(tagItems,selItems,allSigns,chosenSign,boxes){
       `:`<div class="info-box">Choose a sign above — it will appear here as a preview you can print.</div>`}
     </div>
 
-    <!-- BOX SIGNS -->
+    <!-- BATCH ITEM SIGNS -->
     <div class="card">
-      <div class="card-title">Box signs (${boxes.length})</div>
-      <p class="card-sub" style="margin-bottom:14px">One large sign per batch box. Set up batch boxes in Sort + Price first.</p>
-      ${boxes.length===0?`<div class="info-box">No batch boxes yet. Add boxes in Sort + Price → Batch Boxes, then come back here to print signs.</div>`:`
+      <div class="card-title">Batch item signs (${boxes.length})</div>
+      <p class="card-sub" style="margin-bottom:14px">One large sign per batch item. Set up batch items in Sort + Price first.</p>
+      ${boxes.length===0?`<div class="info-box">No batch items yet. Add items in Sort + Price → Batch Items, then come back here to print signs.</div>`:`
         <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:16px">
           ${boxes.slice(0,4).map(b=>`
             <div style="border:2px solid var(--color-divider);padding:14px;text-align:center;background:#fff">
-              <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.14em;color:var(--color-primary)">Box #${b.boxNumber}</div>
+              <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.14em;color:var(--color-primary)">${esc(b.type||"Box")} · ${esc(b.category)}</div>
               <div style="font-size:20px;font-weight:800;font-family:var(--font-display);color:var(--color-primary);margin-top:4px">All items $${esc(b.price||"__")}</div>
               <div style="font-size:14px;font-weight:700;margin-top:4px">${esc(b.title||b.category||"Mixed items")}</div>
             </div>`).join("")}
         </div>
-        <button class="btn btn-primary" onclick="printBoxSigns()">Print box signs</button>
+        <button class="btn btn-primary" onclick="openBatchPrintOverlay()">Preview & Print Signs</button>
       `}
     </div>`;
 }
@@ -2878,7 +3037,7 @@ function buildWrapCompletion(){
     ${dataLines?`<div style="max-width:320px;margin:0 auto 20px;display:flex;flex-direction:column;gap:8px">${dataLines}</div>`:""}
     ${memoryList}
     ${renderTimeOfDayPattern()}
-    <p style="font-family:var(--font-display);font-size:12px;color:#6e6e6e;margin:24px 0 0;">— Cece</p>
+    <p style="font-family:var(--font-display);font-size:12px;color:#8BA7D4;margin:24px 0 0;">— Cece</p>
     ${emotionalCheckIn}
   </div>`;
 }
@@ -3026,7 +3185,7 @@ function printSelectedTags(){
       <div style="font-size:9px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:#C44570">My Nest Chapter</div>
       <div style="font-size:14px;font-weight:700;margin:8px 0;min-height:36px">${esc(i.name||"Item")}</div>
       <div style="font-size:36px;font-weight:800;font-family:var(--font-display);color:#C44570">$${esc(i.price||"___")}</div>
-      <div style="font-size:10px;color:#6e6e6e;margin-top:4px">${esc(i.category||"")}</div>
+      <div style="font-size:10px;color:#8BA7D4;margin-top:4px">${esc(i.category||"")}</div>
     </div>`).join("")}</div>`;
   document.getElementById("print-inner").innerHTML=tagsHTML;
   document.getElementById("print-section").style.display="block";
@@ -3049,7 +3208,7 @@ function printPricePointTags(){
     <div class="print-tag">
       <div style="font-size:9px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:#C44570">My Nest Chapter</div>
       <div style="font-size:40px;font-weight:800;font-family:var(--font-display);color:#C44570;margin:10px 0">${p.label||"____"}</div>
-      <div style="font-size:9px;color:#6e6e6e">Thank you!</div>
+      <div style="font-size:9px;color:#8BA7D4">Thank you!</div>
     </div>`).join("")}</div>`;
   document.getElementById("print-inner").innerHTML=tagsHTML;
   document.getElementById("print-section").style.display="block";
@@ -3091,13 +3250,13 @@ function printTags(){
       <div class="print-sign">
         <div style="font-size:11px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:#C44570;margin-bottom:16px">My Nest Chapter</div>
         <div style="font-size:36px;font-weight:700;font-family:var(--font-display);color:#C44570;line-height:1.3;white-space:pre-line">${esc(P.advertising?.signHeadline||"GARAGE SALE")}\n${esc(P.advertising?.signDetails||"Today · Priced to Move")}</div>
-        <div style="margin-top:16px;font-size:14px;color:#6e6e6e">${esc(P.advertising?.featuredItems||"")}</div>
+        <div style="margin-top:16px;font-size:14px;color:#8BA7D4">${esc(P.advertising?.featuredItems||"")}</div>
       </div>
       <div class="print-sign">
         <div style="font-size:11px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:#C44570;margin-bottom:16px">My Nest Chapter</div>
         <div style="font-size:32px;font-weight:800;font-family:var(--font-display);color:#C44570">PRICED TO MOVE</div>
         <div style="font-size:20px;font-weight:700;margin-top:14px">Cash + Digital Payments</div>
-        <div style="font-size:13px;color:#6e6e6e;margin-top:14px">Thank you for helping these items begin their next chapter.</div>
+        <div style="font-size:13px;color:#8BA7D4;margin-top:14px">Thank you for helping these items begin their next chapter.</div>
       </div>
     </div>`;
   const tagsHTML=`<div class="print-grid-tags">${items.map(i=>`
@@ -3105,7 +3264,7 @@ function printTags(){
       <div style="font-size:9px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:#C44570">My Nest Chapter</div>
       <div style="font-size:14px;font-weight:700;margin:8px 0;min-height:36px">${esc(i.name||"Item")}</div>
       <div style="font-size:36px;font-weight:800;font-family:var(--font-display);color:#C44570">$${esc(i.price||"___")}</div>
-      <div style="font-size:10px;color:#6e6e6e;margin-top:4px">${esc(i.category||"")}</div>
+      <div style="font-size:10px;color:#8BA7D4;margin-top:4px">${esc(i.category||"")}</div>
     </div>`).join("")}</div>`;
   document.getElementById("print-inner").innerHTML=signHTML+tagsHTML;
   document.getElementById("print-section").style.display="block";
@@ -3113,23 +3272,6 @@ function printTags(){
   setTimeout(()=>document.getElementById("print-section").style.display="none",2000);
 }
 
-function printBoxSigns(){
-  const boxes=P.batchBoxes||[];
-  const items=boxes.length?boxes:[{id:"x",boxNumber:1,title:"Mixed items",price:"2",category:"Garage Sale"}];
-  document.getElementById("print-inner").innerHTML=`
-    <div class="print-grid-boxes">${items.map(b=>`
-      <div class="print-box-sign">
-        <div style="font-size:10px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:#C44570;margin-bottom:12px">My Nest Chapter</div>
-        <div style="font-size:36px;font-weight:800;font-family:var(--font-display)">BOX #${esc(b.boxNumber)}</div>
-        <div style="font-size:32px;font-weight:800;font-family:var(--font-display);color:#C44570;margin-top:10px">ALL ITEMS $${esc(b.price||"___")}</div>
-        <div style="font-size:18px;font-weight:700;margin-top:12px">${esc(b.title||b.category||"Mixed items")}</div>
-        <div style="font-size:12px;color:#6e6e6e;margin-top:8px">${esc(b.description||"Browse and choose.")}</div>
-      </div>`).join("")}
-    </div>`;
-  document.getElementById("print-section").style.display="block";
-  window.print();
-  setTimeout(()=>document.getElementById("print-section").style.display="none",2000);
-}
 
 // ─── PRINT CENTER HELPERS ─────────────────────────────────────────────────────
 function pcFmtDate(d){
@@ -3143,7 +3285,7 @@ function buildAreaSignPreviewHTML(mainText,priceText){
     return`<div style="border:2px solid #252535;padding:20px;text-align:center;background:#fff">
       <div style="font-family:var(--font-display);font-size:clamp(18px,3vw,26px);font-weight:800;line-height:1.3;color:#252535">${esc(mainText)||'—'}</div>
       ${priceText?`<div style="font-family:var(--font-display);font-size:clamp(22px,4vw,34px);font-weight:800;color:#252535;margin-top:8px">${esc(priceText)}</div>`:''}
-      <div style="font-size:9px;font-family:var(--font-body);color:#6e6e6e;letter-spacing:.1em;text-transform:uppercase;margin-top:10px">My Nest Chapter</div>
+      <div style="font-size:9px;font-family:var(--font-body);color:#8BA7D4;letter-spacing:.1em;text-transform:uppercase;margin-top:10px">My Nest Chapter</div>
     </div>`;
   }
   return signCard()+
@@ -3165,7 +3307,7 @@ function buildFlyerPreviewHTML(type){
     ${f.address?`<div style="font-size:14px;font-family:var(--font-body);margin-bottom:10px;color:#252535">${esc(f.address)}</div>`:''}
     ${f.featured?`<div style="font-size:13px;font-family:var(--font-body);color:var(--color-text-muted);margin-bottom:6px">${esc(f.featured)}</div>`:''}
     ${f.tagline?`<div style="font-size:12px;font-family:var(--font-body);color:var(--color-text-muted)">${esc(f.tagline)}</div>`:''}
-    <div style="font-size:9px;font-family:var(--font-body);color:#6e6e6e;margin-top:14px;letter-spacing:.1em;text-transform:uppercase">My Nest Chapter</div>
+    <div style="font-size:9px;font-family:var(--font-body);color:#8BA7D4;margin-top:14px;letter-spacing:.1em;text-transform:uppercase">My Nest Chapter</div>
     ${tearoffs}`;
 }
 
@@ -3200,7 +3342,7 @@ function printQuickTags(type){
   function qtHTML(price){
     return`<div class="print-quick-tag">
       <div style="font-family:'Lora',serif;font-size:18pt;font-weight:700;color:#252535;line-height:1">${price}</div>
-      <div style="font-family:'DM Sans',sans-serif;font-size:5pt;color:#6e6e6e;margin-top:4pt;letter-spacing:.1em;text-transform:uppercase">My Nest Chapter</div>
+      <div style="font-family:'DM Sans',sans-serif;font-size:5pt;color:#8BA7D4;margin-top:4pt;letter-spacing:.1em;text-transform:uppercase">My Nest Chapter</div>
     </div>`;
   }
   function grid(price,count){
@@ -3235,7 +3377,7 @@ function printAreaSigns(){
     return`<div class="print-area-sign">
       <div style="font-family:'Lora',serif;font-size:36pt;font-weight:700;line-height:1.2;color:#252535">${esc(mainText)}</div>
       ${priceText?`<div style="font-family:'Lora',serif;font-size:48pt;font-weight:700;color:#252535;margin-top:12pt">${esc(priceText)}</div>`:''}
-      <div style="font-family:'DM Sans',sans-serif;font-size:7pt;color:#6e6e6e;margin-top:20pt;letter-spacing:.1em;text-transform:uppercase">My Nest Chapter</div>
+      <div style="font-family:'DM Sans',sans-serif;font-size:7pt;color:#8BA7D4;margin-top:20pt;letter-spacing:.1em;text-transform:uppercase">My Nest Chapter</div>
     </div>`;
   }
   document.getElementById('print-inner').innerHTML=signHTML()+`<div class="print-sign-cut"></div>`+signHTML();
@@ -3257,8 +3399,8 @@ function printFlyer(type){
       ${dateTime?`<div style="font-family:'DM Sans',sans-serif;font-size:18pt;font-weight:700;color:#252535;margin-bottom:6pt">${dateTime}</div>`:''}
       ${f.address?`<div style="font-family:'DM Sans',sans-serif;font-size:15pt;color:#252535;margin-bottom:12pt">${esc(f.address)}</div>`:''}
       ${f.featured?`<div style="font-family:'DM Sans',sans-serif;font-size:12pt;color:#252535;margin-bottom:8pt">${esc(f.featured)}</div>`:''}
-      ${f.tagline?`<div style="font-family:'DM Sans',sans-serif;font-size:11pt;color:#6e6e6e">${esc(f.tagline)}</div>`:''}
-      <div style="font-family:'DM Sans',sans-serif;font-size:7pt;color:#6e6e6e;margin-top:auto;padding-top:20pt;letter-spacing:.1em;text-transform:uppercase">My Nest Chapter</div>
+      ${f.tagline?`<div style="font-family:'DM Sans',sans-serif;font-size:11pt;color:#8BA7D4">${esc(f.tagline)}</div>`:''}
+      <div style="font-family:'DM Sans',sans-serif;font-size:7pt;color:#8BA7D4;margin-top:auto;padding-top:20pt;letter-spacing:.1em;text-transform:uppercase">My Nest Chapter</div>
       ${tearStrips}
     </div>`;
   document.getElementById('print-section').style.display='block';
@@ -3278,9 +3420,10 @@ function printMemoryPage(){
       ${memories.map(m=>`
         <div style="margin-bottom:22px;padding-bottom:22px;border-bottom:1px solid #F5C4A8">
           <div style="font-size:15px;font-weight:700;color:#252535;font-family:'Lora',serif">${esc(m.itemName||"Memory")}</div>
-          ${m.caption?`<div style="font-size:13px;color:#6e6e6e;margin-top:6px;font-style:italic;line-height:1.65">${esc(m.caption)}</div>`:""}
+          ${m.caption?`<div style="font-size:13px;color:#8BA7D4;margin-top:6px;font-style:italic;line-height:1.65">${esc(m.caption)}</div>`:""}
+          <div style="margin-top:6px;font-size:11px;color:#252535;opacity:.6">${m.status?esc(m.status)+"  ·  ":""}${esc(m.createdAt||"")}</div>
         </div>`).join("")}
-      <div style="margin-top:36px;font-size:10px;color:#6e6e6e">My Nest Chapter · mynestchapter.com</div>
+      <div style="margin-top:36px;font-size:10px;color:#8BA7D4">My Nest Chapter · mynestchapter.com</div>
     </div>`;
   document.getElementById("print-section").style.display="block";
   window.print();
@@ -3327,7 +3470,7 @@ function renderBellPanel(){
   p.innerHTML=`
     <div style="display:flex;align-items:center;justify-content:space-between;padding:12px 16px;border-bottom:1px solid #F5C4A8;background:#252535;flex-shrink:0">
       <span style="font-family:'DM Sans',sans-serif;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#FDFBF7">Notifications</span>
-      ${notifs.length?`<button onclick="dismissAllNotifs()" style="font-family:'DM Sans',sans-serif;font-size:11px;color:#6e6e6e;background:none;border:none;cursor:pointer;padding:0;text-decoration:underline">Clear all</button>`:''}
+      ${notifs.length?`<button onclick="dismissAllNotifs()" style="font-family:'DM Sans',sans-serif;font-size:11px;color:#8BA7D4;background:none;border:none;cursor:pointer;padding:0;text-decoration:underline">Clear all</button>`:''}
     </div>
     ${notifs.length===0
       ?`<div class="bell-empty">Nothing new right now.</div>`
@@ -3425,9 +3568,9 @@ function advanceDemo(){
 function startFresh(){
   mncConfirm("This clears everything you've entered and can't be undone.",()=>{
     P=normalizePlanner(clone(blankPlanner));save();
-    UI={tab:"start",section:"start",invView:"table",showAddForm:false,demo:false,demoStep:0,calMenu:false,bellOpen:false};
+    UI={tab:"start",section:"start",showAddForm:false,demo:false,demoStep:0,calMenu:false,bellOpen:false};
     itemSearch="";invCatFilter="All";invDecFilter="All";
-    draft={item:{name:"",category:"Decor",condition:"Good",quantity:"1",decision:"Garage Sale",price:"",notes:""},box:{title:"",price:"2",category:"Other",description:""},memory:{itemName:"",caption:""},sale:{description:"",amount:"",method:"Cash"}};
+    draft={item:{id:null,name:"",category:"Decor",condition:"Good",quantity:"1",decision:"Garage Sale",price:"",notes:""},batch:{id:null,type:"Table",title:"",price:"2",category:"Other",description:""},memory:{id:null,itemName:"",caption:""},sale:{description:"",amount:"",method:"Cash"}};
     render();
   },{confirmLabel:"Reset Everything",confirmBg:"#252535",confirmColor:"#FAF7ED"});
 }
@@ -3460,27 +3603,27 @@ function exportPDF(){
   const itemRows=items.slice(0,50).map(i=>`
     <tr>
       <td style="padding:7px 8px;border-bottom:1px solid #F5C4A8;font-size:12px;font-family:'DM Sans',sans-serif;color:#252535">${esc(i.name)}</td>
-      <td style="padding:7px 8px;border-bottom:1px solid #F5C4A8;font-size:12px;font-family:'DM Sans',sans-serif;color:#6e6e6e">${esc(i.category)}</td>
-      <td style="padding:7px 8px;border-bottom:1px solid #F5C4A8;font-size:12px;font-family:'DM Sans',sans-serif;color:#6e6e6e">${esc(i.decision)}</td>
+      <td style="padding:7px 8px;border-bottom:1px solid #F5C4A8;font-size:12px;font-family:'DM Sans',sans-serif;color:#8BA7D4">${esc(i.category)}</td>
+      <td style="padding:7px 8px;border-bottom:1px solid #F5C4A8;font-size:12px;font-family:'DM Sans',sans-serif;color:#8BA7D4">${esc(i.decision)}</td>
       <td style="padding:7px 8px;border-bottom:1px solid #F5C4A8;font-size:12px;font-family:'DM Sans',sans-serif;color:#252535;font-weight:700">${i.price?"$"+esc(i.price):""}</td>
-      <td style="padding:7px 8px;border-bottom:1px solid #F5C4A8;font-size:12px;font-family:'DM Sans',sans-serif;color:#6e6e6e">${i.sold?"Sold":""}</td>
+      <td style="padding:7px 8px;border-bottom:1px solid #F5C4A8;font-size:12px;font-family:'DM Sans',sans-serif;color:#8BA7D4">${i.sold?"Sold":""}</td>
     </tr>`).join("");
 
   const txRows=tx.map(t=>`
     <tr>
       <td style="padding:7px 8px;border-bottom:1px solid #F5C4A8;font-size:12px;font-family:'DM Sans',sans-serif;color:#252535">${esc(t.description||"Sale")}</td>
-      <td style="padding:7px 8px;border-bottom:1px solid #F5C4A8;font-size:12px;font-family:'DM Sans',sans-serif;color:#6e6e6e">${esc(t.method||"Cash")}</td>
-      <td style="padding:7px 8px;border-bottom:1px solid #F5C4A8;font-size:12px;font-family:'DM Sans',sans-serif;color:#6e6e6e">${esc(t.time||"")}</td>
+      <td style="padding:7px 8px;border-bottom:1px solid #F5C4A8;font-size:12px;font-family:'DM Sans',sans-serif;color:#8BA7D4">${esc(t.method||"Cash")}</td>
+      <td style="padding:7px 8px;border-bottom:1px solid #F5C4A8;font-size:12px;font-family:'DM Sans',sans-serif;color:#8BA7D4">${esc(t.time||"")}</td>
       <td style="padding:7px 8px;border-bottom:1px solid #F5C4A8;font-size:12px;font-family:'DM Sans',sans-serif;font-weight:700;color:#C44570">$${Number(t.amount||0).toFixed(2)}</td>
     </tr>`).join("");
 
   const html=`
   <div style="max-width:680px;margin:0 auto;padding:40px 32px;font-family:'DM Sans',sans-serif">
     <div style="background:#252535;padding:20px 28px;margin-bottom:32px">
-      <div style="font-family:'DM Sans',sans-serif;font-size:9px;font-weight:800;letter-spacing:3px;text-transform:uppercase;color:#6e6e6e">MY NEST CHAPTER</div>
+      <div style="font-family:'DM Sans',sans-serif;font-size:9px;font-weight:800;letter-spacing:3px;text-transform:uppercase;color:#8BA7D4">MY NEST CHAPTER</div>
     </div>
     <h1 style="font-family:'DM Sans',sans-serif;font-weight:800;font-size:22px;color:#252535;margin:0 0 4px">${esc(s.saleTitle||"My Garage Sale")}</h1>
-    ${saleDate?`<p style="font-size:13px;color:#6e6e6e;margin:0 0 28px">${saleDate}</p>`:"<div style='margin-bottom:28px'></div>"}
+    ${saleDate?`<p style="font-size:13px;color:#8BA7D4;margin:0 0 28px">${saleDate}</p>`:"<div style='margin-bottom:28px'></div>"}
 
     <div style="background:#F9ECF0;padding:18px 22px;margin-bottom:28px;display:flex;justify-content:space-between;align-items:center">
       <div><div style="font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#C44570;margin-bottom:2px">Total Earned</div>
@@ -3489,8 +3632,8 @@ function exportPDF(){
     </div>
 
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:28px">
-      <div style="border:1px solid #F5C4A8;padding:14px 16px"><div style="font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#6e6e6e;margin-bottom:2px">Total Items</div><div style="font-size:18px;font-weight:800;color:#252535">${stats.totalItems}</div></div>
-      <div style="border:1px solid #F5C4A8;padding:14px 16px"><div style="font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#6e6e6e;margin-bottom:2px">Transactions</div><div style="font-size:18px;font-weight:800;color:#252535">${tx.length}</div></div>
+      <div style="border:1px solid #F5C4A8;padding:14px 16px"><div style="font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#8BA7D4;margin-bottom:2px">Total Items</div><div style="font-size:18px;font-weight:800;color:#252535">${stats.totalItems}</div></div>
+      <div style="border:1px solid #F5C4A8;padding:14px 16px"><div style="font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#8BA7D4;margin-bottom:2px">Transactions</div><div style="font-size:18px;font-weight:800;color:#252535">${tx.length}</div></div>
     </div>
 
     ${s.moneyPurpose?`<div style="border-left:3px solid #C44570;padding-left:16px;margin-bottom:28px">${row("What the money is for",s.moneyPurpose)}</div>`:""}
@@ -3499,11 +3642,11 @@ function exportPDF(){
     <h2 style="font-size:13px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:#252535;margin:0 0 12px;border-bottom:2px solid #252535;padding-bottom:8px">Item List</h2>
     <table width="100%" cellpadding="0" cellspacing="0" style="margin-bottom:28px;border:1px solid #F5C4A8">
       <thead><tr style="background:#252535">
-        <th style="padding:8px;text-align:left;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#6e6e6e">Item</th>
-        <th style="padding:8px;text-align:left;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#6e6e6e">Category</th>
-        <th style="padding:8px;text-align:left;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#6e6e6e">Decision</th>
-        <th style="padding:8px;text-align:left;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#6e6e6e">Price</th>
-        <th style="padding:8px;text-align:left;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#6e6e6e">Sold</th>
+        <th style="padding:8px;text-align:left;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#8BA7D4">Item</th>
+        <th style="padding:8px;text-align:left;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#8BA7D4">Category</th>
+        <th style="padding:8px;text-align:left;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#8BA7D4">Decision</th>
+        <th style="padding:8px;text-align:left;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#8BA7D4">Price</th>
+        <th style="padding:8px;text-align:left;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#8BA7D4">Sold</th>
       </tr></thead>
       <tbody>${itemRows}</tbody>
     </table>`:""}
@@ -3512,10 +3655,10 @@ function exportPDF(){
     <h2 style="font-size:13px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:#252535;margin:0 0 12px;border-bottom:2px solid #252535;padding-bottom:8px">Sales Log</h2>
     <table width="100%" cellpadding="0" cellspacing="0" style="margin-bottom:28px;border:1px solid #F5C4A8">
       <thead><tr style="background:#252535">
-        <th style="padding:8px;text-align:left;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#6e6e6e">Description</th>
-        <th style="padding:8px;text-align:left;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#6e6e6e">Payment</th>
-        <th style="padding:8px;text-align:left;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#6e6e6e">Time</th>
-        <th style="padding:8px;text-align:left;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#6e6e6e">Amount</th>
+        <th style="padding:8px;text-align:left;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#8BA7D4">Description</th>
+        <th style="padding:8px;text-align:left;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#8BA7D4">Payment</th>
+        <th style="padding:8px;text-align:left;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#8BA7D4">Time</th>
+        <th style="padding:8px;text-align:left;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#8BA7D4">Amount</th>
       </tr></thead>
       <tbody>${txRows}</tbody>
     </table>`:""}
@@ -3533,10 +3676,10 @@ function exportPDF(){
     ${(P.memories||[]).map(m=>`
       <div style="margin-bottom:14px;padding-bottom:14px;border-bottom:1px solid #F5C4A8">
         <div style="font-family:'DM Sans',sans-serif;font-size:13px;font-weight:700;color:#252535">${esc(m.itemName||"Memory")}</div>
-        ${m.caption?`<div style="font-family:'DM Sans',sans-serif;font-size:12px;color:#6e6e6e;margin-top:4px;font-style:italic;line-height:1.6">${esc(m.caption)}</div>`:""}
+        ${m.caption?`<div style="font-family:'DM Sans',sans-serif;font-size:12px;color:#8BA7D4;margin-top:4px;font-style:italic;line-height:1.6">${esc(m.caption)}</div>`:""}
       </div>`).join("")}`:""}
 
-    <div style="margin-top:40px;padding-top:20px;border-top:1px solid #F5C4A8;font-size:11px;color:#6e6e6e">
+    <div style="margin-top:40px;padding-top:20px;border-top:1px solid #F5C4A8;font-size:11px;color:#8BA7D4">
       My Nest Chapter &nbsp;·&nbsp; mynestchapter.com &nbsp;·&nbsp; Printed ${new Date().toLocaleDateString("en-US",{month:"long",day:"numeric",year:"numeric"})}
     </div>
   </div>`;
@@ -3591,7 +3734,7 @@ function dateField(label,pathStr,value,pickerId){
   const display=value?new Date(value+"T00:00:00").toLocaleDateString("en-US",{month:"short",day:"numeric",year:"numeric"}):"";
   return`<div class="form-field">
     <label class="form-label">${esc(label)}</label>
-    <button type="button" class="input cal-trigger" id="cal-trigger-${pickerId}" onclick="openDatePicker('${pathStr}','${pickerId}')" style="display:flex;align-items:center;justify-content:space-between;text-align:left;cursor:pointer;color:${value?'var(--color-text)':'#6e6e6e'}">
+    <button type="button" class="input cal-trigger" id="cal-trigger-${pickerId}" onclick="openDatePicker('${pathStr}','${pickerId}')" style="display:flex;align-items:center;justify-content:space-between;text-align:left;cursor:pointer;color:${value?'var(--color-text)':'#8BA7D4'}">
       <span id="cal-trigger-label-${pickerId}">${display||"mm/dd/yyyy"}</span>
       <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="var(--color-primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="3"/><path d="M16 2v4M8 2v4M3 10h18"/><circle cx="8" cy="15" r="1.3" fill="var(--color-primary)" stroke="none"/></svg>
     </button>
@@ -3819,8 +3962,8 @@ function checkConfetti(stats){
   if(sessionStorage.getItem(key))return;
   sessionStorage.setItem(key,'1');
   if(typeof confetti==='function'){
-    confetti({particleCount:140,spread:80,origin:{y:0.55},colors:['#C44570','#6e6e6e','#FDFBF7','#252535','#C4B0E8']});
-    setTimeout(()=>confetti({particleCount:60,spread:50,origin:{y:0.4},colors:['#C44570','#6e6e6e']}),400);
+    confetti({particleCount:140,spread:80,origin:{y:0.55},colors:['#C44570','#8BA7D4','#FDFBF7','#252535','#C4B0E8']});
+    setTimeout(()=>confetti({particleCount:60,spread:50,origin:{y:0.4},colors:['#C44570','#8BA7D4']}),400);
   }
 }
 
@@ -3838,7 +3981,7 @@ function wCodeInfo(c){
 }
 function weatherIconSvg(code,size){
   size=size||24;
-  const cloud='#6e6e6e',sun='#6D4C3E',accent='#F5C4A8',warn='#F5C4A8';
+  const cloud='#8BA7D4',sun='#6D4C3E',accent='#F5C4A8',warn='#F5C4A8';
   const wrap=inner=>`<svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${inner}</svg>`;
   if(code===0)return wrap(`<circle cx="12" cy="12" r="5" stroke="${sun}"/><g stroke="${sun}"><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></g>`);
   if(code<=2)return wrap(`<circle cx="7.2" cy="7.2" r="3" stroke="${sun}"/><g stroke="${sun}"><line x1="7.2" y1="1.2" x2="7.2" y2="2.6"/><line x1="1.4" y1="7.2" x2="2.8" y2="7.2"/><line x1="2.85" y1="2.85" x2="3.85" y2="3.85"/></g><path d="M9 20h8a4 4 0 0 0 0-8h-.74A6 6 0 0 0 5 13.3 4.5 4.5 0 0 0 9 20z" stroke="${cloud}"/>`);
@@ -3979,7 +4122,7 @@ function renderWeatherCard(){
   const visible=days.slice(vs,vs+3);
   const canLeft=vs>0;
   const canRight=vs+3<days.length;
-  const arrowBtn=(dir,enabled)=>`<button onclick="shiftWeather(${dir})" style="background:none;border:1.5px solid ${enabled?'#C44570':'#F5C4A8'};width:30px;height:30px;display:flex;align-items:center;justify-content:center;cursor:${enabled?'pointer':'default'};color:${enabled?'#C44570':'#6e6e6e'};font-size:14px;flex-shrink:0" ${enabled?'':'disabled'}>${dir<0?'‹':'›'}</button>`;
+  const arrowBtn=(dir,enabled)=>`<button onclick="shiftWeather(${dir})" style="background:none;border:1.5px solid ${enabled?'#C44570':'#F5C4A8'};width:30px;height:30px;display:flex;align-items:center;justify-content:center;cursor:${enabled?'pointer':'default'};color:${enabled?'#C44570':'#8BA7D4'};font-size:14px;flex-shrink:0" ${enabled?'':'disabled'}>${dir<0?'‹':'›'}</button>`;
   const stripHTML=visible.map(d=>{
     const info=wCodeInfo(d.code);
     const highlight=d.isSaleDay?'background:#F9ECF0;':'';
@@ -4105,11 +4248,11 @@ function renderTourStep(){
 
     ov.innerHTML=`
     <div style="position:absolute;top:${top}px;left:${left}px;width:${cardW}px;max-width:calc(100vw - 32px);background:#FAF7ED;border:1px solid var(--color-border);border-radius:var(--radius-lg);padding:18px 20px;pointer-events:auto">
-      <div style="font-family:var(--font-body);font-size:12px;color:#6e6e6e;margin-bottom:8px">Step ${_tourStep+1} of 5</div>
+      <div style="font-family:var(--font-body);font-size:12px;color:#8BA7D4;margin-bottom:8px">Step ${_tourStep+1} of 5</div>
       <div style="font-family:var(--font-body);font-size:14px;color:#252535;line-height:1.55;margin-bottom:16px">${esc(step.body)}</div>
       <div style="display:flex;align-items:center;gap:16px">
         <button onclick="nextTourStep()" style="font-family:var(--font-body);font-weight:600;font-size:14px;background:#252535;color:#FAF7ED;border:none;padding:9px 20px;cursor:pointer">${isLast?'Got it':'Next'}</button>
-        <button onclick="skipTour()" style="font-family:var(--font-body);font-size:13px;color:#6e6e6e;background:none;border:none;cursor:pointer;padding:0">Skip tour</button>
+        <button onclick="skipTour()" style="font-family:var(--font-body);font-size:13px;color:#8BA7D4;background:none;border:none;cursor:pointer;padding:0">Skip tour</button>
       </div>
     </div>`;
     return;
@@ -4401,6 +4544,7 @@ document.addEventListener('click',()=>{
 <div id="tour-overlay" style="position:fixed;inset:0;z-index:9000;display:none;overflow:hidden;pointer-events:none;transition:opacity 180ms ease;opacity:0"></div>
 <div id="payment-overlay" style="position:fixed;inset:0;z-index:9100;display:none;overflow:hidden;pointer-events:auto;transition:opacity 180ms ease;opacity:0"></div>
 <div id="help-overlay" style="position:fixed;inset:0;z-index:9100;display:none;overflow:hidden;pointer-events:auto;transition:opacity 180ms ease;opacity:0"></div>
+<div id="batch-print-overlay" style="position:fixed;inset:0;z-index:9100;display:none;overflow:hidden;pointer-events:auto;transition:opacity 180ms ease;opacity:0"></div>
 
 <footer style="max-width:1100px;margin:0 auto;padding:var(--space-5) var(--space-6);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:var(--space-3);border-top:1px solid var(--color-divider);margin-top:var(--space-8)">
   <span style="font-size:var(--text-xs);color:var(--color-text-muted)">© My Nest Chapter · <a href="https://mynestchapter.com" style="color:var(--color-text-muted)">mynestchapter.com</a> · Written by Cece</span>
