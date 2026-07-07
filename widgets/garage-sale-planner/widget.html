@@ -679,31 +679,31 @@
     #tour-scrim{position:fixed;inset:0;background:rgba(37,37,53,0.75);z-index:150;display:none}
 
     /* ─── QUICK-CAPTURE SCRATCH PAD ─── */
-    #scratch-toggle{position:fixed;bottom:16px;right:16px;z-index:600;width:44px;height:44px;display:flex;align-items:center;justify-content:center;background:#FAF7ED;border:1.5px solid var(--color-primary);border-radius:var(--radius-full);color:var(--color-primary);cursor:grab;touch-action:none;transition:bottom 150ms}
+    #scratch-toggle{position:fixed;bottom:16px;right:16px;z-index:600;width:44px;height:44px;display:flex;align-items:center;justify-content:center;background:#FAF7ED;border:1.5px solid #A33359;border-radius:var(--radius-full);color:#A33359;cursor:grab;touch-action:none;transition:bottom 150ms}
     #scratch-toggle.lift-above-bar{bottom:70px}
     #scratch-toggle:hover{background:#F9ECF0}
     #scratch-toggle.is-dragging{cursor:grabbing;user-select:none;transition:none}
     #scratch-panel{position:fixed;bottom:66px;right:16px;z-index:600;width:300px;max-width:calc(100vw - 32px);background:#FAF7ED;border:1px solid var(--color-border);border-radius:var(--radius-lg);padding:14px;display:none;transition:bottom 150ms}
     #scratch-panel.lift-above-bar{bottom:120px}
     #scratch-panel .scratch-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;font-family:var(--font-display);font-weight:700;font-size:13px;color:#252535}
-    #scratch-panel .scratch-clear{background:none;border:none;font-family:var(--font-body);font-size:12px;color:var(--color-text-muted);text-decoration:underline;cursor:pointer;padding:0}
-    #scratch-drag-handle{cursor:grab;color:var(--color-text-muted);font-size:15px;padding:2px 6px;user-select:none;line-height:1;letter-spacing:3px;touch-action:none}
+    #scratch-panel .scratch-clear{background:none;border:none;font-family:var(--font-body);font-size:12px;color:#2E4A85;text-decoration:underline;cursor:pointer;padding:0}
+    #scratch-drag-handle{cursor:grab;color:#2E4A85;font-size:15px;padding:2px 6px;user-select:none;line-height:1;letter-spacing:3px;touch-action:none}
     #scratch-drag-handle:active{cursor:grabbing}
     #scratch-panel.is-dragging{user-select:none;transition:none}
-    .scratch-back{background:none;border:none;font-family:var(--font-body);font-weight:600;font-size:13px;color:var(--color-primary);cursor:pointer;padding:0}
+    .scratch-back{background:none;border:none;font-family:var(--font-body);font-weight:600;font-size:13px;color:#A33359;cursor:pointer;padding:0}
     .scratch-close{background:none;border:none;font-size:20px;line-height:1;color:#252535;cursor:pointer;padding:0;min-width:24px;min-height:24px}
-    .scratch-close:hover{color:var(--color-primary)}
+    .scratch-close:hover{color:#A33359}
     #scratch-textarea{width:100%;min-height:140px;border:1px solid var(--color-border);background:#fff;padding:10px;font-family:var(--font-body);font-size:14px;color:#252535;resize:vertical;box-sizing:border-box}
     .scratch-footer{display:flex;align-items:center;justify-content:flex-end;gap:10px;margin-top:10px}
-    .scratch-status{font-family:var(--font-body);font-size:11px;color:var(--color-text-muted)}
+    .scratch-status{font-family:var(--font-body);font-size:11px;color:#2E4A85}
     .scratch-list{max-height:260px;overflow-y:auto;display:flex;flex-direction:column;gap:6px}
     .scratch-note-item{display:flex;align-items:flex-start;gap:8px;background:#FCF0E8;border:1px solid #F5C4A8;padding:10px 10px;cursor:pointer}
     .scratch-note-item:hover{background:#F9ECF0}
     .scratch-note-preview{font-family:var(--font-body);font-size:13px;font-weight:600;color:#252535;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-    .scratch-note-date{font-family:var(--font-body);font-size:11px;color:var(--color-text-muted);margin-top:2px}
-    .scratch-note-delete{background:none;border:none;font-size:16px;line-height:1;color:var(--color-text-muted);cursor:pointer;padding:2px;flex-shrink:0}
-    .scratch-note-delete:hover{color:var(--color-primary)}
-    .scratch-empty{font-family:var(--font-body);font-size:13px;color:var(--color-text-muted);line-height:1.6;padding:8px 2px}
+    .scratch-note-date{font-family:var(--font-body);font-size:11px;color:#2E4A85;margin-top:2px}
+    .scratch-note-delete{background:none;border:none;font-size:16px;line-height:1;color:#2E4A85;cursor:pointer;padding:2px;flex-shrink:0}
+    .scratch-note-delete:hover{color:#A33359}
+    .scratch-empty{font-family:var(--font-body);font-size:13px;color:#2E4A85;line-height:1.6;padding:8px 2px}
 
     /* ─── SECTION TIP STRIP ─── */
     .section-tip{border-top:1px solid var(--color-border);border-bottom:1px solid var(--color-border);padding:13px 0;margin-top:24px;display:flex;align-items:baseline;gap:10px}
