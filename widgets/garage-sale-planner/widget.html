@@ -400,6 +400,65 @@
     .progress-fill{height:100%;background:var(--color-primary);border-radius:var(--radius-full);transition:width 180ms cubic-bezier(0.16,1,0.3,1)}
     .progress-lg{height:8px}
 
+    /* ─── MEMORY LANE (Kanban board) ─── */
+    @keyframes mnc-spark-fly{
+      0%{transform:translate(0,0) scale(1);opacity:1}
+      100%{transform:translate(var(--sx),var(--sy)) scale(0);opacity:0}
+    }
+    .mnc-spark{
+      position:fixed;width:6px;height:6px;pointer-events:none;z-index:900;
+      animation:mnc-spark-fly 750ms ease-out forwards;
+    }
+    .ml-view-toggle{display:flex;gap:6px;margin-bottom:16px}
+    .ml-view-btn{
+      font-family:var(--font-body);font-size:13px;font-weight:600;
+      padding:8px 16px;border:1.5px solid var(--color-primary);
+      background:transparent;color:var(--color-primary);cursor:pointer;
+      border-radius:var(--radius-md);
+    }
+    .ml-view-btn.active{background:var(--color-primary);color:#fff}
+    .ml-revenue{
+      font-family:var(--font-display);font-size:16px;font-weight:700;
+      color:var(--color-primary);padding:12px 18px;background:var(--color-surface-2);
+      margin-bottom:16px;transition:transform 200ms ease,color 200ms ease;
+    }
+    .ml-revenue.flash{transform:scale(1.04);color:#7C2743}
+    .ml-board{
+      display:grid;grid-template-columns:repeat(3,1fr);gap:16px;
+    }
+    @media(max-width:760px){
+      .ml-board{display:flex;overflow-x:auto;gap:12px;padding-bottom:8px}
+      .ml-col{min-width:260px;flex-shrink:0}
+    }
+    .ml-col{
+      background:var(--color-surface);border:1px solid var(--color-divider);
+      padding:14px;min-height:220px;transition:outline 150ms;
+    }
+    .ml-col.drag-over{outline:2px dashed var(--color-primary);outline-offset:-4px}
+    .ml-col-hdr{
+      font-family:var(--font-display);font-size:14px;font-weight:700;
+      margin-bottom:12px;padding-bottom:8px;border-bottom:2px solid;
+    }
+    .ml-col-think{border-color:#C4B0E8}
+    .ml-col-think .ml-col-hdr{border-color:#C4B0E8;color:#252535}
+    .ml-col-think{background:#F9F6FD}
+    .ml-col-letgo{border-color:#C44570}
+    .ml-col-letgo .ml-col-hdr{border-color:#C44570;color:#252535}
+    .ml-col-letgo{background:#FDF0F5}
+    .ml-col-priced{border-color:#8BA7D4}
+    .ml-col-priced .ml-col-hdr{border-color:#8BA7D4;color:#252535}
+    .ml-col-priced{background:#EEF2F9}
+    .ml-sticky{
+      background:#fff;border:1px solid var(--color-divider);
+      padding:12px;margin-bottom:10px;cursor:grab;font-size:13px;
+      color:var(--color-text);
+    }
+    .ml-sticky:active{cursor:grabbing}
+    .ml-sticky-think{border-left:4px solid #C4B0E8}
+    .ml-sticky-letgo{border-left:4px solid #C44570}
+    .ml-sticky-priced{border-left:4px solid #8BA7D4}
+    .ml-empty{font-size:12px;color:var(--color-text-muted);font-style:italic;padding:10px 0}
+
     /* ─── PRICING ─── */
     .pricing-card{background:var(--color-surface);border:1px solid var(--color-divider);border-radius:var(--radius-lg);padding:var(--space-5)}
     .pricing-cat{font-size:var(--text-sm);font-weight:600;font-family:var(--font-display);margin-bottom:var(--space-3);color:var(--color-text)}
@@ -551,6 +610,7 @@
       .print-sign-cut{border-top:1pt dashed #F5C4A8;width:100%;margin:6pt 0}
       /* ── Area signs — 2 per page */
       .print-area-sign{height:47vh;display:flex;align-items:center;justify-content:center;flex-direction:column;text-align:center;border:1.5pt solid #252535;padding:30pt;break-inside:avoid;page-break-inside:avoid}
+      .print-dir-sign{height:47vh;display:flex;align-items:center;justify-content:center;flex-direction:column;text-align:center;border:2pt solid #252535;padding:24pt;break-inside:avoid;page-break-inside:avoid;gap:10pt}
       /* ── Sale flyers */
       .print-flyer{width:100%;min-height:88vh;break-after:always;page-break-after:always;display:flex;flex-direction:column;text-align:center;padding:20pt}
       .print-tearoff-strip{border-top:1pt dashed #F5C4A8;padding:7pt 0;font-size:10pt;font-family:var(--font-body);text-align:center}
@@ -626,6 +686,9 @@
     #scratch-panel.lift-above-bar{bottom:120px}
     #scratch-panel .scratch-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;font-family:var(--font-display);font-weight:700;font-size:13px;color:#252535}
     #scratch-panel .scratch-clear{background:none;border:none;font-family:var(--font-body);font-size:12px;color:var(--color-text-muted);text-decoration:underline;cursor:pointer;padding:0}
+    #scratch-drag-handle{cursor:grab;color:var(--color-text-muted);font-size:15px;padding:2px 6px;user-select:none;line-height:1;letter-spacing:3px;touch-action:none}
+    #scratch-drag-handle:active{cursor:grabbing}
+    #scratch-panel.is-dragging{user-select:none;transition:none}
     .scratch-back{background:none;border:none;font-family:var(--font-body);font-weight:600;font-size:13px;color:var(--color-primary);cursor:pointer;padding:0}
     .scratch-close{background:none;border:none;font-size:20px;line-height:1;color:#252535;cursor:pointer;padding:0;min-width:24px;min-height:24px}
     .scratch-close:hover{color:var(--color-primary)}
@@ -663,13 +726,13 @@
 <a href="#content" class="skip-link">Skip to main content</a>
 
 <div class="topbar no-print">
-  <div class="topbar-logo">
+  <a href="https://mynestchapter.com" target="_blank" rel="noopener noreferrer" class="topbar-logo" style="text-decoration:none;color:inherit">
     <div class="topbar-logo-mark">MNC</div>
     <div class="topbar-logo-text">
       <span class="topbar-brand">My Nest Chapter</span>
       <span class="topbar-sub">Garage Sale Planner</span>
     </div>
-  </div>
+  </a>
   <div class="topbar-right">
     <div id="bell-wrapper" style="position:relative;display:inline-flex;align-items:center">
       <button class="btn btn-ghost btn-sm" id="bell-btn" onclick="toggleBellPanel()" aria-label="Notifications" title="Notifications" style="padding:8px">
@@ -1000,7 +1063,7 @@ const blankPlanner={
     adBuilder:{date:"",address:"",startTime:"",endTime:"",highlights:"",rainOrShine:false,noEarlyBirds:false,includePhone:false,phone:"",multiFamily:false},
     platformTracker:{facebookMarketplace:false,nextdoor:false,craigslist:false,ebay:false,poshmark:false,mercari:false,thredup:false,kidizen:false}
   },
-  safety:{tasks:{},tasksPhysical:{},tasksCash:{},petLocked:false,change:{ones:"40",fives:"20",quarters:"20"},bankReminderDone:false,safetyNotes:""},
+  safety:{tasks:{},tasksPhysical:{},tasksCash:{},petLocked:false,change:{ones:"40",fives:"20",quarters:"20"},changeItemCount:50,bankReminderDone:false,safetyNotes:""},
   checkInPlan:{times:"",messageCopied:false},
   items:[],prep:{},customPrepTasks:[],calculatorRows:[{id:"r1",name:"",quantity:"1",price:""}],
   transactions:[],memories:[],batchItems:[],nightBefore:{},
@@ -1026,7 +1089,7 @@ function normalizePlanner(src){
     },
     safety:{...b.safety,...(s.safety||{}),tasks:{...b.safety.tasks,...(s.safety?.tasks||{})},tasksPhysical:{...b.safety.tasksPhysical,...(s.safety?.tasksPhysical||{})},tasksCash:{...b.safety.tasksCash,...(s.safety?.tasksCash||{})},change:{...b.safety.change,...(s.safety?.change||{})}},
     checkInPlan:{...b.checkInPlan,...(s.checkInPlan||{})},
-    items:Array.isArray(s.items)?s.items:b.items,
+    items:(Array.isArray(s.items)?s.items:b.items).map(item=>({...item,kanbanCol:item.kanbanCol||'think'})),
     prep:{...b.prep,...(s.prep||{})},
     nightBefore:{...b.nightBefore,...(s.nightBefore||{})},
     calculatorRows:Array.isArray(s.calculatorRows)&&s.calculatorRows.length?s.calculatorRows:b.calculatorRows,
@@ -1071,7 +1134,7 @@ function getDemoPlanner(){
 }
 
 let P=loadPlanner();
-let UI={tab:"start",section:"start",showAddForm:false,demo:false,demoStep:0,calMenu:false,bellOpen:false,calcPaymentMethod:"Cash",scratchOpen:false,scratchNoteId:null,bundleItems:[],bundleDiscountPct:null,haggleLastPct:null};
+let UI={tab:"start",section:"start",showAddForm:false,demo:false,demoStep:0,calMenu:false,bellOpen:false,calcPaymentMethod:"Cash",scratchOpen:false,scratchNoteId:null,bundleItems:[],bundleDiscountPct:null,haggleLastPct:null,dirSign:{dir:'right',date:'',time:'',saleName:''},inventoryView:'list'};
 let draft={
   item:{id:null,name:"",category:"Decor",condition:"Good",quantity:"1",decision:"Garage Sale",price:"",notes:""},
   batch:{id:null,type:"Table",title:"",price:"2",category:"Other",description:""},
@@ -1343,21 +1406,126 @@ function renderStart(){
   </div>`;
 }
 
+// ─── MEMORY LANE (Kanban board) ────────────────────────────────────────────────
+const ML_COLS=[
+  {key:'think',label:'Still Thinking'},
+  {key:'letGo',label:'Ready to Let Go'},
+  {key:'priced',label:'Priced & Ready'},
+];
+function mlColLabel(key){const c=ML_COLS.find(c=>c.key===key);return c?c.label:key;}
+function mlDragStart(e,itemId){
+  e.dataTransfer.setData('text/plain',itemId);
+  e.dataTransfer.effectAllowed='move';
+}
+function mlDragOver(e,col){
+  e.preventDefault();
+  e.dataTransfer.dropEffect='move';
+  const el=e.currentTarget;
+  if(el&&!el.classList.contains('drag-over'))el.classList.add('drag-over');
+}
+function mlDragLeave(e){
+  const el=e.currentTarget;
+  if(el)el.classList.remove('drag-over');
+}
+function mlDrop(e,col){
+  e.preventDefault();
+  const el=e.currentTarget;
+  if(el)el.classList.remove('drag-over');
+  const itemId=e.dataTransfer.getData('text/plain');
+  if(!itemId)return;
+  mlMoveItem(itemId,col,e.clientX,e.clientY);
+}
+function mlMoveItem(itemId,col,cx,cy){
+  const item=(P.items||[]).find(i=>i.id===itemId);
+  if(!item)return;
+  const prevCol=item.kanbanCol;
+  if(prevCol===col)return;
+  item.kanbanCol=col;
+  P.isDemo=false;save();
+  renderContent();
+  if(typeof cx==='number'&&typeof cy==='number')mlSparkle(cx,cy);
+  if(col==='letGo')mlFlashTicker();
+}
+function mlSparkle(cx,cy){
+  const colors=['#C44570','#8BA7D4','#C4B0E8','#F5C4A8'];
+  for(let i=0;i<10;i++){
+    const spark=document.createElement('div');
+    spark.className='mnc-spark';
+    const angle=Math.random()*Math.PI*2;
+    const dist=30+Math.random()*50;
+    spark.style.setProperty('--sx',(Math.cos(angle)*dist)+'px');
+    spark.style.setProperty('--sy',(Math.sin(angle)*dist)+'px');
+    spark.style.left=cx+'px';
+    spark.style.top=cy+'px';
+    spark.style.background=colors[i%colors.length];
+    document.body.appendChild(spark);
+    setTimeout(()=>spark.remove(),750);
+  }
+}
+function mlFlashTicker(){
+  const el=document.getElementById('ml-revenue-ticker');
+  if(!el)return;
+  el.classList.add('flash');
+  setTimeout(()=>el.classList.remove('flash'),400);
+}
+function mlGetRevenue(){
+  return(P.items||[]).filter(i=>i.kanbanCol==='letGo'||i.kanbanCol==='priced').reduce((sum,i)=>{
+    const price=Number(i.price)||0;
+    const qty=Number(i.quantity)||1;
+    return sum+(price*qty);
+  },0);
+}
+function renderMemoryLaneBoard(){
+  const items=P.items||[];
+  const revenue=mlGetRevenue();
+  if(!items.length){
+    return`
+    <div class="card">
+      <div id="ml-revenue-ticker" class="ml-revenue">Estimated: $${revenue.toFixed(0)}</div>
+      <button class="btn btn-primary" onclick="toggleAddItemForm()" style="margin-bottom:16px">+ Add an item</button>
+      <div class="empty-state-prompt">Nothing sorted yet. Add an item and drag it between columns as you decide what to do with it.</div>
+    </div>`;
+  }
+  const colHTML=ML_COLS.map(col=>{
+    const colItems=items.filter(i=>(i.kanbanCol||'think')===col.key);
+    return`
+    <div class="ml-col ml-col-${col.key==='letGo'?'letgo':col.key}" ondragover="mlDragOver(event,'${col.key}')" ondragleave="mlDragLeave(event)" ondrop="mlDrop(event,'${col.key}')">
+      <div class="ml-col-hdr">${esc(col.label)} (${colItems.length})</div>
+      ${colItems.length===0?`<div class="ml-empty">Drag an item here.</div>`:colItems.map(item=>`
+        <div class="ml-sticky ml-sticky-${col.key==='letGo'?'letgo':col.key}" draggable="true" ondragstart="mlDragStart(event,'${esc(item.id)}')">
+          <div style="font-weight:600">${esc(item.name)}</div>
+          <div style="color:var(--color-text-muted);font-size:12px;margin-top:2px">${esc(item.category)}${item.price?` · $${esc(item.price)}`:''}</div>
+        </div>`).join('')}
+    </div>`;
+  }).join('');
+  return`
+    <div class="card">
+      <div id="ml-revenue-ticker" class="ml-revenue">Estimated: $${revenue.toFixed(0)}</div>
+      <button class="btn btn-primary" onclick="toggleAddItemForm()" style="margin-bottom:16px">+ Add an item</button>
+      <div class="ml-board">${colHTML}</div>
+    </div>`;
+}
+
 // ─── SECTION: INVENTORY ───────────────────────────────────────────────────────
 function renderInventory(){
   const stats=getStats(P);
+  const isBoard=UI.inventoryView==='board';
   return`
   ${renderTourNote("Add items one by one — name, category, condition, and your price. The tool suggests a price range and the best place to sell it as you go.")}
   <div class="gap-y">
     <div>
       <p style="font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--color-muted);margin-bottom:4px">Sort + Price</p>
       <h2 class="page-title" style="margin-bottom:14px">Items</h2>
+      <div class="ml-view-toggle">
+        <button class="ml-view-btn${isBoard?'':' active'}" onclick="UI.inventoryView='list';renderContent()">List View</button>
+        <button class="ml-view-btn${isBoard?' active':''}" onclick="UI.inventoryView='board';renderContent()">Memory Lane</button>
+      </div>
       ${renderDispositionCounter()}
       ${stats.estimated>0?`<div style="font-size:14px;color:var(--color-text);margin-top:4px">Estimated total: $${stats.estimated.toFixed(0)}</div>`:""}
-      <button class="btn btn-primary" onclick="toggleAddItemForm()" style="margin-bottom:20px;margin-top:14px">+ Add an item</button>
+      ${isBoard?"":`<button class="btn btn-primary" onclick="toggleAddItemForm()" style="margin-bottom:20px;margin-top:14px">+ Add an item</button>`}
     </div>
     ${UI.showAddForm?renderAddItemForm():""}
-    ${renderItemTable()}
+    ${isBoard?renderMemoryLaneBoard():renderItemTable()}
     ${renderSectionTip("When you're not sure whether to price it .50¢ or $1, ask yourself which one means you don't have to carry it back inside. That's your answer.")}
   </div>`;
 }
@@ -2163,6 +2331,46 @@ function togglePlatformTracked(key){
   P.isDemo=false;save();renderContent();
 }
 
+// ─── BANK CHANGE SLIDER ──────────────────────────────────────────────────────
+function numWord(n){
+  const words=["zero","one","two","three","four","five","six","seven","eight","nine","ten",
+    "eleven","twelve","thirteen","fourteen","fifteen","sixteen","seventeen","eighteen","nineteen"];
+  const tens=["","","twenty","thirty","forty","fifty","sixty"];
+  if(n<0||n>60)return String(n);
+  if(n<20)return words[n];
+  const t=Math.floor(n/10),r=n%10;
+  return r?`${tens[t]}-${words[r]}`:tens[t];
+}
+function computeBankStack(itemCount){
+  const n=Math.max(10,Math.min(300,Number(itemCount)||50));
+  const scale=Math.max(1,Math.round(n/50));
+  const tens=Math.min(8,2*scale);
+  const fives=Math.min(16,4*scale);
+  const ones=Math.min(60,20*scale);
+  const quarterRolls=Math.max(1,Math.min(4,Math.ceil(n/75)));
+  const total=tens*10+fives*5+ones*1+quarterRolls*10;
+  return{tens,fives,ones,quarterRolls,total};
+}
+function printBankScript(){
+  const n=Number(P.safety?.changeItemCount)||50;
+  const stack=computeBankStack(n);
+  document.getElementById('print-inner').innerHTML=`
+    <div style="padding:32px;font-family:'DM Sans',sans-serif;max-width:520px">
+      <div style="font-size:9px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:#C44570;margin-bottom:14px">My Nest Chapter · Bank Script</div>
+      <div style="font-family:'Lora',serif;font-size:20px;font-weight:700;color:#252535;margin-bottom:18px">What to ask for at the bank</div>
+      <div style="font-size:14px;color:#252535;line-height:2;margin-bottom:18px">
+        <div>${numWord(stack.tens)} ($${stack.tens*10} in ten-dollar bills)</div>
+        <div>${numWord(stack.fives)} ($${stack.fives*5} in five-dollar bills)</div>
+        <div>${numWord(stack.ones)} ($${stack.ones} in one-dollar bills)</div>
+        <div>${numWord(stack.quarterRolls)} roll${stack.quarterRolls===1?'':'s'} of quarters ($${stack.quarterRolls*10} in quarters)</div>
+      </div>
+      <div style="font-size:15px;font-weight:700;color:#252535;border-top:1px solid #F5C4A8;padding-top:12px">Estimated cash on hand: $${stack.total}</div>
+    </div>`;
+  document.getElementById('print-section').style.display='block';
+  window.print();
+  setTimeout(()=>document.getElementById('print-section').style.display='none',2000);
+}
+
 // ─── SECTION: PREP ───────────────────────────────────────────────────────────
 function renderPrep(){
   const stats=getStats(P);const days=daysUntilSale(P.setup?.saleDate);
@@ -2206,26 +2414,55 @@ function renderPrep(){
           <div class="metric-value">${daysStr}</div>
           ${P.setup?.saleDate?`<div class="text-muted text-sm" style="margin-top:4px">${new Date(P.setup.saleDate+"T00:00:00").toLocaleDateString("en-US",{weekday:"long",month:"long",day:"numeric"})}</div>`:""}
         </div>
+        ${(()=>{
+          const n=Number(P.safety?.changeItemCount)||50;
+          const stack=computeBankStack(n);
+          return`
         <div class="card">
-          <div class="card-title">Change + cash plan</div>
-          <div class="info-box" style="margin-bottom:14px">Go to the bank before sale day. These are suggested starting amounts.</div>
-          <div class="gap-y-sm">
-            ${changePlanRows.map(r=>`
-              <div style="display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid var(--border)">
-                <div>
-                  <div class="font-bold text-sm">${r.label}</div>
-                  <div class="text-muted text-xs">${r.note}</div>
-                </div>
-                <div>
-                  <input class="input" type="number" style="width:80px;text-align:center" value="${esc(P.safety?.change?.[r.key]||r.suggested)}" onblur="sf(this,'safety','change','${r.key}')" />
-                </div>
-              </div>`).join("")}
+          <div class="card-title">Change + Cash Plan</div>
+          <p class="card-sub">Slide to roughly how many items you're pricing. I'll scale the change plan to match — more items means more small bills and quarters so you're never caught short.</p>
+          <div style="margin-bottom:16px">
+            <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:6px">
+              <label class="form-label" for="bank-item-slider">About how many items?</label>
+              <span id="bank-item-count-display" class="font-bold text-sm">${n} items</span>
+            </div>
+            <input type="range" id="bank-item-slider" min="10" max="300" step="5" value="${n}"
+              style="width:100%"
+              oninput="(function(v){
+                document.getElementById('bank-item-count-display').textContent=v+' items';
+                deepSet(P,['safety','changeItemCount'],Number(v));save();
+                var nn=Number(v)||50;
+                var scale=Math.max(1,Math.round(nn/50));
+                var tens=Math.min(8,2*scale);
+                var fives=Math.min(16,4*scale);
+                var ones=Math.min(60,20*scale);
+                var quarterRolls=Math.max(1,Math.min(4,Math.ceil(nn/75)));
+                var total=tens*10+fives*5+ones*1+quarterRolls*10;
+                document.getElementById('bank-script-lines').innerHTML=
+                  '<div>'+tens+' ten-dollar bills ($'+(tens*10)+')</div>'+
+                  '<div>'+fives+' five-dollar bills ($'+(fives*5)+')</div>'+
+                  '<div>'+ones+' one-dollar bills ($'+ones+')</div>'+
+                  '<div>'+quarterRolls+' roll'+(quarterRolls===1?'':'s')+' of quarters ($'+(quarterRolls*10)+')</div>';
+                document.getElementById('bank-total').textContent='Estimated cash on hand: $'+total;
+              })(this.value)" />
           </div>
-          <div class="check-item${P.safety?.bankReminderDone?" checked":""}" role="checkbox" tabindex="0" aria-checked="${P.safety?.bankReminderDone?"true":"false"}" onclick="toggleBankReminder()" onkeydown="if(event.key===' '||event.key==='Enter'){event.preventDefault();toggleBankReminder()}" style="margin-top:14px">
+          <div id="bank-script-box" style="background:var(--color-surface-2);padding:14px 16px;margin-bottom:12px">
+            <div class="form-label" style="margin-bottom:8px">Ask for at the bank</div>
+            <div id="bank-script-lines" style="font-size:14px;color:var(--color-text);line-height:1.9">
+              <div>${stack.tens} ten-dollar bills ($${stack.tens*10})</div>
+              <div>${stack.fives} five-dollar bills ($${stack.fives*5})</div>
+              <div>${stack.ones} one-dollar bills ($${stack.ones})</div>
+              <div>${stack.quarterRolls} roll${stack.quarterRolls===1?'':'s'} of quarters ($${stack.quarterRolls*10})</div>
+            </div>
+          </div>
+          <div id="bank-total" class="font-bold text-sm" style="margin-bottom:14px">Estimated cash on hand: $${stack.total}</div>
+          <button class="btn btn-secondary btn-sm" style="width:100%;margin-bottom:14px" onclick="printBankScript()">Print this for the bank teller</button>
+          <div class="check-item${P.safety?.bankReminderDone?" checked":""}" role="checkbox" tabindex="0" aria-checked="${P.safety?.bankReminderDone?"true":"false"}" onclick="toggleBankReminder()" onkeydown="if(event.key===' '||event.key==='Enter'){event.preventDefault();toggleBankReminder()}">
             <div class="check-box" aria-hidden="true">${P.safety?.bankReminderDone?"✓":""}</div>
             <label>Bank trip done</label>
           </div>
-        </div>
+        </div>`;
+        })()}
       </div>
     </div>
     ${renderCheckInPlan()}
@@ -2753,6 +2990,8 @@ function renderPrintCenter(){
     ?renderPCTagsContent(tagItems,selItems,allSigns,chosenSign,boxes)
     :UI.pcTab==='area'
     ?renderPCAreaContent(areaTmpls,isCustomArea,areaMainText,areaPriceText)
+    :UI.pcTab==='dirSign'
+    ?renderPCDirectionalContent()
     :renderPCFlyersContent();
 
   return`
@@ -2766,6 +3005,7 @@ function renderPrintCenter(){
       <button class="pc-tab-btn${UI.pcTab==='tags'?' active':''}" onclick="UI.pcTab='tags';renderContent()">Price Tags</button>
       <button class="pc-tab-btn${UI.pcTab==='area'?' active':''}" onclick="UI.pcTab='area';renderContent()">Area Signs</button>
       <button class="pc-tab-btn${UI.pcTab==='flyers'?' active':''}" onclick="UI.pcTab='flyers';renderContent()">Flyers</button>
+      <button class="pc-tab-btn${UI.pcTab==='dirSign'?' active':''}" onclick="UI.pcTab='dirSign';renderContent()">Directional Signs</button>
     </div>
     ${tabContent}
     ${renderSectionTip("Signs at every turn, not just the corner — and make that arrow bigger than you think. If she turns and can't see the next one, she keeps driving.")}
@@ -3027,6 +3267,58 @@ function renderPCFlyersContent(){
       <p style="font-size:12px;color:var(--color-text-muted);margin-top:12px;line-height:1.6">Print 20–30 copies. Post at grocery stores, laundromats, libraries, and coffee shops 3–5 days before your sale.</p>
     </div>`;
 }
+
+function renderPCDirectionalContent(){
+  const ds=UI.dirSign||{dir:'right',date:'',time:'',saleName:''};
+  const s=P.setup||{};
+  const autoDate=pcFmtDate(s.saleDate);
+  const autoTime=[s.saleStartTime,s.saleEndTime].filter(Boolean).join(' – ');
+  const saleName=ds.saleName||s.saleTitle||'Garage Sale';
+  const date=ds.date||autoDate;
+  const time=ds.time||autoTime;
+  const arrowChar=ds.dir==='left'?'←':'→';
+  return`
+    <div class="card">
+      <div class="card-title">Directional sign details</div>
+      <p class="card-sub" style="margin-bottom:16px">Pulled from your Start tab by default. Override anything here — changes don't affect your main setup.</p>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px">
+        <div>
+          <label style="display:block;font-size:12px;font-weight:500;text-transform:uppercase;letter-spacing:.08em;color:var(--color-text);margin-bottom:5px">Sale name</label>
+          <input type="text" value="${esc(ds.saleName)}" placeholder="${esc(s.saleTitle||'Garage Sale')}"
+            style="width:100%;border:1px solid var(--color-divider);padding:9px;font-family:var(--font-body);font-size:13px;background:var(--color-surface)"
+            oninput="setDirSignField('saleName',this.value)">
+        </div>
+        <div>
+          <label style="display:block;font-size:12px;font-weight:500;text-transform:uppercase;letter-spacing:.08em;color:var(--color-text);margin-bottom:5px">Date</label>
+          <input type="text" value="${esc(ds.date)}" placeholder="${esc(autoDate||'Saturday, July 12')}"
+            style="width:100%;border:1px solid var(--color-divider);padding:9px;font-family:var(--font-body);font-size:13px;background:var(--color-surface)"
+            oninput="setDirSignField('date',this.value)">
+        </div>
+        <div style="grid-column:1/-1">
+          <label style="display:block;font-size:12px;font-weight:500;text-transform:uppercase;letter-spacing:.08em;color:var(--color-text);margin-bottom:5px">Time</label>
+          <input type="text" value="${esc(ds.time)}" placeholder="${esc(autoTime||'8 AM – 2 PM')}"
+            style="width:100%;border:1px solid var(--color-divider);padding:9px;font-family:var(--font-body);font-size:13px;background:var(--color-surface)"
+            oninput="setDirSignField('time',this.value)">
+        </div>
+      </div>
+      <p style="font-size:12px;color:var(--color-text-muted);margin-bottom:16px">Pulled from your Start tab</p>
+      <div style="display:block;font-size:12px;font-weight:500;text-transform:uppercase;letter-spacing:.08em;color:var(--color-text);margin-bottom:8px">Arrow direction</div>
+      <div style="display:flex;gap:10px;margin-bottom:20px">
+        <button class="btn ${ds.dir==='left'?'btn-primary':'btn-secondary'}" style="flex:1" onclick="setDirSignField('dir','left')">← Left</button>
+        <button class="btn ${ds.dir==='right'?'btn-primary':'btn-secondary'}" style="flex:1" onclick="setDirSignField('dir','right')">Right →</button>
+      </div>
+      <div style="font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:1.5px;color:var(--color-text);margin-bottom:12px">Preview</div>
+      <div style="border:2px solid #252535;padding:28px 24px;background:#fff;margin-bottom:16px;text-align:center;display:flex;flex-direction:column;align-items:center;gap:10px">
+        <div style="font-size:56px;line-height:1;color:#C44570">${arrowChar}</div>
+        <div style="font-family:'Lora',serif;font-size:22px;font-weight:700;color:#252535">${esc(saleName)}</div>
+        ${date?`<div style="font-family:'DM Sans',sans-serif;font-size:14px;font-weight:600;color:#252535">${esc(date)}</div>`:''}
+        ${time?`<div style="font-family:'DM Sans',sans-serif;font-size:13px;color:#252535">${esc(time)}</div>`:''}
+        <div style="font-family:'DM Sans',sans-serif;font-size:7pt;color:#8BA7D4;letter-spacing:.1em;text-transform:uppercase;margin-top:8px">My Nest Chapter</div>
+      </div>
+      <button class="btn btn-primary" onclick="printDirectionalSigns()">Print 2 signs</button>
+    </div>`;
+}
+function setDirSignField(k,v){if(!UI.dirSign)UI.dirSign={dir:'right',date:'',time:'',saleName:''};UI.dirSign[k]=v;renderContent();}
 
 // ─── SECTION: WRAP UP ────────────────────────────────────────────────────────
 function fmtHourLabel(h){
@@ -3446,6 +3738,28 @@ function printAreaSigns(){
       <div style="font-family:'Lora',serif;font-size:36pt;font-weight:700;line-height:1.2;color:#252535">${esc(mainText)}</div>
       ${priceText?`<div style="font-family:'Lora',serif;font-size:48pt;font-weight:700;color:#252535;margin-top:12pt">${esc(priceText)}</div>`:''}
       <div style="font-family:'DM Sans',sans-serif;font-size:7pt;color:#8BA7D4;margin-top:20pt;letter-spacing:.1em;text-transform:uppercase">My Nest Chapter</div>
+    </div>`;
+  }
+  document.getElementById('print-inner').innerHTML=signHTML()+`<div class="print-sign-cut"></div>`+signHTML();
+  document.getElementById('print-section').style.display='block';
+  window.print();
+  setTimeout(()=>document.getElementById('print-section').style.display='none',2000);
+}
+
+function printDirectionalSigns(){
+  const ds=UI.dirSign||{dir:'right',date:'',time:'',saleName:''};
+  const s=P.setup||{};
+  const saleName=ds.saleName||s.saleTitle||'Garage Sale';
+  const date=ds.date||pcFmtDate(s.saleDate);
+  const time=ds.time||[s.saleStartTime,s.saleEndTime].filter(Boolean).join(' – ');
+  const arrowChar=ds.dir==='left'?'←':'→';
+  function signHTML(){
+    return`<div class="print-dir-sign">
+      <div style="font-size:72pt;line-height:1;color:#252535">${arrowChar}</div>
+      <div style="font-family:'Lora',serif;font-size:30pt;font-weight:700;color:#252535">${esc(saleName)}</div>
+      ${date?`<div style="font-family:'DM Sans',sans-serif;font-size:16pt;font-weight:700;color:#252535">${esc(date)}</div>`:''}
+      ${time?`<div style="font-family:'DM Sans',sans-serif;font-size:14pt;color:#252535">${esc(time)}</div>`:''}
+      <div style="font-family:'DM Sans',sans-serif;font-size:7pt;color:#8BA7D4;letter-spacing:.1em;text-transform:uppercase;margin-top:8pt">My Nest Chapter</div>
     </div>`;
   }
   document.getElementById('print-inner').innerHTML=signHTML()+`<div class="print-sign-cut"></div>`+signHTML();
@@ -3900,7 +4214,7 @@ function areaField(label,pathStr,value,placeholder){
 function pinSaleLocation(){
   const statusEl=document.getElementById('pin-status');
   const setStatus=(msg)=>{if(statusEl){statusEl.style.display='block';statusEl.textContent=msg;}};
-  if(!navigator.geolocation){setStatus("Location isn't available on this device — go ahead and type your address.");return;}
+  if(!navigator.geolocation){setStatus("Location isn't available on this device — type your address in below.");return;}
   setStatus('Finding your location…');
   navigator.geolocation.getCurrentPosition(async(pos)=>{
     try{
@@ -3908,22 +4222,33 @@ function pinSaleLocation(){
       const res=await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&addressdetails=1&zoom=18&lat=${latitude}&lon=${longitude}`);
       const data=await res.json();
       const a=data&&data.address;
-      const addr=a&&a.house_number&&a.road
-        ?`${a.house_number} ${a.road}, ${a.city||a.town||a.village||a.suburb||""}, ${a.state||""} ${a.postcode||""}`.replace(/\s+,/g,",").replace(/\s+/g," ").trim()
-        :(data&&data.display_name);
+      let addr=null;
+      if(a&&a.house_number&&a.road){
+        const locality=a.city||a.town||a.municipality||a.village||a.hamlet||a.suburb||a.county||"";
+        const stateCode=a["ISO3166-2-lvl4"]?a["ISO3166-2-lvl4"].split("-").pop():(a.state_code||a.state||"");
+        addr=`${a.house_number} ${a.road}, ${locality}, ${stateCode} ${a.postcode||""}`.replace(/\s+,/g,",").replace(/\s+/g," ").trim();
+      }else if(data&&data.display_name){
+        const parts=data.display_name.split(",").map(p=>p.trim()).filter(p=>p&&!/^(united states|usa|us)$/i.test(p));
+        addr=parts.slice(0,5).join(", ");
+      }
       if(addr){
         deepSet(P,['setup','address'],addr);save();
         const input=document.getElementById('setup-address-input');
         if(input)input.value=addr;
-        setStatus('Address filled in from your location — double-check it before printing signs, GPS can land a house or two off.');
+        if(a&&a.house_number&&a.road){
+          setStatus('Address filled in from your location. Double-check it — GPS can land a house off.');
+        }else{
+          setStatus("Couldn't find a street address here — type it in below.");
+        }
       }else{
-        setStatus("Couldn't find an address for that location — go ahead and type it in.");
+        setStatus("Couldn't find a street address here — type it in below.");
       }
     }catch(e){
-      setStatus("Couldn't look up that address — go ahead and type it in.");
+      setStatus("Couldn't look up that address here — type it in below.");
     }
-  },()=>{
-    setStatus('Location access was denied — go ahead and type your address instead.');
+  },(err)=>{
+    if(err&&err.code===1){setStatus('Location access was denied — type your address in below.');}
+    else{setStatus("Couldn't find your location — type your address in below.");}
   },{enableHighAccuracy:true,timeout:15000,maximumAge:0});
 }
 
@@ -4416,6 +4741,13 @@ const helpTopics=[
       <p>The longer something sits in the garage after the sale, the more likely it is to migrate back inside. Same-day decisions are always easier than next-week ones.</p>
     </div>`},
   {id:'marketplace',title:'How to create a Facebook Marketplace listing',available:false},
+  {id:'quick-notes-move',title:'Moving the Quick Notes panel',available:true,body:`
+    <div style="font-family:var(--font-body);font-size:14px;line-height:1.7;color:var(--color-text)">
+      <p style="margin-bottom:18px">See the small dotted handle (⠿⠿) at the top-left of the Quick Notes panel? Press and drag it — with your mouse on a computer, or your finger on a phone or tablet — to move the panel anywhere on the screen.</p>
+      <p style="margin-bottom:18px">This is handy if the panel is covering a button or a field you're trying to see.</p>
+      <p style="margin-bottom:18px">Your position is saved automatically — the panel will reopen in the same spot next time.</p>
+      <p>If the panel ever ends up somewhere you can't reach it (like off the edge of the screen), open your browser's developer tools, go to Local Storage for this site, and delete the key named <code>mnc-scratch-pos</code>. The panel will reset to its default spot the next time you open it.</p>
+    </div>`},
 ];
 let _helpTopic=null;
 function openHelp(topicId){
@@ -4510,7 +4842,10 @@ function renderScratchPanel(){
     if(!note){UI.scratchNoteId=null;renderScratchPanel();return;}
     panel.innerHTML=`
       <div class="scratch-header">
-        <button class="scratch-back" onclick="backToScratchList()">← All notes</button>
+        <div style="display:flex;align-items:center;gap:6px">
+          <span id="scratch-drag-handle" title="Drag to move">⠿⠿</span>
+          <button class="scratch-back" onclick="backToScratchList()">← All notes</button>
+        </div>
         <div style="display:flex;align-items:center;gap:12px">
           <button class="scratch-clear" onclick="deleteScratchNote('${note.id}')">Delete</button>
           <button class="scratch-close" onclick="closeScratchPad()" aria-label="Close quick notes">×</button>
@@ -4534,8 +4869,14 @@ function renderScratchPanel(){
     </div>`).join(''):`<div class="scratch-empty">No notes yet — tap "+ New note" to jot something down.</div>`;
   panel.innerHTML=`
     <div class="scratch-header">
-      <span>Quick notes</span>
-      <button class="scratch-close" onclick="closeScratchPad()" aria-label="Close quick notes">×</button>
+      <div style="display:flex;align-items:center;gap:6px">
+        <span id="scratch-drag-handle" title="Drag to move">⠿⠿</span>
+        <span>Quick notes</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:10px">
+        <button class="scratch-clear" onclick="openHelp('quick-notes-move')" aria-label="Help — moving this panel" title="Help">?</button>
+        <button class="scratch-close" onclick="closeScratchPad()" aria-label="Close quick notes">×</button>
+      </div>
     </div>
     <div class="scratch-list">${listHTML}</div>
     <button class="btn btn-primary btn-sm" style="width:100%;margin-top:10px" onclick="newScratchNote()">+ New note</button>`;
@@ -4585,6 +4926,93 @@ function deleteScratchNote(id){
   });
 }
 window.addEventListener('beforeunload',flushScratchNote);
+
+// ─── QUICK NOTES DRAG ─────────────────────────────────────────────────────────
+(function initScratchDrag(){
+  const POS_KEY='mnc-scratch-pos';
+  let dragging=false,startX=0,startY=0,startLeft=0,startBottom=0,panelEl=null;
+
+  function clamp(val,min,max){return Math.min(Math.max(val,min),max);}
+
+  function applyPos(panel,left,bottom){
+    const w=panel.offsetWidth||300,h=panel.offsetHeight||200;
+    const maxLeft=window.innerWidth-w-8;
+    const maxBottom=window.innerHeight-h-8;
+    left=clamp(left,8,Math.max(8,maxLeft));
+    bottom=clamp(bottom,8,Math.max(8,maxBottom));
+    panel.style.left=left+'px';
+    panel.style.right='auto';
+    panel.style.bottom=bottom+'px';
+    return{left,bottom};
+  }
+
+  function savePos(left,bottom){
+    try{localStorage.setItem(POS_KEY,JSON.stringify({left,bottom}));}catch(e){}
+  }
+  function restorePos(panel){
+    try{
+      const raw=localStorage.getItem(POS_KEY);
+      if(!raw)return;
+      const pos=JSON.parse(raw);
+      if(pos&&typeof pos.left==='number'&&typeof pos.bottom==='number'){
+        applyPos(panel,pos.left,pos.bottom);
+      }
+    }catch(e){}
+  }
+
+  function pointerXY(e){
+    if(e.touches&&e.touches.length)return{x:e.touches[0].clientX,y:e.touches[0].clientY};
+    if(e.changedTouches&&e.changedTouches.length)return{x:e.changedTouches[0].clientX,y:e.changedTouches[0].clientY};
+    return{x:e.clientX,y:e.clientY};
+  }
+
+  function onDragStart(e){
+    const handle=e.target.closest&&e.target.closest('#scratch-drag-handle');
+    if(!handle)return;
+    panelEl=document.getElementById('scratch-panel');
+    if(!panelEl)return;
+    const rect=panelEl.getBoundingClientRect();
+    const xy=pointerXY(e);
+    dragging=true;
+    startX=xy.x;startY=xy.y;
+    startLeft=rect.left;
+    startBottom=window.innerHeight-rect.bottom;
+    panelEl.classList.add('is-dragging');
+    e.preventDefault();
+  }
+  function onDragMove(e){
+    if(!dragging||!panelEl)return;
+    const xy=pointerXY(e);
+    const dx=xy.x-startX;
+    const dy=xy.y-startY;
+    applyPos(panelEl,startLeft+dx,startBottom-dy);
+    e.preventDefault();
+  }
+  function onDragEnd(){
+    if(!dragging||!panelEl)return;
+    dragging=false;
+    panelEl.classList.remove('is-dragging');
+    const rect=panelEl.getBoundingClientRect();
+    const left=rect.left;
+    const bottom=window.innerHeight-rect.bottom;
+    savePos(left,bottom);
+    panelEl=null;
+  }
+
+  document.addEventListener('mousedown',onDragStart);
+  document.addEventListener('mousemove',onDragMove);
+  document.addEventListener('mouseup',onDragEnd);
+  document.addEventListener('touchstart',onDragStart,{passive:false});
+  document.addEventListener('touchmove',onDragMove,{passive:false});
+  document.addEventListener('touchend',onDragEnd);
+
+  const _origOpenScratchPad=window.openScratchPad;
+  window.openScratchPad=function(){
+    _origOpenScratchPad();
+    const panel=document.getElementById('scratch-panel');
+    if(panel)restorePos(panel);
+  };
+})();
 
 // ─── INIT ─────────────────────────────────────────────────────────────────────
 render();
