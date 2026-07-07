@@ -632,7 +632,7 @@
     #sticky-bar .sb-earned{font-size:18px;font-weight:700;color:#C44570;line-height:1;margin-top:3px}
     .sb-track{flex:1;height:5px;background:rgba(255,255,255,.15);max-width:200px}
     .sb-fill{height:100%;background:#C44570;transition:width .35s ease}
-    #sticky-bar .sb-goal-text{font-size:12px;color:rgba(255,248,238,0.7);white-space:nowrap}
+    #sticky-bar .sb-goal-text{font-size:12px;color:rgba(250,247,237,0.7);white-space:nowrap}
     body{padding-bottom:58px}
     /* ─── TRANSITIONS ─── */
     #content{transition:opacity 120ms ease}
@@ -2742,6 +2742,7 @@ function renderSaleDay(){
       </div>
     </div>
     ${renderSectionTip("If something hasn't moved by midday, move it — closer to the street, into a bundle, or drop it $1. Don't let it just sit there waiting.")}
+    ${renderLastHourHelper()}
     <div class="grid-2">
       <div class="card">
         <div class="card-title">Haggle Helper</div>
@@ -2798,6 +2799,80 @@ function renderBundleBuilder(){
     </div>`:''}
     <button class="btn btn-primary" onclick="logBundleSale()" ${!items.length?'disabled':''}>Log this sale</button>
   </div>`;
+}
+function renderLastHourHelper(){
+  if(!UI.lhDrop)UI.lhDrop={price:'',drop:null,custom:''};
+  const lh=UI.lhDrop;
+  setTimeout(lhRefresh,0);
+  return`
+  <div class="card">
+    <div class="card-title">Last Hour Drops</div>
+    <p style="font-size:13px;color:var(--color-text-muted);line-height:1.55;margin-bottom:14px">Enter the original price. Pick a drop. Log it and move it.</p>
+    <div class="form-field" style="margin-bottom:12px">
+      <label class="form-label" for="lh-price">Original price ($)</label>
+      <input class="input" type="number" id="lh-price" min="0" step="0.25" placeholder="0.00" value="${esc(lh.price)}" oninput="lhUpdate('price',this.value)" style="font-size:20px;font-weight:700" />
+    </div>
+    <div id="lh-drop-btns" style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px">
+      ${['0.25','0.50','1.00','half','custom'].map(d=>`<button class="btn ${lh.drop===d?'btn-primary':'btn-secondary'} btn-sm" data-drop="${d}" onclick="lhToggleDrop('${d}')">${d==='half'?'½ Price':d==='custom'?'Custom':('−$'+d)}</button>`).join('')}
+    </div>
+    <div class="form-field" id="lh-custom-wrap" style="margin-bottom:14px;${lh.drop==='custom'?'':'display:none'}">
+      <label class="form-label" for="lh-custom">Drop amount ($)</label>
+      <input class="input" type="number" id="lh-custom" min="0" step="0.25" placeholder="0.00" value="${esc(lh.custom)}" oninput="lhUpdate('custom',this.value)" />
+    </div>
+    <div id="lh-result-wrap" style="background:#F9ECF0;padding:16px 20px;margin-bottom:14px;display:none">
+      <div style="font-size:11px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--color-text);margin-bottom:4px">New price</div>
+      <div id="lh-newprice" style="font-family:var(--font-display);font-size:40px;font-weight:700;color:var(--color-text)">$0.00</div>
+      <div id="lh-sub" style="font-size:13px;color:var(--color-text);margin-top:6px"></div>
+    </div>
+    <div id="lh-empty-prompt" class="empty-state-prompt">Enter the price and pick a drop amount.</div>
+    <button class="btn btn-primary" id="lh-log-btn" style="display:none" onclick="logLastHourSale()">Log this sale</button>
+  </div>`;}
+
+function lhCompute(){
+  const lh=UI.lhDrop||(UI.lhDrop={price:'',drop:null,custom:''});
+  const orig=Number(lh.price||0);
+  let newPrice=null;
+  if(orig>0){
+    if(lh.drop==='half')newPrice=orig/2;
+    else if(lh.drop){const d=lh.drop==='custom'?Number(lh.custom||0):Number(lh.drop);if(d>0)newPrice=Math.max(0,orig-d);}
+  }
+  return{lh,orig,newPrice};
+}
+function lhRefresh(){
+  const resultWrap=document.getElementById('lh-result-wrap');
+  if(!resultWrap)return;
+  const{lh,orig,newPrice}=lhCompute();
+  document.getElementById('lh-custom-wrap').style.display=lh.drop==='custom'?'':'none';
+  const emptyPrompt=document.getElementById('lh-empty-prompt');
+  const logBtn=document.getElementById('lh-log-btn');
+  if(newPrice!==null){
+    resultWrap.style.display='';emptyPrompt.style.display='none';logBtn.style.display='';
+    document.getElementById('lh-newprice').textContent='$'+newPrice.toFixed(2);
+    document.getElementById('lh-sub').textContent=lh.drop==='half'?('Half of $'+orig.toFixed(2)):('$'+(lh.drop==='custom'?Number(lh.custom||0):Number(lh.drop)).toFixed(2)+' off the ask');
+  }else{
+    resultWrap.style.display='none';emptyPrompt.style.display='';logBtn.style.display='none';
+  }
+}
+function lhUpdate(field,val){
+  if(!UI.lhDrop)UI.lhDrop={price:'',drop:null,custom:''};
+  UI.lhDrop[field]=val;
+  lhRefresh();
+}
+function lhToggleDrop(d){
+  if(!UI.lhDrop)UI.lhDrop={price:'',drop:null,custom:''};
+  UI.lhDrop.drop=UI.lhDrop.drop===d?null:d;
+  document.querySelectorAll('#lh-drop-btns button').forEach(b=>{
+    const active=b.getAttribute('data-drop')===UI.lhDrop.drop;
+    b.classList.toggle('btn-primary',active);b.classList.toggle('btn-secondary',!active);
+  });
+  lhRefresh();
+}
+function logLastHourSale(){
+  const{lh,orig,newPrice}=lhCompute();
+  if(!orig||!lh.drop)return;
+  if(!newPrice||newPrice<=0)return;
+  UI.lhDrop={price:'',drop:null,custom:''};
+  logSale('Last hour drop',newPrice,UI.calcPaymentMethod||'Cash');
 }
 function addBundleItem(){
   const el=document.getElementById('bundle-price-input');
@@ -2888,13 +2963,13 @@ function renderBuyerOverlay(){
   ].filter(r=>r.value);
   ov.innerHTML=`
   <div style="position:absolute;inset:0;background:#252535;display:flex;align-items:center;justify-content:center;padding:32px 24px">
-    <button onclick="closeBuyerPayment()" aria-label="Close" style="position:absolute;top:20px;right:20px;background:transparent;border:1.5px solid rgba(255,248,238,0.35);color:#FDFBF7;font-family:var(--font-body);font-weight:600;font-size:14px;padding:10px 20px;cursor:pointer">Done</button>
+    <button onclick="closeBuyerPayment()" aria-label="Close" style="position:absolute;top:20px;right:20px;background:transparent;border:1.5px solid rgba(250,247,237,0.35);color:#FDFBF7;font-family:var(--font-body);font-weight:600;font-size:14px;padding:10px 20px;cursor:pointer">Done</button>
     <div style="max-width:560px;width:100%;text-align:center">
       <p style="font-family:var(--font-display);font-size:11px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:#C44570;margin-bottom:24px">Pay here</p>
       <div style="display:flex;flex-direction:column;gap:22px">
         ${rows.map(r=>`
         <div>
-          <div style="font-family:var(--font-body);font-size:14px;color:rgba(255,248,238,0.6);margin-bottom:4px">${esc(r.label)}</div>
+          <div style="font-family:var(--font-body);font-size:14px;color:rgba(250,247,237,0.6);margin-bottom:4px">${esc(r.label)}</div>
           <div style="font-family:var(--font-display);font-size:clamp(24px,6vw,36px);font-weight:800;color:#FDFBF7">${esc(r.value)}</div>
         </div>`).join('')}
       </div>
@@ -3349,13 +3424,13 @@ function renderTimeOfDayPattern(){
       ${byHour.map(b=>`
         <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%">
           <div style="width:100%;background:#C44570;height:${Math.max(4,Math.round((b.total/maxTotal)*100))}%"></div>
-          <div style="font-size:10px;color:rgba(255,248,238,0.6);margin-top:4px">${fmtHourLabel(b.hour)}</div>
+          <div style="font-size:10px;color:rgba(250,247,237,0.6);margin-top:4px">${fmtHourLabel(b.hour)}</div>
         </div>`).join("")}
     </div>
   </div>`;
 }
 
-const emotionalCheckInOptions=["Exhausted.","Excited — one step closer.","Proud of myself."];
+const emotionalCheckInOptions=["Exhausted.","Excited — one step closer.","Proud of myself.","Lighter than I expected."];
 function setEmotionalCheckIn(val){
   P.wrap=P.wrap||{};
   P.wrap.emotionalCheckIn=P.wrap.emotionalCheckIn===val?"":val;
@@ -3369,9 +3444,9 @@ function buildWrapCompletion(){
   const salesCount=(P.transactions||[]).length;
   const memoryCount=(P.memories||[]).length;
   const dataLines=[
-    salesCount?`<div style="display:flex;justify-content:space-between;gap:16px"><span style="color:rgba(255,248,238,0.6)">Items sold</span><span style="color:#FAF7ED;font-weight:700">${salesCount}</span></div>`:"",
-    stats.goal?`<div style="display:flex;justify-content:space-between;gap:16px"><span style="color:rgba(255,248,238,0.6)">Hit your goal?</span><span style="color:#FAF7ED;font-weight:700">${stats.earned>=stats.goal?"Yes":"Not yet"}</span></div>`:"",
-    memoryCount?`<div style="display:flex;justify-content:space-between;gap:16px"><span style="color:rgba(255,248,238,0.6)">Memories saved</span><span style="color:#FAF7ED;font-weight:700">${memoryCount}</span></div>`:"",
+    salesCount?`<div style="display:flex;justify-content:space-between;gap:16px"><span style="color:rgba(250,247,237,0.6)">Items sold</span><span style="color:#FAF7ED;font-weight:700">${salesCount}</span></div>`:"",
+    stats.goal?`<div style="display:flex;justify-content:space-between;gap:16px"><span style="color:rgba(250,247,237,0.6)">Hit your goal?</span><span style="color:#FAF7ED;font-weight:700">${stats.earned>=stats.goal?"Yes":"Not yet"}</span></div>`:"",
+    memoryCount?`<div style="display:flex;justify-content:space-between;gap:16px"><span style="color:rgba(250,247,237,0.6)">Memories saved</span><span style="color:#FAF7ED;font-weight:700">${memoryCount}</span></div>`:"",
   ].filter(Boolean).join("");
   const memories=P.memories||[];
   const memoryList=memories.length?`
@@ -3380,20 +3455,20 @@ function buildWrapCompletion(){
       ${memories.map(m=>`
         <div style="margin-bottom:12px">
           <div style="font-family:var(--font-body);font-weight:700;font-size:14px;color:#FAF7ED">${esc(m.itemName||"Memory")}</div>
-          ${m.caption?`<div style="font-family:var(--font-body);font-weight:400;font-size:13px;color:rgba(255,248,238,0.6);margin-top:2px">${esc(m.caption)}</div>`:""}
+          ${m.caption?`<div style="font-family:var(--font-body);font-weight:400;font-size:13px;color:rgba(250,247,237,0.6);margin-top:2px">${esc(m.caption)}</div>`:""}
         </div>`).join("")}
     </div>`:"";
   const emotionalCheckIn=`
     <div style="margin-top:24px;display:flex;gap:8px;justify-content:center;flex-wrap:wrap">
-      ${emotionalCheckInOptions.map(opt=>`<button class="toggle-chip" onclick="setEmotionalCheckIn('${esc(opt)}')" style="font-family:var(--font-body);font-size:13px;font-weight:600;padding:8px 16px;cursor:pointer;${w.emotionalCheckIn===opt?'background:#FAF7ED;color:#252535;border:1px solid #FAF7ED':'background:transparent;color:#FAF7ED;border:1px solid rgba(255,248,238,0.4)'}">${esc(opt)}</button>`).join("")}
+      ${emotionalCheckInOptions.map(opt=>`<button class="toggle-chip" onclick="setEmotionalCheckIn('${esc(opt)}')" style="font-family:var(--font-body);font-size:13px;font-weight:600;padding:8px 16px;cursor:pointer;${w.emotionalCheckIn===opt?'background:#FAF7ED;color:#252535;border:1px solid #FAF7ED':'background:transparent;color:#FAF7ED;border:1px solid rgba(250,247,237,0.4)'}">${esc(opt)}</button>`).join("")}
     </div>`;
   return`
   <div id="wrap-completion" style="background:#252535;padding:40px 36px;text-align:center;margin-bottom:8px;">
     <p style="font-family:var(--font-display);font-weight:800;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#C44570;margin:0 0 14px;">Sale Complete</p>
     <h2 style="font-family:var(--font-display);font-weight:800;font-size:26px;color:#FDFBF7;margin:0 0 10px;line-height:1.3;">You earned $${stats.earned.toFixed(2)}.</h2>
-    ${stats.goal?`<p style="font-family:'DM Sans',sans-serif;font-size:15px;color:rgba(255,248,238,0.75);margin:0 0 6px;">${stats.goalProgress}% of your $${stats.goal} goal reached.</p>`:""}
-    ${P.setup?.moneyPurpose?`<p style="font-family:'DM Sans',sans-serif;font-size:14px;color:rgba(255,248,238,0.75);margin:0 0 20px;font-style:italic;">${esc(P.setup.moneyPurpose)}</p>`:"<div style='margin-bottom:20px'></div>"}
-    <p style="font-family:'DM Sans',sans-serif;font-size:15px;color:rgba(255,248,238,0.78);line-height:1.7;max-width:480px;margin:0 auto 24px;">Every item sorted, priced, and moved out the door. That took real effort. Here&rsquo;s to your next chapter.</p>
+    ${stats.goal?`<p style="font-family:'DM Sans',sans-serif;font-size:15px;color:rgba(250,247,237,0.75);margin:0 0 6px;">${stats.goalProgress}% of your $${stats.goal} goal reached.</p>`:""}
+    ${P.setup?.moneyPurpose?`<p style="font-family:'DM Sans',sans-serif;font-size:14px;color:rgba(250,247,237,0.75);margin:0 0 20px;font-style:italic;">${esc(P.setup.moneyPurpose)}</p>`:"<div style='margin-bottom:20px'></div>"}
+    <p style="font-family:'DM Sans',sans-serif;font-size:15px;color:rgba(250,247,237,0.78);line-height:1.7;max-width:480px;margin:0 auto 24px;">Every item sorted, priced, and moved out the door. That took real effort. Here&rsquo;s to your next chapter.</p>
     ${dataLines?`<div style="max-width:320px;margin:0 auto 20px;display:flex;flex-direction:column;gap:8px">${dataLines}</div>`:""}
     ${memoryList}
     ${renderTimeOfDayPattern()}
@@ -3406,9 +3481,23 @@ function refreshWrapCompletion(){
   if(!el)return;
   el.outerHTML=buildWrapCompletion();
 }
+function cashTallyResultHTML(tally,cashSales){
+  if(!tally)return'';
+  const diff=Number(tally)-cashSales;
+  const match=Math.abs(diff)<0.02;
+  return`<div style="background:${match?'#F9ECF0':'#F5C4A8'};padding:12px 16px;font-size:var(--text-sm);color:#252535;line-height:1.7">${match?'Matches your logged cash sales.':diff<0?'$'+Math.abs(diff).toFixed(2)+' short — a few cash sales might not be in the log.':'$'+diff.toFixed(2)+' more than logged — check for duplicate entries.'}</div>`;
+}
+function refreshCashTally(el){
+  sf(el,'wrap','cashTally');
+  const wrap=document.getElementById('cash-tally-result');
+  if(!wrap)return;
+  const cashSales=(P.transactions||[]).filter(t=>t.method==='Cash').reduce((s,t)=>s+Number(t.amount||0),0);
+  wrap.innerHTML=cashTallyResultHTML(el.value,cashSales);
+}
 
 function renderWrap(){
   const w=P.wrap||{};const stats=getStats(P);
+  const cashSales=(P.transactions||[]).filter(t=>t.method==='Cash').reduce((s,t)=>s+Number(t.amount||0),0);
   return`
   ${renderTourNote("Decide what happens to leftovers before the sale ends — donate, sell online, keep, or trash. Fill this in while you're still outside. Once it's back inside, it stays inside.")}
   <div class="gap-y">
@@ -3426,7 +3515,6 @@ function renderWrap(){
         <div class="card-title">Leftovers plan</div>
         <div class="gap-y-sm">
           ${areaField("Donate","wrap.donate",w.donate,"Which items go directly to donation after the sale?")}
-          ${w.donate?`<div style="background:#FCF0E8;border:1px solid #EFA276;padding:12px 16px;font-size:var(--text-sm);color:#252535;line-height:1.7">Someone else will find exactly what they need from what you are letting go.</div>`:""}
           <div class="card-title" style="font-size:15px;margin-top:6px;margin-bottom:4px">Donation center</div>
           ${field("Local donation center (optional)","text","setup.charityName",P.setup?.charityName,"Goodwill — Main St")}
           ${field("Donation center phone","tel","setup.charityPhone",P.setup?.charityPhone,"(555) 123-4567")}
@@ -3450,6 +3538,16 @@ function renderWrap(){
             <div style="display:flex;justify-content:space-between"><span class="text-muted">Transactions</span><span class="font-bold">${(P.transactions||[]).length}</span></div>
           </div>
           ${stats.goal?`<div class="progress progress-lg" style="margin-top:14px"><div class="progress-fill" style="width:${stats.goalProgress}%"></div></div><div class="text-muted text-sm" style="margin-top:6px">${stats.goalProgress}% of goal</div>`:""}
+        </div>
+        <div class="card">
+          <div class="card-title">Cash box tally</div>
+          <p style="font-size:13px;color:var(--color-text-muted);line-height:1.55;margin-bottom:14px">Count what's in the box. Compare to what you logged.</p>
+          <div style="font-size:13px;color:var(--color-text);margin-bottom:12px">Cash logged: <strong>$${cashSales.toFixed(2)}</strong></div>
+          <div class="form-field" style="margin-bottom:12px">
+            <label class="form-label" for="cash-tally-input">What's actually in the box ($)</label>
+            <input class="input" id="cash-tally-input" type="number" min="0" step="0.01" placeholder="0.00" value="${esc(w.cashTally||'')}" oninput="refreshCashTally(this)" style="font-size:20px;font-weight:700" />
+          </div>
+          <div id="cash-tally-result">${cashTallyResultHTML(w.cashTally,cashSales)}</div>
         </div>
         <div class="card">
           <div class="card-title">Send me my summary</div>
