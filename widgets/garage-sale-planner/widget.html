@@ -303,16 +303,33 @@
 
     /* ─── CARDS ─── */
     .card{
-      background:var(--color-surface);border:none;
-      box-shadow:0 10px 40px rgba(37,37,53,0.07);
+      background:var(--color-surface);border:1px solid var(--color-divider);
+      box-shadow:0 10px 40px rgba(37,37,53,0.06);
       border-radius:var(--radius-xl);padding:var(--space-6);
     }
     .card+.card{margin-top:var(--space-4)}
+    .start-card-lg,.start-card-sm{border:1px solid var(--color-divider)!important}
     .card-title{
       font-size:21px;font-weight:700;font-family:var(--font-display);
       margin-bottom:var(--space-4);color:var(--color-text);
     }
     .card-sub{font-family:var(--font-body);font-size:14px;font-weight:400;color:var(--color-text);margin-bottom:var(--space-5);line-height:1.7}
+
+    /* ─── WRAP COMPLETION — record seal & stat footer ─── */
+    .wc-seal{
+      width:52px;height:52px;border-radius:50%;
+      border:1.5px solid rgba(250,247,237,.55);
+      display:flex;align-items:center;justify-content:center;
+      margin:0 auto 18px;color:#FAF7ED;font-family:var(--font-display);font-size:20px;
+    }
+    .wc-record{
+      border-top:1px dashed rgba(250,247,237,.25);
+      padding-top:16px;margin:24px auto 0;max-width:380px;
+      display:flex;justify-content:center;gap:28px;flex-wrap:wrap;
+    }
+    .wc-record-item{font-family:var(--font-body);font-size:12.5px;text-align:center}
+    .wc-record-item b{display:block;font-family:var(--font-display);font-size:17px;font-weight:700;color:#FAF7ED;font-variant-numeric:tabular-nums}
+    .wc-record-item span{color:rgba(250,247,237,.6);text-transform:uppercase;letter-spacing:.06em;font-size:10.5px}
 
     /* ─── GRIDS ─── */
     .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:var(--space-4)}
@@ -442,10 +459,10 @@
     }
     .ml-col-think{border-color:#C4B0E8}
     .ml-col-think .ml-col-hdr{border-color:#C4B0E8;color:#252535}
-    .ml-col-think{background:#F9F6FD}
+    .ml-col-think{background:#FAF7ED}
     .ml-col-letgo{border-color:#C44570}
     .ml-col-letgo .ml-col-hdr{border-color:#C44570;color:#252535}
-    .ml-col-letgo{background:#FDF0F5}
+    .ml-col-letgo{background:#F9ECF0}
     .ml-col-priced{border-color:#8BA7D4}
     .ml-col-priced .ml-col-hdr{border-color:#8BA7D4;color:#252535}
     .ml-col-priced{background:#EEF2F9}
@@ -571,6 +588,9 @@
       .topbar-right{margin-left:auto}
       .main-nav-wrap{padding:14px var(--space-4) 0}
       .topbar-tabs{width:100%;min-width:0;-webkit-overflow-scrolling:touch;overflow-x:auto}
+      .outer{padding:var(--space-4) var(--space-4)}
+      .calc-row{grid-template-columns:1fr 56px 76px 32px}
+      .start-card-lg,.start-card-sm{padding:20px!important}
     }
     @media(hover:none) and (pointer:coarse){
       .btn,.btn-sm,.btn-xs,.btn-ghost,.tab-btn,.sec-btn,.icon-btn,.toggle-chip{min-height:44px;min-width:44px}
@@ -1285,7 +1305,7 @@ function refreshMetrics(){
         </div>
         <div class="hs-legend-item">
           <div class="hs-legend-sq" style="background:var(--color-divider);border:1px solid var(--color-border)"></div>
-          ${unpriced} unprice
+          ${unpriced} unpriced
         </div>
       </div>
     </div>
@@ -1377,7 +1397,7 @@ function renderStart(){
   <div style="display:flex;gap:32px;flex-wrap:wrap;align-items:flex-start;padding-top:8px">
 
     <!-- LEFT: form -->
-    <div style="flex:1.7 1 430px;background:#fff;border:none;box-shadow:0 10px 40px rgba(37,37,53,0.07);border-radius:var(--radius-xl);padding:36px">
+    <div class="start-card-lg" style="flex:1.7 1 430px;background:#fff;border:none;box-shadow:0 10px 40px rgba(37,37,53,0.07);border-radius:var(--radius-xl);padding:36px">
       <div class="card-title" style="font-size:28px;margin-bottom:28px">Sale Setup</div>
       <div class="gap-y-sm" style="gap:22px">
         <div class="grid-2">
@@ -1417,7 +1437,7 @@ function renderStart(){
     <div style="flex:1 1 300px;display:flex;flex-direction:column;gap:28px">
 
       <!-- Money goal -->
-      <div style="background:#fff;border:none;box-shadow:0 10px 40px rgba(37,37,53,0.07);border-radius:var(--radius-xl);padding:30px">
+      <div class="start-card-sm" style="background:#fff;border:none;box-shadow:0 10px 40px rgba(37,37,53,0.07);border-radius:var(--radius-xl);padding:30px">
         <div class="card-title" style="margin-bottom:8px">Money goal</div>
         <div id="goal-pct" class="metric-value" style="font-size:44px;font-weight:300;line-height:1">${stats.goalProgress}%</div>
         <div id="goal-sub" class="text-muted" style="margin-top:8px">$${stats.earned.toFixed(2)} earned · $${stats.goalLeft.toFixed(2)} left</div>
@@ -1426,16 +1446,16 @@ function renderStart(){
       </div>
 
       <!-- Sale countdown -->
-      <div style="background:#fff;border:none;box-shadow:0 10px 40px rgba(37,37,53,0.07);border-radius:var(--radius-xl);padding:30px">
+      <div class="start-card-sm" style="background:#fff;border:none;box-shadow:0 10px 40px rgba(37,37,53,0.07);border-radius:var(--radius-xl);padding:30px">
         <div class="card-title" style="margin-bottom:12px">Sale countdown</div>
         <div id="countdown-body">${renderCountdownBody()}</div>
       </div>
 
       <!-- Weather -->
-      <div style="background:#fff;border:none;box-shadow:0 10px 40px rgba(37,37,53,0.07);border-radius:var(--radius-xl);padding:28px" id="weather-card"></div>
+      <div class="start-card-sm" style="background:#fff;border:none;box-shadow:0 10px 40px rgba(37,37,53,0.07);border-radius:var(--radius-xl);padding:28px" id="weather-card"></div>
 
       <!-- Day-before reminder -->
-      <div style="background:#fff;border:none;box-shadow:0 10px 40px rgba(37,37,53,0.07);border-radius:var(--radius-xl);padding:30px">
+      <div class="start-card-sm" style="background:#fff;border:none;box-shadow:0 10px 40px rgba(37,37,53,0.07);border-radius:var(--radius-xl);padding:30px">
         <div class="card-title" style="margin-bottom:6px">Day-before reminder</div>
         <p style="font-size:14px;color:var(--color-muted);line-height:1.55;margin-bottom:14px">Get a prep email the morning before sale day — your items, your goal, and a link back here.</p>
         <div class="form-field" style="margin-bottom:12px">
@@ -3474,7 +3494,7 @@ function renderTimeOfDayPattern(){
   </div>`;
 }
 
-const emotionalCheckInOptions=["Exhausted.","Excited — one step closer.","Proud of myself.","Lighter than I expected."];
+const emotionalCheckInOptions=["Exhausted.","Excited. Something moved.","Proud of myself.","Lighter than I expected."];
 function setEmotionalCheckIn(val){
   P.wrap=P.wrap||{};
   P.wrap.emotionalCheckIn=P.wrap.emotionalCheckIn===val?"":val;
@@ -3488,9 +3508,9 @@ function buildWrapCompletion(){
   const salesCount=(P.transactions||[]).length;
   const memoryCount=(P.memories||[]).length;
   const dataLines=[
-    salesCount?`<div style="display:flex;justify-content:space-between;gap:16px"><span style="color:rgba(250,247,237,0.6)">Items sold</span><span style="color:#FAF7ED;font-weight:700">${salesCount}</span></div>`:"",
-    stats.goal?`<div style="display:flex;justify-content:space-between;gap:16px"><span style="color:rgba(250,247,237,0.6)">Hit your goal?</span><span style="color:#FAF7ED;font-weight:700">${stats.earned>=stats.goal?"Yes":"Not yet"}</span></div>`:"",
-    memoryCount?`<div style="display:flex;justify-content:space-between;gap:16px"><span style="color:rgba(250,247,237,0.6)">Memories saved</span><span style="color:#FAF7ED;font-weight:700">${memoryCount}</span></div>`:"",
+    salesCount?`<div class="wc-record-item"><b>${salesCount}</b><span>Items sold</span></div>`:"",
+    stats.goal?`<div class="wc-record-item"><b>${stats.earned>=stats.goal?"Yes":"Not yet"}</b><span>Hit your goal</span></div>`:"",
+    memoryCount?`<div class="wc-record-item"><b>${memoryCount}</b><span>Memories saved</span></div>`:"",
   ].filter(Boolean).join("");
   const memories=P.memories||[];
   const memoryList=memories.length?`
@@ -3508,12 +3528,13 @@ function buildWrapCompletion(){
     </div>`;
   return`
   <div id="wrap-completion" style="background:#252535;padding:40px 36px;text-align:center;margin-bottom:8px;">
+    <div class="wc-seal">&#10003;</div>
     <p style="font-family:var(--font-display);font-weight:800;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:rgba(250,247,237,.6);margin:0 0 14px;">Sale Complete</p>
     <h2 style="font-family:var(--font-display);font-weight:800;font-size:26px;color:#FDFBF7;margin:0 0 10px;line-height:1.3;">You earned $${stats.earned.toFixed(2)}.</h2>
     ${stats.goal?`<p style="font-family:'DM Sans',sans-serif;font-size:15px;color:rgba(250,247,237,0.75);margin:0 0 6px;">${stats.goalProgress}% of your $${stats.goal} goal reached.</p>`:""}
     ${P.setup?.moneyPurpose?`<p style="font-family:'DM Sans',sans-serif;font-size:14px;color:rgba(250,247,237,0.75);margin:0 0 20px;font-style:italic;">${esc(P.setup.moneyPurpose)}</p>`:"<div style='margin-bottom:20px'></div>"}
-    <p style="font-family:'DM Sans',sans-serif;font-size:15px;color:rgba(250,247,237,0.78);line-height:1.7;max-width:480px;margin:0 auto 24px;">Every item sorted, priced, and moved out the door. That took real effort. Here&rsquo;s to your next chapter.</p>
-    ${dataLines?`<div style="max-width:320px;margin:0 auto 20px;display:flex;flex-direction:column;gap:8px">${dataLines}</div>`:""}
+    <p style="font-family:'DM Sans',sans-serif;font-size:15px;color:rgba(250,247,237,0.78);line-height:1.7;max-width:480px;margin:0 auto 24px;">Every item sorted, priced, and moved out the door. That doesn&rsquo;t happen by accident. Here&rsquo;s to your next chapter.</p>
+    ${dataLines?`<div class="wc-record">${dataLines}</div>`:""}
     ${memoryList}
     ${renderTimeOfDayPattern()}
     <p style="font-family:var(--font-display);font-size:12px;color:rgba(250,247,237,.7);margin:24px 0 0;">— Cece</p>
@@ -3612,7 +3633,7 @@ function renderWrap(){
         </div>
       </div>
     </div>
-    ${renderSectionTip("You just did something most people keep putting off for another summer. You didn't.")}
+    ${renderSectionTip("The stuff doesn't sort itself. You did that.")}
   </div>`;
 }
 
@@ -4041,7 +4062,7 @@ function checkGoalNotifs(){
   const pct=stats.goalProgress;
   if(!P.notifFired?.goalHalf&&pct>=50&&pct<100){
     if(!P.notifFired)P.notifFired={};P.notifFired.goalHalf=true;
-    addNotif('goalHalf',`You're halfway to $${stats.goal}. Keep going.`);
+    addNotif('goalHalf',`Halfway to $${stats.goal}.`);
   }
   if(!P.notifFired?.goalReached&&pct>=100){
     if(!P.notifFired)P.notifFired={};P.notifFired.goalReached=true;
