@@ -755,13 +755,12 @@
       font-size: 15px;
     }
 
-    /* Subtext / hint / caption — WCAG-safe gray stays here */
-    /* Do NOT replace with Periwinkle at this size — fails contrast */
+    /* Subtext / hint / caption — darkened Periwinkle, not gray */
+    /* #8BA7D4 fails WCAG contrast at this size; #426DB3 is the same
+       hue darkened (~5.16:1), already used file-wide as --color-text-muted */
     .empty-state-prompt,
-    .topbar-sub,
-    .card-sub,
-    .page-sub {
-      color: #666666;
+    .topbar-sub {
+      color: var(--color-text-muted);
       font-size: 13px;
     }
 
