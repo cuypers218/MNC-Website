@@ -105,7 +105,6 @@
     .topbar-sub {font-size:var(--text-xs);color:var(--color-text-muted);}
     .main-nav-wrap{
       max-width:1140px;margin:0 auto;padding:16px var(--space-6) 0;
-      border-bottom:1px solid var(--color-divider);
     }
     .topbar-tabs {
       display:flex;gap:14px;background:transparent;
@@ -442,6 +441,8 @@
       border-radius:var(--radius-md);
     }
     .ml-view-btn.active{background:var(--color-primary);color:#fff}
+    .ml-view-btn:hover:not(.active){background:var(--color-primary-hl);color:var(--color-primary-text)}
+    .ml-view-btn:active:not(.active){background:#7C2743;color:#fff;border-color:#7C2743}
     .ml-revenue{
       font-family:var(--font-display);font-size:16px;font-weight:700;
       color:var(--color-primary-text);padding:12px 18px;background:var(--color-surface-2);
@@ -600,9 +601,17 @@
       .start-card-lg,.start-card-sm{padding:20px!important}
     }
     @media(hover:none) and (pointer:coarse){
-      .btn,.btn-sm,.btn-xs,.btn-ghost,.tab-btn,.sec-btn,.icon-btn,.toggle-chip{min-height:44px;min-width:44px}
+      .btn,.btn-sm,.btn-xs,.btn-ghost,.tab-btn,.sec-btn,.icon-btn,.toggle-chip,.memory-status-chip{min-height:44px;min-width:44px}
     }
     .toggle-chip{touch-action:manipulation}
+    .memory-status-chip{
+      touch-action:manipulation;font-family:var(--font-body);font-size:12px;font-weight:600;
+      padding:6px 10px;cursor:pointer;background:transparent;color:var(--color-primary-text);
+      border:1px solid var(--color-primary);
+    }
+    .memory-status-chip.selected{background:#252535;color:#FAF7ED;border-color:#252535}
+    .memory-status-chip:hover:not(.selected){background:var(--color-primary-hl)}
+    .memory-status-chip:active:not(.selected){background:#7C2743;color:#fff;border-color:#7C2743}
     @media(prefers-reduced-motion:reduce){
       *,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}
     }
@@ -2040,7 +2049,7 @@ function renderMemory(){
         ${m.caption?`<div class="memory-caption">${esc(m.caption)}</div>`:""}
         <div class="text-xs text-muted">${esc(m.createdAt||"")}</div>
         <div style="display:flex;gap:6px;flex-wrap:wrap">
-          ${memoryStatuses.map(st=>`<button class="toggle-chip" onclick="setMemoryStatus('${esc(m.id)}','${st}')" style="font-family:var(--font-body);font-size:12px;font-weight:600;padding:6px 10px;cursor:pointer;${m.status===st?'background:#252535;color:#FAF7ED;border:1px solid #252535':'background:transparent;color:var(--color-primary-text);border:1px solid var(--color-primary)'}">${st}</button>`).join("")}
+          ${memoryStatuses.map(st=>`<button class="memory-status-chip${m.status===st?' selected':''}" onclick="setMemoryStatus('${esc(m.id)}','${st}')">${st}</button>`).join("")}
         </div>
         <div style="display:flex;gap:8px">
           <button class="btn btn-ghost btn-xs" onclick="editMemory('${esc(m.id)}')">Edit</button>
