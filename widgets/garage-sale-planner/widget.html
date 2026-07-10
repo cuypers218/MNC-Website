@@ -627,6 +627,26 @@
       opacity:0;transition:opacity 0.18s;white-space:nowrap}
     .mnc-toast.show{opacity:1}
 
+    /* ─── GUIDED SORT (Sort + Price camera flow, 2026-07-10 brief) ─── */
+    .mnc-undo-toast{position:fixed;top:20px;left:50%;transform:translateX(-50%);
+      background:#252535;color:#FAF7ED;font-family:var(--font-body);font-weight:600;font-size:13px;
+      padding:12px 18px;z-index:9999;display:flex;align-items:center;gap:16px;white-space:nowrap;
+      opacity:0;pointer-events:none;transition:opacity 0.18s}
+    .mnc-undo-toast.show{opacity:1;pointer-events:auto}
+    .mnc-undo-toast button{font-family:var(--font-body);font-weight:700;font-size:12px;letter-spacing:.06em;
+      text-transform:uppercase;color:#F5C4A8;background:none;border:none;cursor:pointer;padding:6px 4px;min-height:44px}
+    .gs-stat-strip{background:#252535;color:#FAF7ED;padding:14px 18px;display:flex;align-items:center;
+      gap:20px;flex-wrap:wrap;font-family:var(--font-body);margin-bottom:16px}
+    .gs-stat-strip .gs-stat-num{font-family:var(--font-display);font-weight:700;font-size:20px;line-height:1}
+    .gs-seg-bar{flex:1 1 200px;min-width:160px;height:10px;background:rgba(250,247,237,.15);display:flex;overflow:hidden}
+    .gs-seg{height:100%}
+    .gs-tile{border:2px solid var(--color-text);padding:16px;text-align:center;cursor:pointer;background:#fff;
+      font-family:var(--font-body);min-height:44px}
+    .gs-tile:hover{background:#F9ECF0}
+    .gs-tile-quiet{border:1px solid var(--color-divider);padding:12px;text-align:center;cursor:pointer;
+      background:#fff;opacity:.85;font-family:var(--font-body);min-height:44px}
+    .gs-tile-quiet:hover{opacity:1;background:#F9ECF0}
+
     /* ─── PRINT ─── */
     @media print{
       body>*{display:none!important}
@@ -1319,6 +1339,7 @@ function normalizePlanner(src){
     items:(Array.isArray(s.items)?s.items:b.items).map(item=>({...item,kanbanCol:item.kanbanCol||'think',
       room:item.room||null,photo:item.photo||"",label:item.label||"",brand:!!item.brand,
       batchId:item.batchId||null,storage:item.storage||"",alsoGiveToKids:!!item.alsoGiveToKids,given:!!item.given,
+      categoryKey:item.categoryKey||"",itemType:item.itemType||"",
     })),
     prep:{...b.prep,...(s.prep||{})},
     nightBefore:{...b.nightBefore,...(s.nightBefore||{})},
@@ -1778,11 +1799,389 @@ function renderInventory(){
       </div>
       ${renderDispositionCounter()}
       ${stats.estimated>0?`<div style="font-size:14px;color:var(--color-text);margin-top:4px">Estimated total: $${stats.estimated.toFixed(0)}</div>`:""}
-      ${isBoard?"":`<button class="btn btn-primary" onclick="toggleAddItemForm()" style="margin-bottom:20px;margin-top:14px">+ Add an item</button>`}
+      ${isBoard?"":`<div style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:20px;margin-top:14px">
+        <button class="btn btn-primary" onclick="openGuidedSort()">Sort with your camera →</button>
+        <button class="btn btn-secondary" onclick="toggleAddItemForm()">+ Add an item</button>
+      </div>`}
     </div>
     ${UI.showAddForm?renderAddItemForm():""}
     ${isBoard?renderMemoryLaneBoard():renderItemTable()}
     ${renderSectionTip("When you're not sure whether to price it .50¢ or $1, ask yourself which one means you don't have to carry it back inside. That's your answer.")}
+  </div>`;
+}
+
+// ─── GUIDED SORT (Sort + Price camera-first flow, GarageSalePlanner_SortPriceInteractive_Brief.md) ──
+// Phase 8 (AI photo ID) hasn't been built yet — Review always lands on the manual category/item-type
+// picker, which doubles as the "fix it" fallback path required by Section 3. Wiring an AI guess in
+// later only needs to pre-fill guidedUI.current.categoryKey/itemName/brand before showing Review.
+let guidedUI={open:false,screen:'entry',room:null,current:{}};
+const GS_ROOMS=["Garage","Kitchen","Bedroom","Kids' Room","Living Room","Attic","Basement"];
+const GS_ROUTES={
+  "Garage Sale":{tab:"saleWrap",section:"tags"},
+  "Sell Online":{tab:"sellPromote",section:"promote"},
+  "Donate":{tab:"saleWrap",section:"wrap"},
+  "Trash":{tab:"saleWrap",section:"wrap"},
+  "Given to kids":{tab:"sortPrice",section:"memory"},
+  "Memory Box":{tab:"sortPrice",section:"memory"},
+  "Batch":{tab:"sortPrice",section:"batch"},
+};
+
+function openGuidedSort(){
+  guidedUI={open:true,screen:'entry',room:null,current:{}};
+  const ov=document.getElementById('guided-sort-overlay');if(!ov)return;
+  renderGuidedSort();
+  ov.style.display='block';ov.style.opacity='0';
+  requestAnimationFrame(()=>requestAnimationFrame(()=>{ov.style.opacity='1';}));
+}
+function closeGuidedSort(){
+  const ov=document.getElementById('guided-sort-overlay');
+  if(ov){ov.style.opacity='0';setTimeout(()=>{ov.style.display='none';},180);}
+  guidedUI.open=false;
+  renderContent();
+}
+function gsGoTab(tab,section){
+  closeGuidedSort();
+  UI.tab=tab;UI.section=section;render();
+}
+function renderGuidedSort(){
+  const ov=document.getElementById('guided-sort-overlay');if(!ov)return;
+  const screens={
+    entry:gsEntryScreen,rooms:gsRoomScreen,capture:gsCaptureScreen,analyzing:gsAnalyzingScreen,
+    review:gsReviewScreen,memory:gsMemoryScreen,batch:gsBatchScreen,sell:gsSellScreen,
+    roomComplete:gsRoomCompleteScreen,summary:gsSummaryScreen,
+  };
+  const fn=screens[guidedUI.screen]||gsEntryScreen;
+  const showStrip=guidedUI.screen!=='entry'&&guidedUI.screen!=='summary';
+  ov.innerHTML=`<div style="position:absolute;inset:0;background:var(--color-bg);overflow-y:auto;padding:20px 16px 60px">
+    <div style="max-width:640px;margin:0 auto">
+      <div style="display:flex;justify-content:flex-end;margin-bottom:4px">
+        <button onclick="closeGuidedSort()" aria-label="Close guided sort" style="background:none;border:none;font-size:26px;line-height:1;color:var(--color-text);cursor:pointer;padding:6px;min-width:44px;min-height:44px">×</button>
+      </div>
+      ${showStrip?gsStatStrip():''}
+      ${fn()}
+    </div>
+  </div>`;
+}
+function gsStatStrip(){
+  const items=P.items||[];
+  const total=items.reduce((s,i)=>s+Number(i.price||0),0);
+  const segColors={"Garage Sale":"#C44570","Sell Online":"#C4B0E8","Donate":"#EFA276","Given to kids":"#6D4C3E","Trash":"#8BA7D4","Memory Box":"#F5C4A8","Batch":"#F9ECF0"};
+  const segs=Object.keys(segColors).map(k=>({key:k,color:segColors[k],count:items.filter(i=>i.decision===k).length})).filter(s=>s.count>0);
+  const totalTagged=segs.reduce((s,x)=>s+x.count,0)||1;
+  return`<div class="gs-stat-strip">
+    <div><div class="gs-stat-num">$${total.toFixed(0)}</div><div style="font-size:11px;opacity:.85">sale value</div></div>
+    <div><div class="gs-stat-num">${items.length}</div><div style="font-size:11px;opacity:.85">items sorted</div></div>
+    ${segs.length?`<div class="gs-seg-bar" role="img" aria-label="Breakdown of sorted items by decision">
+      ${segs.map(s=>`<div class="gs-seg" style="width:${(s.count/totalTagged*100).toFixed(1)}%;background:${s.color}" title="${esc(s.key)}: ${s.count}"></div>`).join('')}
+    </div>`:''}
+  </div>`;
+}
+function gsRoomStats(room){
+  const items=(P.items||[]).filter(i=>i.room===room);
+  return{count:items.length,value:items.reduce((s,i)=>s+Number(i.price||0),0)};
+}
+function gsEntryScreen(){
+  const hasAny=(P.items||[]).length>0;
+  return`
+  <div class="card bold-card" style="text-align:center;padding:40px 24px">
+    <div class="card-title" style="margin-bottom:8px">Sort with your camera</div>
+    <p style="color:var(--color-text-muted);margin-bottom:28px">Photograph an item, tell me what to do with it, and move to the next one.</p>
+    <button class="btn btn-primary" onclick="guidedUI.room=null;guidedUI.screen='capture';renderGuidedSort()" style="font-size:16px;padding:16px 32px;margin-bottom:16px">Just start snapping →</button>
+    <div><button onclick="guidedUI.screen='rooms';renderGuidedSort()" style="background:none;border:none;color:var(--color-primary-text);font-family:var(--font-body);font-weight:600;font-size:13px;text-decoration:underline;cursor:pointer;padding:10px 8px;min-height:44px">Sort by room instead</button></div>
+    ${hasAny?`<div style="margin-top:16px"><button onclick="guidedUI.screen='summary';renderGuidedSort()" style="background:none;border:none;color:var(--color-text-muted);font-family:var(--font-body);font-size:13px;text-decoration:underline;cursor:pointer;padding:10px 8px;min-height:44px">See my summary so far</button></div>`:''}
+  </div>`;
+}
+function gsRoomScreen(){
+  const hasAny=(P.items||[]).length>0;
+  return`
+  <div class="card bold-card">
+    <div class="card-title" style="margin-bottom:16px">Which room?</div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:10px;margin-bottom:20px">
+      ${GS_ROOMS.map(r=>{
+        const st=gsRoomStats(r);
+        return`<button class="gs-tile" onclick="guidedUI.room='${esc(r)}';guidedUI.screen='capture';renderGuidedSort()">
+          <div style="font-weight:700">${esc(r)}</div>
+          ${st.count?`<div style="font-size:12px;color:var(--color-primary-text);margin-top:4px">✓ ${st.count} · $${st.value.toFixed(0)}</div>`:''}
+        </button>`;
+      }).join('')}
+      <button class="gs-tile" onclick="gsAddCustomRoom()">+ Add Room</button>
+    </div>
+    <button onclick="guidedUI.room=null;guidedUI.screen='capture';renderGuidedSort()" class="btn btn-ghost btn-sm">Just start snapping (skip room) →</button>
+    ${hasAny?`<div style="margin-top:16px"><button onclick="guidedUI.screen='summary';renderGuidedSort()" style="background:none;border:none;color:var(--color-text-muted);font-family:var(--font-body);font-size:13px;text-decoration:underline;cursor:pointer;padding:10px 8px;min-height:44px">All done for now — see my summary</button></div>`:''}
+  </div>`;
+}
+function gsAddCustomRoom(){
+  const r=prompt("Room name?");
+  if(r&&r.trim()){guidedUI.room=r.trim();guidedUI.screen='capture';renderGuidedSort();}
+}
+function gsCaptureScreen(){
+  const roomLabel=guidedUI.room?` — ${esc(guidedUI.room)}`:'';
+  const roomCount=guidedUI.room?gsRoomStats(guidedUI.room).count:0;
+  return`
+  <div class="card bold-card" style="text-align:center;padding:36px 24px">
+    <div class="card-title" style="margin-bottom:4px">Photograph the item${roomLabel}</div>
+    <p style="color:var(--color-text-muted);margin-bottom:24px">Tap below to open your camera.</p>
+    <label class="btn btn-primary" style="display:inline-block;font-size:16px;padding:16px 32px;cursor:pointer">
+      Take a photo
+      <input type="file" accept="image/*" capture="environment" style="display:none" onchange="gsPhotoSelected(this)" />
+    </label>
+    <div class="info-box" style="margin-top:24px;text-align:left">If it's a designer or name-brand item, try to get the label or logo in the photo too — it helps catch the brand and get you a better price.</div>
+    <div style="margin-top:24px;display:flex;flex-direction:column;gap:10px;align-items:center">
+      ${guidedUI.room&&roomCount>0?`<button class="btn btn-secondary" onclick="guidedUI.screen='roomComplete';renderGuidedSort()">Done with ${esc(guidedUI.room)} →</button>`:''}
+      <button onclick="guidedUI.screen='summary';renderGuidedSort()" style="background:none;border:none;color:var(--color-text-muted);font-family:var(--font-body);font-size:13px;text-decoration:underline;cursor:pointer;padding:10px 8px;min-height:44px">All done for now</button>
+    </div>
+  </div>`;
+}
+function gsPhotoSelected(input){
+  const file=input.files&&input.files[0];
+  if(!file)return;
+  const reader=new FileReader();
+  reader.onload=e=>{
+    guidedUI.current={photo:e.target.result,label:'',categoryKey:'',itemName:'',brand:false,condition:'Good'};
+    guidedUI.screen='analyzing';renderGuidedSort();
+    // No AI backend yet (Phase 8) — brief pause, then land on the manual picker (Review), which is
+    // also the required "fix it" fallback UI, so both paths already converge on one screen.
+    setTimeout(()=>{if(guidedUI.screen==='analyzing'){guidedUI.screen='review';renderGuidedSort();}},450);
+  };
+  reader.readAsDataURL(file);
+}
+function gsAnalyzingScreen(){
+  return`<div class="card bold-card" style="text-align:center;padding:60px 24px"><div class="card-title">One moment...</div></div>`;
+}
+function gsReviewScreen(){
+  const c=guidedUI.current;
+  const cat=sortPriceCategories.find(x=>x.key===c.categoryKey);
+  return`
+  <div class="card bold-card">
+    ${c.photo?`<img src="${c.photo}" alt="" style="max-width:100%;max-height:220px;display:block;margin:0 auto 20px;object-fit:contain"/>`:''}
+    <div class="form-field" style="margin-bottom:14px">
+      <label class="form-label" for="gs-label">What is it?</label>
+      <input class="input" id="gs-label" value="${esc(c.label||'')}" placeholder="Blue ceramic vase" oninput="guidedUI.current.label=this.value" />
+    </div>
+    <div class="form-row" style="margin-bottom:14px">
+      <div class="form-field">
+        <label class="form-label" for="gs-cat">Category</label>
+        <select class="select" id="gs-cat" onchange="guidedUI.current.categoryKey=this.value;guidedUI.current.itemName='';renderGuidedSort()">
+          <option value="">Choose one</option>
+          ${sortPriceCategories.map(x=>`<option value="${x.key}"${c.categoryKey===x.key?' selected':''}>${esc(x.label)}</option>`).join('')}
+        </select>
+      </div>
+      <div class="form-field">
+        <label class="form-label" for="gs-item">Closest item type</label>
+        <select class="select" id="gs-item" ${!cat?'disabled':''} onchange="guidedUI.current.itemName=this.value">
+          <option value="">Choose one</option>
+          ${cat?cat.items.map(it=>`<option value="${esc(it.name)}"${c.itemName===it.name?' selected':''}>${esc(it.name)}</option>`).join(''):''}
+        </select>
+      </div>
+    </div>
+    <label style="display:flex;align-items:center;gap:8px;margin-bottom:20px;cursor:pointer;min-height:44px">
+      <input type="checkbox" ${c.brand?'checked':''} onchange="guidedUI.current.brand=this.checked" />
+      <span>This has a visible brand or designer logo</span>
+    </label>
+    <div class="page-sub" style="margin-bottom:10px">What do you want to do with it?</div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px">
+      <button class="btn btn-primary" onclick="gsChooseDecision('sell')">Sell</button>
+      <button class="btn btn-secondary" onclick="gsChooseDecision('donate')">Donate</button>
+      <button class="btn btn-secondary" onclick="gsChooseDecision('kids')">Give to Kids</button>
+      <button class="btn btn-secondary" onclick="gsChooseDecision('trash')">Trash</button>
+      <button class="btn btn-secondary" onclick="gsChooseDecision('memory')">Memory Box</button>
+      <button class="btn btn-secondary" onclick="gsChooseDecision('batch')">Batch</button>
+    </div>
+  </div>`;
+}
+function gsChooseDecision(kind){
+  const c=guidedUI.current;
+  if(!c.label&&!c.itemName){showToast('Give it a name or pick an item type first');return;}
+  if(kind==='donate'||kind==='trash'||kind==='kids'){
+    const decision=kind==='donate'?'Donate':kind==='trash'?'Trash':'Given to kids';
+    gsSaveItem({decision,price:'0'});
+    gsToastUndo(`Saved to ${decision==='Given to kids'?'Give to Kids':decision}`);
+    guidedUI.screen='capture';renderGuidedSort();
+    return;
+  }
+  if(kind==='memory'){guidedUI.screen='memory';renderGuidedSort();return;}
+  if(kind==='batch'){guidedUI.screen='batch';renderGuidedSort();return;}
+  if(kind==='sell'){guidedUI.current.condition=guidedUI.current.condition||'Good';guidedUI.screen='sell';renderGuidedSort();return;}
+}
+function gsSaveItem(extra){
+  const c=guidedUI.current;
+  const item={
+    id:makeId(),name:c.label||c.itemName||'Item',label:c.label||'',
+    categoryKey:c.categoryKey||'',itemType:c.itemName||'',category:'Other',
+    condition:c.condition||'',quantity:'1',decision:'',price:'0',
+    notes:'',photo:c.photo||'',room:guidedUI.room||null,brand:!!c.brand,
+    batchId:null,storage:'',alsoGiveToKids:false,given:false,sold:false,
+    suggested:'',platform:'',kanbanCol:'priced',
+    ...extra,
+  };
+  P.items=[item,...(P.items||[])];
+  if(item.alsoGiveToKids){
+    P.items=[{...item,id:makeId(),decision:'Given to kids',notes:'from the Memory Box',given:false,price:'0',batchId:null,storage:'',alsoGiveToKids:false},...P.items];
+  }
+  P.isDemo=false;save();
+  guidedUI.current={};
+  return item;
+}
+let _gsUndoTimer=null;
+function gsToastUndo(msg){
+  const lastItem=(P.items||[])[0];
+  let t=document.getElementById('mnc-undo-toast');
+  if(!t){t=document.createElement('div');t.id='mnc-undo-toast';t.className='mnc-undo-toast';document.body.appendChild(t);}
+  t.innerHTML=`<span>✓ ${esc(msg)}</span><button type="button">Undo</button>`;
+  t.querySelector('button').onclick=()=>{
+    if(lastItem)P.items=(P.items||[]).filter(i=>i.id!==lastItem.id);
+    save();t.classList.remove('show');
+    if(guidedUI.open)renderGuidedSort();
+    showToast('Undone');
+  };
+  t.classList.add('show');
+  clearTimeout(_gsUndoTimer);
+  _gsUndoTimer=setTimeout(()=>t.classList.remove('show'),3500);
+}
+function gsMemoryScreen(){
+  return`
+  <div class="card bold-card">
+    <div class="card-title" style="margin-bottom:16px">Memory Box</div>
+    <div class="form-field" style="margin-bottom:14px">
+      <label class="form-label" for="gs-mem-note">Why does this matter? (optional)</label>
+      <textarea class="input" id="gs-mem-note" rows="3" oninput="guidedUI.current.memNote=this.value"></textarea>
+    </div>
+    <div class="form-field" style="margin-bottom:14px">
+      <label class="form-label" for="gs-mem-storage">Where are you storing it? (optional)</label>
+      <input class="input" id="gs-mem-storage" oninput="guidedUI.current.memStorage=this.value" placeholder="Attic bin, cedar chest..." />
+    </div>
+    <label style="display:flex;align-items:center;gap:8px;margin-bottom:20px;cursor:pointer;min-height:44px">
+      <input type="checkbox" onchange="guidedUI.current.alsoGiveToKids=this.checked" />
+      <span>Also give this to my kids</span>
+    </label>
+    <button class="btn btn-primary" onclick="gsSaveMemory()">Save</button>
+  </div>`;
+}
+function gsSaveMemory(){
+  const c=guidedUI.current;
+  gsSaveItem({decision:'Memory Box',price:'0',notes:c.memNote||'',storage:c.memStorage||'',alsoGiveToKids:!!c.alsoGiveToKids});
+  gsToastUndo('Saved to Memory Box');
+  guidedUI.screen='capture';renderGuidedSort();
+}
+function gsBatchScreen(){
+  const batches=P.batchItems||[];
+  return`
+  <div class="card bold-card">
+    <div class="card-title" style="margin-bottom:16px">Add to a batch</div>
+    ${batches.length?`<div style="display:grid;gap:10px;margin-bottom:20px">
+      ${batches.map(b=>`<button class="gs-tile" style="text-align:left" onclick="gsSaveBatchItem('${esc(b.id)}')">
+        <strong>${esc(b.type)}${b.description?' — '+esc(b.description):''}</strong>
+        <div style="font-size:13px;color:var(--color-text-muted)">$${esc(b.price)} each</div>
+      </button>`).join('')}
+    </div>`:`<p style="color:var(--color-text-muted);margin-bottom:16px">No batches yet — start one below.</p>`}
+    <div class="card-title" style="font-size:15px;margin-bottom:10px">Start a new batch</div>
+    <div class="form-row" style="margin-bottom:14px">
+      <div class="form-field">
+        <label class="form-label" for="gs-batch-type">Type</label>
+        <select class="select" id="gs-batch-type">${["Table","Basket","Shelf","Box","Bag","Rack","Bin","Counter","Other"].map(t=>`<option>${t}</option>`).join('')}</select>
+      </div>
+      <div class="form-field">
+        <label class="form-label" for="gs-batch-price">Price ($, everything here)</label>
+        <input class="input" id="gs-batch-price" type="number" min="0" step="0.25" value="1" />
+      </div>
+    </div>
+    <div class="form-field" style="margin-bottom:16px">
+      <label class="form-label" for="gs-batch-desc">Description (optional)</label>
+      <input class="input" id="gs-batch-desc" placeholder="Utensils, extra mugs, small kitchen odds and ends" />
+    </div>
+    <button class="btn btn-primary" onclick="gsCreateAndSaveBatch()">Create batch and save item</button>
+  </div>`;
+}
+function gsSaveBatchItem(batchId){
+  const b=(P.batchItems||[]).find(x=>x.id===batchId);if(!b)return;
+  gsSaveItem({decision:'Batch',batchId:b.id,price:b.price});
+  gsToastUndo(`Saved to ${b.type}${b.description?' — '+b.description:''}`);
+  guidedUI.screen='capture';renderGuidedSort();
+}
+function gsCreateAndSaveBatch(){
+  const type=document.getElementById('gs-batch-type').value;
+  const price=document.getElementById('gs-batch-price').value||'0';
+  const description=document.getElementById('gs-batch-desc').value;
+  const batch={id:makeId(),type,title:'',price,category:'',description,photo:'',createdAt:new Date().toLocaleDateString()};
+  P.batchItems=[batch,...(P.batchItems||[])];
+  gsSaveItem({decision:'Batch',batchId:batch.id,price});
+  gsToastUndo(`Saved to ${type}${description?' — '+description:''}`);
+  guidedUI.screen='capture';renderGuidedSort();
+}
+function gsPriceLookup(categoryKey,itemName,brandDetected,condition){
+  const cat=sortPriceCategories.find(x=>x.key===categoryKey);
+  if(!cat)return{price:0,nudge:false,caution:null};
+  const idx=condition==='Excellent'?0:(condition==='Fair'?2:1);
+  const row=cat.items.find(x=>x.name===itemName);
+  let price=0;
+  if(row)price=row.price[idx];
+  else if(brandDetected&&cat.brandTier)price=cat.brandTier[idx];
+  const nudge=!!cat.alwaysNudge||!!brandDetected||price>=SORT_PRICE_NUDGE_THRESHOLD;
+  return{price,nudge,caution:(row&&row.caution)||null};
+}
+function gsSellScreen(){
+  const c=guidedUI.current;
+  const cond=c.condition||'Good';
+  const res=gsPriceLookup(c.categoryKey,c.itemName,c.brand,cond);
+  if(c.priceOverride===undefined)c.priceOverride=res.price;
+  return`
+  <div class="card bold-card">
+    <div class="card-title" style="margin-bottom:16px">What condition?</div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:20px">
+      ${['Excellent','Good','Fair'].map(k=>`<button class="btn ${cond===k?'btn-primary':'btn-secondary'}" onclick="guidedUI.current.condition='${k}';guidedUI.current.priceOverride=undefined;renderGuidedSort()">${k}</button>`).join('')}
+    </div>
+    ${res.caution?`<div class="info-box" style="margin-bottom:16px">${esc(res.caution)}</div>`:''}
+    <div class="form-field" style="margin-bottom:16px">
+      <label class="form-label" for="gs-sell-price">Price</label>
+      <input class="input" id="gs-sell-price" type="number" min="0" step="0.25" value="${esc(c.priceOverride)}" oninput="guidedUI.current.priceOverride=this.value" />
+    </div>
+    ${res.nudge?`<div class="info-box" style="margin-bottom:16px;background:#FCF0E8">Worth a look online first? This kind of item — or brand — often sells for more there.</div>`:''}
+    <div style="display:flex;gap:10px;flex-wrap:wrap">
+      <button class="btn btn-primary" onclick="gsFinishSell('Garage Sale')">Use this price</button>
+      ${res.nudge?`<button class="btn btn-secondary" onclick="gsFinishSell('Sell Online')">Sell Online instead</button>`:''}
+    </div>
+  </div>`;
+}
+function gsFinishSell(decision){
+  const c=guidedUI.current;
+  gsSaveItem({decision,price:c.priceOverride||'0',condition:c.condition||'Good'});
+  gsToastUndo(`Saved to ${decision}`);
+  guidedUI.screen='capture';renderGuidedSort();
+}
+function gsRoomCompleteScreen(){
+  const st=guidedUI.room?gsRoomStats(guidedUI.room):{count:0,value:0};
+  return`
+  <div class="card bold-card" style="text-align:center;padding:36px 24px">
+    <div class="card-title" style="margin-bottom:8px">${esc(guidedUI.room)} done</div>
+    <p style="margin-bottom:24px">${st.count} item${st.count===1?'':'s'} sorted, worth $${st.value.toFixed(0)}.</p>
+    <div style="display:flex;flex-direction:column;gap:10px;align-items:center">
+      <button class="btn btn-primary" onclick="guidedUI.room=null;guidedUI.screen='rooms';renderGuidedSort()">Next room →</button>
+      <button onclick="guidedUI.screen='summary';renderGuidedSort()" style="background:none;border:none;color:var(--color-text-muted);font-family:var(--font-body);font-size:13px;text-decoration:underline;cursor:pointer;padding:10px 8px;min-height:44px">All done for now</button>
+    </div>
+  </div>`;
+}
+function gsGoDestination(decision){
+  const r=GS_ROUTES[decision];if(!r)return;
+  gsGoTab(r.tab,r.section);
+}
+function gsSummaryScreen(){
+  const items=P.items||[];
+  const total=items.reduce((s,i)=>s+Number(i.price||0),0);
+  const tiles=Object.keys(GS_ROUTES).map(d=>({d,count:items.filter(i=>i.decision===d).length})).filter(t=>t.count>0);
+  return`
+  <div class="card bold-card">
+    <div class="card-title" style="margin-bottom:6px">You sorted ${items.length} item${items.length===1?'':'s'} worth $${total.toFixed(0)} today.</div>
+    <p style="color:var(--color-text-muted);margin-bottom:20px">Come back anytime — nothing's lost.</p>
+    ${tiles.length?`<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:8px;margin-bottom:24px">
+      ${tiles.map(t=>`<button class="gs-tile-quiet" onclick="gsGoDestination('${esc(t.d)}')">
+        <div style="font-size:12px;color:var(--color-text-muted)">${esc(t.d==='Given to kids'?'Give to Kids':t.d)}</div>
+        <div style="font-weight:700">${t.count}</div>
+      </button>`).join('')}
+    </div>`:''}
+    <div style="display:flex;gap:14px;flex-wrap:wrap">
+      <button class="btn btn-primary" style="font-size:16px;padding:16px 28px" onclick="guidedUI.screen='entry';renderGuidedSort()">Keep sorting</button>
+      <button class="btn btn-secondary" style="font-size:16px;padding:16px 28px" onclick="gsGoTab('start','start')">Back to Start</button>
+    </div>
   </div>`;
 }
 
@@ -1824,7 +2223,7 @@ function renderAddItemForm(){
       </div>
       <div class="form-field">
         <label class="form-label">Decision</label>
-        <select class="select" onchange="draftItemAndRefresh('decision',this.value)">${decisions.map(c=>`<option${c===d.decision?" selected":""}>${c}</option>`).join("")}</select>
+        <select class="select" onchange="draftItemAndRefresh('decision',this.value)">${decisions.filter(c=>c!=="Memory Box"&&c!=="Batch").map(c=>`<option${c===d.decision?" selected":""}>${c}</option>`).join("")}</select>
       </div>
       <div class="form-field">
         <label class="form-label">My price ($)</label>
@@ -5512,6 +5911,7 @@ document.addEventListener('click',()=>{
 <div id="payment-overlay" style="position:fixed;inset:0;z-index:9100;display:none;overflow:hidden;pointer-events:auto;transition:opacity 180ms ease;opacity:0"></div>
 <div id="help-overlay" style="position:fixed;inset:0;z-index:9100;display:none;overflow:hidden;pointer-events:auto;transition:opacity 180ms ease;opacity:0"></div>
 <div id="batch-print-overlay" style="position:fixed;inset:0;z-index:9100;display:none;overflow:hidden;pointer-events:auto;transition:opacity 180ms ease;opacity:0"></div>
+<div id="guided-sort-overlay" style="position:fixed;inset:0;z-index:9200;display:none;overflow:hidden;pointer-events:auto;transition:opacity 180ms ease;opacity:0"></div>
 
 <footer style="max-width:1100px;margin:0 auto;padding:var(--space-5) var(--space-6);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:var(--space-3);border-top:1px solid var(--color-divider);margin-top:var(--space-8)">
   <span style="font-size:var(--text-xs);color:var(--color-text-muted)">© My Nest Chapter · <a href="https://mynestchapter.com" style="color:var(--color-text-muted)">mynestchapter.com</a> · Written by Cece</span>
