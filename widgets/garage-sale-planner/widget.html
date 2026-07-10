@@ -598,17 +598,9 @@
       .start-card-lg,.start-card-sm{padding:20px!important}
     }
     @media(hover:none) and (pointer:coarse){
-      .btn,.btn-sm,.btn-xs,.btn-ghost,.tab-btn,.sec-btn,.icon-btn,.toggle-chip,.memory-status-chip{min-height:44px;min-width:44px}
+      .btn,.btn-sm,.btn-xs,.btn-ghost,.tab-btn,.sec-btn,.icon-btn,.toggle-chip{min-height:44px;min-width:44px}
     }
     .toggle-chip{touch-action:manipulation}
-    .memory-status-chip{
-      touch-action:manipulation;font-family:var(--font-body);font-size:12px;font-weight:600;
-      padding:6px 10px;cursor:pointer;background:transparent;color:var(--color-primary-text);
-      border:1px solid var(--color-primary);
-    }
-    .memory-status-chip.selected{background:#252535;color:#FAF7ED;border-color:#252535}
-    .memory-status-chip:hover:not(.selected){background:var(--color-primary-hl)}
-    .memory-status-chip:active:not(.selected){background:#7C2743;color:#fff;border-color:#7C2743}
     @media(prefers-reduced-motion:reduce){
       *,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}
     }
@@ -1313,7 +1305,7 @@ const blankPlanner={
   safety:{tasks:{},tasksPhysical:{},tasksCash:{},petLocked:false,change:{ones:"40",fives:"20",quarters:"20"},changeItemCount:50,bankReminderDone:false,safetyNotes:""},
   checkInPlan:{times:"",messageCopied:false},
   items:[],prep:{},customPrepTasks:[],calculatorRows:[{id:"r1",name:"",quantity:"1",price:""}],
-  transactions:[],memories:[],batchItems:[],nightBefore:{},
+  transactions:[],batchItems:[],nightBefore:{},
   wrap:{donate:"",sellOnline:"",keep:"",trash:"",notes:"",emotionalCheckIn:""},
   notifications:[],notifFired:{},
   scratchNotes:[],
@@ -1339,13 +1331,12 @@ function normalizePlanner(src){
     items:(Array.isArray(s.items)?s.items:b.items).map(item=>({...item,kanbanCol:item.kanbanCol||'think',
       room:item.room||null,photo:item.photo||"",label:item.label||"",brand:!!item.brand,
       batchId:item.batchId||null,storage:item.storage||"",alsoGiveToKids:!!item.alsoGiveToKids,given:!!item.given,
-      categoryKey:item.categoryKey||"",itemType:item.itemType||"",
+      categoryKey:item.categoryKey||"",itemType:item.itemType||"",linkedFrom:item.linkedFrom||null,
     })),
     prep:{...b.prep,...(s.prep||{})},
     nightBefore:{...b.nightBefore,...(s.nightBefore||{})},
     calculatorRows:Array.isArray(s.calculatorRows)&&s.calculatorRows.length?s.calculatorRows:b.calculatorRows,
     transactions:Array.isArray(s.transactions)?s.transactions:b.transactions,
-    memories:Array.isArray(s.memories)?s.memories:(Array.isArray(s.memoryBox)?s.memoryBox:b.memories),
     scratchNotes:Array.isArray(s.scratchNotes)?s.scratchNotes:(typeof s.scratchPad==="string"&&s.scratchPad.trim()?[{id:makeId(),text:s.scratchPad,updatedAt:Date.now()}]:b.scratchNotes),
     batchItems:Array.isArray(s.batchItems)?s.batchItems:(Array.isArray(s.batchBoxes)?s.batchBoxes:b.batchItems),
     customPrepTasks:Array.isArray(s.customPrepTasks)?s.customPrepTasks:b.customPrepTasks,
@@ -1389,7 +1380,8 @@ let UI={tab:"start",section:"start",showAddForm:false,demo:false,demoStep:0,calM
 let draft={
   item:{id:null,name:"",category:"Decor",condition:"Good",quantity:"1",decision:"Garage Sale",price:"",notes:""},
   batch:{id:null,type:"Table",price:"2",description:""},
-  memory:{id:null,itemName:"",caption:""},
+  memory:{id:null,name:"",storage:"",notes:""},
+  giveKids:{id:null,name:"",notes:""},
   sale:{description:"",amount:"",method:"Cash"},
 };
 let itemSearch="";
@@ -2421,15 +2413,15 @@ function editItem(id){
 function deleteItem(id){mncConfirm("Remove this item?",()=>{P.items=(P.items||[]).filter(i=>i.id!==id);P.isDemo=false;save();renderContent();refreshMetrics();checkUnpricedNotif()})}
 function toggleSold(id,v){const item=(P.items||[]).find(i=>i.id===id);if(item){item.sold=v;P.isDemo=false;save();renderContent()}}
 function heartBtnHtml(item){
-  const inMem=(P.memories||[]).some(m=>m.itemName===item.name&&m.photo==="");
+  const inMem=(P.items||[]).some(i=>i.decision==='Memory Box'&&i.linkedFrom===item.id);
   return inMem
     ?`<button class="btn btn-ghost btn-xs" style="color:#C44570;cursor:default" disabled aria-label="${esc(item.name)} saved to Memories">&#9829;</button>`
     :`<button class="btn btn-ghost btn-xs" onclick="saveToMemory('${esc(item.id)}')" aria-label="Save ${esc(item.name)} to Memories">&#9825;</button>`;
 }
 function saveToMemory(id){
   const item=(P.items||[]).find(i=>i.id===id);if(!item)return;
-  if((P.memories||[]).some(m=>m.itemName===item.name&&m.photo===""))return;
-  P.memories=[{id:makeId(),itemName:item.name,caption:"",photo:"",status:"",createdAt:new Date().toLocaleDateString()},...(P.memories||[])];
+  if((P.items||[]).some(i=>i.decision==='Memory Box'&&i.linkedFrom===item.id))return;
+  P.items=[{...item,id:makeId(),decision:'Memory Box',price:'0',notes:'',storage:'',batchId:null,alsoGiveToKids:false,given:false,sold:false,linkedFrom:item.id},...P.items];
   P.isDemo=false;save();
   addNotif('memory',`${item.name} was added to your Memories.`,{itemName:item.name});
   showToast("Added to Memories");
@@ -2608,79 +2600,121 @@ function printBatchSigns(){
 }
 
 // ─── SECTION: MEMORIES ───────────────────────────────────────────────────────
+let _memRevealOpen={};
+function toggleMemReveal(id){_memRevealOpen[id]=!_memRevealOpen[id];renderContent();}
 function renderMemory(){
-  if(!draft.memory.id)_memPhotoData="";
-  const memories=P.memories||[];
+  const memBoxItems=(P.items||[]).filter(i=>i.decision==='Memory Box');
+  const giveKidsItems=(P.items||[]).filter(i=>i.decision==='Given to kids');
   return`
-  ${renderTourNote("Use Memories for anything that makes you pause — whether it's going or staying. Add a name, write a line, take a photo. Decide what to do with it when you're ready.")}
+  ${renderTourNote("Memory Box is for anything that makes you pause — no status to track, just a name and where it lives. Give to Kids is a simple checklist for things you're handing off.")}
   <div class="gap-y">
     <div>
       <h2 class="page-title">Memories</h2>
-      <p class="page-sub">Some things you'll price and move on. Others will stop you. This is where those go — whether they end up at the sale or stay. Add a name, write a line, take a photo. Figure out the rest when you're ready.</p>
+      <p class="page-sub">Some things you'll price and move on. Others will stop you. This is where those go.</p>
       <p style="font-size:13px;color:var(--color-text-muted);font-style:italic;margin-top:6px;line-height:1.6">"You don't have to hold on to something to hold on to the memory." — Cece</p>
     </div>
-    ${memories.length>0?`<div><button class="btn btn-secondary btn-sm" onclick="printMemoryPage()">Print your Memory Page</button></div>`:""}
-    ${memories.length===0?`<div class="empty-state-prompt">Nothing here yet. When you get to something you can't just price and move on — add it here. You don't have to decide what to do with it right now.</div>`:
-    `<div class="grid-3">${memories.map(m=>`
-      <div class="memory-card"${["Passed on","Donated","Sold"].includes(m.status)?' style="opacity:.6"':''}>
-        ${m.photo?`<img src="${m.photo}" style="width:100%;aspect-ratio:4/3;object-fit:cover;margin-bottom:10px" />`:""}
-        <div class="memory-name">${esc(m.itemName||"Memory")}</div>
-        ${m.caption?`<div class="memory-caption">${esc(m.caption)}</div>`:""}
-        <div class="text-xs text-muted">${esc(m.createdAt||"")}</div>
-        <div style="display:flex;gap:6px;flex-wrap:wrap">
-          ${memoryStatuses.map(st=>`<button class="memory-status-chip${m.status===st?' selected':''}" onclick="setMemoryStatus('${esc(m.id)}','${st}')">${st}</button>`).join("")}
+
+    <div>
+      <h3 style="font-family:var(--font-display);font-weight:700;font-size:18px;color:var(--color-text);margin-bottom:12px">Memory Box</h3>
+      ${memBoxItems.length===0?`<div class="empty-state-prompt">Nothing here yet. When you get to something you can't just price and move on — add it here.</div>`:
+      `<div class="grid-3">${memBoxItems.map(m=>{
+        const open=!!_memRevealOpen[m.id];
+        return`
+        <div class="memory-card">
+          <button onclick="toggleMemReveal('${esc(m.id)}')" style="width:100%;text-align:left;background:none;border:none;padding:0;cursor:pointer;min-height:44px">
+            <div class="memory-name">${esc(m.name||m.label||"Memory")}</div>
+            ${m.storage?`<div class="text-xs text-muted" style="margin-top:2px">Stored: ${esc(m.storage)}</div>`:''}
+          </button>
+          ${open&&m.notes?`<div class="memory-caption" style="margin-top:8px">${esc(m.notes)}</div>`:''}
+          <div style="display:flex;gap:8px;margin-top:10px">
+            <button class="btn btn-ghost btn-xs" onclick="editMemBoxItem('${esc(m.id)}')">Edit</button>
+            <button class="btn btn-danger btn-xs" onclick="deleteItem('${esc(m.id)}')">Remove</button>
+          </div>
+        </div>`;
+      }).join("")}
+      </div>`}
+      <div class="card bold-card" style="margin-top:16px">
+        <div class="card-title">${draft.memory.id?"Edit memory":"Add to Memory Box"}</div>
+        <div class="form-field" style="margin-bottom:14px">
+          <label class="form-label" for="mem-name">Item name</label>
+          <input class="input" id="mem-name" value="${esc(draft.memory.name)}" placeholder="Old school art folder" oninput="draft.memory.name=this.value" />
         </div>
-        <div style="display:flex;gap:8px">
-          <button class="btn btn-ghost btn-xs" onclick="editMemory('${esc(m.id)}')">Edit</button>
-          <button class="btn btn-danger btn-xs" onclick="deleteMemory('${esc(m.id)}')">Remove</button>
+        <div class="form-field" style="margin-bottom:14px">
+          <label class="form-label" for="mem-storage">Where are you storing it? (optional)</label>
+          <input class="input" id="mem-storage" value="${esc(draft.memory.storage)}" placeholder="Attic bin, cedar chest..." oninput="draft.memory.storage=this.value" />
         </div>
-      </div>`).join("")}
-    </div>`}
-    <div class="card bold-card">
-      <div class="card-title">${draft.memory.id?"Edit memory":"Add a memory"}</div>
-      <div class="form-row" style="margin-bottom:14px">
-        <div class="form-field">
-          <label class="form-label">Item name</label>
-          <input class="input" id="mem-name" value="${esc(draft.memory.itemName)}" placeholder="Old school art folder" oninput="draft.memory.itemName=this.value" />
+        <div class="form-field" style="margin-bottom:14px">
+          <label class="form-label" for="mem-notes">Why does this matter? (optional)</label>
+          <textarea class="textarea" id="mem-notes" rows="3" oninput="draft.memory.notes=this.value">${esc(draft.memory.notes)}</textarea>
         </div>
+        <button class="btn btn-primary" onclick="addMemBoxItem()">${draft.memory.id?"Save changes":"Save"}</button>
       </div>
-      <div class="form-field" style="margin-bottom:14px">
-        <label class="form-label">Caption or memory note</label>
-        <textarea class="textarea" id="mem-cap" rows="3" placeholder="Add a note, or leave it. The name is enough." oninput="draft.memory.caption=this.value">${esc(draft.memory.caption)}</textarea>
+    </div>
+
+    <div>
+      <h3 style="font-family:var(--font-display);font-weight:700;font-size:18px;color:var(--color-text);margin-bottom:12px">Give to Kids</h3>
+      ${giveKidsItems.length===0?`<div class="empty-state-prompt">Nothing here yet. Add anything you're planning to hand off.</div>`:
+      `<div class="gap-y-sm" style="gap:8px">${giveKidsItems.map(g=>`
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;border:1px solid var(--color-divider);padding:12px 16px">
+          <div style="${g.given?'text-decoration:line-through;opacity:.6':''}">
+            <div style="font-weight:700">${esc(g.name||g.label||"Item")}</div>
+            ${g.notes?`<div class="text-xs text-muted">${esc(g.notes)}</div>`:''}
+          </div>
+          <div style="display:flex;gap:8px;align-items:center;flex-shrink:0">
+            <button class="btn ${g.given?'btn-secondary':'btn-primary'} btn-xs" style="min-height:44px" onclick="toggleGiven('${esc(g.id)}')">${g.given?"✓ Given":"Mark given"}</button>
+            <button class="btn btn-danger btn-xs" onclick="deleteItem('${esc(g.id)}')">Remove</button>
+          </div>
+        </div>`).join("")}
+      </div>`}
+      <div class="card bold-card" style="margin-top:16px">
+        <div class="card-title">${draft.giveKids.id?"Edit item":"Add to Give to Kids"}</div>
+        <div class="form-field" style="margin-bottom:14px">
+          <label class="form-label" for="gk-name">Item name</label>
+          <input class="input" id="gk-name" value="${esc(draft.giveKids.name)}" placeholder="Baseball glove" oninput="draft.giveKids.name=this.value" />
+        </div>
+        <div class="form-field" style="margin-bottom:14px">
+          <label class="form-label" for="gk-notes">Note (optional)</label>
+          <input class="input" id="gk-notes" value="${esc(draft.giveKids.notes)}" oninput="draft.giveKids.notes=this.value" />
+        </div>
+        <button class="btn btn-primary" onclick="addGiveKidsItem()">${draft.giveKids.id?"Save changes":"Save"}</button>
       </div>
-      <div class="form-field" style="margin-bottom:14px">
-        <label class="form-label">Photo (optional)</label>
-        <input type="file" accept="image/*" onchange="handleMemoryPhoto(this)" style="font-size:13px" />
-      </div>
-      <button class="btn btn-primary" onclick="addMemory()">${draft.memory.id?"Save changes":"Save memory"}</button>
+    </div>
+
+    <div style="display:flex;gap:12px;flex-wrap:wrap">
+      <button class="btn btn-secondary btn-sm" onclick="printMemoryBoxList()">Print Memory Box list</button>
+      <button class="btn btn-secondary btn-sm" onclick="printGiveToKidsList()">Print Give to Kids list</button>
     </div>
     ${renderSectionTip("I have one t-shirt from every sport each of my kids played. Those stay. Always. But the equipment, the gear, the extra everything from those years — that all goes. Knowing what I'm keeping makes it a lot easier to let go of the rest.")}
   </div>`;
 }
-
-let _memPhotoData="";
-function handleMemoryPhoto(input){const f=input.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{_memPhotoData=r.result};r.readAsDataURL(f)}
-function addMemory(){
+function addMemBoxItem(){
   const d=draft.memory;
+  if(!d.name){showToast("Give it a name first");return;}
   if(d.id){
-    P.memories=(P.memories||[]).map(m=>m.id===d.id?{...m,itemName:d.itemName||"Memory",caption:d.caption||"",photo:_memPhotoData||m.photo}:m);
+    P.items=(P.items||[]).map(i=>i.id===d.id?{...i,name:d.name,label:d.name,storage:d.storage||"",notes:d.notes||""}:i);
   }else{
-    P.memories=[{id:makeId(),itemName:d.itemName||"Memory",caption:d.caption||"",photo:_memPhotoData,status:"",createdAt:new Date().toLocaleDateString()},...(P.memories||[])];
+    P.items=[{id:makeId(),name:d.name,label:d.name,category:"Other",categoryKey:"",itemType:"",condition:"",quantity:"1",decision:"Memory Box",price:"0",notes:d.notes||"",photo:"",room:null,brand:false,batchId:null,storage:d.storage||"",alsoGiveToKids:false,given:false,sold:false,suggested:"",platform:"",kanbanCol:"priced",linkedFrom:null},...(P.items||[])];
   }
-  P.isDemo=false;save();_memPhotoData="";draft.memory={id:null,itemName:"",caption:""};renderContent();
+  P.isDemo=false;save();draft.memory={id:null,name:"",storage:"",notes:""};renderContent();
 }
-function editMemory(id){
-  const m=(P.memories||[]).find(x=>x.id===id);if(!m)return;
-  draft.memory={id:m.id,itemName:m.itemName,caption:m.caption||""};
-  _memPhotoData="";
+function editMemBoxItem(id){
+  const m=(P.items||[]).find(i=>i.id===id);if(!m)return;
+  draft.memory={id:m.id,name:m.name||"",storage:m.storage||"",notes:m.notes||""};
   renderContent();
 }
-function deleteMemory(id){mncConfirm("Remove this memory?",()=>{P.memories=(P.memories||[]).filter(m=>m.id!==id);P.isDemo=false;save();renderContent()})}
-const memoryStatuses=["Photographed","Keeping it","Passed on","Donated","Sold"];
-function setMemoryStatus(id,status){
-  const m=(P.memories||[]).find(m=>m.id===id);if(!m)return;
-  m.status=m.status===status?"":status;
-  P.isDemo=false;save();renderContent();
+function addGiveKidsItem(){
+  const d=draft.giveKids;
+  if(!d.name){showToast("Give it a name first");return;}
+  if(d.id){
+    P.items=(P.items||[]).map(i=>i.id===d.id?{...i,name:d.name,label:d.name,notes:d.notes||""}:i);
+  }else{
+    P.items=[{id:makeId(),name:d.name,label:d.name,category:"Other",categoryKey:"",itemType:"",condition:"",quantity:"1",decision:"Given to kids",price:"0",notes:d.notes||"",photo:"",room:null,brand:false,batchId:null,storage:"",alsoGiveToKids:false,given:false,sold:false,suggested:"",platform:"",kanbanCol:"priced",linkedFrom:null},...(P.items||[])];
+  }
+  P.isDemo=false;save();draft.giveKids={id:null,name:"",notes:""};renderContent();
+}
+function toggleGiven(id){
+  const item=(P.items||[]).find(i=>i.id===id);if(!item)return;
+  item.given=!item.given;P.isDemo=false;save();renderContent();
 }
 
 // ─── SECTION: PRICING GUIDE ───────────────────────────────────────────────────
@@ -4145,20 +4179,20 @@ function buildWrapCompletion(){
   const saleComplete=stats.earned>0&&(w.donate||w.notes||w.sellOnline||w.keep||w.trash);
   if(!saleComplete)return`<div id="wrap-completion"></div>`;
   const salesCount=(P.transactions||[]).length;
-  const memoryCount=(P.memories||[]).length;
+  const memoryCount=(P.items||[]).filter(i=>i.decision==='Memory Box').length;
   const dataLines=[
     salesCount?`<div class="wc-record-item"><b>${salesCount}</b><span>Items sold</span></div>`:"",
     stats.goal?`<div class="wc-record-item"><b>${stats.earned>=stats.goal?"Yes":"Not yet"}</b><span>Hit your goal</span></div>`:"",
     memoryCount?`<div class="wc-record-item"><b>${memoryCount}</b><span>Memories saved</span></div>`:"",
   ].filter(Boolean).join("");
-  const memories=P.memories||[];
+  const memories=(P.items||[]).filter(i=>i.decision==='Memory Box');
   const memoryList=memories.length?`
     <div style="margin-top:24px;text-align:left;max-width:480px;margin-left:auto;margin-right:auto">
       <h3 style="font-family:var(--font-display);font-weight:700;font-size:16px;color:#FAF7ED;margin:0 0 12px">What you let go of</h3>
       ${memories.map(m=>`
         <div style="margin-bottom:12px">
-          <div style="font-family:var(--font-body);font-weight:700;font-size:14px;color:#FAF7ED">${esc(m.itemName||"Memory")}</div>
-          ${m.caption?`<div style="font-family:var(--font-body);font-weight:400;font-size:13px;color:rgba(250,247,237,0.6);margin-top:2px">${esc(m.caption)}</div>`:""}
+          <div style="font-family:var(--font-body);font-weight:700;font-size:14px;color:#FAF7ED">${esc(m.name||m.label||"Memory")}</div>
+          ${m.notes?`<div style="font-family:var(--font-body);font-weight:400;font-size:13px;color:rgba(250,247,237,0.6);margin-top:2px">${esc(m.notes)}</div>`:""}
         </div>`).join("")}
     </div>`:"";
   const emotionalCheckIn=`
@@ -4304,7 +4338,7 @@ function sendSummaryEmail(){
     leftovers_keep:w.keep||"",
     leftovers_trash:w.trash||"",
     lessons_learned:w.notes||"",
-    memory_box:(P.memories||[]).map(m=>({name:m.itemName,caption:m.caption||""}))
+    memory_box:(P.items||[]).filter(i=>i.decision==='Memory Box').map(i=>({name:i.name,caption:i.notes||""}))
   };
   if(msgEl){msgEl.style.display="block";msgEl.innerHTML='<div class="info-box">Sending your summary...</div>'}
   fetch("/garage-submit.php",{
@@ -4592,20 +4626,37 @@ function printFlyer(type){
   setTimeout(()=>document.getElementById('print-section').style.display='none',2000);
 }
 
-// ─── PRINT: MEMORY PAGE ──────────────────────────────────────────────────────
-function printMemoryPage(){
-  const memories=P.memories||[];
-  if(!memories.length){showToast("No memories saved yet.");return;}
+// ─── PRINT: MEMORY BOX + GIVE TO KIDS LISTS ─────────────────────────────────
+function printMemoryBoxList(){
+  const items=(P.items||[]).filter(i=>i.decision==='Memory Box');
+  if(!items.length){showToast("Nothing in Memory Box yet.");return;}
   const titleLine=P.setup?.saleTitle?`<div style="font-family:'Lora',serif;font-size:18px;font-weight:700;color:#252535;margin-bottom:28px">${esc(P.setup.saleTitle)}</div>`:"<div style='margin-bottom:28px'></div>";
   document.getElementById("print-inner").innerHTML=`
     <div style="padding:32px;font-family:'DM Sans',sans-serif;max-width:680px">
-      <div style="font-size:9px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--color-primary-text);margin-bottom:14px">My Nest Chapter · Memories</div>
+      <div style="font-size:9px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--color-primary-text);margin-bottom:14px">My Nest Chapter · Memory Box</div>
       ${titleLine}
-      ${memories.map(m=>`
-        <div style="margin-bottom:22px;padding-bottom:22px;border-bottom:1px solid #F5C4A8">
-          <div style="font-size:15px;font-weight:700;color:#252535;font-family:'Lora',serif">${esc(m.itemName||"Memory")}</div>
-          ${m.caption?`<div style="font-size:13px;color:#426DB3;margin-top:6px;font-style:italic;line-height:1.65">${esc(m.caption)}</div>`:""}
-          <div style="margin-top:6px;font-size:11px;color:#252535;opacity:.6">${m.status?esc(m.status)+"  ·  ":""}${esc(m.createdAt||"")}</div>
+      ${items.map(m=>`
+        <div style="margin-bottom:14px;padding-bottom:14px;border-bottom:1px solid #F5C4A8;font-size:14px;color:#252535">
+          ${esc(m.name||m.label||"Memory")}${m.storage?` — stored: ${esc(m.storage)}`:""}
+        </div>`).join("")}
+      <div style="margin-top:36px;font-size:10px;color:#426DB3">My Nest Chapter · mynestchapter.com</div>
+    </div>`;
+  document.getElementById("print-section").style.display="block";
+  window.print();
+  setTimeout(()=>document.getElementById("print-section").style.display="none",2000);
+}
+function printGiveToKidsList(){
+  const items=(P.items||[]).filter(i=>i.decision==='Given to kids');
+  if(!items.length){showToast("Nothing in Give to Kids yet.");return;}
+  const titleLine=P.setup?.saleTitle?`<div style="font-family:'Lora',serif;font-size:18px;font-weight:700;color:#252535;margin-bottom:28px">${esc(P.setup.saleTitle)}</div>`:"<div style='margin-bottom:28px'></div>";
+  document.getElementById("print-inner").innerHTML=`
+    <div style="padding:32px;font-family:'DM Sans',sans-serif;max-width:680px">
+      <div style="font-size:9px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--color-primary-text);margin-bottom:14px">My Nest Chapter · Give to Kids</div>
+      ${titleLine}
+      ${items.map(g=>`
+        <div style="margin-bottom:14px;padding-bottom:14px;border-bottom:1px solid #F5C4A8;font-size:14px;color:#252535;display:flex;gap:10px;align-items:flex-start">
+          <span style="display:inline-block;width:16px;height:16px;border:1.5px solid #252535;flex-shrink:0;margin-top:2px"></span>
+          <span>${esc(g.name||g.label||"Item")}${g.notes?` — ${esc(g.notes)}`:""}</span>
         </div>`).join("")}
       <div style="margin-top:36px;font-size:10px;color:#426DB3">My Nest Chapter · mynestchapter.com</div>
     </div>`;
@@ -4664,7 +4715,7 @@ function renderBellPanel(){
 function renderNotifItem(n){
   const btns=[];
   if(n.type==='memory'){
-    btns.push(`<button class="bell-action-btn" onclick="printMemoryPage();dismissNotif('${n.id}')">Print Memory Page</button>`);
+    btns.push(`<button class="bell-action-btn" onclick="printMemoryBoxList();dismissNotif('${n.id}')">Print Memory Box list</button>`);
   }
   if(n.type==='wrapUp'){
     btns.push(`<button class="bell-action-btn" onclick="goTab('saleWrap','wrap');dismissNotif('${n.id}');UI.bellOpen=false;document.getElementById('bell-panel')?.remove();document.getElementById('bell-overlay')?.remove()">Go to Leftovers</button>`);
@@ -4761,7 +4812,7 @@ function startFresh(){
     P=normalizePlanner(clone(blankPlanner));save();
     UI={tab:"start",section:"start",showAddForm:false,demo:false,demoStep:0,calMenu:false,bellOpen:false};
     itemSearch="";invCatFilter="All";invDecFilter="All";
-    draft={item:{id:null,name:"",category:"Decor",condition:"Good",quantity:"1",decision:"Garage Sale",price:"",notes:""},batch:{id:null,type:"Table",title:"",price:"2",category:"Other",description:""},memory:{id:null,itemName:"",caption:""},sale:{description:"",amount:"",method:"Cash"}};
+    draft={item:{id:null,name:"",category:"Decor",condition:"Good",quantity:"1",decision:"Garage Sale",price:"",notes:""},batch:{id:null,type:"Table",price:"2",description:""},memory:{id:null,name:"",storage:"",notes:""},giveKids:{id:null,name:"",notes:""},sale:{description:"",amount:"",method:"Cash"}};
     render();
   },{confirmLabel:"Reset Everything",confirmBg:"#252535",confirmColor:"#FAF7ED"});
 }
@@ -4862,12 +4913,12 @@ function exportPDF(){
     ${row("Tossing",w.trash)}
     ${row("Lessons learned",w.notes)}`:""}
 
-    ${(P.memories||[]).length?`
+    ${(P.items||[]).filter(i=>i.decision==='Memory Box').length?`
     <h2 style="font-size:13px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:#252535;margin:0 0 16px;border-bottom:2px solid #252535;padding-bottom:8px">Memories</h2>
-    ${(P.memories||[]).map(m=>`
+    ${(P.items||[]).filter(i=>i.decision==='Memory Box').map(m=>`
       <div style="margin-bottom:14px;padding-bottom:14px;border-bottom:1px solid #F5C4A8">
-        <div style="font-family:'DM Sans',sans-serif;font-size:13px;font-weight:700;color:#252535">${esc(m.itemName||"Memory")}</div>
-        ${m.caption?`<div style="font-family:'DM Sans',sans-serif;font-size:12px;color:#426DB3;margin-top:4px;font-style:italic;line-height:1.6">${esc(m.caption)}</div>`:""}
+        <div style="font-family:'DM Sans',sans-serif;font-size:13px;font-weight:700;color:#252535">${esc(m.name||m.label||"Memory")}</div>
+        ${m.notes?`<div style="font-family:'DM Sans',sans-serif;font-size:12px;color:#426DB3;margin-top:4px;font-style:italic;line-height:1.6">${esc(m.notes)}</div>`:""}
       </div>`).join("")}`:""}
 
     <div style="margin-top:40px;padding-top:20px;border-top:1px solid #F5C4A8;font-size:11px;color:#426DB3">
