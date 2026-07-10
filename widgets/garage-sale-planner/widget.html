@@ -1388,7 +1388,7 @@ let P=loadPlanner();
 let UI={tab:"start",section:"start",showAddForm:false,demo:false,demoStep:0,calMenu:false,bellOpen:false,calcPaymentMethod:"Cash",scratchOpen:false,scratchNoteId:null,bundleItems:[],bundleDiscountPct:null,haggleLastPct:null,dirSign:{dir:'right',date:'',time:'',saleName:''},inventoryView:'list'};
 let draft={
   item:{id:null,name:"",category:"Decor",condition:"Good",quantity:"1",decision:"Garage Sale",price:"",notes:""},
-  batch:{id:null,type:"Table",title:"",price:"2",category:"Other",description:""},
+  batch:{id:null,type:"Table",price:"2",description:""},
   memory:{id:null,itemName:"",caption:""},
   sale:{description:"",amount:"",method:"Cash"},
 };
@@ -2109,7 +2109,7 @@ function gsBatchScreen(){
     <div class="card-title" style="margin-bottom:16px">Add to a batch</div>
     ${batches.length?`<div style="display:grid;gap:10px;margin-bottom:20px">
       ${batches.map(b=>`<button class="gs-tile" style="text-align:left" onclick="gsSaveBatchItem('${esc(b.id)}')">
-        <strong>${esc(b.type)}${b.description?' — '+esc(b.description):''}</strong>
+        <strong>${esc(batchLabel(b))}</strong>
         <div style="font-size:13px;color:var(--color-text-muted)">$${esc(b.price)} each</div>
       </button>`).join('')}
     </div>`:`<p style="color:var(--color-text-muted);margin-bottom:16px">No batches yet — start one below.</p>`}
@@ -2117,7 +2117,7 @@ function gsBatchScreen(){
     <div class="form-row" style="margin-bottom:14px">
       <div class="form-field">
         <label class="form-label" for="gs-batch-type">Type</label>
-        <select class="select" id="gs-batch-type">${["Table","Basket","Shelf","Box","Bag","Rack","Bin","Counter","Other"].map(t=>`<option>${t}</option>`).join('')}</select>
+        <select class="select" id="gs-batch-type">${batchTypes.map(t=>`<option>${t}</option>`).join('')}</select>
       </div>
       <div class="form-field">
         <label class="form-label" for="gs-batch-price">Price ($, everything here)</label>
@@ -2134,7 +2134,7 @@ function gsBatchScreen(){
 function gsSaveBatchItem(batchId){
   const b=(P.batchItems||[]).find(x=>x.id===batchId);if(!b)return;
   gsSaveItem({decision:'Batch',batchId:b.id,price:b.price});
-  gsToastUndo(`Saved to ${b.type}${b.description?' — '+b.description:''}`);
+  gsToastUndo(`Saved to ${batchLabel(b)}`);
   guidedUI.screen='capture';renderGuidedSort();
 }
 function gsCreateAndSaveBatch(){
@@ -2144,7 +2144,7 @@ function gsCreateAndSaveBatch(){
   const batch={id:makeId(),type,title:'',price,category:'',description,photo:'',createdAt:new Date().toLocaleDateString()};
   P.batchItems=[batch,...(P.batchItems||[])];
   gsSaveItem({decision:'Batch',batchId:batch.id,price});
-  gsToastUndo(`Saved to ${type}${description?' — '+description:''}`);
+  gsToastUndo(`Saved to ${batchLabel(batch)}`);
   guidedUI.screen='capture';renderGuidedSort();
 }
 function gsPriceLookup(categoryKey,itemName,brandDetected,condition){
@@ -2451,9 +2451,18 @@ function getBatchPrefix(type){
   };
   return map[type]||"Everything Here";
 }
+function batchLabel(b){return b.description?`${b.type} — ${b.description}`:(b.type||"Box");}
+function moveBatchItem(itemId,newBatchId){
+  if(!newBatchId)return;
+  const item=(P.items||[]).find(i=>i.id===itemId);
+  const newBatch=(P.batchItems||[]).find(b=>b.id===newBatchId);
+  if(!item||!newBatch)return;
+  item.batchId=newBatch.id;item.price=newBatch.price;
+  P.isDemo=false;save();renderContent();
+  showToast(`Moved to ${batchLabel(newBatch)}`);
+}
 function renderBatch(){
-  if(!draft.batch.id)_boxPhotoData="";
-  const items=P.batchItems||[];
+  const batches=P.batchItems||[];
   return`
   <div class="gap-y">
     ${renderTourNote("For any table, basket, shelf, or box where everything sells at the same price. Add it, set the price, print the sign. Move on.")}
@@ -2465,72 +2474,70 @@ function renderBatch(){
       <div class="card-title">${draft.batch.id?"Edit batch":"Create a batch"}</div>
       <div class="form-row" style="margin-bottom:14px">
         <div class="form-field">
-          <label class="form-label">Type</label>
+          <label class="form-label" for="bx-type">Type</label>
           <select class="select" id="bx-type" onchange="draft.batch.type=this.value">${batchTypes.map(t=>`<option${t===draft.batch.type?" selected":""}>${t}</option>`).join("")}</select>
         </div>
         <div class="form-field">
-          <label class="form-label">Label</label>
-          <input class="input" id="bx-title" value="${esc(draft.batch.title)}" placeholder="Kitchen odds + ends" oninput="draft.batch.title=this.value" />
-        </div>
-        <div class="form-field">
-          <label class="form-label">Price — everything here ($)</label>
+          <label class="form-label" for="bx-price">Price — everything here ($)</label>
           <input class="input" type="number" min="0" step="0.5" id="bx-price" value="${esc(draft.batch.price)}" oninput="draft.batch.price=this.value" />
         </div>
-        <div class="form-field">
-          <label class="form-label">Category</label>
-          <select class="select" id="bx-cat" onchange="draft.batch.category=this.value">${categories.map(c=>`<option${c===draft.batch.category?" selected":""}>${c}</option>`).join("")}</select>
-        </div>
       </div>
       <div class="form-field" style="margin-bottom:14px">
-        <label class="form-label">Description</label>
+        <label class="form-label" for="bx-desc">Description (optional)</label>
         <textarea class="textarea" rows="2" id="bx-desc" placeholder="Utensils, extra mugs, small duplicate kitchen items..." oninput="draft.batch.description=this.value">${esc(draft.batch.description)}</textarea>
-      </div>
-      <div class="form-field" style="margin-bottom:14px">
-        <label class="form-label">Photo (optional)</label>
-        <input type="file" accept="image/*" onchange="handleBoxPhoto(this)" style="font-size:13px" />
       </div>
       <div class="form-actions">
         <button class="btn btn-primary" onclick="addBatch()">${draft.batch.id?"Save changes":"Add batch"}</button>
       </div>
     </div>
-    ${items.length===0?`<div class="empty-state-prompt">Nothing here yet. Use this for any spot where everything is the same price — a table, a basket, a shelf. One sign, whole section, done.</div>`:`
-    <button class="btn btn-secondary" onclick="openBatchPrintOverlay()">Preview & Print Signs</button>
-    <div class="grid-3">${items.map(b=>`
+    ${batches.length===0?`<div class="empty-state-prompt">Nothing here yet. Use this for any spot where everything is the same price — a table, a basket, a shelf. One sign, whole section, done.</div>`:`
+    <button class="btn btn-secondary" onclick="openBatchPrintOverlay()">Print saved tags →</button>
+    <div class="grid-3">${batches.map(b=>{
+      const itemsInBatch=(P.items||[]).filter(i=>i.batchId===b.id);
+      const total=(Number(b.price)||0)*itemsInBatch.length;
+      const otherBatches=batches.filter(x=>x.id!==b.id);
+      return`
       <div class="box-card">
-        ${b.photo?`<img src="${b.photo}" style="width:100%;aspect-ratio:4/3;object-fit:cover;margin-bottom:10px" />`:""}
-        <div class="box-number">${esc(b.type||"Box")} · ${esc(b.category)}</div>
-        <div class="box-title">${esc(b.title||"Untitled")}</div>
-        <div class="box-price">All items $${esc(b.price||"__")}</div>
-        <div class="text-muted" style="margin-top:6px;font-size:13px">${esc(b.description||"")}</div>
+        <div class="box-number">${esc(b.type||"Box")}</div>
+        <div class="box-title">${esc(batchLabel(b))}</div>
+        <div class="box-price">All items $${esc(b.price||"__")} · ${itemsInBatch.length} item${itemsInBatch.length===1?"":"s"} · $${total.toFixed(2)} total</div>
+        ${itemsInBatch.length?`<div style="margin-top:10px;display:flex;flex-direction:column;gap:6px">
+          ${itemsInBatch.map(it=>`<div style="display:flex;justify-content:space-between;align-items:center;gap:8px;font-size:13px">
+            <span>${esc(it.name||it.label||"Item")}</span>
+            ${otherBatches.length?`<select class="select" style="font-size:12px;padding:4px 6px;width:auto" onchange="moveBatchItem('${esc(it.id)}',this.value)">
+              <option value="">Move to...</option>
+              ${otherBatches.map(ob=>`<option value="${esc(ob.id)}">${esc(batchLabel(ob))}</option>`).join('')}
+            </select>`:''}
+          </div>`).join('')}
+        </div>`:''}
         <div style="margin-top:12px;display:flex;gap:8px">
           <button class="btn btn-ghost btn-xs" onclick="editBatch('${esc(b.id)}')">Edit</button>
           <button class="btn btn-danger btn-xs" onclick="deleteBatch('${esc(b.id)}')">Remove</button>
         </div>
-      </div>`).join("")}
+      </div>`;
+    }).join("")}
     </div>`}
     ${renderSectionTip("I spent too long trying to price individual mugs. At some point they all go in a box for a dollar. Add a batch, print a sign, move on.")}
   </div>`;
 }
 
-let _boxPhotoData="";
-function handleBoxPhoto(input){const f=input.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{_boxPhotoData=r.result};r.readAsDataURL(f)}
 function addBatch(){
   const d=draft.batch;
   const existing=P.batchItems||[];
   if(d.id){
-    P.batchItems=existing.map(b=>b.id===d.id?{...b,type:d.type,title:d.title,price:d.price,category:d.category,description:d.description,photo:_boxPhotoData||b.photo}:b);
+    P.batchItems=existing.map(b=>b.id===d.id?{...b,type:d.type,price:d.price,description:d.description}:b);
+    (P.items||[]).forEach(i=>{if(i.batchId===d.id)i.price=d.price;});
   }else{
-    P.batchItems=[{id:makeId(),type:d.type,title:d.title,price:d.price,category:d.category,description:d.description,photo:_boxPhotoData,createdAt:new Date().toLocaleDateString()},...existing];
+    P.batchItems=[{id:makeId(),type:d.type,title:"",price:d.price,category:"",description:d.description,photo:"",createdAt:new Date().toLocaleDateString()},...existing];
   }
-  P.isDemo=false;save();_boxPhotoData="";draft.batch={id:null,type:"Table",title:"",price:"2",category:"Other",description:""};renderContent();
+  P.isDemo=false;save();draft.batch={id:null,type:"Table",price:"2",description:""};renderContent();
 }
 function editBatch(id){
   const b=(P.batchItems||[]).find(x=>x.id===id);if(!b)return;
-  draft.batch={id:b.id,type:b.type||"Table",title:b.title,price:b.price,category:b.category,description:b.description||""};
-  _boxPhotoData=b.photo||"";
+  draft.batch={id:b.id,type:b.type||"Table",price:b.price,description:b.description||""};
   renderContent();
 }
-function deleteBatch(id){mncConfirm("Remove this batch?",()=>{P.batchItems=(P.batchItems||[]).filter(b=>b.id!==id);P.isDemo=false;save();renderContent()})}
+function deleteBatch(id){mncConfirm("Remove this batch?",()=>{P.batchItems=(P.batchItems||[]).filter(b=>b.id!==id);(P.items||[]).forEach(i=>{if(i.batchId===id)i.batchId=null;});P.isDemo=false;save();renderContent()})}
 
 let _batchSignOverrides={};
 function openBatchPrintOverlay(){
@@ -2570,7 +2577,7 @@ function renderBatchPrintOverlay(){
               <span style="font-family:var(--font-display);font-weight:800;font-size:26px;color:#C44570">$</span>
               <input class="input" value="${esc(price)}" oninput="_batchSignOverrides['${esc(it.id)}']={...(_batchSignOverrides['${esc(it.id)}']||{}),price:this.value}" style="font-family:var(--font-display);font-weight:800;font-size:26px;color:#C44570;text-align:center;max-width:100px" />
             </div>
-            <div style="font-family:var(--font-body);font-size:13px;color:var(--color-text-muted)">${esc(it.title||"")}</div>
+            <div style="font-family:var(--font-body);font-size:13px;color:var(--color-text-muted)">${esc(it.description||"")}</div>
           </div>`;
         }).join("")}
       </div>
