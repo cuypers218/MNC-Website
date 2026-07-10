@@ -119,158 +119,13 @@
   </div>
 </section>
 
-<style>
-  .cece-section {
-    background-color: #252535;
-    padding: 0;
-  }
-
-  .cece-inner {
-    max-width: 960px;
-    margin: 0 auto;
-    display: flex;
-    align-items: stretch;
-  }
-
-  .cece-photo-col {
-    flex: 0 0 340px;
-    overflow: hidden;
-  }
-
-  .cece-photo {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center 15%;
-    display: block;
-    min-height: 280px;
-  }
-
-  .cece-text-col {
-    flex: 1;
-    padding: 52px 48px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-  }
-
-  .cece-hook {
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 800;
-    font-size: 13px;
-    letter-spacing: 0.3px;
-    color: #E87AAA;
-    line-height: 1.5;
-    margin: 0 0 18px;
-  }
-
-  .cece-eyebrow {
-    font-family: 'Montserrat', Arial, sans-serif;
-    font-weight: 800;
-    font-size: 11px;
-    letter-spacing: 2px;
-    color: #E87AAA;
-    text-transform: uppercase;
-    margin: 0 0 14px;
-  }
-
-  .cece-heading {
-    font-family: 'Montserrat', Arial, sans-serif;
-    font-weight: 800;
-    font-size: 22px;
-    color: #FFF8EE;
-    line-height: 1.35;
-    margin: 0 0 16px;
-    max-width: 520px;
-  }
-
-  .cece-body {
-    font-family: 'DM Sans', 'Helvetica Neue', Arial, sans-serif;
-    font-size: 15px;
-    color: rgba(255, 248, 238, 0.78);
-    line-height: 1.7;
-    margin: 0 0 22px;
-    max-width: 480px;
-  }
-
-  .cece-btn {
-    display: inline-block;
-    background: #E87AAA;
-    color: #fff;
-    font-family: 'Montserrat', Arial, sans-serif;
-    font-weight: 800;
-    font-size: 12px;
-    letter-spacing: 0.5px;
-    text-transform: uppercase;
-    padding: 13px 26px;
-    border-radius: 9999px;
-    text-decoration: none;
-    margin: 4px 14px 0 0;
-    transition: background 0.2s ease;
-  }
-
-  .cece-btn:hover {
-    background: #d9608f;
-  }
-
-  .cece-connect-note {
-    font-family: Arial, sans-serif;
-    font-size: 12px;
-    color: rgba(255, 248, 238, 0.55);
-    margin: 10px 0 4px;
-    letter-spacing: 0.2px;
-  }
-
-  .cece-link {
-    display: inline-block;
-    color: #FFF8EE;
-    font-family: 'Montserrat', Arial, sans-serif;
-    font-weight: 800;
-    font-size: 12px;
-    letter-spacing: 0.5px;
-    text-transform: uppercase;
-    text-decoration: underline;
-    margin-top: 4px;
-  }
-
-  @media (max-width: 600px) {
-    .cece-inner {
-      flex-direction: column;
-    }
-
-    .cece-photo-col {
-      flex: none;
-      width: 100%;
-      height: 220px;
-    }
-
-    .cece-photo {
-      min-height: 220px;
-      object-position: center 20%;
-    }
-
-    .cece-text-col {
-      padding: 36px 24px;
-    }
-
-    .cece-heading {
-      font-size: 19px;
-    }
-
-    .cece-btn, .cece-link {
-      display: block;
-      margin: 8px 0 0;
-    }
-  }
-</style>
-
 <!-- LATEST FROM THE BLOG -->
 
 <!-- FEATURED PRODUCTS -->
 <section class="section">
     <div class="container">
         <h2 class="text-center" style="margin-bottom: 0.5rem;">Each one helped me. Still does.<br>Maybe they can help you too.</h2>
-        <p class="text-center" style="color: #666666; font-size: 0.9rem; margin-bottom: 2rem;">Some are free. Some aren't. All of them came from something real.</p>
+        <p class="text-center" style="color: #8BA7D4; font-size: 0.9rem; margin-bottom: 2rem;">Some are free. Some aren't. All of them came from something real.</p>
 
         <div class="product-grid">
 
@@ -286,10 +141,10 @@
             </div>
 
             <!-- Garage Sale Planner — highlighted as interactive app -->
-            <div class="product-card fade-in" style="border: 2px solid #E87AAA;">
+            <div class="product-card fade-in" style="border: 2px solid #C44570;">
                 <span class="badge">$27</span>
                 <div class="product-card-content">
-                    <span class="product-card-category" style="color: #E87AAA;">Interactive App</span>
+                    <span class="product-card-category" style="color: #C44570;">Interactive App</span>
                     <h3 class="product-card-title">The Garage Sale Planner</h3>
                     <p class="product-card-description">Not a PDF — a live app that runs in your browser. Price your items, track every sale, and hit your money goal. Try it free before you buy.</p>
                     <a href="/shop/garage-sale-planner" class="btn btn-primary">Open the Planner</a>
@@ -316,190 +171,6 @@
 </section>
 
 <!-- ACCOUNT + NEWSLETTER -->
-<style>
-  .account-newsletter-section {
-    background-color: #f0eee8;
-    padding: 72px 24px;
-  }
-  .an-inner {
-    max-width: 680px;
-    margin: 0 auto;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0;
-  }
-  .an-account-block {
-    background: #252535;
-    border-radius: 0;
-    padding: 48px 40px;
-    text-align: center;
-    width: 100%;
-    box-sizing: border-box;
-  }
-  .an-eyebrow {
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 800;
-    font-size: 11px;
-    letter-spacing: 2px;
-    color: #C4B0E8;
-    margin: 0 0 16px;
-    text-transform: uppercase;
-  }
-  .an-heading {
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 800;
-    font-size: 22px;
-    color: #FFF8EE;
-    line-height: 1.35;
-    margin: 0 0 16px;
-  }
-  .an-body {
-    font-family: 'DM Sans', 'Helvetica Neue', sans-serif;
-    font-size: 15px;
-    color: rgba(255, 248, 238, 0.78);
-    line-height: 1.65;
-    margin: 0 0 28px;
-  }
-  .an-btn-primary {
-    display: inline-block;
-    background: #E87AAA;
-    color: #fff;
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 800;
-    font-size: 13px;
-    letter-spacing: 0.5px;
-    text-transform: uppercase;
-    padding: 15px 32px;
-    border-radius: 9999px;
-    text-decoration: none;
-    transition: background 0.2s ease, transform 0.15s ease;
-  }
-  .an-btn-primary:hover {
-    background: #d9608f;
-    transform: translateY(-1px);
-  }
-  .an-divider {
-    display: flex;
-    align-items: center;
-    width: 100%;
-    gap: 12px;
-    padding: 28px 0 20px;
-    color: #a09a92;
-    font-family: 'DM Sans', 'Helvetica Neue', sans-serif;
-    font-size: 13px;
-  }
-  .an-divider::before,
-  .an-divider::after {
-    content: '';
-    flex: 1;
-    height: 1px;
-    background: #d5cfc8;
-  }
-  .an-newsletter-block {
-    background: #fff;
-    border: 1px solid #e5e0d9;
-    border-radius: 0;
-    padding: 40px 40px 36px;
-    text-align: center;
-    width: 100%;
-    box-sizing: border-box;
-  }
-  .an-newsletter-label {
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 800;
-    font-size: 11px;
-    letter-spacing: 2px;
-    color: #8BA7D4;
-    margin: 0 0 14px;
-    text-transform: uppercase;
-  }
-  .an-newsletter-body {
-    font-family: 'DM Sans', 'Helvetica Neue', sans-serif;
-    font-size: 15px;
-    color: #3a3530;
-    line-height: 1.65;
-    margin: 0 0 10px;
-  }
-  .an-newsletter-sub {
-    font-family: 'DM Sans', 'Helvetica Neue', sans-serif;
-    font-size: 14px;
-    font-weight: 500;
-    color: #252535;
-    margin: 0 0 22px;
-  }
-  .an-email-form {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 10px;
-  }
-  .an-form-row {
-    display: flex;
-    gap: 8px;
-    width: 100%;
-    max-width: 420px;
-  }
-  .an-email-input {
-    flex: 1;
-    padding: 13px 18px;
-    border: 1.5px solid #d5cfc8;
-    border-radius: 9999px;
-    font-family: 'DM Sans', 'Helvetica Neue', sans-serif;
-    font-size: 14px;
-    color: #252535;
-    background: #FFF8EE;
-    outline: none;
-    transition: border-color 0.2s ease;
-  }
-  .an-email-input:focus {
-    border-color: #E87AAA;
-  }
-  .an-email-input::placeholder {
-    color: #b0a89e;
-  }
-  .an-btn-secondary {
-    background: #E87AAA;
-    color: #fff;
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 800;
-    font-size: 12px;
-    letter-spacing: 0.5px;
-    text-transform: uppercase;
-    padding: 13px 22px;
-    border: none;
-    border-radius: 9999px;
-    cursor: pointer;
-    white-space: nowrap;
-    transition: background 0.2s ease;
-  }
-  .an-btn-secondary:hover {
-    background: #d9608f;
-  }
-  .an-form-note {
-    font-family: 'DM Sans', 'Helvetica Neue', sans-serif;
-    font-size: 12px;
-    color: #a09a92;
-    margin: 0;
-  }
-  @media (max-width: 560px) {
-    .an-account-block,
-    .an-newsletter-block {
-      padding: 36px 24px;
-    }
-    .an-heading {
-      font-size: 19px;
-    }
-    .an-form-row {
-      flex-direction: column;
-    }
-    .an-btn-secondary {
-      width: 100%;
-      padding: 14px;
-    }
-  }
-</style>
-
 <section class="account-newsletter-section">
   <div class="an-inner">
 
@@ -533,7 +204,7 @@
         </div>
         <p class="an-form-note">Nothing else. Just the weekly note.</p>
       </form>
-      <p id="homepage-msg" style="display:none; margin-top:12px; font-family:'Montserrat',sans-serif; font-weight:800; font-size:0.8rem; text-transform:uppercase; letter-spacing:1px; color:#E87AAA;"></p>
+      <p id="homepage-msg" style="display:none; margin-top:12px; font-family:'Montserrat',sans-serif; font-weight:800; font-size:0.8rem; text-transform:uppercase; letter-spacing:1px; color:#C44570;"></p>
     </div>
 
   </div>
