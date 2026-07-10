@@ -1967,16 +1967,39 @@ function gsPhotoSelected(input){
   if(!file)return;
   const reader=new FileReader();
   reader.onload=e=>{
-    guidedUI.current={photo:e.target.result,label:'',categoryKey:'',itemName:'',brand:false,condition:'Good'};
+    guidedUI.current={photo:e.target.result,label:'',categoryKey:'',itemName:'',brand:false,condition:'Good',aiGuessed:false};
     guidedUI.screen='analyzing';renderGuidedSort();
-    // No AI backend yet (Phase 8) — brief pause, then land on the manual picker (Review), which is
-    // also the required "fix it" fallback UI, so both paths already converge on one screen.
-    setTimeout(()=>{if(guidedUI.screen==='analyzing'){guidedUI.screen='review';renderGuidedSort();}},450);
+    gsIdentifyPhoto(file);
   };
   reader.readAsDataURL(file);
 }
 function gsAnalyzingScreen(){
   return`<div class="card bold-card" style="text-align:center;padding:60px 24px"><div class="card-title">One moment...</div></div>`;
+}
+function gsIdentifyPhoto(file){
+  const fd=new FormData();
+  fd.append('photo',file);
+  const controller=typeof AbortController!=='undefined'?new AbortController():null;
+  const timer=controller?setTimeout(()=>controller.abort(),12000):null;
+  const fallbackToManual=()=>{
+    clearTimeout(timer);
+    if(guidedUI.screen!=='analyzing')return; // user already navigated away
+    guidedUI.screen='review';renderGuidedSort();
+  };
+  fetch('/garage-identify-item.php',{method:'POST',body:fd,signal:controller?controller.signal:undefined})
+    .then(r=>r.ok?r.json():Promise.reject(new Error('bad status')))
+    .then(data=>{
+      clearTimeout(timer);
+      if(guidedUI.screen!=='analyzing')return;
+      const cat=sortPriceCategories.find(c=>c.key===data.categoryKey);
+      const validItem=!!(cat&&cat.items.some(i=>i.name===data.itemType));
+      guidedUI.current.categoryKey=cat?data.categoryKey:'';
+      guidedUI.current.itemName=validItem?data.itemType:'';
+      guidedUI.current.brand=!!data.brand;
+      guidedUI.current.aiGuessed=!!(cat&&validItem);
+      guidedUI.screen='review';renderGuidedSort();
+    })
+    .catch(fallbackToManual); // offline, timed out, or the API failed — same manual picker either way
 }
 function gsReviewScreen(){
   const c=guidedUI.current;
@@ -1984,9 +2007,10 @@ function gsReviewScreen(){
   return`
   <div class="card bold-card">
     ${c.photo?`<img src="${c.photo}" alt="" style="max-width:100%;max-height:220px;display:block;margin:0 auto 20px;object-fit:contain"/>`:''}
+    ${c.aiGuessed&&cat?`<div class="info-box" style="margin-bottom:16px;font-weight:600">I think this is: ${esc(cat.label)} — ${esc(c.itemName)}. <span style="font-weight:700;text-decoration:underline">Not quite right? Fix it below.</span></div>`:''}
     <div class="form-field" style="margin-bottom:14px">
       <label class="form-label" for="gs-label">What is it?</label>
-      <input class="input" id="gs-label" value="${esc(c.label||'')}" placeholder="Blue ceramic vase" oninput="guidedUI.current.label=this.value" />
+      <input class="input" id="gs-label" value="${esc(c.label||c.itemName||'')}" placeholder="Blue ceramic vase" oninput="guidedUI.current.label=this.value" />
     </div>
     <div class="form-row" style="margin-bottom:14px">
       <div class="form-field">
