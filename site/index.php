@@ -82,16 +82,92 @@
 <!-- HERO -->
 <section class="hero">
     <div class="container">
-        <h1 class="hero-tagline">Solo mom. Empty nest.<br>Now what?</h1>
-        <p class="hero-subtitle">Start with 6pm. That hour when the house feels wrong and you're just standing in the kitchen not knowing what to do with yourself.</p>
-        <a href="/6pm-experience/" onclick="event.preventDefault();open6pmExperience();" class="btn btn-primary btn-hero">GET THE FREE 6PM CHEAT SHEET →</a>
-        <p class="hero-cta-hint">No sign-up needed</p>
+        <div class="hero-text">
+            <p class="hero-eyebrow">For Single &amp; Solo Moms</p>
+            <h1 class="hero-tagline">Solo mom. Empty nest.<br>Now what?</h1>
+            <p class="hero-subtitle">Start with 6pm. That hour when the house feels wrong and you're just standing in the kitchen not knowing what to do with yourself.</p>
+            <a href="/6pm-experience/" onclick="event.preventDefault();open6pmExperience();" class="btn btn-primary btn-hero">GET THE FREE 6PM CHEAT SHEET →</a>
+            <p class="hero-cta-hint">No sign-up needed</p>
+        </div>
+    </div>
+</section>
+
+<!-- VALUE STRIP — what do you offer, before anything about Cece -->
+<section class="value-strip">
+    <div class="container">
+        <p class="value-lead">Whatever tonight looks like — <b>there's probably something here for it.</b></p>
+        <div class="value-row">
+            <div class="value-cell">
+                <p class="value-eyebrow">Tools</p>
+                <p>Interactive planners and printable guides — pick what fits tonight, not a 12-week program.</p>
+            </div>
+            <div class="value-cell">
+                <p class="value-eyebrow">Voice</p>
+                <p>I'm not a coach. I'm a solo mom who needed this and didn't find it, so I built it.</p>
+            </div>
+            <div class="value-cell">
+                <p class="value-eyebrow">Access</p>
+                <p>No email trap disguised as a freebie. No upsell buried in the download.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- FEATURED PRODUCTS — moved up: proof before trust-building -->
+<section class="home-products">
+    <div class="container">
+        <div class="home-products-head">
+            <h2>Each one helped me. Still does.</h2>
+            <p class="home-products-sub">Whatever you need right now, there's probably something here for it. Some are free. Some aren't.</p>
+        </div>
+
+        <div class="home-prod-grid">
+
+            <!-- Garage Sale Planner — dominant card -->
+            <div class="home-card big fade-in">
+                <span class="home-card-tag">Interactive App</span>
+                <span class="home-card-badge">$27</span>
+                <div class="home-card-body">
+                    <span class="home-card-cat">Interactive App &middot; Runs In Your Browser</span>
+                    <h3>The Garage Sale Planner</h3>
+                    <p>Not a PDF — a live app that runs in your browser. Price your items, track every sale, and hit your money goal. Try it free before you buy.</p>
+                    <a href="/shop/garage-sale-planner" class="btn btn-primary">Open the Planner</a>
+                </div>
+            </div>
+
+            <div class="home-prod-stack">
+                <!-- Now What? Workbook -->
+                <div class="home-card small fade-in">
+                    <span class="home-card-badge">$14.99</span>
+                    <div class="home-card-body">
+                        <span class="home-card-cat">Workbook</span>
+                        <h3>Now What? A Workbook for Solo Moms in the Empty Nest</h3>
+                        <a href="/shop/now-what-workbook" class="btn btn-primary">Get the Now What?</a>
+                    </div>
+                </div>
+
+                <!-- Someday List Builder -->
+                <div class="home-card small fade-in">
+                    <span class="home-card-badge free">FREE</span>
+                    <div class="home-card-body">
+                        <span class="home-card-cat">Free Tool</span>
+                        <h3>The Someday List Builder</h3>
+                        <a href="/freebies" class="btn btn-outline">Get This Free</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="text-center" style="margin-top: 2.5rem;">
+            <a href="/shop" class="btn btn-outline">See Everything</a>
+        </div>
     </div>
 </section>
 
 <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 
-<!-- I'M CECE SECTION -->
+<!-- I'M CECE SECTION — moved down: trust, now earned. CTAs softened. -->
 <section class="cece-section">
   <div class="cece-inner">
 
@@ -110,92 +186,33 @@
       <p class="cece-body">I went looking for something — anything — that sounded like my life, and it didn't exist. So I created My Nest Chapter.</p>
       <p class="cece-body">I built every product here myself, because I needed it and it wasn't out there. Your people are here. I'm here. I'm only an email, a Zoom call, or a message away.</p>
       <p class="cece-body">And since I built all of this by hand, alone — there will be glitches. There will be mistakes. Tell me when you find one. I want to do better.</p>
-      <a href="/contact" class="cece-btn">Get in touch &rarr;</a>
-      <a href="/booking" class="cece-btn" style="background:#C4B0E8; color:#252535;">Book a time &rarr;</a>
+      <div class="cece-cta-row">
+        <a href="/about" class="cece-btn-ghost">Read My Full Story &rarr;</a>
+        <a href="/contact" class="cece-link">Get in touch</a>
+        <a href="/booking" class="cece-link">Book a time</a>
+      </div>
       <p class="cece-connect-note">Video call &nbsp;&middot;&nbsp; Voice call &nbsp;&middot;&nbsp; Text chat &nbsp;&middot;&nbsp; Email &mdash; whatever feels right.</p>
-      <a href="/about" class="cece-link">Read my full story &rarr;</a>
     </div>
 
   </div>
 </section>
 
-<!-- LATEST FROM THE BLOG -->
-
-<!-- FEATURED PRODUCTS -->
-<section class="section">
-    <div class="container">
-        <h2 class="text-center" style="margin-bottom: 0.5rem;">Each one helped me. Still does.<br>Maybe they can help you too.</h2>
-        <p class="text-center" style="color: #8BA7D4; font-size: 0.9rem; margin-bottom: 2rem;">Some are free. Some aren't. All of them came from something real.</p>
-
-        <div class="product-grid">
-
-            <!-- Now What? Workbook -->
-            <div class="product-card fade-in">
-                <span class="badge">$14.99</span>
-                <div class="product-card-content">
-                    <span class="product-card-category">Workbook</span>
-                    <h3 class="product-card-title">Now What? A Workbook for Solo Moms in the Empty Nest</h3>
-                    <p class="product-card-description">The workbook I made because nothing out there sounded like me. Activities, reflections, and honest space for solo moms figuring out what comes next.</p>
-                    <a href="/shop/now-what-workbook" class="btn btn-primary">Get the Now What?</a>
-                </div>
-            </div>
-
-            <!-- Garage Sale Planner — highlighted as interactive app -->
-            <div class="product-card fade-in" style="border: 2px solid #C44570;">
-                <span class="badge">$27</span>
-                <div class="product-card-content">
-                    <span class="product-card-category" style="color: #C44570;">Interactive App</span>
-                    <h3 class="product-card-title">The Garage Sale Planner</h3>
-                    <p class="product-card-description">Not a PDF — a live app that runs in your browser. Price your items, track every sale, and hit your money goal. Try it free before you buy.</p>
-                    <a href="/shop/garage-sale-planner" class="btn btn-primary">Open the Planner</a>
-                </div>
-            </div>
-
-            <!-- Someday List Builder -->
-            <div class="product-card fade-in">
-                <span class="badge badge-free">FREE</span>
-                <div class="product-card-content">
-                    <span class="product-card-category">Free Tool</span>
-                    <h3 class="product-card-title">The Someday List Builder</h3>
-                    <p class="product-card-description">All those things you said you'd do someday? This is where you finally write them down.</p>
-                    <a href="/freebies" class="btn btn-outline">Get This Free</a>
-                </div>
-            </div>
-
-        </div>
-
-        <div class="text-center" style="margin-top: 2rem;">
-            <a href="/shop" class="btn btn-outline">See Everything</a>
-        </div>
-    </div>
-</section>
-
-<!-- ACCOUNT + NEWSLETTER -->
+<!-- ACCOUNT + NEWSLETTER — unified into one full-rose bar, not two mirrored boxes -->
 <section class="account-newsletter-section">
   <div class="an-inner">
 
     <!-- PRIMARY: FREE ACCOUNT -->
-    <div class="an-account-block">
+    <div class="an-main">
       <p class="an-eyebrow">YOUR SPOT. FREE. ALWAYS.</p>
-      <h2 class="an-heading">Create a free account and everything lives in one place — your tools, your downloads, your resources.</h2>
-      <p class="an-body">Plus freebies that aren't anywhere else on the site. The ones on the public pages are for anyone who finds them. The ones inside your account are just for you.</p>
+      <h2 class="an-heading">Everything in one place — your tools, downloads, and member-only freebies.</h2>
+      <p class="an-body">Plus freebies that aren't anywhere else on the site. The ones on the public pages are for anyone who finds them. The ones inside your account are just for you. Instant access, no waiting — member-only exclusives added every month.</p>
       <a href="/register" class="an-btn-primary">UNLOCK MY FREE RESOURCES →</a>
-      <div style="margin-top:20px;display:flex;flex-direction:column;gap:6px;align-items:center;">
-        <p style="font-family:'DM Sans','Helvetica Neue',sans-serif;font-size:13px;color:rgba(255,248,238,0.65);margin:0;">Instant access to all freebies — no waiting</p>
-        <p style="font-family:'DM Sans','Helvetica Neue',sans-serif;font-size:13px;color:rgba(255,248,238,0.65);margin:0;">Member-only exclusives added every month</p>
-        <p style="font-family:'DM Sans','Helvetica Neue',sans-serif;font-size:13px;color:rgba(255,248,238,0.65);margin:0;">Free. Always.</p>
-      </div>
-    </div>
-
-    <!-- DIVIDER -->
-    <div class="an-divider">
-      <span>or</span>
     </div>
 
     <!-- SECONDARY: NEWSLETTER -->
-    <div class="an-newsletter-block">
+    <div class="an-side">
       <p class="an-newsletter-label">NOT READY FOR THAT?</p>
-      <p class="an-newsletter-body">I write every week. What I'm still figuring out, what helped me this week, what's hard right now. Not advice. Not a program. Just where I am — the honest parts and the better parts both.</p>
+      <p class="an-newsletter-body">I write every week. What I'm still figuring out, what helped me this week, what's hard right now. Not advice. Not a program. Just where I am.</p>
       <p class="an-newsletter-sub">Drop your email and I'll send it to you.</p>
       <form class="an-email-form" onsubmit="event.preventDefault(); submitToReach(this);">
         <div class="an-form-row">
