@@ -27,7 +27,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;800&display=swap" rel="stylesheet">
-    
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,500;0,600;1,500&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+
     <!-- Styles -->
     <link rel="stylesheet" href="/assets/css/style.css">
 </head>
@@ -84,11 +85,12 @@
     <div class="container">
         <div class="hero-text">
             <p class="hero-eyebrow">For Single &amp; Solo Moms</p>
-            <h1 class="hero-tagline">Solo mom. Empty nest.<br>Now what?</h1>
+            <h1 class="hero-tagline">Solo mom.<br>Empty nest.<br><em>Now what?</em></h1>
             <p class="hero-subtitle">Start with 6pm. That hour when the house feels wrong and you're just standing in the kitchen not knowing what to do with yourself.</p>
             <a href="/6pm-experience/" onclick="event.preventDefault();open6pmExperience();" class="btn btn-primary btn-hero">GET THE FREE 6PM CHEAT SHEET →</a>
             <p class="hero-cta-hint">No sign-up needed</p>
         </div>
+        <div class="hero-photo-frame" role="img" aria-label="A clock reading 6 o'clock"></div>
     </div>
 </section>
 
@@ -164,8 +166,6 @@
         </div>
     </div>
 </section>
-
-<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 
 <!-- I'M CECE SECTION — moved down: trust, now earned. CTAs softened. -->
 <section class="cece-section">

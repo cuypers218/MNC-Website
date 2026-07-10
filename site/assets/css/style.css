@@ -132,50 +132,52 @@ p { margin-bottom: 1rem; line-height: 1.6; }
 }
 
 /* ============================================
-   HERO — asymmetric: photo's own clock stays visible on the right,
-   text sits left over a left-to-right charcoal gradient
+   HERO — type-first: headline is the dominant visual, photo demoted
+   to a small framed inset (the clock, cropped tight, in a Lora headline)
    ============================================ */
 .hero {
     background-color: #252535;
-    background-image:
-        linear-gradient(90deg, rgba(37,37,53,.94) 0%, rgba(37,37,53,.82) 30%, rgba(37,37,53,.42) 56%, rgba(37,37,53,.08) 78%, rgba(37,37,53,0) 100%),
-        url('/assets/images/hero.jpg');
-    background-size: cover;
-    background-position: center 42%;
-    min-height: 34rem;
-    display: flex;
-    align-items: center;
+    padding: 6.5rem 0 5.5rem;
     position: relative;
+    overflow: hidden;
 }
-.hero .container { position: relative; z-index: 1; text-align: left; }
-.hero-text { max-width: 34rem; }
+.hero .container {
+    display: flex; align-items: flex-end; justify-content: center;
+    gap: 3rem; flex-wrap: wrap;
+}
+.hero-text { max-width: 38rem; }
 .hero-eyebrow {
     display: inline-block; font-family: 'Montserrat', sans-serif; font-weight: 800;
-    font-size: 0.8rem; letter-spacing: 3px; text-transform: uppercase; color: #C44570;
+    font-size: 0.78rem; letter-spacing: 3px; text-transform: uppercase; color: #C44570;
     background: rgba(196,69,112,.16); border: 1.5px solid #C44570;
-    padding: 7px 18px; border-radius: 9999px; margin-bottom: 1.5rem;
+    padding: 7px 18px; border-radius: 9999px; margin-bottom: 2rem;
 }
 .hero-tagline {
-    font-family: 'Montserrat', sans-serif; font-weight: 800;
-    font-size: 2.4rem; color: #FAF7ED; text-transform: uppercase;
-    letter-spacing: 0.01em; margin-bottom: 1.5rem; line-height: 1.1;
-    text-shadow: 0 2px 18px rgba(0,0,0,.35);
+    font-family: 'Lora', Georgia, 'Times New Roman', serif; font-weight: 500;
+    font-size: clamp(2.8rem, 6vw, 4.6rem); color: #FAF7ED; text-transform: none;
+    letter-spacing: -0.01em; margin-bottom: 1.75rem; line-height: 1.02;
 }
+.hero-tagline em { font-style: italic; color: #C44570; }
 .hero-subtitle {
-    font-family: 'Arial', sans-serif; font-size: 1.1rem; color: rgba(250,247,237,0.9);
-    max-width: 480px; margin: 0 0 2rem; line-height: 1.6;
-    text-shadow: 0 1px 12px rgba(0,0,0,.35);
+    font-family: 'Arial', sans-serif; font-size: 1.08rem; color: rgba(250,247,237,0.85);
+    max-width: 440px; margin: 0 0 2.25rem; line-height: 1.6;
+}
+.hero-photo-frame {
+    flex: none; width: 230px; height: 290px;
+    border: 3px solid #FAF7ED;
+    background-image: url('/assets/images/hero-clock.jpg');
+    background-size: cover;
+    background-position: 78% 40%;
+    transform: rotate(2.5deg);
+    margin-bottom: 6px;
+}
+@media (max-width: 900px) {
+    .hero .container { flex-direction: column; align-items: flex-start; }
+    .hero-photo-frame { align-self: center; transform: rotate(-1.5deg); margin-top: 1rem; }
 }
 @media (max-width: 760px) {
-    .hero {
-        background-image:
-            linear-gradient(180deg, rgba(37,37,53,.5) 0%, rgba(37,37,53,.95) 74%),
-            url('/assets/images/hero.jpg');
-        background-position: center 38%;
-        min-height: 30rem;
-        padding: 3rem 0;
-    }
-    .hero-tagline { font-size: 1.9rem; }
+    .hero { padding: 3.5rem 0; }
+    .hero-tagline { font-size: 2.1rem; }
 }
 
 /* ============================================
