@@ -370,6 +370,41 @@ design mockup, must carry into the real build)
   2026-07-07 "sunlight contrast fix" CLAUDE.md entries) — reuse that same
   darker shade for any cream-on-rose text pairing rather than the base rose.
 
+## Section 7.6 — Interaction refinements (found via a design critique pass
+on the approved mockup, apply during Phase 2)
+
+The core loop is right — photograph, decide, next item, fast. Five findings
+that make it match the "never overwhelming, always one clear next step"
+goal more precisely:
+
+- **Save confirmation on every decision, not just Sell.** Right now
+  accepting a Garage Sale price gets a visible moment (the price-tag
+  stamp), but Donate/Give to Kids/Trash/Batch save silently and the camera
+  just reappears. Add a brief toast on every save ("✓ Saved to Donate") so
+  she never has to wonder if a tap registered.
+- **Give that toast a 3–4 second Undo.** A mis-tap (Trash instead of
+  Donate) currently has no immediate recovery inside the guided flow — she'd
+  have to go find and fix it later in the Items list. A short-lived Undo on
+  the save toast closes that gap without adding a confirmation step to the
+  normal path.
+- **Make the "fix it" correction link more visible.** It's the only place
+  in the whole flow where she corrects a wrong AI guess, and getting the
+  category right directly affects her price — currently it's a small
+  underlined text link, easy to miss on a screen where everything else is
+  a big obvious button.
+- **Simplify the very first screen.** As designed it shows 9 tappable
+  things at once (7 room chips + skip + a conditional summary link) before
+  she's done anything. Since room selection is optional, lead with "Just
+  start snapping" as the one obvious default action, with room selection
+  available as a secondary/collapsed option rather than the dominant visual
+  element on her very first screen.
+- **Rebalance the Summary screen's visual weight.** It currently shows 9
+  tappable things too (7 destination tiles + Keep Sorting + Back to Start) —
+  the most choices anywhere in the flow, right at the moment meant to feel
+  like closure. The 7 tiles should read as quieter/informational relative to
+  the two real decisions (Keep Sorting / Back to Start), which should be
+  the visually dominant elements on this screen.
+
 ## Section 8 — Destination routing (final, confirmed after several
 corrections during design — follow this table exactly, it is not
 symmetrical)
@@ -423,7 +458,13 @@ each decision → room-complete recap → summary. A persistent stat strip
 (total value, total items, segmented breakdown bar) sits above the active
 screen. Live inside the existing Sort + Price → Items sub-tab, as an
 alternate entry point to the same items[] data the current Add Item form
-already writes to.
+already writes to. Apply the 5 interaction refinements in Section 7.6 as
+part of this phase, not as later polish: a save-confirmation toast with a
+short Undo window on every decision (not just Sell), a more visible "fix
+it" correction affordance, a simplified first screen that leads with "just
+start snapping" over the 7-room grid, and a Summary screen where the 7
+destination tiles read as quieter/secondary next to the two real actions
+(Keep Sorting / Back to Start).
 
 PHASE 3 — Pricing lookup + nudge logic. Condition tap → look up price from
 the Phase 1 table (category + item type + condition, falling back to the
