@@ -31,21 +31,77 @@ $stripeProductId = trim($_POST['stripe_product_id'] ?? '');
 $setActive       = !empty($_POST['set_active']);
 $status          = $setActive ? 'active' : 'draft';
 
-// Handle thumbnail upload
-$imagePath = null;
+// Handle thumbnail upload.
+// Normalizes every upload to a JPG on the server rather than trusting the
+// source extension -- previously any format outside a hardcoded whitelist
+// (notably HEIC, the default format for iPhone camera photos) silently did
+// nothing: no error, no image, just the "PRODUCT IMAGE" placeholder staying
+// up forever with zero feedback that the upload had failed.
+$imagePath   = null;
+$uploadError = null;
 if (!empty($_FILES['thumbnail']['name'])) {
-    $uploadDir = __DIR__ . '/../../uploads/thumbnails/';
-    if (!is_dir($uploadDir)) {
-        mkdir($uploadDir, 0755, true);
-    }
-    $ext      = strtolower(pathinfo($_FILES['thumbnail']['name'], PATHINFO_EXTENSION));
-    $allowed  = ['jpg', 'jpeg', 'png', 'webp', 'gif'];
-    if (in_array($ext, $allowed)) {
-        $safeSlug  = $slug ?: 'product-' . time();
-        $filename  = $safeSlug . '.' . $ext;
-        $dest      = $uploadDir . $filename;
-        if (move_uploaded_file($_FILES['thumbnail']['tmp_name'], $dest)) {
-            $imagePath = '/uploads/thumbnails/' . $filename;
+    $file = $_FILES['thumbnail'];
+    if ($file['error'] !== UPLOAD_ERR_OK) {
+        $uploadError = 'Upload failed (error code ' . $file['error'] . '). Try a smaller file.';
+    } else {
+        $uploadDir = __DIR__ . '/../../uploads/thumbnails/';
+        if (!is_dir($uploadDir)) {
+            mkdir($uploadDir, 0755, true);
+        }
+        $safeSlug = $slug ?: 'product-' . time();
+        $dest     = $uploadDir . $safeSlug . '.jpg';
+        $loaded   = false;
+
+        // Try Imagick first -- it can read HEIC/HEIF (iPhone default) and
+        // just about anything else, which GD cannot.
+        if (extension_loaded('imagick')) {
+            try {
+                $im = new Imagick($file['tmp_name']);
+                $im->setImageFormat('jpeg');
+                $im->setImageCompressionQuality(85);
+                if ($im->getImageWidth() > 1600) {
+                    $im->scaleImage(1600, 0);
+                }
+                $im->writeImage($dest);
+                $im->clear();
+                $loaded = true;
+            } catch (Exception $e) {
+                $loaded = false;
+            }
+        }
+
+        // Fall back to GD for standard web formats if Imagick isn't available
+        // or couldn't read this particular file.
+        if (!$loaded) {
+            $ext = strtolower(pathinfo($file['name'], PATHINFO_EXTENSION));
+            $gdLoaders = [
+                'jpg' => 'imagecreatefromjpeg', 'jpeg' => 'imagecreatefromjpeg',
+                'png' => 'imagecreatefrompng', 'webp' => 'imagecreatefromwebp',
+                'gif' => 'imagecreatefromgif',
+            ];
+            if (isset($gdLoaders[$ext]) && function_exists($gdLoaders[$ext])) {
+                $img = @$gdLoaders[$ext]($file['tmp_name']);
+                if ($img) {
+                    $w = imagesx($img);
+                    $h = imagesy($img);
+                    if ($w > 1600) {
+                        $newH = (int) round($h * (1600 / $w));
+                        $resized = imagecreatetruecolor(1600, $newH);
+                        imagecopyresampled($resized, $img, 0, 0, 0, 0, 1600, $newH, $w, $h);
+                        imagedestroy($img);
+                        $img = $resized;
+                    }
+                    imagejpeg($img, $dest, 85);
+                    imagedestroy($img);
+                    $loaded = true;
+                }
+            }
+        }
+
+        if ($loaded) {
+            $imagePath = '/uploads/thumbnails/' . $safeSlug . '.jpg';
+        } else {
+            $uploadError = 'That image format isn\'t supported. If this came straight from an iPhone, it may be HEIC -- try Settings > Camera > Formats > "Most Compatible" so new photos save as JPG, or use "Share" > "Save as JPG" on this one.';
         }
     }
 }
@@ -77,7 +133,11 @@ try {
                 $s2->execute([$stripeProductId, $id]);
             } catch (Exception $ignored) {}
         }
-        header('Location: /admin/dashboard.php?page=products&success=' . urlencode('Product updated.'));
+        if ($uploadError) {
+            header('Location: /admin/dashboard.php?page=products&err=' . urlencode('Product updated, but the image failed: ' . $uploadError));
+        } else {
+            header('Location: /admin/dashboard.php?page=products&success=' . urlencode('Product updated.'));
+        }
     } else {
         // INSERT
         $stmt = $db->prepare("
@@ -93,7 +153,11 @@ try {
                 $s2->execute([$stripeProductId, $newId]);
             } catch (Exception $ignored) {}
         }
-        header('Location: /admin/dashboard.php?page=products&success=' . urlencode('Product added.'));
+        if ($uploadError) {
+            header('Location: /admin/dashboard.php?page=products&err=' . urlencode('Product added, but the image failed: ' . $uploadError));
+        } else {
+            header('Location: /admin/dashboard.php?page=products&success=' . urlencode('Product added.'));
+        }
     }
 } catch (Exception $e) {
     $msg = strpos($e->getMessage(), 'Duplicate') !== false

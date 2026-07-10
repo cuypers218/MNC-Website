@@ -40,6 +40,14 @@ $isComingSoon = $product['status'] === 'coming_soon';
 $isInteractiveTool = $product['category'] === 'interactive_tool';
 $isOwned = false;
 
+// Product slug doesn't always match its /widgets/ folder name (e.g. the
+// shop record is "someday-list-builder" but the actual folder is
+// "someday-list") -- map the exceptions here rather than assuming a match.
+$widgetFolderOverrides = [
+    'someday-list-builder' => 'someday-list',
+];
+$widgetSlug = $widgetFolderOverrides[$product['slug']] ?? $product['slug'];
+
 if (isLoggedIn()) {
     $user = getCurrentUser();
     $isOwned = userOwnsPurchase($user['id'], $product['id']);
@@ -89,22 +97,33 @@ $related = $stmt->fetchAll();
                 </div>
                 
                 <!-- CTA Button -->
+                <?php
+                    // A product only has a real download if file_path is set. Interactive
+                    // tools (or any product miscategorized/missing a file) should link to
+                    // the actual widget instead of a dead-end Download button that redirects
+                    // to itself when there's nothing to download (this was a live bug for
+                    // The Someday List Builder — category wasn't 'interactive_tool', so it
+                    // fell into the Download branch with no file_path behind it).
+                    $hasRealFile = !empty($product['file_path']);
+                ?>
                 <?php if ($isComingSoon): ?>
                     <button class="btn btn-disabled btn-full" disabled>Coming Soon</button>
                 <?php elseif ($isOwned): ?>
-                    <?php if ($isInteractiveTool): ?>
-                        <a href="/widgets/<?= esc($product['slug']) ?>/" class="btn btn-primary btn-full">Open The Planner</a>
-                    <?php else: ?>
+                    <?php if ($hasRealFile): ?>
                         <a href="/shop/<?= esc($product['slug']) ?>?download=1" class="btn btn-primary btn-full">Download</a>
+                    <?php else: ?>
+                        <a href="/widgets/<?= esc($widgetSlug) ?>/" class="btn btn-primary btn-full">Open <?= esc(ctaTitle($product['title'])) ?></a>
                     <?php endif; ?>
                     <p style="color: #8BA7D4; font-size: 0.85rem; margin-top: 0.75rem; text-align: center;">You own this product.</p>
                 <?php elseif ($isFree): ?>
                     <?php if (strpos($product['file_path'] ?? '', 'http') === 0): ?>
                         <a href="<?= esc($product['file_path']) ?>" target="_blank" rel="noopener" class="btn btn-primary btn-full">Download Free</a>
-                    <?php elseif (isLoggedIn()): ?>
+                    <?php elseif ($hasRealFile && isLoggedIn()): ?>
                         <a href="/shop/<?= esc($product['slug']) ?>?download=1" class="btn btn-primary btn-full">Download Free</a>
-                    <?php else: ?>
+                    <?php elseif ($hasRealFile): ?>
                         <a href="/register" class="btn btn-primary btn-full">Create Free Account to Download</a>
+                    <?php else: ?>
+                        <a href="/widgets/<?= esc($widgetSlug) ?>/" class="btn btn-primary btn-full">Try It Free — No Account Needed</a>
                     <?php endif; ?>
                 <?php else: ?>
                     <?php if (isLoggedIn()): ?>
