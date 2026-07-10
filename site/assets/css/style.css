@@ -606,8 +606,8 @@ p { margin-bottom: 1rem; line-height: 1.6; }
    HOMEPAGE — CECE SECTION (cece-* classes)
    ============================================ */
 .cece-section { background-color: #252535; padding: 0; }
-.cece-inner { max-width: 960px; margin: 0 auto; display: flex; align-items: stretch; }
-.cece-photo-col { flex: 0 0 380px; overflow: hidden; min-height: 26rem; }
+.cece-inner { max-width: 1080px; margin: 0 auto; display: flex; align-items: stretch; }
+.cece-photo-col { flex: 0 0 460px; overflow: hidden; min-height: 26rem; }
 .cece-photo { width: 100%; height: 100%; object-fit: cover; object-position: center 22%; display: block; min-height: 26rem; }
 .cece-text-col { flex: 1; padding: 52px 48px; display: flex; flex-direction: column; justify-content: center; }
 .cece-hook { font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 13px; letter-spacing: 0.3px; color: #C44570; line-height: 1.5; margin: 0 0 18px; }
@@ -619,6 +619,11 @@ p { margin-bottom: 1rem; line-height: 1.6; }
 .cece-cta-row { display: flex; align-items: center; gap: 22px; flex-wrap: wrap; margin-top: 6px; }
 .cece-connect-note { font-family: Arial, sans-serif; font-size: 12px; color: rgba(250,247,237, 0.55); margin: 10px 0 4px; letter-spacing: 0.2px; }
 .cece-link { display: inline-block; color: rgba(250,247,237,.65); font-family: 'Montserrat', Arial, sans-serif; font-weight: 800; font-size: 12px; letter-spacing: 0.5px; text-transform: uppercase; text-decoration: underline; margin-top: 4px; }
+@media (max-width: 1080px) and (min-width: 601px) {
+  /* tablet/small-laptop zone: full-width photo column would eat too much of the bio text's room */
+  .cece-photo-col { flex-basis: 320px; }
+  .cece-text-col { padding: 40px 32px; }
+}
 @media (max-width: 600px) {
   .cece-inner { flex-direction: column; }
   .cece-photo-col { flex: none; width: 100%; height: 220px; }
