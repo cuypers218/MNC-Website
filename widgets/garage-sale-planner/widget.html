@@ -872,7 +872,7 @@
 const STORAGE_KEY = "my-nest-chapter-simple-sale-planner-v8";
 const categories = ["Clothing","Books","Decor","Furniture","Kitchen","Electronics","Toys","Tools","Sports","Keepsakes","Home Goods","Other"];
 const conditions = ["New","Excellent","Good","Fair","Needs Repair"];
-const decisions = ["Keep","Garage Sale","Sell Online","Donate","Given to kids","Trash","Not Sure"];
+const decisions = ["Keep","Garage Sale","Sell Online","Donate","Given to kids","Trash","Not Sure","Memory Box","Batch"];
 const paymentMethods = ["Cash","PayPal","Venmo","Cash App","Zelle","Other"];
 
 const prepTasks = [
@@ -989,6 +989,134 @@ const itemPricingRows = [
   {item:"Handbags / purses",garage:"$3–$20",online:"$25–$200+ for name brands",best:"Poshmark, eBay"},
   {item:"Outdoor / patio furniture",garage:"$10–$40",online:"$50–$150 for quality sets",best:"Facebook Marketplace"},
 ];
+
+// Guided Sort + Price flow (2026-07-10 brief): a separate, locked pricing table used only
+// by the camera-first guided flow and its Price Guide panel. Distinct from `pricingGuide`
+// above, which the original Add Item form and reference table still use unchanged.
+// Price arrays are [Excellent, Good, Fair]. brandSpecific:true rows already ARE a brand
+// price — don't also apply the category's brandTier to them.
+const sortPriceCategories = [
+  {key:"clothingShoes",label:"Clothing and Shoes",brandTier:[15,10,5],
+    brands:["Coach","Kate Spade","Michael Kors","Louis Vuitton","Gucci","Prada","Dooney & Bourke","Ralph Lauren","Tommy Hilfiger","Nike","Lululemon","The North Face","Patagonia","Ugg"],
+    items:[
+      {name:"Denim jeans",price:[4,2.50,1]},
+      {name:"Designer jeans/denim",price:[15,10,5],brandSpecific:true},
+      {name:"Winter coat",price:[6,4,2]},
+      {name:"Hoodie/sweatshirt",price:[4,2.50,1]},
+      {name:"Sweatpants",price:[3,2,1]},
+      {name:"Leggings",price:[3,2,1]},
+      {name:"Dress shirt",price:[3,2,1]},
+      {name:"Women's blouse",price:[3,2,1]},
+      {name:"Kids' jacket",price:[4,2.50,1]},
+      {name:"Sneakers",price:[5,3,1.50]},
+      {name:"Boots",price:[6,4,1.50]},
+      {name:"Winter hats/gloves",price:[2,1,0.50]},
+      {name:"Baseball hats",price:[2,1,0.50]},
+      {name:"Designer handbag/purse",price:[40,22,10],brandSpecific:true},
+      {name:"Purse (not designer)",price:[3,2,1]},
+    ]},
+  {key:"furniture",label:"Furniture",brandTier:[150,85,40],
+    brands:["Pottery Barn","West Elm","Crate & Barrel","Ethan Allen","Restoration Hardware","Herman Miller","Room & Board","Design Within Reach","Ballard Designs","Arhaus"],
+    items:[
+      {name:"Dining chair",price:[25,15,8]},
+      {name:"Folding card table",price:[20,12,6]},
+      {name:"End table",price:[25,15,8]},
+      {name:"Coffee table",price:[35,20,10]},
+      {name:"Dresser",price:[60,35,18]},
+      {name:"Nightstand",price:[25,15,8]},
+      {name:"Bookshelf",price:[30,18,10]},
+      {name:"Desk",price:[45,25,12]},
+      {name:"Floor lamp",price:[20,12,6]},
+    ]},
+  {key:"kitchenItems",label:"Kitchen Items",brandTier:[35,20,8],
+    brands:["Le Creuset","All-Clad","KitchenAid","Vitamix","Lodge","Instant Pot","Cuisinart","Wüsthof","Staub","Breville","Ninja","Pyrex (vintage pattern)"],
+    items:[
+      {name:"Pyrex baking dish",price:[4,2,1]},
+      {name:"Cast iron skillet",price:[8,5,2.50]},
+      {name:"Set of plates",price:[5,3,1]},
+      {name:"Mixing bowls",price:[4,2,1]},
+      {name:"Coffee maker",price:[10,5,2]},
+      {name:"Toaster",price:[8,4,1.50]},
+      {name:"Blender",price:[10,5,2]},
+      {name:"Measuring cups",price:[2,1,0.50]},
+      {name:"Silverware set",price:[6,3,1.50]},
+    ]},
+  {key:"homeDecor",label:"Home Decor",brandTier:[25,14,6],
+    brands:["Pottery Barn","West Elm","Restoration Hardware","Anthropologie","Waterford","Lenox","Tiffany & Co","Baccarat"],
+    items:[
+      {name:"Picture frame",price:[2,1,0.50]},
+      {name:"Wall mirror",price:[8,4,1.50]},
+      {name:"Table lamp",price:[8,4,1.50]},
+      {name:"Candlesticks",price:[3,1.50,0.50]},
+      {name:"Throw pillows",price:[3,1.50,0.50]},
+      {name:"Decorative vase",price:[4,2,0.75]},
+      {name:"Wall art",price:[5,2.50,1]},
+      {name:"Clock",price:[5,2.50,1]},
+    ]},
+  {key:"babyKids",label:"Baby and Kids",brandTier:[70,40,18],
+    brands:["UPPAbaby","Nuna","Bugaboo","Chicco","Britax","Stokke","BabyBjörn","Ergobaby","Graco (premium line)"],
+    items:[
+      {name:"Stroller",price:[30,18,8]},
+      {name:"High chair",price:[20,12,5]},
+      {name:"Pack-and-play",price:[25,15,6]},
+      {name:"Car seat",price:[25,12,5],caution:"Check the expiration date before selling — most expire 6–10 years from manufacture."},
+      {name:"Toy bin (full)",price:[8,4,1.50]},
+      {name:"Stuffed animals",price:[2,1,0.50]},
+      {name:"LEGO set (complete)",price:[10,6,2.50]},
+      {name:"Board game",price:[5,3,1]},
+      {name:"Children's books",price:[1,0.50,0.50]},
+    ]},
+  {key:"toolsGarage",label:"Tools and Garage",brandTier:[55,32,14],
+    brands:["DeWalt","Milwaukee","Makita","Bosch","Snap-on","Klein Tools","Stihl","Husqvarna","Craftsman (vintage)"],
+    items:[
+      {name:"Hammer",price:[4,2,1]},
+      {name:"Screwdriver set",price:[6,3,1.50]},
+      {name:"Wrench set",price:[8,4,2]},
+      {name:"Power drill",price:[20,12,5]},
+      {name:"Circular saw",price:[25,15,6]},
+      {name:"Extension cord",price:[4,2,1]},
+      {name:"Tool box",price:[10,5,2]},
+      {name:"Lawn rake",price:[5,2.50,1]},
+      {name:"Shovel",price:[6,3,1.50]},
+    ]},
+  {key:"electronicsMedia",label:"Electronics and Media",brandTier:[110,60,25],
+    brands:["Apple","Bose","Sony","Samsung","Nintendo","Dyson","Beats","Sonos","Canon","Nikon","JBL","GoPro","Bang & Olufsen"],
+    items:[
+      {name:"Flat-screen TV",price:[50,25,10]},
+      {name:"DVD player",price:[10,5,1]},
+      {name:"Game console",price:[40,20,8]},
+      {name:"Wireless speaker",price:[12,6,2]},
+      {name:"Headphones",price:[10,5,2]},
+      {name:"Laptop (older model)",price:[50,25,10]},
+      {name:"Tablet",price:[50,25,10]},
+      {name:"VHS tapes (lot)",price:[1,0.50,0.25]},
+      {name:"Vinyl records (each)",price:[3,1.50,0.50]},
+    ]},
+  {key:"sportsOutdoor",label:"Sports and Outdoor",brandTier:[50,28,12],
+    brands:["Trek","Specialized","Callaway","Titleist","Patagonia","The North Face","Yeti","Cannondale","Under Armour","Nike"],
+    items:[
+      {name:"Bicycle",price:[22,12,5]},
+      {name:"Tennis racket",price:[6,3,1]},
+      {name:"Golf clubs (set)",price:[22,12,5]},
+      {name:"Camping tent",price:[18,10,4]},
+      {name:"Sleeping bag",price:[10,5,2]},
+      {name:"Fishing rod",price:[8,4,1.50]},
+      {name:"Ice skates",price:[10,5,2]},
+      {name:"Dumbbells (pair)",price:[12,6,2]},
+    ]},
+  {key:"collectiblesExtras",label:"Collectibles and Extras",brandTier:null,brands:[],alwaysNudge:true,
+    items:[
+      {name:"Costume jewelry",price:[3,1.50,0.50]},
+      {name:"Comic books",price:[2,1,0.50]},
+      {name:"Baseball cards",price:[2,1,0.50]},
+      {name:"Vintage toy car",price:[5,2.50,1]},
+      {name:"Antique doll",price:[8,4,1.50]},
+      {name:"Postcards",price:[1,0.50,0.25]},
+      {name:"Sewing machine",price:[20,10,4]},
+    ]},
+];
+// Nudge trigger logic (Section 4): brand detected, OR Collectibles and Extras, OR price >= this.
+const SORT_PRICE_NUDGE_THRESHOLD = 20;
 
 const promoteChecklistTiers = [
   {key:"tier1",label:"2 Weeks Out",note:"Tier 1 done.",items:[
@@ -1188,7 +1316,10 @@ function normalizePlanner(src){
     },
     safety:{...b.safety,...(s.safety||{}),tasks:{...b.safety.tasks,...(s.safety?.tasks||{})},tasksPhysical:{...b.safety.tasksPhysical,...(s.safety?.tasksPhysical||{})},tasksCash:{...b.safety.tasksCash,...(s.safety?.tasksCash||{})},change:{...b.safety.change,...(s.safety?.change||{})}},
     checkInPlan:{...b.checkInPlan,...(s.checkInPlan||{})},
-    items:(Array.isArray(s.items)?s.items:b.items).map(item=>({...item,kanbanCol:item.kanbanCol||'think'})),
+    items:(Array.isArray(s.items)?s.items:b.items).map(item=>({...item,kanbanCol:item.kanbanCol||'think',
+      room:item.room||null,photo:item.photo||"",label:item.label||"",brand:!!item.brand,
+      batchId:item.batchId||null,storage:item.storage||"",alsoGiveToKids:!!item.alsoGiveToKids,given:!!item.given,
+    })),
     prep:{...b.prep,...(s.prep||{})},
     nightBefore:{...b.nightBefore,...(s.nightBefore||{})},
     calculatorRows:Array.isArray(s.calculatorRows)&&s.calculatorRows.length?s.calculatorRows:b.calculatorRows,
