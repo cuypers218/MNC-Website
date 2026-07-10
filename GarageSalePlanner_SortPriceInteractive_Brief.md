@@ -169,11 +169,22 @@ Section 4. This keeps the per-photo AI call cheap (a classification task, not
 a generation task) and keeps pricing trustworthy and fully controlled by
 Cece, not an AI guess.
 
+**Provider: Claude API (Anthropic), model `claude-haiku-4-5`.** Chosen for
+cost — Haiku 4.5 is $1/MTok input, $5/MTok output (verified against
+Anthropic's current pricing page). A single photo classification call (one
+image + a short prompt, small JSON response) runs roughly 1,000–2,500 input
+tokens and 100–150 output tokens — **about $0.002–$0.004 per photo.** Even a
+customer photographing 200 items for a large sale costs under $1 in AI spend
+total. No cost cap or throttling is needed at this price point.
+
 Needs: a new PHP endpoint (e.g. `garage-identify-item.php`) that accepts an
-uploaded photo, calls a vision-capable model with a prompt asking for item
-category + specific type + any visible brand name, and returns that as JSON.
-API key lives server-side only, same pattern as any other credential in this
-codebase (never in client JS).
+uploaded photo, calls `claude-haiku-4-5` via the Anthropic PHP SDK with a
+prompt asking for item category + specific type + any visible brand name
+(structured JSON output via `output_config.format`), and returns that to the
+frontend. Anthropic API key lives server-side only in `config.php`
+(gitignored), same pattern as the Stripe keys already in this codebase —
+never in client JS. Cece needs to generate this key from the Anthropic
+Console before this phase can be built.
 
 **Fallback (required, not optional):** if the API call fails, times out, or
 she's offline, Screen 4 (Review) should fall back to the same manual
