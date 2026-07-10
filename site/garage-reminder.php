@@ -76,7 +76,7 @@ $html = '<!DOCTYPE html><html><head><meta charset="UTF-8"></head>
             You will get an email on <strong>' . $reminderDate . '</strong> with a prep checklist and a direct link back to your planner. You do not need to do anything else.
           </p>
           ' . ($moneyPurpose ? '<div style="background:#FDEEF5;padding:18px 22px;margin-bottom:20px;">
-            <p style="font-family:Arial,sans-serif;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#E87AAA;margin:0 0 4px;">What the money is for</p>
+            <p style="font-family:Arial,sans-serif;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#C44570;margin:0 0 4px;">What the money is for</p>
             <p style="font-family:Arial,sans-serif;font-size:14px;color:#252535;line-height:1.6;margin:0;">' . $moneyPurpose . '</p>
           </div>' : '') . '
           <p style="font-family:Arial,sans-serif;font-size:14px;color:#5A5A72;line-height:1.7;margin:0;">Keep going. The hardest part is the sorting.</p>

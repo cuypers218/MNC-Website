@@ -64,7 +64,7 @@ button { cursor: pointer; }
     font-size: 9px;
     letter-spacing: 3px;
     text-transform: uppercase;
-    color: #E87AAA;
+    color: #C44570;
     margin-bottom: 4px;
 }
 .sidebar-brand .panel-label {
@@ -82,7 +82,7 @@ button { cursor: pointer; }
     color: rgba(255,255,255,0.65);
 }
 .nav-item:hover { background: rgba(255,255,255,0.06); color: #ffffff; }
-.nav-item.active { background: #E87AAA; color: #ffffff; font-weight: bold; }
+.nav-item.active { background: #C44570; color: #ffffff; font-weight: bold; }
 .sidebar-footer { padding: 16px 20px; border-top: 1px solid rgba(255,255,255,0.1); }
 .sidebar-footer a { font-size: 12px; color: rgba(255,255,255,0.45); }
 .sidebar-footer a:hover { color: rgba(255,255,255,0.8); }
@@ -198,7 +198,7 @@ button { cursor: pointer; }
     cursor: pointer;
     vertical-align: middle;
 }
-.btn-primary  { background: #E87AAA; color: #ffffff; }
+.btn-primary  { background: #C44570; color: #ffffff; }
 .btn-primary:hover  { background: #d96899; }
 .btn-secondary { background: #252535; color: #ffffff; }
 .btn-secondary:hover { background: #3a3a4a; }
@@ -272,7 +272,7 @@ select.form-control { cursor: pointer; }
 /* === MODALS === */
 .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(37,37,53,0.72); z-index: 200; overflow-y: auto; padding: 40px 16px; }
 .modal-overlay.open { display: block; }
-.modal { background: #FFF8EE; max-width: 640px; margin: 0 auto; padding: 32px; position: relative; }
+.modal { background: #FAF7ED; max-width: 640px; margin: 0 auto; padding: 32px; position: relative; }
 .modal-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 24px; }
 .modal-title {
     font-family: 'Montserrat', Arial, sans-serif;

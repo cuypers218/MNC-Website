@@ -38,7 +38,7 @@ $types = [
     <?php if ($result && isset($types[$result])):
       $t = $types[$result]; ?>
 
-      <p style="font-family:'Montserrat',sans-serif;font-weight:800;font-size:0.7rem;text-transform:uppercase;letter-spacing:0.15em;color:#E87AAA;margin-bottom:0.5rem;">YOUR EMPTY NEST TYPE</p>
+      <p style="font-family:'Montserrat',sans-serif;font-weight:800;font-size:0.7rem;text-transform:uppercase;letter-spacing:0.15em;color:#C44570;margin-bottom:0.5rem;">YOUR EMPTY NEST TYPE</p>
       <h1 style="font-size:2rem;margin-bottom:1rem;"><?= esc($t['label']) ?></h1>
       <p style="font-family:'Montserrat',sans-serif;font-weight:700;font-size:1rem;color:#252535;line-height:1.5;margin-bottom:1.5rem;font-style:italic;"><?= esc($t['tagline']) ?></p>
       <p style="font-size:1rem;color:#5A5A72;line-height:1.8;margin-bottom:2.5rem;"><?= esc($t['body']) ?></p>
@@ -46,7 +46,7 @@ $types = [
       <a href="<?= esc($t['pdf']) ?>" target="_blank" rel="noopener" class="btn btn-primary" style="display:inline-block;margin-bottom:1rem;"><?= esc($t['pdf_label']) ?></a>
 
       <p style="font-size:0.85rem;color:#ABABAB;margin-top:1.5rem;">
-        Think your result has changed? <a href="/about" style="color:#E87AAA;">Retake the quiz on the About page &rarr;</a>
+        Think your result has changed? <a href="/about" style="color:#C44570;">Retake the quiz on the About page &rarr;</a>
       </p>
 
     <?php else: ?>
@@ -59,7 +59,7 @@ $types = [
     <?php endif; ?>
 
     <div style="margin-top:3rem;padding-top:2rem;border-top:1px solid #D3D3D3;">
-      <a href="/dashboard" style="font-family:'Montserrat',sans-serif;font-weight:800;font-size:0.75rem;text-transform:uppercase;letter-spacing:0.05em;color:#E87AAA;">&larr; Back to Dashboard</a>
+      <a href="/dashboard" style="font-family:'Montserrat',sans-serif;font-weight:800;font-size:0.75rem;text-transform:uppercase;letter-spacing:0.05em;color:#C44570;">&larr; Back to Dashboard</a>
     </div>
 
   </div>

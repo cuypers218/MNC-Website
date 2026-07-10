@@ -243,7 +243,7 @@ p { margin-bottom: 1rem; line-height: 1.6; }
 .product-card-category {
     font-family: 'Montserrat', sans-serif; font-weight: 800;
     font-size: 0.7rem; text-transform: uppercase;
-    letter-spacing: 0.1em; color: #666666; margin-bottom: 0.5rem;
+    letter-spacing: 0.1em; color: #8BA7D4; margin-bottom: 0.5rem;
 }
 .product-card-title {
     font-family: 'Montserrat', sans-serif; font-weight: 800;
@@ -309,7 +309,7 @@ p { margin-bottom: 1rem; line-height: 1.6; }
 .blog-card-category {
     font-family: 'Montserrat', sans-serif; font-weight: 800;
     font-size: 0.65rem; text-transform: uppercase;
-    letter-spacing: 0.1em; color: #666666; margin-bottom: 0.5rem;
+    letter-spacing: 0.1em; color: #8BA7D4; margin-bottom: 0.5rem;
 }
 .blog-card-title {
     font-family: 'Montserrat', sans-serif; font-weight: 800;
@@ -324,7 +324,7 @@ p { margin-bottom: 1rem; line-height: 1.6; }
 }
 .blog-card-date {
     font-family: 'Montserrat', sans-serif; font-weight: 400;
-    font-size: 0.75rem; color: #666666; margin-top: auto;
+    font-size: 0.75rem; color: #8BA7D4; margin-top: auto;
 }
 
 /* ============================================
@@ -334,7 +334,7 @@ p { margin-bottom: 1rem; line-height: 1.6; }
 .blog-post-title { font-size: 2rem; margin-bottom: 0.5rem; }
 .blog-post-meta {
     font-family: 'Montserrat', sans-serif; font-weight: 400;
-    font-size: 0.8rem; color: #666666; margin-bottom: 2.5rem;
+    font-size: 0.8rem; color: #8BA7D4; margin-bottom: 2.5rem;
     padding-bottom: 1.5rem; border-bottom: 1px solid #D3D3D3;
 }
 .blog-post-body { font-size: 1.05rem; line-height: 1.7; color: #101010; }
@@ -395,7 +395,7 @@ p { margin-bottom: 1rem; line-height: 1.6; }
 }
 .form-link {
     font-family: 'Arial', sans-serif; font-size: 0.9rem;
-    color: #666666; margin-top: 1.5rem; text-align: center;
+    color: #8BA7D4; margin-top: 1.5rem; text-align: center;
 }
 .form-link a { color: #C44570; }
 
@@ -410,7 +410,7 @@ p { margin-bottom: 1rem; line-height: 1.6; }
 .dashboard-section-title {
     font-family: 'Montserrat', sans-serif; font-weight: 800;
     font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.1em;
-    color: #666666; padding-bottom: 0.75rem;
+    color: #8BA7D4; padding-bottom: 0.75rem;
     border-bottom: 1px solid #4B4B4B; margin-bottom: 1.5rem;
 }
 
@@ -433,7 +433,7 @@ p { margin-bottom: 1rem; line-height: 1.6; }
 .footer-tagline {
     font-family: 'Montserrat', sans-serif; font-weight: 400;
     font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.1em;
-    color: #666666; margin-bottom: 1.5rem;
+    color: #8BA7D4; margin-bottom: 1.5rem;
 }
 .footer-nav {
     display: flex; justify-content: center; gap: 1.5rem;
@@ -451,7 +451,7 @@ p { margin-bottom: 1rem; line-height: 1.6; }
 .footer-social a { color: #8BA7D4; transition: color 0.2s; }
 .footer-social a:hover { color: #C44570; }
 .footer-copy {
-    font-family: 'Arial', sans-serif; font-size: 0.75rem; color: #999999;
+    font-family: 'Arial', sans-serif; font-size: 0.75rem; color: #8BA7D4;
 }
 
 /* ============================================

@@ -74,12 +74,12 @@ $related = $stmt->fetchAll();
             
             <!-- Product Details -->
             <div>
-                <span style="font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.1em; color: #666666;"><?= esc(str_replace('_', ' ', $product['category'])) ?></span>
+                <span style="font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.1em; color: #8BA7D4;"><?= esc(str_replace('_', ' ', $product['category'])) ?></span>
                 
                 <h1 style="font-size: 1.75rem; margin: 0.5rem 0 1rem;"><?= esc($product['title']) ?></h1>
                 
                 <?php if (!$isComingSoon): ?>
-                    <p style="font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 1.5rem; color: #E87AAA; margin-bottom: 1.5rem;">
+                    <p style="font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 1.5rem; color: #C44570; margin-bottom: 1.5rem;">
                         <?= formatPrice($product['price']) ?>
                     </p>
                 <?php endif; ?>
@@ -97,7 +97,7 @@ $related = $stmt->fetchAll();
                     <?php else: ?>
                         <a href="/shop/<?= esc($product['slug']) ?>?download=1" class="btn btn-primary btn-full">Download</a>
                     <?php endif; ?>
-                    <p style="color: #666666; font-size: 0.85rem; margin-top: 0.75rem; text-align: center;">You own this product.</p>
+                    <p style="color: #8BA7D4; font-size: 0.85rem; margin-top: 0.75rem; text-align: center;">You own this product.</p>
                 <?php elseif ($isFree): ?>
                     <?php if (strpos($product['file_path'] ?? '', 'http') === 0): ?>
                         <a href="<?= esc($product['file_path']) ?>" target="_blank" rel="noopener" class="btn btn-primary btn-full">Download Free</a>
@@ -109,10 +109,10 @@ $related = $stmt->fetchAll();
                 <?php else: ?>
                     <?php if (isLoggedIn()): ?>
                         <a href="/checkout?product=<?= esc($product['slug']) ?>" class="btn btn-primary btn-full">Get the <?= esc(ctaTitle($product['title'])) ?></a>
-                        <p style="font-family:Arial,sans-serif;font-size:0.8rem;color:#999999;text-align:center;margin-top:0.6rem;">Secure checkout via Stripe. Instant download after purchase.</p>
+                        <p style="font-family:Arial,sans-serif;font-size:0.8rem;color:#8BA7D4;text-align:center;margin-top:0.6rem;">Secure checkout via Stripe. Instant download after purchase.</p>
                     <?php else: ?>
                         <a href="/register" class="btn btn-primary btn-full">Create Account to Purchase</a>
-                        <p style="color: #666666; font-size: 0.85rem; margin-top: 0.75rem; text-align: center;">You'll need an account to buy and access your download.</p>
+                        <p style="color: #8BA7D4; font-size: 0.85rem; margin-top: 0.75rem; text-align: center;">You'll need an account to buy and access your download.</p>
                     <?php endif; ?>
                     <?php
                     $slugsWithDemo = ['cooking-for-one'];
@@ -120,15 +120,15 @@ $related = $stmt->fetchAll();
                     $slugsWithDirectDemo = ['garage-sale-planner'];
                     if ($isInteractiveTool && in_array($product['slug'], $slugsWithDemo)): ?>
                         <p style="margin-top: 1rem; text-align: center;">
-                            <a href="/widgets/<?= esc($product['slug']) ?>-demo/" style="font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em; color: #E87AAA;">Try the demo first &rarr;</a>
+                            <a href="/widgets/<?= esc($product['slug']) ?>-demo/" style="font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em; color: #C44570;">Try the demo first &rarr;</a>
                         </p>
                     <?php elseif ($isInteractiveTool && in_array($product['slug'], $slugsWithQueryDemo)): ?>
                         <p style="margin-top: 1rem; text-align: center;">
-                            <a href="/widgets/<?= esc($product['slug']) ?>/?demo=1" style="font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em; color: #E87AAA;">Try the demo first &rarr;</a>
+                            <a href="/widgets/<?= esc($product['slug']) ?>/?demo=1" style="font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em; color: #C44570;">Try the demo first &rarr;</a>
                         </p>
                     <?php elseif ($isInteractiveTool && in_array($product['slug'], $slugsWithDirectDemo)): ?>
                         <p style="margin-top: 1rem; text-align: center;">
-                            <a href="/widgets/<?= esc($product['slug']) ?>/" style="font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em; color: #E87AAA;">Try it free — no account needed &rarr;</a>
+                            <a href="/widgets/<?= esc($product['slug']) ?>/" style="font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em; color: #C44570;">Try it free — no account needed &rarr;</a>
                         </p>
                     <?php endif; ?>
                 <?php endif; ?>
@@ -137,7 +137,7 @@ $related = $stmt->fetchAll();
         
         <!-- Back to shop -->
         <div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid #D3D3D3;">
-            <a href="/shop" style="font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em; color: #E87AAA;">&larr; Back to Shop</a>
+            <a href="/shop" style="font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em; color: #C44570;">&larr; Back to Shop</a>
         </div>
         
     </div>

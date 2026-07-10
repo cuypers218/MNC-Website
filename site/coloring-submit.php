@@ -64,13 +64,13 @@ $html = '<!DOCTYPE html><html><head><meta charset="UTF-8"></head>
         <tr><td style="background:#252535;padding:24px 40px;">
           <p style="margin:0;font-family:Arial,sans-serif;font-weight:800;font-size:11px;letter-spacing:3px;text-transform:uppercase;color:#8BA7D4;">MY NEST CHAPTER</p>
         </td></tr>
-        <tr><td style="padding:40px;color:#FFF8EE;font-size:16px;line-height:1.7;">
+        <tr><td style="padding:40px;color:#FAF7ED;font-size:16px;line-height:1.7;">
           <p>' . $greeting . '</p>
           <p style="margin-top:16px;">Your coloring page is here.</p>
           <p style="margin-top:16px;">A few quiet minutes, just for you.</p>
           <p style="text-align:center;margin:32px 0;">
             <a href="' . $downloadUrl . '"
-               style="background:#E87AAA;color:#ffffff;font-family:Arial,sans-serif;font-weight:800;font-size:14px;text-transform:uppercase;letter-spacing:1px;text-decoration:none;padding:16px 32px;display:inline-block;">
+               style="background:#C44570;color:#ffffff;font-family:Arial,sans-serif;font-weight:800;font-size:14px;text-transform:uppercase;letter-spacing:1px;text-decoration:none;padding:16px 32px;display:inline-block;">
               Download Your Coloring Page &rarr;
             </a>
           </p>

@@ -111,8 +111,8 @@ try {
     text-decoration:none;
     cursor:pointer;
 }
-.bk-filter-btn.active { background:#252535; color:#FFF8EE; border-color:#252535; }
-.bk-filter-btn:hover:not(.active) { border-color:#E87AAA; color:#E87AAA; }
+.bk-filter-btn.active { background:#252535; color:#FAF7ED; border-color:#252535; }
+.bk-filter-btn:hover:not(.active) { border-color:#C44570; color:#C44570; }
 
 .bk-table-wrap { overflow-x:auto; }
 table.bk-table { width:100%; border-collapse:collapse; font-size:13px; }
@@ -125,7 +125,7 @@ table.bk-table { width:100%; border-collapse:collapse; font-size:13px; }
     letter-spacing:1.5px;
     text-transform:uppercase;
     background:#252535;
-    color:#FFF8EE;
+    color:#FAF7ED;
     white-space:nowrap;
 }
 .bk-table td {
@@ -183,7 +183,7 @@ table.bk-table { width:100%; border-collapse:collapse; font-size:13px; }
     border:none;
     cursor:pointer;
 }
-.bk-status-btn:hover { background:#E87AAA; color:#fff; }
+.bk-status-btn:hover { background:#C44570; color:#fff; }
 
 .btn-send-link {
     padding:5px 12px;
@@ -209,7 +209,7 @@ table.bk-table { width:100%; border-collapse:collapse; font-size:13px; }
     width:180px;
     color:#252535;
 }
-.bk-video-input:focus { border-color:#E87AAA; outline:none; }
+.bk-video-input:focus { border-color:#C44570; outline:none; }
 
 .text-muted { color:#9b9ba8; font-size:12px; }
 .bk-empty { text-align:center; padding:48px 0; color:#9b9ba8; font-size:14px; }

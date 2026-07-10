@@ -54,7 +54,7 @@ if ($contactUuid) {
 $listRows = '';
 foreach (array_values($items) as $i => $item) {
     $listRows .= '<tr><td style="padding:10px 0;border-bottom:1px solid #F0ECF8;font-family:Arial,sans-serif;font-size:15px;color:#252535;line-height:1.5;">'
-        . '<span style="font-family:Georgia,serif;color:#E87AAA;font-weight:bold;margin-right:12px;">' . ($i + 1) . '.</span>'
+        . '<span style="font-family:Georgia,serif;color:#C44570;font-weight:bold;margin-right:12px;">' . ($i + 1) . '.</span>'
         . htmlspecialchars($item)
         . '</td></tr>';
 }
@@ -80,7 +80,7 @@ $html = '<!DOCTYPE html><html><head><meta charset="UTF-8"></head>
           <p style="font-family:Arial,sans-serif;font-size:15px;color:#252535;line-height:1.7;margin:32px 0 8px;">Now that they\'re written down — the Someday List Companion is what you use to actually look at them. No pressure to do everything. Just a way to figure out where to start.</p>
           <p style="margin:0 0 32px;">
             <a href="https://mynestchapter.com/shop/someday-list-builder"
-               style="font-family:Arial,sans-serif;font-weight:800;font-size:14px;text-transform:uppercase;letter-spacing:1px;color:#E87AAA;text-decoration:none;border-bottom:2px solid #E87AAA;padding-bottom:2px;">
+               style="font-family:Arial,sans-serif;font-weight:800;font-size:14px;text-transform:uppercase;letter-spacing:1px;color:#C44570;text-decoration:none;border-bottom:2px solid #C44570;padding-bottom:2px;">
               Get the Companion &rarr;
             </a>
           </p>

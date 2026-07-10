@@ -99,7 +99,7 @@ $subPct = $subLimit > 0 ? min(100, round(($totalSubs / $subLimit) * 100)) : 0;
     <?php
     $barColors = [
         '#C4B0E8','#8BA7D4','#F2A57A','#B5CC6A','#EDD96A',
-        '#E87AAA','#F5C4A8','#A8C5DA','#C4B0E8','#8BA7D4',
+        '#C44570','#F5C4A8','#A8C5DA','#C4B0E8','#8BA7D4',
     ];
     $maxCount = max(1, max(array_values($segmentCounts)));
     $i = 0;

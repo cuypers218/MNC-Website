@@ -30,14 +30,14 @@ $after = $db->query("SELECT id, title, slug, price, category, status FROM produc
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@800&display=swap" rel="stylesheet">
 <style>
 body { font-family: Arial, sans-serif; max-width: 860px; margin: 40px auto; padding: 20px; background: #f5f4f0; }
-h1 { font-family: 'Montserrat', Arial, sans-serif; font-weight: 800; font-size: 18px; text-transform: uppercase; color: #E87AAA; margin-bottom: 20px; }
+h1 { font-family: 'Montserrat', Arial, sans-serif; font-weight: 800; font-size: 18px; text-transform: uppercase; color: #C44570; margin-bottom: 20px; }
 h2 { font-family: 'Montserrat', Arial, sans-serif; font-weight: 800; font-size: 12px; text-transform: uppercase; letter-spacing: 1px; margin: 24px 0 10px; }
 .row { padding: 10px 14px; margin-bottom: 8px; font-size: 13px; background: #edf7e6; border-left: 4px solid #B5CC6A; }
 table { width: 100%; border-collapse: collapse; background: #fff; }
 th { background: #f5f4f0; font-family: 'Montserrat', Arial, sans-serif; font-weight: 800; font-size: 10px; text-transform: uppercase; padding: 10px 12px; text-align: left; border-bottom: 2px solid #252535; }
 td { padding: 9px 12px; border-bottom: 1px solid #ede9e3; font-size: 13px; }
 .warn { margin-top: 24px; padding: 16px; background: #FFF3CD; border: 1px solid #FFEEBA; font-size: 13px; }
-a { color: #E87AAA; }
+a { color: #C44570; }
 </style>
 </head>
 <body>

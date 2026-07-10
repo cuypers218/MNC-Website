@@ -12,7 +12,7 @@ $PDF_URL  = 'https://drive.google.com/uc?export=download&id=1dVTgwgBjwsg0jz9HCcG
   <div class="container">
 
     <h1 class="text-center fade-in" style="margin-bottom:0.25rem;">Freebies</h1>
-    <p class="text-center fade-in-delay-1" style="color:#666666;font-size:0.95rem;margin-bottom:3rem;">No catch. No upsell on the other side. Just things that helped me.</p>
+    <p class="text-center fade-in-delay-1" style="color:#8BA7D4;font-size:0.95rem;margin-bottom:3rem;">No catch. No upsell on the other side. Just things that helped me.</p>
 
     <!-- 6pm Cheat Sheet -->
     <div class="freebie-feature fade-in">
@@ -35,7 +35,7 @@ $PDF_URL  = 'https://drive.google.com/uc?export=download&id=1dVTgwgBjwsg0jz9HCcG
           <p id="cs-error" style="display:none;color:#C45C88;font-size:0.85rem;margin-top:0.75rem;">Something went wrong — please try again.</p>
         </div>
         <div id="cs-success" style="display:none;">
-          <p style="font-family:'Montserrat',sans-serif;font-weight:700;font-size:0.85rem;color:#FFF8EE;margin-bottom:1rem;">Check your inbox — it's on its way.</p>
+          <p style="font-family:'Montserrat',sans-serif;font-weight:700;font-size:0.85rem;color:#FAF7ED;margin-bottom:1rem;">Check your inbox — it's on its way.</p>
           <a href="<?= $PDF_URL ?>" target="_blank" rel="noopener" class="btn btn-primary">Download it now instead</a>
         </div>
       <?php endif; ?>
@@ -86,14 +86,14 @@ $PDF_URL  = 'https://drive.google.com/uc?export=download&id=1dVTgwgBjwsg0jz9HCcG
   font-size: 0.7rem;
   text-transform: uppercase;
   letter-spacing: 0.15em;
-  color: #E87AAA;
+  color: #C44570;
   margin-bottom: 0.75rem;
 }
 .freebie-title {
   font-family: 'Montserrat', sans-serif;
   font-weight: 800;
   font-size: 1.75rem;
-  color: #FFF8EE;
+  color: #FAF7ED;
   text-transform: uppercase;
   letter-spacing: 0.03em;
   line-height: 1.15;
@@ -115,14 +115,14 @@ $PDF_URL  = 'https://drive.google.com/uc?export=download&id=1dVTgwgBjwsg0jz9HCcG
 .cs-fields input {
   font-family: Arial, sans-serif;
   font-size: 0.9rem;
-  color: #FFF8EE;
+  color: #FAF7ED;
   background: rgba(255,255,255,0.08);
   border: 1px solid rgba(255,248,238,0.2);
   padding: 13px 14px;
   outline: none;
   touch-action: manipulation;
 }
-.cs-fields input:focus { border-color: #E87AAA; }
+.cs-fields input:focus { border-color: #C44570; }
 .cs-fields input::placeholder { color: rgba(255,248,238,0.35); }
 .member-teaser {
   max-width: 520px;
@@ -150,7 +150,7 @@ $PDF_URL  = 'https://drive.google.com/uc?export=download&id=1dVTgwgBjwsg0jz9HCcG
 .teaser-body {
   font-family: Arial, sans-serif;
   font-size: 0.9rem;
-  color: #666666;
+  color: #8BA7D4;
   line-height: 1.7;
 }
 @media (max-width: 600px) {

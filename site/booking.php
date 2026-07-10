@@ -210,14 +210,14 @@ require_once __DIR__ . '/includes/header.php';
     font-size: 11px;
     letter-spacing: 2px;
     text-transform: uppercase;
-    color: #E87AAA;
+    color: #C44570;
     margin-bottom: 14px;
 }
 .booking-hero-heading {
     font-family: 'Montserrat', Arial, sans-serif;
     font-weight: 800;
     font-size: clamp(22px, 4vw, 36px);
-    color: #FFF8EE;
+    color: #FAF7ED;
     line-height: 1.3;
     margin-bottom: 16px;
 }
@@ -231,7 +231,7 @@ require_once __DIR__ . '/includes/header.php';
 }
 
 .booking-section {
-    background: #FFF8EE;
+    background: #FAF7ED;
     padding: 64px 24px 80px;
 }
 .booking-wrap {
@@ -241,7 +241,7 @@ require_once __DIR__ . '/includes/header.php';
 
 .booking-errors {
     background: #fde8e8;
-    border-left: 4px solid #E87AAA;
+    border-left: 4px solid #C44570;
     padding: 16px 20px;
     margin-bottom: 28px;
     font-family: Arial, sans-serif;
@@ -317,7 +317,7 @@ require_once __DIR__ . '/includes/header.php';
 }
 .form-input:focus,
 .form-select:focus,
-.form-textarea:focus { border-color: #E87AAA; }
+.form-textarea:focus { border-color: #C44570; }
 
 .form-select {
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23C4B0E8' stroke-width='2' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
@@ -350,7 +350,7 @@ require_once __DIR__ . '/includes/header.php';
 
 .booking-submit {
     display: inline-block;
-    background: #E87AAA;
+    background: #C44570;
     color: #fff;
     font-family: 'Montserrat', Arial, sans-serif;
     font-weight: 800;

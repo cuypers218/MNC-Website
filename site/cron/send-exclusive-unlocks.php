@@ -67,7 +67,7 @@ foreach ($previewRows as $row) {
 
         <tr><td style="padding:0 40px 28px;">
           <a href="' . $dashLink . '"
-             style="display:inline-block;background:#E87AAA;color:#fff;font-family:Arial,sans-serif;font-weight:700;font-size:13px;text-transform:uppercase;letter-spacing:1px;padding:14px 28px;text-decoration:none;">
+             style="display:inline-block;background:#C44570;color:#fff;font-family:Arial,sans-serif;font-weight:700;font-size:13px;text-transform:uppercase;letter-spacing:1px;padding:14px 28px;text-decoration:none;">
             Go to my dashboard
           </a>
         </td></tr>
@@ -156,7 +156,7 @@ foreach ($unlockRows as $row) {
 
         <tr><td style="padding:0 40px 28px;">
           <a href="' . $dashLink . '"
-             style="display:inline-block;background:#E87AAA;color:#fff;font-family:Arial,sans-serif;font-weight:700;font-size:13px;text-transform:uppercase;letter-spacing:1px;padding:14px 28px;text-decoration:none;">
+             style="display:inline-block;background:#C44570;color:#fff;font-family:Arial,sans-serif;font-weight:700;font-size:13px;text-transform:uppercase;letter-spacing:1px;padding:14px 28px;text-decoration:none;">
             Go to my dashboard
           </a>
         </td></tr>

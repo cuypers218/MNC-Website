@@ -15,15 +15,11 @@ $AMAZON_LINK = "https://www.amazon.com/YOUR_BOOK_LINK"; // replace with Amazon l
 
   :root {
     --charcoal: #252535;
-    --vanilla: #FFF8EE;
-    --pink: #E87AAA;
+    --vanilla: #FAF7ED;
+    --pink: #C44570;
     --periwinkle: #8BA7D4;
     --lavender: #C4B0E8;
-    --peach: #F2A57A;
     --soft-peach: #F5C4A8;
-    --lemon: #EDD96A;
-    --lime: #B5CC6A;
-    --powder-blue: #A8C5DA;
     --text: #1a1a2e;
     --text-light: #555566;
     --border: #E8E0D5;
@@ -170,7 +166,7 @@ $AMAZON_LINK = "https://www.amazon.com/YOUR_BOOK_LINK"; // replace with Amazon l
   .book-badge {
     position: absolute;
     top: -12px; right: -14px;
-    background: var(--lemon);
+    background: var(--lavender);
     color: var(--charcoal);
     font-family: 'DM Sans', sans-serif;
     font-size: 0.65rem;
@@ -211,7 +207,7 @@ $AMAZON_LINK = "https://www.amazon.com/YOUR_BOOK_LINK"; // replace with Amazon l
     line-height: 1.65;
     font-family: 'Lora', serif;
     font-style: italic;
-    border-left: 3px solid var(--peach);
+    border-left: 3px solid var(--soft-peach);
     padding-left: 16px;
   }
   .product-meta {
@@ -397,8 +393,8 @@ $AMAZON_LINK = "https://www.amazon.com/YOUR_BOOK_LINK"; // replace with Amazon l
   }
   .week-card:nth-child(1)::before { background: var(--pink); }
   .week-card:nth-child(2)::before { background: var(--periwinkle); }
-  .week-card:nth-child(3)::before { background: var(--peach); }
-  .week-card:nth-child(4)::before { background: var(--lime); }
+  .week-card:nth-child(3)::before { background: var(--soft-peach); }
+  .week-card:nth-child(4)::before { background: var(--lavender); }
 
   .week-number {
     font-size: 0.68rem;

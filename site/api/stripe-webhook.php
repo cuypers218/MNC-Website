@@ -170,7 +170,7 @@ if ($event['type'] === 'checkout.session.completed') {
                         <table cellpadding="0" cellspacing="0" border="0" width="100%">
                           <tr>
                             <td width="36" valign="top" style="padding-right:14px;">
-                              <div style="width:28px;height:28px;background:#E87AAA;color:#252535;font-family:Arial,sans-serif;font-size:13px;font-weight:700;text-align:center;line-height:28px;">' . $num . '</div>
+                              <div style="width:28px;height:28px;background:#C44570;color:#252535;font-family:Arial,sans-serif;font-size:13px;font-weight:700;text-align:center;line-height:28px;">' . $num . '</div>
                             </td>
                             <td valign="top">
                               <p style="margin:0 0 4px;font-family:Arial,sans-serif;font-size:15px;font-weight:700;color:#252535;">' . htmlspecialchars($step['title']) . '</p>
@@ -193,8 +193,8 @@ if ($event['type'] === 'checkout.session.completed') {
       <!-- Header -->
       <tr>
         <td style="background:#252535;padding:28px 40px 24px;text-align:left;">
-          <p style="margin:0 0 2px;font-family:Arial,sans-serif;font-size:9px;font-weight:700;letter-spacing:4px;text-transform:uppercase;color:#A8C5DA;">MY NEST CHAPTER</p>
-          <p style="margin:0;font-family:Arial,sans-serif;font-size:22px;font-weight:700;color:#E87AAA;letter-spacing:1px;">You\'re in.</p>
+          <p style="margin:0 0 2px;font-family:Arial,sans-serif;font-size:9px;font-weight:700;letter-spacing:4px;text-transform:uppercase;color:#8BA7D4;">MY NEST CHAPTER</p>
+          <p style="margin:0;font-family:Arial,sans-serif;font-size:22px;font-weight:700;color:#C44570;letter-spacing:1px;">You\'re in.</p>
         </td>
       </tr>
 
@@ -211,13 +211,13 @@ if ($event['type'] === 'checkout.session.completed') {
           <!-- CTA -->
           <table cellpadding="0" cellspacing="0" border="0" style="margin:8px 0 32px;">
             <tr>
-              <td style="background:#E87AAA;padding:0;">
+              <td style="background:#C44570;padding:0;">
                 <a href="' . $directUrl . '" style="display:inline-block;padding:14px 32px;font-family:Arial,sans-serif;font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#252535;text-decoration:none;">' . $ctaLabel . '</a>
               </td>
             </tr>
           </table>
 
-          <p style="margin:0 0 36px;font-family:Arial,sans-serif;font-size:13px;color:#5A5A72;line-height:1.7;">If the button doesn\'t work, copy this link into your browser:<br><a href="' . $directUrl . '" style="color:#E87AAA;">' . $directUrl . '</a></p>
+          <p style="margin:0 0 36px;font-family:Arial,sans-serif;font-size:13px;color:#5A5A72;line-height:1.7;">If the button doesn\'t work, copy this link into your browser:<br><a href="' . $directUrl . '" style="color:#C44570;">' . $directUrl . '</a></p>
         </td>
       </tr>
 

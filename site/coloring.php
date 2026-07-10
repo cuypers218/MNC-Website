@@ -18,8 +18,8 @@
 
   :root {
     --charcoal: #252535;
-    --vanilla: #FFF8EE;
-    --pink: #E87AAA;
+    --vanilla: #FAF7ED;
+    --pink: #C44570;
     --periwinkle: #8BA7D4;
     --soft-peach: #F5C4A8;
     --text: #1a1a2e;

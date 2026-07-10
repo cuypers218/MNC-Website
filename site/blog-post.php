@@ -27,7 +27,7 @@ $related = $stmt->fetchAll();
 <article class="blog-post">
     
     <?php if ($post['category']): ?>
-        <span style="font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.12em; color: #666666;"><?= esc($post['category']) ?></span>
+        <span style="font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.12em; color: #8BA7D4;"><?= esc($post['category']) ?></span>
     <?php endif; ?>
     
     <h1 class="blog-post-title fade-in"><?= esc($post['title']) ?></h1>
@@ -60,8 +60,8 @@ $related = $stmt->fetchAll();
     }
     ?>
     <div style="background:#252535;padding:28px 32px;margin-top:3rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1.5rem;">
-        <p style="font-family:Arial,sans-serif;font-size:0.95rem;color:#FFF8EE;margin:0;line-height:1.6;max-width:520px;"><?= esc($ctaText) ?></p>
-        <a href="<?= esc($ctaLink) ?>" style="font-family:'Montserrat',sans-serif;font-weight:800;font-size:0.75rem;text-transform:uppercase;letter-spacing:0.05em;color:#E87AAA;white-space:nowrap;flex-shrink:0;"><?= esc($ctaLabel) ?> &rarr;</a>
+        <p style="font-family:Arial,sans-serif;font-size:0.95rem;color:#FAF7ED;margin:0;line-height:1.6;max-width:520px;"><?= esc($ctaText) ?></p>
+        <a href="<?= esc($ctaLink) ?>" style="font-family:'Montserrat',sans-serif;font-weight:800;font-size:0.75rem;text-transform:uppercase;letter-spacing:0.05em;color:#C44570;white-space:nowrap;flex-shrink:0;"><?= esc($ctaLabel) ?> &rarr;</a>
     </div>
 
     <!-- Email Capture -->
@@ -76,7 +76,7 @@ $related = $stmt->fetchAll();
     
     <!-- Back to blog -->
     <div style="margin-top: 2.5rem; padding-top: 1.5rem; border-top: 1px solid #D3D3D3;">
-        <a href="/blog" style="font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em; color: #E87AAA;">&larr; Back to Blog</a>
+        <a href="/blog" style="font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em; color: #C44570;">&larr; Back to Blog</a>
     </div>
     
 </article>

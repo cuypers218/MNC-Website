@@ -74,20 +74,20 @@ foreach ($reminders as $reminder) {
         </td></tr>
 
         <tr><td style="padding:0 40px 28px;">
-          <p style="font-family:Arial,sans-serif;font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:#E87AAA;margin:0 0 12px;">Day-Before Checklist</p>
+          <p style="font-family:Arial,sans-serif;font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:#C44570;margin:0 0 12px;">Day-Before Checklist</p>
           <table width="100%" cellpadding="0" cellspacing="0">' . $checklistHtml . '</table>
         </td></tr>
 
         <tr><td style="padding:0 40px 28px;">
           <a href="https://mynestchapter.com/widgets/garage-sale-planner/"
-             style="display:inline-block;background:#E87AAA;color:#fff;font-family:Arial,sans-serif;font-weight:700;font-size:13px;text-transform:uppercase;letter-spacing:1px;padding:14px 28px;text-decoration:none;">
+             style="display:inline-block;background:#C44570;color:#fff;font-family:Arial,sans-serif;font-weight:700;font-size:13px;text-transform:uppercase;letter-spacing:1px;padding:14px 28px;text-decoration:none;">
             Open my planner
           </a>
         </td></tr>
 
         ' . ($moneyPurpose ? '<tr><td style="padding:0 40px 28px;">
           <div style="background:#FDEEF5;padding:18px 22px;">
-            <p style="font-family:Arial,sans-serif;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#E87AAA;margin:0 0 4px;">What the money is for</p>
+            <p style="font-family:Arial,sans-serif;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#C44570;margin:0 0 4px;">What the money is for</p>
             <p style="font-family:Arial,sans-serif;font-size:14px;color:#252535;line-height:1.6;margin:0;">' . $moneyPurpose . '</p>
           </div>
         </td></tr>' : '') . '

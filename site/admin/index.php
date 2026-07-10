@@ -43,7 +43,7 @@ body {
     justify-content: center;
 }
 .login-card {
-    background: #FFF8EE;
+    background: #FAF7ED;
     width: 100%;
     max-width: 380px;
     padding: 48px 40px;
@@ -54,7 +54,7 @@ body {
     font-size: 10px;
     letter-spacing: 3px;
     text-transform: uppercase;
-    color: #E87AAA;
+    color: #C44570;
     margin-bottom: 8px;
 }
 .login-title {
@@ -90,7 +90,7 @@ body {
 .btn-login {
     width: 100%;
     padding: 14px;
-    background: #E87AAA;
+    background: #C44570;
     color: #ffffff;
     font-family: 'Montserrat', Arial, sans-serif;
     font-weight: 800;

@@ -88,7 +88,7 @@ $emails = [
 <p>I made something for exactly where you are. One page, yours to keep.</p>
 <p style="text-align:center;margin:28px 0;">
   <a href="https://mynestchapter.com/downloads/freebie_the_nester.pdf"
-     style="background:#E87AAA;color:#ffffff;font-family:\'Montserrat\',Arial,sans-serif;font-weight:800;font-size:14px;text-transform:uppercase;letter-spacing:1px;text-decoration:none;padding:14px 28px;display:inline-block;">
+     style="background:#C44570;color:#ffffff;font-family:\'Montserrat\',Arial,sans-serif;font-weight:800;font-size:14px;text-transform:uppercase;letter-spacing:1px;text-decoration:none;padding:14px 28px;display:inline-block;">
     Get Your Free Guide &rarr;
   </a>
 </p>
@@ -110,7 +110,7 @@ $emails = [
 <p>I made something for the five minutes between things. One page, yours to keep.</p>
 <p style="text-align:center;margin:28px 0;">
   <a href="https://mynestchapter.com/downloads/freebie_the_busyer.pdf"
-     style="background:#E87AAA;color:#ffffff;font-family:\'Montserrat\',Arial,sans-serif;font-weight:800;font-size:14px;text-transform:uppercase;letter-spacing:1px;text-decoration:none;padding:14px 28px;display:inline-block;">
+     style="background:#C44570;color:#ffffff;font-family:\'Montserrat\',Arial,sans-serif;font-weight:800;font-size:14px;text-transform:uppercase;letter-spacing:1px;text-decoration:none;padding:14px 28px;display:inline-block;">
     Get Your Free Guide &rarr;
   </a>
 </p>
@@ -132,7 +132,7 @@ $emails = [
 <p>I made something for right where you are. One page, yours to keep.</p>
 <p style="text-align:center;margin:28px 0;">
   <a href="https://mynestchapter.com/downloads/freebie_the_wonderer.pdf"
-     style="background:#E87AAA;color:#ffffff;font-family:\'Montserrat\',Arial,sans-serif;font-weight:800;font-size:14px;text-transform:uppercase;letter-spacing:1px;text-decoration:none;padding:14px 28px;display:inline-block;">
+     style="background:#C44570;color:#ffffff;font-family:\'Montserrat\',Arial,sans-serif;font-weight:800;font-size:14px;text-transform:uppercase;letter-spacing:1px;text-decoration:none;padding:14px 28px;display:inline-block;">
     Get Your Free Guide &rarr;
   </a>
 </p>
@@ -160,7 +160,7 @@ $html = '<!DOCTYPE html>
     <tr><td align="center">
       <table width="580" cellpadding="0" cellspacing="0" style="background:#ffffff;max-width:580px;width:100%;">
         <tr>
-          <td style="background:#E87AAA;padding:20px 40px;">
+          <td style="background:#C44570;padding:20px 40px;">
             <p style="margin:0;font-family:\'Montserrat\',Arial,sans-serif;font-weight:800;font-size:11px;letter-spacing:3px;text-transform:uppercase;color:#ffffff;">MY NEST CHAPTER</p>
           </td>
         </tr>
@@ -172,7 +172,7 @@ $html = '<!DOCTYPE html>
         <tr>
           <td style="padding:20px 40px;border-top:1px solid #F0ECF8;">
             <p style="margin:0;font-family:Arial,sans-serif;font-size:12px;color:#ABABAB;line-height:1.6;">
-              You\'re receiving this because you took the What Kind of Empty Nester Are You? quiz at <a href="https://mynestchapter.com" style="color:#E87AAA;">mynestchapter.com</a>
+              You\'re receiving this because you took the What Kind of Empty Nester Are You? quiz at <a href="https://mynestchapter.com" style="color:#C44570;">mynestchapter.com</a>
             </p>
           </td>
         </tr>

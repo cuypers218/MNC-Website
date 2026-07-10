@@ -64,7 +64,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <section class="section">
     <div class="form-page">
         <h1 class="text-center" style="margin-bottom: 0.5rem;">Create Your Account</h1>
-        <p class="text-center" style="color: #666666; font-size: 0.9rem; margin-bottom: 2rem;">Your tools and purchases will live here.</p>
+        <p class="text-center" style="color: #8BA7D4; font-size: 0.9rem; margin-bottom: 2rem;">Your tools and purchases will live here.</p>
         
         <?php if ($error): ?>
             <div class="form-error"><?= $error ?></div>

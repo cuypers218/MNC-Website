@@ -92,7 +92,7 @@ $body = <<<'BODY'
 
 <p>That list is what became the 6pm Cheat Sheet. It&#8217;s free. I&#8217;m not going to sit here and tell you it fixes everything because it doesn&#8217;t. Nothing fixes it. But it might help you get through tonight. And some nights that&#8217;s all you&#8217;re looking for.</p>
 
-<p><a href="/6pm-cheat-sheet/" style="color:#E87AAA;font-family:'Montserrat',sans-serif;font-weight:800;">Grab the free 6pm Cheat Sheet here &rarr;</a></p>
+<p><a href="/6pm-cheat-sheet/" style="color:#C44570;font-family:'Montserrat',sans-serif;font-weight:800;">Grab the free 6pm Cheat Sheet here &rarr;</a></p>
 
 <h2>You Don&#8217;t Have to Have It Figured Out Tonight</h2>
 
@@ -114,7 +114,7 @@ $body = <<<'BODY'
 
 <p>&#8212; Cece</p>
 
-<p style="color:#666666;font-style:italic;">If 6pm is hard right now, the <a href="/6pm-cheat-sheet/" style="color:#E87AAA;">6pm Cheat Sheet</a> is free &#8212; the things that actually helped me get through that hour, from a solo mom who has been right where you are.</p>
+<p style="color:#8BA7D4;font-style:italic;">If 6pm is hard right now, the <a href="/6pm-cheat-sheet/" style="color:#C44570;">6pm Cheat Sheet</a> is free &#8212; the things that actually helped me get through that hour, from a solo mom who has been right where you are.</p>
 BODY;
 
 try {

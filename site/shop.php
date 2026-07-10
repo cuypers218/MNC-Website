@@ -10,7 +10,7 @@ $allProducts = getProducts();
     <div class="container">
 
         <h1 class="text-center fade-in" style="margin-bottom: 0.25rem;">Shop</h1>
-        <p class="text-center fade-in-delay-1" style="color: #666666; font-size: 0.95rem; margin-bottom: 0;">Tools built from lived experience.</p>
+        <p class="text-center fade-in-delay-1" style="color: #8BA7D4; font-size: 0.95rem; margin-bottom: 0;">Tools built from lived experience.</p>
 
         <!-- Filter Tabs -->
         <nav class="filter-nav">
@@ -28,7 +28,7 @@ $allProducts = getProducts();
             if (empty($paidProducts)): ?>
                 <div style="grid-column: 1 / -1; text-align: center; padding: 3rem;">
                     <p style="font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; color: #D3D3D3; margin-bottom: 0.5rem;">MY NEST CHAPTER</p>
-                    <p style="color: #666666; font-size: 0.9rem;">Products are on the way. Check back soon.</p>
+                    <p style="color: #8BA7D4; font-size: 0.9rem;">Products are on the way. Check back soon.</p>
                 </div>
             <?php else: ?>
                 <?php foreach ($paidProducts as $product):
@@ -66,7 +66,7 @@ $allProducts = getProducts();
         <!-- Freebies nudge -->
         <div style="text-align:center;margin-top:3rem;padding-top:2rem;border-top:1px solid #D3D3D3;">
             <p style="font-family:'Montserrat',sans-serif;font-weight:800;font-size:0.75rem;text-transform:uppercase;letter-spacing:0.1em;color:#ABABAB;margin-bottom:0.5rem;">Looking for the free stuff?</p>
-            <a href="/freebies" style="font-family:'Montserrat',sans-serif;font-weight:800;font-size:0.8rem;text-transform:uppercase;letter-spacing:0.05em;color:#E87AAA;">Browse the Freebies Page &rarr;</a>
+            <a href="/freebies" style="font-family:'Montserrat',sans-serif;font-weight:800;font-size:0.8rem;text-transform:uppercase;letter-spacing:0.05em;color:#C44570;">Browse the Freebies Page &rarr;</a>
         </div>
     </div>
 </section>

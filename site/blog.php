@@ -23,7 +23,7 @@ $categories = $db->query('SELECT DISTINCT category FROM blog_posts WHERE status 
     <div class="container">
         
         <h1 class="text-center fade-in" style="margin-bottom: 0.5rem;">Blog</h1>
-        <p class="text-center fade-in-delay-1" style="color: #666666; font-size: 0.95rem; margin-bottom: 2rem;">Weekly updates from where I am right now — not where I've been.</p>
+        <p class="text-center fade-in-delay-1" style="color: #8BA7D4; font-size: 0.95rem; margin-bottom: 2rem;">Weekly updates from where I am right now — not where I've been.</p>
         
         <!-- Category Filter -->
         <?php if (!empty($categories)): ?>
@@ -59,7 +59,7 @@ $categories = $db->query('SELECT DISTINCT category FROM blog_posts WHERE status 
         <?php else: ?>
         <div class="text-center" style="padding: 3rem;">
             <p style="font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; color: #D3D3D3; margin-bottom: 0.5rem;">MY NEST CHAPTER</p>
-            <p style="color: #666666; font-size: 0.95rem;">First posts are on the way. Check back soon.</p>
+            <p style="color: #8BA7D4; font-size: 0.95rem;">First posts are on the way. Check back soon.</p>
         </div>
         <?php endif; ?>
         

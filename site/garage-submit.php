@@ -113,7 +113,7 @@ $html = '<!DOCTYPE html><html><head><meta charset="UTF-8"></head>
                 <span style="font-family:Arial,sans-serif;font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#8BA7D4;">Total earned</span>
               </td>
               <td style="padding:10px 0;border-bottom:1px solid #F0ECF8;text-align:right;">
-                <span style="font-family:Georgia,serif;font-size:22px;font-weight:bold;color:#E87AAA;">$' . $totalEarned . '</span>
+                <span style="font-family:Georgia,serif;font-size:22px;font-weight:bold;color:#C44570;">$' . $totalEarned . '</span>
               </td>
             </tr>
             ' . $goalRow . '
@@ -138,7 +138,7 @@ $html = '<!DOCTYPE html><html><head><meta charset="UTF-8"></head>
 
         <!-- Leftovers + Lessons -->
         <tr><td style="padding:0 40px 28px;">
-          <p style="font-family:Arial,sans-serif;font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:#E87AAA;margin:0 0 12px;">What Happens Next</p>
+          <p style="font-family:Arial,sans-serif;font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:#C44570;margin:0 0 12px;">What Happens Next</p>
           <table width="100%" cellpadding="0" cellspacing="0">
             ' . wrapRow('Donating', $donate) . '
             ' . wrapRow('Selling online', $sellOnline) . '
@@ -152,7 +152,7 @@ $html = '<!DOCTYPE html><html><head><meta charset="UTF-8"></head>
         ' . ($moneyPurpose ? '
         <tr><td style="padding:0 40px 28px;">
           <div style="background:#FDEEF5;padding:20px 24px;">
-            <p style="font-family:Arial,sans-serif;font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#E87AAA;margin:0 0 6px;">What the money is for</p>
+            <p style="font-family:Arial,sans-serif;font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#C44570;margin:0 0 6px;">What the money is for</p>
             <p style="font-family:Arial,sans-serif;font-size:15px;color:#252535;line-height:1.6;margin:0;">' . $moneyPurpose . '</p>
           </div>
         </td></tr>' : '') . '

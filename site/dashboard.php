@@ -63,7 +63,7 @@ $nextUnlock     = getNextExclusiveUnlock($user['id']);
     font-size: 0.7rem;
     text-transform: uppercase;
     letter-spacing: 0.1em;
-    color: #999999;
+    color: #8BA7D4;
     background: none;
     border: none;
     border-bottom: 3px solid transparent;
@@ -74,7 +74,7 @@ $nextUnlock     = getNextExclusiveUnlock($user['id']);
     transition: color 0.15s, border-color 0.15s;
 }
 .dash-tab-btn:hover { color: #252535; }
-.dash-tab-btn.active { color: #E87AAA; border-bottom-color: #E87AAA; }
+.dash-tab-btn.active { color: #C44570; border-bottom-color: #C44570; }
 .dash-tab-panel { display: none; }
 .dash-tab-panel.active { display: block; }
 @media (max-width: 480px) {
@@ -95,14 +95,14 @@ $nextUnlock     = getNextExclusiveUnlock($user['id']);
         <!-- Your Empty Nest Type — persistent above tabs -->
         <div style="background:#252535;padding:28px 32px;margin-bottom:2rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;">
             <div>
-                <p style="font-family:'Montserrat',sans-serif;font-weight:800;font-size:0.65rem;text-transform:uppercase;letter-spacing:0.15em;color:#A8C5DA;margin-bottom:0.35rem;">YOUR EMPTY NEST TYPE</p>
+                <p style="font-family:'Montserrat',sans-serif;font-weight:800;font-size:0.65rem;text-transform:uppercase;letter-spacing:0.15em;color:#8BA7D4;margin-bottom:0.35rem;">YOUR EMPTY NEST TYPE</p>
                 <?php if ($quizResult && isset($typeLabels[$quizResult])): ?>
-                    <p style="font-family:'Montserrat',sans-serif;font-weight:800;font-size:1.1rem;color:#FFF8EE;margin:0;"><?= esc($typeLabels[$quizResult]) ?></p>
+                    <p style="font-family:'Montserrat',sans-serif;font-weight:800;font-size:1.1rem;color:#FAF7ED;margin:0;"><?= esc($typeLabels[$quizResult]) ?></p>
                 <?php else: ?>
-                    <p style="font-family:'Montserrat',sans-serif;font-weight:800;font-size:1rem;color:#FFF8EE;margin:0;">Not sure which one you are yet</p>
+                    <p style="font-family:'Montserrat',sans-serif;font-weight:800;font-size:1rem;color:#FAF7ED;margin:0;">Not sure which one you are yet</p>
                 <?php endif; ?>
             </div>
-            <a href="/nest-type" style="font-family:'Montserrat',sans-serif;font-weight:800;font-size:0.75rem;text-transform:uppercase;letter-spacing:0.05em;color:#E87AAA;white-space:nowrap;"><?= $quizResult ? 'View Your Type &amp; Download &rarr;' : 'Find Out &rarr;' ?></a>
+            <a href="/nest-type" style="font-family:'Montserrat',sans-serif;font-weight:800;font-size:0.75rem;text-transform:uppercase;letter-spacing:0.05em;color:#C44570;white-space:nowrap;"><?= $quizResult ? 'View Your Type &amp; Download &rarr;' : 'Find Out &rarr;' ?></a>
         </div>
 
         <!-- Tab navigation -->
@@ -118,8 +118,8 @@ $nextUnlock     = getNextExclusiveUnlock($user['id']);
 
             <?php if (empty($purchases)): ?>
                 <div style="padding:20px 0 2.5rem;">
-                    <p style="color:#666666;font-size:0.95rem;margin:0 0 0.5rem;">Nothing here yet. Once you buy something, it'll show up here.</p>
-                    <a href="/shop" style="font-family:'Montserrat',sans-serif;font-weight:800;font-size:0.75rem;text-transform:uppercase;letter-spacing:0.05em;color:#E87AAA;">Browse the Shop &rarr;</a>
+                    <p style="color:#8BA7D4;font-size:0.95rem;margin:0 0 0.5rem;">Nothing here yet. Once you buy something, it'll show up here.</p>
+                    <a href="/shop" style="font-family:'Montserrat',sans-serif;font-weight:800;font-size:0.75rem;text-transform:uppercase;letter-spacing:0.05em;color:#C44570;">Browse the Shop &rarr;</a>
                 </div>
             <?php else: ?>
                 <div class="product-grid" style="margin-bottom:3rem;">
@@ -195,8 +195,8 @@ $nextUnlock     = getNextExclusiveUnlock($user['id']);
                 </div>
 
                 <?php if ($product['slug'] === 'someday-list'): ?>
-                <div class="product-card fade-in" style="background:#FFF8EE;border:1.5px solid #cfc7e8;">
-                    <span class="badge" style="background:#E87AAA;color:#FFFFFF;">$7.99</span>
+                <div class="product-card fade-in" style="background:#FAF7ED;border:1.5px solid #cfc7e8;">
+                    <span class="badge" style="background:#C44570;color:#FFFFFF;">$7.99</span>
                     <div style="height:140px;background:linear-gradient(135deg,#F5C4A8 0%,#C4B0E8 100%);display:flex;align-items:center;justify-content:center;">
                         <p style="font-family:'Montserrat',sans-serif;font-weight:800;font-size:0.7rem;text-transform:uppercase;letter-spacing:0.1em;color:#C45C88;">SOMEDAY COMPANION</p>
                     </div>
@@ -215,7 +215,7 @@ $nextUnlock     = getNextExclusiveUnlock($user['id']);
                 <div class="product-card fade-in">
                     <span class="badge badge-free">FREE</span>
                     <div style="height:140px;background:#252535;display:flex;align-items:center;justify-content:center;padding:0 20px;text-align:center;">
-                        <p style="font-family:'Montserrat',sans-serif;font-weight:800;font-size:0.7rem;text-transform:uppercase;letter-spacing:0.1em;color:#A8C5DA;margin:0;">WHAT KIND OF NESTER ARE YOU?</p>
+                        <p style="font-family:'Montserrat',sans-serif;font-weight:800;font-size:0.7rem;text-transform:uppercase;letter-spacing:0.1em;color:#8BA7D4;margin:0;">WHAT KIND OF NESTER ARE YOU?</p>
                     </div>
                     <div class="product-card-content">
                         <span class="product-card-category">quiz</span>
@@ -252,7 +252,7 @@ $nextUnlock     = getNextExclusiveUnlock($user['id']);
                         <?php if ($item['file_path']): ?>
                             <a href="/exclusive-download?id=<?= (int)$item['id'] ?>" class="btn btn-primary">Download</a>
                         <?php else: ?>
-                            <p style="font-size:0.8rem;color:#999999;margin:0;">Coming soon.</p>
+                            <p style="font-size:0.8rem;color:#8BA7D4;margin:0;">Coming soon.</p>
                         <?php endif; ?>
                     </div>
                 </div>
@@ -262,8 +262,8 @@ $nextUnlock     = getNextExclusiveUnlock($user['id']);
 
             <?php if ($nextUnlock): ?>
             <div style="background:#252535;padding:24px 32px;margin-bottom:2rem;">
-                <p style="font-family:'Montserrat',sans-serif;font-weight:800;font-size:0.65rem;text-transform:uppercase;letter-spacing:0.15em;color:#A8C5DA;margin:0 0 0.35rem;">NEXT EXCLUSIVE FREEBIE</p>
-                <p style="font-family:'Montserrat',sans-serif;font-weight:800;font-size:1rem;color:#FFF8EE;margin:0 0 0.25rem;"><?= esc($nextUnlock['title']) ?></p>
+                <p style="font-family:'Montserrat',sans-serif;font-weight:800;font-size:0.65rem;text-transform:uppercase;letter-spacing:0.15em;color:#8BA7D4;margin:0 0 0.35rem;">NEXT EXCLUSIVE FREEBIE</p>
+                <p style="font-family:'Montserrat',sans-serif;font-weight:800;font-size:1rem;color:#FAF7ED;margin:0 0 0.25rem;"><?= esc($nextUnlock['title']) ?></p>
                 <p id="exclusiveCountdown" style="font-family:Arial,sans-serif;font-size:0.85rem;color:#C4B0E8;margin:0;"></p>
             </div>
             <script>
@@ -288,12 +288,12 @@ $nextUnlock     = getNextExclusiveUnlock($user['id']);
             </script>
             <?php elseif (empty($exclusiveItems)): ?>
             <div style="padding:20px 0 2rem;">
-                <p style="color:#666666;font-size:0.95rem;margin:0;">Your first exclusive freebie is waiting on your dashboard. Refresh if you don't see it.</p>
+                <p style="color:#8BA7D4;font-size:0.95rem;margin:0;">Your first exclusive freebie is waiting on your dashboard. Refresh if you don't see it.</p>
             </div>
             <?php else: ?>
             <div style="background:#252535;padding:24px 32px;margin-bottom:2rem;">
-                <p style="font-family:'Montserrat',sans-serif;font-weight:800;font-size:0.65rem;text-transform:uppercase;letter-spacing:0.15em;color:#A8C5DA;margin:0 0 0.35rem;">EXCLUSIVE FREEBIES</p>
-                <p style="font-family:'Montserrat',sans-serif;font-weight:800;font-size:1rem;color:#FFF8EE;margin:0 0 0.25rem;">You're all caught up.</p>
+                <p style="font-family:'Montserrat',sans-serif;font-weight:800;font-size:0.65rem;text-transform:uppercase;letter-spacing:0.15em;color:#8BA7D4;margin:0 0 0.35rem;">EXCLUSIVE FREEBIES</p>
+                <p style="font-family:'Montserrat',sans-serif;font-weight:800;font-size:1rem;color:#FAF7ED;margin:0 0 0.25rem;">You're all caught up.</p>
                 <p style="font-family:Arial,sans-serif;font-size:0.85rem;color:#C4B0E8;margin:0;">Your next exclusive freebie is on its way.</p>
             </div>
             <?php endif; ?>
@@ -305,8 +305,8 @@ $nextUnlock     = getNextExclusiveUnlock($user['id']);
 
             <?php if ($currentTier === 0): ?>
                 <div style="padding:20px 0 3rem;">
-                    <p style="color:#666666;font-size:0.95rem;margin:0 0 0.5rem;">Your member discount unlocks with your first purchase.</p>
-                    <a href="/shop" style="font-family:'Montserrat',sans-serif;font-weight:800;font-size:0.75rem;text-transform:uppercase;letter-spacing:0.05em;color:#E87AAA;">Browse the Shop &rarr;</a>
+                    <p style="color:#8BA7D4;font-size:0.95rem;margin:0 0 0.5rem;">Your member discount unlocks with your first purchase.</p>
+                    <a href="/shop" style="font-family:'Montserrat',sans-serif;font-weight:800;font-size:0.75rem;text-transform:uppercase;letter-spacing:0.05em;color:#C44570;">Browse the Shop &rarr;</a>
                 </div>
 
             <?php else:
@@ -316,21 +316,21 @@ $nextUnlock     = getNextExclusiveUnlock($user['id']);
 
                     <div style="background:#252535;padding:32px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1.5rem;">
                         <div>
-                            <p style="font-family:'Montserrat',sans-serif;font-weight:800;font-size:0.65rem;text-transform:uppercase;letter-spacing:0.15em;color:#A8C5DA;margin:0 0 0.4rem;">YOUR MEMBER DISCOUNT</p>
-                            <p style="font-family:'Montserrat',sans-serif;font-weight:800;font-size:1.5rem;color:#FFF8EE;margin:0 0 0.25rem;"><?= esc($tier['pct']) ?>% off your next purchase.</p>
-                            <p style="font-family:Arial,sans-serif;font-size:0.85rem;color:#999999;margin:0 0 0.4rem;">Use at checkout:</p>
-                            <p style="font-family:'Montserrat',sans-serif;font-weight:800;font-size:1.3rem;letter-spacing:0.12em;color:#E87AAA;margin:0;" id="tierCode"><?= esc($tier['code']) ?></p>
+                            <p style="font-family:'Montserrat',sans-serif;font-weight:800;font-size:0.65rem;text-transform:uppercase;letter-spacing:0.15em;color:#8BA7D4;margin:0 0 0.4rem;">YOUR MEMBER DISCOUNT</p>
+                            <p style="font-family:'Montserrat',sans-serif;font-weight:800;font-size:1.5rem;color:#FAF7ED;margin:0 0 0.25rem;"><?= esc($tier['pct']) ?>% off your next purchase.</p>
+                            <p style="font-family:Arial,sans-serif;font-size:0.85rem;color:#8BA7D4;margin:0 0 0.4rem;">Use at checkout:</p>
+                            <p style="font-family:'Montserrat',sans-serif;font-weight:800;font-size:1.3rem;letter-spacing:0.12em;color:#C44570;margin:0;" id="tierCode"><?= esc($tier['code']) ?></p>
                         </div>
-                        <button onclick="copyTierCode()" id="tierCopyBtn" style="font-family:'Montserrat',sans-serif;font-weight:800;font-size:0.75rem;text-transform:uppercase;letter-spacing:0.05em;background:#E87AAA;color:#FFFFFF;border:none;padding:14px 32px;cursor:pointer;">Copy Code</button>
+                        <button onclick="copyTierCode()" id="tierCopyBtn" style="font-family:'Montserrat',sans-serif;font-weight:800;font-size:0.75rem;text-transform:uppercase;letter-spacing:0.05em;background:#C44570;color:#FFFFFF;border:none;padding:14px 32px;cursor:pointer;">Copy Code</button>
                     </div>
 
                     <?php if ($currentTier < 3): ?>
                     <div style="background:#1c1c2a;padding:12px 32px;border-top:1px solid #333;">
-                        <p style="font-family:Arial,sans-serif;font-size:0.8rem;color:#666666;margin:0;">Buy <?= $currentTier === 1 ? 'one more product' : 'two more products' ?> to unlock <?= $currentTier === 1 ? '15' : '20' ?>% off.</p>
+                        <p style="font-family:Arial,sans-serif;font-size:0.8rem;color:#8BA7D4;margin:0;">Buy <?= $currentTier === 1 ? 'one more product' : 'two more products' ?> to unlock <?= $currentTier === 1 ? '15' : '20' ?>% off.</p>
                     </div>
                     <?php else: ?>
                     <div style="background:#1c1c2a;padding:12px 32px;border-top:1px solid #333;">
-                        <p style="font-family:Arial,sans-serif;font-size:0.8rem;color:#666666;margin:0;">You're at the highest member tier. Thank you.</p>
+                        <p style="font-family:Arial,sans-serif;font-size:0.8rem;color:#8BA7D4;margin:0;">You're at the highest member tier. Thank you.</p>
                     </div>
                     <?php endif; ?>
 
@@ -340,9 +340,9 @@ $nextUnlock     = getNextExclusiveUnlock($user['id']);
                         transform-origin:left center;
                         animation:doorSwingOpen 1.6s cubic-bezier(0.4,0,0.2,1) 1s forwards;
                     ">
-                        <div style="background:#FFF8EE;width:100%;height:100%;position:relative;">
+                        <div style="background:#FAF7ED;width:100%;height:100%;position:relative;">
                             <div style="position:absolute;top:16px;left:16px;right:16px;bottom:16px;border:2px solid #D3D3D3;pointer-events:none;"></div>
-                            <div style="position:absolute;right:28px;top:50%;transform:translateY(-50%);width:18px;height:18px;background:#E87AAA;border-radius:9999px;"></div>
+                            <div style="position:absolute;right:28px;top:50%;transform:translateY(-50%);width:18px;height:18px;background:#C44570;border-radius:9999px;"></div>
                             <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-60%);text-align:center;">
                                 <p style="font-family:'Montserrat',sans-serif;font-weight:800;font-size:0.55rem;text-transform:uppercase;letter-spacing:0.2em;color:#252535;margin:0;line-height:2.2;">MY NEST<br>CHAPTER</p>
                             </div>
@@ -375,8 +375,8 @@ $nextUnlock     = getNextExclusiveUnlock($user['id']);
         <!-- Account — persistent below tabs -->
         <div style="margin-top:3rem;padding-top:2rem;border-top:1px solid #D3D3D3;">
             <p class="dashboard-section-title">Account</p>
-            <p style="color:#666666;font-size:0.9rem;margin-bottom:0.5rem;">Logged in as <?= esc($user['email']) ?></p>
-            <a href="/api/auth?action=logout" style="font-family:'Montserrat',sans-serif;font-weight:800;font-size:0.75rem;text-transform:uppercase;letter-spacing:0.05em;color:#E87AAA;">Log Out</a>
+            <p style="color:#8BA7D4;font-size:0.9rem;margin-bottom:0.5rem;">Logged in as <?= esc($user['email']) ?></p>
+            <a href="/api/auth?action=logout" style="font-family:'Montserrat',sans-serif;font-weight:800;font-size:0.75rem;text-transform:uppercase;letter-spacing:0.05em;color:#C44570;">Log Out</a>
         </div>
 
     </div>

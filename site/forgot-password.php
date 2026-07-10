@@ -46,7 +46,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <section class="section">
     <div class="form-page">
         <h1 class="text-center" style="margin-bottom: 0.5rem;">Reset Password</h1>
-        <p class="text-center" style="color: #666666; font-size: 0.9rem; margin-bottom: 2rem;">Enter your email and I'll send you a link to reset your password.</p>
+        <p class="text-center" style="color: #8BA7D4; font-size: 0.9rem; margin-bottom: 2rem;">Enter your email and I'll send you a link to reset your password.</p>
         
         <?php if ($message): ?>
             <div class="form-success"><?= esc($message) ?></div>
