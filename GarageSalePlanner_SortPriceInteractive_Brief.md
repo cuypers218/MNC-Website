@@ -344,6 +344,32 @@ section, unresolved as of this brief.
 
 ---
 
+## Section 7.5 — Accessibility requirements (found via a WCAG audit of the
+design mockup, must carry into the real build)
+
+- **Every interactive element that isn't already a `<button>` or `<a>`
+  needs real keyboard support** — the mockup used `<div onclick=...>` in
+  several places (summary tiles, the Give to Kids "mark given" row, Memory
+  Box card expand/collapse, batch chips, the Price Guide category rows).
+  In the real build these need to be actual `<button>` elements (preferred)
+  or have `role="button" tabindex="0"` plus a keydown handler for
+  Enter/Space. Don't ship click-only divs for anything a customer needs to
+  operate.
+- **Every `<label>` needs a `for` attribute matching its input's `id`** —
+  screen readers can't associate a visually-adjacent label with its field
+  without this. Applies to every form field across the guided flow, Batch
+  Items, and Memories add-forms.
+- **Any text link doubling as a tap target** (e.g. "fix it", "move to a
+  different batch", "mark given") needs at least a 44×44px effective tap
+  area, even if the visible text is small — pad the hit area, don't just
+  rely on the text's own bounding box.
+- **Color pairing note:** if implementation reuses this file's Deep Rose
+  `#C44570` as a background with light/cream text on top, that combination
+  measures 4.42:1 — under the 4.5:1 AA floor for normal-weight text. This
+  widget's own live code already solved this exact problem before (see the
+  2026-07-07 "sunlight contrast fix" CLAUDE.md entries) — reuse that same
+  darker shade for any cream-on-rose text pairing rather than the base rose.
+
 ## Section 8 — Destination routing (final, confirmed after several
 corrections during design — follow this table exactly, it is not
 symmetrical)
@@ -441,8 +467,18 @@ same price table) FIRST and make sure Phase 2's Review screen can use either
 path interchangeably, so the guided flow works completely even before this
 phase exists.
 
+Accessibility, required in every phase, not a separate cleanup pass: every
+interactive element is a real <button>/<a> or has role="button"
+tabindex="0" + a keydown handler — no click-only divs. Every <label> has a
+for= matching its input's id. Small text links that double as tap targets
+(fix it / move / mark given) get a padded 44x44px hit area. If cream/light
+text sits on this widget's Deep Rose background, use the darker rose shade
+already established in this file's own sunlight-contrast-fix history, not
+the base rose — full detail in Section 7.5 of the brief.
+
 After each phase: confirm with Playwright that nothing existing broke
 (Add Item form, Quick Notes, Pricing Guide access, existing Batch/Memories
-data), zero console errors, no 375px mobile overflow, and report what's done
-vs. still pending before moving to the next phase.
+data), zero console errors, no 375px mobile overflow, real WCAG AA contrast
+on every new text/background pairing, and report what's done vs. still
+pending before moving to the next phase.
 ```
