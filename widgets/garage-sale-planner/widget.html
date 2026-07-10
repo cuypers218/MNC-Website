@@ -1815,6 +1815,48 @@ function renderInventory(){
 // picker, which doubles as the "fix it" fallback path required by Section 3. Wiring an AI guess in
 // later only needs to pre-fill guidedUI.current.categoryKey/itemName/brand before showing Review.
 let guidedUI={open:false,screen:'entry',room:null,current:{}};
+let gsExpandedCat=null;
+function gsToggleCatPanel(key){gsExpandedCat=gsExpandedCat===key?null:key;renderContent();}
+function renderGuidedPricingPanel(){
+  return`
+  <div class="card bold-card" style="margin-bottom:24px">
+    <span class="corner-tag">Sort + Price Guide</span>
+    <div class="card-title" style="margin-bottom:6px">Camera flow pricing, by category</div>
+    <p class="page-sub" style="margin-bottom:14px">Tap a category to see item-by-item prices for Excellent, Good, and Fair condition, plus which brands bump an item into the higher brand-tier price.</p>
+    <div style="font-size:12px;color:var(--color-text-muted);margin-bottom:16px">★ = this item's price already accounts for the brand — the category's general brand tier doesn't stack on top of it.</div>
+    <div style="display:flex;flex-direction:column;gap:10px">
+      ${sortPriceCategories.map(cat=>{
+        const open=gsExpandedCat===cat.key;
+        return`
+        <div style="border:1.5px solid var(--color-divider)">
+          <button onclick="gsToggleCatPanel('${cat.key}')" style="width:100%;text-align:left;background:${open?'#F9ECF0':'#fff'};border:none;padding:14px 18px;font-family:var(--font-display);font-weight:700;font-size:14px;color:var(--color-text);cursor:pointer;display:flex;justify-content:space-between;align-items:center;min-height:44px">
+            <span>${esc(cat.label)}</span><span aria-hidden="true">${open?'−':'+'}</span>
+          </button>
+          ${open?`<div style="padding:0 18px 18px">
+            ${cat.alwaysNudge?`<div class="info-box" style="margin-bottom:14px">This whole category always gets the "check online first" nudge — value here is about rarity and age, not a printed label.</div>`:''}
+            <div class="tbl-wrap">
+              <table>
+                <thead><tr><th>Item</th><th>Excellent</th><th>Good</th><th>Fair</th></tr></thead>
+                <tbody>${cat.items.map(it=>`
+                  <tr>
+                    <td class="font-bold">${esc(it.name)}${it.brandSpecific?' ★':''}</td>
+                    <td>$${it.price[0].toFixed(2).replace(/\.00$/,'')}</td>
+                    <td>$${it.price[1].toFixed(2).replace(/\.00$/,'')}</td>
+                    <td>$${it.price[2].toFixed(2).replace(/\.00$/,'')}</td>
+                  </tr>${it.caution?`<tr><td colspan="4" class="text-muted text-xs">${esc(it.caution)}</td></tr>`:''}`).join('')}
+                </tbody>
+              </table>
+            </div>
+            ${cat.brandTier?`<div style="margin-top:14px;font-size:13px;color:var(--color-text)">
+              <strong>Brand tier</strong> (no specific item match, but a recognized brand): Excellent $${cat.brandTier[0]} · Good $${cat.brandTier[1]} · Fair $${cat.brandTier[2]}
+            </div>
+            <div style="margin-top:8px;font-size:13px;color:var(--color-text-muted)">Recognized brands: ${cat.brands.map(esc).join(', ')}</div>`:''}
+          </div>`:''}
+        </div>`;
+      }).join('')}
+    </div>
+  </div>`;
+}
 const GS_ROOMS=["Garage","Kitchen","Bedroom","Kids' Room","Living Room","Attic","Basement"];
 const GS_ROUTES={
   "Garage Sale":{tab:"saleWrap",section:"tags"},
@@ -1838,10 +1880,6 @@ function closeGuidedSort(){
   if(ov){ov.style.opacity='0';setTimeout(()=>{ov.style.display='none';},180);}
   guidedUI.open=false;
   renderContent();
-}
-function gsGoTab(tab,section){
-  closeGuidedSort();
-  UI.tab=tab;UI.section=section;render();
 }
 function renderGuidedSort(){
   const ov=document.getElementById('guided-sort-overlay');if(!ov)return;
@@ -1978,6 +2016,7 @@ function gsReviewScreen(){
       <input type="checkbox" ${c.brand?'checked':''} onchange="guidedUI.current.brand=this.checked" />
       <span>This has a visible brand or designer logo</span>
     </label>
+    <div style="margin-bottom:16px"><a href="#" onclick="closeGuidedSort();goTab('sortPrice','pricing');return false" style="font-family:var(--font-display);font-size:12px;font-weight:700;color:var(--color-primary-text);text-decoration:underline;padding:10px 0;display:inline-block;min-height:44px">Full pricing guide →</a></div>
     <div class="page-sub" style="margin-bottom:10px">What do you want to do with it?</div>
     <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px">
       <button class="btn btn-primary" onclick="gsChooseDecision('sell')">Sell</button>
@@ -2162,7 +2201,7 @@ function gsRoomCompleteScreen(){
 }
 function gsGoDestination(decision){
   const r=GS_ROUTES[decision];if(!r)return;
-  gsGoTab(r.tab,r.section);
+  closeGuidedSort();goTab(r.tab,r.section);
 }
 function gsSummaryScreen(){
   const items=P.items||[];
@@ -2180,7 +2219,7 @@ function gsSummaryScreen(){
     </div>`:''}
     <div style="display:flex;gap:14px;flex-wrap:wrap">
       <button class="btn btn-primary" style="font-size:16px;padding:16px 28px" onclick="guidedUI.screen='entry';renderGuidedSort()">Keep sorting</button>
-      <button class="btn btn-secondary" style="font-size:16px;padding:16px 28px" onclick="gsGoTab('start','start')">Back to Start</button>
+      <button class="btn btn-secondary" style="font-size:16px;padding:16px 28px" onclick="closeGuidedSort();goTab('start','start')">Back to Start</button>
     </div>
   </div>`;
 }
@@ -2646,6 +2685,7 @@ function renderPricing(){
       <h2 class="page-title">Pricing Guide</h2>
       <p class="page-sub">Reference ranges by category and condition.</p>
     </div>
+    ${renderGuidedPricingPanel()}
     <div style="background:var(--color-surface-3);border:2px solid var(--color-text);padding:18px 20px;font-size:14px;line-height:2;color:var(--color-text)">
       Price at 10–25% of original retail<br>
       Round numbers sell faster: $1, $2, $5, $10<br>
