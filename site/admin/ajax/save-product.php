@@ -49,8 +49,25 @@ if (!empty($_FILES['thumbnail']['name'])) {
             mkdir($uploadDir, 0755, true);
         }
         $safeSlug = $slug ?: 'product-' . time();
-        $dest     = $uploadDir . $safeSlug . '.jpg';
-        $loaded   = false;
+        // Every re-upload gets a unique filename (slug + timestamp) rather than
+        // always overwriting "{slug}.jpg" -- reusing the same filename meant the
+        // URL never changed between uploads, so browsers kept serving the old
+        // cached image even though the file on the server had actually updated.
+        // ("hit save, refresh, old image still there" on every product.)
+        $newFilename = $safeSlug . '-' . time() . '.jpg';
+        $dest        = $uploadDir . $newFilename;
+        $loaded      = false;
+
+        // Clean up this product's previous thumbnail(s) so old uploads don't
+        // pile up forever in the folder. $safeSlug is already restricted to
+        // [a-z0-9-] earlier in this file, so it's safe to use directly in a
+        // glob pattern with no risk of matching something unintended.
+        foreach (glob($uploadDir . $safeSlug . '-*.jpg') ?: [] as $oldFile) {
+            @unlink($oldFile);
+        }
+        foreach (glob($uploadDir . $safeSlug . '.{jpg,jpeg,png,webp,gif}', GLOB_BRACE) ?: [] as $oldFile) {
+            @unlink($oldFile);
+        }
 
         // Try Imagick first -- it can read HEIC/HEIF (iPhone default) and
         // just about anything else, which GD cannot.
@@ -99,7 +116,7 @@ if (!empty($_FILES['thumbnail']['name'])) {
         }
 
         if ($loaded) {
-            $imagePath = '/uploads/thumbnails/' . $safeSlug . '.jpg';
+            $imagePath = '/uploads/thumbnails/' . $newFilename;
         } else {
             $uploadError = 'That image format isn\'t supported. If this came straight from an iPhone, it may be HEIC -- try Settings > Camera > Formats > "Most Compatible" so new photos save as JPG, or use "Share" > "Save as JPG" on this one.';
         }
