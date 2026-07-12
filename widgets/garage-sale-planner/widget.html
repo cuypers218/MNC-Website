@@ -627,17 +627,50 @@
     .mnc-undo-toast.show{opacity:1;pointer-events:auto}
     .mnc-undo-toast button{font-family:var(--font-body);font-weight:700;font-size:12px;letter-spacing:.06em;
       text-transform:uppercase;color:#F5C4A8;background:none;border:none;cursor:pointer;padding:6px 4px;min-height:44px}
-    .gs-stat-strip{background:#252535;color:#FAF7ED;padding:14px 18px;display:flex;align-items:center;
-      gap:20px;flex-wrap:wrap;font-family:var(--font-body);margin-bottom:16px}
-    .gs-stat-strip .gs-stat-num{font-family:var(--font-display);font-weight:700;font-size:20px;line-height:1}
-    .gs-seg-bar{flex:1 1 200px;min-width:160px;height:10px;background:rgba(250,247,237,.15);display:flex;overflow:hidden}
+    .gs-stat-strip{background:#FCF0E8;padding:14px 16px 12px;font-family:var(--font-body);margin-bottom:16px}
+    .gs-stat-strip-nums{display:flex;gap:10px}
+    .gs-stat-block{flex:1;background:#252535;color:#FAF7ED;padding:8px 10px;text-align:center}
+    .gs-stat-block.rose{background:#C44570}
+    .gs-stat-block .gs-stat-num{font-family:var(--font-display);font-weight:700;font-size:18px;line-height:1}
+    .gs-stat-block .gs-stat-lbl{font-size:9px;text-transform:uppercase;letter-spacing:.06em;opacity:.85;margin-top:2px}
+    .gs-seg-bar{width:100%;height:10px;border:1.5px solid #252535;display:flex;overflow:hidden;margin:12px 0 10px}
     .gs-seg{height:100%}
-    .gs-tile{border:2px solid var(--color-text);padding:16px;text-align:center;cursor:pointer;background:#fff;
+    .gs-legend{display:flex;flex-wrap:wrap;gap:5px 14px;font-size:10px;color:#5a5a68}
+    .gs-legend-item{display:flex;align-items:center;gap:5px}
+    .gs-legend-dot{width:8px;height:8px;flex-shrink:0;display:inline-block}
+    .gs-tile{border:2px solid var(--color-text);padding:16px;text-align:center;cursor:pointer;background:#FDFBF7;
       font-family:var(--font-body);min-height:44px}
     .gs-tile:hover{background:#F9ECF0}
+    .gs-tile.gs-tile-done{background:#252535;color:#FAF7ED}
+    .gs-tile .gs-tile-check{display:block;font-size:11px;font-weight:400;margin-top:4px;opacity:.85}
     .gs-tile-quiet{border:1px solid var(--color-divider);padding:12px;text-align:center;cursor:pointer;
       background:#fff;opacity:.85;font-family:var(--font-body);min-height:44px}
     .gs-tile-quiet:hover{opacity:1;background:#F9ECF0}
+    .gs-camera-icon{width:64px;height:64px;border-radius:9999px;background:#C44570;color:#FAF7ED;display:flex;
+      align-items:center;justify-content:center;font-size:26px;margin:0 auto 14px}
+    .gs-dec-btn{border:1.5px solid transparent;padding:14px 8px;font-size:13px;font-weight:700;cursor:pointer;
+      font-family:var(--font-body);text-align:center;min-height:44px}
+    .gs-dec-btn.gs-sell{background:#A33359;color:#FAF7ED;border-color:#A33359}
+    .gs-dec-btn.gs-donate{background:transparent;color:#426DB3;border-color:#426DB3}
+    .gs-dec-btn.gs-kids{background:#6D4C3E;color:#FAF7ED;border-color:#6D4C3E}
+    .gs-dec-btn.gs-trash{background:transparent;color:#6D4C3E;border-color:#6D4C3E}
+    .gs-dec-btn.gs-memory{background:#C4B0E8;color:#252535;border-color:#C4B0E8}
+    .gs-dec-btn.gs-batch{background:transparent;color:#252535;border:1.5px dashed #252535}
+    .gs-dec-btn:hover{opacity:.85}
+    .gs-price-tag{position:relative;background:#A33359;color:#FAF7ED;border:2px solid #252535;padding:18px 20px;
+      text-align:center;margin-bottom:14px}
+    .gs-price-tag .gs-price-lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;opacity:.85}
+    .gs-price-edit{border:none;background:transparent;color:#FAF7ED;font-family:var(--font-display);font-size:36px;
+      font-weight:700;text-align:center;width:100%;border-bottom:2px dashed rgba(250,247,237,.5);padding:4px 0}
+    .gs-brand-badge{display:inline-block;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;
+      background:#252535;color:#FAF7ED;padding:3px 8px;margin-bottom:8px}
+    .gs-nudge{font-size:12px;color:#426DB3;background:#FCF0E8;border:1.5px dashed #426DB3;padding:8px 10px;
+      margin-bottom:14px;line-height:1.4}
+    .gs-action-row{display:flex;gap:8px}
+    .gs-btn-accept{flex:1;background:#252535;color:#FAF7ED;border:2px solid #252535;padding:12px;font-weight:700;
+      font-size:13px;cursor:pointer;font-family:var(--font-body);min-height:44px}
+    .gs-btn-online{flex:1;background:transparent;color:#A33359;border:2px solid #A33359;padding:12px;font-weight:700;
+      font-size:13px;cursor:pointer;font-family:var(--font-body);min-height:44px}
 
     /* ─── PRINT ─── */
     @media print{
@@ -1876,12 +1909,12 @@ function closeGuidedSort(){
 function renderGuidedSort(){
   const ov=document.getElementById('guided-sort-overlay');if(!ov)return;
   const screens={
-    entry:gsEntryScreen,rooms:gsRoomScreen,capture:gsCaptureScreen,analyzing:gsAnalyzingScreen,
+    entry:gsEntryScreen,rooms:gsEntryScreen,capture:gsCaptureScreen,analyzing:gsAnalyzingScreen,
     review:gsReviewScreen,memory:gsMemoryScreen,batch:gsBatchScreen,sell:gsSellScreen,
     roomComplete:gsRoomCompleteScreen,summary:gsSummaryScreen,
   };
   const fn=screens[guidedUI.screen]||gsEntryScreen;
-  const showStrip=guidedUI.screen!=='entry'&&guidedUI.screen!=='summary';
+  const showStrip=guidedUI.screen!=='summary';
   ov.innerHTML=`<div style="position:absolute;inset:0;background:var(--color-bg);overflow-y:auto;padding:20px 16px 60px">
     <div style="max-width:640px;margin:0 auto">
       <div style="display:flex;justify-content:flex-end;margin-bottom:4px">
@@ -1899,10 +1932,15 @@ function gsStatStrip(){
   const segs=Object.keys(segColors).map(k=>({key:k,color:segColors[k],count:items.filter(i=>i.decision===k).length})).filter(s=>s.count>0);
   const totalTagged=segs.reduce((s,x)=>s+x.count,0)||1;
   return`<div class="gs-stat-strip">
-    <div><div class="gs-stat-num">$${total.toFixed(0)}</div><div style="font-size:11px;opacity:.85">sale value</div></div>
-    <div><div class="gs-stat-num">${items.length}</div><div style="font-size:11px;opacity:.85">items sorted</div></div>
+    <div class="gs-stat-strip-nums">
+      <div class="gs-stat-block rose"><div class="gs-stat-num">$${total.toFixed(0)}</div><div class="gs-stat-lbl">Sale value so far</div></div>
+      <div class="gs-stat-block"><div class="gs-stat-num">${items.length}</div><div class="gs-stat-lbl">Items sorted</div></div>
+    </div>
     ${segs.length?`<div class="gs-seg-bar" role="img" aria-label="Breakdown of sorted items by decision">
       ${segs.map(s=>`<div class="gs-seg" style="width:${(s.count/totalTagged*100).toFixed(1)}%;background:${s.color}" title="${esc(s.key)}: ${s.count}"></div>`).join('')}
+    </div>
+    <div class="gs-legend">
+      ${segs.map(s=>`<span class="gs-legend-item"><i class="gs-legend-dot" style="background:${s.color}"></i>${esc(s.key)} (${s.count})</span>`).join('')}
     </div>`:''}
   </div>`;
 }
@@ -1913,31 +1951,22 @@ function gsRoomStats(room){
 function gsEntryScreen(){
   const hasAny=(P.items||[]).length>0;
   return`
-  <div class="card bold-card" style="text-align:center;padding:40px 24px">
-    <div class="card-title" style="margin-bottom:8px">Sort with your camera</div>
-    <p style="color:var(--color-text-muted);margin-bottom:28px">Photograph an item, tell me what to do with it, and move to the next one.</p>
-    <button class="btn btn-primary" onclick="guidedUI.room=null;guidedUI.screen='capture';renderGuidedSort()" style="font-size:16px;padding:16px 32px;margin-bottom:16px">Just start snapping →</button>
-    <div><button onclick="guidedUI.screen='rooms';renderGuidedSort()" style="background:none;border:none;color:var(--color-primary-text);font-family:var(--font-body);font-weight:600;font-size:13px;text-decoration:underline;cursor:pointer;padding:10px 8px;min-height:44px">Sort by room instead</button></div>
-    ${hasAny?`<div style="margin-top:16px"><button onclick="guidedUI.screen='summary';renderGuidedSort()" style="background:none;border:none;color:var(--color-text-muted);font-family:var(--font-body);font-size:13px;text-decoration:underline;cursor:pointer;padding:10px 8px;min-height:44px">See my summary so far</button></div>`:''}
-  </div>`;
-}
-function gsRoomScreen(){
-  const hasAny=(P.items||[]).length>0;
-  return`
   <div class="card bold-card">
-    <div class="card-title" style="margin-bottom:16px">Which room?</div>
+    <div class="gs-eyebrow" style="font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--color-primary-text);margin-bottom:8px">Start here</div>
+    <div class="card-title" style="margin-bottom:8px;font-size:26px">Pick a room, or<br>just start snapping</div>
+    <p style="color:var(--color-text-muted);margin-bottom:24px">Go room to room, or skip straight to the camera if that's easier. Nothing here is required in order.</p>
     <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:10px;margin-bottom:20px">
       ${GS_ROOMS.map(r=>{
         const st=gsRoomStats(r);
-        return`<button class="gs-tile" onclick="guidedUI.room='${esc(r)}';guidedUI.screen='capture';renderGuidedSort()">
+        return`<button class="gs-tile${st.count?' gs-tile-done':''}" onclick="guidedUI.room='${esc(r)}';guidedUI.screen='capture';renderGuidedSort()">
           <div style="font-weight:700">${esc(r)}</div>
-          ${st.count?`<div style="font-size:12px;color:var(--color-primary-text);margin-top:4px">✓ ${st.count} · $${st.value.toFixed(0)}</div>`:''}
+          ${st.count?`<span class="gs-tile-check">✓ ${st.count} sorted · $${st.value.toFixed(0)}</span>`:''}
         </button>`;
       }).join('')}
       <button class="gs-tile" onclick="gsAddCustomRoom()">+ Add Room</button>
     </div>
-    <button onclick="guidedUI.room=null;guidedUI.screen='capture';renderGuidedSort()" class="btn btn-ghost btn-sm">Just start snapping (skip room) →</button>
-    ${hasAny?`<div style="margin-top:16px"><button onclick="guidedUI.screen='summary';renderGuidedSort()" style="background:none;border:none;color:var(--color-text-muted);font-family:var(--font-body);font-size:13px;text-decoration:underline;cursor:pointer;padding:10px 8px;min-height:44px">All done for now — see my summary</button></div>`:''}
+    <button class="btn btn-primary" onclick="guidedUI.room=null;guidedUI.screen='capture';renderGuidedSort()" style="font-size:16px;padding:16px 32px;width:100%;margin-bottom:12px">Just start snapping →</button>
+    ${hasAny?`<button onclick="guidedUI.screen='summary';renderGuidedSort()" class="btn btn-ghost btn-sm" style="width:100%">All done for now — see my summary</button>`:''}
   </div>`;
 }
 function gsAddCustomRoom(){
@@ -1949,13 +1978,14 @@ function gsCaptureScreen(){
   const roomCount=guidedUI.room?gsRoomStats(guidedUI.room).count:0;
   return`
   <div class="card bold-card" style="text-align:center;padding:36px 24px">
+    <div class="gs-camera-icon" aria-hidden="true">📷</div>
     <div class="card-title" style="margin-bottom:4px">Photograph the item${roomLabel}</div>
     <p style="color:var(--color-text-muted);margin-bottom:24px">Tap below to open your camera.</p>
     <label class="btn btn-primary" style="display:inline-block;font-size:16px;padding:16px 32px;cursor:pointer">
       Take a photo
       <input type="file" accept="image/*" capture="environment" style="display:none" onchange="gsPhotoSelected(this)" />
     </label>
-    <div class="info-box" style="margin-top:24px;text-align:left">If it's a designer or name-brand item, try to get the label or logo in the photo too — it helps catch the brand and get you a better price.</div>
+    <div class="gs-nudge" style="margin-top:24px;text-align:left">Tip: if it's a designer or name-brand item, try to get the label or logo in the photo too — it helps catch the brand and get you a better price.</div>
     <div style="margin-top:24px;display:flex;flex-direction:column;gap:10px;align-items:center">
       ${guidedUI.room&&roomCount>0?`<button class="btn btn-secondary" onclick="guidedUI.screen='roomComplete';renderGuidedSort()">Done with ${esc(guidedUI.room)} →</button>`:''}
       <button onclick="guidedUI.screen='summary';renderGuidedSort()" style="background:none;border:none;color:var(--color-text-muted);font-family:var(--font-body);font-size:13px;text-decoration:underline;cursor:pointer;padding:10px 8px;min-height:44px">All done for now</button>
@@ -2034,13 +2064,13 @@ function gsReviewScreen(){
     </label>
     <div style="margin-bottom:16px"><a href="#" onclick="closeGuidedSort();goTab('sortPrice','pricing');return false" style="font-family:var(--font-display);font-size:12px;font-weight:700;color:var(--color-primary-text);text-decoration:underline;padding:10px 0;display:inline-block;min-height:44px">Full pricing guide →</a></div>
     <div class="page-sub" style="margin-bottom:10px">What do you want to do with it?</div>
-    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px">
-      <button class="btn btn-primary" onclick="gsChooseDecision('sell')">Sell</button>
-      <button class="btn btn-secondary" onclick="gsChooseDecision('donate')">Donate</button>
-      <button class="btn btn-secondary" onclick="gsChooseDecision('kids')">Give to Kids</button>
-      <button class="btn btn-secondary" onclick="gsChooseDecision('trash')">Trash</button>
-      <button class="btn btn-secondary" onclick="gsChooseDecision('memory')">Memory Box</button>
-      <button class="btn btn-secondary" onclick="gsChooseDecision('batch')">Batch</button>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+      <button class="gs-dec-btn gs-sell" style="grid-column:1/-1" onclick="gsChooseDecision('sell')">Sell</button>
+      <button class="gs-dec-btn gs-donate" onclick="gsChooseDecision('donate')">Donate</button>
+      <button class="gs-dec-btn gs-kids" onclick="gsChooseDecision('kids')">Give to Kids</button>
+      <button class="gs-dec-btn gs-trash" onclick="gsChooseDecision('trash')">Trash</button>
+      <button class="gs-dec-btn gs-memory" onclick="gsChooseDecision('memory')">Memory Box</button>
+      <button class="gs-dec-btn gs-batch" style="grid-column:1/-1" onclick="gsChooseDecision('batch')">Add to a Batch (low-value items)</button>
     </div>
   </div>`;
 }
@@ -2186,14 +2216,16 @@ function gsSellScreen(){
       ${['Excellent','Good','Fair'].map(k=>`<button class="btn ${cond===k?'btn-primary':'btn-secondary'}" onclick="guidedUI.current.condition='${k}';guidedUI.current.priceOverride=undefined;renderGuidedSort()">${k}</button>`).join('')}
     </div>
     ${res.caution?`<div class="info-box" style="margin-bottom:16px">${esc(res.caution)}</div>`:''}
-    <div class="form-field" style="margin-bottom:16px">
-      <label class="form-label" for="gs-sell-price">Price</label>
-      <input class="input" id="gs-sell-price" type="number" min="0" step="0.25" value="${esc(c.priceOverride)}" oninput="guidedUI.current.priceOverride=this.value" />
+    ${res.nudge?`<div class="gs-nudge"><strong>Worth a look online first?</strong><br>This kind of item — or brand — often sells for more there. You can tag it Garage Sale below, or send it to Sell Online instead.</div>`:''}
+    <div class="gs-price-tag">
+      ${c.brand?`<div class="gs-brand-badge">Brand detected</div><br>`:''}
+      <div class="gs-price-lbl">Garage sale price</div>
+      <label class="sr-only" for="gs-sell-price">Price</label>
+      <input class="gs-price-edit" id="gs-sell-price" type="number" min="0" step="0.25" value="${esc(c.priceOverride)}" oninput="guidedUI.current.priceOverride=this.value" />
     </div>
-    ${res.nudge?`<div class="info-box" style="margin-bottom:16px;background:#FCF0E8">Worth a look online first? This kind of item — or brand — often sells for more there.</div>`:''}
-    <div style="display:flex;gap:10px;flex-wrap:wrap">
-      <button class="btn btn-primary" onclick="gsFinishSell('Garage Sale')">Use this price</button>
-      ${res.nudge?`<button class="btn btn-secondary" onclick="gsFinishSell('Sell Online')">Sell Online instead</button>`:''}
+    <div class="gs-action-row">
+      <button class="gs-btn-accept" onclick="gsFinishSell('Garage Sale')">Use this price</button>
+      ${res.nudge?`<button class="gs-btn-online" onclick="gsFinishSell('Sell Online')">Sell Online</button>`:''}
     </div>
   </div>`;
 }
