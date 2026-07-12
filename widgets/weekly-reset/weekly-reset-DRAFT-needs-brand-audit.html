@@ -1,0 +1,1227 @@
+<!--
+  ╔══════════════════════════════════════════════════════════════╗
+  ║         WEEKLY RESET PLANNER — MY NEST CHAPTER              ║
+  ║         © 2025 My Nest Chapter. All rights reserved.        ║
+  ║         mynestchapter.com                                   ║
+  ║                                                              ║
+  ║  This file is licensed for PERSONAL USE ONLY.               ║
+  ║  You may not resell, redistribute, share, copy, or modify   ║
+  ║  this file without written permission from My Nest Chapter. ║
+  ║  Purchased copies are for the individual buyer only.        ║
+  ║                                                              ║
+  ║  For support: cececuypers@gmail.com                         ║
+  ╚══════════════════════════════════════════════════════════════╝
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Weekly Reset — My Nest Chapter</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&family=Lato:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --pink:#c48b9f;
+  --pink-light:rgba(196,139,159,0.08);
+  --pink-border:rgba(196,139,159,0.28);
+  --pink-mid:rgba(196,139,159,0.4);
+  --dark:#3d3d3d;
+  --mid:#4a4a4a;
+  --light:#6b6b6b;
+  --white:#ffffff;
+  --bg:#f9f6f7;
+  --card:#ffffff;
+  --shadow:0 2px 20px rgba(196,139,159,0.12);
+  --radius:14px;
+}
+body{font-family:'Lato',sans-serif;background:var(--bg);color:var(--dark);min-height:100vh;overflow-x:hidden}
+
+/* ─── APP SHELL ─── */
+#app{display:flex;flex-direction:column;min-height:100vh}
+
+/* ─── HEADER ─── */
+.app-header{background:var(--white);border-bottom:1px solid var(--pink-border);padding:14px 24px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;box-shadow:var(--shadow)}
+.app-logo{font-family:'Montserrat',sans-serif;font-weight:800;font-size:1.1rem;color:var(--pink);letter-spacing:0.03em}
+.app-logo span{color:var(--dark);font-weight:400;font-size:0.8rem;display:block;letter-spacing:0.08em;margin-top:1px}
+.header-actions{display:flex;gap:8px;align-items:center}
+.btn{font-family:'Montserrat',sans-serif;font-weight:800;font-size:0.78rem;letter-spacing:0.04em;padding:8px 16px;border-radius:100px;border:none;cursor:pointer;transition:all 0.18s;display:inline-flex;align-items:center;gap:6px}
+.btn-primary{background:var(--pink);color:#fff}
+.btn-primary:hover{background:#b57890;transform:translateY(-1px)}
+.btn-outline{background:transparent;color:var(--pink);border:1.5px solid var(--pink-border)}
+.btn-outline:hover{background:var(--pink-light)}
+.btn-ghost{background:transparent;color:var(--light);border:1.5px solid #e8e0e4}
+.btn-ghost:hover{background:#f5f0f2;color:var(--mid)}
+
+/* ─── TABS ─── */
+.tabs{background:var(--white);border-bottom:1px solid var(--pink-border);display:flex;gap:0;overflow-x:auto;padding:0 16px}
+.tabs::-webkit-scrollbar{height:3px}
+.tabs::-webkit-scrollbar-thumb{background:var(--pink-border)}
+.tab{font-family:'Montserrat',sans-serif;font-weight:800;font-size:0.75rem;letter-spacing:0.06em;padding:13px 18px;cursor:pointer;color:var(--light);border-bottom:2.5px solid transparent;white-space:nowrap;transition:all 0.18s;background:none;border-top:none;border-left:none;border-right:none}
+.tab:hover{color:var(--pink)}
+.tab.active{color:var(--pink);border-bottom-color:var(--pink)}
+
+/* ─── PAGES ─── */
+.page{display:none;padding:28px 20px 80px;max-width:900px;margin:0 auto;width:100%}
+.page.active{display:block}
+
+/* ─── SECTION CARDS ─── */
+.section-card{background:var(--card);border-radius:var(--radius);border:1px solid var(--pink-border);box-shadow:var(--shadow);padding:24px;margin-bottom:24px;position:relative;overflow:hidden}
+.section-card::before{content:'';position:absolute;top:0;left:0;width:4px;height:100%;background:linear-gradient(to bottom,var(--pink),var(--pink-mid))}
+.section-title{font-family:'Montserrat',sans-serif;font-weight:800;font-size:1rem;color:var(--dark);margin-bottom:16px;display:flex;align-items:center;gap:8px}
+.section-title .icon{font-size:1.1rem}
+.section-subtitle{font-size:0.82rem;color:var(--light);margin-bottom:14px;font-style:italic}
+
+/* ─── COVER PAGE ─── */
+.cover-wrap{text-align:center;padding:32px 20px}
+.cover-flower{font-size:3rem;margin-bottom:16px;animation:floatFlower 4s ease-in-out infinite}
+@keyframes floatFlower{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+.cover-title{font-family:'Montserrat',sans-serif;font-weight:800;font-size:2.2rem;color:var(--dark);line-height:1.2}
+.cover-title span{color:var(--pink)}
+.cover-brand{font-family:'Montserrat',sans-serif;font-weight:400;font-size:0.8rem;letter-spacing:0.18em;color:var(--light);margin:10px 0 24px;text-transform:uppercase}
+.cover-inputs{display:grid;grid-template-columns:1fr 1fr;gap:12px;max-width:500px;margin:0 auto 28px}
+.cover-inputs input{font-family:'Lato',sans-serif;font-size:0.9rem;padding:10px 14px;border:1.5px solid var(--pink-border);border-radius:8px;background:var(--white);color:var(--dark);text-align:center;width:100%}
+.cover-inputs input:focus{outline:none;border-color:var(--pink)}
+.cover-inputs input::placeholder{color:#c4b0b8}
+.cover-affirmation{background:linear-gradient(135deg,var(--pink-light),rgba(196,139,159,0.04));border:1px solid var(--pink-border);border-radius:12px;padding:20px;max-width:500px;margin:0 auto 24px}
+.cover-affirmation p{font-size:0.95rem;color:var(--mid);line-height:1.7;font-style:italic}
+.cover-quote-ref{font-size:0.78rem;color:var(--light);margin-top:6px}
+.cover-stats{display:flex;justify-content:center;gap:32px;margin-top:20px}
+.cover-stat{text-align:center}
+.cover-stat-n{font-family:'Montserrat',sans-serif;font-weight:800;font-size:1.6rem;color:var(--pink)}
+.cover-stat-l{font-size:0.75rem;color:var(--light);letter-spacing:0.06em;text-transform:uppercase}
+
+/* ─── MONTHLY INTENTIONS ─── */
+.intention-inputs{display:flex;flex-direction:column;gap:10px}
+.intention-row{display:flex;align-items:center;gap:10px}
+.intention-num{font-family:'Montserrat',sans-serif;font-weight:800;font-size:0.85rem;color:var(--pink);min-width:24px}
+.intention-row input{flex:1;font-family:'Lato',sans-serif;font-size:0.9rem;padding:9px 12px;border:1.5px solid var(--pink-border);border-radius:8px;background:var(--bg);color:var(--dark)}
+.intention-row input:focus{outline:none;border-color:var(--pink);background:var(--white)}
+
+/* ─── CALENDAR ─── */
+.cal-month-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+.cal-month-label{font-family:'Montserrat',sans-serif;font-weight:800;font-size:0.95rem;color:var(--dark)}
+.cal-nav{background:none;border:1.5px solid var(--pink-border);border-radius:6px;padding:4px 10px;cursor:pointer;color:var(--pink);font-size:1rem;transition:all 0.15s}
+.cal-nav:hover{background:var(--pink-light)}
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:4px}
+.cal-dow{font-family:'Montserrat',sans-serif;font-weight:800;font-size:0.65rem;letter-spacing:0.06em;text-align:center;color:var(--light);padding:4px 0}
+.cal-cell{aspect-ratio:1;border-radius:8px;display:flex;align-items:center;justify-content:center;font-family:'Montserrat',sans-serif;font-weight:800;font-size:0.82rem;cursor:pointer;border:1.5px solid transparent;transition:all 0.15s;color:var(--mid)}
+.cal-cell:hover{border-color:var(--pink-border);background:var(--pink-light)}
+.cal-cell.selected{background:var(--pink);color:#fff;border-color:var(--pink)}
+.cal-cell.today{border-color:var(--pink);color:var(--pink)}
+.cal-cell.empty{cursor:default;pointer-events:none}
+
+/* ─── WORD OF MONTH ─── */
+.wom-wrap{display:flex;gap:12px;flex-wrap:wrap;margin-top:8px}
+.wom-chip{background:var(--pink-light);border:1.5px solid var(--pink-border);border-radius:100px;padding:6px 14px;font-family:'Montserrat',sans-serif;font-weight:800;font-size:0.78rem;color:var(--pink);cursor:pointer;transition:all 0.15s}
+.wom-chip.selected{background:var(--pink);color:#fff;border-color:var(--pink)}
+.wom-custom{font-family:'Lato',sans-serif;font-size:0.9rem;padding:7px 12px;border:1.5px solid var(--pink-border);border-radius:100px;background:var(--bg);color:var(--dark);min-width:140px;margin-top:8px}
+.wom-custom:focus{outline:none;border-color:var(--pink)}
+
+/* ─── WEEKLY PLANNER ─── */
+.day-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:16px}
+.day-card{background:var(--card);border-radius:var(--radius);border:1px solid var(--pink-border);padding:16px;box-shadow:var(--shadow);position:relative;min-height:200px}
+.day-card.weekend{background:linear-gradient(135deg,var(--white),#fdf5f8)}
+.day-name{font-family:'Montserrat',sans-serif;font-weight:800;font-size:0.85rem;color:var(--dark);margin-bottom:12px;display:flex;align-items:center;justify-content:space-between}
+.day-name .day-badge{font-size:0.65rem;background:var(--pink-light);color:var(--pink);border-radius:100px;padding:2px 8px;font-weight:800;letter-spacing:0.04em}
+.task-list{display:flex;flex-direction:column;gap:6px;margin-bottom:12px}
+.task-row{display:flex;align-items:center;gap:7px}
+.task-cb{width:15px;height:15px;accent-color:var(--pink);cursor:pointer;flex-shrink:0}
+.task-input{flex:1;font-family:'Lato',sans-serif;font-size:0.82rem;border:none;border-bottom:1px solid var(--pink-border);background:transparent;color:var(--dark);padding:2px 0;min-width:0}
+.task-input:focus{outline:none;border-bottom-color:var(--pink)}
+.task-input.done{text-decoration:line-through;color:var(--light)}
+.energy-row{display:flex;align-items:center;gap:6px;margin-top:8px}
+.energy-label{font-family:'Montserrat',sans-serif;font-weight:800;font-size:0.65rem;letter-spacing:0.06em;color:var(--light);text-transform:uppercase}
+.energy-dots{display:flex;gap:4px}
+.e-dot{width:10px;height:10px;border-radius:50%;border:1.5px solid var(--pink-border);cursor:pointer;transition:all 0.15s;background:transparent}
+.e-dot.filled{background:var(--pink);border-color:var(--pink)}
+.day-note{width:100%;font-family:'Lato',sans-serif;font-size:0.8rem;border:1px solid var(--pink-border);border-radius:8px;padding:7px 9px;background:var(--bg);color:var(--dark);resize:none;margin-top:8px;min-height:50px}
+.day-note:focus{outline:none;border-color:var(--pink)}
+
+/* ─── HABIT TRACKER ─── */
+.habit-table{width:100%;border-collapse:separate;border-spacing:0 8px}
+.habit-table th{font-family:'Montserrat',sans-serif;font-weight:800;font-size:0.7rem;letter-spacing:0.06em;color:var(--light);padding:4px 6px;text-align:center}
+.habit-table th:first-child{text-align:left;min-width:160px}
+.habit-row td{padding:6px;vertical-align:middle}
+.habit-name-input{font-family:'Lato',sans-serif;font-size:0.88rem;border:none;border-bottom:1.5px solid var(--pink-border);background:transparent;color:var(--dark);width:100%;padding:2px 0}
+.habit-name-input:focus{outline:none;border-bottom-color:var(--pink)}
+.habit-check{width:26px;height:26px;border-radius:8px;border:1.5px solid var(--pink-border);background:var(--bg);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:0.9rem;transition:all 0.15s;margin:0 auto}
+.habit-check.done{background:var(--pink);border-color:var(--pink);color:#fff}
+.habit-check:hover{border-color:var(--pink)}
+.habit-streak{font-family:'Montserrat',sans-serif;font-weight:800;font-size:0.72rem;color:var(--pink);text-align:center;padding:0 4px;white-space:nowrap}
+
+/* ─── SELF-CARE TRACKER ─── */
+.tracker-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px}
+.tracker-card{background:var(--card);border:1px solid var(--pink-border);border-radius:var(--radius);padding:16px;box-shadow:var(--shadow)}
+.tracker-head{display:flex;align-items:center;gap:8px;margin-bottom:12px}
+.tracker-icon{font-size:1.3rem}
+.tracker-name{font-family:'Montserrat',sans-serif;font-weight:800;font-size:0.85rem;color:var(--dark)}
+.tracker-days{display:flex;gap:4px;justify-content:space-between}
+.t-day{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px}
+.t-day-label{font-family:'Montserrat',sans-serif;font-weight:800;font-size:0.62rem;color:var(--light)}
+.t-bubble{width:28px;height:28px;border-radius:50%;border:1.5px solid var(--pink-border);background:var(--bg);cursor:pointer;transition:all 0.15s;display:flex;align-items:center;justify-content:center;font-size:0.7rem}
+.t-bubble.done{background:var(--pink);border-color:var(--pink);color:#fff}
+.t-bubble:hover{border-color:var(--pink)}
+
+/* ─── MOOD TRACKER ─── */
+.mood-row-wrap{display:flex;flex-direction:column;gap:10px}
+.mood-row{display:flex;align-items:center;gap:10px;background:var(--bg);border-radius:10px;padding:10px 14px}
+.mood-day{font-family:'Montserrat',sans-serif;font-weight:800;font-size:0.78rem;color:var(--dark);min-width:80px}
+.mood-emojis{display:flex;gap:8px}
+.mood-emoji{font-size:1.5rem;cursor:pointer;border-radius:8px;padding:4px;transition:all 0.15s;opacity:0.45;transform:scale(0.9)}
+.mood-emoji.selected{opacity:1;transform:scale(1.15);filter:drop-shadow(0 0 6px rgba(196,139,159,0.5))}
+.mood-emoji:hover{opacity:0.8;transform:scale(1.05)}
+.mood-note{flex:1;font-family:'Lato',sans-serif;font-size:0.8rem;border:1px solid var(--pink-border);border-radius:8px;padding:5px 9px;background:var(--white);color:var(--dark)}
+.mood-note:focus{outline:none;border-color:var(--pink)}
+
+/* ─── LIFE BALANCE ─── */
+.balance-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px}
+.balance-card{background:var(--card);border:1px solid var(--pink-border);border-radius:var(--radius);padding:16px;box-shadow:var(--shadow)}
+.balance-area{font-family:'Montserrat',sans-serif;font-weight:800;font-size:0.83rem;color:var(--dark);margin-bottom:10px}
+.pip-row{display:flex;gap:6px;margin-bottom:10px}
+.pip{flex:1;height:8px;border-radius:100px;background:var(--pink-border);cursor:pointer;transition:all 0.2s;position:relative}
+.pip.filled{background:var(--pink)}
+.pip-score{font-family:'Montserrat',sans-serif;font-weight:800;font-size:0.72rem;color:var(--light);text-align:right}
+.pip-score.has-val{color:var(--pink)}
+.balance-note{width:100%;font-family:'Lato',sans-serif;font-size:0.78rem;border:1px solid var(--pink-border);border-radius:8px;padding:6px 9px;background:var(--bg);color:var(--dark);resize:none;min-height:44px}
+.balance-note:focus{outline:none;border-color:var(--pink)}
+
+/* ─── REFLECTION ─── */
+.reflection-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media(max-width:560px){.reflection-grid{grid-template-columns:1fr}}
+.refl-card{background:var(--card);border:1px solid var(--pink-border);border-radius:var(--radius);padding:18px;box-shadow:var(--shadow)}
+.refl-q{font-family:'Montserrat',sans-serif;font-weight:800;font-size:0.83rem;color:var(--dark);margin-bottom:10px;line-height:1.4}
+.refl-a{width:100%;font-family:'Lato',sans-serif;font-size:0.88rem;border:1px solid var(--pink-border);border-radius:8px;padding:10px 12px;background:var(--bg);color:var(--dark);resize:none;min-height:90px;line-height:1.6}
+.refl-a:focus{outline:none;border-color:var(--pink)}
+
+/* ─── NOTE TO SELF ─── */
+.note-self{width:100%;font-family:'Lato',sans-serif;font-size:1rem;font-style:italic;border:1px solid var(--pink-border);border-radius:12px;padding:16px;background:linear-gradient(135deg,var(--pink-light),rgba(196,139,159,0.04));color:var(--mid);resize:none;min-height:120px;line-height:1.8}
+.note-self:focus{outline:none;border-color:var(--pink)}
+.affirmation-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.aff-chip{background:var(--pink-light);border:1px solid var(--pink-border);border-radius:100px;padding:5px 12px;font-size:0.78rem;color:var(--pink);cursor:pointer;font-family:'Lato',sans-serif;transition:all 0.15s}
+.aff-chip:hover{background:var(--pink);color:#fff}
+
+/* ─── STICKER PANEL ─── */
+.sticker-toggle{position:fixed;bottom:80px;right:20px;z-index:200;background:var(--pink);color:#fff;border:none;border-radius:100px;padding:10px 16px;font-family:'Montserrat',sans-serif;font-weight:800;font-size:0.78rem;cursor:pointer;box-shadow:0 4px 16px rgba(196,139,159,0.4);transition:all 0.18s}
+.sticker-toggle:hover{transform:translateY(-2px);box-shadow:0 6px 24px rgba(196,139,159,0.5)}
+.sticker-panel{position:fixed;bottom:130px;right:20px;z-index:200;background:var(--white);border:1.5px solid var(--pink-border);border-radius:16px;padding:16px;width:240px;box-shadow:0 8px 32px rgba(196,139,159,0.2);display:none;animation:panelIn 0.2s ease}
+.sticker-panel.open{display:block}
+@keyframes panelIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+.sticker-panel-title{font-family:'Montserrat',sans-serif;font-weight:800;font-size:0.75rem;letter-spacing:0.08em;color:var(--light);text-transform:uppercase;margin-bottom:10px}
+.sticker-grid{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px}
+.sticker-item{font-size:1.4rem;cursor:grab;transition:transform 0.15s;padding:4px;border-radius:8px;line-height:1}
+.sticker-item:hover{transform:scale(1.2)}
+.word-sticker{font-family:'Montserrat',sans-serif;font-weight:800;font-size:0.65rem;background:var(--pink);color:#fff;padding:4px 8px;border-radius:6px;cursor:grab;transition:transform 0.15s;white-space:nowrap}
+.word-sticker:hover{transform:scale(1.05)}
+.sticker-hint{font-size:0.72rem;color:var(--light);font-style:italic;margin-top:4px}
+
+/* ─── PLACED STICKERS ─── */
+.placed-sticker{position:absolute;cursor:move;user-select:none;z-index:50;font-size:1.6rem;transition:none}
+.placed-sticker.word{font-family:'Montserrat',sans-serif;font-weight:800;font-size:0.72rem;background:var(--pink);color:#fff;padding:3px 8px;border-radius:6px;border:none}
+.placed-sticker .sticker-del{display:none;position:absolute;top:-8px;right:-8px;background:#e05;color:#fff;border-radius:50%;width:18px;height:18px;font-size:0.65rem;align-items:center;justify-content:center;cursor:pointer;line-height:1}
+.placed-sticker:hover .sticker-del{display:flex}
+
+/* ─── BOTTOM BAR ─── */
+.bottom-bar{position:fixed;bottom:0;left:0;right:0;background:var(--white);border-top:1px solid var(--pink-border);padding:12px 20px;display:flex;gap:10px;justify-content:center;z-index:150;box-shadow:0 -2px 16px rgba(196,139,159,0.1)}
+
+/* ─── SAVE TOAST ─── */
+.toast{position:fixed;top:80px;left:50%;transform:translateX(-50%) translateY(-20px);background:var(--dark);color:#fff;padding:10px 20px;border-radius:100px;font-family:'Montserrat',sans-serif;font-weight:800;font-size:0.78rem;opacity:0;transition:all 0.3s;z-index:500;pointer-events:none}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+/* ─── PRINT ─── */
+@media print{
+  .app-header,.tabs,.bottom-bar,.sticker-toggle,.sticker-panel,.toast{display:none!important}
+  .page{display:block!important;padding:0!important;max-width:100%!important}
+  body{background:#fff}
+  .section-card{break-inside:avoid;box-shadow:none;border:1px solid #ddd}
+  .day-grid{grid-template-columns:repeat(4,1fr)}
+}
+
+/* ─── SCROLLBAR ─── */
+::-webkit-scrollbar{width:6px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:var(--pink-border);border-radius:3px}
+
+/* ─── RESPONSIVE ─── */
+@media(max-width:640px){
+  .cover-inputs{grid-template-columns:1fr}
+  .day-grid{grid-template-columns:1fr}
+  .tracker-grid{grid-template-columns:1fr}
+  .balance-grid{grid-template-columns:1fr 1fr}
+  .app-logo span{display:none}
+  .sticker-panel{right:8px;width:calc(100vw - 32px)}
+}
+</style>
+</head>
+<body>
+<div id="app">
+
+<!-- HEADER -->
+<div class="app-header">
+  <div class="app-logo">
+    My Nest Chapter
+    <span>WEEKLY RESET PLANNER</span>
+  </div>
+  <div class="header-actions">
+    <button class="btn btn-ghost" onclick="window.print()">🖨️ Print</button>
+    <button class="btn btn-outline" onclick="resetWeek()">↺ Reset</button>
+    <button class="btn btn-primary" onclick="saveAll()">✦ Save</button>
+  </div>
+</div>
+
+<!-- TABS -->
+<div class="tabs">
+  <button class="tab active" onclick="showPage('home')">✦ Home</button>
+  <button class="tab" onclick="showPage('monthly')">🗓 Monthly</button>
+  <button class="tab" onclick="showPage('weekly')">📋 Weekly</button>
+  <button class="tab" onclick="showPage('tracker')">✔ Tracker</button>
+  <button class="tab" onclick="showPage('reflection')">🌿 Reflection</button>
+</div>
+
+<!-- PAGE: HOME -->
+<div class="page active" id="page-home">
+  <div class="cover-wrap">
+    <div class="cover-flower">🌸</div>
+    <div class="cover-title">Weekly Reset<br><span>Planner</span></div>
+    <div class="cover-brand">My Nest Chapter · New Beginnings</div>
+    <div class="cover-inputs">
+      <input id="cover-name" placeholder="Your name" oninput="autoSave()">
+      <input id="cover-week" placeholder="Week of…" oninput="autoSave()">
+      <input id="cover-intention" placeholder="This week's intention" oninput="autoSave()">
+      <input id="cover-word" placeholder="My word this week" oninput="autoSave()">
+    </div>
+    <div class="cover-affirmation">
+      <p id="cover-affirmation-text">"This is a new chapter. I am allowed to begin again, softer, wiser, and more myself than before."</p>
+    </div>
+    <div class="cover-stats">
+      <div class="cover-stat">
+        <div class="cover-stat-n" id="stat-tasks">0</div>
+        <div class="cover-stat-l">Tasks Done</div>
+      </div>
+      <div class="cover-stat">
+        <div class="cover-stat-n" id="stat-habits">0</div>
+        <div class="cover-stat-l">Habits Kept</div>
+      </div>
+      <div class="cover-stat">
+        <div class="cover-stat-n" id="stat-streak">0%</div>
+        <div class="cover-stat-l">Week Score</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PAGE: MONTHLY -->
+<div class="page" id="page-monthly">
+  <div class="section-card">
+    <div class="section-title"><span class="icon">🌷</span> Monthly Intentions</div>
+    <p class="section-subtitle">What do you want to call in this month?</p>
+    <div class="intention-inputs" id="intentions"></div>
+  </div>
+
+  <div class="section-card">
+    <div class="section-title"><span class="icon">📅</span> Monthly Calendar</div>
+    <div class="cal-month-header">
+      <button class="cal-nav" onclick="prevMonth()">‹</button>
+      <div class="cal-month-label" id="calLabel"></div>
+      <button class="cal-nav" onclick="nextMonth()">›</button>
+    </div>
+    <div class="cal-grid" id="calGrid"></div>
+  </div>
+
+  <div class="section-card">
+    <div class="section-title"><span class="icon">✨</span> Word of the Month</div>
+    <p class="section-subtitle">Choose a word to carry with you</p>
+    <div class="wom-wrap" id="womChips"></div>
+    <input class="wom-custom" id="womCustom" placeholder="Write your own word…" oninput="autoSave()">
+  </div>
+</div>
+
+<!-- PAGE: WEEKLY -->
+<div class="page" id="page-weekly">
+  <div class="section-card">
+    <div class="section-title"><span class="icon">📋</span> This Week's Focus</div>
+    <div class="intention-inputs" id="weekFocus"></div>
+  </div>
+  <div class="section-card" id="daySection">
+    <div class="section-title"><span class="icon">🗓</span> Day-by-Day Planner</div>
+    <p class="section-subtitle">3 tasks · energy check · space to breathe</p>
+    <div class="day-grid" id="dayGrid"></div>
+  </div>
+</div>
+
+<!-- PAGE: TRACKER -->
+<div class="page" id="page-tracker">
+  <div class="section-card">
+    <div class="section-title"><span class="icon">✔</span> Habit Tracker</div>
+    <p class="section-subtitle">Consistency is self-love in action</p>
+    <div style="overflow-x:auto">
+      <table class="habit-table" id="habitTable"></table>
+    </div>
+  </div>
+
+  <div class="section-card">
+    <div class="section-title"><span class="icon">🕯️</span> Self-Care Tracker</div>
+    <p class="section-subtitle">Did you take care of yourself today?</p>
+    <div class="tracker-grid" id="trackerGrid"></div>
+  </div>
+
+  <div class="section-card">
+    <div class="section-title"><span class="icon">🌙</span> Mood Tracker</div>
+    <p class="section-subtitle">How did this day feel?</p>
+    <div class="mood-row-wrap" id="moodGrid"></div>
+  </div>
+
+  <div class="section-card">
+    <div class="section-title"><span class="icon">⭐</span> Life Balance Check</div>
+    <p class="section-subtitle">Rate each area 1–5 this week</p>
+    <div class="balance-grid" id="balanceGrid"></div>
+  </div>
+</div>
+
+<!-- PAGE: REFLECTION -->
+<div class="page" id="page-reflection">
+  <div class="section-card">
+    <div class="section-title"><span class="icon">🌿</span> Weekly Reflection</div>
+    <p class="section-subtitle">Take a breath. Look back with kindness.</p>
+    <div class="reflection-grid" id="reflGrid"></div>
+  </div>
+
+  <div class="section-card">
+    <div class="section-title"><span class="icon">💗</span> Note to Self</div>
+    <p class="section-subtitle">What do you need to hear right now?</p>
+    <textarea class="note-self" id="noteToSelf" placeholder="Write yourself a love note…" oninput="autoSave()"></textarea>
+    <div class="affirmation-row" id="affirmations"></div>
+  </div>
+</div>
+
+</div><!-- end #app -->
+
+<!-- STICKER TOGGLE & PANEL -->
+<button class="sticker-toggle" onclick="toggleStickers()">✦ Stickers</button>
+<div class="sticker-panel" id="stickerPanel">
+  <div class="sticker-panel-title">Drag to any card</div>
+  <div class="sticker-grid" id="emojiStickerGrid"></div>
+  <div class="sticker-panel-title" style="margin-top:4px">Word Stickers</div>
+  <div class="sticker-grid" id="wordStickerGrid"></div>
+  <p class="sticker-hint">Drag sticker onto any section card</p>
+</div>
+
+<!-- COPYRIGHT FOOTER -->
+<div style="text-align:center;padding:12px;font-family:'Lato',sans-serif;font-size:0.72rem;color:#b0a0a8;border-top:1px solid rgba(196,139,159,0.15);margin-top:8px">
+  © 2025 <strong>My Nest Chapter</strong> · mynestchapter.com · Personal use only. Not for resale or redistribution.
+</div>
+
+<!-- BOTTOM BAR -->
+<div class="bottom-bar">
+  <button class="btn btn-ghost" onclick="clearAll()">Clear Page</button>
+  <button class="btn btn-outline" onclick="resetWeek()">↺ New Week</button>
+  <button class="btn btn-primary" onclick="saveAll()">✦ Save Progress</button>
+</div>
+
+<!-- SAVE TOAST -->
+<div class="toast" id="toast">✦ Saved!</div>
+
+<script>
+// ─── DATA ───────────────────────────────────────────────────────────────────
+const DAYS = ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'];
+const DS   = ['M','T','W','T','F','S','S'];
+const HABITS_DEFAULT = ['Morning routine','Move my body','Drink water','Read or learn','No phone before bed'];
+const TRACKERS = [
+  {name:'Sleep',icon:'🌙'},{name:'Movement',icon:'🚶‍♀️'},{name:'Water',icon:'💧'},
+  {name:'Nourishment',icon:'🥗'},{name:'Fresh Air',icon:'🌿'},{name:'Connection',icon:'🤝'},
+  {name:'Quiet Time',icon:'🕯️'},{name:'Joy Moment',icon:'✨'}
+];
+const BALANCE = ['Health & Body','Mind & Learning','Work & Purpose','Home & Space',
+                 'Relationships','Fun & Play','Rest & Recovery','Personal Growth'];
+const MOODS   = ['😔','😐','🙂','😊','🌟'];
+const EMOJI_S = ['🌸','🌿','⭐','💗','🦋','🌙','✨','🌺','🍃','💫','🌷','🕊️'];
+const WORD_S  = ['WIN! ✨','GRATEFUL','SELF CARE','STRONG','NEW CHAPTER','I DID IT',
+                 'GROWING','REST IS OK','ENOUGH','BRAVE','SHOWING UP','ONE DAY ✦'];
+const WOM_WORDS = ['Renewal','Brave','Ease','Bloom','Present','Grateful','Steady',
+                   'Gentle','Rise','Flow','Peace','Begin'];
+const AFFIRMATIONS = [
+  'I am enough.','I choose peace.','I am becoming.','I deserve rest.',
+  'This is my season.','I trust the process.'
+];
+const REFL_QS = [
+  'What went well this week?','What drained my energy?','What am I most proud of?',
+  'What did I learn about myself?','Where did I show up for myself?',
+  'What will I release?','What do I want to carry into next week?','Gratitude list:'
+];
+
+// ─── STATE ───────────────────────────────────────────────────────────────────
+let calYear, calMonth;
+let dragItem = null;
+let dragOffX = 0, dragOffY = 0;
+
+// ─── CALENDAR ────────────────────────────────────────────────────────────────
+function initCal() {
+  const now = new Date();
+  calYear  = now.getFullYear();
+  calMonth = now.getMonth();
+  buildCalendar();
+}
+
+function buildCalendar() {
+  const g = document.getElementById('calGrid');
+  const lbl = document.getElementById('calLabel');
+  const monthNames = ['January','February','March','April','May','June',
+                      'July','August','September','October','November','December'];
+  lbl.textContent = monthNames[calMonth] + ' ' + calYear;
+
+  const saved = JSON.parse(localStorage.getItem('mnc_wr_cal') || '{}');
+  const key   = calYear + '-' + calMonth;
+  const selSet = new Set(saved[key] || []);
+
+  g.innerHTML = '';
+  // Day of week headers
+  ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'].forEach(d => {
+    const h = document.createElement('div');
+    h.className = 'cal-dow';
+    h.textContent = d;
+    g.appendChild(h);
+  });
+
+  const firstDay = new Date(calYear, calMonth, 1).getDay();
+  const daysInMonth = new Date(calYear, calMonth + 1, 0).getDate();
+  const today = new Date();
+
+  for (let i = 0; i < firstDay; i++) {
+    const e = document.createElement('div');
+    e.className = 'cal-cell empty';
+    g.appendChild(e);
+  }
+
+  for (let d = 1; d <= daysInMonth; d++) {
+    const cell = document.createElement('div');
+    cell.className = 'cal-cell';
+    cell.textContent = d;
+    const isToday = today.getFullYear()===calYear && today.getMonth()===calMonth && today.getDate()===d;
+    if (isToday) cell.classList.add('today');
+    if (selSet.has(d)) cell.classList.add('selected');
+    cell.onclick = () => toggleCalDay(cell, d);
+    g.appendChild(cell);
+  }
+}
+
+function toggleCalDay(cell, d) {
+  const key = calYear + '-' + calMonth;
+  const saved = JSON.parse(localStorage.getItem('mnc_wr_cal') || '{}');
+  const selArr = saved[key] || [];
+  const idx = selArr.indexOf(d);
+  if (idx === -1) { selArr.push(d); cell.classList.add('selected'); }
+  else { selArr.splice(idx,1); cell.classList.remove('selected'); }
+  saved[key] = selArr;
+  localStorage.setItem('mnc_wr_cal', JSON.stringify(saved));
+}
+
+function prevMonth() {
+  calMonth--;
+  if (calMonth < 0) { calMonth = 11; calYear--; }
+  buildCalendar();
+}
+function nextMonth() {
+  calMonth++;
+  if (calMonth > 11) { calMonth = 0; calYear++; }
+  buildCalendar();
+}
+
+// ─── INTENTIONS ──────────────────────────────────────────────────────────────
+function buildIntentions(containerId, prefix, count, placeholders) {
+  const c = document.getElementById(containerId);
+  c.innerHTML = '';
+  for (let i = 0; i < count; i++) {
+    const row = document.createElement('div');
+    row.className = 'intention-row';
+    row.innerHTML = `<span class="intention-num">${i+1}</span>
+      <input id="${prefix}_${i}" placeholder="${placeholders[i]||'...'}" oninput="autoSave()">`;
+    c.appendChild(row);
+  }
+}
+
+// ─── DAY GRID ─────────────────────────────────────────────────────────────────
+function buildDayGrid() {
+  const g = document.getElementById('dayGrid');
+  g.innerHTML = '';
+  DAYS.forEach((day, di) => {
+    const isWe = di >= 5;
+    const card = document.createElement('div');
+    card.className = 'day-card' + (isWe ? ' weekend' : '');
+    card.id = 'dayCard_' + di;
+    card.setAttribute('data-drop', '1');
+
+    let taskHTML = '';
+    for (let t = 0; t < 3; t++) {
+      taskHTML += `<div class="task-row">
+        <input type="checkbox" class="task-cb" id="tc_${di}_${t}" onchange="toggleTask(this,${di},${t})">
+        <input class="task-input" id="ti_${di}_${t}" placeholder="Task ${t+1}" oninput="autoSave()">
+      </div>`;
+    }
+
+    let eDots = '';
+    for (let e = 1; e <= 5; e++) {
+      eDots += `<div class="e-dot" id="ed_${di}_${e}" onclick="setEnergy(${di},${e})"></div>`;
+    }
+
+    card.innerHTML = `
+      <div class="day-name">
+        ${day}
+        ${isWe ? '<span class="day-badge">WEEKEND</span>' : ''}
+      </div>
+      <div class="task-list">${taskHTML}</div>
+      <div class="energy-row">
+        <span class="energy-label">Energy</span>
+        <div class="energy-dots">${eDots}</div>
+      </div>
+      <textarea class="day-note" id="dn_${di}" placeholder="How did today feel? One word or a thought…" oninput="autoSave()"></textarea>`;
+
+    g.appendChild(card);
+    setupDropZone(card);
+  });
+}
+
+function toggleTask(cb, di, ti) {
+  const inp = document.getElementById('ti_' + di + '_' + ti);
+  if (cb.checked) inp.classList.add('done');
+  else inp.classList.remove('done');
+  autoSave();
+  updateStats();
+}
+
+function setEnergy(di, level) {
+  for (let e = 1; e <= 5; e++) {
+    const dot = document.getElementById('ed_' + di + '_' + e);
+    if (dot) dot.classList.toggle('filled', e <= level);
+  }
+  autoSave();
+}
+
+// ─── HABIT TRACKER ────────────────────────────────────────────────────────────
+function buildHabits() {
+  const tbl = document.getElementById('habitTable');
+  tbl.innerHTML = '';
+
+  // Header row
+  let hdr = '<thead><tr><th>Habit</th>';
+  DS.forEach(d => { hdr += `<th>${d}</th>`; });
+  hdr += '<th>Streak</th></tr></thead>';
+  tbl.insertAdjacentHTML('beforeend', hdr);
+
+  const body = document.createElement('tbody');
+  HABITS_DEFAULT.forEach((h, hi) => {
+    const tr = document.createElement('tr');
+    tr.className = 'habit-row';
+    let cells = `<td><input class="habit-name-input" id="hn_${hi}" value="${h}" oninput="autoSave()"></td>`;
+    for (let d = 0; d < 7; d++) {
+      cells += `<td><div class="habit-check" id="hc_${hi}_${d}" onclick="toggleHabit(${hi},${d})"></div></td>`;
+    }
+    cells += `<td class="habit-streak" id="hs_${hi}">0/7</td>`;
+    tr.innerHTML = cells;
+    body.appendChild(tr);
+  });
+  tbl.appendChild(body);
+}
+
+function toggleHabit(hi, d) {
+  const cell = document.getElementById('hc_' + hi + '_' + d);
+  const done = cell.classList.toggle('done');
+  cell.textContent = done ? '✓' : '';
+  updateStreaks();
+  autoSave();
+}
+
+function updateStreaks() {
+  for (let hi = 0; hi < HABITS_DEFAULT.length; hi++) {
+    let count = 0;
+    for (let d = 0; d < 7; d++) {
+      const cell = document.getElementById('hc_' + hi + '_' + d);
+      if (cell && cell.classList.contains('done')) count++;
+    }
+    const streak = document.getElementById('hs_' + hi);
+    if (streak) streak.textContent = count + '/7';
+  }
+  updateStats();
+}
+
+// ─── SELF-CARE TRACKER ────────────────────────────────────────────────────────
+function buildTrackers() {
+  const g = document.getElementById('trackerGrid');
+  g.innerHTML = '';
+  TRACKERS.forEach((tr, ti) => {
+    const card = document.createElement('div');
+    card.className = 'tracker-card';
+    card.setAttribute('data-drop', '1');
+    card.id = 'trackerCard_' + ti;
+
+    let days = '';
+    for (let d = 0; d < 7; d++) {
+      days += `<div class="t-day">
+        <div class="t-day-label">${DS[d]}</div>
+        <div class="t-bubble" id="tb_${ti}_${d}" onclick="toggleBubble(${ti},${d})"></div>
+      </div>`;
+    }
+
+    card.innerHTML = `
+      <div class="tracker-head">
+        <span class="tracker-icon">${tr.icon}</span>
+        <span class="tracker-name">${tr.name}</span>
+      </div>
+      <div class="tracker-days">${days}</div>`;
+    g.appendChild(card);
+    setupDropZone(card);
+  });
+}
+
+function toggleBubble(ti, d) {
+  const b = document.getElementById('tb_' + ti + '_' + d);
+  const done = b.classList.toggle('done');
+  b.textContent = done ? '✓' : '';
+  autoSave();
+}
+
+// ─── MOOD TRACKER ─────────────────────────────────────────────────────────────
+function buildMoodGrid() {
+  const g = document.getElementById('moodGrid');
+  g.innerHTML = '';
+  DAYS.forEach((day, di) => {
+    const row = document.createElement('div');
+    row.className = 'mood-row';
+
+    let emojis = '';
+    MOODS.forEach((m, mi) => {
+      emojis += `<span class="mood-emoji" id="me_${di}_${mi}" onclick="setMood(${di},${mi})" title="${['Rough','Okay','Good','Great','Amazing'][mi]}">${m}</span>`;
+    });
+
+    row.innerHTML = `
+      <div class="mood-day">${day.slice(0,3)}</div>
+      <div class="mood-emojis">${emojis}</div>
+      <input class="mood-note" id="mn_${di}" placeholder="Optional note…" oninput="autoSave()">`;
+    g.appendChild(row);
+  });
+}
+
+function setMood(di, mi) {
+  for (let m = 0; m < MOODS.length; m++) {
+    const el = document.getElementById('me_' + di + '_' + m);
+    if (el) el.classList.toggle('selected', m === mi);
+  }
+  autoSave();
+}
+
+// ─── LIFE BALANCE ─────────────────────────────────────────────────────────────
+function buildBalance() {
+  const g = document.getElementById('balanceGrid');
+  g.innerHTML = '';
+  BALANCE.forEach((area, ai) => {
+    const card = document.createElement('div');
+    card.className = 'balance-card';
+    card.id = 'balCard_' + ai;
+    card.setAttribute('data-drop', '1');
+
+    let pips = '';
+    for (let p = 1; p <= 5; p++) {
+      pips += `<div class="pip" id="pip_${ai}_${p}" onclick="setBalance(${ai},${p})"></div>`;
+    }
+
+    card.innerHTML = `
+      <div class="balance-area">${area}</div>
+      <div class="pip-row">${pips}</div>
+      <div class="pip-score" id="pips_${ai}">— / 5</div>
+      <textarea class="balance-note" id="bn_${ai}" placeholder="Notes…" oninput="autoSave()"></textarea>`;
+    g.appendChild(card);
+    setupDropZone(card);
+  });
+}
+
+function setBalance(ai, val) {
+  for (let p = 1; p <= 5; p++) {
+    const pip = document.getElementById('pip_' + ai + '_' + p);
+    if (pip) pip.classList.toggle('filled', p <= val);
+  }
+  const score = document.getElementById('pips_' + ai);
+  if (score) { score.textContent = val + ' / 5'; score.classList.add('has-val'); }
+  autoSave();
+}
+
+// ─── REFLECTION ───────────────────────────────────────────────────────────────
+function buildReflection() {
+  const g = document.getElementById('reflGrid');
+  g.innerHTML = '';
+  REFL_QS.forEach((q, qi) => {
+    const card = document.createElement('div');
+    card.className = 'refl-card';
+    card.setAttribute('data-drop', '1');
+    card.id = 'reflCard_' + qi;
+    card.innerHTML = `
+      <div class="refl-q">${q}</div>
+      <textarea class="refl-a" id="ra_${qi}" placeholder="Write here…" oninput="autoSave()"></textarea>`;
+    g.appendChild(card);
+    setupDropZone(card);
+  });
+}
+
+// ─── WORD OF MONTH ────────────────────────────────────────────────────────────
+function buildWOM() {
+  const c = document.getElementById('womChips');
+  c.innerHTML = '';
+  WOM_WORDS.forEach(w => {
+    const chip = document.createElement('div');
+    chip.className = 'wom-chip';
+    chip.textContent = w;
+    chip.onclick = () => {
+      document.querySelectorAll('.wom-chip').forEach(x => x.classList.remove('selected'));
+      chip.classList.add('selected');
+      autoSave();
+    };
+    c.appendChild(chip);
+  });
+}
+
+// ─── AFFIRMATION CHIPS ────────────────────────────────────────────────────────
+function buildAffirmations() {
+  const c = document.getElementById('affirmations');
+  AFFIRMATIONS.forEach(a => {
+    const chip = document.createElement('div');
+    chip.className = 'aff-chip';
+    chip.textContent = a;
+    chip.onclick = () => {
+      const ta = document.getElementById('noteToSelf');
+      ta.value += (ta.value ? '\n' : '') + a;
+      autoSave();
+    };
+    c.appendChild(chip);
+  });
+}
+
+// ─── STICKERS ─────────────────────────────────────────────────────────────────
+function buildStickers() {
+  const eg = document.getElementById('emojiStickerGrid');
+  const wg = document.getElementById('wordStickerGrid');
+  eg.innerHTML = '';
+  wg.innerHTML = '';
+
+  EMOJI_S.forEach(s => {
+    const el = document.createElement('div');
+    el.className = 'sticker-item';
+    el.textContent = s;
+    el.draggable = true;
+    el.addEventListener('dragstart', e => {
+      dragItem = { type: 'emoji', text: s };
+      e.dataTransfer.effectAllowed = 'copy';
+    });
+    eg.appendChild(el);
+  });
+
+  WORD_S.forEach(s => {
+    const el = document.createElement('div');
+    el.className = 'word-sticker';
+    el.textContent = s;
+    el.draggable = true;
+    el.addEventListener('dragstart', e => {
+      dragItem = { type: 'word', text: s };
+      e.dataTransfer.effectAllowed = 'copy';
+    });
+    wg.appendChild(el);
+  });
+}
+
+function setupDropZone(el) {
+  el.addEventListener('dragover', e => { e.preventDefault(); e.dataTransfer.dropEffect = 'copy'; });
+  el.addEventListener('drop', e => {
+    e.preventDefault();
+    if (!dragItem) return;
+    const rect = el.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    placeSticker(el, dragItem.type, dragItem.text, x, y);
+    dragItem = null;
+    autoSave();
+  });
+}
+
+function placeSticker(container, type, text, x, y) {
+  const s = document.createElement('div');
+  s.className = 'placed-sticker' + (type === 'word' ? ' word' : '');
+  s.textContent = text;
+  s.style.left = x + 'px';
+  s.style.top  = y + 'px';
+
+  // delete button
+  const del = document.createElement('span');
+  del.className = 'sticker-del';
+  del.textContent = '✕';
+  del.onclick = (e) => { e.stopPropagation(); s.remove(); autoSave(); };
+  s.appendChild(del);
+
+  // drag to reposition
+  s.addEventListener('mousedown', startStickerDrag);
+  container.style.position = 'relative';
+  container.appendChild(s);
+}
+
+function startStickerDrag(e) {
+  if (e.target.classList.contains('sticker-del')) return;
+  e.preventDefault();
+  const s = e.currentTarget;
+  const startX = e.clientX - parseInt(s.style.left||0);
+  const startY = e.clientY - parseInt(s.style.top||0);
+
+  function move(ev) {
+    s.style.left = (ev.clientX - startX) + 'px';
+    s.style.top  = (ev.clientY - startY) + 'px';
+  }
+  function up() {
+    document.removeEventListener('mousemove', move);
+    document.removeEventListener('mouseup', up);
+    autoSave();
+  }
+  document.addEventListener('mousemove', move);
+  document.addEventListener('mouseup', up);
+}
+
+function toggleStickers() {
+  const panel = document.getElementById('stickerPanel');
+  panel.classList.toggle('open');
+}
+
+// ─── NAVIGATION ───────────────────────────────────────────────────────────────
+function showPage(name) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('page-' + name).classList.add('active');
+  const tabs = document.querySelectorAll('.tab');
+  const idx = ['home','monthly','weekly','tracker','reflection'].indexOf(name);
+  if (tabs[idx]) tabs[idx].classList.add('active');
+}
+
+// ─── STATS ────────────────────────────────────────────────────────────────────
+function updateStats() {
+  let tasks = 0, habits = 0, total = 0;
+
+  for (let di = 0; di < 7; di++) {
+    for (let ti = 0; ti < 3; ti++) {
+      const cb = document.getElementById('tc_' + di + '_' + ti);
+      if (cb && cb.checked) tasks++;
+    }
+  }
+
+  for (let hi = 0; hi < HABITS_DEFAULT.length; hi++) {
+    for (let d = 0; d < 7; d++) {
+      const c = document.getElementById('hc_' + hi + '_' + d);
+      if (c && c.classList.contains('done')) habits++;
+      total++;
+    }
+  }
+
+  const score = total > 0 ? Math.round((habits / total) * 100) : 0;
+  const tn = document.getElementById('stat-tasks');
+  const hn = document.getElementById('stat-habits');
+  const sn = document.getElementById('stat-streak');
+  if (tn) tn.textContent = tasks;
+  if (hn) hn.textContent = habits;
+  if (sn) sn.textContent = score + '%';
+}
+
+// ─── SAVE / LOAD ──────────────────────────────────────────────────────────────
+let autoSaveTimer = null;
+function autoSave() {
+  clearTimeout(autoSaveTimer);
+  autoSaveTimer = setTimeout(saveAll, 1200);
+}
+
+function saveAll() {
+  const d = {};
+
+  // Cover
+  ['cover-name','cover-week','cover-intention','cover-word'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) d[id] = el.value;
+  });
+
+  // Intentions
+  for (let i = 0; i < 5; i++) {
+    const el = document.getElementById('int_' + i);
+    if (el) d['int_' + i] = el.value;
+  }
+
+  // Week focus
+  for (let i = 0; i < 3; i++) {
+    const el = document.getElementById('wf_' + i);
+    if (el) d['wf_' + i] = el.value;
+  }
+
+  // Day grid
+  for (let di = 0; di < 7; di++) {
+    for (let ti = 0; ti < 3; ti++) {
+      const cb  = document.getElementById('tc_' + di + '_' + ti);
+      const inp = document.getElementById('ti_' + di + '_' + ti);
+      if (cb)  d['tc_' + di + '_' + ti]  = cb.checked;
+      if (inp) d['ti_' + di + '_' + ti]  = inp.value;
+    }
+    // Energy dots
+    for (let e = 1; e <= 5; e++) {
+      const dot = document.getElementById('ed_' + di + '_' + e);
+      if (dot) d['ed_' + di + '_' + e] = dot.classList.contains('filled');
+    }
+    const dn = document.getElementById('dn_' + di);
+    if (dn) d['dn_' + di] = dn.value;
+  }
+
+  // Habits
+  for (let hi = 0; hi < HABITS_DEFAULT.length; hi++) {
+    const hn = document.getElementById('hn_' + hi);
+    if (hn) d['hn_' + hi] = hn.value;
+    for (let dd = 0; dd < 7; dd++) {
+      const hc = document.getElementById('hc_' + hi + '_' + dd);
+      if (hc) d['hc_' + hi + '_' + dd] = hc.classList.contains('done');
+    }
+  }
+
+  // Tracker bubbles
+  for (let ti = 0; ti < TRACKERS.length; ti++) {
+    for (let d = 0; d < 7; d++) {
+      const b = document.getElementById('tb_' + ti + '_' + d);
+      if (b) d['tb_' + ti + '_' + d] = b.classList.contains('done');
+    }
+  }
+
+  // Mood
+  for (let di = 0; di < 7; di++) {
+    for (let mi = 0; mi < MOODS.length; mi++) {
+      const me = document.getElementById('me_' + di + '_' + mi);
+      if (me) d['me_' + di + '_' + mi] = me.classList.contains('selected');
+    }
+    const mn = document.getElementById('mn_' + di);
+    if (mn) d['mn_' + di] = mn.value;
+  }
+
+  // Balance
+  for (let ai = 0; ai < BALANCE.length; ai++) {
+    for (let p = 1; p <= 5; p++) {
+      const pip = document.getElementById('pip_' + ai + '_' + p);
+      if (pip) d['pip_' + ai + '_' + p] = pip.classList.contains('filled');
+    }
+    const bn = document.getElementById('bn_' + ai);
+    if (bn) d['bn_' + ai] = bn.value;
+  }
+
+  // Reflection
+  for (let qi = 0; qi < REFL_QS.length; qi++) {
+    const ra = document.getElementById('ra_' + qi);
+    if (ra) d['ra_' + qi] = ra.value;
+  }
+
+  // Note to self
+  const nts = document.getElementById('noteToSelf');
+  if (nts) d['noteToSelf'] = nts.value;
+
+  // Word of month
+  const wc = document.getElementById('womCustom');
+  if (wc) d['womCustom'] = wc.value;
+  d['womSelected'] = '';
+  document.querySelectorAll('.wom-chip.selected').forEach(c => { d['womSelected'] = c.textContent; });
+
+  // Stickers (placed)
+  const stickerData = [];
+  document.querySelectorAll('[data-drop="1"]').forEach(zone => {
+    zone.querySelectorAll('.placed-sticker').forEach(ps => {
+      stickerData.push({
+        zoneId: zone.id,
+        text: ps.childNodes[0].textContent,
+        type: ps.classList.contains('word') ? 'word' : 'emoji',
+        x: ps.style.left,
+        y: ps.style.top
+      });
+    });
+  });
+  d['stickers'] = JSON.stringify(stickerData);
+
+  localStorage.setItem('mnc_weekly_reset', JSON.stringify(d));
+  showToast('✦ Saved!');
+  updateStats();
+}
+
+function loadAll() {
+  const raw = localStorage.getItem('mnc_weekly_reset');
+  if (!raw) return;
+  const d = JSON.parse(raw);
+
+  // Cover
+  ['cover-name','cover-week','cover-intention','cover-word'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el && d[id] !== undefined) el.value = d[id];
+  });
+
+  // Intentions
+  for (let i = 0; i < 5; i++) {
+    const el = document.getElementById('int_' + i);
+    if (el && d['int_' + i] !== undefined) el.value = d['int_' + i];
+  }
+
+  // Week focus
+  for (let i = 0; i < 3; i++) {
+    const el = document.getElementById('wf_' + i);
+    if (el && d['wf_' + i] !== undefined) el.value = d['wf_' + i];
+  }
+
+  // Day grid
+  for (let di = 0; di < 7; di++) {
+    for (let ti = 0; ti < 3; ti++) {
+      const cb  = document.getElementById('tc_' + di + '_' + ti);
+      const inp = document.getElementById('ti_' + di + '_' + ti);
+      if (cb  && d['tc_' + di + '_' + ti] !== undefined) {
+        cb.checked = d['tc_' + di + '_' + ti];
+        if (inp) inp.classList.toggle('done', cb.checked);
+      }
+      if (inp && d['ti_' + di + '_' + ti] !== undefined) inp.value = d['ti_' + di + '_' + ti];
+    }
+    for (let e = 1; e <= 5; e++) {
+      const dot = document.getElementById('ed_' + di + '_' + e);
+      if (dot && d['ed_' + di + '_' + e]) dot.classList.add('filled');
+    }
+    const dn = document.getElementById('dn_' + di);
+    if (dn && d['dn_' + di] !== undefined) dn.value = d['dn_' + di];
+  }
+
+  // Habits
+  for (let hi = 0; hi < HABITS_DEFAULT.length; hi++) {
+    const hn = document.getElementById('hn_' + hi);
+    if (hn && d['hn_' + hi] !== undefined) hn.value = d['hn_' + hi];
+    for (let dd = 0; dd < 7; dd++) {
+      const hc = document.getElementById('hc_' + hi + '_' + dd);
+      if (hc && d['hc_' + hi + '_' + dd]) {
+        hc.classList.add('done');
+        hc.textContent = '✓';
+      }
+    }
+  }
+  updateStreaks();
+
+  // Tracker bubbles
+  for (let ti = 0; ti < TRACKERS.length; ti++) {
+    for (let d2 = 0; d2 < 7; d2++) {
+      const b = document.getElementById('tb_' + ti + '_' + d2);
+      if (b && d['tb_' + ti + '_' + d2]) { b.classList.add('done'); b.textContent = '✓'; }
+    }
+  }
+
+  // Mood
+  for (let di = 0; di < 7; di++) {
+    for (let mi = 0; mi < MOODS.length; mi++) {
+      const me = document.getElementById('me_' + di + '_' + mi);
+      if (me && d['me_' + di + '_' + mi]) me.classList.add('selected');
+    }
+    const mn = document.getElementById('mn_' + di);
+    if (mn && d['mn_' + di] !== undefined) mn.value = d['mn_' + di];
+  }
+
+  // Balance
+  for (let ai = 0; ai < BALANCE.length; ai++) {
+    let highPip = 0;
+    for (let p = 1; p <= 5; p++) {
+      const pip = document.getElementById('pip_' + ai + '_' + p);
+      if (pip && d['pip_' + ai + '_' + p]) { pip.classList.add('filled'); highPip = p; }
+    }
+    if (highPip > 0) {
+      const score = document.getElementById('pips_' + ai);
+      if (score) { score.textContent = highPip + ' / 5'; score.classList.add('has-val'); }
+    }
+    const bn = document.getElementById('bn_' + ai);
+    if (bn && d['bn_' + ai] !== undefined) bn.value = d['bn_' + ai];
+  }
+
+  // Reflection
+  for (let qi = 0; qi < REFL_QS.length; qi++) {
+    const ra = document.getElementById('ra_' + qi);
+    if (ra && d['ra_' + qi] !== undefined) ra.value = d['ra_' + qi];
+  }
+
+  // Note to self
+  const nts = document.getElementById('noteToSelf');
+  if (nts && d['noteToSelf'] !== undefined) nts.value = d['noteToSelf'];
+
+  // Word of month
+  const wc = document.getElementById('womCustom');
+  if (wc && d['womCustom'] !== undefined) wc.value = d['womCustom'];
+  if (d['womSelected']) {
+    document.querySelectorAll('.wom-chip').forEach(c => {
+      if (c.textContent === d['womSelected']) c.classList.add('selected');
+    });
+  }
+
+  // Stickers
+  if (d['stickers']) {
+    try {
+      const stickers = JSON.parse(d['stickers']);
+      stickers.forEach(s => {
+        const zone = document.getElementById(s.zoneId);
+        if (zone) {
+          const x = parseInt(s.x);
+          const y = parseInt(s.y);
+          placeSticker(zone, s.type, s.text, x, y);
+        }
+      });
+    } catch(e) {}
+  }
+
+  updateStats();
+}
+
+// ─── RESET ────────────────────────────────────────────────────────────────────
+function clearAll() {
+  const page = document.querySelector('.page.active');
+  if (!page) return;
+  if (!confirm('Clear inputs on this page?')) return;
+  page.querySelectorAll('input,textarea').forEach(el => {
+    if (el.type === 'checkbox') el.checked = false;
+    else el.value = '';
+    el.classList.remove('done');
+  });
+  page.querySelectorAll('.done,.filled,.selected').forEach(el => {
+    el.classList.remove('done','filled','selected');
+    el.textContent = el.classList.contains('habit-check') ? '' : el.textContent;
+  });
+  page.querySelectorAll('.placed-sticker').forEach(s => s.remove());
+  autoSave();
+}
+
+function resetWeek() {
+  if (!confirm('Start a new week? This will clear all progress and cannot be undone.')) return;
+  localStorage.removeItem('mnc_weekly_reset');
+  location.reload();
+}
+
+// ─── TOAST ────────────────────────────────────────────────────────────────────
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2200);
+}
+
+// ─── INIT ─────────────────────────────────────────────────────────────────────
+function init() {
+  initCal();
+  buildIntentions('intentions', 'int', 5, [
+    'What do I want to feel more of?','What habit will I focus on?',
+    'What do I want to accomplish?','What will I let go of?','My self-care priority:'
+  ]);
+  buildIntentions('weekFocus', 'wf', 3, [
+    'My #1 priority this week','What I\'m releasing this week','How I\'ll take care of myself'
+  ]);
+  buildDayGrid();
+  buildHabits();
+  buildTrackers();
+  buildMoodGrid();
+  buildBalance();
+  buildReflection();
+  buildWOM();
+  buildAffirmations();
+  buildStickers();
+  loadAll();
+}
+
+document.addEventListener('DOMContentLoaded', init);
+</script>
+</body>
+</html>

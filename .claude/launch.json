@@ -1,0 +1,17 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "garage-sale-planner-static",
+      "runtimeExecutable": "npx",
+      "runtimeArgs": ["--yes", "serve", "widgets/garage-sale-planner", "-l", "4510"],
+      "port": 4510
+    },
+    {
+      "name": "homepage-static",
+      "runtimeExecutable": "npx",
+      "runtimeArgs": ["--yes", "serve", "site", "-l", "4520"],
+      "port": 4520
+    }
+  ]
+}
