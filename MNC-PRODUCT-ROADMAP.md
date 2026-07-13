@@ -27,17 +27,20 @@ Last updated: June 2026
 - Print Center: price tags, price point tags, sale signs, box signs
 - Sticky earned bar, save button (top-right + Start tab)
 
-**Still missing from blueprint (priority order):**
+**Corrected against actual code 2026-07-12** — this list was stale; several items marked missing were already built. See `GarageSalePlanner_SortPriceInteractive_Brief.md` for the full screen-by-screen reference.
+
+**Confirmed built (previously mislabeled missing):** Pricing guide table, online platform cards (Poshmark/Facebook/Craigslist/etc. with best-for guidance), change calculator (Sale Day calculator), PDF sale summary export (Wrap Up → "Download sale summary (PDF)"), AI photo-ID via Anthropic API (`garage-identify-item.php`, not Google Vision as originally planned).
+
+**Still actually missing (priority order):**
 1. [ ] Rotating tips strip (10–15 tips, Cece's voice, swap every 8 seconds)
-2. [ ] Pricing guide table (static — furniture $20–$100, clothing $1–$5, etc.)
-3. [ ] Online platform cards (eBay, Poshmark, Mercari, Facebook Marketplace, Craigslist, Mercari, ThredUp — best for / skip if / pro tip / link)
-4. [ ] Change calculator on Sale Day (customer gave me $20 → give back $X)
-5. [ ] Export/download summary on Wrap Up (HTML file download)
-6. [ ] What's Next section on Wrap Up (MNC links, Cece voice close)
-7. [ ] eBay price lookup — type item name, see sold prices (Phase 1)
-8. [ ] Instructions PDF to deliver with the file
-9. [ ] Photo price lookup via Google Vision API (Phase 2 — skip for now)
-10. [ ] Cross-device sync (separate sprint — needs full account system)
+2. [ ] eBay price lookup — type item name, see sold prices
+3. [ ] Dedicated "What's Next" section on Wrap Up (MNC links, Cece voice close)
+4. [ ] Instructions PDF to deliver with the file
+5. [ ] Cross-device sync (separate sprint — needs full account system)
+
+**Blocked on Cece (see brief for detail):**
+- [ ] Screenshot-compare guided-flow screens 2–7 against mockup
+- [ ] Live-test the AI photo-ID backend with a real Anthropic key and a real photo
 
 **For making sales (more urgent than features):**
 - [ ] Are you emailing your list about it?

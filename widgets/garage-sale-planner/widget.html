@@ -664,7 +664,7 @@
       font-weight:700;text-align:center;width:100%;border-bottom:2px dashed rgba(250,247,237,.5);padding:4px 0}
     .gs-brand-badge{display:inline-block;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;
       background:#252535;color:#FAF7ED;padding:3px 8px;margin-bottom:8px}
-    .gs-nudge{font-size:12px;color:#426DB3;background:#FCF0E8;border:1.5px dashed #426DB3;padding:8px 10px;
+    .gs-nudge{font-size:12px;color:#8BA7D4;background:#FCF0E8;border:1.5px solid #8BA7D4;padding:8px 10px;
       margin-bottom:14px;line-height:1.4}
     .gs-action-row{display:flex;gap:8px}
     .gs-btn-accept{flex:1;background:#252535;color:#FAF7ED;border:2px solid #252535;padding:12px;font-weight:700;
@@ -877,6 +877,9 @@
     <button class="icon-btn" onclick="save();showToast('Saved!')" aria-label="Save your planner" title="Save your planner">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2Z"/><path d="M17 21v-8H7v8M7 3v5h8"/></svg>
     </button>
+    <button class="icon-btn" onclick="openPriceGuide()" aria-label="Price Guide" title="Price Guide">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18"/><path d="M8 14h2M13 14h3M8 17h2"/></svg>
+    </button>
     <button class="icon-btn" onclick="openHelp()" aria-label="Help" title="Help">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M9.5 9a2.5 2.5 0 0 1 4.7 1.2c-.3.9-1.2 1.3-1.9 1.9-.5.4-.8.9-.8 1.4"/><circle cx="12" cy="17" r=".6" fill="currentColor" stroke="none"/></svg>
     </button>
@@ -986,7 +989,7 @@ const flowSections = {
   sortPrice:[{id:"inventory",label:"Items"},{id:"batch",label:"Batch Items"},{id:"memory",label:"Memories"},{id:"pricing",label:"Pricing Guide"}],
   sellPromote:[{id:"promote",label:"Promote"},{id:"writeAd",label:"Write Your Ad"},{id:"platformGuide",label:"Sell Online"}],
   prepSafety:[{id:"prep",label:"Prep"},{id:"safety",label:"Safety + Logistics"}],
-  saleWrap:[{id:"sale",label:"Sale Day"},{id:"tags",label:"Print Center"},{id:"wrap",label:"Wrap Up"}],
+  saleWrap:[{id:"sale",label:"Sale Day"},{id:"tags",label:"Print Command Center"},{id:"wrap",label:"Wrap Up"}],
 };
 
 const defaultSection = {start:"start",sortPrice:"inventory",sellPromote:"promote",prepSafety:"prep",saleWrap:"sale"};
@@ -1841,7 +1844,11 @@ function renderInventory(){
 // later only needs to pre-fill guidedUI.current.categoryKey/itemName/brand before showing Review.
 let guidedUI={open:false,screen:'entry',room:null,current:{}};
 let gsExpandedCat=null;
-function gsToggleCatPanel(key){gsExpandedCat=gsExpandedCat===key?null:key;renderContent();}
+function gsToggleCatPanel(key){
+  gsExpandedCat=gsExpandedCat===key?null:key;
+  const ov=document.getElementById('price-guide-overlay');
+  if(ov&&ov.style.display==='block'){renderPriceGuideOverlay();}else{renderContent();}
+}
 function renderGuidedPricingPanel(){
   return`
   <div class="card bold-card" style="margin-bottom:24px">
@@ -1882,9 +1889,38 @@ function renderGuidedPricingPanel(){
     </div>
   </div>`;
 }
+
+// ─── PRICE GUIDE: GLOBAL OVERLAY ─────────────────────────────────────────────
+function openPriceGuide(){
+  const ov=document.getElementById('price-guide-overlay');
+  if(!ov)return;
+  ov.style.display='block';
+  ov.style.opacity='0';
+  renderPriceGuideOverlay();
+  requestAnimationFrame(()=>requestAnimationFrame(()=>{ov.style.opacity='1';}));
+}
+function closePriceGuide(){
+  const ov=document.getElementById('price-guide-overlay');
+  if(ov){ov.style.opacity='0';setTimeout(()=>{ov.style.display='none';},180);}
+}
+function renderPriceGuideOverlay(){
+  const ov=document.getElementById('price-guide-overlay');if(!ov)return;
+  ov.innerHTML=`
+  <div style="position:absolute;inset:0;background:rgba(37,37,53,0.55);display:flex;align-items:center;justify-content:center;padding:24px">
+    <div style="background:var(--color-surface);border-radius:var(--radius-xl);max-width:640px;width:100%;max-height:82vh;display:flex;flex-direction:column;overflow:hidden">
+      <div style="display:flex;align-items:center;gap:12px;padding:20px 24px;border-bottom:1px solid var(--color-divider);flex-shrink:0">
+        <div style="flex:1;font-family:var(--font-display);font-weight:800;font-size:18px;color:var(--color-text)">Price Guide</div>
+        <button onclick="closePriceGuide()" aria-label="Close price guide" style="background:none;border:none;font-size:22px;line-height:1;color:var(--color-text-muted);cursor:pointer;padding:0;min-width:44px;min-height:44px">×</button>
+      </div>
+      <div style="padding:24px;overflow-y:auto">
+        ${renderGuidedPricingPanel()}
+      </div>
+    </div>
+  </div>`;
+}
 const GS_ROOMS=["Garage","Kitchen","Bedroom","Kids' Room","Living Room","Attic","Basement"];
 const GS_ROUTES={
-  "Garage Sale":{tab:"saleWrap",section:"tags",label:"Sale Day + Wrap Up → Print Center →"},
+  "Garage Sale":{tab:"saleWrap",section:"tags",label:"Print Command Center →"},
   "Sell Online":{tab:"sellPromote",section:"platformGuide",label:"Sell + Promote → Sell Online →"},
   "Donate":{tab:"saleWrap",section:"wrap",label:"Sale Day + Wrap Up →"},
   "Trash":{tab:"saleWrap",section:"wrap",label:"Sale Day + Wrap Up →"},
@@ -1917,12 +1953,22 @@ function renderGuidedSort(){
   const showStrip=guidedUI.screen!=='summary';
   ov.innerHTML=`<div style="position:absolute;inset:0;background:var(--color-bg);overflow-y:auto;padding:20px 16px 60px">
     <div style="max-width:640px;margin:0 auto">
-      <div style="display:flex;justify-content:flex-end;margin-bottom:4px">
-        <button onclick="closeGuidedSort()" aria-label="Close guided sort" style="background:none;border:none;font-size:26px;line-height:1;color:var(--color-text);cursor:pointer;padding:6px;min-width:44px;min-height:44px">×</button>
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:12px">
+        ${gsJumpNav()}
+        <button onclick="closeGuidedSort()" aria-label="Close guided sort" style="background:none;border:none;font-size:26px;line-height:1;color:var(--color-text);cursor:pointer;padding:6px;min-width:44px;min-height:44px;flex-shrink:0">×</button>
       </div>
       ${showStrip?gsStatStrip():''}
       ${fn()}
     </div>
+  </div>`;
+}
+function gsJumpTo(tabId){
+  closeGuidedSort();
+  goTab(tabId,defaultSection[tabId]);
+}
+function gsJumpNav(){
+  return`<div style="display:flex;gap:6px;overflow-x:auto;flex:1;padding-bottom:2px">
+    ${flowTabs.map(t=>`<button onclick="gsJumpTo('${t.id}')" style="flex-shrink:0;background:none;border:1.5px solid var(--color-divider);padding:8px 12px;font-family:var(--font-body);font-weight:600;font-size:12px;color:var(--color-text-muted);cursor:pointer;white-space:nowrap;min-height:44px">${esc(t.label)}</button>`).join('')}
   </div>`;
 }
 function gsStatStrip(){
@@ -1974,19 +2020,21 @@ function gsAddCustomRoom(){
   if(r&&r.trim()){guidedUI.room=r.trim();guidedUI.screen='capture';renderGuidedSort();}
 }
 function gsCaptureScreen(){
-  const roomLabel=guidedUI.room?` — ${esc(guidedUI.room)}`:'';
+  const roomLabel=guidedUI.room?esc(guidedUI.room):'Any room';
   const roomCount=guidedUI.room?gsRoomStats(guidedUI.room).count:0;
   return`
   <div class="card bold-card" style="text-align:center;padding:36px 24px">
-    <div class="gs-camera-icon" aria-hidden="true">📷</div>
-    <div class="card-title" style="margin-bottom:4px">Photograph the item${roomLabel}</div>
-    <p style="color:var(--color-text-muted);margin-bottom:24px">Tap below to open your camera.</p>
-    <label class="btn btn-primary" style="display:inline-block;font-size:16px;padding:16px 32px;cursor:pointer">
-      Take a photo
+    <div class="gs-eyebrow" style="font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--color-primary-text);margin-bottom:8px">${roomLabel}</div>
+    <div class="card-title" style="margin-bottom:8px;font-size:26px">Photograph one item</div>
+    <p style="color:var(--color-text-muted);margin-bottom:24px">Snap what you're holding. You'll decide what to do with it next.</p>
+    <label class="gs-tile" style="display:block;cursor:pointer;padding:36px 20px;margin-bottom:16px">
+      <div class="gs-camera-icon" aria-hidden="true" style="margin-bottom:10px">📷</div>
+      <div style="font-family:var(--font-display);font-weight:700;font-size:16px;color:var(--color-text)">Tap to open your camera</div>
+      <div style="font-size:13px;color:var(--color-text-muted);margin-top:4px">Works with your phone's camera directly</div>
       <input type="file" accept="image/*" capture="environment" style="display:none" onchange="gsPhotoSelected(this)" />
     </label>
-    <div class="gs-nudge" style="margin-top:24px;text-align:left">Tip: if it's a designer or name-brand item, try to get the label or logo in the photo too — it helps catch the brand and get you a better price.</div>
-    <div style="margin-top:24px;display:flex;flex-direction:column;gap:10px;align-items:center">
+    <div class="gs-nudge" style="margin-bottom:24px;text-align:left">Tip: if it's a designer or name-brand item, try to get the label or logo in the photo too — it helps catch the brand and get you a better price.</div>
+    <div style="display:flex;flex-direction:column;gap:10px;align-items:center">
       ${guidedUI.room&&roomCount>0?`<button class="btn btn-secondary" onclick="guidedUI.screen='roomComplete';renderGuidedSort()">Done with ${esc(guidedUI.room)} →</button>`:''}
       <button onclick="guidedUI.screen='summary';renderGuidedSort()" style="background:none;border:none;color:var(--color-text-muted);font-family:var(--font-body);font-size:13px;text-decoration:underline;cursor:pointer;padding:10px 8px;min-height:44px">All done for now</button>
     </div>
@@ -2016,7 +2064,7 @@ function gsIdentifyPhoto(file){
     if(guidedUI.screen!=='analyzing')return; // user already navigated away
     guidedUI.screen='review';renderGuidedSort();
   };
-  fetch('/garage-identify-item.php',{method:'POST',body:fd,signal:controller?controller.signal:undefined})
+  fetch('/api/garage-identify-item.php',{method:'POST',body:fd,signal:controller?controller.signal:undefined})
     .then(r=>r.ok?r.json():Promise.reject(new Error('bad status')))
     .then(data=>{
       clearTimeout(timer);
@@ -2034,6 +2082,27 @@ function gsIdentifyPhoto(file){
 function gsReviewScreen(){
   const c=guidedUI.current;
   const cat=sortPriceCategories.find(x=>x.key===c.categoryKey);
+  if(c.aiGuessed&&cat&&c.itemName&&!c.reviewEditing){
+    return`
+    <div class="card bold-card">
+      ${c.photo?`<img src="${c.photo}" alt="" style="max-width:100%;max-height:220px;display:block;margin:0 auto 20px;object-fit:contain"/>`:''}
+      <div style="text-align:center;margin-bottom:20px">
+        <div style="font-family:var(--font-display);font-weight:700;font-size:20px;color:var(--color-text)">${esc(c.itemName)}</div>
+        <div class="gs-eyebrow" style="font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--color-primary-text);margin-top:6px">${esc(cat.label)}</div>
+        <a href="#" onclick="guidedUI.current.reviewEditing=true;renderGuidedSort();return false" style="display:inline-block;margin-top:12px;font-size:13px;font-weight:700;text-decoration:underline;color:var(--color-primary-text);padding:10px;min-height:44px">Not quite right? Fix it</a>
+      </div>
+      <div style="margin-bottom:16px;text-align:center"><a href="#" onclick="openPriceGuide();return false" style="font-family:var(--font-display);font-size:12px;font-weight:700;color:var(--color-primary-text);text-decoration:underline;padding:10px 0;display:inline-block;min-height:44px">Full pricing guide →</a></div>
+      <div class="page-sub" style="margin-bottom:10px;text-align:center">What do you want to do with it?</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+        <button class="gs-dec-btn gs-sell" style="grid-column:1/-1" onclick="gsChooseDecision('sell')">Sell</button>
+        <button class="gs-dec-btn gs-donate" onclick="gsChooseDecision('donate')">Donate</button>
+        <button class="gs-dec-btn gs-kids" onclick="gsChooseDecision('kids')">Give to Kids</button>
+        <button class="gs-dec-btn gs-trash" onclick="gsChooseDecision('trash')">Trash</button>
+        <button class="gs-dec-btn gs-memory" onclick="gsChooseDecision('memory')">Memory Box</button>
+        <button class="gs-dec-btn gs-batch" style="grid-column:1/-1" onclick="gsChooseDecision('batch')">Add to a Batch (low-value items)</button>
+      </div>
+    </div>`;
+  }
   return`
   <div class="card bold-card">
     ${c.photo?`<img src="${c.photo}" alt="" style="max-width:100%;max-height:220px;display:block;margin:0 auto 20px;object-fit:contain"/>`:''}
@@ -2062,7 +2131,7 @@ function gsReviewScreen(){
       <input type="checkbox" ${c.brand?'checked':''} onchange="guidedUI.current.brand=this.checked" />
       <span>This has a visible brand or designer logo</span>
     </label>
-    <div style="margin-bottom:16px"><a href="#" onclick="closeGuidedSort();goTab('sortPrice','pricing');return false" style="font-family:var(--font-display);font-size:12px;font-weight:700;color:var(--color-primary-text);text-decoration:underline;padding:10px 0;display:inline-block;min-height:44px">Full pricing guide →</a></div>
+    <div style="margin-bottom:16px"><a href="#" onclick="openPriceGuide();return false" style="font-family:var(--font-display);font-size:12px;font-weight:700;color:var(--color-primary-text);text-decoration:underline;padding:10px 0;display:inline-block;min-height:44px">Full pricing guide →</a></div>
     <div class="page-sub" style="margin-bottom:10px">What do you want to do with it?</div>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
       <button class="gs-dec-btn gs-sell" style="grid-column:1/-1" onclick="gsChooseDecision('sell')">Sell</button>
@@ -2124,27 +2193,26 @@ function gsToastUndo(msg){
   _gsUndoTimer=setTimeout(()=>t.classList.remove('show'),3500);
 }
 function gsMemoryScreen(){
+  const c=guidedUI.current;
+  const itemName=c.label||c.itemName||'Item';
   return`
   <div class="card bold-card">
-    <div class="card-title" style="margin-bottom:16px">Memory Box</div>
-    <div class="form-field" style="margin-bottom:14px">
-      <label class="form-label" for="gs-mem-note">Why does this matter? (optional)</label>
-      <textarea class="input" id="gs-mem-note" rows="3" oninput="guidedUI.current.memNote=this.value"></textarea>
+    ${c.photo?`<img src="${c.photo}" alt="" style="max-width:100%;max-height:180px;display:block;margin:0 auto 14px;object-fit:contain"/>`:''}
+    <div style="margin-bottom:20px">
+      <div style="font-family:var(--font-display);font-weight:700;font-size:18px;color:var(--color-text)">${esc(itemName)}</div>
+      <div style="font-size:13px;color:var(--color-text-muted)">Memory Box</div>
     </div>
-    <div class="form-field" style="margin-bottom:14px">
-      <label class="form-label" for="gs-mem-storage">Where are you storing it? (optional)</label>
-      <input class="input" id="gs-mem-storage" oninput="guidedUI.current.memStorage=this.value" placeholder="e.g. cedar chest in the attic" />
+    <div class="form-field" style="margin-bottom:20px">
+      <label class="form-label" for="gs-mem-note">Why does this one matter? (optional)</label>
+      <textarea class="input" id="gs-mem-note" rows="3" placeholder="A sentence or two is plenty." oninput="guidedUI.current.memNote=this.value"></textarea>
     </div>
-    <label style="display:flex;align-items:center;gap:8px;margin-bottom:20px;cursor:pointer;min-height:44px">
-      <input type="checkbox" onchange="guidedUI.current.alsoGiveToKids=this.checked" />
-      <span>Also give this to my kids</span>
-    </label>
-    <button class="btn btn-primary" onclick="gsSaveMemory()">Save</button>
+    <button class="btn btn-primary" style="width:100%;margin-bottom:14px" onclick="gsSaveMemory()">Save to Memory Box</button>
+    <div style="text-align:center"><a href="#" onclick="gsSaveMemory();return false" style="font-size:13px;text-decoration:underline;color:var(--color-primary-text);padding:10px;display:inline-block;min-height:44px">Skip for now</a></div>
   </div>`;
 }
 function gsSaveMemory(){
   const c=guidedUI.current;
-  gsSaveItem({decision:'Memory Box',price:'0',notes:c.memNote||'',storage:c.memStorage||'',alsoGiveToKids:!!c.alsoGiveToKids});
+  gsSaveItem({decision:'Memory Box',price:'0',notes:c.memNote||''});
   gsToastUndo('Saved to Memory Box');
   guidedUI.screen='capture';renderGuidedSort();
 }
@@ -2154,12 +2222,12 @@ function gsBatchScreen(){
   <div class="card bold-card">
     <div class="card-title" style="margin-bottom:16px">Add to a batch</div>
     ${batches.length?`<div style="display:grid;gap:10px;margin-bottom:20px">
-      ${batches.map(b=>`<button class="gs-tile" style="text-align:left" onclick="gsSaveBatchItem('${esc(b.id)}')">
+      ${batches.map(b=>`<button class="gs-tile" style="text-align:center" onclick="gsSaveBatchItem('${esc(b.id)}')">
         <strong>${esc(batchLabel(b))}</strong>
         <div style="font-size:13px;color:var(--color-text-muted)">$${esc(b.price)} each</div>
       </button>`).join('')}
     </div>`:`<p style="color:var(--color-text-muted);margin-bottom:16px">No batches yet — start one below.</p>`}
-    <div class="card-title" style="font-size:15px;margin-bottom:10px">Start a new batch</div>
+    <div class="card-title" style="font-size:15px;margin-bottom:10px">${batches.length?'Or start a new batch':'Start a new batch'}</div>
     <div class="form-row" style="margin-bottom:14px">
       <div class="form-field">
         <label class="form-label" for="gs-batch-type">Type</label>
@@ -2202,7 +2270,8 @@ function gsPriceLookup(categoryKey,itemName,brandDetected,condition){
   if(row)price=row.price[idx];
   else if(brandDetected&&cat.brandTier)price=cat.brandTier[idx];
   const nudge=!!cat.alwaysNudge||!!brandDetected||price>=SORT_PRICE_NUDGE_THRESHOLD;
-  return{price,nudge,caution:(row&&row.caution)||null};
+  const nudgeReason=cat.alwaysNudge?'category':(brandDetected?'brand':(price>=SORT_PRICE_NUDGE_THRESHOLD?'price':null));
+  return{price,nudge,nudgeReason,caution:(row&&row.caution)||null};
 }
 function gsSellScreen(){
   const c=guidedUI.current;
@@ -2216,7 +2285,7 @@ function gsSellScreen(){
       ${['Excellent','Good','Fair'].map(k=>`<button class="btn ${cond===k?'btn-primary':'btn-secondary'}" onclick="guidedUI.current.condition='${k}';guidedUI.current.priceOverride=undefined;renderGuidedSort()">${k}</button>`).join('')}
     </div>
     ${res.caution?`<div class="info-box" style="margin-bottom:16px">${esc(res.caution)}</div>`:''}
-    ${res.nudge?`<div class="gs-nudge"><strong>Worth a look online first?</strong><br>This kind of item — or brand — often sells for more there. You can tag it Garage Sale below, or send it to Sell Online instead.</div>`:''}
+    ${res.nudge?`<div class="gs-nudge"><strong>Worth a look online first?</strong><br>${res.nudgeReason==='brand'?'That brand tends to sell for more online than at a garage sale.':res.nudgeReason==='category'?'Collectibles like this are worth checking online — value here is about rarity and age, not a printed label.':'This one is priced high enough that it likely sells for more online.'} You can tag it Garage Sale below, or send it to Sell Online instead.</div>`:''}
     <div class="gs-price-tag">
       ${c.brand?`<div class="gs-brand-badge">Brand detected</div><br>`:''}
       <div class="gs-price-lbl">Garage sale price</div>
@@ -2324,7 +2393,7 @@ function renderAddItemForm(){
     </div>
     <div class="info-box" style="margin-bottom:6px;background:#F9ECF0;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap">
       <span><strong>Suggested:</strong> ${suggested} &nbsp;·&nbsp; <strong>Best fit:</strong> ${platform}</span>
-      <a href="#" onclick="goSection('pricing');return false" style="font-family:var(--font-display);font-size:12px;font-weight:700;color:#252535;text-decoration:underline;white-space:nowrap;flex-shrink:0">Full pricing guide →</a>
+      <a href="#" onclick="openPriceGuide();return false" style="font-family:var(--font-display);font-size:12px;font-weight:700;color:#252535;text-decoration:underline;white-space:nowrap;flex-shrink:0">Full pricing guide →</a>
     </div>
     <div class="form-field" style="margin-bottom:14px">
       <label class="form-label">Notes</label>
@@ -3875,7 +3944,7 @@ function renderPrintCenter(){
   ${renderTourNote("Print price tags directly from your inventory, area signs for each table, and a sale flyer with tear-off address strips for neighborhood posts.")}
   <div class="gap-y">
     <div>
-      <h2 class="page-title">Print Center</h2>
+      <h2 class="page-title">Print Command Center</h2>
       <p class="page-sub">Price tags, area signs, and flyers — preview here, then print.</p>
     </div>
     <div class="pc-tabs" role="tablist">
@@ -5615,7 +5684,7 @@ const helpTopics=[
       <h4 style="font-family:var(--font-display);font-size:15px;font-weight:500;color:var(--color-text);margin-bottom:6px">Memories</h4>
       <p style="margin-bottom:24px">On the Sort + Price tab. For items that are hard to let go of. Add the item, write a note about why it matters. Mark what you did with it after — photographed it, passed it on, donated it. It shows up at the end of the sale on the Wrap Up screen.</p>
 
-      <h4 style="font-family:var(--font-display);font-size:15px;font-weight:500;color:var(--color-text);margin-bottom:6px">Print Center</h4>
+      <h4 style="font-family:var(--font-display);font-size:15px;font-weight:500;color:var(--color-text);margin-bottom:6px">Print Command Center</h4>
       <p style="margin-bottom:24px">On the Sale Day + Wrap Up tab. Prints price tags, price-point signs, table signs, and box labels. Size everything before you print — the defaults are a good starting point.</p>
 
       <h4 style="font-family:var(--font-display);font-size:15px;font-weight:500;color:var(--color-text);margin-bottom:6px">Reset Everything</h4>
@@ -6075,6 +6144,7 @@ document.addEventListener('click',()=>{
 <div id="help-overlay" style="position:fixed;inset:0;z-index:9100;display:none;overflow:hidden;pointer-events:auto;transition:opacity 180ms ease;opacity:0"></div>
 <div id="batch-print-overlay" style="position:fixed;inset:0;z-index:9100;display:none;overflow:hidden;pointer-events:auto;transition:opacity 180ms ease;opacity:0"></div>
 <div id="guided-sort-overlay" style="position:fixed;inset:0;z-index:9200;display:none;overflow:hidden;pointer-events:auto;transition:opacity 180ms ease;opacity:0"></div>
+<div id="price-guide-overlay" style="position:fixed;inset:0;z-index:9300;display:none;overflow:hidden;pointer-events:auto;transition:opacity 180ms ease;opacity:0"></div>
 
 <footer style="max-width:1100px;margin:0 auto;padding:var(--space-5) var(--space-6);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:var(--space-3);border-top:1px solid var(--color-divider);margin-top:var(--space-8)">
   <span style="font-size:var(--text-xs);color:var(--color-text-muted)">© My Nest Chapter · <a href="https://mynestchapter.com" style="color:var(--color-text-muted)">mynestchapter.com</a> · Written by Cece</span>
