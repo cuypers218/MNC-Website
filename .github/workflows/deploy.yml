@@ -13,6 +13,8 @@ name: Deploy to Hostinger
 # This workflow is disabled from actually deploying until those secrets exist —
 # the FTP step will simply fail with a clear "missing secret" error, it won't
 # silently do nothing or push garbage credentials.
+#
+# 2026-07-13: FTP password re-verified in Hostinger hPanel and secret updated.
 
 on:
   push:
