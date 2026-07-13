@@ -1,5 +1,6 @@
 # Sensitive config
 site/includes/config.php
+site/_onetime-password-reset.php
 
 # Generated images (large files)
 *.jpg

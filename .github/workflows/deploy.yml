@@ -1,0 +1,63 @@
+name: Deploy to Hostinger
+
+# Runs on every push to main. QA checks must pass before anything deploys.
+#
+# ─── ONE-TIME SETUP REQUIRED (do this in GitHub, not in this file) ───
+# Go to: repo → Settings → Secrets and variables → Actions → New repository secret
+# Add these three secrets (get the values from Hostinger hPanel → FTP Accounts):
+#   HOSTINGER_FTP_SERVER    e.g. ftp.mynestchapter.com
+#   HOSTINGER_FTP_USERNAME  your Hostinger FTP username
+#   HOSTINGER_FTP_PASSWORD  your Hostinger FTP password
+# Never put these values directly in this file or in chat with any AI tool.
+#
+# This workflow is disabled from actually deploying until those secrets exist —
+# the FTP step will simply fail with a clear "missing secret" error, it won't
+# silently do nothing or push garbage credentials.
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  qa-check:
+    name: Brand & Code Quality Check
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Run MNC QA checks
+        run: python3 .github/scripts/mnc_qa.py
+
+  deploy:
+    name: FTP Deploy to Hostinger
+    needs: qa-check
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Deploy via FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.HOSTINGER_FTP_SERVER }}
+          username: ${{ secrets.HOSTINGER_FTP_USERNAME }}
+          password: ${{ secrets.HOSTINGER_FTP_PASSWORD }}
+          # Adjust this to match the actual folder on Hostinger that serves mynestchapter.com
+          # (commonly "public_html/" on shared hosting — confirm before first real run).
+          server-dir: /public_html/
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/.github/**
+            **/docs/**
+            **/_stray_assets/**
+            **/_archive/**
+            **/*.md
+            **/node_modules/**
+            **/.claude/**
