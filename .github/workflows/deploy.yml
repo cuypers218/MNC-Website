@@ -60,3 +60,4 @@ jobs:
             **/*.md
             **/node_modules/**
             **/.claude/**
+            **/*DRAFT*

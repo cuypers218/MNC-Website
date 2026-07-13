@@ -225,6 +225,8 @@ for scan_dir in SCAN_DIRS:
         if filepath.suffix in SCAN_EXTENSIONS and filepath.is_file():
             if VENDOR_DIR_NAMES.intersection(p.lower() for p in filepath.parts):
                 continue
+            if 'DRAFT' in filepath.name.upper():
+                continue
             scan_file(filepath)
 
 # ─────────────────────────────────────────────────────────────────
