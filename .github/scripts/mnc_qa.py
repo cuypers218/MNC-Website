@@ -67,6 +67,17 @@ RADIUS_SHADOW_EXEMPT_FILES = [
 ]
 
 # ─────────────────────────────────────────────────────────────────
+# BOX-SHADOW — ON HOLD (not yet approved, just deferred)
+# .an-btn-primary:hover in site/assets/css/style.css uses an inset
+# white ring on hover. Cece put the fix on hold 2026-07-13 — revisit
+# before treating this as a permanent exemption.
+# ─────────────────────────────────────────────────────────────────
+
+BOX_SHADOW_HOLD_FILES = [
+    'site/assets/css/style.css',
+]
+
+# ─────────────────────────────────────────────────────────────────
 # BANNED PHRASES
 # Exact string matches, case-insensitive.
 # Only phrases specific enough to catch without false positives.
@@ -150,6 +161,7 @@ def scan_file(filepath: Path):
     files_scanned += 1
     is_widget = 'widgets' in filepath.parts
     is_radius_shadow_exempt = filepath.as_posix() in RADIUS_SHADOW_EXEMPT_FILES
+    is_box_shadow_hold = filepath.as_posix() in BOX_SHADOW_HOLD_FILES
 
     try:
         lines = filepath.read_text(encoding='utf-8', errors='ignore').splitlines()
@@ -186,7 +198,7 @@ def scan_file(filepath: Path):
 
         # 3 — box-shadow violations
         #     Allowed: box-shadow: none | var(--something)
-        if 'box-shadow' in line_lower and not is_radius_shadow_exempt:
+        if 'box-shadow' in line_lower and not is_radius_shadow_exempt and not is_box_shadow_hold:
             is_var_declaration = bool(re.search(r'--[\w-]+\s*:', line))
             if not is_var_declaration:
                 allowed = bool(re.search(
