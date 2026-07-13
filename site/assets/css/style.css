@@ -246,13 +246,14 @@ p { margin-bottom: 1rem; line-height: 1.6; }
    PRODUCT CARDS
    ============================================ */
 .product-grid {
-    display: grid; grid-template-columns: repeat(3, 1fr);
+    display: flex; flex-wrap: wrap; justify-content: center;
     gap: 2rem; padding: 2rem 0;
 }
 .product-card {
     background-color: #FFFFFF; border: 1px solid #ABABAB;
     overflow: hidden; display: flex; flex-direction: column;
     position: relative; transition: transform 0.3s ease;
+    flex: 1 1 calc(33.333% - 1.334rem); max-width: calc(33.333% - 1.334rem);
 }
 .product-card:hover { transform: translateY(-4px); }
 
@@ -565,7 +566,8 @@ p { margin-bottom: 1rem; line-height: 1.6; }
    RESPONSIVE
    ============================================ */
 @media (max-width: 1024px) {
-    .product-grid, .blog-grid { grid-template-columns: repeat(2, 1fr); }
+    .blog-grid { grid-template-columns: repeat(2, 1fr); }
+    .product-card { flex-basis: calc(50% - 1rem); max-width: calc(50% - 1rem); }
 }
 
 @media (max-width: 768px) {
@@ -577,7 +579,8 @@ p { margin-bottom: 1rem; line-height: 1.6; }
     /* Hero — sizing/background handled in the hero's own 760px query above */
 
     /* Grids */
-    .product-grid, .blog-grid { grid-template-columns: 1fr; }
+    .blog-grid { grid-template-columns: 1fr; }
+    .product-card { flex-basis: 100%; max-width: 100%; }
 
     /* Sections */
     .section, .section-alt, .section-cream { padding: 2.5rem 0; }

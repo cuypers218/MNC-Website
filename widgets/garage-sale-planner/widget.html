@@ -635,7 +635,7 @@
     .gs-stat-block .gs-stat-lbl{font-size:9px;text-transform:uppercase;letter-spacing:.06em;opacity:.85;margin-top:2px}
     .gs-seg-bar{width:100%;height:10px;border:1.5px solid #252535;display:flex;overflow:hidden;margin:12px 0 10px}
     .gs-seg{height:100%}
-    .gs-legend{display:flex;flex-wrap:wrap;gap:5px 14px;font-size:10px;color:#5a5a68}
+    .gs-legend{display:flex;flex-wrap:wrap;gap:5px 14px;font-size:10px;color:var(--color-text-muted)}
     .gs-legend-item{display:flex;align-items:center;gap:5px}
     .gs-legend-dot{width:8px;height:8px;flex-shrink:0;display:inline-block}
     .gs-tile{border:2px solid var(--color-text);padding:16px;text-align:center;cursor:pointer;background:#FDFBF7;
@@ -1413,7 +1413,7 @@ let UI={tab:"start",section:"start",showAddForm:false,demo:false,demoStep:0,calM
 let draft={
   item:{id:null,name:"",category:"Decor",condition:"Good",quantity:"1",decision:"Garage Sale",price:"",notes:""},
   batch:{id:null,type:"Table",price:"2",description:""},
-  memory:{id:null,name:"",storage:"",notes:""},
+  memory:{id:null,name:"",storage:"",notes:"",alsoGiveToKids:false},
   giveKids:{id:null,name:"",notes:""},
   sale:{description:"",amount:"",method:"Cash"},
 };
@@ -1884,13 +1884,13 @@ function renderGuidedPricingPanel(){
 }
 const GS_ROOMS=["Garage","Kitchen","Bedroom","Kids' Room","Living Room","Attic","Basement"];
 const GS_ROUTES={
-  "Garage Sale":{tab:"saleWrap",section:"tags"},
-  "Sell Online":{tab:"sellPromote",section:"platformGuide"},
-  "Donate":{tab:"saleWrap",section:"wrap"},
-  "Trash":{tab:"saleWrap",section:"wrap"},
-  "Given to kids":{tab:"sortPrice",section:"memory"},
-  "Memory Box":{tab:"sortPrice",section:"memory"},
-  "Batch":{tab:"sortPrice",section:"batch"},
+  "Garage Sale":{tab:"saleWrap",section:"tags",label:"Sale Day + Wrap Up → Print Center →"},
+  "Sell Online":{tab:"sellPromote",section:"platformGuide",label:"Sell + Promote → Sell Online →"},
+  "Donate":{tab:"saleWrap",section:"wrap",label:"Sale Day + Wrap Up →"},
+  "Trash":{tab:"saleWrap",section:"wrap",label:"Sale Day + Wrap Up →"},
+  "Given to kids":{tab:"sortPrice",section:"memory",label:"Sort + Price → Memories →"},
+  "Memory Box":{tab:"sortPrice",section:"memory",label:"Sort + Price → Memories →"},
+  "Batch":{tab:"sortPrice",section:"batch",label:"Sort + Price → Batch Items →"},
 };
 
 function openGuidedSort(){
@@ -1955,7 +1955,7 @@ function gsEntryScreen(){
     <div class="gs-eyebrow" style="font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--color-primary-text);margin-bottom:8px">Start here</div>
     <div class="card-title" style="margin-bottom:8px;font-size:26px">Pick a room, or<br>just start snapping</div>
     <p style="color:var(--color-text-muted);margin-bottom:24px">Go room to room, or skip straight to the camera if that's easier. Nothing here is required in order.</p>
-    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:10px;margin-bottom:20px">
+    <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:20px">
       ${GS_ROOMS.map(r=>{
         const st=gsRoomStats(r);
         return`<button class="gs-tile${st.count?' gs-tile-done':''}" onclick="guidedUI.room='${esc(r)}';guidedUI.screen='capture';renderGuidedSort()">
@@ -2004,7 +2004,7 @@ function gsPhotoSelected(input){
   reader.readAsDataURL(file);
 }
 function gsAnalyzingScreen(){
-  return`<div class="card bold-card" style="text-align:center;padding:60px 24px"><div class="card-title">One moment...</div></div>`;
+  return`<div class="card bold-card" style="text-align:center;padding:60px 24px" role="status" aria-live="polite"><div class="card-title">One moment...</div></div>`;
 }
 function gsIdentifyPhoto(file){
   const fd=new FormData();
@@ -2133,7 +2133,7 @@ function gsMemoryScreen(){
     </div>
     <div class="form-field" style="margin-bottom:14px">
       <label class="form-label" for="gs-mem-storage">Where are you storing it? (optional)</label>
-      <input class="input" id="gs-mem-storage" oninput="guidedUI.current.memStorage=this.value" placeholder="Attic bin, cedar chest..." />
+      <input class="input" id="gs-mem-storage" oninput="guidedUI.current.memStorage=this.value" placeholder="e.g. cedar chest in the attic" />
     </div>
     <label style="display:flex;align-items:center;gap:8px;margin-bottom:20px;cursor:pointer;min-height:44px">
       <input type="checkbox" onchange="guidedUI.current.alsoGiveToKids=this.checked" />
@@ -2254,21 +2254,26 @@ function gsGoDestination(decision){
 function gsSummaryScreen(){
   const items=P.items||[];
   const total=items.reduce((s,i)=>s+Number(i.price||0),0);
-  const tiles=Object.keys(GS_ROUTES).map(d=>({d,count:items.filter(i=>i.decision===d).length})).filter(t=>t.count>0);
+  const allTiles=Object.keys(GS_ROUTES).map(d=>({d,count:items.filter(i=>i.decision===d).length}));
   return`
   <div class="card bold-card">
-    <div class="card-title" style="margin-bottom:6px">You sorted ${items.length} item${items.length===1?'':'s'} worth $${total.toFixed(0)} today.</div>
-    <p style="color:var(--color-text-muted);margin-bottom:20px">Come back anytime — nothing's lost.</p>
-    ${tiles.length?`<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:8px;margin-bottom:24px">
-      ${tiles.map(t=>`<button class="gs-tile-quiet" onclick="gsGoDestination('${esc(t.d)}')">
-        <div style="font-size:12px;color:var(--color-text-muted)">${esc(t.d==='Given to kids'?'Give to Kids':t.d)}</div>
-        <div style="font-weight:700">${t.count}</div>
-      </button>`).join('')}
-    </div>`:''}
-    <div style="display:flex;gap:14px;flex-wrap:wrap">
-      <button class="btn btn-primary" style="font-size:16px;padding:16px 28px" onclick="guidedUI.screen='entry';renderGuidedSort()">Keep sorting</button>
-      <button class="btn btn-secondary" style="font-size:16px;padding:16px 28px" onclick="closeGuidedSort();goTab('start','start')">Back to Start</button>
+    <div class="card-title" style="margin-bottom:16px">Here's where things stand</div>
+    <div style="background:#252535;color:#FAF7ED;padding:20px;text-align:center;margin-bottom:20px">
+      <div style="font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;opacity:.8;margin-bottom:6px">Total sorted</div>
+      <div style="font-family:var(--font-display);font-size:32px;font-weight:700;margin-bottom:4px">${items.length} item${items.length===1?'':'s'}</div>
+      <div style="font-size:13px;opacity:.85">$${total.toFixed(2)} estimated from sales</div>
     </div>
+    <p style="color:var(--color-text-muted);margin-bottom:14px">Tap any group below to go straight to what's next for it.</p>
+    <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:20px">
+      ${allTiles.map(t=>`<button class="gs-tile-quiet" onclick="gsGoDestination('${esc(t.d)}')">
+        <div style="font-family:var(--font-display);font-size:22px;font-weight:700">${t.count}</div>
+        <div style="font-size:13px;margin-top:2px">${esc(t.d==='Given to kids'?'Give to Kids':t.d)}</div>
+        <div style="font-size:12px;color:var(--color-primary-text);font-weight:700;margin-top:2px">${esc(GS_ROUTES[t.d].label)}</div>
+      </button>`).join('')}
+    </div>
+    <button class="btn btn-secondary" style="font-size:16px;padding:16px 28px;width:100%;margin-bottom:12px" onclick="guidedUI.screen='entry';renderGuidedSort()">← Keep sorting</button>
+    <div class="gs-nudge" style="text-align:center;margin-bottom:12px">You sorted ${items.length} item${items.length===1?'':'s'} worth $${total.toFixed(2)} today. Come back anytime — nothing's lost.</div>
+    <button class="btn btn-secondary" style="font-size:16px;padding:16px 28px;width:100%" onclick="closeGuidedSort();goTab('start','start')">Back to Start</button>
   </div>`;
 }
 
@@ -2671,7 +2676,7 @@ function renderMemory(){
     </div>
 
     <div>
-      <h3 style="font-family:var(--font-display);font-weight:700;font-size:18px;color:var(--color-text);margin-bottom:12px">Memory Box</h3>
+      <div style="font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--color-primary-text);margin-bottom:12px">Memory Box${memBoxItems.length?` · ${memBoxItems.length}`:''}</div>
       ${memBoxItems.length===0?`<div class="empty-state-prompt">Nothing here yet. When you get to something you can't just price and move on — add it here.</div>`:
       `<div class="grid-3">${memBoxItems.map(m=>{
         const open=!!_memRevealOpen[m.id];
@@ -2697,48 +2702,48 @@ function renderMemory(){
         </div>
         <div class="form-field" style="margin-bottom:14px">
           <label class="form-label" for="mem-storage">Where are you storing it? (optional)</label>
-          <input class="input" id="mem-storage" value="${esc(draft.memory.storage)}" placeholder="Attic bin, cedar chest..." oninput="draft.memory.storage=this.value" />
+          <input class="input" id="mem-storage" value="${esc(draft.memory.storage)}" placeholder="e.g. cedar chest in the attic" oninput="draft.memory.storage=this.value" />
         </div>
         <div class="form-field" style="margin-bottom:14px">
-          <label class="form-label" for="mem-notes">Why does this matter? (optional)</label>
-          <textarea class="textarea" id="mem-notes" rows="3" oninput="draft.memory.notes=this.value">${esc(draft.memory.notes)}</textarea>
+          <label class="form-label" for="mem-notes">Why does it matter? (optional)</label>
+          <textarea class="textarea" id="mem-notes" rows="3" placeholder="Add a note, or leave it. The name is enough." oninput="draft.memory.notes=this.value">${esc(draft.memory.notes)}</textarea>
         </div>
-        <button class="btn btn-primary" onclick="addMemBoxItem()">${draft.memory.id?"Save changes":"Save"}</button>
+        <label style="display:flex;align-items:center;gap:8px;margin-bottom:14px;cursor:pointer;min-height:44px" for="mem-alsokids">
+          <input type="checkbox" id="mem-alsokids" ${draft.memory.alsoGiveToKids?'checked':''} onchange="draft.memory.alsoGiveToKids=this.checked" />
+          <span>Also give this to my kids</span>
+        </label>
+        <button class="btn btn-secondary" style="width:100%" onclick="addMemBoxItem()">${draft.memory.id?"Save changes":"Save memory"}</button>
       </div>
     </div>
 
     <div>
-      <h3 style="font-family:var(--font-display);font-weight:700;font-size:18px;color:var(--color-text);margin-bottom:12px">Give to Kids</h3>
+      <div style="font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--color-primary-text);margin-bottom:12px">Give to Kids${giveKidsItems.length?` · ${giveKidsItems.length}`:''}</div>
       ${giveKidsItems.length===0?`<div class="empty-state-prompt">Nothing here yet. Add anything you're planning to hand off.</div>`:
       `<div class="gap-y-sm" style="gap:8px">${giveKidsItems.map(g=>`
         <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;border:1px solid var(--color-divider);padding:12px 16px">
           <div style="${g.given?'text-decoration:line-through;opacity:.6':''}">
-            <div style="font-weight:700">${esc(g.name||g.label||"Item")}</div>
-            ${g.notes?`<div class="text-xs text-muted">${esc(g.notes)}</div>`:''}
+            <div style="font-weight:700">${esc(g.name||g.label||"Item")}${g.notes?` — ${esc(g.notes)}`:''}</div>
           </div>
-          <div style="display:flex;gap:8px;align-items:center;flex-shrink:0">
-            <button class="btn ${g.given?'btn-secondary':'btn-primary'} btn-xs" style="min-height:44px" onclick="toggleGiven('${esc(g.id)}')">${g.given?"✓ Given":"Mark given"}</button>
-            <button class="btn btn-danger btn-xs" onclick="deleteItem('${esc(g.id)}')">Remove</button>
-          </div>
+          <button class="btn" style="min-height:44px;min-width:44px;padding:8px 4px;color:var(--color-primary-text);font-weight:600;text-decoration:underline;font-size:14px" onclick="toggleGiven('${esc(g.id)}')">${g.given?"✓ Given":"Mark given"}</button>
         </div>`).join("")}
       </div>`}
       <div class="card bold-card" style="margin-top:16px">
         <div class="card-title">${draft.giveKids.id?"Edit item":"Add to Give to Kids"}</div>
         <div class="form-field" style="margin-bottom:14px">
           <label class="form-label" for="gk-name">Item name</label>
-          <input class="input" id="gk-name" value="${esc(draft.giveKids.name)}" placeholder="Baseball glove" oninput="draft.giveKids.name=this.value" />
+          <input class="input" id="gk-name" value="${esc(draft.giveKids.name)}" placeholder="Old bike" oninput="draft.giveKids.name=this.value" />
         </div>
         <div class="form-field" style="margin-bottom:14px">
           <label class="form-label" for="gk-notes">Note (optional)</label>
-          <input class="input" id="gk-notes" value="${esc(draft.giveKids.notes)}" oninput="draft.giveKids.notes=this.value" />
+          <input class="input" id="gk-notes" value="${esc(draft.giveKids.notes)}" placeholder="e.g. for Sarah" oninput="draft.giveKids.notes=this.value" />
         </div>
-        <button class="btn btn-primary" onclick="addGiveKidsItem()">${draft.giveKids.id?"Save changes":"Save"}</button>
+        <button class="btn btn-secondary" style="width:100%" onclick="addGiveKidsItem()">${draft.giveKids.id?"Save changes":"Save"}</button>
       </div>
     </div>
 
-    <div style="display:flex;gap:12px;flex-wrap:wrap">
-      <button class="btn btn-secondary btn-sm" onclick="printMemoryBoxList()">Print Memory Box list</button>
-      <button class="btn btn-secondary btn-sm" onclick="printGiveToKidsList()">Print Give to Kids list</button>
+    <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:12px">
+      <button class="btn btn-primary" style="padding:16px" onclick="printMemoryBoxList()">Print Memory Box list</button>
+      <button class="btn btn-primary" style="padding:16px" onclick="printGiveToKidsList()">Print Give to Kids list</button>
     </div>
     ${renderSectionTip("I have one t-shirt from every sport each of my kids played. Those stay. Always. But the equipment, the gear, the extra everything from those years — that all goes. Knowing what I'm keeping makes it a lot easier to let go of the rest.")}
   </div>`;
@@ -2749,13 +2754,17 @@ function addMemBoxItem(){
   if(d.id){
     P.items=(P.items||[]).map(i=>i.id===d.id?{...i,name:d.name,label:d.name,storage:d.storage||"",notes:d.notes||""}:i);
   }else{
-    P.items=[{id:makeId(),name:d.name,label:d.name,category:"Other",categoryKey:"",itemType:"",condition:"",quantity:"1",decision:"Memory Box",price:"0",notes:d.notes||"",photo:"",room:null,brand:false,batchId:null,storage:d.storage||"",alsoGiveToKids:false,given:false,sold:false,suggested:"",platform:"",kanbanCol:"priced",linkedFrom:null},...(P.items||[])];
+    const newId=makeId();
+    P.items=[{id:newId,name:d.name,label:d.name,category:"Other",categoryKey:"",itemType:"",condition:"",quantity:"1",decision:"Memory Box",price:"0",notes:d.notes||"",photo:"",room:null,brand:false,batchId:null,storage:d.storage||"",alsoGiveToKids:!!d.alsoGiveToKids,given:false,sold:false,suggested:"",platform:"",kanbanCol:"priced",linkedFrom:null},...(P.items||[])];
+    if(d.alsoGiveToKids){
+      P.items=[{id:makeId(),name:d.name,label:d.name,category:"Other",categoryKey:"",itemType:"",condition:"",quantity:"1",decision:"Given to kids",price:"0",notes:"from the Memory Box",photo:"",room:null,brand:false,batchId:null,storage:"",alsoGiveToKids:false,given:false,sold:false,suggested:"",platform:"",kanbanCol:"priced",linkedFrom:newId},...P.items];
+    }
   }
-  P.isDemo=false;save();draft.memory={id:null,name:"",storage:"",notes:""};renderContent();
+  P.isDemo=false;save();draft.memory={id:null,name:"",storage:"",notes:"",alsoGiveToKids:false};renderContent();
 }
 function editMemBoxItem(id){
   const m=(P.items||[]).find(i=>i.id===id);if(!m)return;
-  draft.memory={id:m.id,name:m.name||"",storage:m.storage||"",notes:m.notes||""};
+  draft.memory={id:m.id,name:m.name||"",storage:m.storage||"",notes:m.notes||"",alsoGiveToKids:false};
   renderContent();
 }
 function addGiveKidsItem(){
