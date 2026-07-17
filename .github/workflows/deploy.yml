@@ -50,8 +50,15 @@ jobs:
           server: ${{ secrets.HOSTINGER_FTP_SERVER }}
           username: ${{ secrets.HOSTINGER_FTP_USERNAME }}
           password: ${{ secrets.HOSTINGER_FTP_PASSWORD }}
-          # Confirmed via Hostinger hPanel > Files > FTP Accounts ("Folder to upload files").
-          server-dir: /public_html/
+          # 2026-07-17: Hostinger support confirmed the FTP account is jailed to
+          # /home/u540670132/domains/mynestchapter.com/, and "public_html" (relative,
+          # no leading slash) is the correct resolved path. Switching from the
+          # absolute-style "/public_html/" to a bare relative path, since leading-
+          # slash handling can differ between FTP clients/jailed accounts and this
+          # may be why prior deploys silently uploaded nowhere useful despite
+          # succeeding. Confirmed via Hostinger hPanel > Files > FTP Accounts
+          # ("Folder to upload files").
+          server-dir: public_html/
           # 2026-07-17: multiple deploys reported "success" with zero errors but
           # never actually updated any file on the server (verified via curl —
           # unchanged Last-Modified headers and stale content after several
