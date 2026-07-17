@@ -52,6 +52,16 @@ jobs:
           password: ${{ secrets.HOSTINGER_FTP_PASSWORD }}
           # Confirmed via Hostinger hPanel > Files > FTP Accounts ("Folder to upload files").
           server-dir: /public_html/
+          # 2026-07-17: multiple deploys reported "success" with zero errors but
+          # never actually updated any file on the server (verified via curl —
+          # unchanged Last-Modified headers and stale content after several
+          # green runs). Strong suspicion: the old sync-state file on the server
+          # (from before today's Hostinger account incident) is telling this
+          # action every file already matches, so it uploads nothing. Forcing a
+          # new state filename below makes it treat this as a first-ever deploy
+          # with no prior state, so everything gets uploaded fresh. This does
+          # NOT enable dangerous-clean-slate — no deletions happen, only uploads.
+          state-name: .ftp-deploy-sync-state-2026-07-17.json
           exclude: |
             **/.git*
             **/.git*/**
