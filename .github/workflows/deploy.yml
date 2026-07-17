@@ -50,8 +50,10 @@ jobs:
           server: ${{ secrets.HOSTINGER_FTP_SERVER }}
           username: ${{ secrets.HOSTINGER_FTP_USERNAME }}
           password: ${{ secrets.HOSTINGER_FTP_PASSWORD }}
-          # Confirmed via Hostinger hPanel > Files > FTP Accounts ("Folder to upload files").
-          server-dir: /public_html/
+          # 2026-07-17: FTP account was reset after a Hostinger account incident.
+          # /public_html/ was landing in a nested public_html/public_html/ that
+          # nothing serves — the account's FTP root is already public_html/ itself.
+          server-dir: ./
           exclude: |
             **/.git*
             **/.git*/**
