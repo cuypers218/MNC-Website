@@ -84,7 +84,6 @@
 <section class="hero" role="img" aria-label="A clock reading 6 o'clock on a wall above a dresser, in a dim room">
     <div class="container">
         <div class="hero-text">
-            <p class="hero-eyebrow">For Single &amp; Solo Moms</p>
             <h1 class="hero-tagline">Solo mom.<br>Empty nest.<br><em>Now what?</em></h1>
             <p class="hero-subtitle">Start with 6pm. That hour when the house feels wrong and you're just standing in the kitchen not knowing what to do with yourself.</p>
             <a href="/6pm-experience/" onclick="event.preventDefault();open6pmExperience();" class="btn btn-primary btn-hero">GET THE FREE 6PM CHEAT SHEET →</a>
