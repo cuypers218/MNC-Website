@@ -25,7 +25,7 @@ if (!$product) {
     http_response_code(404);
     $pageTitle = 'Not Found';
     require_once __DIR__ . '/includes/header.php';
-    echo '<section class="section"><div class="container text-center"><h1>Not Found</h1><p style="color:#666;margin-top:1rem;">This product doesn\'t exist or isn\'t available yet.</p><a href="/shop" class="btn btn-outline" style="margin-top:1.5rem;">Back to Shop</a></div></section>';
+    echo '<section class="section"><div class="container text-center"><h1>Not Found</h1><p style="color:#8BA7D4;margin-top:1rem;">This product doesn\'t exist or isn\'t available yet.</p><a href="/shop" class="btn btn-outline" style="margin-top:1.5rem;">Back to Shop</a></div></section>';
     require_once __DIR__ . '/includes/footer.php';
     exit;
 }
@@ -72,10 +72,10 @@ $related = $stmt->fetchAll();
                         <source src="/assets/videos/garage-sale-planner-demo.mp4" type="video/mp4">
                     </video>
                 <?php elseif ($product['image_path']): ?>
-                    <img src="<?= esc($product['image_path']) ?>" alt="" style="width: 100%; border: 1px solid #ABABAB;">
+                    <img src="<?= esc($product['image_path']) ?>" alt="" style="width: 100%; border-radius: 10px; box-shadow: 0 10px 40px rgba(37,37,53,0.07);">
                 <?php else: ?>
-                    <div style="width: 100%; height: 400px; background: linear-gradient(135deg, #F5C4A8 0%, #C4B0E8 100%); border: 1px solid #ABABAB; display: flex; align-items: center; justify-content: center;">
-                        <span style="font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; color: #D3D3D3;">PRODUCT IMAGE</span>
+                    <div style="width: 100%; height: 400px; background: linear-gradient(135deg, #F3D8E1 0%, #DA8BA5 100%); border-radius: 10px; display: flex; align-items: center; justify-content: center;">
+                        <span style="font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; color: #74253F;">PRODUCT IMAGE</span>
                     </div>
                 <?php endif; ?>
             </div>
@@ -181,7 +181,7 @@ $related = $stmt->fetchAll();
                 <?php if ($rel['image_path']): ?>
                     <img src="<?= esc($rel['image_path']) ?>" alt="" class="product-card-image">
                 <?php else: ?>
-                    <div class="product-card-image" style="background: linear-gradient(135deg, #F5C4A8 0%, #C4B0E8 100%);"></div>
+                    <div class="product-card-image" style="background: linear-gradient(135deg, #F3D8E1 0%, #DA8BA5 100%);"></div>
                 <?php endif; ?>
                 
                 <div class="product-card-content">

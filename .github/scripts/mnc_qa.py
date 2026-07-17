@@ -35,7 +35,7 @@ SCAN_EXTENSIONS = {'.html', '.php', '.css', '.js'}
 
 # ─────────────────────────────────────────────────────────────────
 # RETIRED COLORS
-# These must never appear anywhere. May 2026 palette is the only valid palette.
+# These must never appear anywhere. DESIGN.md §2 is the source of truth.
 # ─────────────────────────────────────────────────────────────────
 
 RETIRED_COLORS = [
@@ -45,6 +45,10 @@ RETIRED_COLORS = [
     ('#d6c2b7', 'Warm Blush — retired May 2026'),
     ('#f8d4d4', 'Blush Pink — retired May 2026'),
     ('#f4e8c1', 'Warm Cream — retired May 2026'),
+    ('#c4b0e8', 'Lavender — retired as an accent 2026-07-16, use the Deep Rose Ramp instead'),
+    ('#f5c4a8', 'Soft Peach — retired as an accent 2026-07-16, use the Deep Rose Ramp instead'),
+    ('#fcf0e8', 'Peach Tint — retired 2026-07-16 alongside Soft Peach, use Deep Rose Ramp 50/100 instead'),
+    ('#efa276', 'Peach Mid — retired 2026-07-16 alongside Soft Peach, use Deep Rose Ramp 300/400 instead'),
 ]
 
 # ─────────────────────────────────────────────────────────────────
@@ -56,26 +60,13 @@ RETIRED_COLORS = [
 WIDGET_BANNED_FONTS = ['Montserrat', 'Arial']
 
 # ─────────────────────────────────────────────────────────────────
-# PER-FILE EXEMPTIONS FROM BORDER-RADIUS / BOX-SHADOW RULES
-# Cece explicitly approved a one-file deviation (2026-07-03/04) to match
-# a wireframe — rounded corners + soft card shadows, documented in
-# CLAUDE.md. Other checks (colors, fonts, banned phrases) still apply.
+# BORDER-RADIUS / BOX-SHADOW — no more per-file exemptions needed.
+# Corrected 2026-07-16: the Garage Sale Planner's 2026-07-03/04
+# rounded-corner/soft-shadow deviation is now the sitewide standard
+# (moderate radius, soft elevation shadow) instead of a one-file
+# exception — see DESIGN.md §5.4. The old zero-radius/zero-shadow
+# rule this file used to enforce is gone; do not resurrect it.
 # ─────────────────────────────────────────────────────────────────
-
-RADIUS_SHADOW_EXEMPT_FILES = [
-    'widgets/garage-sale-planner/widget.html',
-]
-
-# ─────────────────────────────────────────────────────────────────
-# BOX-SHADOW — ON HOLD (not yet approved, just deferred)
-# .an-btn-primary:hover in site/assets/css/style.css uses an inset
-# white ring on hover. Cece put the fix on hold 2026-07-13 — revisit
-# before treating this as a permanent exemption.
-# ─────────────────────────────────────────────────────────────────
-
-BOX_SHADOW_HOLD_FILES = [
-    'site/assets/css/style.css',
-]
 
 # ─────────────────────────────────────────────────────────────────
 # BANNED PHRASES
@@ -160,8 +151,6 @@ def scan_file(filepath: Path):
     global files_scanned
     files_scanned += 1
     is_widget = 'widgets' in filepath.parts
-    is_radius_shadow_exempt = filepath.as_posix() in RADIUS_SHADOW_EXEMPT_FILES
-    is_box_shadow_hold = filepath.as_posix() in BOX_SHADOW_HOLD_FILES
 
     try:
         lines = filepath.read_text(encoding='utf-8', errors='ignore').splitlines()
@@ -182,32 +171,34 @@ def scan_file(filepath: Path):
                      f'{label} — replace with a May 2026 palette color')
 
         # 2 — border-radius violations
-        #     Allowed: border-radius: 0 | 0px | 9999px | var(--something)
-        #     CSS variable declarations are allowed (e.g. --radius-pill: 9999px)
-        if 'border-radius' in line_lower and not is_radius_shadow_exempt:
+        #     Corrected 2026-07-16: moderate radius is now the standard.
+        #     Allowed: 6–10px (cards/buttons/inputs), 9999px (tags/badges/pills),
+        #     50% (circular elements), var(--something). Flat 0/0px is now the
+        #     violation — see DESIGN.md §5.4.
+        if 'border-radius' in line_lower:
             # Skip CSS variable declarations (--variable-name: value)
             is_var_declaration = bool(re.search(r'--[\w-]+\s*:', line))
             if not is_var_declaration:
                 allowed = bool(re.search(
-                    r'border-radius\s*:\s*(0|0px|9999px|var\()',
+                    r'border-radius\s*:\s*([6-9]px|10px|9999px|50%|var\()',
                     line, re.IGNORECASE
                 ))
                 if not allowed:
                     flag('BORDER-RADIUS', filepath, i, line,
-                         'Only 0 or 9999px (pill buttons) allowed — Design System rule')
+                         'Use 6–10px (cards/buttons/inputs) or 9999px (tags/badges) — Design System rule, corrected 2026-07-16')
 
         # 3 — box-shadow violations
-        #     Allowed: box-shadow: none | var(--something)
-        if 'box-shadow' in line_lower and not is_radius_shadow_exempt and not is_box_shadow_hold:
+        #     Corrected 2026-07-16: cards should carry the standard soft
+        #     elevation shadow. box-shadow: none is now the violation —
+        #     see DESIGN.md §5.4. (Detecting heavy/stacked shadows needs
+        #     human judgment — that stays with Gate 3 session QA.)
+        if 'box-shadow' in line_lower:
             is_var_declaration = bool(re.search(r'--[\w-]+\s*:', line))
             if not is_var_declaration:
-                allowed = bool(re.search(
-                    r'box-shadow\s*:\s*(none|var\()',
-                    line, re.IGNORECASE
-                ))
-                if not allowed:
+                is_none = bool(re.search(r'box-shadow\s*:\s*none\b', line, re.IGNORECASE))
+                if is_none:
                     flag('BOX-SHADOW', filepath, i, line,
-                         'Only box-shadow: none allowed — Design System rule')
+                         'box-shadow: none is now the violation — cards should carry the standard soft shadow 0 10px 40px rgba(37,37,53,0.07). Design System rule, corrected 2026-07-16')
 
         # 4 — Wrong fonts in widget files
         # 6pm-experience is exempt: cinematic full-screen widget, predates font rule

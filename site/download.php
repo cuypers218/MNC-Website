@@ -57,7 +57,7 @@ if (isset($error)) {
     <section class="section">
         <div class="container text-center" style="padding: 3rem 0;">
             <h1>Download Issue</h1>
-            <p style="color: #666; margin: 1rem 0 2rem;"><?= esc($error) ?></p>
+            <p style="color: #8BA7D4; margin: 1rem 0 2rem;"><?= esc($error) ?></p>
             <a href="/dashboard" class="btn btn-primary">Go to Dashboard</a>
         </div>
     </section>

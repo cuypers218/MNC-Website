@@ -252,8 +252,9 @@ require_once __DIR__ . '/includes/header.php';
 .booking-errors ul { margin: 8px 0 0 16px; }
 
 .booking-success {
-    background: #EEE8F8;
-    border-left: 4px solid #C4B0E8;
+    background: #F9ECF0;
+    border-left: 4px solid #CE6487;
+    border-radius: 8px;
     padding: 40px 32px;
     text-align: center;
 }
@@ -303,8 +304,8 @@ require_once __DIR__ . '/includes/header.php';
 .form-textarea {
     width: 100%;
     padding: 13px 16px;
-    border: 1.5px solid #C4B0E8;
-    border-radius: 0;
+    border: 1.5px solid #DA8BA5;
+    border-radius: 6px;
     font-family: Arial, sans-serif;
     font-size: 15px;
     color: #252535;
@@ -320,7 +321,7 @@ require_once __DIR__ . '/includes/header.php';
 .form-textarea:focus { border-color: #C44570; }
 
 .form-select {
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23C4B0E8' stroke-width='2' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23DA8BA5' stroke-width='2' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
     background-repeat: no-repeat;
     background-position: right 16px center;
     padding-right: 40px;

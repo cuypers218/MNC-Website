@@ -43,7 +43,7 @@ try {
                 <tr>
                     <td style="font-family:'Montserrat',Arial,sans-serif;font-weight:800;"><?= (int)$item['sequence_number'] ?></td>
                     <td><?= esc($item['title']) ?></td>
-                    <td style="font-size:12px;color:#666;">
+                    <td style="font-size:12px;color:#8BA7D4;">
                         <?php if (!empty($item['file_path'])): ?>
                             <?= esc($item['file_path']) ?>
                         <?php else: ?>

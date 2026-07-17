@@ -18,8 +18,8 @@ $AMAZON_LINK = "https://www.amazon.com/YOUR_BOOK_LINK"; // replace with Amazon l
     --vanilla: #FAF7ED;
     --pink: #C44570;
     --periwinkle: #8BA7D4;
-    --lavender: #C4B0E8;
-    --soft-peach: #F5C4A8;
+    --lavender: #E7B1C3;
+    --soft-peach: #DA8BA5;
     --text: #1a1a2e;
     --text-light: #555566;
     --border: #E8E0D5;
@@ -248,9 +248,11 @@ $AMAZON_LINK = "https://www.amazon.com/YOUR_BOOK_LINK"; // replace with Amazon l
     padding: 18px 20px;
     background: white;
     border: 2px solid var(--border);
+    border-radius: 10px;
+    box-shadow: 0 10px 40px rgba(37,37,53,0.07);
     transition: border-color 0.2s;
   }
-  .buy-option:hover { border-color: var(--pink); box-shadow: none; }
+  .buy-option:hover { border-color: var(--pink); }
   .buy-option-info { display: flex; flex-direction: column; gap: 3px; }
   .buy-option-type {
     font-size: 0.72rem;

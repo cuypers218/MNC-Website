@@ -80,10 +80,10 @@ $subPct = $subLimit > 0 ? min(100, round(($totalSubs / $subLimit) * 100)) : 0;
 <div style="background:#ffffff;padding:20px 24px;margin-bottom:28px;">
     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
         <span style="font-family:'Montserrat',Arial,sans-serif;font-weight:800;font-size:11px;text-transform:uppercase;letter-spacing:1px;">Subscriber Usage</span>
-        <span style="font-size:13px;color:#666;"><?= $totalSubs ?> of <?= number_format($subLimit) ?> (<?= $subPct ?>%)</span>
+        <span style="font-size:13px;color:#8BA7D4;"><?= $totalSubs ?> of <?= number_format($subLimit) ?> (<?= $subPct ?>%)</span>
     </div>
-    <div style="background:#e0ddd8;height:16px;">
-        <div style="width:<?= $subPct ?>%;height:100%;background:<?= $subPct > 80 ? '#F2A57A' : '#B5CC6A' ?>;"></div>
+    <div style="background:#e0ddd8;height:16px;border-radius:9999px;overflow:hidden;">
+        <div style="width:<?= $subPct ?>%;height:100%;background:<?= $subPct > 80 ? '#A33359' : '#1E7E34' ?>;"></div>
     </div>
 </div>
 
@@ -98,8 +98,8 @@ $subPct = $subLimit > 0 ? min(100, round(($totalSubs / $subLimit) * 100)) : 0;
 <div class="quiz-bars" style="background:#ffffff;padding:24px;margin-bottom:28px;">
     <?php
     $barColors = [
-        '#C4B0E8','#8BA7D4','#F2A57A','#B5CC6A','#EDD96A',
-        '#C44570','#F5C4A8','#A8C5DA','#C4B0E8','#8BA7D4',
+        '#C44570','#8BA7D4','#74253F','#DA8BA5','#6D4C3E',
+        '#A33359','#E7B1C3','#4E182A','#CE6487','#252535',
     ];
     $maxCount = max(1, max(array_values($segmentCounts)));
     $i = 0;
@@ -140,7 +140,7 @@ $subPct = $subLimit > 0 ? min(100, round(($totalSubs / $subLimit) * 100)) : 0;
                     <td style="font-family:'Montserrat',Arial,sans-serif;font-weight:800;">
                         <?= $segmentCounts[$seg['uuid']] ?? 0 ?>
                     </td>
-                    <td style="color:#666;font-size:13px;"><?= date('M j, Y', strtotime($seg['created_at'])) ?></td>
+                    <td style="color:#8BA7D4;font-size:13px;"><?= date('M j, Y', strtotime($seg['created_at'])) ?></td>
                 </tr>
             <?php endforeach; ?>
         </tbody>
@@ -171,7 +171,7 @@ $subPct = $subLimit > 0 ? min(100, round(($totalSubs / $subLimit) * 100)) : 0;
                 <tr>
                     <td><?= esc(trim(($c['name'] ?? '') . ' ' . ($c['surname'] ?? '')) ?: '—') ?></td>
                     <td style="color:#444;"><?= esc($c['email']) ?></td>
-                    <td style="color:#666;font-size:13px;"><?= date('M j, Y', strtotime($c['subscribed_at'])) ?></td>
+                    <td style="color:#8BA7D4;font-size:13px;"><?= date('M j, Y', strtotime($c['subscribed_at'])) ?></td>
                     <td style="font-size:12px;color:#888;"><?= esc($c['source'] ?? '—') ?></td>
                 </tr>
             <?php endforeach; ?>

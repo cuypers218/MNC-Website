@@ -82,7 +82,7 @@ $totalRevenue = array_sum(array_column($orders, 'amount_paid'));
                         echo $amt > 0 ? '$' . number_format($amt, 2) : '<span style="color:#888;">Free</span>';
                         ?>
                     </td>
-                    <td style="color:#666;font-size:13px;"><?= date('M j, Y', strtotime($o['purchased_at'])) ?></td>
+                    <td style="color:#8BA7D4;font-size:13px;"><?= date('M j, Y', strtotime($o['purchased_at'])) ?></td>
                     <td style="font-size:11px;color:#888;font-family:monospace;">
                         <?= esc($o['stripe_payment_id'] ?: '—') ?>
                     </td>

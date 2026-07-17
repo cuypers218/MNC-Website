@@ -8,7 +8,7 @@ if (!$post) {
     http_response_code(404);
     $pageTitle = 'Not Found';
     require_once __DIR__ . '/includes/header.php';
-    echo '<section class="section"><div class="container text-center"><h1>Post Not Found</h1><p style="color:#666;margin-top:1rem;">This post doesn\'t exist or hasn\'t been published yet.</p><a href="/blog" class="btn btn-outline" style="margin-top:1.5rem;">Back to Blog</a></div></section>';
+    echo '<section class="section"><div class="container text-center"><h1>Post Not Found</h1><p style="color:#8BA7D4;margin-top:1rem;">This post doesn\'t exist or hasn\'t been published yet.</p><a href="/blog" class="btn btn-outline" style="margin-top:1.5rem;">Back to Blog</a></div></section>';
     require_once __DIR__ . '/includes/footer.php';
     exit;
 }

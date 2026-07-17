@@ -40,7 +40,7 @@ $members = $db->query("
                 <tr>
                     <td><?= esc($m['first_name']) ?></td>
                     <td style="color:#444;"><?= esc($m['email']) ?></td>
-                    <td style="color:#666;font-size:13px;"><?= date('M j, Y', strtotime($m['created_at'])) ?></td>
+                    <td style="color:#8BA7D4;font-size:13px;"><?= date('M j, Y', strtotime($m['created_at'])) ?></td>
                     <td>
                         <?php if ($m['purchase_count'] > 0): ?>
                             <span style="font-family:'Montserrat',Arial,sans-serif;font-weight:800;"><?= (int)$m['purchase_count'] ?></span>

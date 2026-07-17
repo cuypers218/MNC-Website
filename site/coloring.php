@@ -21,7 +21,7 @@
     --vanilla: #FAF7ED;
     --pink: #C44570;
     --periwinkle: #8BA7D4;
-    --soft-peach: #F5C4A8;
+    --soft-peach: #DA8BA5;
     --text: #1a1a2e;
     --text-light: #555566;
     --border: #E8E0D5;

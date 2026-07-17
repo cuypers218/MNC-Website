@@ -130,7 +130,7 @@ $nextUnlock     = getNextExclusiveUnlock($user['id']);
                         <?php if ($product['image_path']): ?>
                             <img src="<?= esc($product['image_path']) ?>" alt="" class="product-card-image">
                         <?php else: ?>
-                            <div class="product-card-image" style="background:linear-gradient(135deg,#F5C4A8 0%,#C4B0E8 100%);"></div>
+                            <div class="product-card-image" style="background:linear-gradient(135deg,#F3D8E1 0%,#DA8BA5 100%);"></div>
                         <?php endif; ?>
 
                         <div class="product-card-content">
@@ -171,7 +171,7 @@ $nextUnlock     = getNextExclusiveUnlock($user['id']);
                     <?php if ($product['image_path']): ?>
                         <img src="<?= esc($product['image_path']) ?>" alt="" class="product-card-image">
                     <?php else: ?>
-                        <div class="product-card-image" style="background:linear-gradient(135deg,#F5C4A8 0%,#C4B0E8 100%);"></div>
+                        <div class="product-card-image" style="background:linear-gradient(135deg,#F3D8E1 0%,#DA8BA5 100%);"></div>
                     <?php endif; ?>
 
                     <div class="product-card-content">
@@ -197,8 +197,8 @@ $nextUnlock     = getNextExclusiveUnlock($user['id']);
                 <?php if ($product['slug'] === 'someday-list'): ?>
                 <div class="product-card fade-in" style="background:#FAF7ED;border:1.5px solid #cfc7e8;">
                     <span class="badge" style="background:#C44570;color:#FFFFFF;">$7.99</span>
-                    <div style="height:140px;background:linear-gradient(135deg,#F5C4A8 0%,#C4B0E8 100%);display:flex;align-items:center;justify-content:center;">
-                        <p style="font-family:'Montserrat',sans-serif;font-weight:800;font-size:0.7rem;text-transform:uppercase;letter-spacing:0.1em;color:#C45C88;">SOMEDAY COMPANION</p>
+                    <div style="height:140px;background:linear-gradient(135deg,#F3D8E1 0%,#DA8BA5 100%);display:flex;align-items:center;justify-content:center;">
+                        <p style="font-family:'Montserrat',sans-serif;font-weight:800;font-size:0.7rem;text-transform:uppercase;letter-spacing:0.1em;color:#A33359;">SOMEDAY COMPANION</p>
                     </div>
                     <div class="product-card-content">
                         <span class="product-card-category">companion</span>
@@ -241,9 +241,9 @@ $nextUnlock     = getNextExclusiveUnlock($user['id']);
             <div class="product-grid" style="margin-bottom:1.5rem;">
                 <?php foreach ($exclusiveItems as $item): ?>
                 <div class="product-card fade-in">
-                    <span class="badge" style="background:#C4B0E8;color:#252535;">EXCLUSIVE</span>
+                    <span class="badge" style="background:#E7B1C3;color:#252535;">EXCLUSIVE</span>
                     <div class="product-card-image" style="background:linear-gradient(135deg,#252535 0%,#3a3a52 100%);display:flex;align-items:center;justify-content:center;padding:0 20px;text-align:center;">
-                        <p style="font-family:'Montserrat',sans-serif;font-weight:800;font-size:0.65rem;text-transform:uppercase;letter-spacing:0.15em;color:#C4B0E8;margin:0;line-height:1.8;"><?= esc($item['title']) ?></p>
+                        <p style="font-family:'Montserrat',sans-serif;font-weight:800;font-size:0.65rem;text-transform:uppercase;letter-spacing:0.15em;color:#DA8BA5;margin:0;line-height:1.8;"><?= esc($item['title']) ?></p>
                     </div>
                     <div class="product-card-content">
                         <span class="product-card-category">exclusive</span>
@@ -264,7 +264,7 @@ $nextUnlock     = getNextExclusiveUnlock($user['id']);
             <div style="background:#252535;padding:24px 32px;margin-bottom:2rem;">
                 <p style="font-family:'Montserrat',sans-serif;font-weight:800;font-size:0.65rem;text-transform:uppercase;letter-spacing:0.15em;color:#8BA7D4;margin:0 0 0.35rem;">NEXT EXCLUSIVE FREEBIE</p>
                 <p style="font-family:'Montserrat',sans-serif;font-weight:800;font-size:1rem;color:#FAF7ED;margin:0 0 0.25rem;"><?= esc($nextUnlock['title']) ?></p>
-                <p id="exclusiveCountdown" style="font-family:Arial,sans-serif;font-size:0.85rem;color:#C4B0E8;margin:0;"></p>
+                <p id="exclusiveCountdown" style="font-family:Arial,sans-serif;font-size:0.85rem;color:#DA8BA5;margin:0;"></p>
             </div>
             <script>
             (function() {
@@ -294,7 +294,7 @@ $nextUnlock     = getNextExclusiveUnlock($user['id']);
             <div style="background:#252535;padding:24px 32px;margin-bottom:2rem;">
                 <p style="font-family:'Montserrat',sans-serif;font-weight:800;font-size:0.65rem;text-transform:uppercase;letter-spacing:0.15em;color:#8BA7D4;margin:0 0 0.35rem;">EXCLUSIVE FREEBIES</p>
                 <p style="font-family:'Montserrat',sans-serif;font-weight:800;font-size:1rem;color:#FAF7ED;margin:0 0 0.25rem;">You're all caught up.</p>
-                <p style="font-family:Arial,sans-serif;font-size:0.85rem;color:#C4B0E8;margin:0;">Your next exclusive freebie is on its way.</p>
+                <p style="font-family:Arial,sans-serif;font-size:0.85rem;color:#DA8BA5;margin:0;">Your next exclusive freebie is on its way.</p>
             </div>
             <?php endif; ?>
 

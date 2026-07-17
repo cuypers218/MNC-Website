@@ -32,7 +32,7 @@ $posts = $db->query("SELECT id, title, slug, status, published_at, created_at FR
                             <span class="badge badge-draft">Draft</span>
                         <?php endif; ?>
                     </td>
-                    <td style="color:#666;font-size:13px;">
+                    <td style="color:#8BA7D4;font-size:13px;">
                         <?= $p['published_at'] ? date('M j, Y', strtotime($p['published_at'])) : '—' ?>
                     </td>
                     <td>

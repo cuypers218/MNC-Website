@@ -74,7 +74,7 @@ $html = '<!DOCTYPE html><html><head><meta charset="UTF-8"></head>
               Download Your Coloring Page &rarr;
             </a>
           </p>
-          <p style="color:#C4B0E8;font-size:14px;">— Cece</p>
+          <p style="color:#DA8BA5;font-size:14px;">— Cece</p>
           <p style="color:#8BA7D4;font-size:13px;margin-top:8px;font-style:italic;">P.S. If the quiet house gets loud again, come back and pick a different mood anytime.</p>
         </td></tr>
         <tr><td style="padding:20px 40px;border-top:1px solid #3A3A4A;">
