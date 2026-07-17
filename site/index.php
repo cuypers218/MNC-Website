@@ -81,7 +81,7 @@
 <main id="main-content" tabindex="-1">
 
 <!-- HERO -->
-<section class="hero">
+<section class="hero" role="img" aria-label="A clock reading 6 o'clock on a wall above a dresser, in a dim room">
     <div class="container">
         <div class="hero-text">
             <p class="hero-eyebrow">For Single &amp; Solo Moms</p>
@@ -90,7 +90,6 @@
             <a href="/6pm-experience/" onclick="event.preventDefault();open6pmExperience();" class="btn btn-primary btn-hero">GET THE FREE 6PM CHEAT SHEET →</a>
             <p class="hero-cta-hint">No sign-up needed</p>
         </div>
-        <div class="hero-photo-frame" role="img" aria-label="A clock reading 6 o'clock"></div>
     </div>
 </section>
 
