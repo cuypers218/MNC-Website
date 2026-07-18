@@ -249,6 +249,13 @@
     .sec-btn.active{background:var(--color-primary);color:#fff}
     .sec-btn:hover:not(.active){background:var(--color-primary-hl);color:var(--color-primary-text)}
     .sec-btn:active:not(.active){background:#7C2743;color:#fff}
+    /* utility actions appended after the real sections — smaller, so they never read as equal tabs */
+    .sec-btn-util{font-size:12.5px;padding:7px 14px;background:transparent;border:1.5px dashed var(--color-divider);color:var(--color-text-muted)}
+    .sec-btn-util:hover{border-color:var(--color-primary);color:var(--color-primary-text);background:var(--color-primary-hl)}
+    .sec-btn-util:last-child{margin-left:auto}
+    .sec-btn-inv{border-style:solid;border-color:var(--color-primary);color:var(--color-primary-text);display:inline-flex;align-items:center;gap:6px}
+    .sec-btn-inv .sec-btn-cnt{background:var(--color-primary);color:#fff;font-size:10px;font-weight:800;padding:1px 7px;border-radius:var(--radius-full)}
+    @media(max-width:480px){.sec-btn-util:last-child{margin-left:0}}
 
     /* ─── BUTTONS ───
        State scale (Sweet Peony): hover = darken one step, active/press = darken two steps.
@@ -440,6 +447,32 @@
     .ml-view-btn.active{background:var(--color-primary);color:#fff}
     .ml-view-btn:hover:not(.active){background:var(--color-primary-hl);color:var(--color-primary-text)}
     .ml-view-btn:active:not(.active){background:#7C2743;color:#fff;border-color:#7C2743}
+
+    /* ─── INVENTORY TALLIES: real price tags (signature element).
+       Sale value fills like a thermometer toward the money goal; Items sorted is a flat tag. ─── */
+    .inv-tally-row{display:flex;gap:36px;justify-content:center;flex-wrap:wrap;margin-bottom:22px}
+    .inv-tally-block{display:flex;flex-direction:column;align-items:center;gap:10px}
+    .inv-tag{position:relative;width:104px;height:132px;flex-shrink:0}
+    .inv-tag-svg{position:absolute;inset:0;width:100%;height:100%;filter:drop-shadow(0 6px 14px rgba(37,37,53,.16))}
+    .inv-tag-content{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;padding-top:22px;pointer-events:none}
+    .inv-tag-num{font-family:var(--font-display);font-weight:700;font-size:22px;color:var(--color-text);line-height:1;font-variant-numeric:tabular-nums}
+    .inv-tag-mini{font-size:10px;font-weight:600;color:var(--color-text);text-align:center;margin-top:4px;line-height:1.2;padding:0 6px}
+    .inv-tally-cap{font-size:11px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--color-text);text-align:center}
+    .inv-tally-sub{font-size:10.5px;color:var(--color-text-muted);text-align:center}
+
+    /* ─── FULL INVENTORY DRAWER ─── */
+    .inv-scrim{position:absolute;inset:0;background:rgba(37,37,53,.42)}
+    .inv-drawer{position:absolute;top:0;right:0;height:100%;width:min(500px,94%);background:var(--color-bg);
+      box-shadow:var(--shadow-float);display:flex;flex-direction:column}
+    .inv-drawer-head{padding:20px 22px 16px;border-bottom:1px solid var(--color-divider);background:var(--color-surface);flex-shrink:0}
+    .inv-drawer-head-top{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
+    .inv-drawer-title{font-family:var(--font-display);font-size:20px;font-weight:700;color:var(--color-text)}
+    .inv-drawer-count{font-size:12px;color:var(--color-text-muted);margin-top:2px}
+    .inv-drawer-x{width:36px;height:36px;border-radius:var(--radius-md);border:1.5px solid var(--color-text);
+      display:flex;align-items:center;justify-content:center;cursor:pointer;background:var(--color-surface);color:var(--color-text);flex-shrink:0}
+    .inv-drawer-x:hover{background:var(--color-primary);border-color:var(--color-primary);color:#fff}
+    .inv-drawer-body{flex:1;overflow-y:auto;padding:16px 22px 26px}
+    @media(max-width:640px){.inv-drawer{width:100%}}
     .ml-revenue{
       font-family:var(--font-display);font-size:16px;font-weight:700;
       color:var(--color-primary-text);padding:12px 18px;background:var(--color-surface-2);
@@ -656,6 +689,8 @@
     .gs-dec-btn.gs-trash{background:transparent;color:#6D4C3E;border-color:#6D4C3E}
     .gs-dec-btn.gs-memory{background:#C4B0E8;color:#252535;border-color:#C4B0E8}
     .gs-dec-btn.gs-batch{background:transparent;color:#252535;border:1.5px dashed #252535}
+    .gs-dec-btn.gs-keep{background:transparent;color:#252535;border-color:#252535}
+    .gs-dec-btn.gs-notsure{background:transparent;color:#6D4C3E;border-color:#6D4C3E}
     .gs-dec-btn:hover{opacity:.85}
     .gs-price-tag{position:relative;background:#A33359;color:#FAF7ED;border:2px solid #252535;padding:18px 20px;
       text-align:center;margin-bottom:14px}
@@ -983,7 +1018,10 @@ const flowTabs = [
 
 const flowSections = {
   start:[{id:"start",label:"Start"}],
-  sortPrice:[{id:"inventory",label:"Items"},{id:"batch",label:"Batch Items"},{id:"memory",label:"Memories"},{id:"pricing",label:"Pricing Guide"}],
+  // "memory" and "pricing" stay fully registered (goSection/goTab, GS_ROUTES, and the
+  // in-form "Full pricing guide →" link all still route here) — hidden:true just keeps
+  // them off the visible sub-nav row so they stop competing with Items/Batch Items.
+  sortPrice:[{id:"inventory",label:"Items"},{id:"batch",label:"Batch Items"},{id:"memory",label:"Memories",hidden:true},{id:"pricing",label:"Pricing Guide",hidden:true}],
   sellPromote:[{id:"promote",label:"Promote"},{id:"writeAd",label:"Write Your Ad"},{id:"platformGuide",label:"Sell Online"}],
   prepSafety:[{id:"prep",label:"Prep"},{id:"safety",label:"Safety + Logistics"}],
   saleWrap:[{id:"sale",label:"Sale Day"},{id:"tags",label:"Print Center"},{id:"wrap",label:"Wrap Up"}],
@@ -1162,6 +1200,14 @@ const sortPriceCategories = [
 ];
 // Nudge trigger logic (Section 4): brand detected, OR Collectibles and Extras, OR price >= this.
 const SORT_PRICE_NUDGE_THRESHOLD = 20;
+// Maps a sortPriceCategories key back to one of the 12 broad `categories` labels, so items
+// saved through the guided flow still sort/filter correctly in the Items table and get a
+// real suggestPlatform() result instead of always landing in "Other".
+const SORT_PRICE_TO_CATEGORY = {
+  clothingShoes:"Clothing",furniture:"Furniture",kitchenItems:"Kitchen",homeDecor:"Decor",
+  babyKids:"Toys",toolsGarage:"Tools",electronicsMedia:"Electronics",sportsOutdoor:"Sports",
+  collectiblesExtras:"Keepsakes",
+};
 
 const promoteChecklistTiers = [
   {key:"tier1",label:"2 Weeks Out",note:"Tier 1 done.",items:[
@@ -1434,8 +1480,9 @@ function deepGet(obj,path){
 }
 
 // ─── NAVIGATION ───────────────────────────────────────────────────────────────
-function goTab(tab,sec){UI.tab=tab;UI.section=sec||defaultSection[tab];window.scrollTo(0,0);render()}
-function goSection(sec){UI.section=sec;renderContent();renderSectionNav()}
+function hideInvDrawerImmediate(){const ov=document.getElementById('inv-drawer-overlay');if(ov)ov.style.display='none';}
+function goTab(tab,sec){hideInvDrawerImmediate();UI.tab=tab;UI.section=sec||defaultSection[tab];window.scrollTo(0,0);render()}
+function goSection(sec){hideInvDrawerImmediate();UI.section=sec;renderContent();renderSectionNav()}
 
 function buildNav(){
   const nav=document.getElementById("main-nav");
@@ -1447,7 +1494,15 @@ function renderSectionNav(){
   const secs=flowSections[UI.tab]||[];
   if(secs.length<=1){el.style.display="none";return}
   el.style.display="flex";
-  el.innerHTML=secs.map(s=>`<button class="sec-btn${UI.section===s.id?" active":""}" onclick="goSection('${s.id}')">${s.label}</button>`).join("");
+  const visible=secs.filter(s=>!s.hidden);
+  let html=visible.map(s=>`<button class="sec-btn${UI.section===s.id?" active":""}" onclick="goSection('${s.id}')">${s.label}</button>`).join("");
+  // Utility actions — only on the Items screen, and only once there's something to view/summarize
+  if(UI.tab==="sortPrice"&&UI.section==="inventory"&&(P.items||[]).length>0){
+    const n=(P.items||[]).length;
+    html+=`<button class="sec-btn sec-btn-util sec-btn-inv" onclick="openInvDrawer()">View full inventory <span class="sec-btn-cnt">${n}</span></button>`;
+    html+=`<button class="sec-btn sec-btn-util" onclick="openGuidedSummary()">Summary →</button>`;
+  }
+  el.innerHTML=html;
 }
 
 // ─── HEADER + METRICS ─────────────────────────────────────────────────────────
@@ -1744,7 +1799,7 @@ function mlMoveItem(itemId,col,cx,cy){
   if(prevCol===col)return;
   item.kanbanCol=col;
   P.isDemo=false;save();
-  renderContent();
+  refreshInvSurfaces();
   if(typeof cx==='number'&&typeof cy==='number')mlSparkle(cx,cy);
   if(col==='letGo')mlFlashTicker();
 }
@@ -1784,7 +1839,7 @@ function renderMemoryLaneBoard(){
     return`
     <div class="card bold-card">
       <div id="ml-revenue-ticker" class="ml-revenue">Estimated: $${revenue.toFixed(0)}</div>
-      <button class="btn btn-primary" onclick="toggleAddItemForm()" style="margin-bottom:16px">+ Add an item</button>
+      <button class="btn btn-primary" onclick="openGuidedSort('manual')" style="margin-bottom:16px">+ Add an item</button>
       <div class="empty-state-prompt">Nothing sorted yet. Add an item and drag it between columns as you decide what to do with it.</div>
     </div>`;
   }
@@ -1803,34 +1858,87 @@ function renderMemoryLaneBoard(){
   return`
     <div class="card bold-card">
       <div id="ml-revenue-ticker" class="ml-revenue">Estimated: $${revenue.toFixed(0)}</div>
-      <button class="btn btn-primary" onclick="toggleAddItemForm()" style="margin-bottom:16px">+ Add an item</button>
+      <button class="btn btn-primary" onclick="openGuidedSort('manual')" style="margin-bottom:16px">+ Add an item</button>
       <div class="ml-board">${colHTML}</div>
     </div>`;
 }
 
 // ─── SECTION: INVENTORY ───────────────────────────────────────────────────────
+// Signature element: an actual price tag (flat top, angled shoulders, punched hole).
+// pct=null -> flat tint tag; pct set -> pink fills from the bottom like a thermometer toward the goal.
+let _invTagId=0;
+function invPriceTagSvg(pct){
+  const tagPath="M36 10 L68 10 L96 42 L96 116 Q96 124 88 124 L16 124 Q8 124 8 116 L8 42 Z";
+  const tint="#FCF0E8";
+  if(pct===null){
+    return`<svg class="inv-tag-svg" viewBox="0 0 104 134" role="img" aria-label="price tag">
+      <path d="${tagPath}" fill="${tint}" stroke="#252535" stroke-width="4.5" stroke-linejoin="round"/>
+      <circle cx="52" cy="30" r="6.5" fill="#252535"/>
+    </svg>`;
+  }
+  const p=Math.min(Math.max(pct,0),100);
+  const bodyTop=10,bodyBot=124;const fillTop=bodyBot-(bodyBot-bodyTop)*(p/100);
+  const uid="invtag"+(_invTagId++);
+  return`<svg class="inv-tag-svg" viewBox="0 0 104 134" role="img" aria-label="price tag, ${p} percent of goal">
+    <defs><clipPath id="${uid}"><path d="${tagPath}"/></clipPath></defs>
+    <path d="${tagPath}" fill="${tint}"/>
+    <rect x="0" y="${fillTop.toFixed(1)}" width="104" height="${(bodyBot-fillTop+2).toFixed(1)}" fill="#C44570" clip-path="url(#${uid})"/>
+    <path d="${tagPath}" fill="none" stroke="#252535" stroke-width="4.5" stroke-linejoin="round"/>
+    <circle cx="52" cy="30" r="6.5" fill="#252535"/>
+  </svg>`;
+}
 function renderInventory(){
   const stats=getStats(P);
-  const isBoard=UI.inventoryView==='board';
-  return`
-  ${renderTourNote("Add items one by one — name, category, condition, and your price. The tool suggests a price range and the best place to sell it as you go.")}
-  <div class="gap-y">
+  const eyebrowTitle=`
     <div>
       <p style="font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--color-muted);margin-bottom:4px">Sort + Price</p>
       <h2 class="page-title" style="margin-bottom:14px">Items</h2>
-      <div class="ml-view-toggle">
-        <button class="ml-view-btn${isBoard?'':' active'}" onclick="UI.inventoryView='list';renderContent()">List View</button>
-        <button class="ml-view-btn${isBoard?' active':''}" onclick="UI.inventoryView='board';renderContent()">Memory Lane</button>
+    </div>`;
+  if(stats.totalItems===0){
+    return`
+    ${renderTourNote("Add items one by one — name, category, condition, and your price. The tool suggests a price range and the best place to sell it as you go.")}
+    <div class="gap-y">
+      ${eyebrowTitle}
+      <div class="empty-state-prompt">Nothing sorted yet. Start with the room you've been avoiding — snap a photo, or add the first item by hand. One item at a time.</div>
+      <div style="display:flex;gap:12px;flex-wrap:wrap">
+        <button class="btn btn-primary" onclick="openGuidedSort('camera')">Sort with your camera →</button>
+        <button class="btn btn-secondary" onclick="openGuidedSort('manual')">+ Add an item</button>
       </div>
-      ${renderDispositionCounter()}
-      ${stats.estimated>0?`<div style="font-size:14px;color:var(--color-text);margin-top:4px">Estimated total: $${stats.estimated.toFixed(0)}</div>`:""}
-      ${isBoard?"":`<div style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:20px;margin-top:14px">
-        <button class="btn btn-primary" onclick="openGuidedSort()">Sort with your camera →</button>
-        <button class="btn btn-secondary" onclick="toggleAddItemForm()">+ Add an item</button>
-      </div>`}
+    </div>`;
+  }
+  // "still needs a price" only counts items whose decision actually requires one — Donate/Keep/
+  // Memory Box are correctly $0 by design and shouldn't be flagged.
+  const unpricedSellable=(P.items||[]).filter(i=>(i.decision==='Garage Sale'||i.decision==='Sell Online')&&!(Number(i.price)>0)).length;
+  const dollarPct=stats.goal>0?Math.min(Math.round((stats.estimated/stats.goal)*100),100):null;
+  return`
+  ${renderTourNote("Add items one by one — name, category, condition, and your price. The tool suggests a price range and the best place to sell it as you go.")}
+  <div class="gap-y">
+    ${eyebrowTitle}
+    <div class="inv-tally-row">
+      <div class="inv-tally-block">
+        <div class="inv-tag">
+          ${invPriceTagSvg(dollarPct)}
+          <div class="inv-tag-content">
+            <div class="inv-tag-num">$${stats.estimated.toFixed(0)}</div>
+            ${dollarPct===null?"":`<div class="inv-tag-mini">of $${stats.goal.toFixed(0)}</div>`}
+          </div>
+        </div>
+        <div class="inv-tally-cap">Sale value</div>
+        ${dollarPct===null?`<div class="inv-tally-sub">Set a money goal on Start</div>`:`<div class="inv-tally-sub">${dollarPct}% of goal</div>`}
+      </div>
+      <div class="inv-tally-block">
+        <div class="inv-tag">
+          ${invPriceTagSvg(null)}
+          <div class="inv-tag-content"><div class="inv-tag-num">${stats.totalItems}</div></div>
+        </div>
+        <div class="inv-tally-cap">Items sorted</div>
+        ${unpricedSellable>0?`<div class="inv-tally-sub">${unpricedSellable} still need${unpricedSellable===1?'s':''} a price</div>`:`<div class="inv-tally-sub">all priced</div>`}
+      </div>
     </div>
-    ${UI.showAddForm?renderAddItemForm():""}
-    ${isBoard?renderMemoryLaneBoard():renderItemTable()}
+    <div style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:20px">
+      <button class="btn btn-primary" onclick="openGuidedSort('camera')">Sort with your camera →</button>
+      <button class="btn btn-secondary" onclick="openGuidedSort('manual')">+ Add an item</button>
+    </div>
     ${renderSectionTip("When you're not sure whether to price it .50¢ or $1, ask yourself which one means you don't have to carry it back inside. That's your answer.")}
   </div>`;
 }
@@ -1893,18 +2001,84 @@ const GS_ROUTES={
   "Batch":{tab:"sortPrice",section:"batch"},
 };
 
-function openGuidedSort(){
-  guidedUI={open:true,screen:'entry',room:null,current:{}};
+// ─── FULL INVENTORY DRAWER ──────────────────────────────────────────────────
+function openInvDrawer(){
+  const ov=document.getElementById('inv-drawer-overlay');if(!ov)return;
+  renderInvDrawer();
+  ov.style.display='block';ov.style.opacity='0';
+  requestAnimationFrame(()=>requestAnimationFrame(()=>{ov.style.opacity='1';}));
+}
+function closeInvDrawer(){
+  const ov=document.getElementById('inv-drawer-overlay');
+  if(ov){ov.style.opacity='0';setTimeout(()=>{ov.style.display='none';},180);}
+  renderContent();renderSectionNav();
+}
+// Item edits/deletes/moves happen from inside either the drawer (item table/board) or the
+// Memories screen — both use the same handlers, so refresh whichever surface is actually open.
+// Also refreshes the sub-nav so "View full inventory"/"Summary" stay in sync with the item count
+// (e.g. deleting the last item mid-drawer should make them disappear once the drawer closes).
+function refreshInvSurfaces(){
+  const ov=document.getElementById('inv-drawer-overlay');
+  if(ov&&ov.style.display==='block'){renderInvDrawer();}
+  else{renderContent();}
+  renderSectionNav();
+}
+function renderInvDrawer(){
+  const ov=document.getElementById('inv-drawer-overlay');if(!ov)return;
+  const stats=getStats(P);
+  const isBoard=UI.inventoryView==='board';
+  const unpriced=stats.totalItems-stats.itemsPriced;
+  ov.innerHTML=`
+    <div class="inv-scrim" onclick="closeInvDrawer()"></div>
+    <aside class="inv-drawer" role="dialog" aria-label="Full inventory">
+      <div class="inv-drawer-head">
+        <div class="inv-drawer-head-top">
+          <div>
+            <div class="inv-drawer-title">Full inventory</div>
+            <div class="inv-drawer-count">${stats.totalItems} item${stats.totalItems===1?'':'s'}${unpriced>0?` · ${unpriced} unpriced`:''}</div>
+          </div>
+          <button class="inv-drawer-x" onclick="closeInvDrawer()" aria-label="Close full inventory">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M18 6 6 18M6 6l12 12"/></svg>
+          </button>
+        </div>
+        <div class="ml-view-toggle" style="margin-top:14px;margin-bottom:0">
+          <button class="ml-view-btn${isBoard?'':' active'}" onclick="UI.inventoryView='list';renderInvDrawer()">List View</button>
+          <button class="ml-view-btn${isBoard?' active':''}" onclick="UI.inventoryView='board';renderInvDrawer()">Sort Board</button>
+        </div>
+      </div>
+      <div class="inv-drawer-body">
+        ${UI.showAddForm?renderAddItemForm():""}
+        ${isBoard?renderMemoryLaneBoard():renderItemTable()}
+      </div>
+    </aside>`;
+}
+// Opens the same guided-sort overlay used by the camera/add-item flow, but straight to its
+// last screen ("You sorted N items worth $X today") instead of its first — no new screen needed.
+function openGuidedSummary(){
+  guidedUI={open:true,screen:'summary',room:null,current:{},mode:'manual'};
   const ov=document.getElementById('guided-sort-overlay');if(!ov)return;
   renderGuidedSort();
   ov.style.display='block';ov.style.opacity='0';
   requestAnimationFrame(()=>requestAnimationFrame(()=>{ov.style.opacity='1';}));
 }
+function openGuidedSort(mode){
+  // mode 'manual' skips the room-picker/camera steps and lands straight on the question
+  // screen (Review) — used by "+ Add an item", which has no photo to identify from.
+  guidedUI={open:true,screen:mode==='manual'?'review':'entry',room:null,current:{},mode:mode||'camera'};
+  const ov=document.getElementById('guided-sort-overlay');if(!ov)return;
+  renderGuidedSort();
+  ov.style.display='block';ov.style.opacity='0';
+  requestAnimationFrame(()=>requestAnimationFrame(()=>{ov.style.opacity='1';}));
+}
+function gsAfterSave(){
+  guidedUI.screen=guidedUI.mode==='manual'?'review':'capture';
+  renderGuidedSort();
+}
 function closeGuidedSort(){
   const ov=document.getElementById('guided-sort-overlay');
   if(ov){ov.style.opacity='0';setTimeout(()=>{ov.style.display='none';},180);}
   guidedUI.open=false;
-  renderContent();
+  renderContent();renderSectionNav();
 }
 function renderGuidedSort(){
   const ov=document.getElementById('guided-sort-overlay');if(!ov)return;
@@ -2036,6 +2210,7 @@ function gsReviewScreen(){
   const cat=sortPriceCategories.find(x=>x.key===c.categoryKey);
   return`
   <div class="card bold-card">
+    ${guidedUI.mode==='manual'?'<div class="card-title" style="margin-bottom:16px">Add an item</div>':''}
     ${c.photo?`<img src="${c.photo}" alt="" style="max-width:100%;max-height:220px;display:block;margin:0 auto 20px;object-fit:contain"/>`:''}
     ${c.aiGuessed&&cat?`<div class="info-box" style="margin-bottom:16px;font-weight:600">I think this is: ${esc(cat.label)} — ${esc(c.itemName)}. <span style="font-weight:700;text-decoration:underline">Not quite right? Fix it below.</span></div>`:''}
     <div class="form-field" style="margin-bottom:14px">
@@ -2069,6 +2244,8 @@ function gsReviewScreen(){
       <button class="gs-dec-btn gs-donate" onclick="gsChooseDecision('donate')">Donate</button>
       <button class="gs-dec-btn gs-kids" onclick="gsChooseDecision('kids')">Give to Kids</button>
       <button class="gs-dec-btn gs-trash" onclick="gsChooseDecision('trash')">Trash</button>
+      <button class="gs-dec-btn gs-keep" onclick="gsChooseDecision('keep')">Keep</button>
+      <button class="gs-dec-btn gs-notsure" onclick="gsChooseDecision('notSure')">Not Sure</button>
       <button class="gs-dec-btn gs-memory" onclick="gsChooseDecision('memory')">Memory Box</button>
       <button class="gs-dec-btn gs-batch" style="grid-column:1/-1" onclick="gsChooseDecision('batch')">Add to a Batch (low-value items)</button>
     </div>
@@ -2077,11 +2254,11 @@ function gsReviewScreen(){
 function gsChooseDecision(kind){
   const c=guidedUI.current;
   if(!c.label&&!c.itemName){showToast('Give it a name or pick an item type first');return;}
-  if(kind==='donate'||kind==='trash'||kind==='kids'){
-    const decision=kind==='donate'?'Donate':kind==='trash'?'Trash':'Given to kids';
+  if(kind==='donate'||kind==='trash'||kind==='kids'||kind==='keep'||kind==='notSure'){
+    const decision=kind==='donate'?'Donate':kind==='trash'?'Trash':kind==='kids'?'Given to kids':kind==='keep'?'Keep':'Not Sure';
     gsSaveItem({decision,price:'0'});
     gsToastUndo(`Saved to ${decision==='Given to kids'?'Give to Kids':decision}`);
-    guidedUI.screen='capture';renderGuidedSort();
+    gsAfterSave();
     return;
   }
   if(kind==='memory'){guidedUI.screen='memory';renderGuidedSort();return;}
@@ -2090,15 +2267,17 @@ function gsChooseDecision(kind){
 }
 function gsSaveItem(extra){
   const c=guidedUI.current;
+  const category=SORT_PRICE_TO_CATEGORY[c.categoryKey]||'Other';
   const item={
     id:makeId(),name:c.label||c.itemName||'Item',label:c.label||'',
-    categoryKey:c.categoryKey||'',itemType:c.itemName||'',category:'Other',
+    categoryKey:c.categoryKey||'',itemType:c.itemName||'',category,
     condition:c.condition||'',quantity:'1',decision:'',price:'0',
     notes:'',photo:c.photo||'',room:guidedUI.room||null,brand:!!c.brand,
     batchId:null,storage:'',alsoGiveToKids:false,given:false,sold:false,
     suggested:'',platform:'',kanbanCol:'priced',
     ...extra,
   };
+  item.platform=suggestPlatform(item.category,item.condition,item.price,item.decision);
   P.items=[item,...(P.items||[])];
   if(item.alsoGiveToKids){
     P.items=[{...item,id:makeId(),decision:'Given to kids',notes:'from the Memory Box',given:false,price:'0',batchId:null,storage:'',alsoGiveToKids:false},...P.items];
@@ -2146,7 +2325,7 @@ function gsSaveMemory(){
   const c=guidedUI.current;
   gsSaveItem({decision:'Memory Box',price:'0',notes:c.memNote||'',storage:c.memStorage||'',alsoGiveToKids:!!c.alsoGiveToKids});
   gsToastUndo('Saved to Memory Box');
-  guidedUI.screen='capture';renderGuidedSort();
+  gsAfterSave();
 }
 function gsBatchScreen(){
   const batches=P.batchItems||[];
@@ -2181,7 +2360,7 @@ function gsSaveBatchItem(batchId){
   const b=(P.batchItems||[]).find(x=>x.id===batchId);if(!b)return;
   gsSaveItem({decision:'Batch',batchId:b.id,price:b.price});
   gsToastUndo(`Saved to ${batchLabel(b)}`);
-  guidedUI.screen='capture';renderGuidedSort();
+  gsAfterSave();
 }
 function gsCreateAndSaveBatch(){
   const type=document.getElementById('gs-batch-type').value;
@@ -2191,7 +2370,7 @@ function gsCreateAndSaveBatch(){
   P.batchItems=[batch,...(P.batchItems||[])];
   gsSaveItem({decision:'Batch',batchId:batch.id,price});
   gsToastUndo(`Saved to ${batchLabel(batch)}`);
-  guidedUI.screen='capture';renderGuidedSort();
+  gsAfterSave();
 }
 function gsPriceLookup(categoryKey,itemName,brandDetected,condition){
   const cat=sortPriceCategories.find(x=>x.key===categoryKey);
@@ -2233,7 +2412,7 @@ function gsFinishSell(decision){
   const c=guidedUI.current;
   gsSaveItem({decision,price:c.priceOverride||'0',condition:c.condition||'Good'});
   gsToastUndo(`Saved to ${decision}`);
-  guidedUI.screen='capture';renderGuidedSort();
+  gsAfterSave();
 }
 function gsRoomCompleteScreen(){
   const st=guidedUI.room?gsRoomStats(guidedUI.room):{count:0,value:0};
@@ -2278,7 +2457,7 @@ function handleInvSearch(el){
   clearTimeout(_invSearchTimer);
   const pos=el.selectionStart;
   _invSearchTimer=setTimeout(()=>{
-    renderContent();
+    renderInvDrawer();
     const s=document.getElementById('inv-search');
     if(s){s.focus();s.setSelectionRange(pos,pos);}
   },180);
@@ -2336,22 +2515,15 @@ function invTally(items){
   return`<strong>${total}</strong> item${total===1?"":"s"} sorted so far`;
 }
 
-function renderDispositionCounter(){
-  const items=P.items||[];
-  const counts=decisions.map(d=>({label:d,count:items.filter(i=>i.decision===d).length})).filter(d=>d.count>0);
-  if(!counts.length)return"";
-  return`<div style="font-family:var(--font-body);font-size:14px;color:var(--color-text);margin-bottom:14px;display:flex;flex-wrap:wrap;gap:18px" aria-live="polite">${counts.map(c=>`<span><span style="color:var(--color-text-muted)">${esc(c.label)}:</span> <strong>${c.count}</strong></span>`).join("")}</div>`;
-}
-
 function invSearchBar(){
   const pillStyle=`font-family:var(--font-display);font-size:13px;font-weight:600;border:1.5px solid #C4B0E8;background:#fff;padding:8px 32px 8px 14px;appearance:none;-webkit-appearance:none;cursor:pointer;color:var(--color-text);background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%23888' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 10px center`;
   return`<div class="row" style="gap:8px;margin-bottom:20px;flex-wrap:wrap;align-items:center">
     <input class="input" id="inv-search" placeholder="Search items..." value="${esc(itemSearch)}" style="flex:1;min-width:160px" oninput="handleInvSearch(this)" />
-    <select style="${pillStyle}" onchange="invCatFilter=this.value;renderContent()">
+    <select style="${pillStyle}" onchange="invCatFilter=this.value;renderInvDrawer()">
       <option value="All"${invCatFilter==="All"?" selected":""}>Category ▾</option>
       ${categories.map(c=>`<option value="${esc(c)}"${invCatFilter===c?" selected":""}>${esc(c)}</option>`).join("")}
     </select>
-    <select style="${pillStyle}" onchange="invDecFilter=this.value;renderContent()">
+    <select style="${pillStyle}" onchange="invDecFilter=this.value;renderInvDrawer()">
       <option value="All"${invDecFilter==="All"?" selected":""}>Decision ▾</option>
       ${decisions.map(d=>`<option value="${esc(d)}"${invDecFilter===d?" selected":""}>${esc(d)}</option>`).join("")}
     </select>
@@ -2441,7 +2613,9 @@ function renderItemTable(){
 }
 
 function draftItem(k,v){draft.item[k]=v}
-function draftItemAndRefresh(k,v){draft.item[k]=v;renderContent()}
+function draftItemAndRefresh(k,v){draft.item[k]=v;refreshInvSurfaces()}
+// Only reachable via editItem() below — new items are created through the guided
+// overlay (gsSaveItem) now, so draft.item.id is always a real id here.
 function addItem(){
   if(!draft.item.name.trim())return;
   const qty=Number(draft.item.quantity);if(isNaN(qty)||qty<1)draft.item.quantity="1";
@@ -2449,25 +2623,17 @@ function addItem(){
   const d=draft.item;
   const suggested=priceRange(d.category,d.condition);
   const platform=suggestPlatform(d.category,d.condition,d.price,d.decision);
-  if(d.id){
-    P.items=(P.items||[]).map(i=>i.id===d.id?{...i,name:d.name,category:d.category,condition:d.condition,quantity:d.quantity,decision:d.decision,price:d.price,notes:d.notes,suggested,platform}:i);
-  }else{
-    P.items=[{id:makeId(),name:d.name,category:d.category,condition:d.condition,quantity:d.quantity,decision:d.decision,price:d.price,notes:d.notes,suggested,platform,sold:false},...(P.items||[])];
-  }
+  P.items=(P.items||[]).map(i=>i.id===d.id?{...i,name:d.name,category:d.category,condition:d.condition,quantity:d.quantity,decision:d.decision,price:d.price,notes:d.notes,suggested,platform}:i);
   P.isDemo=false;save();draft.item={id:null,name:"",category:"Decor",condition:"Good",quantity:"1",decision:"Garage Sale",price:"",notes:""};
-  UI.showAddForm=false;renderContent();refreshMetrics();checkUnpricedNotif();
-}
-function toggleAddItemForm(){
-  if(!UI.showAddForm)draft.item={id:null,name:"",category:"Decor",condition:"Good",quantity:"1",decision:"Garage Sale",price:"",notes:""};
-  UI.showAddForm=!UI.showAddForm;renderContent();
+  UI.showAddForm=false;refreshInvSurfaces();refreshMetrics();checkUnpricedNotif();
 }
 function editItem(id){
   const item=(P.items||[]).find(i=>i.id===id);if(!item)return;
   draft.item={id:item.id,name:item.name,category:item.category,condition:item.condition,quantity:item.quantity,decision:item.decision,price:item.price,notes:item.notes||""};
-  UI.showAddForm=true;renderContent();
+  UI.showAddForm=true;refreshInvSurfaces();
 }
-function deleteItem(id){mncConfirm("Remove this item?",()=>{P.items=(P.items||[]).filter(i=>i.id!==id);P.isDemo=false;save();renderContent();refreshMetrics();checkUnpricedNotif()})}
-function toggleSold(id,v){const item=(P.items||[]).find(i=>i.id===id);if(item){item.sold=v;P.isDemo=false;save();renderContent()}}
+function deleteItem(id){mncConfirm("Remove this item?",()=>{P.items=(P.items||[]).filter(i=>i.id!==id);P.isDemo=false;save();refreshInvSurfaces();refreshMetrics();checkUnpricedNotif()})}
+function toggleSold(id,v){const item=(P.items||[]).find(i=>i.id===id);if(item){item.sold=v;P.isDemo=false;save();refreshInvSurfaces()}}
 function heartBtnHtml(item){
   const inMem=(P.items||[]).some(i=>i.decision==='Memory Box'&&i.linkedFrom===item.id);
   return inMem
@@ -4292,6 +4458,8 @@ function refreshCashTally(el){
 function renderWrap(){
   const w=P.wrap||{};const stats=getStats(P);
   const cashSales=(P.transactions||[]).filter(t=>t.method==='Cash').reduce((s,t)=>s+Number(t.amount||0),0);
+  const memBoxCount=(P.items||[]).filter(i=>i.decision==='Memory Box').length;
+  const giveKidsCount=(P.items||[]).filter(i=>i.decision==='Given to kids').length;
   return`
   ${renderTourNote("Decide what happens to leftovers before the sale ends — donate, sell online, keep, or trash. Fill this in while you're still outside. Once it's back inside, it stays inside.")}
   <div class="gap-y">
@@ -4300,6 +4468,15 @@ function renderWrap(){
       <h2 class="page-title">Wrap Up</h2>
       <p class="page-sub">Decide what happens to leftovers before the sale ends. Make the plan now so nothing sneaks back inside.</p>
     </div>
+    ${memBoxCount>0||giveKidsCount>0?`<div class="card bold-card">
+      <div class="card-title" style="margin-bottom:6px">Memory Box &amp; Give to Kids</div>
+      <p style="font-size:13px;color:var(--color-text-muted);margin-bottom:14px;line-height:1.6">Anything you tagged along the way instead of pricing it and moving on.</p>
+      <div style="display:flex;gap:28px;flex-wrap:wrap;margin-bottom:16px">
+        ${memBoxCount>0?`<div><span style="font-family:var(--font-display);font-weight:700;font-size:24px;color:var(--color-text)">${memBoxCount}</span> <span style="font-size:13px;color:var(--color-text-muted)">in Memory Box</span></div>`:""}
+        ${giveKidsCount>0?`<div><span style="font-family:var(--font-display);font-weight:700;font-size:24px;color:var(--color-text)">${giveKidsCount}</span> <span style="font-size:13px;color:var(--color-text-muted)">to give to kids</span></div>`:""}
+      </div>
+      <button class="btn btn-secondary btn-sm" onclick="goTab('sortPrice','memory')">Manage in Memories →</button>
+    </div>`:""}
     <div style="border:1px solid #8BA7D4;background:#FDFBF7;padding:16px">
       <div style="font-family:var(--font-body);font-weight:700;font-size:12px;color:var(--color-text);margin-bottom:6px">Have items that didn't sell?</div>
       <div style="font-family:var(--font-body);font-size:12px;color:var(--color-text);line-height:1.6">Your platform guide is in the Sell + Promote tab — it covers eight options from Facebook Marketplace to ThredUp, with exactly what each one is good for.</div>
@@ -6065,6 +6242,7 @@ document.addEventListener('click',()=>{
 <div id="payment-overlay" style="position:fixed;inset:0;z-index:9100;display:none;overflow:hidden;pointer-events:auto;transition:opacity 180ms ease;opacity:0"></div>
 <div id="help-overlay" style="position:fixed;inset:0;z-index:9100;display:none;overflow:hidden;pointer-events:auto;transition:opacity 180ms ease;opacity:0"></div>
 <div id="batch-print-overlay" style="position:fixed;inset:0;z-index:9100;display:none;overflow:hidden;pointer-events:auto;transition:opacity 180ms ease;opacity:0"></div>
+<div id="inv-drawer-overlay" style="position:fixed;inset:0;z-index:9100;display:none;overflow:hidden;pointer-events:auto;transition:opacity 180ms ease;opacity:0"></div>
 <div id="guided-sort-overlay" style="position:fixed;inset:0;z-index:9200;display:none;overflow:hidden;pointer-events:auto;transition:opacity 180ms ease;opacity:0"></div>
 
 <footer style="max-width:1100px;margin:0 auto;padding:var(--space-5) var(--space-6);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:var(--space-3);border-top:1px solid var(--color-divider);margin-top:var(--space-8)">
