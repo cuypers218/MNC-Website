@@ -50,25 +50,21 @@ jobs:
           server: ${{ secrets.HOSTINGER_FTP_SERVER }}
           username: ${{ secrets.HOSTINGER_FTP_USERNAME }}
           password: ${{ secrets.HOSTINGER_FTP_PASSWORD }}
-          # 2026-07-17: Hostinger support confirmed the FTP account is jailed to
-          # /home/u540670132/domains/mynestchapter.com/, and "public_html" (relative,
-          # no leading slash) is the correct resolved path. Switching from the
-          # absolute-style "/public_html/" to a bare relative path, since leading-
-          # slash handling can differ between FTP clients/jailed accounts and this
-          # may be why prior deploys silently uploaded nowhere useful despite
-          # succeeding. Confirmed via Hostinger hPanel > Files > FTP Accounts
-          # ("Folder to upload files").
-          server-dir: public_html/
-          # 2026-07-17: multiple deploys reported "success" with zero errors but
-          # never actually updated any file on the server (verified via curl —
-          # unchanged Last-Modified headers and stale content after several
-          # green runs). Strong suspicion: the old sync-state file on the server
-          # (from before today's Hostinger account incident) is telling this
-          # action every file already matches, so it uploads nothing. Forcing a
-          # new state filename below makes it treat this as a first-ever deploy
-          # with no prior state, so everything gets uploaded fresh. This does
-          # NOT enable dangerous-clean-slate — no deletions happen, only uploads.
-          state-name: .ftp-deploy-sync-state-2026-07-17.json
+          # 2026-07-18: root-caused with Hostinger support after the 2026-07-16
+          # account incident. This account's FTP chroot auto-prepends "public_html"
+          # to every path requested — confirmed by direct testing (requesting
+          # "/public_html" resolved to "/public_html/public_html"; requesting the
+          # full absolute path also got "/public_html" stuck on the front). The
+          # real live site files live at the filesystem path .../public_html/site/
+          # relative to the account's true home. Given the chroot's auto-prepend,
+          # requesting server-dir "site" (no "public_html" in it at all) is what
+          # actually lands there — confirmed by direct FTP browser test.
+          # local-dir is scoped to the repo's site/ folder so its contents land
+          # flattened at the right place, matching this server-dir.
+          # widgets/ is NOT deployed by this step yet — out of scope until it gets
+          # its own migration pass (see mnc_qa.py's NEW_STANDARD_WIDGET_FILES notes).
+          local-dir: site/
+          server-dir: site/
           exclude: |
             **/.git*
             **/.git*/**
