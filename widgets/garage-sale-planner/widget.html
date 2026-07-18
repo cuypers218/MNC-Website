@@ -170,15 +170,13 @@
       font-family:var(--font-display);font-style:italic;font-weight:400;
       font-size:14px;color:rgba(250,247,237,.82);margin-top:8px;
     }
-    /* ─── HERO STATS — price-tag callouts (rounded-square tag, rotated 45°,
-       with a punched hole, matching Cece's Canva tag reference exactly —
-       single-path outline, sharp-ish pointed tip, long diagonal edge,
-       rounded body corners) ─── */
+    /* ─── HERO STATS — price-tag callouts (upright tag: flat top, angled
+       shoulders, punched hole; matches the Items-screen tally tags) ─── */
     .hero-stats{display:flex;align-items:center}
     .tag-row{display:flex;gap:18px;align-items:center;flex-wrap:wrap;justify-content:flex-end}
     .tag-wrap{position:relative;flex-shrink:0;width:198px;height:198px}
     .tag-svg{position:absolute;inset:0;width:100%;height:100%;filter:drop-shadow(0 8px 16px rgba(0,0,0,.3))}
-    .tag-content{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:22px 34px 16px 44px}
+    .tag-content{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:63px 20px 16px}
     .tag-label{font-family:var(--font-body);font-size:9px;font-weight:700;letter-spacing:.06em;text-transform:uppercase}
     .tag-pct{font-family:var(--font-body);font-weight:800;font-size:28px;line-height:1;margin-top:2px}
     .tag-count{font-family:var(--font-body);font-weight:700;font-size:9px;margin-top:4px}
@@ -1550,11 +1548,11 @@ function refreshHeaderStat(){
 }
 
 function tagShapeSvg(fill){
-  return`<svg class="tag-svg" viewBox="0 0 100 100" aria-hidden="true" focusable="false">
-    <g transform="rotate(-30 50 49)">
-      <path d="M69 6L76 6Q92 6 92 22L92 76Q92 92 76 92L24 92Q8 92 16.51 78.45L58.28 11.93Q62 6 69 6Z" fill="${fill}" stroke="#252535" stroke-width="6" stroke-linejoin="round"/>
-      <circle cx="80" cy="20" r="6.5" fill="#252535"/>
-    </g>
+  // Upright price tag — flat top, angled shoulders, punched hole. Matches the
+  // Sale value / Items sorted tally tags on the Items screen (invPriceTagSvg).
+  return`<svg class="tag-svg" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid meet" aria-hidden="true" focusable="false">
+    <path d="M30 8 L70 8 L90 32 L90 84 Q90 92 82 92 L18 92 Q10 92 10 84 L10 32 Z" fill="${fill}" stroke="#252535" stroke-width="5" stroke-linejoin="round"/>
+    <circle cx="50" cy="24" r="6" fill="#252535"/>
   </svg>`;
 }
 function refreshMetrics(){
