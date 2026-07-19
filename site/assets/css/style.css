@@ -151,6 +151,7 @@ p { margin-bottom: 1rem; line-height: 1.6; }
 }
 .hero .container {
     display: flex; align-items: center; justify-content: flex-start;
+    padding-left: 64px;
 }
 .hero-text { max-width: 38rem; }
 .hero-eyebrow {
