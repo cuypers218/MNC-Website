@@ -62,11 +62,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <div class="form-group">
                 <label for="password">Password</label>
                 <input type="password" id="password" name="password" placeholder="Your password" required>
+                <p class="form-link" style="margin-top: 0.5rem;"><a href="/forgot-password">Forgot password?</a></p>
             </div>
-            
+
             <button type="submit" class="btn btn-primary btn-full" style="margin-top: 0.5rem;">Log In</button>
         </form>
-        
+
         <p class="form-link">Don't have an account? <a href="/register">Create one</a></p>
     </div>
 </section>
