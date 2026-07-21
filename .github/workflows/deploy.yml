@@ -1,6 +1,14 @@
 name: Deploy to Hostinger
 
-# Runs on every push to main. QA checks must pass before anything deploys.
+# MANUAL DEPLOY ONLY. Pushing to main does NOT deploy anything by itself
+# anymore — it only updates GitHub. This workflow only runs when someone
+# explicitly triggers it (GitHub → Actions → "Deploy to Hostinger" → Run
+# workflow), or when Cece has approved a specific change and asked for it
+# to go live.
+#
+# 2026-07-21: changed from auto-deploy-on-push after Cece asked to be
+# consulted and shown a preview before anything ships. Do not change this
+# trigger back to `on: push` without her explicit ok.
 #
 # ─── ONE-TIME SETUP REQUIRED (do this in GitHub, not in this file) ───
 # Go to: repo → Settings → Secrets and variables → Actions → New repository secret
@@ -17,8 +25,7 @@ name: Deploy to Hostinger
 # 2026-07-13: FTP password re-verified in Hostinger hPanel and secret updated.
 
 on:
-  push:
-    branches: [main]
+  workflow_dispatch:
 
 jobs:
   qa-check:
