@@ -36,26 +36,43 @@
 |---|---|---|
 | Deep Rose | `#C44570` | **Primary signature color** — every CTA button, every hover state, active nav link, section-divider accent. Action only — never decorative. *(replaces Vibrant Pink `#E87AAA`, retired)* |
 | Periwinkle | `#8BA7D4` | Logo "MY NEST," eyebrow labels above headings, section category labels, supporting text accents/captions/metadata. Never on buttons. Never as a background. |
-| Lavender | `#C4B0E8` | Badges, tags, product category chips, small accent details. 1–2 instances per page max. Never a section background. |
 
-**Judgment call, flagged:** Powder Blue `#A8C5DA` (old role: section backgrounds, illustration fills) is retired outright with no direct replacement given by the color lock. Until Cece specifies otherwise, use Warm Antique White for any section that previously used Powder Blue as a background — consistent with the lock's own instruction that light background should dominate the page rather than colored section blocks.
+**Retired as accents, 2026-07-16:** Lavender `#C4B0E8` and Soft Peach `#F5C4A8` are no longer used as accent/badge/divider colors. Cece's direction, confirmed against a live mockup: one committed color story (near-black + Deep Rose family) reads more confident and cohesive than mixing in extra accent hues. Anywhere Lavender or Soft Peach previously sat (badges, tags, dividers, callout accents) now pulls from the Deep Rose Ramp in §2.2b instead. Periwinkle stays — it's locked separately for eyebrow labels only and wasn't part of this change.
+
+### 2.2b Deep Rose Ramp (added 2026-07-16)
+
+One hue, light tint to near-black shade, used for icon backgrounds, secondary accents, depth, and all button hover states — replacing the old single hover-pink token and the retired Peach/Lavender accent roles above. Source: Cece's Coolors "Rose Wine" palette, reconciled with the brand's existing Deep Rose anchor and Rose Tint/Link Hover Pink tokens so nothing gets orphaned.
+
+| Stop | Hex | Role |
+|---|---|---|
+| 50 | `#F9ECF0` | Lightest tint — card icon backgrounds, hover backgrounds on white cards, selected-item backgrounds *(same token as "Rose Tint" below — now the ramp's 50 stop)* |
+| 100 | `#F3D8E1` | Light tint — secondary icon backgrounds, subtle section fills |
+| 200 | `#E7B1C3` | Light-mid — badge/tag fills where a soft pink chip is needed |
+| 300 | `#DA8BA5` | Mid-light — eyebrow/label text on dark backgrounds (replaces Periwinkle-on-dark in some contexts — use judgment, Periwinkle rule for eyebrow labels is unchanged elsewhere) |
+| 400 | `#CE6487` | Mid — secondary CTAs, icon glyph color on light tint backgrounds |
+| **500** | **`#C44570`** | **Deep Rose — the brand anchor, unchanged. Primary buttons, primary CTAs.** |
+| 600 | `#A33359` | Button hover state (replaces "Link Hover Pink" below — now the ramp's 600 stop), darker icon glyphs |
+| 700 | `#74253F` | Deeper hover/active state, icon glyphs needing more contrast on light tints |
+| 800 | `#4E182A` | Dark accent text on light-pink fills, deep icon glyphs |
+| 900 | `#270C15` | Near-black-pink, rarely used — deep shadow tints only |
+| 950 | `#1B090F` | Darkest — paired with or in place of Velvety Charcoal for hero/dark sections wanting maximum confidence/contrast (Cece: "I love the black... black is one of my favorite colors") |
+
+**How to use it:** pick two stops per screen max (e.g. a 50 or 100 for a fill, a 600 or 700 for the icon/text on top) — don't rainbow across the whole ramp on one screen. Velvety Charcoal `#252535` is still the default dark section color; stop 950 (`#1B090F`) is an alternate, moodier dark for screens that want to lean into the "confident/sexy" end (see §5.6b).
 
 ### 2.3 Warm Colors
 
-| Name | Hex | Role |
-|---|---|---|
-| Soft Peach | `#F5C4A8` | Section dividers, card borders, horizontal rules, one warm accent/callout section per page. Never used twice as a background on the same page. *(absorbs the old Peach `#F2A57A` role, now retired)* |
+**Retired 2026-07-16 — this entire section.** Soft Peach `#F5C4A8` is retired as an accent color; see §2.2 note above. Where warmth is still needed, it now comes from Warm Antique White (background) and the Deep Rose Ramp's light stops (§2.2b), not a separate peach hue.
 
-**Judgment call, flagged:** Lemon `#EDD96A` and Lime `#B5CC6A` (old role: decorative only) are retired outright with no replacement given — the lock doc calls them "wrong emotional register." Remove decorative Lemon/Lime uses rather than substituting a color; if a genuine accent is still needed in that spot, use Lavender.
+**Judgment call, flagged (unchanged):** Lemon `#EDD96A` and Lime `#B5CC6A` (old role: decorative only) remain retired outright — the lock doc calls them "wrong emotional register." Remove decorative Lemon/Lime uses rather than substituting a color; if a genuine accent is still needed in that spot, use the Deep Rose Ramp (§2.2b).
 
 ### 2.3b Utility Colors (new — infrastructure only, not brand-facing)
 
 | Name | Hex | Role |
 |---|---|---|
-| Rose Tint | `#F9ECF0` | Hover state background on cards, selected-item backgrounds, focused input field tint |
-| Peach Tint | `#FCF0E8` | Product card fills, text box backgrounds, input field backgrounds |
-| Peach Mid | `#EFA276` | Input outlines, text box borders, form field edges needing more visible definition |
+| Rose Tint | `#F9ECF0` | Hover state background on cards, selected-item backgrounds, focused input field tint *(= Deep Rose Ramp 50, §2.2b)* |
 | Warm Brown | `#6D4C3E` | Icons, small UI elements on light backgrounds |
+
+**Retired 2026-07-16:** Peach Tint `#FCF0E8` and Peach Mid `#EFA276` are retired along with Soft Peach (§2.3). Product card fills, text box backgrounds, and input borders now pull from the Deep Rose Ramp (§2.2b) — typically stop 50 or 100 for fills, stop 300 or 400 for borders/outlines needing definition.
 
 **Rule: no cool gray anywhere.** Any gray text/border/fill (`#666666`, `#999999`, `#6e6e6e`, `#ABABAB`-as-a-text-color, etc.) is a violation going forward — use Periwinkle for text, the utility tints above for fills/borders. The one exception is disabled-state UI affordance (grayed-out buttons/inputs to signal "not interactive") — that's a UI convention orthogonal to brand color, not a text/label choice, and is left alone pending an explicit call from Cece if she wants that changed too.
 
@@ -91,7 +108,7 @@
 
 | Name | Hex | Role |
 |---|---|---|
-| Link Hover Pink | `#A33359` | Deep Rose, one shade darker — hover/active states *(recomputed off `#C44570`; matches the "Sweet Peony" hover/active step already established in the Garage Sale Planner widget — see CLAUDE.md 2026-07-06)* |
+| Link Hover Pink | `#A33359` | Deep Rose, one shade darker — hover/active states *(= Deep Rose Ramp 600, §2.2b; matches the "Sweet Peony" hover/active step already established in the Garage Sale Planner widget — see CLAUDE.md 2026-07-06)* |
 | Error Red | `#C0392B` | Form errors |
 | Error BG | `#FDEDEC` | Error message background |
 | Success Green | `#1E7E34` | Form success |
@@ -207,15 +224,16 @@
 
 ### 5.4 Design Rules — Hard Constraints
 
-The CSS comment block at the top of the global stylesheet names these explicitly:
+**Corrected July 16, 2026 — supersedes all prior zero-radius/zero-shadow language, sitewide, no exceptions this time.** The original "no border-radius, no shadows" rule was adopted from a stark editorial/broadsheet look without a real design rationale behind it — Cece's own words: "I have no idea what I was doing... I just was going off of other things I read." On review, that rule reads cold and severe rather than premium, and doesn't match the modern, stylish-but-mature feel the brand actually wants. The Garage Sale Planner's 2026-07-03/04 rounded-corner/soft-shadow exception was the correct instinct — it's now promoted to the sitewide standard instead of a one-file deviation.
 
-> **No border-radius. No shadows. No emojis.**
-
-**Exception:** Buttons use `border-radius: 9999px` (pill shape) — this is the one confirmed radius in the system.
-
-- No decorative box shadows on content elements
-- No emoji in any brand material
-- Sharp corners on all cards, inputs, and content blocks
+**New standard — moderate radius, soft elevation:**
+- Cards, containers, panels: `border-radius: 8–10px`
+- Buttons, inputs: `border-radius: 6px`
+- Tags/pills/badges only: `border-radius: 9999px` (fully round — reserved for small label-shaped elements, not general containers)
+- Standard card shadow: `box-shadow: 0 10px 40px rgba(37,37,53,0.07)` — one soft, low-opacity shadow for elevation. No heavy/glossy shadows, no multiple stacked shadows.
+- Reasoning: zero radius reads harsh/stark; heavy rounding (16px+) reads playful/juvenile. This middle range reads clean and mature — think Stripe, Linear, Notion, not a newspaper page and not a kids' app.
+- No emoji in any brand material — this rule is unchanged.
+- Apply this to every widget, the main site, and all future builds. Nothing stays zero-radius going forward.
 
 ### 5.5 Workbook / PDF Page Design
 
@@ -224,37 +242,78 @@ The CSS comment block at the top of the global stylesheet names these explicitly
 - Workbook interior: rule lines `#D3D3D3`, box borders `#ABABAB`, alt lines `#E0E0E0`, icon gray `#4B4B4B`
 - Montserrat 800 for all headings; Arial Regular for all body text
 
+### 5.6 Feel & Interaction Standards (added July 16, 2026)
+
+**Who this is for — read this before applying anything below.** The buyer is not stressed, not low-tech, not someone who needs to be handled carefully. She's capable, tech-comfortable, and willing to learn. What she has, at this stage of life, is clarity about what her time is worth — she doesn't want to spend it on something clunky, and she doesn't want to feel talked down to. Every rule below exists to make the tool feel sharp and competent, not to compensate for fragility. If a design choice is justified by "she might get confused," that's the wrong justification — reframe around respect and competence instead.
+
+**Interaction order — friction, then clarity, then delight, in that sequence:**
+1. Remove friction first (can she do the thing without fighting the interface?)
+2. Reduce confusion second (does she know what's happening and why?)
+3. Layer delight on top, last (animation/encouragement never substitutes for a flow that doesn't already work)
+
+**Progressive disclosure:** Show only what's needed for the current step. Advanced or secondary features (e.g. the Garage Sale Planner's eBay price lookup) stay tucked away until she's ready for them. Don't front-load every field/option on one screen — that's what makes a tool feel like homework.
+
+**Momentum framing, not static data:** Progress should read as "3 more items and you're halfway sorted," not just "47 items." Every screen should read like it already understands what she's doing — "Let's set your sale goal," not "Welcome" or "Dashboard" as a blank label.
+
+**Milestone-based encouragement, not constant:** Reserve any personal-voice touch (a short note in Cece's voice, a small celebratory moment) for real milestones — finished sorting, hit the money goal, sale day arrives. Not every tap. Overusing encouragement cheapens it; used sparingly at real milestones, it lands.
+
+**Mobile-first micro-interactions** (most use happens on a phone):
+- Visible tap feedback on every interactive element — a button visibly presses/lightens on tap, not just a hover-color change that doesn't exist on touch anyway
+- State changes animate (a card moving to "sold" slides or fades, never just snaps)
+- Swipe gestures where they fit naturally (e.g. swipe an item left for Donate, right for Sell) as an alternative to small tap targets
+- Numbers that change (totals, counts) animate/count up rather than snapping instantly — reads as responsive, not laggy
+- Bottom sheets sliding up from the bottom for mobile actions, instead of small centered popup modals
+- Touch targets sized for a thumb (44×44px minimum, per §6.1), not a mouse cursor
+
+**Respect-her-time patterns (apply to Garage Sale Planner first, then all future tools):**
+- **Smart defaults over blank forms** — pre-fill what can reasonably be assumed (today's date, typical sale window, standard categories); let her override rather than starting from zero every time
+- **Undo instead of confirm, where reversible** — let the action happen instantly, then offer a brief "Undo," rather than a confirmation dialog that stops her before she's done anything. Confirmation dialogs read as "the tool doesn't trust you." (Note: this refines, not replaces, the existing Garage Sale Planner Confirmation & Silence Pattern rule — genuinely irreversible/high-stakes actions still confirm; anything reversible should prefer undo.)
+- **Quick-add / command-bar pattern** — a single fast-entry field (e.g. typing "shirts 3 for $5" or "lamp $20") that the tool parses, instead of opening a multi-field form for every single item. This is the highest-leverage fix for making sorting/pricing feel fast instead of tedious.
+- **Shortcuts that reward repeat use** — e.g. "duplicate last item, just change the price" once she's added a few items, so the tool visibly gets faster the more she uses it
+- **Shareable proof of her own work** — a clean, well-designed summary she could screenshot or send ("I made $340 today") once a milestone is hit
+- **No talking-at-her tutorial overlay** — skip walkthroughs that explain the whole tool up front. One subtle inline hint on her first real action (e.g. adding her first item), then never repeat it. She learns by doing.
+- **Cross-tool consistency** — whichever interaction pattern wins here (quick-add, undo-not-confirm, live-updating totals) becomes the standard for every future tool (New Grandma Planner, Know Before You Sell, etc.), so a second MNC purchase feels immediately familiar rather than like learning a new interface.
+
+### 5.6b Confident + warm blend (added 2026-07-16)
+
+Cece's brief: "sexy and confident" blended with "warm, nurturing and encouraging" — confirmed against a live mockup. The two qualities aren't a compromise blended evenly across a screen; they're separated by zone:
+- **Confidence/boldness** lives in one committed dark moment per screen — a near-black (`#1B090F`, Deep Rose Ramp 950, or Velvety Charcoal `#252535`) section with a single decisive Deep Rose accent (e.g. a circular progress ring), not scattered small accents. Restraint is what makes it read confident rather than loud.
+- **Warmth/nurturing** lives in everything surrounding that moment — Warm Antique White space, soft-shadow white cards (§5.4), rounded icon circles pulling from the Deep Rose Ramp's light stops, encouraging first-person-adjacent copy ("Pick up where you left off," not "Dashboard").
+- Apply this zone split to every new screen: pick one moment to be bold and dark, let the rest be soft and warm. Don't spread boldness evenly (reads busy) or softness evenly (reads flat/timid).
+
 ---
 
 ## 6. COMPONENT PATTERNS
 
 ### 6.1 Buttons
 
-| Variant | Background | Text | Border | Notes |
-|---|---|---|---|---|
-| `.btn-primary` | `#C44570` | `#FFFFFF` | none | Hover: `#A33359` |
-| `.btn-outline` | `#FFFFFF` | `#C44570` | 1px `#C44570` | Hover: `#FAF7ED` bg |
-| `.btn-dark` | `#101010` | `#FFFFFF` | none | Hover: `#C44570` bg |
-| `.btn-hero` | transparent | `#FFFFFF` | 2px rgba(255,255,255,0.7) | Glow pulse animation |
-| Disabled | `#DDDDDD` | `#ABABAB` | none | `cursor: not-allowed` |
+Each button variant has its own distinct hover color — never one shared hover color across all variants — and as of 2026-07-16, every hover/active stop is drawn from the Deep Rose Ramp (§2.2b) so all hovers read as one cohesive color family instead of unrelated one-off shades.
+
+| Variant | Background | Text | Border | Hover | Active |
+|---|---|---|---|---|---|
+| `.btn-primary` | `#C44570` (Ramp 500) | `#FFFFFF` | none | `#A33359` (Ramp 600) | `#74253F` (Ramp 700) |
+| `.btn-outline` | `#FFFFFF` | `#C44570` (Ramp 500) | 1px `#C44570` | `#F9ECF0` bg (Ramp 50) | `#F3D8E1` bg (Ramp 100) |
+| `.btn-dark` | `#101010` | `#FFFFFF` | none | `#C44570` bg (Ramp 500) | `#A33359` bg (Ramp 600) |
+| `.btn-hero` | transparent | `#FFFFFF` | 2px rgba(255,255,255,0.7) | Glow pulse animation (unchanged) | — |
+| Disabled | `#DDDDDD` | `#ABABAB` | none | — | `cursor: not-allowed` |
 
 - All buttons: Montserrat 800, 0.85rem, uppercase, letter-spacing 1px
 - Padding: `14px 32px` (standard), `14px 36px` (hero)
-- Border-radius: `9999px` (pill — the only radius in the system)
-- Active: `transform: translateY(1px)`
+- Border-radius: `6px` (per the corrected §5.4 standard — pill/`9999px` is now reserved for tags/badges, not buttons)
+- Active: `transform: translateY(1px)` on tap/click, combined with the active-state color above — should feel like a visible press, not just a color shift
 - Minimum touch target: 44×44px on mobile (`min-height: 44px`)
 
 ### 6.2 Cards
 
 **Product Cards:**
-- Background: `#FFFFFF`, border: `1px solid #ABABAB`, no radius, no shadow
+- Background: `#FFFFFF`, border-radius `8–10px` (per §5.4), border removed in favor of the standard soft shadow (`0 10px 40px rgba(37,37,53,0.07)`) — border only if a card needs a hard edge for contrast against a similar-colored background
 - Hover: `transform: translateY(-4px)`, `transition: 0.3s ease`
-- Image height: 220px, `object-fit: cover`
+- Image height: 220px, `object-fit: cover`, top corners inherit the card's radius (clip to match)
 - Category label: Montserrat 800, 0.7rem, uppercase, letter-spacing 0.1em, `#8BA7D4` (Periwinkle — was `#666666`)
 - Title: Montserrat 800, 1.15rem, uppercase, `#333333`
 - Description: Arial, 0.95rem, `#444444`
 - CTA: full-width button, always at bottom
-- Badges: positioned `top: 1rem; right: 1rem` — no radius, 1px border
+- Badges: positioned `top: 1rem; right: 1rem` — pill radius (`9999px`), 1px border
 
 **Locked card (dashboard):** border with 40% opacity, grayscale + opacity on image, gradient background.
 
@@ -349,6 +408,8 @@ The CSS comment block at the top of the global stylesheet names these explicitly
 - Tap hint pulse: 2.5s infinite
 - Hover transitions: 0.2s ease across the board
 - Card lift: 0.3s ease
+- **Tap feedback (added July 16, 2026, see §5.6):** buttons/interactive elements get a visible press state on `:active` — e.g. `transform: scale(0.97)` or `translateY(1px)` plus a brief background shift — not just a hover state, since touch has no hover
+- **Count-up numbers (added July 16, 2026):** totals/counters that change value should animate from old value to new (e.g. a simple JS tween over ~400–600ms) rather than snapping instantly
 
 ---
 
@@ -422,6 +483,8 @@ Sections alternate to create visual rhythm — never two charcoal sections adjac
 - **First person "I" always** — never "we," never third person, never "the brand"
 - **Fragments allowed** when they land harder than full sentences
 - Short, punchy sentences. Direct and honest. No sugarcoating.
+
+**Audience framing (corrected July 16, 2026):** Never characterize the reader/buyer as "stressed," "overwhelmed," "low-tech," or "not a power user." She is capable, tech-comfortable, and willing to learn — this stage of life means she's clear-eyed about what her time is worth, not that she's fragile or needs to be handled carefully. She wants to be taken seriously and treated with respect. This applies to copy tone and to every product/UX design decision (see §5.6) — reasoning should start from competence and self-respect, never from an assumption of confusion or hand-holding need.
 
 ### 8.2 Possibility Language (Mandatory)
 
