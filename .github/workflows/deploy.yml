@@ -76,3 +76,30 @@ jobs:
             **/node_modules/**
             **/.claude/**
             **/*DRAFT*
+
+      - name: Deploy widgets/ via FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.HOSTINGER_FTP_SERVER }}
+          username: ${{ secrets.HOSTINGER_FTP_USERNAME }}
+          password: ${{ secrets.HOSTINGER_FTP_PASSWORD }}
+          # 2026-07-21: widgets/ migration pass. Uses the same server-dir pattern
+          # proven working for site/ above (relative dir name, no leading slash,
+          # no "public_html" — the chroot auto-prepends that).
+          # know-before-you-sell/ is deliberately excluded: CLAUDE.md flags it as
+          # pulled off the live site pending Cece's review of which version is
+          # correct — do not let an auto-deploy put it back live silently.
+          local-dir: widgets/
+          server-dir: widgets/
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/.github/**
+            **/docs/**
+            **/_stray_assets/**
+            **/_archive/**
+            **/*.md
+            **/node_modules/**
+            **/.claude/**
+            **/*DRAFT*
+            **/know-before-you-sell/**
