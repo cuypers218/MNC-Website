@@ -652,6 +652,7 @@
     .gs-dec-btn.gs-keep{background:transparent;color:#252535;border-color:#252535}
     .gs-dec-btn.gs-notsure{background:transparent;color:#6D4C3E;border-color:#6D4C3E}
     .gs-dec-btn:hover{opacity:.85}
+    .gs-dec-btn:active{opacity:.7;transform:translateY(1px)}
     .gs-price-tag{position:relative;background:#A33359;color:#FAF7ED;border:2px solid #252535;padding:18px 20px;
       text-align:center;margin-bottom:14px}
     .gs-price-tag .gs-price-lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;opacity:.85}
@@ -659,8 +660,13 @@
       font-weight:700;text-align:center;width:100%;border-bottom:2px dashed rgba(250,247,237,.5);padding:4px 0}
     .gs-brand-badge{display:inline-block;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;
       background:#252535;color:#FAF7ED;padding:3px 8px;margin-bottom:8px}
-    .gs-nudge{font-size:12px;color:#8BA7D4;background:#F9ECF0;border:1.5px solid #8BA7D4;padding:8px 10px;
+    .gs-nudge{font-size:12px;color:var(--color-text-muted);background:#F9ECF0;border:1.5px solid #8BA7D4;padding:8px 10px;
       margin-bottom:14px;line-height:1.4}
+    /* Shared accent-border-left roles — consolidates what was 8 separate ad-hoc inline declarations of the same border */
+    .accent-border-left{border-left:3px solid var(--color-primary)}
+    .section-header-accent{border-left:3px solid var(--color-primary);padding-left:14px}
+    .script-line{border-left:3px solid var(--color-primary);padding:8px 12px;font-size:13px;line-height:1.65;color:var(--color-text);font-style:italic}
+    .money-purpose-accent{border-left:3px solid var(--color-primary);padding-left:16px;margin-bottom:28px}
     .gs-action-row{display:flex;gap:8px}
     .gs-btn-accept{flex:1;background:#252535;color:#FAF7ED;border:2px solid #252535;padding:12px;font-weight:700;
       font-size:13px;cursor:pointer;font-family:var(--font-body);min-height:44px}
@@ -753,12 +759,12 @@
 
     /* ─── SECTION TIP STRIP ─── */
     .section-tip{border-top:1px solid var(--color-border);border-bottom:1px solid var(--color-border);padding:13px 0;margin-top:24px;display:flex;align-items:baseline;gap:10px}
-    .section-tip-label{font-family:'DM Sans',sans-serif;font-weight:800;font-size:7.5pt;letter-spacing:2px;text-transform:uppercase;color:var(--color-accent);flex-shrink:0;white-space:nowrap}
+    .section-tip-label{font-family:'DM Sans',sans-serif;font-weight:800;font-size:7.5pt;letter-spacing:2px;text-transform:uppercase;color:var(--color-text-muted);flex-shrink:0;white-space:nowrap}
     .section-tip-text{font-family:'DM Sans',sans-serif;font-size:10pt;color:#252535;line-height:1.5;flex:1}
 
     /* ─── NIGHT BEFORE CHECKLIST ─── */
     .night-before{margin-bottom:28px}
-    .night-before-heading{font-family:'DM Sans',sans-serif;font-weight:800;font-size:7.5pt;letter-spacing:2px;text-transform:uppercase;color:var(--color-accent);margin-bottom:10px}
+    .night-before-heading{font-family:'DM Sans',sans-serif;font-weight:800;font-size:7.5pt;letter-spacing:2px;text-transform:uppercase;color:var(--color-text-muted);margin-bottom:10px}
     .night-before-item{display:flex;align-items:flex-start;gap:10px;padding:8px 0;border-bottom:1px solid var(--color-border);cursor:pointer}
     .night-before-item:first-of-type{border-top:1px solid var(--color-border)}
     .night-before-cb{width:16px;height:16px;border:1.5px solid var(--color-border);flex-shrink:0;margin-top:2px;appearance:none;-webkit-appearance:none;cursor:pointer;background:#FDFBF7;border-radius:var(--radius-sm)}
@@ -1756,7 +1762,7 @@ function renderStartField(step,i,isActive,review){
         <button type="button" class="input cal-trigger" id="cal-trigger-${step.pickerId}"
           onclick="openDatePicker('${step.path.join('.')}','${step.pickerId}')"
           onkeydown="if(event.key==='Tab'&&!event.shiftKey){event.preventDefault();startTryAdvance(${i})}"
-          style="display:flex;align-items:center;justify-content:space-between;text-align:left;cursor:pointer;color:${v?'var(--color-text)':'#426DB3'}">
+          style="display:flex;align-items:center;justify-content:space-between;text-align:left;cursor:pointer;color:${v?'var(--color-text)':'var(--color-text-muted)'}">
           <span id="cal-trigger-label-${step.pickerId}">${display||"mm/dd/yyyy"}</span>
           <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="var(--color-primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="3"/><path d="M16 2v4M8 2v4M3 10h18"/><circle cx="8" cy="15" r="1.3" fill="var(--color-primary)" stroke="none"/></svg>
         </button>
@@ -2128,7 +2134,7 @@ function gsEntryScreen(){
   const hasAny=(P.items||[]).length>0;
   return`
   <div class="card bold-card">
-    <div class="gs-eyebrow" style="font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--color-accent);margin-bottom:8px">Start here</div>
+    <div class="gs-eyebrow" style="font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--color-text-muted);margin-bottom:8px">Start here</div>
     <div class="card-title" style="margin-bottom:8px;font-size:26px">Pick a room, or<br>just start snapping</div>
     <p style="color:var(--color-text-muted);margin-bottom:24px">Go room to room, or skip straight to the camera if that's easier. Nothing here is required in order.</p>
     <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:20px">
@@ -2154,7 +2160,7 @@ function gsCaptureScreen(){
   const roomCount=guidedUI.room?gsRoomStats(guidedUI.room).count:0;
   return`
   <div class="card bold-card" style="text-align:center;padding:36px 24px">
-    <div class="gs-eyebrow" style="font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--color-accent);margin-bottom:8px">${roomLabel}</div>
+    <div class="gs-eyebrow" style="font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--color-text-muted);margin-bottom:8px">${roomLabel}</div>
     <div class="card-title" style="margin-bottom:8px;font-size:26px">Photograph one item</div>
     <p style="color:var(--color-text-muted);margin-bottom:24px">Snap what you're holding. You'll decide what to do with it next.</p>
     <label class="gs-tile" style="display:block;cursor:pointer;padding:36px 20px;margin-bottom:16px">
@@ -2218,7 +2224,7 @@ function gsReviewScreen(){
       ${c.photo?`<img src="${c.photo}" alt="" style="max-width:100%;max-height:220px;display:block;margin:0 auto 20px;object-fit:contain"/>`:''}
       <div style="text-align:center;margin-bottom:20px">
         <div style="font-family:var(--font-display);font-weight:700;font-size:20px;color:var(--color-text)">${esc(c.itemName)}</div>
-        <div class="gs-eyebrow" style="font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--color-accent);margin-top:6px">${esc(cat.label)}</div>
+        <div class="gs-eyebrow" style="font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--color-text-muted);margin-top:6px">${esc(cat.label)}</div>
         <a href="#" onclick="guidedUI.current.reviewEditing=true;renderGuidedSort();return false" style="display:inline-block;margin-top:12px;font-size:13px;font-weight:700;text-decoration:underline;color:var(--color-primary-text);padding:10px;min-height:44px">Not quite right? Fix it</a>
       </div>
       <div style="margin-bottom:16px;text-align:center"><a href="#" onclick="openPriceGuide();return false" style="font-family:var(--font-display);font-size:12px;font-weight:700;color:var(--color-primary-text);text-decoration:underline;padding:10px 0;display:inline-block;min-height:44px">Full pricing guide →</a></div>
@@ -2226,11 +2232,16 @@ function gsReviewScreen(){
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
         <button class="gs-dec-btn gs-sell" style="grid-column:1/-1" onclick="gsChooseDecision('sell')">Sell</button>
         <button class="gs-dec-btn gs-donate" onclick="gsChooseDecision('donate')">Donate</button>
-        <button class="gs-dec-btn gs-kids" onclick="gsChooseDecision('kids')">Give to Kids</button>
         <button class="gs-dec-btn gs-trash" onclick="gsChooseDecision('trash')">Trash</button>
-        <button class="gs-dec-btn gs-memory" onclick="gsChooseDecision('memory')">Memory Box</button>
-        <button class="gs-dec-btn gs-batch" style="grid-column:1/-1" onclick="gsChooseDecision('batch')">Add to a Batch (low-value items)</button>
       </div>
+      <details class="gs-more-options" style="margin-top:8px;text-align:center">
+        <summary style="cursor:pointer;padding:10px 0;font-family:var(--font-display);font-size:13px;font-weight:700;color:var(--color-primary-text);text-decoration:underline;min-height:44px;line-height:24px">More options</summary>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px">
+          <button class="gs-dec-btn gs-kids" onclick="gsChooseDecision('kids')">Give to Kids</button>
+          <button class="gs-dec-btn gs-memory" onclick="gsChooseDecision('memory')">Memory Box</button>
+          <button class="gs-dec-btn gs-batch" style="grid-column:1/-1" onclick="gsChooseDecision('batch')">Add to a Batch (low-value items)</button>
+        </div>
+      </details>
     </div>`;
   }
   return`
@@ -2266,11 +2277,16 @@ function gsReviewScreen(){
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
       <button class="gs-dec-btn gs-sell" style="grid-column:1/-1" onclick="gsChooseDecision('sell')">Sell</button>
       <button class="gs-dec-btn gs-donate" onclick="gsChooseDecision('donate')">Donate</button>
-      <button class="gs-dec-btn gs-kids" onclick="gsChooseDecision('kids')">Give to Kids</button>
       <button class="gs-dec-btn gs-trash" onclick="gsChooseDecision('trash')">Trash</button>
-      <button class="gs-dec-btn gs-memory" onclick="gsChooseDecision('memory')">Memory Box</button>
-      <button class="gs-dec-btn gs-batch" style="grid-column:1/-1" onclick="gsChooseDecision('batch')">Add to a Batch (low-value items)</button>
     </div>
+    <details class="gs-more-options" style="margin-top:8px">
+      <summary style="cursor:pointer;padding:10px 0;font-family:var(--font-display);font-size:13px;font-weight:700;color:var(--color-primary-text);text-decoration:underline;min-height:44px;line-height:24px">More options</summary>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px">
+        <button class="gs-dec-btn gs-kids" onclick="gsChooseDecision('kids')">Give to Kids</button>
+        <button class="gs-dec-btn gs-memory" onclick="gsChooseDecision('memory')">Memory Box</button>
+        <button class="gs-dec-btn gs-batch" style="grid-column:1/-1" onclick="gsChooseDecision('batch')">Add to a Batch (low-value items)</button>
+      </div>
+    </details>
   </div>`;
 }
 function gsChooseDecision(kind){
@@ -2385,7 +2401,7 @@ function gsSaveBatchItem(batchId){
 }
 function gsCreateAndSaveBatch(){
   const type=document.getElementById('gs-batch-type').value;
-  const price=document.getElementById('gs-batch-price').value||'0';
+  const price=String(nn(document.getElementById('gs-batch-price').value));
   const description=document.getElementById('gs-batch-desc').value;
   const batch={id:makeId(),type,title:'',price,category:'',description,photo:'',createdAt:new Date().toLocaleDateString()};
   P.batchItems=[batch,...(P.batchItems||[])];
@@ -2420,7 +2436,7 @@ function gsSellScreen(){
       ${c.brand?`<div class="gs-brand-badge">Brand detected</div><br>`:''}
       <div class="gs-price-lbl">Garage sale price</div>
       <label class="sr-only" for="gs-sell-price">Price</label>
-      <input class="gs-price-edit" id="gs-sell-price" type="number" min="0" step="0.25" value="${esc(c.priceOverride)}" oninput="guidedUI.current.priceOverride=this.value" />
+      <input class="gs-price-edit" id="gs-sell-price" type="number" min="0" step="0.25" value="${esc(c.priceOverride)}" oninput="guidedUI.current.priceOverride=String(nn(this.value))" />
     </div>
     <div class="gs-action-row">
       <button class="gs-btn-accept" onclick="gsFinishSell('Garage Sale')">Use this price</button>
@@ -2639,8 +2655,8 @@ function renderItemTable(){
   </div>`;
 }
 
-function draftItem(k,v){draft.item[k]=v}
-function draftItemAndRefresh(k,v){draft.item[k]=v;refreshInvSurfaces()}
+function draftItem(k,v){draft.item[k]=k==='price'?String(nn(v)):k==='quantity'?String(nnMin1(v)):v}
+function draftItemAndRefresh(k,v){draft.item[k]=k==='price'?String(nn(v)):k==='quantity'?String(nnMin1(v)):v;refreshInvSurfaces()}
 // Only reachable via editItem() below — new items are created through the guided
 // overlay (gsSaveItem) now, so draft.item.id is always a real id here.
 function addItem(){
@@ -2720,7 +2736,7 @@ function renderBatch(){
         </div>
         <div class="form-field">
           <label class="form-label" for="bx-price">Price — everything here ($)</label>
-          <input class="input" type="number" min="0" step="0.5" id="bx-price" value="${esc(draft.batch.price)}" oninput="draft.batch.price=this.value" />
+          <input class="input" type="number" min="0" step="0.5" id="bx-price" value="${esc(draft.batch.price)}" oninput="draft.batch.price=String(nn(this.value))" />
         </div>
       </div>
       <div class="form-field" style="margin-bottom:14px">
@@ -3143,7 +3159,7 @@ function renderPromote(){
   return`
   ${renderTourNote("Work this checklist by timeline — two weeks out, a few days out, morning of. Check off what applies to how much lead time you've got.")}
   <div class="gap-y">
-    <div style="border-left:3px solid var(--color-primary);padding-left:14px">
+    <div class="section-header-accent">
       <h2 class="page-title" style="text-transform:uppercase">Promote Your Sale</h2>
     </div>
     ${totalChecked===totalItems?`<div style="background:#FDFBF7;border:1px solid var(--color-divider);padding:12px;font-family:var(--font-body);font-size:12pt;color:var(--color-text)">You're promoted. Now get some sleep.</div>`:""}
@@ -3255,7 +3271,7 @@ function renderWriteAd(){
   return`
   ${renderTourNote("Fill in your sale details and the ad writes itself — copy it and post it anywhere. Signs are below, same tab.")}
   <div class="gap-y">
-    <div style="border-left:3px solid var(--color-primary);padding-left:14px">
+    <div class="section-header-accent">
       <h2 class="page-title" style="text-transform:uppercase">Write Your Ad</h2>
       <button class="btn btn-ghost btn-sm" onclick="openHelp('ad-timing')" style="margin-top:8px">When should I post? →</button>
     </div>
@@ -3596,7 +3612,7 @@ function renderPrep(){
       </div>
     </div>
 
-    <div class="card" style="border-left:3px solid var(--color-primary)">
+    <div class="card accent-border-left">
       <div class="card-title" style="margin-bottom:10px">Before You Set Anything Out</div>
       <p style="font-size:14px;line-height:1.65;color:var(--color-text);margin:0 0 14px">I didn't know this until I started looking it up. It's illegal to sell a recalled product — even at a garage sale, even if you didn't know it was recalled. The stuff most likely to be on the list: anything that was for the kids. Cribs. Car seats. Strollers. Baby swings. Bike helmets. Takes two minutes to check before you put it out.</p>
       <a href="https://www.cpsc.gov/Recalls" target="_blank" rel="noopener noreferrer" style="font-size:13px;font-weight:700;color:var(--color-primary);text-decoration:underline">Check the recall list — cpsc.gov/Recalls</a>
@@ -3672,10 +3688,10 @@ function renderSafety(){
         <div class="card">
           <div class="card-title">If Something Feels Off</div>
           <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:14px">
-            <div style="border-left:3px solid var(--color-primary);padding:8px 12px;font-size:13px;line-height:1.65;color:var(--color-text);font-style:italic">If someone asks to use the restroom: "The house isn't part of the sale today." No further explanation needed.</div>
-            <div style="border-left:3px solid var(--color-primary);padding:8px 12px;font-size:13px;line-height:1.65;color:var(--color-text);font-style:italic">If someone makes you uncomfortable: "I'm closing up for a bit, please come back in 20 minutes." You do not owe anyone access.</div>
-            <div style="border-left:3px solid var(--color-primary);padding:8px 12px;font-size:13px;line-height:1.65;color:var(--color-text);font-style:italic">If someone gets aggressive about price: "That's the price — no problem if it doesn't work for you today." Said once. Not repeated.</div>
-            <div style="border-left:3px solid var(--color-primary);padding:8px 12px;font-size:13px;line-height:1.65;color:var(--color-text);font-style:italic">Have a code word texted to a trusted person if you need backup.</div>
+            <div class="script-line">If someone asks to use the restroom: "The house isn't part of the sale today." No further explanation needed.</div>
+            <div class="script-line">If someone makes you uncomfortable: "I'm closing up for a bit, please come back in 20 minutes." You do not owe anyone access.</div>
+            <div class="script-line">If someone gets aggressive about price: "That's the price — no problem if it doesn't work for you today." Said once. Not repeated.</div>
+            <div class="script-line">Have a code word texted to a trusted person if you need backup.</div>
           </div>
           <div class="check-item${s.petLocked?" checked":""}" role="checkbox" tabindex="0" aria-checked="${s.petLocked?"true":"false"}" onclick="togglePetLocked()" onkeydown="if(event.key===' '||event.key==='Enter'){event.preventDefault();togglePetLocked()}">
             <div class="check-box" aria-hidden="true">${s.petLocked?"✓":""}</div>
@@ -3851,7 +3867,7 @@ function renderSaleDay(){
             </div>
             <div class="form-field">
               <label class="form-label">Amount ($)</label>
-              <input class="input" type="number" min="0" step="0.5" id="qs-amt" placeholder="0" oninput="draft.sale.amount=this.value" />
+              <input class="input" type="number" min="0" step="0.5" id="qs-amt" placeholder="0" oninput="draft.sale.amount=String(nn(this.value))" />
             </div>
             <div class="form-field">
               <label class="form-label">Payment</label>
@@ -3994,7 +4010,7 @@ function lhRefresh(){
 }
 function lhUpdate(field,val){
   if(!UI.lhDrop)UI.lhDrop={price:'',drop:null,custom:''};
-  UI.lhDrop[field]=val;
+  UI.lhDrop[field]=(field==='price'||field==='custom')?String(nn(val)):val;
   lhRefresh();
 }
 function lhToggleDrop(d){
@@ -4126,7 +4142,7 @@ function calcChange(){
   const amt=document.getElementById('change-amount');
   const denomEl=document.getElementById('change-denom');
   if(!result||!amt)return;
-  if(!given){result.style.display='none';return;}
+  if(!given||given<0){result.style.display='none';return;}
   if(given<sub){
     result.style.display='block';
     result.style.background='#E7B1C3';
@@ -5254,7 +5270,7 @@ function exportPDF(){
       <div style="border:1px solid #F3D8E1;padding:14px 16px"><div style="font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#6D4C3E;margin-bottom:2px">Transactions</div><div style="font-size:18px;font-weight:800;color:#252535">${tx.length}</div></div>
     </div>
 
-    ${s.moneyPurpose?`<div style="border-left:3px solid #C44570;padding-left:16px;margin-bottom:28px">${row("What the money is for",s.moneyPurpose)}</div>`:""}
+    ${s.moneyPurpose?`<div class="money-purpose-accent">${row("What the money is for",s.moneyPurpose)}</div>`:""}
 
     ${items.length?`
     <h2 style="font-size:13px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:#252535;margin:0 0 12px;border-bottom:2px solid #252535;padding-bottom:8px">Item List</h2>
@@ -5311,9 +5327,12 @@ function exportPDF(){
 
 // ─── FORM HELPERS ─────────────────────────────────────────────────────────────
 // sf() = "set field" — safe varargs alternative to setField; path as spread args avoids JSON-in-HTML quoting issues
+// nn()/nnMin1() = clamp a typed price/cash/quantity value to a non-negative (or min-1) number before it's stored and rendered as currency
+function nn(v){const n=parseFloat(v);return isFinite(n)&&n>0?n:0}
+function nnMin1(v){const n=parseInt(v,10);return isFinite(n)&&n>0?n:1}
 let _weatherFetchTimer,_lastWeatherSaleDate;
 function sf(el,...path){
-  const v=el.type==="checkbox"?el.checked:el.value;
+  const v=el.type==="checkbox"?el.checked:(el.type==="number"?String(nn(el.value)):el.value);
   deepSet(P,path,v);P.isDemo=false;save();
   refreshHeaderStat();refreshMetrics();
   if(path.includes("yourName")){
@@ -5975,7 +5994,20 @@ const helpTopics=[
       <p style="margin-bottom:18px">Put a sign at every turn someone has to make to reach your house. Arrows matter more than your address. Someone driving at 25mph can't read a street number.</p>
       <p>Take them down the same day. It's a courtesy. In some neighborhoods it's required.</p>
     </div>`},
-  {id:'pricing',title:'How to price items',available:false},
+  {id:'pricing',title:'How to price items',available:true,body:`
+    <div style="font-family:var(--font-body);font-size:14px;line-height:1.7;color:var(--color-text)">
+      <h4 style="font-family:var(--font-display);font-size:15px;font-weight:500;color:var(--color-text);margin-bottom:6px">Guided sort (the camera flow)</h4>
+      <p style="margin-bottom:24px">Photograph an item on the Sort + Price tab and the tool guesses its category and suggests a price range based on condition and whether it has a visible brand or designer logo. Not quite right? Fix it before you save — nothing prices itself without a chance to review.</p>
+
+      <h4 style="font-family:var(--font-display);font-size:15px;font-weight:500;color:var(--color-text);margin-bottom:6px">The full Pricing Guide</h4>
+      <p style="margin-bottom:24px">Open "Full pricing guide" from anywhere in Sort + Price to browse every category by condition tier — Fair, Good, Excellent, New — with brand-name items marked separately since they hold value differently. Use it to double-check a guess or price something by hand.</p>
+
+      <h4 style="font-family:var(--font-display);font-size:15px;font-weight:500;color:var(--color-text);margin-bottom:6px">Worth a look online first?</h4>
+      <p style="margin-bottom:24px">When an item's brand, category, or price puts it above what a garage sale typically pays, the tool flags it before you tag it Garage Sale — collectibles, name brands, and higher-value pieces usually do better on Facebook Marketplace, eBay, or Poshmark. You can still sell it at your sale; it's a nudge, not a rule.</p>
+
+      <h4 style="font-family:var(--font-display);font-size:15px;font-weight:500;color:var(--color-text);margin-bottom:6px">Keepsakes</h4>
+      <p>Anything tagged Keepsakes shows $0 on purpose. Those items route to Memory Box instead of a price tag — photograph it, write the story if you want to, then decide separately whether it stays or goes.</p>
+    </div>`},
   {id:'unsold',title:"What to do with items that don't sell",available:true,body:`
     <div style="font-family:var(--font-body);font-size:14px;line-height:1.7;color:var(--color-text)">
       <p style="margin-bottom:18px">Decide before the sale, not after. Know where unsold stuff is going before you open your doors — otherwise you're making tired decisions at 2pm when the adrenaline wears off.</p>
@@ -5983,7 +6015,22 @@ const helpTopics=[
       <p style="margin-bottom:18px">Options in order: load the car and donate same day. Free pile on the curb for the last hour with a sign. Facebook Marketplace for anything valuable that didn't move — do it before it goes back in a closet. Trash what isn't worth donating.</p>
       <p>The longer something sits in the garage after the sale, the more likely it is to migrate back inside. Same-day decisions are always easier than next-week ones.</p>
     </div>`},
-  {id:'marketplace',title:'How to create a Facebook Marketplace listing',available:false},
+  {id:'marketplace',title:'How to create a Facebook Marketplace listing',available:true,body:`
+    <div style="font-family:var(--font-body);font-size:14px;line-height:1.7;color:var(--color-text)">
+      <p style="margin-bottom:24px">The Sell + Promote tab's Sell Online section has a one-tap "List on Facebook Marketplace" link that opens Facebook's create-listing page directly — this is what to fill in once you're there.</p>
+
+      <h4 style="font-family:var(--font-display);font-size:15px;font-weight:500;color:var(--color-text);margin-bottom:6px">Photos</h4>
+      <p style="margin-bottom:18px">Use natural light and a plain background. Show the whole item first, then a close-up of any brand label, wear, or damage — buyers trust a listing more when the flaws are already visible.</p>
+
+      <h4 style="font-family:var(--font-display);font-size:15px;font-weight:500;color:var(--color-text);margin-bottom:6px">Title and category</h4>
+      <p style="margin-bottom:18px">Lead with the brand and item type — "Pottery Barn accent table," not "Table." Facebook uses this to match your listing to the right category and the right buyers.</p>
+
+      <h4 style="font-family:var(--font-display);font-size:15px;font-weight:500;color:var(--color-text);margin-bottom:6px">Price and description</h4>
+      <p style="margin-bottom:18px">Price it close to what similar sold listings are actually going for, not what you'd like it to be worth — Marketplace shows buyers nearby comparisons, so an inflated price gets scrolled past. In the description, note the condition honestly and whether the price is firm.</p>
+
+      <h4 style="font-family:var(--font-display);font-size:15px;font-weight:500;color:var(--color-text);margin-bottom:6px">Pickup details</h4>
+      <p>Set your general location (Facebook doesn't show your exact address publicly) and say whether it's porch pickup, a scheduled time, or first-come at your sale. Post the morning of your sale if it's tied to sale day — that's when Marketplace buyers are actually looking.</p>
+    </div>`},
   {id:'quick-notes-move',title:'Moving the Quick Notes panel',available:true,body:`
     <div style="font-family:var(--font-body);font-size:14px;line-height:1.7;color:var(--color-text)">
       <p style="margin-bottom:18px">You can move the little notes circle itself — press and hold it, then drag, with your mouse on a computer or your finger on a phone or tablet. No need to open it first.</p>
