@@ -57,23 +57,23 @@ jobs:
           server: ${{ secrets.HOSTINGER_FTP_SERVER }}
           username: ${{ secrets.HOSTINGER_FTP_USERNAME }}
           password: ${{ secrets.HOSTINGER_FTP_PASSWORD }}
-          # 2026-07-22: root-caused for real this time — checked hPanel → Files →
-          # FTP Accounts directly (not inferred from File Manager browsing, which
-          # was using different, broader-scoped credentials than this deploy
-          # secret). The dedicated "u540670132.deploy" FTP account is rooted
-          # exactly at /home/u540670132/domains/mynestchapter.com/public_html —
-          # i.e. the real live docroot itself, with zero extra path needed.
-          # Both the 2026-07-18 "chroot auto-prepends public_html" theory and the
-          # follow-up "server-dir: ../" fix were wrong — they were reverse-engineered
-          # from observed bad behavior without ever checking this authoritative
-          # FTP Accounts panel, which states the account's directory directly.
-          # server-dir is intentionally empty: deploy straight into FTP's home.
-          # If this ever looks wrong again, check hPanel → Files → FTP Accounts
-          # FIRST — it states the true root directly, no inference needed — before
-          # trusting this workflow's green checkmark (a successful FTP upload does
-          # not mean it landed in the folder the site actually serves from).
+          # 2026-07-22 (this fix is the one that's actually been verified live):
+          # the "server-dir: ./" change above (from "root-caused for real this
+          # time") was WRONG and never re-tested against the live site — it just
+          # trusted the FTP Accounts panel's stated directory. A real test (push
+          # a brand-new canary file, then curl it on the live domain) showed it
+          # 404s: the file actually lands two folders deep, in an extra
+          # public_html/public_html/ that isn't served. This reproduces the
+          # exact symptom the EARLIER "server-dir: ../" fix (commit d300e87) had
+          # already found and fixed, verified that time against a real live file
+          # (login.php) — the very next commit undid it without re-verifying.
+          # Restoring "../": it cancels out whatever extra "public_html/" segment
+          # gets glued onto server-dir, landing back at the true FTP home, which
+          # is the real docroot. Do not change this again without a live canary-
+          # file test (push a uniquely-named file, curl it on mynestchapter.com,
+          # confirm 200) — a green checkmark or a panel's stated path is not proof.
           local-dir: site/
-          server-dir: ./
+          server-dir: ../
           exclude: |
             **/.git*
             **/.git*/**
@@ -85,6 +85,14 @@ jobs:
             **/node_modules/**
             **/.claude/**
             **/*DRAFT*
+            # Runtime, user-generated content that lives only on the live server —
+            # never committed to git (see .gitignore). Must stay excluded from
+            # every sync so a full state-file rebuild never deletes real uploads/
+            # purchased PDFs/product photos that aren't tracked here.
+            uploads/**
+            downloads/exclusive/**
+            downloads/freebies/**
+            downloads/products/**
 
       - name: Deploy widgets/ via FTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
@@ -92,18 +100,18 @@ jobs:
           server: ${{ secrets.HOSTINGER_FTP_SERVER }}
           username: ${{ secrets.HOSTINGER_FTP_USERNAME }}
           password: ${{ secrets.HOSTINGER_FTP_PASSWORD }}
-          # 2026-07-22: matching the site/ step fix above — the FTP account's home
-          # (confirmed in hPanel → Files → FTP Accounts) IS the real docroot
-          # (public_html), so "widgets/" alone — relative to that home, no extra
-          # "public_html" prefix or "../" needed — lands at the real
-          # public_html/widgets/ the live site serves from. Previous attempts
-          # (plain "widgets/", then "../widgets/") were both reverse-engineered
-          # from observed behavior without checking the FTP Accounts panel first.
+          # 2026-07-22: matching the site/ step fix above — "server-dir: widgets/"
+          # (from the unverified "checked FTP Accounts panel" fix) was landing at
+          # public_html/public_html/widgets/, confirmed via a live canary-file
+          # test (pushed a new file, curl'd it on mynestchapter.com, got a 404).
+          # "../widgets/" restores the commit d300e87 fix, which WAS verified
+          # against a real live file at the time — cancels out the same extra
+          # "public_html/" segment the site/ step has.
           # know-before-you-sell/ is deliberately excluded: CLAUDE.md flags it as
           # pulled off the live site pending Cece's review of which version is
           # correct — do not let an auto-deploy put it back live silently.
           local-dir: widgets/
-          server-dir: widgets/
+          server-dir: ../widgets/
           exclude: |
             **/.git*
             **/.git*/**
