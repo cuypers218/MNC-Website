@@ -20,10 +20,10 @@ $AMAZON_LINK = "https://www.amazon.com/YOUR_BOOK_LINK"; // replace with Amazon l
     --periwinkle: #8BA7D4;
     --lavender: #E7B1C3;
     --soft-peach: #DA8BA5;
-    --text: #1a1a2e;
+    --text: #252535;
     --text-light: #555566;
-    --border: #E8E0D5;
-    --bg-warm: #FDFAF6;
+    --border: #F3D8E1;
+    --bg-warm: #FAF7ED;
   }
 
   html { scroll-behavior: smooth; }
@@ -150,7 +150,7 @@ $AMAZON_LINK = "https://www.amazon.com/YOUR_BOOK_LINK"; // replace with Amazon l
     top: 3px; left: 0;
     width: var(--thickness);
     height: calc(100% - 6px);
-    background: linear-gradient(to right, #4a0820, #7a1438, #a82850);
+    background: linear-gradient(to right, #4E182A, #74253F, #A33359);
     transform: translateX(-50%) rotateY(90deg);
     border-radius: 0;
   }
@@ -159,7 +159,7 @@ $AMAZON_LINK = "https://www.amazon.com/YOUR_BOOK_LINK"; // replace with Amazon l
     content: '';
     position: absolute;
     inset: 0;
-    background: #1a0a10;
+    background: #1B090F;
     transform: translateZ(calc(var(--thickness) / -2)) rotateY(180deg);
     backface-visibility: hidden;
   }
@@ -296,12 +296,12 @@ $AMAZON_LINK = "https://www.amazon.com/YOUR_BOOK_LINK"; // replace with Amazon l
     background: var(--pink);
     color: white;
   }
-  .btn-pdf:hover { background: #d96898; }
+  .btn-pdf:hover { background: #A33359; }
   .btn-amazon {
     background: var(--charcoal);
     color: var(--vanilla);
   }
-  .btn-amazon:hover { background: #1a1a28; }
+  .btn-amazon:hover { background: #1B090F; }
 
   /* ── PRODUCT BODY ── */
   .product-body {

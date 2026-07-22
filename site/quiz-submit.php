@@ -170,7 +170,7 @@ $html = '<!DOCTYPE html>
           </td>
         </tr>
         <tr>
-          <td style="padding:20px 40px;border-top:1px solid #F0ECF8;">
+          <td style="padding:20px 40px;border-top:1px solid #F9ECF0;">
             <p style="margin:0;font-family:Arial,sans-serif;font-size:12px;color:#ABABAB;line-height:1.6;">
               You\'re receiving this because you took the What Kind of Empty Nester Are You? quiz at <a href="https://mynestchapter.com" style="color:#C44570;">mynestchapter.com</a>
             </p>

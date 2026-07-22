@@ -8,10 +8,10 @@ require_once __DIR__ . '/includes/header.php';
 <section class="section-cream">
     <div class="container-narrow text-center" style="padding-bottom: 0;">
         <h1 class="fade-in" style="font-size: 2rem; color: #252535; margin-bottom: 1rem;">I'm Cece</h1>
-        <p class="fade-in-delay-1" style="font-size: 1.1rem; line-height: 1.7; color: #101010; margin-bottom: 1rem;">Solo mom. Empty nest. Now what?<br>That question sat in my house for a long time before I did anything with it.</p>
+        <p class="fade-in-delay-1" style="font-size: 1.1rem; line-height: 1.7; color: #252535; margin-bottom: 1rem;">Solo mom. Empty nest. Now what?<br>That question sat in my house for a long time before I did anything with it.</p>
     </div>
     <div class="container-narrow" style="padding-top: 1rem;">
-        <div style="font-size: 1.05rem; line-height: 1.8; color: #101010;">
+        <div style="font-size: 1.05rem; line-height: 1.8; color: #252535;">
 
             <p>I raised my kids alone. No partner. No co-parent. No one on the other end of the couch when the house went quiet. When they left, I didn't just lose the noise — I lost the entire structure my life was built around. Everything I did was for them. Meals, schedules, the reason I got up in the morning. And then one day that reason was gone, and I had no idea what to do with myself or the house I was still standing in.</p>
 
@@ -42,7 +42,7 @@ require_once __DIR__ . '/includes/header.php';
 </section>
 
 <!-- QUIZ CTA -->
-<section class="section-cream" style="border-top: 1px solid #DDD6F0;">
+<section class="section-cream" style="border-top: 1px solid #F3D8E1;">
     <div class="container-narrow text-center">
         <p style="font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; color: #8BA7D4; margin-bottom: 1.5rem;">Not sure where you fit? Start here.</p>
         <button onclick="openQuizModal()" class="btn btn-primary btn-pulse" style="cursor:pointer;">What Kind of Empty Nester Are You?</button>

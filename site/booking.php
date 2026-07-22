@@ -345,7 +345,7 @@ require_once __DIR__ . '/includes/header.php';
 }
 .booking-divider {
     height: 1px;
-    background: #DDD6F0;
+    background: #F3D8E1;
     margin: 4px 0;
 }
 
@@ -366,7 +366,7 @@ require_once __DIR__ . '/includes/header.php';
     align-self: flex-start;
     margin-top: 6px;
 }
-.booking-submit:hover { background: #d9608f; }
+.booking-submit:hover { background: #A33359; }
 
 .booking-privacy {
     font-family: Arial, sans-serif;

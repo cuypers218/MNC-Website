@@ -68,10 +68,10 @@ if ($contactUuid) {
 $saleDateFmt = $saleDate ? date('F j, Y', strtotime($saleDate)) : '';
 $goalRow     = $moneyGoal ? '
   <tr>
-    <td style="padding:10px 0;border-bottom:1px solid #F0ECF8;">
+    <td style="padding:10px 0;border-bottom:1px solid #F9ECF0;">
       <span style="font-family:Arial,sans-serif;font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#8BA7D4;">Goal</span>
     </td>
-    <td style="padding:10px 0;border-bottom:1px solid #F0ECF8;text-align:right;">
+    <td style="padding:10px 0;border-bottom:1px solid #F9ECF0;text-align:right;">
       <span style="font-family:Arial,sans-serif;font-size:15px;font-weight:700;color:#252535;">$' . $moneyGoal . ' (' . $goalProgress . '% reached)</span>
     </td>
   </tr>' : '';
@@ -80,7 +80,7 @@ function wrapRow($label, $value) {
     if (!$value) return '';
     return '
   <tr>
-    <td colspan="2" style="padding:12px 0;border-bottom:1px solid #F0ECF8;">
+    <td colspan="2" style="padding:12px 0;border-bottom:1px solid #F9ECF0;">
       <div style="font-family:Arial,sans-serif;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#8BA7D4;margin-bottom:4px;">' . $label . '</div>
       <div style="font-family:Arial,sans-serif;font-size:14px;color:#252535;line-height:1.6;">' . nl2br($value) . '</div>
     </td>
@@ -91,7 +91,7 @@ $html = '<!DOCTYPE html><html><head><meta charset="UTF-8"></head>
 <body style="margin:0;padding:0;background:#FAFAFA;font-family:Arial,sans-serif;">
   <table width="100%" cellpadding="0" cellspacing="0" style="background:#FAFAFA;padding:40px 0;">
     <tr><td align="center">
-      <table width="580" cellpadding="0" cellspacing="0" style="background:#FFFFFF;max-width:580px;width:100%;border:1px solid #E8E4F0;">
+      <table width="580" cellpadding="0" cellspacing="0" style="background:#FFFFFF;max-width:580px;width:100%;border:1px solid #F3D8E1;">
 
         <!-- Header -->
         <tr><td style="background:#252535;padding:24px 40px;">
@@ -109,27 +109,27 @@ $html = '<!DOCTYPE html><html><head><meta charset="UTF-8"></head>
         <tr><td style="padding:0 40px 28px;">
           <table width="100%" cellpadding="0" cellspacing="0">
             <tr>
-              <td style="padding:10px 0;border-bottom:1px solid #F0ECF8;">
+              <td style="padding:10px 0;border-bottom:1px solid #F9ECF0;">
                 <span style="font-family:Arial,sans-serif;font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#8BA7D4;">Total earned</span>
               </td>
-              <td style="padding:10px 0;border-bottom:1px solid #F0ECF8;text-align:right;">
+              <td style="padding:10px 0;border-bottom:1px solid #F9ECF0;text-align:right;">
                 <span style="font-family:Georgia,serif;font-size:22px;font-weight:bold;color:#C44570;">$' . $totalEarned . '</span>
               </td>
             </tr>
             ' . $goalRow . '
             <tr>
-              <td style="padding:10px 0;border-bottom:1px solid #F0ECF8;">
+              <td style="padding:10px 0;border-bottom:1px solid #F9ECF0;">
                 <span style="font-family:Arial,sans-serif;font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#8BA7D4;">Items</span>
               </td>
-              <td style="padding:10px 0;border-bottom:1px solid #F0ECF8;text-align:right;">
+              <td style="padding:10px 0;border-bottom:1px solid #F9ECF0;text-align:right;">
                 <span style="font-family:Arial,sans-serif;font-size:15px;font-weight:700;color:#252535;">' . $totalItems . ' total &nbsp;&middot;&nbsp; ' . $garageSaleItems . ' for sale &nbsp;&middot;&nbsp; ' . $onlineItems . ' online &nbsp;&middot;&nbsp; ' . $donateItems . ' donated</span>
               </td>
             </tr>
             <tr>
-              <td style="padding:10px 0;border-bottom:1px solid #F0ECF8;">
+              <td style="padding:10px 0;border-bottom:1px solid #F9ECF0;">
                 <span style="font-family:Arial,sans-serif;font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#8BA7D4;">Transactions</span>
               </td>
-              <td style="padding:10px 0;border-bottom:1px solid #F0ECF8;text-align:right;">
+              <td style="padding:10px 0;border-bottom:1px solid #F9ECF0;text-align:right;">
                 <span style="font-family:Arial,sans-serif;font-size:15px;font-weight:700;color:#252535;">' . $totalTx . '</span>
               </td>
             </tr>
@@ -151,7 +151,7 @@ $html = '<!DOCTYPE html><html><head><meta charset="UTF-8"></head>
         <!-- Purpose -->
         ' . ($moneyPurpose ? '
         <tr><td style="padding:0 40px 28px;">
-          <div style="background:#FDEEF5;padding:20px 24px;">
+          <div style="background:#F9ECF0;padding:20px 24px;">
             <p style="font-family:Arial,sans-serif;font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#C44570;margin:0 0 6px;">What the money is for</p>
             <p style="font-family:Arial,sans-serif;font-size:15px;color:#252535;line-height:1.6;margin:0;">' . $moneyPurpose . '</p>
           </div>
@@ -164,7 +164,7 @@ $html = '<!DOCTYPE html><html><head><meta charset="UTF-8"></head>
         </td></tr>
 
         <!-- Footer -->
-        <tr><td style="padding:20px 40px;border-top:1px solid #F0ECF8;">
+        <tr><td style="padding:20px 40px;border-top:1px solid #F9ECF0;">
           <p style="margin:0;font-family:Arial,sans-serif;font-size:12px;color:#ABABAB;line-height:1.6;">
             You\'re receiving this because you used the Garage Sale Planner at <a href="https://mynestchapter.com" style="color:#ABABAB;">mynestchapter.com</a>
           </p>

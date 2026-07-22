@@ -23,3 +23,9 @@ Thumbs.db
 
 # Node
 node_modules/
+
+# Claude Code / tooling artifacts (not part of the site)
+.claude/skills/
+.github/hooks/
+.github/skills/
+.impeccable/

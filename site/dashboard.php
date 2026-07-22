@@ -51,7 +51,7 @@ $nextUnlock     = getNextExclusiveUnlock($user['id']);
 <style>
 .dash-tabs {
     display: flex;
-    border-bottom: 2px solid #E8E0D8;
+    border-bottom: 2px solid #F3D8E1;
     margin-bottom: 2rem;
     gap: 0;
     overflow-x: auto;
@@ -195,7 +195,7 @@ $nextUnlock     = getNextExclusiveUnlock($user['id']);
                 </div>
 
                 <?php if ($product['slug'] === 'someday-list'): ?>
-                <div class="product-card fade-in" style="background:#FAF7ED;border:1.5px solid #cfc7e8;">
+                <div class="product-card fade-in" style="background:#FAF7ED;border:1.5px solid #F3D8E1;">
                     <span class="badge" style="background:#C44570;color:#FFFFFF;">$7.99</span>
                     <div style="height:140px;background:linear-gradient(135deg,#F3D8E1 0%,#DA8BA5 100%);display:flex;align-items:center;justify-content:center;">
                         <p style="font-family:'Montserrat',sans-serif;font-weight:800;font-size:0.7rem;text-transform:uppercase;letter-spacing:0.1em;color:#A33359;">SOMEDAY COMPANION</p>
@@ -325,11 +325,11 @@ $nextUnlock     = getNextExclusiveUnlock($user['id']);
                     </div>
 
                     <?php if ($currentTier < 3): ?>
-                    <div style="background:#1c1c2a;padding:12px 32px;border-top:1px solid #333;">
+                    <div style="background:#1B090F;padding:12px 32px;border-top:1px solid #4E182A;">
                         <p style="font-family:Arial,sans-serif;font-size:0.8rem;color:#8BA7D4;margin:0;">Buy <?= $currentTier === 1 ? 'one more product' : 'two more products' ?> to unlock <?= $currentTier === 1 ? '15' : '20' ?>% off.</p>
                     </div>
                     <?php else: ?>
-                    <div style="background:#1c1c2a;padding:12px 32px;border-top:1px solid #333;">
+                    <div style="background:#1B090F;padding:12px 32px;border-top:1px solid #4E182A;">
                         <p style="font-family:Arial,sans-serif;font-size:0.8rem;color:#8BA7D4;margin:0;">You're at the highest member tier. Thank you.</p>
                     </div>
                     <?php endif; ?>

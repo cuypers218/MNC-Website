@@ -53,7 +53,7 @@ if ($contactUuid) {
 // ── Build list HTML ───────────────────────────────────────
 $listRows = '';
 foreach (array_values($items) as $i => $item) {
-    $listRows .= '<tr><td style="padding:10px 0;border-bottom:1px solid #F0ECF8;font-family:Arial,sans-serif;font-size:15px;color:#252535;line-height:1.5;">'
+    $listRows .= '<tr><td style="padding:10px 0;border-bottom:1px solid #F9ECF0;font-family:Arial,sans-serif;font-size:15px;color:#252535;line-height:1.5;">'
         . '<span style="font-family:Georgia,serif;color:#C44570;font-weight:bold;margin-right:12px;">' . ($i + 1) . '.</span>'
         . htmlspecialchars($item)
         . '</td></tr>';
@@ -67,7 +67,7 @@ $html = '<!DOCTYPE html><html><head><meta charset="UTF-8"></head>
 <body style="margin:0;padding:0;background:#FAFAFA;font-family:Arial,sans-serif;">
   <table width="100%" cellpadding="0" cellspacing="0" style="background:#FAFAFA;padding:40px 0;">
     <tr><td align="center">
-      <table width="580" cellpadding="0" cellspacing="0" style="background:#FFFFFF;max-width:580px;width:100%;border:1px solid #E8E4F0;">
+      <table width="580" cellpadding="0" cellspacing="0" style="background:#FFFFFF;max-width:580px;width:100%;border:1px solid #F3D8E1;">
         <tr><td style="background:#252535;padding:24px 40px;">
           <p style="margin:0;font-family:Arial,sans-serif;font-weight:800;font-size:11px;letter-spacing:3px;text-transform:uppercase;color:#8BA7D4;">MY NEST CHAPTER</p>
         </td></tr>
@@ -86,7 +86,7 @@ $html = '<!DOCTYPE html><html><head><meta charset="UTF-8"></head>
           </p>
           <p style="font-family:Arial,sans-serif;font-size:14px;color:#8BA7D4;margin:0;">— Cece</p>
         </td></tr>
-        <tr><td style="padding:20px 40px;border-top:1px solid #F0ECF8;">
+        <tr><td style="padding:20px 40px;border-top:1px solid #F9ECF0;">
           <p style="margin:0;font-family:Arial,sans-serif;font-size:12px;color:#ABABAB;line-height:1.6;">
             You\'re receiving this because you built a Someday List at <a href="https://mynestchapter.com" style="color:#ABABAB;">mynestchapter.com</a>
           </p>

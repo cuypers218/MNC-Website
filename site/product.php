@@ -92,7 +92,7 @@ $related = $stmt->fetchAll();
                     </p>
                 <?php endif; ?>
                 
-                <div style="line-height: 1.7; color: #101010; margin-bottom: 2rem;">
+                <div style="line-height: 1.7; color: #252535; margin-bottom: 2rem;">
                     <?= nl2br(esc($product['description'] ?? $product['short_description'])) ?>
                 </div>
                 

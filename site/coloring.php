@@ -22,10 +22,10 @@
     --pink: #C44570;
     --periwinkle: #8BA7D4;
     --soft-peach: #DA8BA5;
-    --text: #1a1a2e;
+    --text: #252535;
     --text-light: #555566;
-    --border: #E8E0D5;
-    --bg-warm: #FDFAF6;
+    --border: #F3D8E1;
+    --bg-warm: #FAF7ED;
   }
 
   html { scroll-behavior: smooth; }
