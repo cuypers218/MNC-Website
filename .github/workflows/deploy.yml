@@ -57,21 +57,33 @@ jobs:
           server: ${{ secrets.HOSTINGER_FTP_SERVER }}
           username: ${{ secrets.HOSTINGER_FTP_USERNAME }}
           password: ${{ secrets.HOSTINGER_FTP_PASSWORD }}
-          # 2026-07-18: root-caused with Hostinger support after the 2026-07-16
-          # account incident. This account's FTP chroot auto-prepends "public_html"
-          # to every path requested — confirmed by direct testing (requesting
-          # "/public_html" resolved to "/public_html/public_html"; requesting the
-          # full absolute path also got "/public_html" stuck on the front). The
-          # real live site files live at the filesystem path .../public_html/site/
-          # relative to the account's true home. Given the chroot's auto-prepend,
-          # requesting server-dir "site" (no "public_html" in it at all) is what
-          # actually lands there — confirmed by direct FTP browser test.
-          # local-dir is scoped to the repo's site/ folder so its contents land
-          # flattened at the right place, matching this server-dir.
-          # widgets/ is NOT deployed by this step yet — out of scope until it gets
-          # its own migration pass (see mnc_qa.py's NEW_STANDARD_WIDGET_FILES notes).
+          # 2026-07-22: the 2026-07-18 "server-dir: site/" theory below was WRONG —
+          # verified directly in Hostinger File Manager. Files were landing at
+          # public_html/public_html/site/ (two nested public_html folders), while
+          # the real live site is served from public_html/ (single level, one
+          # folder up from "My files" root). The FTP session already lands inside
+          # the real public_html on connect; something (Hostinger server-side, or
+          # the action) then glues one more "public_html/" onto whatever server-dir
+          # is requested. "../" cancels that extra segment back out to the true
+          # FTP home, which IS the real docroot — confirmed against the live
+          # ./public_html/login.php file found via File Manager search.
+          # If this still lands wrong, check Hostinger File Manager directly
+          # (search for a known filename like login.php from the account root)
+          # rather than trusting this workflow's green checkmark — a successful
+          # FTP upload does not mean it landed in the folder the site serves from.
+          #
+          # 2026-07-18 (SUPERSEDED, kept for history): This account's FTP chroot
+          # auto-prepends "public_html" to every path requested — confirmed by
+          # direct testing (requesting "/public_html" resolved to
+          # "/public_html/public_html"; requesting the full absolute path also
+          # got "/public_html" stuck on the front). The real live site files live
+          # at the filesystem path .../public_html/site/ relative to the account's
+          # true home. Given the chroot's auto-prepend, requesting server-dir
+          # "site" (no "public_html" in it at all) is what actually lands there —
+          # confirmed by direct FTP browser test. [This was not actually re-verified
+          # against the live site's real serving directory — that's what was wrong.]
           local-dir: site/
-          server-dir: site/
+          server-dir: ../
           exclude: |
             **/.git*
             **/.git*/**
@@ -90,14 +102,17 @@ jobs:
           server: ${{ secrets.HOSTINGER_FTP_SERVER }}
           username: ${{ secrets.HOSTINGER_FTP_USERNAME }}
           password: ${{ secrets.HOSTINGER_FTP_PASSWORD }}
-          # 2026-07-21: widgets/ migration pass. Uses the same server-dir pattern
-          # proven working for site/ above (relative dir name, no leading slash,
-          # no "public_html" — the chroot auto-prepends that).
+          # 2026-07-22: matching the site/ step fix above — "server-dir: widgets/"
+          # was landing at public_html/public_html/widgets/, not the real
+          # public_html/widgets/ that the live site actually serves (confirmed via
+          # File Manager: the real widgets/garage-sale-planner/widget.html sat
+          # untouched at 12 days old while this step reported "success"). "../widgets/"
+          # cancels out the same extra "public_html/" segment the site/ step has.
           # know-before-you-sell/ is deliberately excluded: CLAUDE.md flags it as
           # pulled off the live site pending Cece's review of which version is
           # correct — do not let an auto-deploy put it back live silently.
           local-dir: widgets/
-          server-dir: widgets/
+          server-dir: ../widgets/
           exclude: |
             **/.git*
             **/.git*/**
