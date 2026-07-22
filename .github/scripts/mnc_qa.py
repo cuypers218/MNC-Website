@@ -263,7 +263,7 @@ def scan_file(filepath: Path):
         is_6pm_exempt = '6pm-experience' in str(filepath)
         if is_widget and not is_6pm_exempt:
             for font in WIDGET_BANNED_FONTS:
-                if re.search(rf"['\"]?{re.escape(font)}['\"]?", line, re.IGNORECASE):
+                if re.search(rf"['\"]?\b{re.escape(font)}\b['\"]?", line, re.IGNORECASE):
                     flag('WRONG FONT', filepath, i, line,
                          f'{font} not allowed in /widgets/ — use Lora (display) + DM Sans (body) only')
 
