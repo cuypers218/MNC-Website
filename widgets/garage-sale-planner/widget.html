@@ -129,7 +129,7 @@
     .tab-btn:hover:not(.active){color:var(--color-text);background:transparent}
     .tab-btn.tour-spotlight-tab{outline:2px solid #C44570;outline-offset:-2px}
 
-    /* ─── ICON RAIL (topbar: avatar, bell, save, help, reset) ─── */
+    /* ─── ICON RAIL (topbar: avatar, bell, pricing guide, save, help, reset) ─── */
     .icon-btn {
       width:40px;height:40px;display:flex;align-items:center;justify-content:center;
       border-radius:var(--radius-md);color:var(--color-text);background:transparent;
@@ -148,14 +148,42 @@
     .avatar-pop.open{display:block}
     .avatar-pop-hint{font-size:11px;color:var(--color-text-muted);margin-top:8px;line-height:1.45}
 
+    /* ─── TOPBAR "MORE" MENU — Help / Reset, out of the icon row ─── */
+    .more-menu{
+      position:absolute;top:calc(100% + 10px);right:0;min-width:200px;
+      background:#fff;border:2px solid var(--color-text);border-radius:var(--radius-lg);
+      padding:8px;display:none;z-index:250;box-shadow:var(--shadow-float);
+    }
+    .more-menu.open{display:block}
+    .more-menu-item{
+      display:flex;align-items:center;gap:10px;width:100%;text-align:left;
+      padding:10px 12px;border-radius:var(--radius-md);background:none;border:none;
+      font-family:var(--font-body);font-size:14px;font-weight:600;color:var(--color-text);cursor:pointer;
+      min-height:44px;
+    }
+    .more-menu-item:hover{background:var(--color-primary-hl);color:var(--color-primary-text)}
+    .more-menu-item svg{width:18px;height:18px;flex-shrink:0}
+
+    /* ─── PRICING GUIDE POPOVER — anchored to its own topbar icon, opens in place ─── */
+    .pricing-pop{
+      position:absolute;top:calc(100% + 10px);right:0;width:340px;max-height:70vh;overflow-y:auto;
+      background:#fff;border:2px solid var(--color-text);border-radius:var(--radius-lg);
+      padding:18px;display:none;z-index:250;box-shadow:var(--shadow-float);
+    }
+    .pricing-pop.open{display:block}
+    @media(max-width:600px){.pricing-pop{position:fixed;top:64px;right:8px;left:8px;width:auto;max-height:75vh}}
+
     /* ─── HERO BANNER — solid charcoal block (bold reset, Phase 1) ─── */
     .hero-banner{
       background:var(--color-text);
     }
     .hero-banner-inner{
       max-width:1140px;margin:0 auto;padding:36px var(--space-6) 30px;
-      display:flex;justify-content:space-between;align-items:center;
-      gap:24px;flex-wrap:wrap;
+      display:flex;justify-content:space-between;align-items:flex-start;
+      gap:24px;flex-wrap:wrap;position:relative;
+      min-height:230px; /* the goal ring is position:absolute now, so it no longer stretches
+        this box on its own — without a floor the dark background can end short and the
+        ring's earned/goal line spills onto the light page below it. */
     }
     .hero-label{
       font-family:var(--font-body);
@@ -170,27 +198,24 @@
       font-family:var(--font-display);font-style:italic;font-weight:400;
       font-size:14px;color:rgba(250,247,237,.82);margin-top:8px;
     }
-    /* ─── HERO STATS — circle callouts: Items total disc + Goal progress ring ─── */
-    .hero-stats{display:flex;align-items:center}
+    /* ─── HERO STATS — Goal progress ring ─── */
+    /* Pinned absolute to the hero's own top-right corner, out of the flex flow entirely —
+       so it always sits up near the title regardless of how tall the text block wraps. */
+    .hero-stats{position:absolute;top:32px;right:var(--space-6);display:flex;align-items:center}
     .tag-row{display:flex;gap:26px;align-items:flex-start;flex-wrap:wrap;justify-content:flex-end}
     .hs-circle-block{display:flex;flex-direction:column;align-items:center;gap:8px;text-align:center;flex-shrink:0}
-    .hs-disc{width:100px;height:100px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:0 8px 16px rgba(0,0,0,.25)}
-    .hs-disc b{font-family:var(--font-display);font-weight:800;font-size:32px;line-height:1;font-variant-numeric:tabular-nums}
     .hs-ring{position:relative;width:100px;height:100px;flex-shrink:0;filter:drop-shadow(0 8px 16px rgba(0,0,0,.25))}
     .hs-ring svg{width:100%;height:100%;transform:rotate(-90deg)}
     .hs-ring-num{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-weight:800;font-size:26px;color:#FAF7ED;font-variant-numeric:tabular-nums}
     .hs-cap{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#FAF7ED}
     .hs-sub{font-size:10.5px;color:rgba(250,247,237,.75);line-height:1.4}
-    .hs-legend{display:flex;flex-direction:column;gap:2px;font-size:10px;font-weight:600;color:#FAF7ED}
-    .hs-legend span{display:flex;align-items:center;gap:5px;justify-content:center}
-    .hs-legend i{width:8px;height:8px;flex-shrink:0;display:inline-block}
-    .hs-empty-msg{font-size:13px;color:rgba(250,247,237,.75);font-style:italic;text-align:left;line-height:1.5;font-family:var(--font-body);align-self:center}
     .section-nav-wrap{max-width:1140px;margin:0 auto;padding:0 var(--space-6)}
     @media(max-width:760px){
-      .hero-banner-inner{padding:26px var(--space-4) 24px;flex-direction:column;align-items:flex-start}
-      .tag-row{width:100%;justify-content:center;padding-top:8px;gap:18px}
-      .hs-disc,.hs-ring{width:80px;height:80px}
-      .hs-disc b{font-size:26px}
+      .hero-banner-inner{padding:26px var(--space-4) 24px;flex-direction:column;align-items:flex-start;min-height:190px}
+      .hero-banner-inner>div:first-child{padding-right:88px}
+      .hero-stats{top:22px;right:var(--space-4)}
+      .tag-row{gap:18px}
+      .hs-ring{width:80px;height:80px}
       .hs-ring-num{font-size:21px}
     }
 
@@ -353,6 +378,21 @@
     }
     .input:focus,.select:focus,.textarea:focus{border-color:var(--color-primary-text)}
     .textarea{resize:none;min-height:80px}
+
+    /* ─── START TAB: progressive Sale Setup form — fields reveal one at a time ─── */
+    .start-step-row{display:flex;gap:8px;align-items:center}
+    .start-step-row-area{align-items:flex-start}
+    .start-step-active .form-label{color:var(--color-primary-text)}
+    .start-arrow-btn{
+      flex-shrink:0;width:40px;height:40px;border-radius:var(--radius-full);
+      border:1.5px solid var(--color-primary);background:transparent;color:var(--color-primary-text);
+      display:flex;align-items:center;justify-content:center;cursor:pointer;transition:background var(--t),color var(--t);
+    }
+    .start-arrow-btn:hover{background:var(--color-primary);color:#fff}
+    @keyframes start-step-shake{0%,100%{transform:translateX(0)}20%,60%{transform:translateX(-6px)}40%,80%{transform:translateX(6px)}}
+    .start-step-shake{animation:start-step-shake 320ms ease}
+    @keyframes start-step-slide-in{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+    .start-step-slide{animation:start-step-slide-in 260ms cubic-bezier(0.16,1,0.3,1)}
     input[type="date"],input[type="time"]{cursor:pointer}
     input[type="date"]::-webkit-calendar-picker-indicator,input[type="time"]::-webkit-calendar-picker-indicator{
       cursor:pointer;padding:5px;border-radius:var(--radius-sm);opacity:.6;transition:opacity 150ms,background 150ms;
@@ -410,7 +450,6 @@
     .chip-sale{background:#F9ECF0;color:#252535}
     .chip-online{background:#C4B0E8;color:#252535}
     .chip-donate{background:#FCF0E8;color:#252535}
-    .chip-keep{background:#EFA276;color:#252535}
     .chip-kids{background:#6D4C3E;color:#FAF7ED}
     .chip-trash{background:transparent;color:#252535;border:1.5px solid #EFA276}
     .chip-notsure{background:transparent;color:#252535;border:1.5px solid #8BA7D4}
@@ -420,26 +459,6 @@
     .progress{height:10px;background:var(--color-divider);border-radius:var(--radius-full);overflow:hidden;margin-top:var(--space-2)}
     .progress-fill{height:100%;background:var(--color-primary);border-radius:var(--radius-full);transition:width 180ms cubic-bezier(0.16,1,0.3,1)}
     .progress-lg{height:8px}
-
-    /* ─── MEMORY LANE (Kanban board) ─── */
-    @keyframes mnc-spark-fly{
-      0%{transform:translate(0,0) scale(1);opacity:1}
-      100%{transform:translate(var(--sx),var(--sy)) scale(0);opacity:0}
-    }
-    .mnc-spark{
-      position:fixed;width:6px;height:6px;pointer-events:none;z-index:900;
-      animation:mnc-spark-fly 750ms ease-out forwards;
-    }
-    .ml-view-toggle{display:flex;gap:6px;margin-bottom:16px}
-    .ml-view-btn{
-      font-family:var(--font-body);font-size:13px;font-weight:600;
-      padding:8px 16px;border:1.5px solid var(--color-primary);
-      background:transparent;color:var(--color-primary-text);cursor:pointer;
-      border-radius:var(--radius-md);
-    }
-    .ml-view-btn.active{background:var(--color-primary);color:#fff}
-    .ml-view-btn:hover:not(.active){background:var(--color-primary-hl);color:var(--color-primary-text)}
-    .ml-view-btn:active:not(.active){background:#7C2743;color:#fff;border-color:#7C2743}
 
     /* ─── INVENTORY TALLIES: Sale value is a progress ring (measured against the
        money goal); Items sorted is a plain badge (no goal to measure against). ─── */
@@ -467,47 +486,6 @@
     .inv-drawer-x:hover{background:var(--color-primary);border-color:var(--color-primary);color:#fff}
     .inv-drawer-body{flex:1;overflow-y:auto;padding:16px 22px 26px}
     @media(max-width:640px){.inv-drawer{width:100%}}
-    .ml-revenue{
-      font-family:var(--font-display);font-size:16px;font-weight:700;
-      color:var(--color-primary-text);padding:12px 18px;background:var(--color-surface-2);
-      margin-bottom:16px;transition:transform 200ms ease,color 200ms ease;
-    }
-    .ml-revenue.flash{transform:scale(1.04);color:#7C2743}
-    .ml-board{
-      display:grid;grid-template-columns:repeat(3,1fr);gap:16px;
-    }
-    @media(max-width:760px){
-      .ml-board{display:flex;overflow-x:auto;gap:12px;padding-bottom:8px}
-      .ml-col{min-width:260px;flex-shrink:0}
-    }
-    .ml-col{
-      background:var(--color-surface);border:2px solid var(--color-text);
-      padding:14px;min-height:220px;transition:outline 150ms;
-    }
-    .ml-col.drag-over{outline:2px dashed var(--color-primary);outline-offset:-4px}
-    .ml-col-hdr{
-      font-family:var(--font-display);font-size:14px;font-weight:700;
-      margin-bottom:12px;padding-bottom:8px;border-bottom:2px solid;
-    }
-    .ml-col-think{border-color:#252535}
-    .ml-col-think .ml-col-hdr{border-color:#C4B0E8;color:#252535}
-    .ml-col-think{background:#FAF7ED}
-    .ml-col-letgo{border-color:#252535}
-    .ml-col-letgo .ml-col-hdr{border-color:#C44570;color:#252535}
-    .ml-col-letgo{background:#F9ECF0}
-    .ml-col-priced{border-color:#252535}
-    .ml-col-priced .ml-col-hdr{border-color:#8BA7D4;color:#252535}
-    .ml-col-priced{background:#FCF0E8}
-    .ml-sticky{
-      background:#fff;border:2px solid var(--color-text);
-      padding:12px;margin-bottom:10px;cursor:grab;font-size:13px;
-      color:var(--color-text);
-    }
-    .ml-sticky:active{cursor:grabbing}
-    .ml-sticky-think{border-left:4px solid #C4B0E8}
-    .ml-sticky-letgo{border-left:4px solid #C44570}
-    .ml-sticky-priced{border-left:4px solid #8BA7D4}
-    .ml-empty{font-size:12px;color:var(--color-text-muted);font-style:italic;padding:10px 0}
 
     /* ─── PRICING ─── */
     .pricing-card{background:var(--color-surface);border:2px solid var(--color-text);box-shadow:none;border-radius:var(--radius-lg);padding:var(--space-5)}
@@ -727,21 +705,6 @@
     #print-section{display:none}
     .no-print{}
 
-    /* ─── STICKY TOTAL BAR ─── */
-    #sticky-bar{
-      position:fixed;bottom:0;left:0;right:0;z-index:500;
-      background:#252535;color:#FDFBF7;
-      display:none;align-items:center;gap:16px;
-      padding:10px 20px;
-      font-family:var(--font-body);
-      opacity:0;transition:opacity 200ms ease;
-    }
-    #sticky-bar .sb-label{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;color:rgba(250,247,237,.65);line-height:1}
-    #sticky-bar .sb-earned{font-size:18px;font-weight:700;color:#FDFBF7;line-height:1;margin-top:3px}
-    .sb-track{flex:1;height:5px;background:rgba(255,255,255,.15);max-width:200px}
-    .sb-fill{height:100%;background:#C44570;transition:width .35s ease}
-    #sticky-bar .sb-goal-text{font-size:12px;color:rgba(250,247,237,0.7);white-space:nowrap}
-    body{padding-bottom:58px}
     /* ─── TRANSITIONS ─── */
     #content{transition:opacity 120ms ease}
     #demo-banner{transition:opacity 200ms ease}
@@ -789,11 +752,9 @@
 
     /* ─── QUICK-CAPTURE SCRATCH PAD ─── */
     #scratch-toggle{position:fixed;bottom:16px;right:16px;z-index:600;width:48px;height:48px;display:flex;align-items:center;justify-content:center;background:var(--color-primary);border:2px solid var(--color-text);border-radius:var(--radius-full);color:#FAF7ED;cursor:grab;touch-action:none;transition:bottom 150ms;box-shadow:var(--shadow-float)}
-    #scratch-toggle.lift-above-bar{bottom:70px}
     #scratch-toggle:hover{background:var(--color-primary-text)}
     #scratch-toggle.is-dragging{cursor:grabbing;user-select:none;transition:none}
     #scratch-panel{position:fixed;bottom:70px;right:16px;z-index:600;width:300px;max-width:calc(100vw - 32px);background:#FAF7ED;border:2px solid var(--color-text);border-radius:var(--radius-lg);padding:14px;display:none;transition:bottom 150ms;box-shadow:var(--shadow-float)}
-    #scratch-panel.lift-above-bar{bottom:120px}
     #scratch-panel .scratch-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;font-family:var(--font-display);font-weight:700;font-size:13px;color:#252535}
     #scratch-panel .scratch-clear{background:none;border:none;font-family:var(--font-body);font-size:12px;color:#2E4A85;text-decoration:underline;cursor:pointer;padding:0}
     #scratch-drag-handle{cursor:grab;color:#2E4A85;font-size:15px;padding:2px 6px;user-select:none;line-height:1;letter-spacing:3px;touch-action:none}
@@ -815,9 +776,9 @@
     .scratch-empty{font-family:var(--font-body);font-size:13px;color:#2E4A85;line-height:1.6;padding:8px 2px}
 
     /* ─── SECTION TIP STRIP ─── */
-    .section-tip{border-top:1px solid var(--color-border);border-bottom:1px solid var(--color-border);padding:13px 0;margin-top:24px;display:flex;align-items:baseline;gap:10px}
-    .section-tip-label{font-family:'DM Sans',sans-serif;font-weight:800;font-size:7.5pt;letter-spacing:2px;text-transform:uppercase;color:var(--color-primary-text);flex-shrink:0;white-space:nowrap}
-    .section-tip-text{font-family:'DM Sans',sans-serif;font-size:10pt;color:#252535;line-height:1.5;flex:1}
+    .section-tip{border-top:1px solid var(--color-border);border-bottom:1px solid var(--color-border);padding:13px 0;margin-top:24px}
+    .section-tip-label{font-family:'DM Sans',sans-serif;font-weight:800;font-size:7.5pt;letter-spacing:2px;text-transform:uppercase;color:var(--color-primary-text);white-space:nowrap}
+    .section-tip-text{font-family:'DM Sans',sans-serif;font-size:10pt;color:#252535;line-height:1.5}
 
     /* ─── NIGHT BEFORE CHECKLIST ─── */
     .night-before{margin-bottom:28px}
@@ -846,6 +807,12 @@
       font-size: 16pt;
     }
 
+    /* Section headings — uppercase per locked spec. .page-title (class) beats the bare
+       h2 rule above on specificity, so the case has to be set here too or it never renders. */
+    .page-title {
+      text-transform: uppercase;
+    }
+
     /* Sub-section titles — explicit size and weight */
     h3 {
       font-size: 13pt;
@@ -856,6 +823,7 @@
     .btn-primary,
     .btn-secondary {
       font-weight: 700;
+      text-transform: uppercase;
     }
 
     /* Body text — confirm base size */
@@ -863,11 +831,25 @@
       font-size: 15px;
     }
 
+    /* Eyebrow labels — weight down to 500 per locked spec (was 700) */
+    .hero-label {
+      font-weight: 500;
+    }
+
+    /* Medium Bucket — form labels, uppercase + letter-spacing per locked spec.
+       Table headers (thead th) already match this and don't need a change. */
+    .form-label {
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
     /* Subtext / hint / caption — darkened Periwinkle, not gray */
     /* #8BA7D4 fails WCAG contrast at this size; #426DB3 is the same
        hue darkened (~5.16:1), already used file-wide as --color-text-muted */
     .empty-state-prompt,
-    .topbar-sub {
+    .topbar-sub,
+    .card-sub,
+    .page-sub {
       color: var(--color-text-muted);
       font-size: 13px;
     }
@@ -903,18 +885,29 @@
       </button>
       <span id="bell-badge" style="display:none;position:absolute;top:2px;right:2px;background:#C44570;color:#fff;font-family:'DM Sans',sans-serif;font-size:9px;font-weight:700;min-width:16px;height:16px;align-items:center;justify-content:center;pointer-events:none;padding:0 3px;line-height:1">0</span>
     </div>
-    <button class="icon-btn" onclick="goTab('sortPrice','pricing')" aria-label="Pricing guide" title="Pricing guide">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12.586 2.586A2 2 0 0 0 11.172 2H4a2 2 0 0 0-2 2v7.172a2 2 0 0 0 .586 1.414l8 8a2 2 0 0 0 2.828 0l7.172-7.172a2 2 0 0 0 0-2.828l-8-8Z"/><circle cx="7.5" cy="7.5" r="1.25" fill="currentColor" stroke="none"/></svg>
-    </button>
     <button class="icon-btn" onclick="save();showToast('Saved!')" aria-label="Save your planner" title="Save your planner">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2Z"/><path d="M17 21v-8H7v8M7 3v5h8"/></svg>
     </button>
-    <button class="icon-btn" onclick="openHelp()" aria-label="Help" title="Help">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M9.5 9a2.5 2.5 0 0 1 4.7 1.2c-.3.9-1.2 1.3-1.9 1.9-.5.4-.8.9-.8 1.4"/><circle cx="12" cy="17" r=".6" fill="currentColor" stroke="none"/></svg>
-    </button>
-    <button class="icon-btn" onclick="startFresh()" aria-label="Reset everything" title="Reset everything">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 3v5h5"/></svg>
-    </button>
+    <div id="more-wrapper" style="position:relative">
+      <button class="icon-btn" id="more-btn" onclick="toggleMoreMenu()" aria-label="More options" title="More options" aria-haspopup="true" aria-expanded="false">
+        <svg viewBox="0 0 24 24" fill="currentColor" stroke="none" aria-hidden="true"><circle cx="12" cy="5" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="12" cy="19" r="2"/></svg>
+      </button>
+      <div class="more-menu" id="more-menu">
+        <button class="more-menu-item" id="pricing-btn" onclick="closeMoreMenu();togglePricingPop()" aria-haspopup="true" aria-expanded="false">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12.586 2.586A2 2 0 0 0 11.172 2H4a2 2 0 0 0-2 2v7.172a2 2 0 0 0 .586 1.414l8 8a2 2 0 0 0 2.828 0l7.172-7.172a2 2 0 0 0 0-2.828l-8-8Z"/><circle cx="7.5" cy="7.5" r="1.25" fill="currentColor" stroke="none"/></svg>
+          Pricing guide
+        </button>
+        <button class="more-menu-item" onclick="closeMoreMenu();openHelp()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M9.5 9a2.5 2.5 0 0 1 4.7 1.2c-.3.9-1.2 1.3-1.9 1.9-.5.4-.8.9-.8 1.4"/><circle cx="12" cy="17" r=".6" fill="currentColor" stroke="none"/></svg>
+          Help
+        </button>
+        <button class="more-menu-item" onclick="closeMoreMenu();startFresh()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 3v5h5"/></svg>
+          Reset everything
+        </button>
+      </div>
+      <div class="pricing-pop" id="pricing-pop"></div>
+    </div>
     <div id="hdr-demo-pill"></div>
   </div>
 </div>
@@ -949,8 +942,28 @@
 const STORAGE_KEY = "my-nest-chapter-simple-sale-planner-v8";
 const categories = ["Clothing","Books","Decor","Furniture","Kitchen","Electronics","Toys","Tools","Sports","Keepsakes","Home Goods","Other"];
 const conditions = ["New","Excellent","Good","Fair","Needs Repair"];
-const decisions = ["Keep","Garage Sale","Sell Online","Donate","Given to kids","Trash","Not Sure","Memory Box","Batch"];
+const decisions = ["Garage Sale","Sell Online","Donate","Given to kids","Trash","Memory Box","Batch"];
 const paymentMethods = ["Cash","PayPal","Venmo","Cash App","Zelle","Other"];
+// Every full-screen overlay (guided sort, inventory drawer, help, tour, payment, batch print) is
+// position:fixed;inset:0, but the page behind it was never told to stop scrolling — so the body's
+// own scrollbar and the overlay's internal one both stayed live at once (visible as two scrollbars
+// on desktop, background-scroll-under-modal on mobile). Reference-counted so nested open/close calls
+// can't unlock the page while another overlay is still up.
+let _scrollLockCount=0;
+function lockBodyScroll(){if(_scrollLockCount===0)document.body.style.overflow='hidden';_scrollLockCount++}
+function unlockBodyScroll(){_scrollLockCount=Math.max(0,_scrollLockCount-1);if(_scrollLockCount===0)document.body.style.overflow=''}
+// Single source of truth for every "decision" category — color, chip style, and where
+// its summary tile should route to. Add a decision here once and every screen that
+// lists decisions (stat strip, sort summary, chips) picks it up automatically.
+const DECISION_META = {
+  "Garage Sale":{color:"#C44570",chip:"chip-sale",tab:"saleWrap",section:"tags"},
+  "Sell Online":{color:"#C4B0E8",chip:"chip-online",tab:"sellPromote",section:"platformGuide"},
+  "Donate":{color:"#EFA276",chip:"chip-donate",tab:"saleWrap",section:"wrap"},
+  "Trash":{color:"#8BA7D4",chip:"chip-trash",tab:"saleWrap",section:"wrap"},
+  "Given to kids":{color:"#6D4C3E",chip:"chip-kids",tab:"sortPrice",section:"memory"},
+  "Memory Box":{color:"#F5C4A8",chip:"chip-notsure",tab:"sortPrice",section:"memory"},
+  "Batch":{color:"#F9ECF0",chip:"chip-notsure",tab:"sortPrice",section:"batch"},
+};
 
 const prepTasks = [
   "Choose sale date and time",
@@ -1015,7 +1028,7 @@ const flowTabs = [
 
 const flowSections = {
   start:[{id:"start",label:"Start"}],
-  // "memory" and "pricing" stay fully registered (goSection/goTab, GS_ROUTES, and the
+  // "memory" and "pricing" stay fully registered (goSection/goTab, DECISION_META, and the
   // in-form "Full pricing guide →" link all still route here) — hidden:true just keeps
   // them off the visible sub-nav row so they stop competing with Items/Batch Items.
   sortPrice:[{id:"inventory",label:"Items"},{id:"batch",label:"Batch Items"},{id:"memory",label:"Memories",hidden:true},{id:"pricing",label:"Pricing Guide",hidden:true}],
@@ -1042,32 +1055,32 @@ const pricingGuide = {
 };
 
 const itemPricingRows = [
-  {item:"T-shirts / casual tops",garage:"$1–$4",online:"$8–$25 if brand-name or new",best:"Garage Sale"},
-  {item:"Jeans / pants",garage:"$3–$8",online:"$15–$40 for better brands",best:"Poshmark, Mercari"},
-  {item:"Coats / jackets",garage:"$5–$20",online:"$25–$100+ for quality brands",best:"Facebook Marketplace, Poshmark"},
-  {item:"Shoes",garage:"$3–$15",online:"$20–$80 if clean/name-brand",best:"Poshmark, Mercari, eBay"},
-  {item:"Paperback books",garage:"$0.50–$2",online:"Only if collectible/niche",best:"Garage Sale"},
-  {item:"Book sets / textbooks",garage:"$5–$20",online:"$15–$100+ depending on title",best:"eBay, Facebook Marketplace"},
-  {item:"Coffee mugs",garage:"$0.50–$2 each or bundle",online:"Only if collectible/vintage",best:"Garage Sale"},
-  {item:"Dishes / glasses",garage:"$0.50–$2 each or $5–$30 set",online:"Higher for full sets/vintage",best:"Garage Sale, Facebook Marketplace"},
-  {item:"Small kitchen appliances",garage:"$5–$25",online:"$20–$75 if clean/tested",best:"Facebook Marketplace"},
-  {item:"Pyrex / cast iron / vintage kitchen",garage:"$5–$40",online:"$20–$150+ for desirable pieces",best:"eBay, Facebook Marketplace"},
-  {item:"Lamps",garage:"$5–$20",online:"$20–$75 for stylish pairs",best:"Garage Sale, Facebook Marketplace"},
-  {item:"Wall art / mirrors",garage:"$5–$35",online:"$25–$100+ for large/stylish",best:"Facebook Marketplace"},
-  {item:"Throw pillows / baskets",garage:"$1–$8",online:"Usually not worth shipping",best:"Garage Sale"},
-  {item:"Accent table / nightstand",garage:"$15–$50",online:"$35–$125",best:"Facebook Marketplace"},
-  {item:"Dresser / bookshelf",garage:"$30–$100",online:"$75–$250+",best:"Facebook Marketplace"},
-  {item:"Working electronics",garage:"$5–$40",online:"$25–$150+ depending on item",best:"eBay, Facebook Marketplace"},
-  {item:"Video games / consoles",garage:"$5–$50",online:"$20–$200+ for systems/bundles",best:"eBay, Mercari"},
-  {item:"Toys",garage:"$1–$10",online:"$15–$75 for sets/brands",best:"Garage Sale, Mercari"},
-  {item:"Tools",garage:"$3–$25",online:"$25–$150+ for power tools",best:"Facebook Marketplace"},
-  {item:"Holiday decor",garage:"$1–$15",online:"$20–$100+ for vintage/large lots",best:"Garage Sale, Facebook Marketplace"},
-  {item:"Sports equipment (golf, tennis)",garage:"$5–$25",online:"$30–$150+ for name brands",best:"Facebook Marketplace"},
-  {item:"Bikes",garage:"$15–$50",online:"$75–$200+ for quality brands",best:"Facebook Marketplace"},
-  {item:"Fitness equipment",garage:"$10–$40",online:"$50–$200+ for name brands",best:"Facebook Marketplace"},
-  {item:"Rugs",garage:"$5–$25",online:"$30–$100+ for quality/vintage",best:"Facebook Marketplace"},
-  {item:"Handbags / purses",garage:"$3–$20",online:"$25–$200+ for name brands",best:"Poshmark, eBay"},
-  {item:"Outdoor / patio furniture",garage:"$10–$40",online:"$50–$150 for quality sets",best:"Facebook Marketplace"},
+  {item:"T-shirts / casual tops",garage:"$1–$4",online:"$8–$25 if brand-name or new",best:"Garage Sale",cat:"Clothing"},
+  {item:"Jeans / pants",garage:"$3–$8",online:"$15–$40 for better brands",best:"Poshmark, Mercari",cat:"Clothing"},
+  {item:"Coats / jackets",garage:"$5–$20",online:"$25–$100+ for quality brands",best:"Facebook Marketplace, Poshmark",cat:"Clothing"},
+  {item:"Shoes",garage:"$3–$15",online:"$20–$80 if clean/name-brand",best:"Poshmark, Mercari, eBay",cat:"Clothing"},
+  {item:"Paperback books",garage:"$0.50–$2",online:"Only if collectible/niche",best:"Garage Sale",cat:"Books"},
+  {item:"Book sets / textbooks",garage:"$5–$20",online:"$15–$100+ depending on title",best:"eBay, Facebook Marketplace",cat:"Books"},
+  {item:"Coffee mugs",garage:"$0.50–$2 each or bundle",online:"Only if collectible/vintage",best:"Garage Sale",cat:"Kitchen"},
+  {item:"Dishes / glasses",garage:"$0.50–$2 each or $5–$30 set",online:"Higher for full sets/vintage",best:"Garage Sale, Facebook Marketplace",cat:"Kitchen"},
+  {item:"Small kitchen appliances",garage:"$5–$25",online:"$20–$75 if clean/tested",best:"Facebook Marketplace",cat:"Kitchen"},
+  {item:"Pyrex / cast iron / vintage kitchen",garage:"$5–$40",online:"$20–$150+ for desirable pieces",best:"eBay, Facebook Marketplace",cat:"Kitchen"},
+  {item:"Lamps",garage:"$5–$20",online:"$20–$75 for stylish pairs",best:"Garage Sale, Facebook Marketplace",cat:"Home Goods"},
+  {item:"Wall art / mirrors",garage:"$5–$35",online:"$25–$100+ for large/stylish",best:"Facebook Marketplace",cat:"Decor"},
+  {item:"Throw pillows / baskets",garage:"$1–$8",online:"Usually not worth shipping",best:"Garage Sale",cat:"Home Goods"},
+  {item:"Accent table / nightstand",garage:"$15–$50",online:"$35–$125",best:"Facebook Marketplace",cat:"Furniture"},
+  {item:"Dresser / bookshelf",garage:"$30–$100",online:"$75–$250+",best:"Facebook Marketplace",cat:"Furniture"},
+  {item:"Working electronics",garage:"$5–$40",online:"$25–$150+ depending on item",best:"eBay, Facebook Marketplace",cat:"Electronics"},
+  {item:"Video games / consoles",garage:"$5–$50",online:"$20–$200+ for systems/bundles",best:"eBay, Mercari",cat:"Electronics"},
+  {item:"Toys",garage:"$1–$10",online:"$15–$75 for sets/brands",best:"Garage Sale, Mercari",cat:"Toys"},
+  {item:"Tools",garage:"$3–$25",online:"$25–$150+ for power tools",best:"Facebook Marketplace",cat:"Tools"},
+  {item:"Holiday decor",garage:"$1–$15",online:"$20–$100+ for vintage/large lots",best:"Garage Sale, Facebook Marketplace",cat:"Decor"},
+  {item:"Sports equipment (golf, tennis)",garage:"$5–$25",online:"$30–$150+ for name brands",best:"Facebook Marketplace",cat:"Sports"},
+  {item:"Bikes",garage:"$15–$50",online:"$75–$200+ for quality brands",best:"Facebook Marketplace",cat:"Sports"},
+  {item:"Fitness equipment",garage:"$10–$40",online:"$50–$200+ for name brands",best:"Facebook Marketplace",cat:"Sports"},
+  {item:"Rugs",garage:"$5–$25",online:"$30–$100+ for quality/vintage",best:"Facebook Marketplace",cat:"Home Goods"},
+  {item:"Handbags / purses",garage:"$3–$20",online:"$25–$200+ for name brands",best:"Poshmark, eBay",cat:"Clothing"},
+  {item:"Outdoor / patio furniture",garage:"$10–$40",online:"$50–$150 for quality sets",best:"Facebook Marketplace",cat:"Furniture"},
 ];
 
 // Guided Sort + Price flow (2026-07-10 brief): a separate, locked pricing table used only
@@ -1274,7 +1287,7 @@ const signTypeGroups=[
 ];
 
 function renderSectionTip(text){
-  return`<div class="section-tip"><span class="section-tip-label">Cece &mdash;</span><span class="section-tip-text">${text}</span></div>`;
+  return`<div class="section-tip"><span class="section-tip-text">${text} <span class="section-tip-label">&mdash;Cece</span></span></div>`;
 }
 function renderTourNote(text){
   if(!P.isDemo)return'';
@@ -1298,6 +1311,8 @@ const demoSteps = [
 function makeId(){try{if(typeof crypto!=="undefined"&&crypto.randomUUID)return crypto.randomUUID()}catch{}return`id-${Date.now()}-${Math.random().toString(16).slice(2)}`}
 function clone(v){try{return structuredClone(v)}catch{return JSON.parse(JSON.stringify(v))}}
 function esc(s){return String(s||"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;")}
+// Whole-dollar amounts read as "$150", not "$150.00" — cents only show up when they're real.
+function fmtMoney(n){n=Number(n)||0;return Number.isInteger(n)?`$${n}`:`$${n.toFixed(2)}`}
 function showToast(msg){
   let t=document.getElementById('mnc-toast');
   if(!t){t=document.createElement('div');t.id='mnc-toast';t.className='mnc-toast';document.body.appendChild(t)}
@@ -1364,10 +1379,7 @@ function getStats(P){
   };
 }
 function daysUntilSale(d){if(!d)return null;const today=new Date();const sale=new Date(`${d}T00:00:00`);if(isNaN(sale.getTime()))return null;const s=new Date(sale.getFullYear(),sale.getMonth(),sale.getDate());const t=new Date(today.getFullYear(),today.getMonth(),today.getDate());return Math.ceil((s-t)/86400000)}
-function chipClass(dec){return{
-  "Garage Sale":"chip-sale","Sell Online":"chip-online","Donate":"chip-donate",
-  "Keep":"chip-keep","Given to kids":"chip-kids","Trash":"chip-trash","Not Sure":"chip-notsure"
-}[dec]||"chip-notsure"}
+function chipClass(dec){return DECISION_META[dec]?.chip||"chip-notsure"}
 
 // ─── STATE ────────────────────────────────────────────────────────────────────
 const blankPlanner={
@@ -1439,7 +1451,7 @@ function getDemoPlanner(){
       {id:makeId(),name:"Guest room comforter set",category:"Home Goods",condition:"Good",quantity:"1",decision:"Garage Sale",price:"25",suggested:"$2–$12",platform:"Garage Sale",notes:"Freshly washed.",sold:false},
       {id:makeId(),name:"Small accent table",category:"Furniture",condition:"Good",quantity:"1",decision:"Sell Online",price:"45",suggested:"$20–$75",platform:"Facebook Marketplace",notes:"Photograph near window.",sold:true},
       {id:makeId(),name:"Coffee mug bundle",category:"Kitchen",condition:"Good",quantity:"8",decision:"Garage Sale",price:"6",suggested:"$1–$10",platform:"Garage Sale",notes:"Bundle together.",sold:true},
-      {id:makeId(),name:"Old school art folder",category:"Keepsakes",condition:"Good",quantity:"1",decision:"Keep",price:"",suggested:"Memory check",platform:"Keep",notes:"Pick favorites and photograph the rest.",sold:false},
+      {id:makeId(),name:"Old school art folder",category:"Keepsakes",condition:"Good",quantity:"1",decision:"Memory Box",price:"",suggested:"Memory check",platform:"Memory Box",notes:"Pick favorites and photograph the rest.",sold:false},
     ],
     memories:[{id:makeId(),itemName:"Old school art folder",caption:"This mattered. It had its season. I do not have to keep the item to keep the memory.",photo:"",createdAt:"Demo memory"}],
     batchItems:[{id:makeId(),type:"Box",title:"Kitchen odds + ends",price:"2",category:"Kitchen",description:"Utensils, extra mugs, small duplicate kitchen items",photo:"",createdAt:"Demo item"},{id:makeId(),type:"Table",title:"Books + paperbacks",price:"1",category:"Books",description:"Beach reads, cozy mysteries, and paperback books",photo:"",createdAt:"Demo item"}],
@@ -1452,7 +1464,7 @@ function getDemoPlanner(){
 }
 
 let P=loadPlanner();
-let UI={tab:"start",section:"start",showAddForm:false,demo:false,demoStep:0,calMenu:false,bellOpen:false,calcPaymentMethod:"Cash",scratchOpen:false,scratchNoteId:null,bundleItems:[],bundleDiscountPct:null,haggleLastPct:null,dirSign:{dir:'right',date:'',time:'',saleName:''},inventoryView:'list'};
+let UI={tab:"start",section:"start",showAddForm:false,demo:false,demoStep:0,calMenu:false,bellOpen:false,calcPaymentMethod:"Cash",scratchOpen:false,scratchNoteId:null,bundleItems:[],bundleDiscountPct:null,haggleLastPct:null,dirSign:{dir:'right',date:'',time:'',saleName:''}};
 let draft={
   item:{id:null,name:"",category:"Decor",condition:"Good",quantity:"1",decision:"Garage Sale",price:"",notes:""},
   batch:{id:null,type:"Table",price:"2",description:""},
@@ -1531,7 +1543,7 @@ function updateAvatarName(val){
   deepSet(P,['setup','yourName'],val.trim());
   P.isDemo=false;save();
   refreshHeroTitle();refreshAvatarDisplay();
-  const startInput=document.getElementById('start-yourname-input');
+  const startInput=document.getElementById('start-step-0');
   if(startInput&&document.activeElement!==startInput)startInput.value=val;
 }
 document.addEventListener('click',(e)=>{
@@ -1541,9 +1553,30 @@ document.addEventListener('click',(e)=>{
     pop.classList.remove('open');
   }
 });
+function toggleMoreMenu(){
+  const menu=document.getElementById('more-menu');
+  const btn=document.getElementById('more-btn');
+  if(!menu)return;
+  const opening=!menu.classList.contains('open');
+  menu.classList.toggle('open');
+  if(btn)btn.setAttribute('aria-expanded',opening?'true':'false');
+}
+function closeMoreMenu(){
+  const menu=document.getElementById('more-menu');
+  const btn=document.getElementById('more-btn');
+  if(menu)menu.classList.remove('open');
+  if(btn)btn.setAttribute('aria-expanded','false');
+}
+document.addEventListener('click',(e)=>{
+  const menu=document.getElementById('more-menu');
+  const btn=document.getElementById('more-btn');
+  if(menu&&menu.classList.contains('open')&&!menu.contains(e.target)&&e.target!==btn&&!btn.contains(e.target)){
+    closeMoreMenu();
+  }
+});
 function refreshHeaderStat(){
   document.getElementById("hdr-demo-pill").innerHTML=P.isDemo?`<div class="demo-pill">Demo mode</div>`:"";
-  refreshStickyBar();
+  checkConfetti(getStats(P));
 }
 
 function hsRingSvg(pct,ariaLabel){
@@ -1556,11 +1589,9 @@ function hsRingSvg(pct,ariaLabel){
 }
 function refreshMetrics(){
   const stats=getStats(P);
-  const total=stats.totalItems;
-  const onlineSeg=stats.online;
-  const pricedOnly=Math.max(0,stats.itemsPriced-stats.online);
-  const unpriced=Math.max(0,total-stats.itemsPriced);
-
+  // The items breakdown circle used to live here too, but it duplicated the Items tally
+  // already shown on the Sort+Price screen — the hero now only carries the money goal,
+  // which is the one number worth seeing from any tab.
   const goalBlockHTML = stats.goal ? `
     <div class="hs-circle-block">
       <div class="hs-ring">
@@ -1568,33 +1599,9 @@ function refreshMetrics(){
         <div class="hs-ring-num">${stats.goalProgress}%</div>
       </div>
       <div class="hs-cap">Goal</div>
-      <div class="hs-sub">$${stats.earned.toFixed(2)} earned<br>$${stats.goalLeft.toFixed(2)} left of $${stats.goal}</div>
+      <div class="hs-sub">${fmtMoney(stats.earned)} earned<br>${fmtMoney(stats.goalLeft)} of ${fmtMoney(stats.goal)}</div>
     </div>` : '';
-
-  if(total===0){
-    document.getElementById("hero-stats").innerHTML=`
-      <div class="tag-row">
-        <div class="hs-empty-msg">Add items in Sort&nbsp;+&nbsp;Price<br>to see your progress here.</div>
-        ${goalBlockHTML}
-      </div>
-    `;
-    return;
-  }
-
-  document.getElementById("hero-stats").innerHTML=`
-    <div class="tag-row">
-      <div class="hs-circle-block" role="img" aria-label="Inventory breakdown: ${total} items total, ${onlineSeg} online, ${pricedOnly} priced, ${unpriced} not yet priced">
-        <div class="hs-disc" style="background:#C4B0E8"><b style="color:#252535">${total}</b></div>
-        <div class="hs-cap">Items</div>
-        <div class="hs-legend">
-          <span><i style="background:#C4B0E8"></i>${onlineSeg} online</span>
-          <span><i style="background:var(--color-primary)"></i>${pricedOnly} priced</span>
-          <span><i style="background:rgba(250,247,237,.3)"></i>${unpriced} unpriced</span>
-        </div>
-      </div>
-      ${goalBlockHTML}
-    </div>
-  `;
+  document.getElementById("hero-stats").innerHTML=`<div class="tag-row">${goalBlockHTML}</div>`;
 }
 
 function refreshDemoBanner(){}
@@ -1636,7 +1643,7 @@ function refreshGoalProgress(){
   const stats=getStats(P);
   el.textContent=stats.goalProgress+"%";
   const bar=document.getElementById("goal-bar");if(bar)bar.style.width=stats.goalProgress+"%";
-  const sub=document.getElementById("goal-sub");if(sub)sub.textContent=`$${stats.earned.toFixed(2)} earned · $${stats.goalLeft.toFixed(2)} left`;
+  const sub=document.getElementById("goal-sub");if(sub)sub.textContent=`${fmtMoney(stats.earned)} earned · ${fmtMoney(stats.goalLeft)} of ${fmtMoney(stats.goal)}`;
 }
 
 function refreshSubtotal(){
@@ -1673,7 +1680,133 @@ function renderContent(){
   requestAnimationFrame(()=>el.style.opacity='1');
 }
 
-// ─── SECTION: START ───────────────────────────────────────────────────────────
+// ─── SECTION: START — progressive Sale Setup ───────────────────────────────────
+// Fields reveal one at a time: type a value, hit Enter/Tab or the arrow, the next
+// field appears below it. Reveal count is derived from P.setup itself (not separate
+// wizard state) — so a returning user who already filled everything just sees the
+// full form, and someone mid-way-through picks back up exactly where they left off.
+const START_STEPS=[
+  {path:['setup','yourName'],label:"Your first name",type:'text',placeholder:"Cece"},
+  {path:['setup','saleTitle'],label:"Sale name",type:'text',placeholder:"My Nest Chapter Sale"},
+  {path:['setup','address'],label:"Sale address",type:'address',placeholder:"123 Maple St, Anytown"},
+  {path:['setup','saleDate'],label:"Sale date",type:'date',pickerId:'sale'},
+  {path:['setup','backupDate'],label:"Backup date (optional)",type:'date',pickerId:'backup',optional:true},
+  {path:['setup','saleStartTime'],label:"Sale start time",type:'time'},
+  {path:['setup','saleEndTime'],label:"Sale end time (optional)",type:'time',optional:true},
+  {path:['setup','moneyGoal'],label:"Money goal ($)",type:'number',placeholder:"250"},
+  {path:['setup','moneyPurpose'],label:"What would you like to use the money for?",type:'textarea',placeholder:"A weekend away, fresh bedding, savings, dinner with friends...",optional:true},
+];
+function startStepId(i){return`start-step-${i}`}
+function startStepDone(step){
+  if(step.optional)return true;
+  const v=deepGet(P,step.path);
+  return v!==undefined&&v!==null&&String(v).trim()!=='';
+}
+function startRevealCount(){
+  for(let i=0;i<START_STEPS.length;i++){if(!startStepDone(START_STEPS[i]))return i+1}
+  return START_STEPS.length;
+}
+function startStepEl(step,i){
+  if(step.type==='address')return document.getElementById('setup-address-input');
+  if(step.type==='date')return document.getElementById(`cal-trigger-${step.pickerId}`);
+  return document.getElementById(startStepId(i));
+}
+function startTryAdvance(i){
+  const step=START_STEPS[i];
+  if(!startStepDone(step)){
+    const el=startStepEl(step,i);
+    const box=el&&el.closest('.start-step');
+    if(box){box.classList.add('start-step-shake');setTimeout(()=>box.classList.remove('start-step-shake'),320);}
+    if(el)el.focus();
+    return;
+  }
+  const wrap=document.getElementById('start-setup-fields');
+  if(!wrap)return;
+  wrap.innerHTML=renderStartSetupFields();
+  requestAnimationFrame(()=>{
+    const active=wrap.querySelector('.start-step-active input,.start-step-active textarea,.start-step-active .cal-trigger');
+    if(active)active.focus();
+  });
+}
+function renderStartField(step,i,isActive,review){
+  const v=deepGet(P,step.path)||"";
+  const args=step.path.map(p=>`'${p}'`).join(",");
+  // In the completed review form there's no "next" to advance to — just a normal editable field.
+  const arrow=review?'':`<button type="button" class="start-arrow-btn" onclick="startTryAdvance(${i})" aria-label="Next" title="Next">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+  </button>`;
+  const advanceOnEnterTab=`if((event.key==='Enter'||event.key==='Tab')&&!event.shiftKey){event.preventDefault();startTryAdvance(${i})}`;
+  const cls=`form-field start-step${isActive?' start-step-active':''}`;
+  if(step.type==='text'||step.type==='number'||step.type==='time'){
+    return`<div class="${cls}">
+      <label class="form-label">${esc(step.label)}</label>
+      <div class="start-step-row">
+        <input class="input" type="${step.type}" id="${startStepId(i)}" value="${esc(v)}" placeholder="${esc(step.placeholder||'')}"
+          oninput="sf(this,${args})" onblur="sf(this,${args})" onkeydown="${advanceOnEnterTab}" />
+        ${arrow}
+      </div>
+    </div>`;
+  }
+  if(step.type==='address'){
+    return`<div class="${cls}">
+      <label class="form-label">${esc(step.label)}</label>
+      <div class="start-step-row">
+        <input class="input" type="text" id="setup-address-input" value="${esc(v)}" placeholder="${esc(step.placeholder||'')}"
+          oninput="sf(this,${args})" onblur="sf(this,${args})" onkeydown="${advanceOnEnterTab}" />
+        <button type="button" class="btn btn-ghost btn-sm" onclick="pinSaleLocation()" title="Use my current location" style="flex-shrink:0;display:flex;align-items:center;gap:6px;white-space:nowrap">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+          Tap to Pin
+        </button>
+        ${arrow}
+      </div>
+      <div id="pin-status" class="form-hint" style="display:none;margin-top:4px"></div>
+    </div>`;
+  }
+  if(step.type==='date'){
+    const display=v?new Date(v+"T00:00:00").toLocaleDateString("en-US",{month:"short",day:"numeric",year:"numeric"}):"";
+    return`<div class="${cls}">
+      <label class="form-label">${esc(step.label)}</label>
+      <div class="start-step-row">
+        <button type="button" class="input cal-trigger" id="cal-trigger-${step.pickerId}"
+          onclick="openDatePicker('${step.path.join('.')}','${step.pickerId}')"
+          onkeydown="if(event.key==='Tab'&&!event.shiftKey){event.preventDefault();startTryAdvance(${i})}"
+          style="display:flex;align-items:center;justify-content:space-between;text-align:left;cursor:pointer;color:${v?'var(--color-text)':'#426DB3'}">
+          <span id="cal-trigger-label-${step.pickerId}">${display||"mm/dd/yyyy"}</span>
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="var(--color-primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="3"/><path d="M16 2v4M8 2v4M3 10h18"/><circle cx="8" cy="15" r="1.3" fill="var(--color-primary)" stroke="none"/></svg>
+        </button>
+        ${arrow}
+      </div>
+    </div>`;
+  }
+  // textarea — Enter inserts a newline (notes can be multi-line), only Tab/arrow advance
+  return`<div class="${cls}">
+    <label class="form-label">${esc(step.label)}</label>
+    <div class="start-step-row start-step-row-area">
+      <textarea class="textarea" id="${startStepId(i)}" rows="2" placeholder="${esc(step.placeholder||'')}"
+        oninput="sf(this,${args})" onblur="sf(this,${args})"
+        onkeydown="if(event.key==='Tab'&&!event.shiftKey){event.preventDefault();startTryAdvance(${i})}">${esc(v)}</textarea>
+      ${arrow}
+    </div>
+  </div>`;
+}
+function renderStartSetupFields(){
+  const allDone=START_STEPS.every(startStepDone);
+  if(allDone){
+    let html=START_STEPS.map((step,i)=>renderStartField(step,i,false,true)).join('');
+    html+=`<div style="margin-top:6px;display:flex;gap:14px;align-items:center;flex-wrap:wrap">
+      <button class="btn btn-primary" onclick="save();showToast('Saved!')">Save and keep going →</button>
+      <button class="btn btn-ghost btn-sm" onclick="sectionClear('start')" style="margin-left:auto">Clear</button>
+    </div>`;
+    return html;
+  }
+  // One field on screen at a time — each answer replaces itself with the next question
+  // (not a stacked list) until everything's answered, then the full form above shows up.
+  const i=startRevealCount()-1;
+  return`<div class="start-step-slide">
+    <div style="font-size:12px;font-weight:600;color:var(--color-text-muted);margin-bottom:6px">Step ${i+1} of ${START_STEPS.length}</div>
+    ${renderStartField(START_STEPS[i],i,true)}
+  </div>`;
+}
 function renderStart(){
   const s=P.setup||{};const stats=getStats(P);
   return`
@@ -1684,37 +1817,7 @@ function renderStart(){
     <div class="start-card-lg" style="flex:1.7 1 430px;background:#fff;border-radius:var(--radius-xl);padding:40px 36px 32px">
       <span class="corner-tag">Sale Setup</span>
       <div class="card-title" style="font-size:28px;margin-bottom:28px">Let's get your sale on the calendar.</div>
-      <div class="gap-y-sm" style="gap:22px">
-        <div class="grid-2">
-          ${field("Your first name","text","setup.yourName",s.yourName,"Cece","start-yourname-input")}
-          ${field("Sale name","text","setup.saleTitle",s.saleTitle,"My Nest Chapter Sale")}
-        </div>
-        <div class="form-field">
-          <label class="form-label">Sale address</label>
-          <div style="display:flex;gap:8px">
-            <input class="input" type="text" id="setup-address-input" value="${esc(s.address||"")}" placeholder="123 Maple St, Anytown" style="flex:1" oninput="sf(this,'setup','address')" onblur="sf(this,'setup','address')" />
-            <button type="button" class="btn btn-ghost btn-sm" onclick="pinSaleLocation()" title="Use my current location" style="flex-shrink:0;display:flex;align-items:center;gap:6px;white-space:nowrap">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
-              Tap to Pin
-            </button>
-          </div>
-          <div id="pin-status" class="form-hint" style="display:none;margin-top:4px"></div>
-        </div>
-        <div class="grid-2">
-          ${dateField("Sale date","setup.saleDate",s.saleDate,"sale")}
-          ${dateField("Backup date (optional)","setup.backupDate",s.backupDate||"","backup")}
-        </div>
-        <div class="grid-2">
-          ${field("Sale start time","time","setup.saleStartTime",s.saleStartTime||"","")}
-          ${field("Sale end time (optional)","time","setup.saleEndTime",s.saleEndTime||"","")}
-        </div>
-        ${field("Money goal ($)","number","setup.moneyGoal",s.moneyGoal,"250")}
-        ${areaField("What would you like to use the money for?","setup.moneyPurpose",s.moneyPurpose,"A weekend away, fresh bedding, savings, dinner with friends...")}
-      </div>
-      <div style="margin-top:28px;display:flex;gap:14px;align-items:center;flex-wrap:wrap">
-        <button class="btn btn-primary" onclick="save();showToast('Saved!')">Save and keep going →</button>
-        <button class="btn btn-ghost btn-sm" onclick="sectionClear('start')" style="margin-left:auto">Clear</button>
-      </div>
+      <div class="gap-y-sm" id="start-setup-fields" style="gap:22px">${renderStartSetupFields()}</div>
       ${renderSectionTip("The stuff in the corner you walk past every day — you already know it needs to go. Start there.")}
     </div>
 
@@ -1725,7 +1828,7 @@ function renderStart(){
       <div class="block-dark">
         <div class="card-title-dark">Money goal</div>
         <div id="goal-pct" class="big-stat">${stats.goalProgress}%</div>
-        <div id="goal-sub" class="stat-sub">$${stats.earned.toFixed(2)} earned · $${stats.goalLeft.toFixed(2)} left</div>
+        <div id="goal-sub" class="stat-sub">${fmtMoney(stats.earned)} earned · ${fmtMoney(stats.goalLeft)} of ${fmtMoney(stats.goal)}</div>
         <div class="bar-track" role="progressbar" aria-valuenow="${stats.goalProgress}" aria-valuemin="0" aria-valuemax="100" aria-label="Goal progress"><div class="bar-fill" id="goal-bar" style="width:${stats.goalProgress}%"></div></div>
 
         <div class="block-dark-divider"></div>
@@ -1755,105 +1858,6 @@ function renderStart(){
   </div>`;
 }
 
-// ─── MEMORY LANE (Kanban board) ────────────────────────────────────────────────
-const ML_COLS=[
-  {key:'think',label:'Still Thinking'},
-  {key:'letGo',label:'Ready to Let Go'},
-  {key:'priced',label:'Priced & Ready'},
-];
-function mlColLabel(key){const c=ML_COLS.find(c=>c.key===key);return c?c.label:key;}
-function mlDragStart(e,itemId){
-  e.dataTransfer.setData('text/plain',itemId);
-  e.dataTransfer.effectAllowed='move';
-}
-function mlDragOver(e,col){
-  e.preventDefault();
-  e.dataTransfer.dropEffect='move';
-  const el=e.currentTarget;
-  if(el&&!el.classList.contains('drag-over'))el.classList.add('drag-over');
-}
-function mlDragLeave(e){
-  const el=e.currentTarget;
-  if(el)el.classList.remove('drag-over');
-}
-function mlDrop(e,col){
-  e.preventDefault();
-  const el=e.currentTarget;
-  if(el)el.classList.remove('drag-over');
-  const itemId=e.dataTransfer.getData('text/plain');
-  if(!itemId)return;
-  mlMoveItem(itemId,col,e.clientX,e.clientY);
-}
-function mlMoveItem(itemId,col,cx,cy){
-  const item=(P.items||[]).find(i=>i.id===itemId);
-  if(!item)return;
-  const prevCol=item.kanbanCol;
-  if(prevCol===col)return;
-  item.kanbanCol=col;
-  P.isDemo=false;save();
-  refreshInvSurfaces();
-  if(typeof cx==='number'&&typeof cy==='number')mlSparkle(cx,cy);
-  if(col==='letGo')mlFlashTicker();
-}
-function mlSparkle(cx,cy){
-  const colors=['#C44570','#8BA7D4','#C4B0E8','#F5C4A8'];
-  for(let i=0;i<10;i++){
-    const spark=document.createElement('div');
-    spark.className='mnc-spark';
-    const angle=Math.random()*Math.PI*2;
-    const dist=30+Math.random()*50;
-    spark.style.setProperty('--sx',(Math.cos(angle)*dist)+'px');
-    spark.style.setProperty('--sy',(Math.sin(angle)*dist)+'px');
-    spark.style.left=cx+'px';
-    spark.style.top=cy+'px';
-    spark.style.background=colors[i%colors.length];
-    document.body.appendChild(spark);
-    setTimeout(()=>spark.remove(),750);
-  }
-}
-function mlFlashTicker(){
-  const el=document.getElementById('ml-revenue-ticker');
-  if(!el)return;
-  el.classList.add('flash');
-  setTimeout(()=>el.classList.remove('flash'),400);
-}
-function mlGetRevenue(){
-  return(P.items||[]).filter(i=>i.kanbanCol==='letGo'||i.kanbanCol==='priced').reduce((sum,i)=>{
-    const price=Number(i.price)||0;
-    const qty=Number(i.quantity)||1;
-    return sum+(price*qty);
-  },0);
-}
-function renderMemoryLaneBoard(){
-  const items=P.items||[];
-  const revenue=mlGetRevenue();
-  if(!items.length){
-    return`
-    <div class="card bold-card">
-      <div id="ml-revenue-ticker" class="ml-revenue">Estimated: $${revenue.toFixed(0)}</div>
-      <button class="btn btn-primary" onclick="openGuidedSort('manual')" style="margin-bottom:16px">+ Add an item</button>
-      <div class="empty-state-prompt">Nothing sorted yet. Add an item and drag it between columns as you decide what to do with it.</div>
-    </div>`;
-  }
-  const colHTML=ML_COLS.map(col=>{
-    const colItems=items.filter(i=>(i.kanbanCol||'think')===col.key);
-    return`
-    <div class="ml-col ml-col-${col.key==='letGo'?'letgo':col.key}" ondragover="mlDragOver(event,'${col.key}')" ondragleave="mlDragLeave(event)" ondrop="mlDrop(event,'${col.key}')">
-      <div class="ml-col-hdr">${esc(col.label)} (${colItems.length})</div>
-      ${colItems.length===0?`<div class="ml-empty">Drag an item here.</div>`:colItems.map(item=>`
-        <div class="ml-sticky ml-sticky-${col.key==='letGo'?'letgo':col.key}" draggable="true" ondragstart="mlDragStart(event,'${esc(item.id)}')">
-          <div style="font-weight:600">${esc(item.name)}</div>
-          <div style="color:var(--color-text-muted);font-size:12px;margin-top:2px">${esc(item.category)}${item.price?` · $${esc(item.price)}`:''}</div>
-        </div>`).join('')}
-    </div>`;
-  }).join('');
-  return`
-    <div class="card bold-card">
-      <div id="ml-revenue-ticker" class="ml-revenue">Estimated: $${revenue.toFixed(0)}</div>
-      <button class="btn btn-primary" onclick="openGuidedSort('manual')" style="margin-bottom:16px">+ Add an item</button>
-      <div class="ml-board">${colHTML}</div>
-    </div>`;
-}
 
 // ─── SECTION: INVENTORY ───────────────────────────────────────────────────────
 // Sale value = a progress ring against the money goal. Track peach, fill rose.
@@ -1924,67 +1928,58 @@ function renderInventory(){
 let guidedUI={open:false,screen:'entry',room:null,current:{}};
 let gsExpandedCat=null;
 function gsToggleCatPanel(key){gsExpandedCat=gsExpandedCat===key?null:key;renderContent();}
+let pgExpandedCat=null;
+function pgToggleCat(key){pgExpandedCat=pgExpandedCat===key?null:key;renderContent();}
 function renderGuidedPricingPanel(){
   return`
-  <div class="card bold-card" style="margin-bottom:24px">
-    <span class="corner-tag">Sort + Price Guide</span>
-    <div class="card-title" style="margin-bottom:6px">Camera flow pricing, by category</div>
-    <p class="page-sub" style="margin-bottom:14px">Tap a category to see item-by-item prices for Excellent, Good, and Fair condition, plus which brands bump an item into the higher brand-tier price.</p>
-    <div style="font-size:12px;color:var(--color-text-muted);margin-bottom:16px">★ = this item's price already accounts for the brand — the category's general brand tier doesn't stack on top of it.</div>
-    <div style="display:flex;flex-direction:column;gap:10px">
-      ${sortPriceCategories.map(cat=>{
-        const open=gsExpandedCat===cat.key;
-        return`
-        <div style="border:1.5px solid var(--color-divider)">
-          <button onclick="gsToggleCatPanel('${cat.key}')" style="width:100%;text-align:left;background:${open?'#F9ECF0':'#fff'};border:none;padding:14px 18px;font-family:var(--font-display);font-weight:700;font-size:14px;color:var(--color-text);cursor:pointer;display:flex;justify-content:space-between;align-items:center;min-height:44px">
-            <span>${esc(cat.label)}</span><span aria-hidden="true">${open?'−':'+'}</span>
-          </button>
-          ${open?`<div style="padding:0 18px 18px">
-            ${cat.alwaysNudge?`<div class="info-box" style="margin-bottom:14px">This whole category always gets the "check online first" nudge — value here is about rarity and age, not a printed label.</div>`:''}
-            <div class="tbl-wrap">
-              <table>
-                <thead><tr><th>Item</th><th>Excellent</th><th>Good</th><th>Fair</th></tr></thead>
-                <tbody>${cat.items.map(it=>`
-                  <tr>
-                    <td class="font-bold">${esc(it.name)}${it.brandSpecific?' ★':''}</td>
-                    <td>$${it.price[0].toFixed(2).replace(/\.00$/,'')}</td>
-                    <td>$${it.price[1].toFixed(2).replace(/\.00$/,'')}</td>
-                    <td>$${it.price[2].toFixed(2).replace(/\.00$/,'')}</td>
-                  </tr>${it.caution?`<tr><td colspan="4" class="text-muted text-xs">${esc(it.caution)}</td></tr>`:''}`).join('')}
-                </tbody>
-              </table>
-            </div>
-            ${cat.brandTier?`<div style="margin-top:14px;font-size:13px;color:var(--color-text)">
-              <strong>Brand tier</strong> (no specific item match, but a recognized brand): Excellent $${cat.brandTier[0]} · Good $${cat.brandTier[1]} · Fair $${cat.brandTier[2]}
-            </div>
-            <div style="margin-top:8px;font-size:13px;color:var(--color-text-muted)">Recognized brands: ${cat.brands.map(esc).join(', ')}</div>`:''}
-          </div>`:''}
-        </div>`;
-      }).join('')}
-    </div>
+  <p class="page-sub" style="margin-bottom:14px">Tap a category to see item-by-item prices for Excellent, Good, and Fair condition, plus which brands bump an item into the higher brand-tier price.</p>
+  <div style="font-size:12px;color:var(--color-text-muted);margin-bottom:16px">★ = this item's price already accounts for the brand — the category's general brand tier doesn't stack on top of it.</div>
+  <div style="display:flex;flex-direction:column;gap:10px">
+    ${sortPriceCategories.map(cat=>{
+      const open=gsExpandedCat===cat.key;
+      return`
+      <div style="border:1.5px solid var(--color-divider)">
+        <button onclick="gsToggleCatPanel('${cat.key}')" style="width:100%;text-align:left;background:${open?'#F9ECF0':'#fff'};border:none;padding:14px 18px;font-family:var(--font-display);font-weight:700;font-size:14px;color:var(--color-text);cursor:pointer;display:flex;justify-content:space-between;align-items:center;min-height:44px">
+          <span>${esc(cat.label)}</span><span aria-hidden="true">${open?'−':'+'}</span>
+        </button>
+        ${open?`<div style="padding:0 18px 18px">
+          ${cat.alwaysNudge?`<div class="info-box" style="margin-bottom:14px">This whole category always gets the "check online first" nudge — value here is about rarity and age, not a printed label.</div>`:''}
+          <div class="tbl-wrap">
+            <table>
+              <thead><tr><th>Item</th><th>Excellent</th><th>Good</th><th>Fair</th></tr></thead>
+              <tbody>${cat.items.map(it=>`
+                <tr>
+                  <td class="font-bold">${esc(it.name)}${it.brandSpecific?' ★':''}</td>
+                  <td>$${it.price[0].toFixed(2).replace(/\.00$/,'')}</td>
+                  <td>$${it.price[1].toFixed(2).replace(/\.00$/,'')}</td>
+                  <td>$${it.price[2].toFixed(2).replace(/\.00$/,'')}</td>
+                </tr>${it.caution?`<tr><td colspan="4" class="text-muted text-xs">${esc(it.caution)}</td></tr>`:''}`).join('')}
+              </tbody>
+            </table>
+          </div>
+          ${cat.brandTier?`<div style="margin-top:14px;font-size:13px;color:var(--color-text)">
+            <strong>Brand tier</strong> (no specific item match, but a recognized brand): Excellent $${cat.brandTier[0]} · Good $${cat.brandTier[1]} · Fair $${cat.brandTier[2]}
+          </div>
+          <div style="margin-top:8px;font-size:13px;color:var(--color-text-muted)">Recognized brands: ${cat.brands.map(esc).join(', ')}</div>`:''}
+        </div>`:''}
+      </div>`;
+    }).join('')}
   </div>`;
 }
 const GS_ROOMS=["Garage","Kitchen","Bedroom","Kids' Room","Living Room","Attic","Basement"];
-const GS_ROUTES={
-  "Garage Sale":{tab:"saleWrap",section:"tags"},
-  "Sell Online":{tab:"sellPromote",section:"platformGuide"},
-  "Donate":{tab:"saleWrap",section:"wrap"},
-  "Trash":{tab:"saleWrap",section:"wrap"},
-  "Given to kids":{tab:"sortPrice",section:"memory"},
-  "Memory Box":{tab:"sortPrice",section:"memory"},
-  "Batch":{tab:"sortPrice",section:"batch"},
-};
 
 // ─── FULL INVENTORY DRAWER ──────────────────────────────────────────────────
 function openInvDrawer(){
   const ov=document.getElementById('inv-drawer-overlay');if(!ov)return;
   renderInvDrawer();
   ov.style.display='block';ov.style.opacity='0';
+  lockBodyScroll();
   requestAnimationFrame(()=>requestAnimationFrame(()=>{ov.style.opacity='1';}));
 }
 function closeInvDrawer(){
   const ov=document.getElementById('inv-drawer-overlay');
   if(ov){ov.style.opacity='0';setTimeout(()=>{ov.style.display='none';},180);}
+  unlockBodyScroll();
   renderContent();renderSectionNav();
 }
 // Item edits/deletes/moves happen from inside either the drawer (item table/board) or the
@@ -2000,7 +1995,6 @@ function refreshInvSurfaces(){
 function renderInvDrawer(){
   const ov=document.getElementById('inv-drawer-overlay');if(!ov)return;
   const stats=getStats(P);
-  const isBoard=UI.inventoryView==='board';
   const unpriced=stats.totalItems-stats.itemsPriced;
   ov.innerHTML=`
     <div class="inv-scrim" onclick="closeInvDrawer()"></div>
@@ -2015,14 +2009,10 @@ function renderInvDrawer(){
             <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M18 6 6 18M6 6l12 12"/></svg>
           </button>
         </div>
-        <div class="ml-view-toggle" style="margin-top:14px;margin-bottom:0">
-          <button class="ml-view-btn${isBoard?'':' active'}" onclick="UI.inventoryView='list';renderInvDrawer()">List View</button>
-          <button class="ml-view-btn${isBoard?' active':''}" onclick="UI.inventoryView='board';renderInvDrawer()">Sort Board</button>
-        </div>
       </div>
       <div class="inv-drawer-body">
         ${UI.showAddForm?renderAddItemForm():""}
-        ${isBoard?renderMemoryLaneBoard():renderItemTable()}
+        ${renderItemTable()}
       </div>
     </aside>`;
 }
@@ -2042,6 +2032,7 @@ function openGuidedSort(mode){
   const ov=document.getElementById('guided-sort-overlay');if(!ov)return;
   renderGuidedSort();
   ov.style.display='block';ov.style.opacity='0';
+  lockBodyScroll();
   requestAnimationFrame(()=>requestAnimationFrame(()=>{ov.style.opacity='1';}));
 }
 function gsAfterSave(){
@@ -2051,6 +2042,7 @@ function gsAfterSave(){
 function closeGuidedSort(){
   const ov=document.getElementById('guided-sort-overlay');
   if(ov){ov.style.opacity='0';setTimeout(()=>{ov.style.display='none';},180);}
+  unlockBodyScroll();
   guidedUI.open=false;
   renderContent();renderSectionNav();
 }
@@ -2076,8 +2068,7 @@ function renderGuidedSort(){
 function gsStatStrip(){
   const items=P.items||[];
   const total=items.reduce((s,i)=>s+Number(i.price||0),0);
-  const segColors={"Garage Sale":"#C44570","Sell Online":"#C4B0E8","Donate":"#EFA276","Given to kids":"#6D4C3E","Trash":"#8BA7D4","Memory Box":"#F5C4A8","Batch":"#F9ECF0"};
-  const segs=Object.keys(segColors).map(k=>({key:k,color:segColors[k],count:items.filter(i=>i.decision===k).length})).filter(s=>s.count>0);
+  const segs=Object.keys(DECISION_META).map(k=>({key:k,color:DECISION_META[k].color,count:items.filter(i=>i.decision===k).length})).filter(s=>s.count>0);
   const totalTagged=segs.reduce((s,x)=>s+x.count,0)||1;
   return`<div class="gs-stat-strip">
     <div class="gs-stat-strip-nums">
@@ -2182,15 +2173,18 @@ function gsIdentifyPhoto(file){
 function gsReviewScreen(){
   const c=guidedUI.current;
   const cat=sortPriceCategories.find(x=>x.key===c.categoryKey);
+  if(c.condition===undefined)c.condition='Good';
+  const identified=!!(c.aiGuessed&&cat&&!c.editingType);
   return`
   <div class="card bold-card">
     ${guidedUI.mode==='manual'?'<div class="card-title" style="margin-bottom:16px">Add an item</div>':''}
     ${c.photo?`<img src="${c.photo}" alt="" style="max-width:100%;max-height:220px;display:block;margin:0 auto 20px;object-fit:contain"/>`:''}
-    ${c.aiGuessed&&cat?`<div class="info-box" style="margin-bottom:16px;font-weight:600">I think this is: ${esc(cat.label)} — ${esc(c.itemName)}. <span style="font-weight:700;text-decoration:underline">Not quite right? Fix it below.</span></div>`:''}
+    ${identified?`<div class="info-box" style="margin-bottom:16px;font-weight:600">I think this is: ${esc(cat.label)} — ${esc(c.itemName)}. <a href="#" onclick="guidedUI.current.editingType=true;renderGuidedSort();return false" style="font-weight:700;text-decoration:underline">Not quite right? Fix it.</a></div>`:''}
     <div class="form-field" style="margin-bottom:14px">
       <label class="form-label" for="gs-label">What is it?</label>
       <input class="input" id="gs-label" value="${esc(c.label||c.itemName||'')}" placeholder="Blue ceramic vase" oninput="guidedUI.current.label=this.value" />
     </div>
+    ${identified?'':`
     <div class="form-row" style="margin-bottom:14px">
       <div class="form-field">
         <label class="form-label" for="gs-cat">Category</label>
@@ -2206,6 +2200,12 @@ function gsReviewScreen(){
           ${cat?cat.items.map(it=>`<option value="${esc(it.name)}"${c.itemName===it.name?' selected':''}>${esc(it.name)}</option>`).join(''):''}
         </select>
       </div>
+    </div>`}
+    <div class="form-field" style="margin-bottom:14px">
+      <label class="form-label">Condition</label>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px">
+        ${['Excellent','Good','Fair'].map(k=>`<button type="button" class="btn ${c.condition===k?'btn-primary':'btn-secondary'}" onclick="guidedUI.current.condition='${k}';renderGuidedSort()">${k}</button>`).join('')}
+      </div>
     </div>
     <label style="display:flex;align-items:center;gap:8px;margin-bottom:20px;cursor:pointer;min-height:44px">
       <input type="checkbox" ${c.brand?'checked':''} onchange="guidedUI.current.brand=this.checked" />
@@ -2218,8 +2218,6 @@ function gsReviewScreen(){
       <button class="gs-dec-btn gs-donate" onclick="gsChooseDecision('donate')">Donate</button>
       <button class="gs-dec-btn gs-kids" onclick="gsChooseDecision('kids')">Give to Kids</button>
       <button class="gs-dec-btn gs-trash" onclick="gsChooseDecision('trash')">Trash</button>
-      <button class="gs-dec-btn gs-keep" onclick="gsChooseDecision('keep')">Keep</button>
-      <button class="gs-dec-btn gs-notsure" onclick="gsChooseDecision('notSure')">Not Sure</button>
       <button class="gs-dec-btn gs-memory" onclick="gsChooseDecision('memory')">Memory Box</button>
       <button class="gs-dec-btn gs-batch" style="grid-column:1/-1" onclick="gsChooseDecision('batch')">Add to a Batch (low-value items)</button>
     </div>
@@ -2228,8 +2226,8 @@ function gsReviewScreen(){
 function gsChooseDecision(kind){
   const c=guidedUI.current;
   if(!c.label&&!c.itemName){showToast('Give it a name or pick an item type first');return;}
-  if(kind==='donate'||kind==='trash'||kind==='kids'||kind==='keep'||kind==='notSure'){
-    const decision=kind==='donate'?'Donate':kind==='trash'?'Trash':kind==='kids'?'Given to kids':kind==='keep'?'Keep':'Not Sure';
+  if(kind==='donate'||kind==='trash'||kind==='kids'){
+    const decision=kind==='donate'?'Donate':kind==='trash'?'Trash':'Given to kids';
     gsSaveItem({decision,price:'0'});
     gsToastUndo(`Saved to ${decision==='Given to kids'?'Give to Kids':decision}`);
     gsAfterSave();
@@ -2364,10 +2362,8 @@ function gsSellScreen(){
   if(c.priceOverride===undefined)c.priceOverride=res.price;
   return`
   <div class="card bold-card">
-    <div class="card-title" style="margin-bottom:16px">What condition?</div>
-    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:20px">
-      ${['Excellent','Good','Fair'].map(k=>`<button class="btn ${cond===k?'btn-primary':'btn-secondary'}" onclick="guidedUI.current.condition='${k}';guidedUI.current.priceOverride=undefined;renderGuidedSort()">${k}</button>`).join('')}
-    </div>
+    <div class="card-title" style="margin-bottom:6px">Garage sale price</div>
+    <p class="page-sub" style="margin-bottom:16px">${esc(cond)} condition. <a href="#" onclick="guidedUI.screen='review';renderGuidedSort();return false" style="font-weight:700;text-decoration:underline">Change condition →</a></p>
     ${res.caution?`<div class="info-box" style="margin-bottom:16px">${esc(res.caution)}</div>`:''}
     ${res.nudge?`<div class="gs-nudge"><strong>Worth a look online first?</strong><br>This kind of item — or brand — often sells for more there. You can tag it Garage Sale below, or send it to Sell Online instead.</div>`:''}
     <div class="gs-price-tag">
@@ -2401,13 +2397,15 @@ function gsRoomCompleteScreen(){
   </div>`;
 }
 function gsGoDestination(decision){
-  const r=GS_ROUTES[decision];if(!r)return;
-  closeGuidedSort();goTab(r.tab,r.section);
+  const r=DECISION_META[decision];
+  closeGuidedSort();
+  if(r&&r.tab){goTab(r.tab,r.section);}
+  else{invDecFilter=decision;openInvDrawer();}
 }
 function gsSummaryScreen(){
   const items=P.items||[];
   const total=items.reduce((s,i)=>s+Number(i.price||0),0);
-  const tiles=Object.keys(GS_ROUTES).map(d=>({d,count:items.filter(i=>i.decision===d).length})).filter(t=>t.count>0);
+  const tiles=Object.keys(DECISION_META).map(d=>({d,count:items.filter(i=>i.decision===d).length}));
   return`
   <div class="card bold-card">
     <div class="card-title" style="margin-bottom:6px">You sorted ${items.length} item${items.length===1?'':'s'} worth $${total.toFixed(0)} today.</div>
@@ -2733,11 +2731,13 @@ function openBatchPrintOverlay(){
   _batchSignOverrides={};
   renderBatchPrintOverlay();
   ov.style.display='block';ov.style.opacity='0';
+  lockBodyScroll();
   requestAnimationFrame(()=>requestAnimationFrame(()=>{ov.style.opacity='1';}));
 }
 function closeBatchPrintOverlay(){
   const ov=document.getElementById('batch-print-overlay');
   if(ov){ov.style.opacity='0';setTimeout(()=>{ov.style.display='none';},180);}
+  unlockBodyScroll();
 }
 function renderBatchPrintOverlay(){
   const ov=document.getElementById('batch-print-overlay');if(!ov)return;
@@ -2914,49 +2914,69 @@ function toggleGiven(id){
 }
 
 // ─── SECTION: PRICING GUIDE ───────────────────────────────────────────────────
+// pricingCatRowsHTML is shared between the full Pricing Guide tab and the topbar
+// popover's "list" screen — same accordion markup, each caller passes its own
+// expanded-category state and toggle handler so the two don't share state.
+function pricingCatRowsHTML(expandedCat,toggleFn){
+  return Object.entries(pricingGuide).map(([cat,data])=>{
+    const open=expandedCat===cat;
+    const items=itemPricingRows.filter(r=>r.cat===cat);
+    return`
+    <div style="border:1.5px solid var(--color-divider)">
+      <button onclick="${toggleFn}('${cat}')" style="width:100%;text-align:left;background:${open?'#F9ECF0':'#fff'};border:none;padding:14px 18px;font-family:var(--font-display);font-weight:700;font-size:14px;color:var(--color-text);cursor:pointer;display:flex;justify-content:space-between;align-items:center;min-height:44px;gap:12px">
+        <span>${esc(cat)}</span>
+        <span style="display:flex;align-items:center;gap:12px;flex-shrink:0">
+          <span class="text-muted" style="font-family:var(--font-body);font-weight:600;font-size:13px">${priceRange(cat,"Good")}</span>
+          <span aria-hidden="true">${open?'−':'+'}</span>
+        </span>
+      </button>
+      ${open?`<div style="padding:0 18px 18px">
+        ${conditions.map(c=>`
+          <div class="pricing-row">
+            <span class="text-muted">${c}</span>
+            <span class="font-bold">${priceRange(cat,c)}</span>
+          </div>`).join("")}
+        <div class="pricing-note">${esc(data.note)}</div>
+        ${items.length?`<div class="tbl-wrap" style="margin-top:14px">
+          <table>
+            <thead><tr><th>Item</th><th>Garage Sale</th><th>Online</th><th>Best fit</th></tr></thead>
+            <tbody>${items.map(r=>`
+              <tr>
+                <td class="font-bold">${esc(r.item)}</td>
+                <td>${esc(r.garage)}</td>
+                <td class="text-muted text-xs">${esc(r.online)}</td>
+                <td><span class="pill">${esc(r.best)}</span></td>
+              </tr>`).join("")}
+            </tbody>
+          </table>
+        </div>`:""}
+      </div>`:""}
+    </div>`;
+  }).join("");
+}
 function renderPricing(){
+  const catRows=pricingCatRowsHTML(pgExpandedCat,'pgToggleCat');
+  const cameraOpen=pgExpandedCat==="__camera";
   return`
-  ${renderTourNote("Reference ranges for every category. Price at 10–25% of retail, round numbers, and drop 50% in the last hour. Trust your gut on the final number.")}
   <div class="gap-y">
     <div>
       <h2 class="page-title">Pricing Guide</h2>
-      <p class="page-sub">Reference ranges by category and condition.</p>
+      <p class="page-sub">Tap a category for condition ranges, item-level prices, and where else it might sell better.</p>
     </div>
-    ${renderGuidedPricingPanel()}
-    <div style="background:var(--color-surface-3);border:2px solid var(--color-text);padding:18px 20px;font-size:14px;line-height:2;color:var(--color-text)">
-      Price at 10–25% of original retail<br>
-      Round numbers sell faster: $1, $2, $5, $10<br>
-      Bundle small items — more money, less haggling<br>
-      Drop prices 50% in the last hour<br>
-      Price everything before the day — no sticker means no sale
+    <div style="display:flex;flex-wrap:wrap;gap:8px">
+      <span class="pill">Price at 10–25% of retail</span>
+      <span class="pill">Round numbers: $1, $2, $5, $10</span>
+      <span class="pill">Bundle small items</span>
+      <span class="pill">Drop 50% in the last hour</span>
+      <span class="pill">Sticker everything before the day</span>
     </div>
-    <div class="grid-3">
-      ${Object.entries(pricingGuide).map(([cat,data])=>`
-        <div class="pricing-card">
-          <div class="pricing-cat">${cat}</div>
-          ${conditions.map(c=>`
-            <div class="pricing-row">
-              <span class="text-muted">${c}</span>
-              <span class="font-bold">${priceRange(cat,c)}</span>
-            </div>`).join("")}
-          <div class="pricing-note">${esc(data.note)}</div>
-        </div>`).join("")}
-    </div>
-    <div class="card bold-card">
-      <span class="corner-tag">Reference</span>
-      <div class="card-title">Item-by-item reference</div>
-      <div class="tbl-wrap">
-        <table>
-          <thead><tr><th>Item</th><th>Garage Sale</th><th>Online</th><th>Best fit</th></tr></thead>
-          <tbody>${itemPricingRows.map(r=>`
-            <tr>
-              <td class="font-bold">${esc(r.item)}</td>
-              <td>${esc(r.garage)}</td>
-              <td class="text-muted text-xs">${esc(r.online)}</td>
-              <td><span class="pill">${esc(r.best)}</span></td>
-            </tr>`).join("")}
-          </tbody>
-        </table>
+    <div style="display:flex;flex-direction:column;gap:10px">
+      ${catRows}
+      <div style="border:1.5px solid var(--color-divider)">
+        <button onclick="pgToggleCat('__camera')" style="width:100%;text-align:left;background:${cameraOpen?'#F9ECF0':'#fff'};border:none;padding:14px 18px;font-family:var(--font-display);font-weight:700;font-size:14px;color:var(--color-text);cursor:pointer;display:flex;justify-content:space-between;align-items:center;min-height:44px">
+          <span>Camera-flow item lookup</span><span aria-hidden="true">${cameraOpen?'−':'+'}</span>
+        </button>
+        ${cameraOpen?`<div style="padding:0 18px 18px">${renderGuidedPricingPanel()}</div>`:""}
       </div>
     </div>
     <div style="border:2px solid var(--color-text);padding:20px 24px;background:var(--color-surface)">
@@ -2967,6 +2987,93 @@ function renderPricing(){
     ${renderSectionTip("Put your high-ticket items at the front of the driveway — people stop for them on the way in and stay for everything else. And bundling works: 3 for $5 sells three things you'd have gotten $1 each for.")}
   </div>`;
 }
+
+// ─── PRICING GUIDE POPOVER (topbar icon) — greet → list/search/photo, never leaves the current screen ──
+let pgPop={open:false,screen:'greet',expandedCat:null,query:''};
+function togglePricingPop(){
+  const pop=document.getElementById('pricing-pop');const btn=document.getElementById('pricing-btn');
+  if(!pop)return;
+  const opening=!pop.classList.contains('open');
+  if(opening){pgPop={open:true,screen:'greet',expandedCat:null,query:''};renderPricingPop();}
+  pop.classList.toggle('open',opening);
+  if(btn)btn.setAttribute('aria-expanded',opening?'true':'false');
+}
+function closePricingPop(){
+  const pop=document.getElementById('pricing-pop');const btn=document.getElementById('pricing-btn');
+  if(pop)pop.classList.remove('open');
+  if(btn)btn.setAttribute('aria-expanded','false');
+  pgPop.open=false;
+}
+function pgPopGo(screen){pgPop.screen=screen;renderPricingPop();}
+function pgPopToggleCat(key){pgPop.expandedCat=pgPop.expandedCat===key?null:key;renderPricingPop();}
+function pgPopTakePhoto(){closePricingPop();openGuidedSort('camera');}
+function pgPopSearchResultsHTML(){
+  const q=pgPop.query.trim().toLowerCase();
+  if(!q)return`<div class="text-muted" style="font-family:var(--font-body);font-size:13px;padding:14px 0">Start typing an item name — "lamp," "jeans," "bike."</div>`;
+  const matches=itemPricingRows.filter(r=>r.item.toLowerCase().includes(q));
+  if(!matches.length)return`<div class="text-muted" style="font-family:var(--font-body);font-size:13px;padding:14px 0">No exact match. Try the category list instead, or a broader word.</div>`;
+  return matches.map(r=>`
+    <div style="border:1.5px solid var(--color-divider);padding:12px 14px;margin-top:10px">
+      <div style="font-family:var(--font-display);font-weight:700;font-size:13px;color:var(--color-text);margin-bottom:6px">${esc(r.item)}</div>
+      <div class="pricing-row"><span class="text-muted">Garage sale</span><span class="font-bold">${esc(r.garage)}</span></div>
+      <div class="pricing-row"><span class="text-muted">Online</span><span class="text-xs">${esc(r.online)}</span></div>
+      <div style="margin-top:6px"><span class="pill">${esc(r.best)}</span></div>
+    </div>`).join('');
+}
+function pgPopSearchInput(val){
+  pgPop.query=val;
+  const box=document.getElementById('pgPopSearchResults');
+  if(box)box.innerHTML=pgPopSearchResultsHTML();
+}
+function renderPricingPop(){
+  const pop=document.getElementById('pricing-pop');if(!pop)return;
+  let body='';
+  if(pgPop.screen==='list'){
+    body=`
+    <button onclick="pgPopGo('greet')" style="background:none;border:none;color:var(--color-text-muted);font-family:var(--font-body);font-size:12px;font-weight:600;text-decoration:underline;cursor:pointer;padding:10px 0;display:inline-block;min-height:44px;margin-bottom:2px">← Back</button>
+    <p class="page-sub" style="margin-bottom:14px">Tap a category for condition ranges, item-level prices, and where else it might sell better.</p>
+    <div style="display:flex;flex-direction:column;gap:10px">${pricingCatRowsHTML(pgPop.expandedCat,'pgPopToggleCat')}</div>`;
+  }else if(pgPop.screen==='search'){
+    body=`
+    <button onclick="pgPopGo('greet')" style="background:none;border:none;color:var(--color-text-muted);font-family:var(--font-body);font-size:12px;font-weight:600;text-decoration:underline;cursor:pointer;padding:10px 0;display:inline-block;min-height:44px;margin-bottom:2px">← Back</button>
+    <div class="form-field" style="margin-bottom:4px">
+      <label class="form-label" for="pgPopSearchInputEl">Item name</label>
+      <input class="input" id="pgPopSearchInputEl" type="text" value="${esc(pgPop.query)}" placeholder="Jeans, lamp, bike..." oninput="pgPopSearchInput(this.value)" autocomplete="off" />
+    </div>
+    <div id="pgPopSearchResults">${pgPopSearchResultsHTML()}</div>`;
+  }else{
+    body=`
+    <div style="font-family:var(--font-body);font-weight:800;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--color-primary-text);margin-bottom:10px">Pricing Guide</div>
+    <div style="font-family:var(--font-display);font-size:17px;font-weight:700;color:var(--color-text);margin-bottom:16px">What are we pricing today?</div>
+    <div style="display:flex;flex-direction:column;gap:8px">
+      <button class="btn btn-primary" style="width:100%;justify-content:flex-start" onclick="pgPopTakePhoto()">Take a photo</button>
+      <button class="btn btn-secondary" style="width:100%;justify-content:flex-start" onclick="pgPopGo('list')">Just show me the price list</button>
+      <button class="btn btn-secondary" style="width:100%;justify-content:flex-start" onclick="pgPopGo('search')">Type an item name</button>
+    </div>`;
+  }
+  pop.innerHTML=`
+    <div style="display:flex;justify-content:flex-end;margin:-6px -6px 0 0">
+      <button onclick="closePricingPop()" aria-label="Close pricing guide" style="background:none;border:none;font-size:22px;line-height:1;color:var(--color-text-muted);cursor:pointer;padding:6px;min-width:44px;min-height:44px">×</button>
+    </div>
+    ${body}`;
+  if(pgPop.screen==='search'){
+    const el=document.getElementById('pgPopSearchInputEl');
+    if(el){el.focus();const v=el.value;el.value='';el.value=v;}
+  }
+}
+document.addEventListener('click',(e)=>{
+  const pop=document.getElementById('pricing-pop');
+  const btn=document.getElementById('pricing-btn');
+  if(!pop||!pop.classList.contains('open'))return;
+  // pop's own content can be replaced mid-click by the same handler that fires this
+  // listener (e.g. tapping "Just show me the price list" swaps the popover's innerHTML) —
+  // by the time this bubbles up, e.target may already be detached, so pop.contains(e.target)
+  // would wrongly read false. composedPath() is captured at dispatch time, before any of
+  // that mutation, so it stays accurate.
+  const path=e.composedPath?e.composedPath():[];
+  if(path.includes(pop)||path.includes(btn))return;
+  closePricingPop();
+});
 
 // ─── SECTION: ONLINE SELLING ─────────────────────────────────────────────────
 // ─── SECTION: PROMOTE YOUR SALE ──────────────────────────────────────────────
@@ -3879,11 +3986,13 @@ function showBuyerPayment(){
   renderBuyerOverlay();
   ov.style.display='block';
   ov.style.opacity='0';
+  lockBodyScroll();
   requestAnimationFrame(()=>requestAnimationFrame(()=>{ov.style.opacity='1';}));
 }
 function closeBuyerPayment(){
   const ov=document.getElementById('payment-overlay');
   if(ov){ov.style.opacity='0';setTimeout(()=>{ov.style.display='none';},180);}
+  unlockBodyScroll();
 }
 function renderBuyerOverlay(){
   const ov=document.getElementById('payment-overlay');if(!ov)return;
@@ -5218,6 +5327,10 @@ function pickCalendarDate(y,m,d){
   const trigEl=document.getElementById(`cal-trigger-${id}`);
   if(trigEl)trigEl.style.color='var(--color-text)';
   closeDatePicker();
+  // If this date field is the active step in the progressive Sale Setup form, picking a
+  // date already answers the step — advance straight to the next field automatically.
+  const stepIdx=START_STEPS.findIndex(st=>st.type==='date'&&st.path.join('.')===path);
+  if(stepIdx!==-1)startTryAdvance(stepIdx);
 }
 function renderDatePickerPanel(){
   let ov=document.getElementById('cal-overlay');
@@ -5393,34 +5506,6 @@ function setReminder(){
     if(msgEl){msgEl.style.display="block";msgEl.innerHTML='<div class="warn-box">Could not send. Please try again.</div>'}
     if(btn){btn.disabled=false;btn.textContent="Set reminder";}
   });
-}
-
-function refreshStickyBar(){
-  const stats=getStats(P);
-  const bar=document.getElementById('sticky-bar');
-  if(!bar)return;
-  const toggle=document.getElementById('scratch-toggle');
-  const panel=document.getElementById('scratch-panel');
-  if(!stats.earned&&!stats.goal){
-    bar.style.display='none';bar.style.opacity='0';
-    if(toggle)toggle.classList.remove('lift-above-bar');
-    if(panel)panel.classList.remove('lift-above-bar');
-    return;
-  }
-  if(toggle)toggle.classList.add('lift-above-bar');
-  if(panel)panel.classList.add('lift-above-bar');
-  const wasHidden=!bar.style.display||bar.style.display==='none';
-  bar.style.display='flex';
-  const pct=Math.min(stats.goalProgress||0,100);
-  const goalReached=stats.goal&&pct>=100;
-  bar.innerHTML=`
-    <div><div class="sb-label">Total earned</div><div class="sb-earned">$${stats.earned.toFixed(2)}</div></div>
-    ${stats.goal?`<div class="sb-track"><div class="sb-fill" style="width:${pct}%"></div></div>
-    <div class="sb-goal-text">${goalReached?'<span style="color:#C4B0E8;font-weight:700">Goal reached!</span>':`${Math.round(pct)}% of $${stats.goal} goal`}</div>`:''}
-  `;
-  if(wasHidden){requestAnimationFrame(()=>{requestAnimationFrame(()=>bar.style.opacity='1');});}
-  else{bar.style.opacity='1';}
-  checkConfetti(stats);
 }
 
 // ─── CONFETTI ─────────────────────────────────────────────────────────────────
@@ -5647,12 +5732,14 @@ function openTour(){
   if(!ov)return;
   ov.style.display='block';
   ov.style.opacity='0';
+  lockBodyScroll();
   renderTourStep();
   requestAnimationFrame(()=>requestAnimationFrame(()=>{ov.style.opacity='1';}));
 }
 function closeTour(){
   const ov=document.getElementById('tour-overlay');
   if(ov){ov.style.opacity='0';setTimeout(()=>{ov.style.display='none';ov.innerHTML='';},180);}
+  unlockBodyScroll();
   const scrim=document.getElementById('tour-scrim');
   if(scrim)scrim.style.display='none';
   _clearTourSpotlight();
@@ -5824,12 +5911,14 @@ function openHelp(topicId){
   if(!ov)return;
   ov.style.display='block';
   ov.style.opacity='0';
+  lockBodyScroll();
   renderHelpOverlay();
   requestAnimationFrame(()=>requestAnimationFrame(()=>{ov.style.opacity='1';}));
 }
 function closeHelp(){
   const ov=document.getElementById('help-overlay');
   if(ov){ov.style.opacity='0';setTimeout(()=>{ov.style.display='none';},180);}
+  unlockBodyScroll();
 }
 function openHelpTopic(id){
   const topic=helpTopics.find(t=>t.id===id);
@@ -6183,7 +6272,6 @@ window.addEventListener('beforeunload',flushScratchNote);
 
 // ─── INIT ─────────────────────────────────────────────────────────────────────
 render();
-refreshStickyBar();
 refreshAvatarDisplay();
 refreshBell();
 checkTimeNotifs();
@@ -6203,8 +6291,6 @@ document.addEventListener('click',()=>{
   UI.calMenu=false;renderContent();
 });
 </script>
-
-<div id="sticky-bar"></div>
 
 <button id="scratch-toggle" class="no-print" aria-expanded="false" aria-controls="scratch-panel" aria-label="Quick notes" title="Quick notes">
   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>
