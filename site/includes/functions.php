@@ -127,6 +127,13 @@ function truncateWords($text, $limit = 30) {
 }
 
 /**
+ * Inline unlock icon for owned-product buttons (open padlock, feather-style)
+ */
+function unlockIcon() {
+    return '<svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 9.9-1"></path></svg>';
+}
+
+/**
  * Get the current page slug for active nav highlighting
  */
 function currentPage() {

@@ -284,6 +284,7 @@ p { margin-bottom: 1rem; line-height: 1.6; }
     line-height: 1.6; color: #444444; margin-bottom: 1.5rem;
 }
 .product-card .btn { margin-top: auto; width: 100%; }
+.btn-icon { vertical-align: -3px; margin-right: 8px; }
 
 /* Badges */
 .badge {
@@ -294,7 +295,6 @@ p { margin-bottom: 1rem; line-height: 1.6; }
     border: 1px solid #ABABAB; color: #252535; z-index: 10;
 }
 .badge-free { background: #FFFFFF; color: #C44570; border-color: #C44570; }
-.badge-unlocked { background-color: #C44570; color: #FFFFFF; border: none; }
 .badge-coming { background: #FAF7ED; color: #252535; border: none; }
 
 /* Locked card (dashboard) */
