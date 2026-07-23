@@ -138,15 +138,15 @@ $nextUnlock     = getNextExclusiveUnlock($user['id']);
                             <p class="product-card-description"><?= esc(truncateWords($product['short_description'], 20)) ?></p>
 
                             <?php if ($product['category'] === 'interactive_tool'): ?>
-                                <a href="/widgets/<?= esc($product['slug']) ?>/" class="btn btn-primary"><?= unlockIcon() ?>Open Tool</a>
+                                <a href="/widgets/<?= esc($product['slug']) ?>/" class="btn btn-primary">Open Tool<?= unlockIcon() ?></a>
                             <?php elseif ($product['file_path']): ?>
                                 <?php if (strpos($product['file_path'], 'http') === 0): ?>
-                                    <a href="<?= esc($product['file_path']) ?>" target="_blank" rel="noopener" class="btn btn-primary"><?= unlockIcon() ?>Download Again</a>
+                                    <a href="<?= esc($product['file_path']) ?>" target="_blank" rel="noopener" class="btn btn-primary">Download Again<?= unlockIcon() ?></a>
                                 <?php else: ?>
-                                    <a href="/shop/<?= esc($product['slug']) ?>?download=1" class="btn btn-primary"><?= unlockIcon() ?>Download Again</a>
+                                    <a href="/shop/<?= esc($product['slug']) ?>?download=1" class="btn btn-primary">Download Again<?= unlockIcon() ?></a>
                                 <?php endif; ?>
                             <?php else: ?>
-                                <a href="/shop/<?= esc($product['slug']) ?>" class="btn btn-primary"><?= unlockIcon() ?>Open</a>
+                                <a href="/shop/<?= esc($product['slug']) ?>" class="btn btn-primary">Open<?= unlockIcon() ?></a>
                             <?php endif; ?>
                         </div>
                     </div>
