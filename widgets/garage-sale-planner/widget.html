@@ -651,8 +651,8 @@
     .gs-tile-quiet{border:1px solid var(--color-divider);padding:12px;text-align:center;cursor:pointer;
       background:#fff;opacity:.85;font-family:var(--font-body);min-height:44px}
     .gs-tile-quiet:hover{opacity:1;background:#F9ECF0}
-    .gs-camera-icon{width:64px;height:64px;border-radius:9999px;background:#C44570;color:#FAF7ED;display:flex;
-      align-items:center;justify-content:center;font-size:26px;margin:0 auto 14px}
+    .gs-camera-btn{display:inline-flex;flex-direction:column;align-items:center;cursor:pointer;background:none;border:none;padding:0}
+    .gs-camera-btn:hover svg{opacity:.85}
     .gs-dec-btn{border:1.5px solid transparent;padding:14px 8px;font-size:13px;font-weight:700;cursor:pointer;
       font-family:var(--font-body);text-align:center;min-height:44px}
     .gs-dec-btn.gs-sell{background:#A33359;color:#FAF7ED;border-color:#A33359}
@@ -2117,11 +2117,17 @@ function gsCaptureScreen(){
   const roomCount=guidedUI.room?gsRoomStats(guidedUI.room).count:0;
   return`
   <div class="card bold-card" style="text-align:center;padding:36px 24px">
-    <div class="gs-camera-icon" aria-hidden="true">📷</div>
-    <div class="card-title" style="margin-bottom:4px">Photograph the item${roomLabel}</div>
-    <p style="color:var(--color-text-muted);margin-bottom:24px">Tap below to open your camera.</p>
-    <label class="btn btn-primary" style="display:inline-block;font-size:16px;padding:16px 32px;cursor:pointer">
-      Take a photo
+    <div class="card-title" style="margin-bottom:20px">Photograph the item${roomLabel}</div>
+    <label class="gs-camera-btn" aria-label="Take a photo">
+      <svg width="140" height="100" viewBox="0 0 140 100" aria-hidden="true">
+        <rect x="44" y="4" width="36" height="13" rx="4" fill="#C44570"></rect>
+        <rect x="2" y="18" width="136" height="80" rx="16" fill="#C44570"></rect>
+        <circle cx="70" cy="60" r="27" fill="#FAF7ED"></circle>
+        <circle cx="70" cy="60" r="19" fill="#252535"></circle>
+        <circle cx="61" cy="51" r="5" fill="#FAF7ED" opacity="0.5"></circle>
+        <circle cx="117" cy="34" r="5" fill="#FAF7ED"></circle>
+      </svg>
+      <span style="font-family:var(--font-body);font-weight:700;font-size:14px;color:var(--color-text);margin-top:10px">Take a photo</span>
       <input type="file" accept="image/*" capture="environment" style="display:none" onchange="gsPhotoSelected(this)" />
     </label>
     <div class="gs-nudge" style="margin-top:24px;text-align:left">Tip: if it's a designer or name-brand item, try to get the label or logo in the photo too — it helps catch the brand and get you a better price.</div>
