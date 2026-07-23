@@ -1,0 +1,41 @@
+name: Deploy to Hostinger
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'site/**'
+      - 'widgets/**'
+  workflow_dispatch: {}
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # site/ holds everything that lives at the domain root on Hostinger (about.php,
+      # shop.php, includes/, etc.) — it gets flattened onto server-dir ./ rather than
+      # nested under a "site" folder, or every relative include path on the live site
+      # would break.
+      - name: Deploy site/ to server root
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          local-dir: ./site/
+          server-dir: ./
+          dangerous-clean-slate: false
+
+      # widgets/ stays nested at /widgets/ on the server, matching this repo's layout.
+      - name: Deploy widgets/ to /widgets/
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          local-dir: ./widgets/
+          server-dir: ./widgets/
+          dangerous-clean-slate: false
