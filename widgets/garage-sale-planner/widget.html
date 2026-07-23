@@ -948,8 +948,11 @@ const paymentMethods = ["Cash","PayPal","Venmo","Cash App","Zelle","Other"];
 // on desktop, background-scroll-under-modal on mobile). Reference-counted so nested open/close calls
 // can't unlock the page while another overlay is still up.
 let _scrollLockCount=0;
-function lockBodyScroll(){if(_scrollLockCount===0)document.body.style.overflow='hidden';_scrollLockCount++}
-function unlockBodyScroll(){_scrollLockCount=Math.max(0,_scrollLockCount-1);if(_scrollLockCount===0)document.body.style.overflow=''}
+// html sets its own explicit overflow-x above, which stops some browsers from propagating
+// body's overflow to the viewport — locking body alone left the page's own scrollbar live
+// behind the overlay's, showing as two scrollbars at once. Lock both elements to be sure.
+function lockBodyScroll(){if(_scrollLockCount===0){document.documentElement.style.overflow='hidden';document.body.style.overflow='hidden';}_scrollLockCount++}
+function unlockBodyScroll(){_scrollLockCount=Math.max(0,_scrollLockCount-1);if(_scrollLockCount===0){document.documentElement.style.overflow='';document.body.style.overflow='';}}
 // Single source of truth for every "decision" category — color, chip style, and where
 // its summary tile should route to. Add a decision here once and every screen that
 // lists decisions (stat strip, sort summary, chips) picks it up automatically.
@@ -2082,6 +2085,7 @@ function openGuidedSummary(){
   const ov=document.getElementById('guided-sort-overlay');if(!ov)return;
   renderGuidedSort();
   ov.style.display='block';ov.style.opacity='0';
+  lockBodyScroll();
   requestAnimationFrame(()=>requestAnimationFrame(()=>{ov.style.opacity='1';}));
 }
 function openGuidedSort(mode){
@@ -2122,7 +2126,7 @@ function renderGuidedSort(){
     roomComplete:gsRoomCompleteScreen,summary:gsSummaryScreen,
   };
   const fn=screens[guidedUI.screen]||gsEntryScreen;
-  const showStrip=guidedUI.screen!=='summary';
+  const showStrip=true;
   ov.innerHTML=`<div style="position:absolute;inset:0;background:var(--color-bg);overflow-y:auto;padding:0 16px 60px">
     <div style="max-width:640px;margin:0 auto">
       <div style="position:sticky;top:0;z-index:50;background:var(--color-bg);display:flex;justify-content:space-between;align-items:center;gap:10px;padding:20px 0 12px;margin-bottom:12px;border-bottom:1px solid var(--color-divider)">
@@ -2545,21 +2549,17 @@ function gsSummaryScreen(){
   const allTiles=Object.keys(GS_ROUTES).map(d=>({d,count:items.filter(i=>i.decision===d).length}));
   return`
   <div class="card bold-card">
-    <div class="card-title" style="margin-bottom:16px">Here's where things stand</div>
-    <div style="background:#252535;color:#FAF7ED;padding:20px;text-align:center;margin-bottom:20px">
-      <div style="font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;opacity:.8;margin-bottom:6px">Total sorted</div>
-      <div style="font-family:var(--font-display);font-size:32px;font-weight:700;margin-bottom:4px">${items.length} item${items.length===1?'':'s'}</div>
-      <div style="font-size:13px;opacity:.85">$${total.toFixed(2)} estimated from sales</div>
-    </div>
-    <p style="color:var(--color-text-muted);margin-bottom:14px">Tap any group below to go straight to what's next for it.</p>
+    <div class="gs-eyebrow" style="font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--color-text-muted);margin-bottom:8px">All done for now</div>
+    <div class="card-title" style="margin-bottom:8px;font-size:26px">Here's where things stand</div>
+    <p style="color:var(--color-text-muted);margin-bottom:20px">Tap any group below to go straight to what's next for it.</p>
     <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:20px">
-      ${allTiles.map(t=>`<button class="gs-tile-quiet" onclick="gsGoDestination('${esc(t.d)}')">
+      ${allTiles.map(t=>`<button class="gs-tile" onclick="gsGoDestination('${esc(t.d)}')">
         <div style="font-family:var(--font-display);font-size:22px;font-weight:700">${t.count}</div>
         <div style="font-size:13px;margin-top:2px">${esc(t.d==='Given to kids'?'Give to Kids':t.d)}</div>
         <div style="font-size:12px;color:var(--color-primary-text);font-weight:700;margin-top:2px">${esc(GS_ROUTES[t.d].label)}</div>
       </button>`).join('')}
     </div>
-    <button class="btn btn-secondary" style="font-size:16px;padding:16px 28px;width:100%;margin-bottom:12px" onclick="guidedUI.screen='entry';renderGuidedSort()">← Keep sorting</button>
+    <button class="btn btn-primary" onclick="guidedUI.screen='entry';renderGuidedSort()" style="font-size:16px;padding:16px 32px;width:100%;margin-bottom:12px">← Keep sorting</button>
     <div class="gs-nudge" style="text-align:center;margin-bottom:12px">You sorted ${items.length} item${items.length===1?'':'s'} worth $${total.toFixed(2)} today. Come back anytime — nothing's lost.</div>
     <button class="btn btn-secondary" style="font-size:16px;padding:16px 28px;width:100%" onclick="closeGuidedSort();goTab('start','start')">Back to Start</button>
   </div>`;
