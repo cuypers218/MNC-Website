@@ -620,48 +620,64 @@
     .mnc-undo-toast.show{opacity:1;pointer-events:auto}
     .mnc-undo-toast button{font-family:var(--font-body);font-weight:700;font-size:12px;letter-spacing:.06em;
       text-transform:uppercase;color:#C44570;background:none;border:none;cursor:pointer;padding:6px 4px;min-height:44px}
-    .gs-stat-strip{background:#F9ECF0;padding:14px 16px 12px;font-family:var(--font-body);margin-bottom:16px}
+    .gs-stat-strip{background:#F9ECF0;padding:14px 16px 12px;font-family:var(--font-body);margin-bottom:16px;
+      border-radius:var(--radius-lg)}
     .gs-stat-strip-nums{display:flex;gap:10px}
-    .gs-stat-block{flex:1;background:#252535;color:#FAF7ED;padding:8px 10px;text-align:center}
+    .gs-stat-block{flex:1;background:#252535;color:#FAF7ED;padding:8px 10px;text-align:center;border-radius:var(--radius-md)}
     .gs-stat-block.rose{background:#C44570}
     .gs-stat-block .gs-stat-num{font-family:var(--font-display);font-weight:700;font-size:18px;line-height:1}
     .gs-stat-block .gs-stat-lbl{font-size:9px;text-transform:uppercase;letter-spacing:.06em;opacity:.85;margin-top:2px}
-    .gs-seg-bar{width:100%;height:10px;border:1.5px solid #252535;display:flex;overflow:hidden;margin:12px 0 10px}
+    /* Pill-shaped like this file's other progress meters (.tag-bar, .block-dark .bar-track/.bar-fill). */
+    .gs-seg-bar{width:100%;height:10px;border:1.5px solid #252535;display:flex;overflow:hidden;margin:12px 0 10px;
+      border-radius:var(--radius-full)}
     .gs-seg{height:100%}
     .gs-legend{display:flex;flex-wrap:wrap;gap:5px 14px;font-size:10px;color:var(--color-text-muted)}
     .gs-legend-item{display:flex;align-items:center;gap:5px}
-    .gs-legend-dot{width:8px;height:8px;flex-shrink:0;display:inline-block}
+    .gs-legend-dot{width:8px;height:8px;flex-shrink:0;display:inline-block;border-radius:var(--radius-full)}
     .gs-tile{border:2px solid var(--color-text);padding:16px;text-align:center;cursor:pointer;background:#FDFBF7;
-      font-family:var(--font-body);min-height:44px}
+      font-family:var(--font-body);min-height:44px;border-radius:var(--radius-lg);
+      box-shadow:0 10px 40px rgba(37,37,53,0.07)}
     .gs-tile:hover{background:#F9ECF0}
     .gs-tile.gs-tile-done{background:#252535;color:#FAF7ED}
     .gs-tile .gs-tile-check{display:block;font-size:11px;font-weight:400;margin-top:4px;opacity:.85}
     .gs-tile-quiet{border:1px solid var(--color-divider);padding:12px;text-align:center;cursor:pointer;
-      background:#FDFBF7;opacity:.85;font-family:var(--font-body);min-height:44px}
+      background:#FDFBF7;opacity:.85;font-family:var(--font-body);min-height:44px;border-radius:var(--radius-lg)}
     .gs-tile-quiet:hover{opacity:1;background:#F9ECF0}
-    .gs-camera-btn{display:inline-flex;flex-direction:column;align-items:center;cursor:pointer;background:none;border:none;padding:0}
-    .gs-camera-btn:hover svg{opacity:.85}
+    /* The button IS the camera — a drawn body/flash/lens, not an icon inside a generic tile. */
+    .gs-camera-btn{display:flex;flex-direction:column;align-items:center;width:100%;max-width:260px;
+      margin:0 auto 16px;padding:8px 20px 4px;border:none;background:none;cursor:pointer;touch-action:manipulation}
+    .gs-camera-svg{margin-bottom:14px;transition:transform 140ms ease}
+    .gs-camera-btn:hover .gs-camera-svg{transform:translateY(-2px)}
+    .gs-camera-btn:active .gs-camera-svg{transform:scale(.94)}
+    .gs-camera-btn:focus-visible{outline:2px solid #C44570;outline-offset:6px;border-radius:var(--radius-lg)}
+    .gs-camera-btn-label{font-family:var(--font-display);font-weight:700;font-size:16px;color:var(--color-text)}
+    .gs-camera-btn-sub{font-size:13px;color:var(--color-text-muted);margin-top:4px}
     .gs-dec-btn{border:1.5px solid transparent;padding:14px 8px;font-size:13px;font-weight:700;cursor:pointer;
-      font-family:var(--font-body);text-align:center;min-height:44px}
+      font-family:var(--font-body);text-align:center;min-height:44px;border-radius:var(--radius-md)}
     .gs-dec-btn.gs-sell{background:#A33359;color:#FAF7ED;border-color:#A33359}
     .gs-dec-btn.gs-donate{background:transparent;color:#6D4C3E;border-color:#6D4C3E}
     .gs-dec-btn.gs-kids{background:#6D4C3E;color:#FAF7ED;border-color:#6D4C3E}
     .gs-dec-btn.gs-trash{background:transparent;color:#6D4C3E;border-color:#6D4C3E}
     .gs-dec-btn.gs-memory{background:#CE6487;color:#FAF7ED;border-color:#CE6487}
     .gs-dec-btn.gs-batch{background:transparent;color:#252535;border:1.5px dashed #252535}
-    .gs-dec-btn.gs-keep{background:transparent;color:#252535;border-color:#252535}
-    .gs-dec-btn.gs-notsure{background:transparent;color:#6D4C3E;border-color:#6D4C3E}
     .gs-dec-btn:hover{opacity:.85}
     .gs-dec-btn:active{opacity:.7;transform:translateY(1px)}
     .gs-price-tag{position:relative;background:#A33359;color:#FAF7ED;border:2px solid #252535;padding:18px 20px;
-      text-align:center;margin-bottom:14px}
+      text-align:center;margin-bottom:14px;border-radius:var(--radius-xl)}
     .gs-price-tag .gs-price-lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;opacity:.85}
     .gs-price-edit{border:none;background:transparent;color:#FAF7ED;font-family:var(--font-display);font-size:36px;
       font-weight:700;text-align:center;width:100%;border-bottom:2px dashed rgba(250,247,237,.5);padding:4px 0}
     .gs-brand-badge{display:inline-block;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;
-      background:#252535;color:#FAF7ED;padding:3px 8px;margin-bottom:8px}
+      background:#252535;color:#FAF7ED;padding:3px 8px;margin-bottom:8px;border-radius:var(--radius-full)}
     .gs-nudge{font-size:12px;color:var(--color-text-muted);background:#F9ECF0;border:1.5px solid #8BA7D4;padding:8px 10px;
-      margin-bottom:14px;line-height:1.4}
+      margin-bottom:14px;line-height:1.4;border-radius:var(--radius-lg)}
+    .gs-cond-row{display:flex;gap:8px;margin-bottom:16px}
+    .gs-cond-btn{flex:1;border:1.5px solid var(--color-text);background:#FDFBF7;color:var(--color-text);
+      font-family:var(--font-body);font-weight:700;font-size:13px;padding:10px 8px;cursor:pointer;
+      border-radius:var(--radius-md);min-height:44px}
+    .gs-cond-btn.active{background:#252535;color:#FAF7ED;border-color:#252535}
+    .gs-cond-btn:hover:not(.active){background:#F9ECF0}
+    .gs-cond-btn:active{opacity:.8;transform:translateY(1px)}
     /* Shared accent-border-left roles — consolidates what was 8 separate ad-hoc inline declarations of the same border */
     .accent-border-left{border-left:3px solid var(--color-primary)}
     .section-header-accent{border-left:3px solid var(--color-primary);padding-left:14px}
@@ -669,9 +685,9 @@
     .money-purpose-accent{border-left:3px solid var(--color-primary);padding-left:16px;margin-bottom:28px}
     .gs-action-row{display:flex;gap:8px}
     .gs-btn-accept{flex:1;background:#252535;color:#FAF7ED;border:2px solid #252535;padding:12px;font-weight:700;
-      font-size:13px;cursor:pointer;font-family:var(--font-body);min-height:44px}
+      font-size:13px;cursor:pointer;font-family:var(--font-body);min-height:44px;border-radius:var(--radius-md)}
     .gs-btn-online{flex:1;background:transparent;color:#A33359;border:2px solid #A33359;padding:12px;font-weight:700;
-      font-size:13px;cursor:pointer;font-family:var(--font-body);min-height:44px}
+      font-size:13px;cursor:pointer;font-family:var(--font-body);min-height:44px;border-radius:var(--radius-md)}
 
     /* ─── PRINT ─── */
     @media print{
@@ -944,7 +960,7 @@ const DECISION_META = {
   "Trash":{color:"#8BA7D4",chip:"chip-trash",tab:"saleWrap",section:"wrap"},
   "Given to kids":{color:"#6D4C3E",chip:"chip-kids",tab:"sortPrice",section:"memory"},
   "Memory Box":{color:"#CE6487",chip:"chip-notsure",tab:"sortPrice",section:"memory"},
-  "Batch":{color:"#F9ECF0",chip:"chip-notsure",tab:"sortPrice",section:"batch"},
+  "Batch":{color:"#74253F",chip:"chip-notsure",tab:"sortPrice",section:"batch"},
 };
 
 const prepTasks = [
@@ -1035,6 +1051,11 @@ const flowSections = {
 
 const defaultSection = {start:"start",sortPrice:"inventory",sellPromote:"promote",prepSafety:"prep",saleWrap:"sale"};
 
+// Broad category+condition price ranges for the original manual "Add Item" form (priceRange()/
+// suggestPlatform() below). The guided Sort + Price camera flow uses a separate, item-level table
+// instead — see `sortPriceCategories` — because it prices specific items, not whole categories.
+// The two are intentionally different granularities, not duplicates; if garage-sale prices are
+// ever revised, both need updating since neither derives from the other.
 const pricingGuide = {
   Clothing:{Good:[2,8],Excellent:[5,12],New:[8,18],Fair:[1,4],"Needs Repair":[0,1],note:"Garage sale basics move fastest around $2–$8. Better brands, coats, dresses, and handbags may deserve online resale."},
   Books:{Good:[1,3],Excellent:[2,5],New:[3,8],Fair:[0.5,2],"Needs Repair":[0,1],note:"Paperback books are usually low-dollar. Sets, textbooks, collectible, and niche books are better checked online first."},
@@ -1440,7 +1461,12 @@ let invCatFilter="All";
 let invDecFilter="All";
 
 // ─── PERSISTENCE ──────────────────────────────────────────────────────────────
-function save(){try{localStorage.setItem(STORAGE_KEY,JSON.stringify(P))}catch{}}
+// A failed save (most often a full localStorage quota from photo-heavy sessions) used to fail
+// silently, so an item could show "✓ Saved" and vanish on next reload with no trace. Surface it.
+function save(){
+  try{localStorage.setItem(STORAGE_KEY,JSON.stringify(P));return true;}
+  catch(e){showToast("Couldn't save — your browser's storage is full. Try removing a few item photos.");return false;}
+}
 
 function deepSet(obj,path,value){
   let o=obj;for(let i=0;i<path.length-1;i++){if(!o[path[i]])o[path[i]]={};o=o[path[i]]}
@@ -2079,6 +2105,15 @@ function closeGuidedSort(){
   guidedUI.open=false;
   renderContent();renderSectionNav();
 }
+// Both overlays only had a mouse-only × to dismiss — Escape now closes whichever one is open,
+// price guide first since it can be stacked on top of the guided-sort flow.
+document.addEventListener('keydown',e=>{
+  if(e.key!=='Escape')return;
+  const pg=document.getElementById('price-guide-overlay');
+  if(pg&&pg.style.display==='block'){closePriceGuide();return;}
+  const gs=document.getElementById('guided-sort-overlay');
+  if(gs&&gs.style.display==='block'){closeGuidedSort();}
+});
 function renderGuidedSort(){
   const ov=document.getElementById('guided-sort-overlay');if(!ov)return;
   const screens={
@@ -2163,16 +2198,15 @@ function gsCaptureScreen(){
     <div class="gs-eyebrow" style="font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--color-text-muted);margin-bottom:8px">${roomLabel}</div>
     <div class="card-title" style="margin-bottom:8px;font-size:26px">Photograph one item</div>
     <p style="color:var(--color-text-muted);margin-bottom:24px">Snap what you're holding. You'll decide what to do with it next.</p>
-    <label class="gs-camera-btn" aria-label="Take a photo" style="margin-bottom:16px">
-      <svg width="140" height="100" viewBox="0 0 140 100" aria-hidden="true">
-        <rect x="44" y="4" width="36" height="13" rx="4" fill="#C44570"></rect>
-        <rect x="2" y="18" width="136" height="80" rx="16" fill="#C44570"></rect>
-        <circle cx="70" cy="60" r="27" fill="#FAF7ED"></circle>
-        <circle cx="70" cy="60" r="19" fill="#252535"></circle>
-        <circle cx="61" cy="51" r="5" fill="#FAF7ED" opacity="0.5"></circle>
-        <circle cx="117" cy="34" r="5" fill="#FAF7ED"></circle>
+    <label class="gs-camera-btn" tabindex="0" role="button" aria-label="Tap to open your camera" onkeydown="if(event.key===' '||event.key==='Enter'){event.preventDefault();this.querySelector('input').click();}">
+      <svg class="gs-camera-svg" viewBox="0 0 160 118" width="140" height="104" aria-hidden="true">
+        <rect x="14" y="4" width="34" height="16" rx="4" fill="#252535"/>
+        <rect x="2" y="16" width="156" height="100" rx="16" fill="#252535"/>
+        <circle cx="80" cy="68" r="35" fill="none" stroke="#FAF7ED" stroke-width="6"/>
+        <circle cx="80" cy="68" r="20" fill="#C44570"/>
       </svg>
-      <span style="font-family:var(--font-body);font-weight:700;font-size:14px;color:var(--color-text);margin-top:10px">Take a photo</span>
+      <span class="gs-camera-btn-label">Tap to open your camera</span>
+      <span class="gs-camera-btn-sub">Works with your phone's camera directly</span>
       <input type="file" accept="image/*" capture="environment" style="display:none" onchange="gsPhotoSelected(this)" />
     </label>
     <div class="gs-nudge" style="margin-bottom:24px;text-align:left">Tip: if it's a designer or name-brand item, try to get the label or logo in the photo too — it helps catch the brand and get you a better price.</div>
@@ -2187,11 +2221,30 @@ function gsPhotoSelected(input){
   if(!file)return;
   const reader=new FileReader();
   reader.onload=e=>{
-    guidedUI.current={photo:e.target.result,label:'',categoryKey:'',itemName:'',brand:false,condition:'Good',aiGuessed:false};
-    guidedUI.screen='analyzing';renderGuidedSort();
-    gsIdentifyPhoto(file);
+    gsDownscalePhoto(e.target.result,dataUrl=>{
+      guidedUI.current={photo:dataUrl,label:'',categoryKey:'',itemName:'',brand:false,condition:'Good',aiGuessed:false};
+      guidedUI.screen='analyzing';renderGuidedSort();
+      gsIdentifyPhoto(file);
+    });
   };
   reader.readAsDataURL(file);
+}
+// Full-resolution phone photos (often 2-5MB each) would blow past localStorage's ~5-10MB quota
+// after just a handful of items — downscale to a display-sized JPEG before it's ever stored.
+function gsDownscalePhoto(dataUrl,cb){
+  const img=new Image();
+  img.onload=()=>{
+    const maxDim=900;
+    const scale=Math.min(1,maxDim/Math.max(img.width,img.height));
+    const w=Math.round(img.width*scale)||1,h=Math.round(img.height*scale)||1;
+    const canvas=document.createElement('canvas');
+    canvas.width=w;canvas.height=h;
+    canvas.getContext('2d').drawImage(img,0,0,w,h);
+    try{cb(canvas.toDataURL('image/jpeg',0.7));}
+    catch(e){cb(dataUrl);} // canvas unsupported/tainted — fall back to the original rather than lose the photo
+  };
+  img.onerror=()=>cb(dataUrl);
+  img.src=dataUrl;
 }
 function gsAnalyzingScreen(){
   return`<div class="card bold-card" style="text-align:center;padding:60px 24px" role="status" aria-live="polite"><div class="card-title">One moment...</div></div>`;
@@ -2297,7 +2350,7 @@ function gsReviewScreen(){
 }
 function gsChooseDecision(kind){
   const c=guidedUI.current;
-  if(!c.label&&!c.itemName){showToast('Give it a name or pick an item type first');return;}
+  if(!(c.label||'').trim()&&!c.itemName){showToast('Give it a name or pick an item type first');return;}
   if(kind==='donate'||kind==='trash'||kind==='kids'){
     const decision=kind==='donate'?'Donate':kind==='trash'?'Trash':'Given to kids';
     gsSaveItem({decision,price:'0'});
@@ -2417,7 +2470,7 @@ function gsCreateAndSaveBatch(){
 }
 function gsPriceLookup(categoryKey,itemName,brandDetected,condition){
   const cat=sortPriceCategories.find(x=>x.key===categoryKey);
-  if(!cat)return{price:0,nudge:false,caution:null};
+  if(!cat)return{price:0,nudge:false,caution:null,matched:false};
   const idx=condition==='Excellent'?0:(condition==='Fair'?2:1);
   const row=cat.items.find(x=>x.name===itemName);
   let price=0;
@@ -2425,7 +2478,16 @@ function gsPriceLookup(categoryKey,itemName,brandDetected,condition){
   else if(brandDetected&&cat.brandTier)price=cat.brandTier[idx];
   const nudge=!!cat.alwaysNudge||!!brandDetected||price>=SORT_PRICE_NUDGE_THRESHOLD;
   const nudgeReason=cat.alwaysNudge?'category':(brandDetected?'brand':(price>=SORT_PRICE_NUDGE_THRESHOLD?'price':null));
-  return{price,nudge,nudgeReason,caution:(row&&row.caution)||null};
+  return{price,nudge,nudgeReason,caution:(row&&row.caution)||null,matched:true};
+}
+// Condition previously had no way to change from the Sell screen ("Change condition →" bounced to
+// Review, which has no condition field) — these chips replace that dead link. Switching tiers is
+// treated as a request for that tier's suggested price, so priceOverride resets with it.
+function gsSetCondition(cond){
+  const c=guidedUI.current;
+  c.condition=cond;
+  c.priceOverride=gsPriceLookup(c.categoryKey,c.itemName,c.brand,cond).price;
+  renderGuidedSort();
 }
 function gsSellScreen(){
   const c=guidedUI.current;
@@ -2434,15 +2496,18 @@ function gsSellScreen(){
   if(c.priceOverride===undefined)c.priceOverride=res.price;
   return`
   <div class="card bold-card">
-    <div class="card-title" style="margin-bottom:6px">Garage sale price</div>
-    <p class="page-sub" style="margin-bottom:16px">${esc(cond)} condition. <a href="#" onclick="guidedUI.screen='review';renderGuidedSort();return false" style="font-weight:700;text-decoration:underline">Change condition →</a></p>
+    <div class="card-title" style="margin-bottom:12px">Garage sale price</div>
+    <div class="gs-cond-row" role="group" aria-label="Condition">
+      ${["Excellent","Good","Fair"].map(opt=>`<button type="button" class="gs-cond-btn${cond===opt?' active':''}" aria-pressed="${cond===opt?'true':'false'}" onclick="gsSetCondition('${opt}')">${opt}</button>`).join('')}
+    </div>
+    ${!res.matched?`<div class="info-box" style="margin-bottom:16px">We don't have pricing data for this item yet — set your own price below.</div>`:''}
     ${res.caution?`<div class="info-box" style="margin-bottom:16px">${esc(res.caution)}</div>`:''}
     ${res.nudge?`<div class="gs-nudge"><strong>Worth a look online first?</strong><br>${res.nudgeReason==='brand'?'That brand tends to sell for more online than at a garage sale.':res.nudgeReason==='category'?'Collectibles like this are worth checking online — value here is about rarity and age, not a printed label.':'This one is priced high enough that it likely sells for more online.'} You can tag it Garage Sale below, or send it to Sell Online instead.</div>`:''}
     <div class="gs-price-tag">
       ${c.brand?`<div class="gs-brand-badge">Brand detected</div><br>`:''}
       <div class="gs-price-lbl">Garage sale price</div>
       <label class="sr-only" for="gs-sell-price">Price</label>
-      <input class="gs-price-edit" id="gs-sell-price" type="number" min="0" step="0.25" value="${esc(c.priceOverride)}" oninput="guidedUI.current.priceOverride=String(nn(this.value))" />
+      <input class="gs-price-edit" id="gs-sell-price" type="number" min="0" step="0.25" value="${c.priceOverride}" oninput="guidedUI.current.priceOverride=String(nn(this.value))" />
     </div>
     <div class="gs-action-row">
       <button class="gs-btn-accept" onclick="gsFinishSell('Garage Sale')">Use this price</button>
@@ -5334,7 +5399,7 @@ function exportPDF(){
 // ─── FORM HELPERS ─────────────────────────────────────────────────────────────
 // sf() = "set field" — safe varargs alternative to setField; path as spread args avoids JSON-in-HTML quoting issues
 // nn()/nnMin1() = clamp a typed price/cash/quantity value to a non-negative (or min-1) number before it's stored and rendered as currency
-function nn(v){const n=parseFloat(v);return isFinite(n)&&n>0?n:0}
+function nn(v){const n=parseFloat(v);return isFinite(n)&&n>0?Math.min(n,100000):0}
 function nnMin1(v){const n=parseInt(v,10);return isFinite(n)&&n>0?n:1}
 let _weatherFetchTimer,_lastWeatherSaleDate;
 function sf(el,...path){
@@ -6448,8 +6513,8 @@ document.addEventListener('click',()=>{
 <div id="help-overlay" style="position:fixed;inset:0;z-index:9100;display:none;overflow:hidden;pointer-events:auto;transition:opacity 180ms ease;opacity:0"></div>
 <div id="batch-print-overlay" style="position:fixed;inset:0;z-index:9100;display:none;overflow:hidden;pointer-events:auto;transition:opacity 180ms ease;opacity:0"></div>
 <div id="inv-drawer-overlay" style="position:fixed;inset:0;z-index:9100;display:none;overflow:hidden;pointer-events:auto;transition:opacity 180ms ease;opacity:0"></div>
-<div id="guided-sort-overlay" style="position:fixed;inset:0;z-index:9200;display:none;overflow:hidden;pointer-events:auto;transition:opacity 180ms ease;opacity:0"></div>
-<div id="price-guide-overlay" style="position:fixed;inset:0;z-index:9300;display:none;overflow:hidden;pointer-events:auto;transition:opacity 180ms ease;opacity:0"></div>
+<div id="guided-sort-overlay" role="dialog" aria-modal="true" aria-label="Sort and price" style="position:fixed;inset:0;z-index:9200;display:none;overflow:hidden;pointer-events:auto;transition:opacity 180ms ease;opacity:0"></div>
+<div id="price-guide-overlay" role="dialog" aria-modal="true" aria-label="Price guide" style="position:fixed;inset:0;z-index:9300;display:none;overflow:hidden;pointer-events:auto;transition:opacity 180ms ease;opacity:0"></div>
 
 <footer style="max-width:1100px;margin:0 auto;padding:var(--space-5) var(--space-6);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:var(--space-3);border-top:1px solid var(--color-divider);margin-top:var(--space-8)">
   <span style="font-size:var(--text-xs);color:var(--color-text-muted)">© My Nest Chapter · <a href="https://mynestchapter.com" style="color:var(--color-text-muted)">mynestchapter.com</a> · Written by Cece</span>
