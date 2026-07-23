@@ -1,14 +1,12 @@
 name: Deploy to Hostinger
 
-# MANUAL DEPLOY ONLY. Pushing to main does NOT deploy anything by itself
-# anymore — it only updates GitHub. This workflow only runs when someone
-# explicitly triggers it (GitHub → Actions → "Deploy to Hostinger" → Run
-# workflow), or when Cece has approved a specific change and asked for it
-# to go live.
+# AUTO-DEPLOYS ON EVERY PUSH TO main. Can still be run manually too
+# (GitHub → Actions → "Deploy to Hostinger" → Run workflow).
 #
-# 2026-07-21: changed from auto-deploy-on-push after Cece asked to be
-# consulted and shown a preview before anything ships. Do not change this
-# trigger back to `on: push` without her explicit ok.
+# 2026-07-21: switched to manual-only after Cece asked to be consulted and
+# shown a preview before anything ships.
+# 2026-07-23: Cece asked to revert back to auto-deploy-on-push (explicit
+# ok given directly, superseding the 2026-07-21 note above).
 #
 # ─── ONE-TIME SETUP REQUIRED (do this in GitHub, not in this file) ───
 # Go to: repo → Settings → Secrets and variables → Actions → New repository secret
@@ -25,6 +23,8 @@ name: Deploy to Hostinger
 # 2026-07-13: FTP password re-verified in Hostinger hPanel and secret updated.
 
 on:
+  push:
+    branches: [main]
   workflow_dispatch:
 
 jobs:
