@@ -117,31 +117,42 @@
     .topbar-tabs::-webkit-scrollbar{height:0}
     .topbar-right {display:flex;align-items:center;gap:var(--space-3);flex-shrink:0;}
 
-    /* ─── TAB BUTTONS ─── */
+    /* ─── TAB BUTTONS ───
+       Icon + full label, side by side, on desktop — there's room to spare, so
+       the fuller "Sort + Price" text stays. Below the mobile breakpoint (see
+       @media(max-width:768px) further down) it switches to icon-over-short-label
+       stacked, since that's where labels were actually squished. Active tab is a
+       filled pill (not just an underline) — plain text was losing to the
+       bordered/filled topbar icon buttons for visual attention either way. */
     .tab-btn {
       font-family:var(--font-body);
-      flex:0 1 auto;text-align:center;
-      padding:9px 4px 7px;
+      flex:0 1 auto;display:flex;flex-direction:row;align-items:center;justify-content:center;gap:7px;
+      padding:9px 16px;text-align:center;
       font-size:14px;font-weight:600;white-space:nowrap;
       color:var(--color-primary-text);
-      background:transparent;
-      border-bottom:2px solid transparent;
-      transition:color var(--t),border-color var(--t);
+      background:transparent;border:none;border-radius:var(--radius-lg);
+      transition:color var(--t),background var(--t);
     }
-    .tab-btn.active{background:transparent;color:var(--color-text);font-weight:700;border-bottom-color:#C44570;box-shadow:none}
-    .tab-btn:hover:not(.active){color:var(--color-text);background:transparent}
+    .tab-btn-icon{display:flex}
+    .tab-btn-icon svg{width:18px;height:18px}
+    .tab-btn-label-short{display:none}
+    .tab-btn.active{background:var(--color-primary);color:#fff;font-weight:700;box-shadow:none}
+    .tab-btn:hover:not(.active){color:var(--color-text);background:var(--color-primary-hl)}
     .tab-btn.tour-spotlight-tab{outline:2px solid #C44570;outline-offset:-2px}
 
     /* ─── ICON RAIL (topbar: avatar, bell, pricing guide, save, help, reset) ─── */
     .icon-btn {
-      width:40px;height:40px;display:flex;align-items:center;justify-content:center;
-      border-radius:var(--radius-md);color:var(--color-text);background:transparent;
-      border:1.5px solid var(--color-text);flex-shrink:0;
+      width:44px;height:44px;display:flex;align-items:center;justify-content:center;
+      border-radius:var(--radius-full);color:var(--color-text-muted);background:transparent;
+      border:none;flex-shrink:0;transition:background var(--t),color var(--t);
     }
-    .icon-btn:hover{color:#fff;background:var(--color-primary);border-color:var(--color-primary)}
+    .icon-btn:hover{color:var(--color-primary-text);background:var(--color-primary-hl)}
     .icon-btn svg{width:18px;height:18px}
-    .avatar-btn{background:var(--color-primary-text);border-color:var(--color-primary-text);color:#FAF7ED}
-    .avatar-btn:hover{background:#74253F;border-color:#74253F}
+    /* Avatar stays the one filled, colored anchor in the topbar — everything else
+       (bell, save, more) is now a quiet ghost icon, so there's a single strong
+       visual anchor instead of four bordered boxes competing for attention. */
+    .avatar-btn{background:var(--color-primary-text);color:#FAF7ED}
+    .avatar-btn:hover{background:#74253F;color:#FAF7ED}
     .avatar-btn #avatar-initial{font-family:var(--font-body);font-weight:800;font-size:15px}
     .avatar-pop{
       position:absolute;top:calc(100% + 10px);left:0;width:230px;
@@ -329,6 +340,35 @@
     .block-dark #countdown-body .text-muted{color:rgba(250,247,237,.7)}
     .block-dark #countdown-body .btn-secondary{background:transparent;color:#FAF7ED;border-color:rgba(250,247,237,.45)}
     .block-dark #countdown-body .btn-secondary:hover{background:rgba(250,247,237,.12)}
+    /* ─── HOME TAB — near-black hero + "pick up where you left off" cards ───
+       Deep Rose Ramp 950 (#1B090F), the one deliberately bold/near-black moment
+       for this tab per DESIGN.md §5.6b — distinct from the Velvety Charcoal
+       .block-dark used elsewhere, so it doesn't just repeat the Start tab. */
+    .home-hero{background:#1B090F;color:#FAF7ED;border-radius:var(--radius-xl);padding:30px 28px}
+    .home-hero-eyebrow{font-family:var(--font-body);font-weight:700;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#DA8BA5;margin-bottom:10px}
+    .home-hero-headline{font-family:var(--font-display);font-weight:600;font-size:clamp(22px,3vw,26px);line-height:1.15;color:#FAF7ED;margin:0}
+    .home-hero-accent{font-family:var(--font-display);font-style:italic;font-weight:500;font-size:15px;color:#E7B1C3;margin-top:6px}
+    .home-hero-goal{display:flex;align-items:center;gap:20px;margin-top:24px;background:rgba(250,247,237,.06);border-radius:var(--radius-lg);padding:18px 20px;flex-wrap:wrap}
+    .home-hero-ring{width:84px;height:84px;flex-shrink:0;position:relative}
+    .home-hero-ring svg{width:100%;height:100%}
+    .home-ring-fill{transition:stroke-dashoffset 900ms cubic-bezier(0.16,1,0.3,1)}
+    .home-hero-ring-num{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-weight:700;font-size:16px;color:#FAF7ED;font-variant-numeric:tabular-nums}
+    .home-hero-goal-text{font-family:var(--font-body);font-size:14px;color:rgba(250,247,237,.88);line-height:1.5}
+    .home-hero-goal-text b{font-family:var(--font-display);font-weight:700;color:#FAF7ED;font-size:15px}
+    .home-section-eyebrow{font-family:var(--font-body);font-weight:700;font-size:11px;letter-spacing:.09em;text-transform:uppercase;color:#6D4C3E;margin-bottom:12px}
+    .home-pickup-list{display:flex;flex-direction:column;gap:10px}
+    .home-pickup-card{
+      display:flex;align-items:center;gap:14px;width:100%;text-align:left;
+      background:#FFFFFF;border:1px solid var(--color-divider);border-radius:var(--radius-xl);
+      box-shadow:0 10px 40px rgba(37,37,53,0.07);padding:14px 16px;min-height:44px;
+      transition:transform 120ms ease,background 120ms ease;
+    }
+    .home-pickup-card:active{transform:scale(0.97);background:var(--color-primary-hl)}
+    .home-pickup-icon{width:44px;height:44px;border-radius:9999px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+    .home-pickup-icon svg{width:20px;height:20px}
+    .home-pickup-title{font-family:var(--font-body);font-weight:700;font-size:14.5px;color:var(--color-text)}
+    .home-pickup-sub{font-family:var(--font-body);font-weight:400;font-size:12.5px;color:var(--color-accent);margin-top:2px}
+    .home-pickup-chev{margin-left:auto;flex-shrink:0;color:var(--color-text-muted)}
     .card-title{
       font-size:21px;font-weight:700;font-family:var(--font-display);
       margin-bottom:var(--space-4);color:var(--color-text);
@@ -374,7 +414,7 @@
     .start-step-row-area{align-items:flex-start}
     .start-step-active .form-label{color:var(--color-primary-text)}
     .start-arrow-btn{
-      flex-shrink:0;width:40px;height:40px;border-radius:var(--radius-full);
+      flex-shrink:0;width:44px;height:44px;border-radius:var(--radius-full);
       border:1.5px solid var(--color-primary);background:transparent;color:var(--color-primary-text);
       display:flex;align-items:center;justify-content:center;cursor:pointer;transition:background var(--t),color var(--t);
     }
@@ -404,7 +444,7 @@
       box-shadow:var(--shadow-float);padding:14px;
     }
     .cal-panel-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;font-family:var(--font-display);font-weight:700;font-size:14px;color:var(--color-text)}
-    .cal-nav-btn{width:28px;height:28px;border-radius:9999px;background:none;font-size:18px;line-height:1;color:var(--color-primary-text);display:flex;align-items:center;justify-content:center;cursor:pointer}
+    .cal-nav-btn{width:44px;height:44px;border-radius:9999px;background:none;font-size:18px;line-height:1;color:var(--color-primary-text);display:flex;align-items:center;justify-content:center;cursor:pointer}
     .cal-nav-btn:hover{background:#F9ECF0}
     .cal-panel-dow{display:grid;grid-template-columns:repeat(7,1fr);text-align:center;font-size:11px;font-weight:600;color:#6D4C3E;margin-bottom:4px}
     .cal-panel-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:2px}
@@ -472,7 +512,7 @@
     .inv-drawer-head-top{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
     .inv-drawer-title{font-family:var(--font-display);font-size:20px;font-weight:700;color:var(--color-text)}
     .inv-drawer-count{font-size:12px;color:var(--color-text-muted);margin-top:2px}
-    .inv-drawer-x{width:36px;height:36px;border-radius:var(--radius-md);border:1.5px solid var(--color-text);
+    .inv-drawer-x{width:44px;height:44px;border-radius:var(--radius-md);border:1.5px solid var(--color-text);
       display:flex;align-items:center;justify-content:center;cursor:pointer;background:var(--color-surface);color:var(--color-text);flex-shrink:0}
     .inv-drawer-x:hover{background:var(--color-primary);border-color:var(--color-primary);color:#fff}
     .inv-drawer-body{flex:1;overflow-y:auto;padding:16px 22px 26px}
@@ -592,6 +632,30 @@
     }
     @media(hover:none) and (pointer:coarse){
       .btn,.btn-sm,.btn-xs,.btn-ghost,.tab-btn,.sec-btn,.icon-btn,.toggle-chip{min-height:44px;min-width:44px}
+    }
+    /* ─── MOBILE MAIN NAV — moved into the thumb zone ───
+       Below DESIGN.md §7.4's 768px nav breakpoint, the primary tab row (Home/Start/
+       Sort+Price/etc.) is fixed to the bottom of the viewport instead of stacking
+       under the topbar — a top-only tab bar means every navigation tap needs a
+       top-of-screen reach on a phone. Kept as the same horizontally-scrollable strip
+       (labels are too long — "Sale Day + Wrap Up" — for an evenly-split bottom grid),
+       just relocated. See updateStickyOffsets() for the matching sub-tab offset fix. */
+    @media(max-width:768px){
+      .main-nav-wrap{
+        position:fixed;top:auto;bottom:0;left:0;right:0;z-index:190;
+        max-width:none;margin:0;
+        padding:6px var(--space-4) calc(6px + env(safe-area-inset-bottom,0px));
+        background:var(--color-surface);border-top:1px solid var(--color-divider);
+        box-shadow:0 -6px 20px rgba(37,37,53,0.08);
+      }
+      .topbar-tabs{padding-bottom:0}
+      .outer{padding-bottom:calc(80px + env(safe-area-inset-bottom,0px))}
+      /* Icon-over-short-label, stacked — the side-by-side full-label layout
+         above is what caused the squished/illegible tabs on phone. */
+      .tab-btn{flex-direction:column;gap:3px;padding:7px 14px;font-size:10.5px}
+      .tab-btn-icon svg{width:20px;height:20px}
+      .tab-btn-label-full{display:none}
+      .tab-btn-label-short{display:block}
     }
     .toggle-chip{touch-action:manipulation}
     @media(prefers-reduced-motion:reduce){
@@ -772,6 +836,15 @@
     .scratch-note-delete{background:none;border:none;font-size:16px;line-height:1;color:#6D4C3E;cursor:pointer;padding:2px;flex-shrink:0}
     .scratch-note-delete:hover{color:#A33359}
     .scratch-empty{font-family:var(--font-body);font-size:13px;color:#6D4C3E;line-height:1.6;padding:8px 2px}
+    /* Scratchpad FAB defaults into the same bottom-right corner the mobile nav bar
+       now occupies (see @media(max-width:768px) main-nav-wrap rule above) — lift
+       its resting position clear of the nav. Drag still works via JS, which sets
+       an inline style.bottom that overrides this. Must appear after the base
+       #scratch-toggle/#scratch-panel rules above to win the cascade. */
+    @media(max-width:768px){
+      #scratch-toggle{bottom:calc(80px + env(safe-area-inset-bottom,0px))}
+      #scratch-panel{bottom:calc(134px + env(safe-area-inset-bottom,0px))}
+    }
 
     /* ─── SECTION TIP STRIP ─── */
     .section-tip{border-top:1px solid var(--color-border);border-bottom:1px solid var(--color-border);padding:13px 0;margin-top:24px;display:flex;align-items:baseline;gap:10px}
@@ -1033,15 +1106,27 @@ const safetyTasksCash = [
   "Keep a counterfeit detector pen at your station — check every $20, $50, and $100 bill",
 ];
 
+// Main-nav tab icons — plain stroke glyphs (currentColor, so they pick up the
+// tab button's own text color) so the nav row carries some visual weight of its
+// own instead of receding next to the bordered/filled topbar icon buttons.
+const TAB_ICON_HOME='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11.5 12 4l9 7.5"/><path d="M5 10v10h14V10"/><path d="M9 20v-6h6v6"/></svg>';
+const TAB_ICON_START='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 3v18"/><path d="M5 4h11l-2.5 4L16 12H5Z"/></svg>';
+const TAB_ICON_SORT='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12.586 2.586A2 2 0 0 0 11.172 2H4a2 2 0 0 0-2 2v7.172a2 2 0 0 0 .586 1.414l8 8a2 2 0 0 0 2.828 0l7.172-7.172a2 2 0 0 0 0-2.828l-8-8Z"/><circle cx="7.5" cy="7.5" r="1.25" fill="currentColor" stroke="none"/></svg>';
+const TAB_ICON_SELL='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11v2a2 2 0 0 0 2 2h1l3 5v-9"/><path d="M9 8 19 4v16L9 16Z"/><path d="M19 9a3 3 0 0 1 0 6"/></svg>';
+const TAB_ICON_PREP='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3Z"/></svg>';
+const TAB_ICON_SALE='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="16" y1="2" x2="16" y2="6"/></svg>';
+
 const flowTabs = [
-  {id:"start",label:"Start"},
-  {id:"sortPrice",label:"Sort + Price"},
-  {id:"sellPromote",label:"Sell + Promote"},
-  {id:"prepSafety",label:"Prep + Safety"},
-  {id:"saleWrap",label:"Sale Day + Wrap Up"},
+  {id:"home",label:"Home",short:"Home",icon:TAB_ICON_HOME},
+  {id:"start",label:"Start",short:"Start",icon:TAB_ICON_START},
+  {id:"sortPrice",label:"Sort + Price",short:"Sort",icon:TAB_ICON_SORT},
+  {id:"sellPromote",label:"Sell + Promote",short:"Sell",icon:TAB_ICON_SELL},
+  {id:"prepSafety",label:"Prep + Safety",short:"Prep",icon:TAB_ICON_PREP},
+  {id:"saleWrap",label:"Sale Day + Wrap Up",short:"Sale Day",icon:TAB_ICON_SALE},
 ];
 
 const flowSections = {
+  home:[{id:"home",label:"Home"}],
   start:[{id:"start",label:"Start"}],
   // "memory" and "pricing" stay fully registered (goSection/goTab, DECISION_META, and the
   // in-form "Full pricing guide →" link all still route here) — hidden:true just keeps
@@ -1052,7 +1137,7 @@ const flowSections = {
   saleWrap:[{id:"sale",label:"Sale Day"},{id:"tags",label:"Print Command Center"},{id:"wrap",label:"Wrap Up"}],
 };
 
-const defaultSection = {start:"start",sortPrice:"inventory",sellPromote:"promote",prepSafety:"prep",saleWrap:"sale"};
+const defaultSection = {home:"home",start:"start",sortPrice:"inventory",sellPromote:"promote",prepSafety:"prep",saleWrap:"sale"};
 
 // Broad category+condition price ranges for the original manual "Add Item" form (priceRange()/
 // suggestPlatform() below). The guided Sort + Price camera flow uses a separate, item-level table
@@ -1451,7 +1536,7 @@ function normalizePlanner(src){
 function loadPlanner(){try{const d=localStorage.getItem(STORAGE_KEY);if(d){const p=JSON.parse(d);if(p&&p.isDemo)return clone(blankPlanner);return normalizePlanner(p);}return clone(blankPlanner)}catch{return clone(blankPlanner)}}
 
 let P=loadPlanner();
-let UI={tab:"start",section:"start",showAddForm:false,calMenu:false,bellOpen:false,calcPaymentMethod:"Cash",scratchOpen:false,scratchNoteId:null,bundleItems:[],bundleDiscountPct:null,haggleLastPct:null,dirSign:{dir:'right',date:'',time:'',saleName:''}};
+let UI={tab:"home",section:"home",showAddForm:false,calMenu:false,bellOpen:false,calcPaymentMethod:"Cash",scratchOpen:false,scratchNoteId:null,bundleItems:[],bundleDiscountPct:null,haggleLastPct:null,dirSign:{dir:'right',date:'',time:'',saleName:''}};
 let draft={
   item:{id:null,name:"",category:"Decor",condition:"Good",quantity:"1",decision:"Garage Sale",price:"",notes:""},
   batch:{id:null,type:"Table",price:"2",description:""},
@@ -1487,7 +1572,7 @@ function goSection(sec){hideInvDrawerImmediate();UI.section=sec;renderContent();
 
 function buildNav(){
   const nav=document.getElementById("main-nav");
-  nav.innerHTML=flowTabs.map(t=>`<button class="tab-btn${UI.tab===t.id?" active":""}" onclick="goTab('${t.id}')">${t.label}</button>`).join("");
+  nav.innerHTML=flowTabs.map(t=>`<button class="tab-btn${UI.tab===t.id?" active":""}" onclick="goTab('${t.id}')" aria-label="${esc(t.label)}" title="${esc(t.label)}"><span class="tab-btn-icon">${t.icon}</span><span class="tab-btn-label-full">${esc(t.label)}</span><span class="tab-btn-label-short">${esc(t.short)}</span></button>`).join("");
 }
 
 function renderSectionNav(){
@@ -1515,8 +1600,12 @@ function updateStickyOffsets(){
   const mainNav=document.querySelector('.main-nav-wrap');
   if(!topbar||!mainNav)return;
   const topbarH=topbar.offsetHeight;
+  // Below --mobile-nav-bp (§7.4), the main tab row is fixed to the bottom of the
+  // viewport (thumb zone) instead of stacking under the topbar — so it no longer
+  // occupies flow space above the sub-tab row and shouldn't count toward its offset.
+  const navIsBottomFixed=window.matchMedia('(max-width:768px)').matches;
   document.documentElement.style.setProperty('--nav-sticky-top',topbarH+'px');
-  document.documentElement.style.setProperty('--subnav-sticky-top',(topbarH+mainNav.offsetHeight)+'px');
+  document.documentElement.style.setProperty('--subnav-sticky-top',(navIsBottomFixed?topbarH:(topbarH+mainNav.offsetHeight))+'px');
 }
 
 // ─── HEADER + METRICS ─────────────────────────────────────────────────────────
@@ -1682,7 +1771,9 @@ function renderContent(){
   el.style.opacity='0';
   const key=UI.tab+"|"+UI.section;
   if(UI.tab==="start"){setTimeout(()=>fetchWeather(P.setup?.saleDate||null),50);}
+  if(UI.tab==="home"){setTimeout(refreshHomeGoal,50);}
   const map={
+    "home|home":renderHome,
     "start|start":renderStart,
     "sortPrice|inventory":renderInventory,
     "sortPrice|batch":renderBatch,
@@ -1699,6 +1790,125 @@ function renderContent(){
   };
   el.innerHTML=(map[key]||renderStart)();
   requestAnimationFrame(()=>el.style.opacity='1');
+}
+
+// ─── SECTION: HOME — landing dashboard (GarageSalePlanner_HomeDashboard_Brief.md) ───────
+// Uses the same sale-value calc as Inventory's ring (stats.estimated/stats.goal) rather
+// than the Start tab's earned-based goalProgress, since during planning (pre-sale) nothing
+// has been earned yet — estimated value from sorted items is what actually moves here.
+const HOME_ICON_TAG='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12.586 2.586A2 2 0 0 0 11.172 2H4a2 2 0 0 0-2 2v7.172a2 2 0 0 0 .586 1.414l8 8a2 2 0 0 0 2.828 0l7.172-7.172a2 2 0 0 0 0-2.828l-8-8Z"/><circle cx="7.5" cy="7.5" r="1.25" fill="currentColor" stroke="none"/></svg>';
+const HOME_ICON_CAL='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="16" y1="2" x2="16" y2="6"/></svg>';
+const HOME_ICON_HEART='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.8 1-1a5.5 5.5 0 0 0 0-7.8Z"/></svg>';
+const HOME_ICON_CHEV='<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>';
+
+function homeCardHtml(c){
+  return`
+  <button class="home-pickup-card" onclick="${c.onclick}">
+    <div class="home-pickup-icon" style="background:${c.tint};color:${c.glyph}">${c.icon}</div>
+    <div>
+      <div class="home-pickup-title">${esc(c.title)}</div>
+      <div class="home-pickup-sub">${esc(c.sub)}</div>
+    </div>
+    <span class="home-pickup-chev">${HOME_ICON_CHEV}</span>
+  </button>`;
+}
+// Every section reachable from Home, in flowTabs order — a static directory,
+// separate from the dynamic "pick up where you left off" cards above it.
+function homeSectionCards(){
+  return[
+    {icon:TAB_ICON_START,tint:"#F9ECF0",glyph:"#74253F",title:"Start",sub:"Sale details, money goal, and countdown",onclick:"goTab('start')"},
+    {icon:TAB_ICON_SORT,tint:"#F3D8E1",glyph:"#4E182A",title:"Sort + Price",sub:"Add items, price them, sort by room",onclick:"goTab('sortPrice')"},
+    {icon:TAB_ICON_SELL,tint:"#E7B1C3",glyph:"#74253F",title:"Sell + Promote",sub:"Write your ad, promote the sale",onclick:"goTab('sellPromote')"},
+    {icon:TAB_ICON_PREP,tint:"#F9ECF0",glyph:"#4E182A",title:"Prep + Safety",sub:"Checklists, safety, and supplies",onclick:"goTab('prepSafety')"},
+    {icon:TAB_ICON_SALE,tint:"#F3D8E1",glyph:"#74253F",title:"Sale Day + Wrap Up",sub:"Track sales and wrap everything up",onclick:"goTab('saleWrap')"},
+  ];
+}
+
+function homeGoalRingSvg(){
+  const C=2*Math.PI*42;
+  return`<svg viewBox="0 0 100 100" role="img" aria-label="Sale value progress toward goal">
+    <circle cx="50" cy="50" r="42" fill="none" stroke="rgba(250,247,237,.2)" stroke-width="10"/>
+    <circle id="home-ring-fill" class="home-ring-fill" cx="50" cy="50" r="42" fill="none" stroke="#C44570" stroke-width="10" stroke-linecap="round" stroke-dasharray="${C.toFixed(1)}" stroke-dashoffset="${C.toFixed(1)}"/>
+  </svg>`;
+}
+function homePickupCards(stats,items,s){
+  const cards=[];
+  const unpricedSellable=items.filter(i=>(i.decision==="Garage Sale"||i.decision==="Sell Online")&&!(Number(i.price)>0)).length;
+  if(unpricedSellable>0){
+    cards.push({icon:HOME_ICON_TAG,tint:"#F9ECF0",glyph:"#74253F",
+      title:`${unpricedSellable} item${unpricedSellable===1?"":"s"} still need${unpricedSellable===1?"s":""} pricing`,
+      sub:"Sort + Price · Items",onclick:"goTab('sortPrice','inventory')"});
+  }
+  const days=daysUntilSale(s.saleDate);
+  const dayLabel=!s.saleDate?"Sale day not set yet"
+    :days===0?"Sale day is today"
+    :days<0?`Sale was ${Math.abs(days)} day${Math.abs(days)===1?"":"s"} ago`
+    :`Sale day in ${days} day${days===1?"":"s"}`;
+  cards.push({icon:HOME_ICON_CAL,tint:"#F3D8E1",glyph:"#4E182A",title:dayLabel,sub:"Sale Day + Wrap Up",onclick:"goTab('saleWrap','sale')"});
+  const memoryCount=items.filter(i=>i.decision==="Memory Box").length;
+  if(memoryCount>0){
+    cards.push({icon:HOME_ICON_HEART,tint:"#E7B1C3",glyph:"#74253F",
+      title:`${memoryCount} keepsake${memoryCount===1?"":"s"} waiting in Memory Box`,
+      sub:"Sort + Price · Memories",onclick:"goTab('sortPrice','memory')"});
+  }
+  return cards.slice(0,3);
+}
+function renderHome(){
+  const s=P.setup||{};
+  const stats=getStats(P);
+  const items=P.items||[];
+  const name=(s.yourName||"").trim();
+  const cards=homePickupCards(stats,items,s);
+  const sections=homeSectionCards();
+  return`
+  ${renderTourNote("This is Home — a quick look at where your sale stands, with shortcuts into every part of the tool.")}
+  <div class="gap-y">
+    <div class="home-hero">
+      <div class="home-hero-eyebrow">My Nest Chapter</div>
+      <div class="home-hero-headline">${name?`Good to see you, ${esc(name)}.`:"Your sale, coming together."}</div>
+      <div class="home-hero-accent">One box, one dollar, one step closer.</div>
+      <div class="home-hero-goal">
+        <div class="home-hero-ring">${homeGoalRingSvg()}<div class="home-hero-ring-num" id="home-ring-num">$0</div></div>
+        <div class="home-hero-goal-text">
+          <b>${fmtMoney(stats.estimated)}</b> of ${fmtMoney(stats.goal)} goal<br>
+          ${stats.goal?"from items sorted so far":"Set a money goal on Start to track this"}
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <p class="home-section-eyebrow">Pick up where you left off</p>
+      <div class="home-pickup-list">${cards.map(homeCardHtml).join("")}</div>
+    </div>
+
+    <div>
+      <p class="home-section-eyebrow">Browse by section</p>
+      <div class="home-pickup-list">${sections.map(homeCardHtml).join("")}</div>
+    </div>
+  </div>`;
+}
+function animateCount(el,from,to,duration,fmt){
+  const start=performance.now();
+  function tick(now){
+    const t=Math.min((now-start)/duration,1);
+    const eased=1-Math.pow(1-t,3);
+    el.textContent=fmt(from+(to-from)*eased);
+    if(t<1)requestAnimationFrame(tick);
+  }
+  requestAnimationFrame(tick);
+}
+function refreshHomeGoal(){
+  if(UI.tab!=="home")return;
+  const stats=getStats(P);
+  const dollarPct=stats.goal>0?Math.min(Math.round((stats.estimated/stats.goal)*100),100):0;
+  const fill=document.getElementById("home-ring-fill");
+  if(fill){
+    const C=2*Math.PI*42;
+    const offset=C*(1-dollarPct/100);
+    requestAnimationFrame(()=>{fill.style.strokeDashoffset=offset.toFixed(1)});
+  }
+  const numEl=document.getElementById("home-ring-num");
+  if(numEl)animateCount(numEl,0,stats.estimated,700,v=>"$"+Math.round(v));
 }
 
 // ─── SECTION: START — progressive Sale Setup ───────────────────────────────────
@@ -5273,7 +5483,7 @@ function checkTimeNotifs(){
 function startFresh(){
   mncConfirm("This clears everything you've entered and can't be undone.",()=>{
     P=normalizePlanner(clone(blankPlanner));save();
-    UI={tab:"start",section:"start",showAddForm:false,calMenu:false,bellOpen:false};
+    UI={tab:"home",section:"home",showAddForm:false,calMenu:false,bellOpen:false};
     itemSearch="";invCatFilter="All";invDecFilter="All";
     draft={item:{id:null,name:"",category:"Decor",condition:"Good",quantity:"1",decision:"Garage Sale",price:"",notes:""},batch:{id:null,type:"Table",price:"2",description:""},memory:{id:null,name:"",storage:"",notes:""},giveKids:{id:null,name:"",notes:""},sale:{description:"",amount:"",method:"Cash"}};
     render();
