@@ -11,54 +11,62 @@ This file lives in the repo so both AI assistants working on this site — the o
 1. Check this file at the start of every coding session.
 2. If live code conflicts with anything marked LOCKED below, the code is wrong — update it to match this file.
 3. New decisions get added to the Change Log at the bottom with a date. Most recent entry wins if anything looks contradictory.
-4. This file does NOT replace the full brand voice/copy rules — those live in `YNC_Brand_SKILL_v4_June2026.md` (ask Cece for it if a banned-word check is needed on new copy). This file is for structure, logic, and placement decisions.
+4. This file does NOT replace the full brand voice/copy rules — those live in `Skill_File_07-05-2026_v4.md` (ask Cece for it if a banned-word check is needed on new copy). This file is for structure, logic, and placement decisions.
 5. For any visual or design decision, read `DESIGN.md` in the repo root — it is the canonical design system and overrides any color, font, or spacing choice not explicitly locked here.
-6. Before starting any new widget or product build, follow the Build Gates below (Gate 1 → Gate 2 → Gate 3) — this is the current, authoritative build process. It supersedes the old `MNC-BUILD-PLAYBOOK.md`.
-7. At the start of every session, read `MNC-PRODUCT-ROADMAP.md` in the repo root — it is the live product status tracker and tells you what's done, what's pending, and what to work on next.
-
-**Note (2026-07-11):** `MNC-BUILD-PLAYBOOK.md` is archived at `docs/archive/MNC-BUILD-PLAYBOOK.md` — historical reference only, not an active instruction file. It predates the 2026-07-01 resolution that killed the pill-button border-radius exception (this file still has the old "except pill buttons: 9999px" language) and still points to the retired `widgets/[product]/index.html` convention instead of the current `widget.html` + `index.php` pattern. Do not follow it directly. The Build Gates section below is the current process.
+6. Before starting any new widget or product build, read `MNC-BUILD-PLAYBOOK.md` in the repo root — it contains the mandatory build process and prompts.
+7. At the start of every session, read the **Current Focus** section directly below — it replaces the old separate product roadmap file, which was retired 2026-07-27 for drifting too far out of sync with reality. This file is now the single place status lives.
+8. Full historical decision detail (the blow-by-blow of past sessions) is not kept in this file anymore — it lives in git history. Run `git log -- CLAUDE.md` if you need archaeology on a past decision. This file only carries what's true *now*.
 
 ---
 
-## WORKFLOW DISCIPLINE — NO SPRAWL, NO DEAD BRIEFS
+## CURRENT FOCUS
 
-*(Added 2026-07-11 after a laptop-wide file audit found duplicate/stale copies of this repo's docs scattered across OneDrive, Videos, and Music folders — this section exists to stop that from recurring.)*
+*(Update this section at the end of every session — check off what's done, note what's next.)*
 
-1. **One home.** `C:\Users\cuype\MNC-Website` is the only place project files live. Never save a copy of any project doc (brief, roadmap, CLAUDE.md, brand file) to OneDrive, Desktop, Downloads, or any other folder "just in case." If Cece needs something accessible elsewhere, that's a shortcut back to this repo, not a duplicate file.
-2. **Only two files are mandatory reading every session:** this file and `MNC-PRODUCT-ROADMAP.md`. Everything else (`DESIGN.md`, the brand skill file, changelog, archived briefs) is read on demand only, when the specific task actually needs it — not by default.
-3. **A new brief file gets created only at Gate 1** (see Build Process below), when a product is actually about to be built. An idea being discussed is a conversation, not a file. Do not create a "notes" or "reference" doc for something still being decided.
-4. **Before creating any new `.md` file — including Claude doing it unprompted — ask: does this belong in a file that already exists?** Most of the time it's a paragraph in the roadmap or this file, not a new document.
-5. **"Done" is a checklist, not a vibe.** A brief is not closed until all four of: code is live → `MNC-PRODUCT-ROADMAP.md` line updated → brief file moved to `docs/briefs_done/` → one line added to `docs/changelog/CHANGELOG.md`. Skipping this is exactly what left half-finished-looking briefs sitting in three different folders.
-6. **This section applies only within this repo.** It does not automatically extend to the separate claude.ai "My Nest Chapter" Project — that has its own knowledge panel and needs the equivalent rules pasted into its custom instructions separately.
+**Working on:** Propagating the new July 27, 2026 color palette (see Design System Quick Reference) across every file and every live page. This replaces the July 5 palette everywhere it appears.
+
+**Next up, in order:**
+1. Live `style.css` and site-wide PHP pages — color values + border-radius/box-shadow rollout to the current standard.
+2. Garage Sale Planner (`widgets/garage-sale-planner/widget.html`) — largest single file still on the old palette; also has Lavender used as a live chip-fill background (chip-online, tour-banner, confetti) that needs a new treatment since Lavender doesn't exist in the new system.
+3. Remaining widgets (`cooking-for-one` alone has 130+ old-palette occurrences across its two files).
+4. New Grandma Planner — high priority, not yet started, needs a blueprint doc first (Build Playbook Phase 1).
 
 ---
 
 ## BUILD PROCESS — ANY NEW INTERACTIVE TOOL
 
-Follow the Build Gates (below) in full. Mandatory, no skipping gates — the two most likely to get skipped are the ones that matter most:
+Follow `MNC-BUILD-PLAYBOOK.md` in full. Mandatory, no skipping phases — the two phases most likely to get skipped are the ones that matter most:
 
-- **Design Plan before code** (Phase 2) — token system, type scale, signature element, self-critique against generic template defaults. Skipping this is what shipped Garage Sale Planner looking templated.
+- **Design Plan before code** (Phase 2) — token system, type scale, signature element, self-critique against generic template defaults. Skipping this is what shipped Garage Sale Planner looking templated the first time.
 - **Brand & Visual QA as its own pass** (Phase 5) — not folded into general QA. Checks border-radius, box-shadow, fonts, banned words, and whether the tool has one element that couldn't be mistaken for a generic competitor's.
 
-**Corrected 2026-07-16 — supersedes the "zero border-radius, no exceptions" rule entirely.** That rule was adopted without a real design rationale and read stark/cold rather than modern. It's replaced sitewide by a moderate-radius, soft-shadow system — see `DESIGN.md` §5.4 for the full spec (short version: 8–10px on cards/containers, 6px on buttons/inputs, pill/9999px reserved for tags and badges only, one soft low-opacity card shadow). The Garage Sale Planner's 2026-07-03/04 exception was the correct instinct — it's now the sitewide standard, not a one-file deviation. Apply this to every widget and the main site going forward. Also see `DESIGN.md` §5.6 "Feel & Interaction Standards" (new 2026-07-16) for mobile micro-interaction rules, progressive disclosure, momentum framing, and the corrected audience framing that all future design/copy decisions should start from — she is capable and tech-comfortable, not stressed or low-tech; never design or write from an assumption of fragility.
+**Border-radius/box-shadow — CURRENT STANDARD, sitewide, no exceptions:** Cards/containers: `border-radius: 8–10px`. Buttons/inputs: `border-radius: 6px`. Tags/pills/badges only: `border-radius: 9999px`. Soft box-shadow standard for elevation: `0 10px 40px rgba(37,37,53,0.07)`.
 
 ---
 
-
 ## ACTION ITEMS — FIX NOW
 
-*(None — the missing-Playbook gap was resolved 2026-07-11 by archiving the old file and making the Build Gates section below the authoritative process instead.)*
+*(None open right now — see Current Focus above for the active rollout work.)*
+
+---
+
+## OPEN ITEMS — NEEDS CECE'S CALL, NOT A CLAUDE DECISION
+
+- **Security:** `setup-database.php` (installer script, meant to be deleted after first run) and `gen-hash.php` (contains the live account password in plain text) are both still sitting in the public web root. Needs a decision on removal/rotation.
+- **Know Before You Sell:** built and brand-compliant, but pulled off the live site pending Cece's review — do not redeploy `widgets/know-before-you-sell/widget.html` until she confirms it's the intended version and it's been through Phase 5 QA.
+- **Exclusive content drip logic — real conflict, not just staleness:** `ExclusiveContentDrip_ClaudeCode_Brief.md` (locked by Cece June 21) specifies a personalized 30-day drip anchored to each member's own signup date. The Gating Logic section below describes a single shared monthly drop for all members instead. Both can't be true of the live code at once — check `getUnlockedExclusiveContent()`/`getNextExclusiveUnlock()` in `functions.php` to see which was actually built, then fix whichever description is wrong.
+- **Print proofing:** Wine (`#7A2E42`) hasn't been proofed in CMYK. Needed before it goes on anything physically printed (e.g. the Now What? Workbook paperback cover, if used there).
+- **Off-palette hairline grays:** a few widget files still use `#D3D3D3`/`#ABABAB` for hairline borders/dividers — not on the current palette. Low priority, fold into the rollout above rather than a separate task.
+
+---
 
 ## BACK BURNER (not urgent — do not touch without a new brief)
 
-- **Quiet House Meter** — a "Final Approved" source file was found in two laptop folders during the 2026-07-11 cleanup (`OneDrive\Documents\Brand Products` and `Music`), contradicting the "never built" note previously here. Cece's call: delete it, not rebuild it. Both source copies moved to `_ToDelete` folders on 2026-07-11. This widget is not happening — do not resurrect without a new, explicit brief.
-- **30-Day Goal & Habit Tracker** — live widget, $27, but needs full visual rebuild to match Cooking for One style. Current code is narrow/popup layout. No brief written yet. Widget folder currently has no index.html (deleted as security fix). Back burner until Cece is ready with a brief.
-- **Weekly Reset Planner** — source file found in `OneDrive\Documents\Brand Products\weekly-reset.html` during 2026-07-11 cleanup and staged into the repo at `widgets/weekly-reset/weekly-reset-DRAFT-needs-brand-audit.html`. Cece confirmed 2026-07-11 she wants this one built out. **Next Gate: 2 (Design Plan)** — the file exists and needs a brand audit + rebuild, not a from-scratch Gate 1 define, since the product concept is already established. Read the draft file, run it through Brand & Visual QA (Gate 3 checklist), and produce a short design plan for anything that needs restructuring before it goes live.
-- **New Grandma Planner** — high priority when ready to build, but not started.
+- **Quiet House Meter** — widget was never built (no folder in /widgets/). Removed from homepage and resources page. DB record set to `draft`. Do not rebuild without Cece's go-ahead.
+- **30-Day Goal & Habit Tracker** — live widget, $27, but needs full visual rebuild to match Cooking for One style. Current code is narrow/popup layout. No brief written yet.
+- **Weekly Reset Planner** — local file only, pre-rebrand colors/fonts, not live. Needs a full brand audit before going up.
 
-## RECENT COMPLETIONS
-
-Full history (including everything before 2026-07-11) lives in `docs/changelog/CHANGELOG.md` — read it only when you need context on a specific past decision. Nothing below is required reading for a normal session; check here first, and only open the changelog if this isn't enough.
+---
 
 ## LIVE PAGES
 
@@ -72,7 +80,7 @@ Homepage, About (includes quiz), Shop, workbook.php, Blog, Resources, Freebies, 
 
 **Signup behavior:** New members get instant access to ALL currently available freebies — no drip, no waiting period.
 
-**Monthly drop cadence:** One new exclusive freebie added per month. Six-month queue tracked in Notion. Dashboard shows a countdown timer card for the next drop, and an email reminder goes out via Hostinger Reach ahead of each one.
+**Monthly drop cadence:** One new exclusive freebie added per month. Six-month queue tracked in the repo/project docs (Notion is no longer in use — do not reference it). Dashboard shows a countdown timer card for the next drop, and an email reminder goes out via Hostinger Reach ahead of each one. ⚠️ See "Open Items" above — this description conflicts with `ExclusiveContentDrip_ClaudeCode_Brief.md` and needs a live-code check.
 
 ### Per-product placement:
 
@@ -115,8 +123,8 @@ Drop order:
 - Cooking for One Planner — live, $27
 - 30-Day Goal & Habit Tracker — live, $27 (visual rebuild pending — back burner)
 - Garage Sale Planner — live, $27
-- Know Before You Sell — a full brand-compliant build (correct tokens, Lora/DM Sans, no border-radius/box-shadow found) was discovered live on Hostinger 2026-07-01 at `widgets/know-before-you-sell/widget.html`, undocumented here and with no GitHub backup. Archived to the repo and pulled off the live site pending Cece's review — do not redeploy until she confirms it's the intended version and it goes through Phase 5 (Brand & Visual QA) properly. The old off-brand `WhatsThisWorth.html` build under the retired name is separate and should still not be used as a starting point.
-- The Quiet House Meter — back-burner; widget never built; removed from homepage + resources page; DB record needs → draft via phpMyAdmin
+- Know Before You Sell — built, pending Cece's review before redeploying (see Open Items)
+- The Quiet House Meter — back-burner; widget never built
 
 ---
 
@@ -124,21 +132,30 @@ Drop order:
 
 Full palette and typography rules live in the brand skill file — below is just enough to catch an obviously wrong color or font in code review.
 
-**Core colors (corrected 2026-07-16 — supersedes the July 5, 2026 list below where it conflicts):** Velvety Charcoal `#252535`, Warm Antique White `#FAF7ED` (main background, 70–80% of every page), Deep Rose `#C44570` (primary signature — every CTA/hover, action only, never decorative), Periwinkle `#8BA7D4` (eyebrow labels, supporting text accents — never on buttons, never a background). **Retired as accents:** Lavender `#C4B0E8` and Soft Peach `#F5C4A8` — Cece's call, confirmed against a live mockup: one committed color story reads more confident than mixing in extra accent hues. **Deep Rose Ramp (new, replaces Lavender/Peach roles and the old single hover-pink token):** `#F9ECF0`(50) `#F3D8E1`(100) `#E7B1C3`(200) `#DA8BA5`(300) `#CE6487`(400) `#C44570`(500, the anchor) `#A33359`(600) `#74253F`(700) `#4E182A`(800) `#270C15`(900) `#1B090F`(950, an alternate near-black dark section color alongside Velvety Charcoal). Full role breakdown in `DESIGN.md` §2.2b. Utility: Warm Brown `#6D4C3E` (icons). Special use: Tool Background `#FDFBF7` — interactive HTML tools only, not a site/product-cover surface. Source: `DESIGN.md` §2.2/§2.2b (supersedes `MNC_Color_Reference_July2026.html` where it conflicts).
+**Core colors (locked July 27, 2026 — supersedes every earlier palette in this file):**
+- **Charcoal** `#262624` — text, headings, nav, footer. 15:1+ against every background, AAA everywhere.
+- **Page background** `#F6F3EC` — main background, 70–80% of every page.
+- **Clean card** `#FEFCF8` — near-white card surface, pair with a 0.5px hairline border.
+- **Cozy card** `#EFE8DC` — deeper, warmer card surface, same hairline-border rule.
+- **Wine** `#7A2E42` — primary button/action color. Emotional/connection CTAs: 6pm Experience, founder story, newsletter.
+- **Copper** `#A15C3E` — secondary button/action color. Product/functional CTAs.
+- **Taupe** `#8C8272` — decorative labels/eyebrow text only. AA-large only, never small primary reading text.
+- **Warm gray** `#6B655C` — icons and utility. Full AA at any size.
+- **Dark orange** `#9E3D0F` — error states. Never rely on color alone — pair with an icon or the word "Error."
+- **Moss** `#46703F` — success states, and the third tag color.
+- **Tags** — colored text only, no fill, no border. Wine, Copper, or Moss text directly on the page/card background.
 
-**Retired — should never appear in new code:** Vibrant Pink `#E87AAA`, Vanilla Cream `#FFF8EE`, Powder Blue `#A8C5DA`, Peach `#F2A57A`, Lemon `#EDD96A`, Lime `#B5CC6A`, Light blush `#facfd4`, Deep Berry `#811453`, Dark Berry `#5E1337`, any Berry shade, Muted Mauve `#A3918A`, Warm Blush `#D6C2B7`, Sage Gold, Peach Tan, Sage Gray, Blush Pink `#F8D4D4`, Soft Pink `#F8BBD0`, Linen White, Soft Rose, Warm Cream `#F4E8C1`, Warm Tan, Coral Orange, Teal, Gold, Navy, cool gray (`#6e6e6e` and similar) for text.
+Source: the current color reference file — ask Cece which one is live if in doubt; this changed twice in one month (May 2026 → July 5, 2026 → July 27, 2026).
 
-⚠️ **Known conflict, not yet resolved:** `DESIGN.md` and the live site pages still specify Vibrant Pink `#E87AAA` etc. as current — that predates the July 5 lock and has not been reconciled. Treat the July 5 doc as authoritative for anything new; flag to Cece before touching `DESIGN.md` or site-wide page CSS on the strength of this list alone.
+**Retired — should never appear in new code:** Everything from the July 5, 2026 palette (Velvety Charcoal `#252535`, Warm Antique White `#FAF7ED`, Deep Rose `#C44570`, Periwinkle `#8BA7D4`, Lavender `#C4B0E8`, Soft Peach `#F5C4A8`, Rose Tint `#F9ECF0`, Peach Tint `#FCF0E8`, Peach Mid `#EFA276`, Warm Brown `#6D4C3E`, Tool Background `#FDFBF7`) plus everything from the May 2026 palette before it: Vibrant Pink `#E87AAA`, Vanilla Cream `#FFF8EE`, Powder Blue `#A8C5DA`, Peach `#F2A57A`, Lemon `#EDD96A`, Lime `#B5CC6A`, Light blush `#facfd4`, Deep Berry `#811453`, Dark Berry `#5E1337`, any Berry shade, Muted Mauve `#A3918A`, Warm Blush `#D6C2B7`, Sage Gold, Peach Tan, Sage Gray, Blush Pink `#F8D4D4`, Soft Pink `#F8BBD0`, Linen White, Soft Rose, Warm Cream `#F4E8C1`, Warm Tan, Coral Orange, Teal, Gold, Navy, cool gray (`#6e6e6e`/`#666666`/`#999999`/`#ABABAB`/`#D3D3D3` and similar) for web text.
 
-✅ `site/about.php` confirmed clean — no retired colors (checked 2026-06-22).
-
-**Fonts:** Montserrat ExtraBold (headlines, display), Arial Regular (body/print). HTML tools only: Lora (display) + DM Sans (body).
+**Fonts:** Montserrat ExtraBold (print/PDF headlines, display), Arial Regular (print/PDF body). HTML tools and site pages: Lora (display) + DM Sans (body).
 
 ---
 
 ## REVIEW PROTOCOLS
 
-For widget UX reviews, see REVIEW_PROMPTS.md in the repo root.
+For widget UX reviews, see `REVIEW_PROMPTS.md` in the repo root.
 
 ---
 
@@ -222,28 +239,34 @@ Fix every issue found. Do not ask permission to fix obvious bugs — fix them.
 **Step 2 — Brand & Visual QA** (run silently, fix everything found, then report)
 
 CSS rule checks (grep the file):
-- border-radius: cards/containers should be 8–10px, buttons/inputs 6px, tags/badges 9999px (pill). Flat/zero-radius on a card or button is now the violation (corrected 2026-07-16 — see DESIGN.md §5.4). Fix to match the standard, don't strip it out.
-- box-shadow: cards should carry the standard soft shadow `0 10px 40px rgba(37,37,53,0.07)`. A card with no shadow at all is now the violation, not the reverse. Heavy/glossy/multiple stacked shadows are still a violation — one soft shadow only.
-- Hex colors: only `#252535 #FAF7ED #C44570 #8BA7D4 #6D4C3E #FDFBF7` plus the Deep Rose Ramp `#F9ECF0 #F3D8E1 #E7B1C3 #DA8BA5 #CE6487 #A33359 #74253F #4E182A #270C15 #1B090F` allowed (corrected 2026-07-16 — see Design System Quick Reference above and DESIGN.md §2.2b). `#C4B0E8` (Lavender) and `#F5C4A8` (Soft Peach) are now retired as accents — flag and replace with the closest Deep Rose Ramp stop. Everything else, including `#6e6e6e`/cool gray: flag and fix.
-- Mobile interaction check (new 2026-07-16, see DESIGN.md §5.6): interactive elements have a visible `:active`/tap state, not just `:hover`. Counters/totals that change animate rather than snap. Flag missing tap feedback on any new interactive element.
+- border-radius: cards/containers must be 8–10px, buttons/inputs 6px, pills/tags/badges only 9999px. Anything else, including 0, is a violation. Find it, fix it.
+- box-shadow: cards should carry `0 10px 40px rgba(37,37,53,0.07)`; `none` on a card is a violation, a different/heavier shadow is also a violation. Find it, fix it.
+- Hex colors: only `#262624 #F6F3EC #FEFCF8 #EFE8DC #7A2E42 #A15C3E #8C8272 #6B655C #9E3D0F #46703F` allowed (July 27, 2026 palette — see Design System Quick Reference above). Everything else, including cool gray or any color from the retired list: flag and fix.
 
 Font check (widget files only):
 - Grep for Montserrat or Arial anywhere in a /widgets/ file. Replace with Lora (display/headers) or DM Sans (body). No other fonts allowed in widgets.
 
-Banned phrase check (grep the full file):
+Banned phrase check (grep the full file) — must match `Skill_File_07-05-2026_v4.md`'s cumulative banned-phrase list exactly; if the two ever disagree, the skill file wins and this list gets corrected:
+- "fluff" — remove it
+- "journey" — replace with "experience," "path," or "chapter"
 - "no judgment" or "zero judgment" — remove it
-- "what you carried" — replace with "what you lived"
-- "as solo moms, we" — Cece speaks for herself only, never for the reader
-- "lightbox" — replace with "6pm Experience" or "6pm Experience widget"
 - "no wrong answers" — remove it
+- "what you carried" — replace with "what you lived"
+- "change things for me" — remove or rephrase
+- "which one keeps coming back" and any variation — remove or rephrase
+- "the one you've said someday to more times than you can count" — remove or rephrase
+- "as solo moms, we" — Cece speaks for herself only, never for the reader
+- "I wasn't broken" — remove
+- "lightbox" — replace with "6pm Experience" or "6pm Experience widget"
 - "hold space" — rephrase in plain language
 - "healing journey" — remove or rephrase
-- "you've got this" — remove
+- "you've got this" and any cheerleading/"look how far you've come" energy — remove
 - "this will help you" — replace with "this helped me" or "this is one way to"
 - "you'll feel" — replace with "I felt" or "you might notice"
 - "you need to" — replace with "you might want to"
 - "it's enough" and all variations ("that's enough," "you are enough," "that is enough") — delete on sight
 - "that's not nothing" and all variations ("that's something," "that matters," "that counts") — delete on sight
+- Any other outcome promise, therapy-speak, or coaching language, and any CTA that reads like a landing-page template instead of Cece talking
 
 Signature element check:
 - Does this tool have ONE element that could only be My Nest Chapter — not something a generic productivity or planner app would have?
@@ -282,3 +305,8 @@ GitHub Action is a second layer — it catches the same CSS and color violations
 
 ---
 
+## CHANGE LOG
+
+*(Full session-by-session history through July 2026 has been moved out of this file and lives permanently in git — run `git log -- CLAUDE.md` for the complete record, including the Garage Sale Planner's build history, past color migrations, and every contrast fix along the way. This file only keeps a short recent record going forward.)*
+
+**2026-07-27** — Full rebuild of this file: retired the separate `MNC-PRODUCT-ROADMAP.md` (had drifted ~6 weeks out of sync with reality; its job is now the Current Focus section above), moved the full historical changelog out of the working file and into git history only, and rolled in the new July 27, 2026 color palette (replaces the July 5, 2026 palette sitewide — see Design System Quick Reference). Also consolidated four other fixes from earlier the same day: corrected the border-radius/box-shadow standard (was mistakenly documented as a per-widget 0px/8px choice; corrected to the actual sitewide 8–10px/6px/9999px standard), expanded the banned-phrase QA checklist to match the skill file's full list, fixed a wrong filename reference (skill file was pointed at a file that doesn't exist), and added an Open Items section consolidating everything still genuinely unresolved (security files, Know Before You Sell review, the exclusive-content-drip conflict, print-proofing Wine).

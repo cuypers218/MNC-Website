@@ -21,70 +21,58 @@
 
 ## 2. COLOR SYSTEM
 
-> **Locked July 5, 2026** (`MNC_Color_Reference_July2026.html`, source: `Skill_File_07-05-2026_v4.md`). This supersedes the May 2026 palette below site-wide — web, print, and interactive tools all draw from this same set now. Previously each context (site vs. widgets) had drifted onto separately-patched colors; as of this lock there is one palette for everything carrying the My Nest Chapter brand.
+> **Locked July 27, 2026.** Supersedes the July 5, 2026 lock below and the July 16, 2026 Wine Ramp system entirely — both are retired, not just amended. Built and confirmed directly with Cece through a series of real mockups and WCAG contrast checks, in response to specific dissatisfaction with the July 5 palette (didn't like the blue on screen, black felt wrong as a dominant color, pink/peach looked inconsistent across contexts). One palette for everything — web, print, and interactive tools all draw from this same set.
 
-### 2.1 Foundation Colors
-
-| Name | Hex | Role |
-|---|---|---|
-| Velvety Charcoal | `#252535` | Primary dark — backgrounds, hero overlays, section fills. Never more than 20–30% of any page. |
-| Warm Antique White | `#FAF7ED` | Main page background — hero, all content sections. 70–80% of every page is this color. *(replaces Vanilla Cream `#FFF8EE`, retired)* |
-
-### 2.2 Confident Colors
+### 2.1 Text / Dark Neutral
 
 | Name | Hex | Role |
 |---|---|---|
-| Deep Rose | `#C44570` | **Primary signature color** — every CTA button, every hover state, active nav link, section-divider accent. Action only — never decorative. *(replaces Vibrant Pink `#E87AAA`, retired)* |
-| Periwinkle | `#8BA7D4` | Logo "MY NEST," eyebrow labels above headings, section category labels, supporting text accents/captions/metadata. Never on buttons. Never as a background. |
+| Charcoal | `#262624` | All body text, headings, nav, footer. 15:1+ against every background below — AAA everywhere. Never more than 20–30% of any page as a fill/background. |
 
-**Retired as accents, 2026-07-16:** Lavender `#C4B0E8` and Soft Peach `#F5C4A8` are no longer used as accent/badge/divider colors. Cece's direction, confirmed against a live mockup: one committed color story (near-black + Deep Rose family) reads more confident and cohesive than mixing in extra accent hues. Anywhere Lavender or Soft Peach previously sat (badges, tags, dividers, callout accents) now pulls from the Deep Rose Ramp in §2.2b instead. Periwinkle stays — it's locked separately for eyebrow labels only and wasn't part of this change.
-
-### 2.2b Deep Rose Ramp (added 2026-07-16)
-
-One hue, light tint to near-black shade, used for icon backgrounds, secondary accents, depth, and all button hover states — replacing the old single hover-pink token and the retired Peach/Lavender accent roles above. Source: Cece's Coolors "Rose Wine" palette, reconciled with the brand's existing Deep Rose anchor and Rose Tint/Link Hover Pink tokens so nothing gets orphaned.
-
-| Stop | Hex | Role |
-|---|---|---|
-| 50 | `#F9ECF0` | Lightest tint — card icon backgrounds, hover backgrounds on white cards, selected-item backgrounds *(same token as "Rose Tint" below — now the ramp's 50 stop)* |
-| 100 | `#F3D8E1` | Light tint — secondary icon backgrounds, subtle section fills |
-| 200 | `#E7B1C3` | Light-mid — badge/tag fills where a soft pink chip is needed |
-| 300 | `#DA8BA5` | Mid-light — eyebrow/label text on dark backgrounds (replaces Periwinkle-on-dark in some contexts — use judgment, Periwinkle rule for eyebrow labels is unchanged elsewhere) |
-| 400 | `#CE6487` | Mid — secondary CTAs, icon glyph color on light tint backgrounds |
-| **500** | **`#C44570`** | **Deep Rose — the brand anchor, unchanged. Primary buttons, primary CTAs.** |
-| 600 | `#A33359` | Button hover state (replaces "Link Hover Pink" below — now the ramp's 600 stop), darker icon glyphs |
-| 700 | `#74253F` | Deeper hover/active state, icon glyphs needing more contrast on light tints |
-| 800 | `#4E182A` | Dark accent text on light-pink fills, deep icon glyphs |
-| 900 | `#270C15` | Near-black-pink, rarely used — deep shadow tints only |
-| 950 | `#1B090F` | Darkest — paired with or in place of Velvety Charcoal for hero/dark sections wanting maximum confidence/contrast (Cece: "I love the black... black is one of my favorite colors") |
-
-**How to use it:** pick two stops per screen max (e.g. a 50 or 100 for a fill, a 600 or 700 for the icon/text on top) — don't rainbow across the whole ramp on one screen. Velvety Charcoal `#252535` is still the default dark section color; stop 950 (`#1B090F`) is an alternate, moodier dark for screens that want to lean into the "confident/sexy" end (see §5.6b).
-
-### 2.3 Warm Colors
-
-**Retired 2026-07-16 — this entire section.** Soft Peach `#F5C4A8` is retired as an accent color; see §2.2 note above. Where warmth is still needed, it now comes from Warm Antique White (background) and the Deep Rose Ramp's light stops (§2.2b), not a separate peach hue.
-
-**Judgment call, flagged (unchanged):** Lemon `#EDD96A` and Lime `#B5CC6A` (old role: decorative only) remain retired outright — the lock doc calls them "wrong emotional register." Remove decorative Lemon/Lime uses rather than substituting a color; if a genuine accent is still needed in that spot, use the Deep Rose Ramp (§2.2b).
-
-### 2.3b Utility Colors (new — infrastructure only, not brand-facing)
+### 2.2 Backgrounds and Cards
 
 | Name | Hex | Role |
 |---|---|---|
-| Rose Tint | `#F9ECF0` | Hover state background on cards, selected-item backgrounds, focused input field tint *(= Deep Rose Ramp 50, §2.2b)* |
-| Warm Brown | `#6D4C3E` | Icons, small UI elements on light backgrounds |
+| Page background | `#F6F3EC` | Main page background — hero, all content sections. 70–80% of every page. |
+| Clean card | `#FEFCF8` | Near-white card surface. Pair with a 0.5px hairline border — the color difference from Page background alone is too subtle to read as "layered." |
+| Cozy card | `#EFE8DC` | Deeper, warmer card surface. Same hairline-border rule. Also used for dividers and the old "Alt Section BG" role. |
 
-**Retired 2026-07-16:** Peach Tint `#FCF0E8` and Peach Mid `#EFA276` are retired along with Soft Peach (§2.3). Product card fills, text box backgrounds, and input borders now pull from the Deep Rose Ramp (§2.2b) — typically stop 50 or 100 for fills, stop 300 or 400 for borders/outlines needing definition.
-
-**Rule: no cool gray anywhere.** Any gray text/border/fill (`#666666`, `#999999`, `#6e6e6e`, `#ABABAB`-as-a-text-color, etc.) is a violation going forward — use Periwinkle for text, the utility tints above for fills/borders. The one exception is disabled-state UI affordance (grayed-out buttons/inputs to signal "not interactive") — that's a UI convention orthogonal to brand color, not a text/label choice, and is left alone pending an explicit call from Cece if she wants that changed too.
-
-### 2.3c Special Use
+### 2.3 Buttons — Two Signature Action Colors
 
 | Name | Hex | Role |
 |---|---|---|
-| Tool Background | `#FDFBF7` | Interactive HTML tools only (Garage Sale Planner, trackers, widgets). Not a brand surface — not for site pages or product covers. |
+| Wine | `#7A2E42` | **Primary** — emotional/connection CTAs: 6pm Experience, founder story, newsletter. 8.44:1 against Page background — AAA. |
+| Copper | `#A15C3E` | **Secondary** — product/functional CTAs. 4.60:1 against Page background — AA. |
 
-### 2.4 Workbook / Document Element Colors
+Both confirmed liked independently — this is a genuine two-color system, not primary-with-a-fallback. If a screen needs just one, default to Wine.
 
-**Unchanged by the July 5, 2026 lock.** Per §5.5/§9.2 below, workbook *content pages* (non-cover) are deliberately brand-color-free — neutral grays, off-whites, black text only, for print legibility. The lock doc has no print/workbook section; these technical grays are a separate, intentional exception, not a "cool gray" violation.
+### 2.4 Labels and Icons
+
+| Name | Hex | Role |
+|---|---|---|
+| Taupe | `#8C8272` | Decorative labels, eyebrow text, category labels only. 3.41:1 against Page background — AA-large only, never small primary reading text. Never on buttons, never as a background. |
+| Warm gray | `#6B655C` | Icons, small UI elements. 5.20:1 against Page background — full AA at any size. |
+
+### 2.5 Error and Success
+
+| Name | Hex | Role |
+|---|---|---|
+| Dark orange | `#9E3D0F` | Error states, form validation failures. 6.06:1 against Page background. Never rely on color alone — pair with an icon or the word "Error"; it sits close in family to Copper. Replaces the old Error Red `#C0392B` / Error BG `#FDEDEC`. |
+| Moss | `#46703F` | Success states, confirmations. 6.30:1 against Page background. Replaces the old Success Green `#1E7E34` / Success BG `#E8F5E9`. |
+
+### 2.6 Tags
+
+Colored text only — no fill, no background tint, no border. Tested and rejected both alternatives directly with Cece (filled tint backgrounds, then outlined borders) before landing here; plain colored text tested as the most legible option.
+
+| Name | Hex | Use |
+|---|---|---|
+| Wine | `#7A2E42` | e.g. "solo mom favorite" |
+| Copper | `#A15C3E` | e.g. "most popular" — on Cozy card specifically, keep to large/bold text only (4.19:1, AA-large not full AA) |
+| Moss | `#46703F` | e.g. "new this week" |
+
+### 2.7 Workbook / Document Element Colors
+
+**Unchanged by any web color revision.** Workbook *content pages* (non-cover) are deliberately brand-color-free — neutral grays, off-whites, black text only, for print legibility. These technical grays are a separate, intentional exception, not a "cool gray" violation.
 
 | Name | Hex | Role |
 |---|---|---|
@@ -93,35 +81,24 @@ One hue, light tint to near-black shade, used for icon backgrounds, secondary ac
 | Text Box Outline | `#ABABAB` | Box borders in workbooks and web |
 | Alt Text Lines | `#E0E0E0` | Alternate ruled lines |
 
-### 2.5 Text Colors
+### 2.8 Print/PDF Title Text Colors
 
 | Name | Hex | Role |
 |---|---|---|
-| Near-Black | `#0D0D0D` | Main titles in print/PDF, H1 on light web backgrounds |
-| Dark Gray | `#333333` | Headings web + print, H2/H3 on light web backgrounds |
-| Body Near-Black | `#101010` | All body/paragraph text |
-| ~~Mid Gray~~ `#666666` | **Retired for web captions/labels/metadata** — replace with Periwinkle `#8BA7D4` per the "no cool gray anywhere" rule in §2.3b. Still fine for workbook/PDF print context (§2.4). |
-| ~~Light Gray~~ `#999999` | **Retired for footer copyright text** — replace with Periwinkle `#8BA7D4`. |
-| Disabled | `#ABABAB` | Borders, disabled button/input affordance — left as-is, a UI-state convention rather than a brand text color (see §2.3b note) |
+| Near-Black | `#0D0D0D` | Main titles in print/PDF |
+| Dark Gray | `#333333` | Headings, print/PDF only |
+| Body Near-Black | `#101010` | Body/paragraph text, print/PDF only |
+| Disabled | `#ABABAB` | Borders, disabled button/input affordance — a UI-state convention, not a brand text color |
 
-### 2.6 Utility / State Colors
+**Rule: no cool gray anywhere on the web.** `#666666`, `#999999`, `#6e6e6e`, `#333333`, `#444444` and similar as web text/border/fill are all violations — use Charcoal for primary text, Warm gray for muted/utility text, Taupe for decorative labels only.
 
-| Name | Hex | Role |
-|---|---|---|
-| Link Hover Pink | `#A33359` | Deep Rose, one shade darker — hover/active states *(= Deep Rose Ramp 600, §2.2b; matches the "Sweet Peony" hover/active step already established in the Garage Sale Planner widget — see CLAUDE.md 2026-07-06)* |
-| Error Red | `#C0392B` | Form errors |
-| Error BG | `#FDEDEC` | Error message background |
-| Success Green | `#1E7E34` | Form success |
-| Success BG | `#E8F5E9` | Success message background |
-| Page Gray | `#FAFAFA` | Default page background (not pure white) |
-| Alt Section BG | `#E8EEF4` | Dusty blue-gray section variant — **flagged, not replaced**: this predates the lock and isn't in the approved list; needs a call from Cece on whether to retire it in favor of Warm Antique White or keep it as a distinct "alt section" fill |
-| Input BG | `#FCFCFC` | Form input background — **flagged**: close to but not identical to the lock's Peach Tint `#FCF0E8`; recommend switching to Peach Tint for consistency, not yet applied without confirmation |
+### 2.9 Retired Colors — Never Use
 
-### 2.7 Retired Colors — Never Use
+**Retired July 27, 2026 (the entire July 5–16 system):** Velvety Charcoal `#252535`, Warm Antique White `#FAF7ED`, Deep Rose `#C44570`, Periwinkle `#8BA7D4`, Lavender `#C4B0E8`, Soft Peach `#F5C4A8`, Rose Tint `#F9ECF0`, Peach Tint `#FCF0E8`, Peach Mid `#EFA276`, Warm Brown `#6D4C3E`, Tool Background `#FDFBF7`, the entire Wine/Deep Rose Ramp (stops 50–950, including `#F3D8E1`, `#E7B1C3`, `#DA8BA5`, `#CE6487`, `#74253F`, `#4E182A`, `#270C15`, `#1B090F`), Error Red `#C0392B`, Error BG `#FDEDEC`, Success Green `#1E7E34`, Success BG `#E8F5E9`, Page Gray `#FAFAFA`, Input BG `#FCFCFC`.
 
-**Newly retired July 5, 2026:** Vibrant Pink `#E87AAA`, Vanilla Cream `#FFF8EE`, Powder Blue `#A8C5DA`, Peach `#F2A57A`, Lemon `#EDD96A`, Lime `#B5CC6A`, cool gray as a text/label/caption color (`#666666`, `#999999`, `#6e6e6e` and similar — disabled-state UI gray excepted, see §2.5).
+**Retired July 5, 2026 (still retired):** Vibrant Pink `#E87AAA`, Vanilla Cream `#FFF8EE`, Powder Blue `#A8C5DA`, Peach `#F2A57A`, Lemon `#EDD96A`, Lime `#B5CC6A`.
 
-**Retired previously:** Deep Berry `#811453`, all Berry shades, Soft Pink `#F8BBD0`, Warm Cream `#F4E8C1`, Warm Tan `#C8A982`, Warm Mauve `#BCAAA4`, Coral Orange `#FF6F61`, Teal `#00CACA`, Bright Yellow `#FFDD00`, Deep Plum `#6B3B50`, Light Peach `#F5D4B1`, Warm Gray `#B19D8D`, Soft Linen `#EAD3B7`, Dusty Rose `#D7A8A4`, old widget palette (Sage Gold, Peach Tan, Sage Gray, Blush Pink, Linen White, Muted Mauve), Gold `#FFD700`, Navy `#000080`, and all prior pink/blue shades.
+**Retired earlier still:** Deep Berry `#811453`, all Berry shades, Soft Pink `#F8BBD0`, Warm Cream `#F4E8C1`, Warm Tan `#C8A982`, Warm Mauve `#BCAAA4`, Coral Orange `#FF6F61`, Teal `#00CACA`, Bright Yellow `#FFDD00`, Deep Plum `#6B3B50`, Light Peach `#F5D4B1`, Warm Gray `#B19D8D` (unrelated to the new, different Warm gray `#6B655C` above), Soft Linen `#EAD3B7`, Dusty Rose `#D7A8A4`, old widget palette (Sage Gold, Peach Tan, Sage Gray, Blush Pink, Linen White, Muted Mauve), Gold `#FFD700`, Navy `#000080`, and all prior pink/blue/lavender/peach shades.
 
 ---
 
@@ -136,37 +113,36 @@ One hue, light tint to near-black shade, used for icon backgrounds, secondary ac
 | Subheading | Montserrat | Extra Bold (800) | 13pt | `#333333` |
 | Body / Paragraph | Arial | Regular (400) | 12pt | `#101010` |
 
-**Font rule:** Montserrat Extra Bold handles ALL display text. Arial Regular handles all body/paragraph text. No other fonts — ever.
+**Font rule:** Montserrat Extra Bold handles ALL display text. Arial Regular handles all body/paragraph text. No other fonts — ever. This is print/PDF/workbook only.
 
-### 3.2 Web Context (site CSS)
+### 3.2 Web Context (site CSS) — corrected 2026-07-27
+
+**This section previously documented Montserrat/Arial as the web font stack. That was wrong and had been wrong for a while — every other current source (CLAUDE.md, the skill file, the Widget Typography Hierarchy doc, and the live `style.css` as of today) already correctly uses Lora + DM Sans for web. Corrected below to match reality.**
 
 | Element | Font | Weight | Size | Notes |
 |---|---|---|---|---|
-| h1 | Montserrat | 800 | 1.75rem | Uppercase, letter-spacing 0.02em |
-| h2 | Montserrat | 800 | 1.25rem | Uppercase |
-| h3 | Montserrat | 800 | 1rem | Uppercase |
-| h4 | Montserrat | 800 | — | Uppercase |
-| Body | Arial | 400 | 16px | line-height 1.6 |
-| Nav links | Montserrat | 800 | 0.8rem | Uppercase, letter-spacing 1px |
-| Buttons | Montserrat | 800 | 0.85rem | Uppercase, letter-spacing 1px |
-| Labels / Categories | Montserrat | 800 | 0.65–0.75rem | Uppercase, letter-spacing 0.05–0.1em |
+| h1, h2, h3, h4 | Lora | 700 (Lora has no 800) | 1.75 / 1.25 / 1rem / — | Uppercase, letter-spacing 0.02em on h1 |
+| Body | DM Sans | 400 | 16px | line-height 1.6 |
+| Nav links | DM Sans | 700 | 0.8rem | Uppercase, letter-spacing 1px |
+| Buttons | DM Sans | 700 | 0.85rem | Uppercase, letter-spacing 1px |
+| Labels / Categories | DM Sans | 700 | 0.65–0.75rem | Uppercase, letter-spacing 0.05–0.1em |
 
-**Web font stack:** `'Montserrat', sans-serif` and `'Arial', sans-serif`
+**Web font stack:** `'Lora', serif` (display) and `'DM Sans', sans-serif` (body/UI). Montserrat and Arial are never loaded as web fonts (see Appendix B).
 
 ### 3.3 Interactive HTML Tools Context
 
 | Element | Font | Weight | Notes |
 |---|---|---|---|
-| Display / Story text | Lora | 400 / 600 / italic | Serif — emotional, narrative moments |
-| Body / UI | DM Sans | — | Clean, readable for interactive UI |
-| Brand tag / labels | Montserrat | 800 | Uppercase, letter-spacing 3px |
+| Display / Story text | Lora | 400 / 600 / 700 / italic | Serif — emotional, narrative moments, headings |
+| Body / UI | DM Sans | 400–800 | Clean, readable for interactive UI |
+| Brand tag / labels | DM Sans | 800 | Uppercase, letter-spacing 3px |
 
-**Rule:** Lora + DM Sans are for interactive HTML tools only. They do not replace the print/web typography system.
+**Rule:** Lora + DM Sans are for both web site pages and interactive HTML tools — the same pairing, one system, not two separate ones. Print/workbook typography (§3.1) remains its own separate system.
 
 ### 3.4 Type Treatment Rules
 
 - All headings and nav elements: `text-transform: uppercase`
-- Hero tagline: Montserrat 800, 2.2rem, `#FAF7ED`, uppercase, `letter-spacing: 0.02em`, `line-height: 1.15`
+- Hero tagline: Lora 700, 2.2rem, `#F6F3EC`, uppercase, `letter-spacing: 0.02em`, `line-height: 1.15`
 - No italics in print context
 - No decorative fonts
 - Fragments allowed and encouraged when they "land harder"
@@ -175,23 +151,23 @@ One hue, light tint to near-black shade, used for icon backgrounds, secondary ac
 
 ## 4. LOGO SYSTEM
 
-### 4.1 Wordmark — Locked (May 2026), colors updated to July 5, 2026 lock
+### 4.1 Wordmark — Locked (May 2026), colors updated to July 27, 2026 palette
 
-- **Stacked wordmark:** "MY NEST" in Periwinkle `#8BA7D4` | "Chapter" large in Deep Rose `#C44570` | Soft Peach `#F5C4A8` accent bar
-- **Tagline version adds:** "FOR SINGLE & SOLO MOMS." in Periwinkle `#8BA7D4`
+- **Stacked wordmark:** "MY NEST" in Taupe `#8C8272` | "Chapter" large in Wine `#7A2E42` | Copper `#A15C3E` accent bar
+- **Tagline version adds:** "FOR SINGLE & SOLO MOMS." in Taupe `#8C8272`
 
-### 4.2 Favicon / Brand Mark — Option B (Locked), colors updated to July 5, 2026 lock
+### 4.2 Favicon / Brand Mark — Option B (Locked), colors updated to July 27, 2026 palette
 
 - **Doorway icon** — slightly ajar door
-- **Standalone:** Velvety Charcoal `#252535` door frame | Deep Rose `#C44570` doorknob | Soft Peach `#F5C4A8` light spill
-- **Favicon:** Warm Antique White `#FAF7ED` icon on Velvety Charcoal `#252535` background | Deep Rose doorknob
+- **Standalone:** Charcoal `#262624` door frame | Wine `#7A2E42` doorknob | Copper `#A15C3E` light spill
+- **Favicon:** Page background `#F6F3EC` icon on Charcoal `#262624` background | Wine doorknob
 - Files: `mnc-logo-black.svg`, `MNC_Brand_Mark_Doorway.svg`, `MNC_Logo_Stacked_Wordmark.svg`, `MNC_Logo_Tagline.svg`, `MNC_Favicon.svg`
 
 **Not yet done:** these are Canva-exported SVG assets living outside this repo (not found under `MNC-Website/`) — this doc update is text-only. The actual asset files still need to be re-exported from Canva with the new colors before the favicon/logo files themselves match this spec.
 
 ### 4.3 Usage Rules
 
-- Web brand mark in header: Montserrat 800, `#8BA7D4`, uppercase, `letter-spacing: 2px`, 1.1rem
+- Web brand mark in header: DM Sans 800, `#8C8272`, uppercase, `letter-spacing: 2px`, 1.1rem
 - Footer brand: same treatment, 0.9rem
 - Logo is NOT a clickable image in header — rendered as styled text in CSS
 - Cece's photo: appropriate for About page and blog bio only. Present but not dominant.
@@ -209,18 +185,18 @@ One hue, light tint to near-black shade, used for icon backgrounds, secondary ac
 
 ### 5.2 Hero Image Treatment
 
-- Velvety Charcoal `#252535` background with photo overlay
+- Charcoal `#262624` background with photo overlay
 - `linear-gradient(to bottom, rgba(37,37,53,0.55) 0%, rgba(37,37,53,0.75) 100%)` overlay on hero images
 - Photo opacity ~0.55 where text sits above it
 
 ### 5.3 Widget / Interactive Tool Aesthetic
 
 - Full-screen or large viewport experiences
-- Charcoal `#252535` base with Lora serif text in Warm Antique White `#FAF7ED`
+- Charcoal `#262624` base with Lora serif text in Page background `#F6F3EC`
 - Scene backgrounds with 55% opacity overlay
 - `linear-gradient(to bottom, rgba(0,0,0,0.25) 0%, rgba(0,0,0,0.55) 100%)` text legibility overlay
 - Story text in Lora 22pt; italic intro text at 16pt
-- Brand tag: Montserrat 800, 9pt, Deep Rose `#C44570`, letter-spacing 3px
+- Brand tag: DM Sans 800, 9pt, Wine `#7A2E42`, letter-spacing 3px
 
 ### 5.4 Design Rules — Hard Constraints
 
@@ -277,8 +253,8 @@ One hue, light tint to near-black shade, used for icon backgrounds, secondary ac
 ### 5.6b Confident + warm blend (added 2026-07-16)
 
 Cece's brief: "sexy and confident" blended with "warm, nurturing and encouraging" — confirmed against a live mockup. The two qualities aren't a compromise blended evenly across a screen; they're separated by zone:
-- **Confidence/boldness** lives in one committed dark moment per screen — a near-black (`#1B090F`, Deep Rose Ramp 950, or Velvety Charcoal `#252535`) section with a single decisive Deep Rose accent (e.g. a circular progress ring), not scattered small accents. Restraint is what makes it read confident rather than loud.
-- **Warmth/nurturing** lives in everything surrounding that moment — Warm Antique White space, soft-shadow white cards (§5.4), rounded icon circles pulling from the Deep Rose Ramp's light stops, encouraging first-person-adjacent copy ("Pick up where you left off," not "Dashboard").
+- **Confidence/boldness** lives in one committed dark moment per screen — a near-black (`#1B090F`, Wine Ramp 950, or Charcoal `#262624`) section with a single decisive Wine accent (e.g. a circular progress ring), not scattered small accents. Restraint is what makes it read confident rather than loud.
+- **Warmth/nurturing** lives in everything surrounding that moment — Page background space, soft-shadow white cards (§5.4), rounded icon circles pulling from the Wine Ramp's light stops, encouraging first-person-adjacent copy ("Pick up where you left off," not "Dashboard").
 - Apply this zone split to every new screen: pick one moment to be bold and dark, let the rest be soft and warm. Don't spread boldness evenly (reads busy) or softness evenly (reads flat/timid).
 
 ---
@@ -287,70 +263,71 @@ Cece's brief: "sexy and confident" blended with "warm, nurturing and encouraging
 
 ### 6.1 Buttons
 
-Each button variant has its own distinct hover color — never one shared hover color across all variants — and as of 2026-07-16, every hover/active stop is drawn from the Deep Rose Ramp (§2.2b) so all hovers read as one cohesive color family instead of unrelated one-off shades.
+Each button variant has its own distinct hover color — never one shared hover color across all variants. As of 2026-07-27, hover/active states are simple fixed shades, not ramp-derived (the Wine Ramp this used to reference is retired — see §2).
 
 | Variant | Background | Text | Border | Hover | Active |
 |---|---|---|---|---|---|
-| `.btn-primary` | `#C44570` (Ramp 500) | `#FFFFFF` | none | `#A33359` (Ramp 600) | `#74253F` (Ramp 700) |
-| `.btn-outline` | `#FFFFFF` | `#C44570` (Ramp 500) | 1px `#C44570` | `#F9ECF0` bg (Ramp 50) | `#F3D8E1` bg (Ramp 100) |
-| `.btn-dark` | `#101010` | `#FFFFFF` | none | `#C44570` bg (Ramp 500) | `#A33359` bg (Ramp 600) |
-| `.btn-hero` | transparent | `#FFFFFF` | 2px rgba(255,255,255,0.7) | Glow pulse animation (unchanged) | — |
+| `.btn-primary` | `#7A2E42` (Wine) | `#FFFFFF` | none | `#5E2233` | `#5E2233` + `translateY(1px)` |
+| `.btn-secondary` | `#A15C3E` (Copper) | `#F6F3EC` | none | `#83492F` | `#83492F` + `translateY(1px)` |
+| `.btn-outline` | `#FFFFFF` | `#7A2E42` | 1px `#7A2E42` | `#FEFCF8` bg | `#EFE8DC` bg |
+| `.btn-dark` | `#262624` (Charcoal) | `#FFFFFF` | none | `#7A2E42` bg | `#5E2233` bg |
+| `.btn-hero` | transparent | `#FFFFFF` | 2px rgba(255,255,255,0.7) | Glow pulse animation (see §6.10) | — |
 | Disabled | `#DDDDDD` | `#ABABAB` | none | — | `cursor: not-allowed` |
 
-- All buttons: Montserrat 800, 0.85rem, uppercase, letter-spacing 1px
+- All buttons: DM Sans 700, 0.85rem, uppercase, letter-spacing 1px
 - Padding: `14px 32px` (standard), `14px 36px` (hero)
-- Border-radius: `6px` (per the corrected §5.4 standard — pill/`9999px` is now reserved for tags/badges, not buttons)
+- Border-radius: `6px` (per §5.4 — pill/`9999px` is reserved for tags/badges, not buttons)
 - Active: `transform: translateY(1px)` on tap/click, combined with the active-state color above — should feel like a visible press, not just a color shift
 - Minimum touch target: 44×44px on mobile (`min-height: 44px`)
 
 ### 6.2 Cards
 
 **Product Cards:**
-- Background: `#FFFFFF`, border-radius `8–10px` (per §5.4), border removed in favor of the standard soft shadow (`0 10px 40px rgba(37,37,53,0.07)`) — border only if a card needs a hard edge for contrast against a similar-colored background
+- Background: `#FFFFFF` or `#FEFCF8` (Clean card), border-radius `8–10px` (per §5.4), soft shadow (`0 10px 40px rgba(37,37,53,0.07)`) — border only if a card needs a hard edge for contrast against a similar-colored background
 - Hover: `transform: translateY(-4px)`, `transition: 0.3s ease`
 - Image height: 220px, `object-fit: cover`, top corners inherit the card's radius (clip to match)
-- Category label: Montserrat 800, 0.7rem, uppercase, letter-spacing 0.1em, `#8BA7D4` (Periwinkle — was `#666666`)
-- Title: Montserrat 800, 1.15rem, uppercase, `#333333`
-- Description: Arial, 0.95rem, `#444444`
+- Category label: DM Sans 700, 0.7rem, uppercase, letter-spacing 0.1em, `#6B655C` (Warm gray)
+- Title: Lora 700, 1.15rem, uppercase, `#262624`
+- Description: DM Sans, 0.95rem, `#262624`
 - CTA: full-width button, always at bottom
-- Badges: positioned `top: 1rem; right: 1rem` — pill radius (`9999px`), 1px border
+- Badges: colored text only, no fill, no border (see §2.6) — positioned `top: 1rem; right: 1rem`
 
 **Locked card (dashboard):** border with 40% opacity, grayscale + opacity on image, gradient background.
 
 **Blog Cards:**
 - Same border/shadow system as product cards
 - Image height: 180px
-- Title: 1rem (smaller than product cards)
-- Date: Montserrat 400, 0.75rem, `#8BA7D4` (Periwinkle — was `#666666`)
+- Title: Lora 700, 1rem (smaller than product cards)
+- Date: DM Sans 400, 0.75rem, `#6B655C` (Warm gray)
 
 ### 6.3 Navigation
 
 **Desktop header:**
 - Sticky, white background, `border-bottom: 1px solid #ABABAB`
-- Nav links: Montserrat 800, 0.8rem, uppercase, letter-spacing 1px, `#101010`
-- Active/hover: `color: #C44570` + `border-bottom: 2px solid #C44570`
-- Auth link: `#C44570` text
+- Nav links: DM Sans 700, 0.8rem, uppercase, letter-spacing 1px, `#262624`
+- Active/hover: `color: #7A2E42` + `border-bottom: 2px solid #7A2E42`
+- Auth link: `#7A2E42` text
 
 **Mobile nav:**
 - Slide-in panel from right, 280px wide, `border-left: 1px solid #ABABAB`
-- Hamburger: 24px width, 2px height bars, `#101010`
+- Hamburger: 24px width, 2px height bars, `#262624`
 - Each link: `border-bottom: 1px solid #D3D3D3`
 - Overlay: `rgba(0,0,0,0.3)` backdrop
 
 ### 6.4 Forms & Inputs
 
-- Input border: `1px solid #ABABAB`, no radius
-- Input background: `#FCFCFC`
-- Focus: `border-color: #C44570`
+- Input border: `1px solid #E5DED0`, `border-radius: 6px` (per §5.4)
+- Input background: `#FEFCF8` (Clean card)
+- Focus: `border-color: #7A2E42`
 - Placeholder: `#BCBCBC`
-- Labels: Montserrat 800, 0.75rem, uppercase, letter-spacing 0.05em, `#333333`
-- Error state: `1px solid #C0392B`, red `#C0392B` text, `#FDEDEC` background
-- Success state: `1px solid #1E7E34`, green text, `#E8F5E9` background
+- Labels: DM Sans 700, 0.75rem, uppercase, letter-spacing 0.05em, `#262624`
+- Error state: `1px solid #9E3D0F`, Dark orange `#9E3D0F` text, pair with an icon or the word "Error" — never color alone (see §2.5)
+- Success state: `1px solid #46703F`, Moss `#46703F` text
 - Form max-width: 420px centered
 
 ### 6.5 Email Capture
 
-- Background `#FFFFFF`, border `1px solid #ABABAB`, no radius
+- Background `#FFFFFF`, border `1px solid #ABABAB`, `border-radius: 8px` (per §5.4)
 - Padding 2.5rem, centered text
 - Inline form: input + button, no gap (flush joined)
 - Input border-right removed to join with button
@@ -358,38 +335,38 @@ Each button variant has its own distinct hover color — never one shared hover 
 
 ### 6.6 Filter Tabs
 
-- Montserrat 800, 0.8rem, uppercase
-- Active/hover: `color: #C44570` + `border-bottom: 2px solid #C44570`
+- DM Sans 700, 0.8rem, uppercase
+- Active/hover: `color: #7A2E42` + `border-bottom: 2px solid #7A2E42`
 - No background change on active
 - Mobile: horizontal scroll, `flex-wrap: nowrap`
 
 ### 6.7 Toast Notifications
 
-- Fixed top-center, Deep Rose `#C44570` background, white text
-- Montserrat 800, 0.7rem, uppercase, letter-spacing 2px
-- `border-bottom: 2px solid #A33359`
+- Fixed top-center, Charcoal `#262624` background, white text
+- DM Sans 800, 0.7rem, uppercase, letter-spacing 2px
+- `border-bottom: 2px solid #7A2E42`
 - Fade in/out via opacity
 
 ### 6.8 Dashboard
 
-- Section titles: Montserrat 800, 0.85rem, uppercase, letter-spacing 0.1em, `#8BA7D4` (Periwinkle — was `#666666`), `border-bottom: 1px solid #4B4B4B`
-- Welcome: Montserrat 800, 1.5rem, uppercase, `#333333`
+- Section titles: DM Sans 700, 0.85rem, uppercase, letter-spacing 0.1em, `#8C8272` (Taupe), `border-bottom: 1px solid #4B4B4B`
+- Welcome: Lora 700, 1.5rem, uppercase, `#262624`
 
 ### 6.9 Footer
 
 - White background, `border-top: 1px solid #ABABAB`
 - Centered text layout
-- Brand name: Montserrat 800, 0.9rem, uppercase, `#8BA7D4`, letter-spacing 2px
-- Tagline below: Montserrat 400, 0.7rem, uppercase, letter-spacing 0.1em, `#8BA7D4` (Periwinkle — was `#666666`)
+- Brand name: DM Sans 800, 0.9rem, uppercase, `#8C8272`, letter-spacing 2px
+- Tagline below: DM Sans 400, 0.7rem, uppercase, letter-spacing 0.1em, `#8C8272` (Taupe)
 - Nav links: 0.7rem, uppercase
-- Copyright: Arial, 0.75rem, `#8BA7D4` (Periwinkle — was `#999999`)
+- Copyright: DM Sans, 0.75rem, `#8C8272` (Taupe)
 
 ### 6.10 Animations
 
 ```css
 @keyframes heroGlow {
-  0%, 100% { box-shadow: 0 0 0 0 rgba(232,122,170,0); }
-  50%       { box-shadow: 0 0 22px 6px rgba(232,122,170,0.55); }
+  0%, 100% { box-shadow: 0 0 0 0 rgba(122,46,66,0); }
+  50%       { box-shadow: 0 0 22px 6px rgba(122,46,66,0.55); }
 }
 
 @keyframes contentFadeIn {
@@ -402,6 +379,7 @@ Each button variant has its own distinct hover color — never one shared hover 
   50%       { opacity: 1; }
 }
 ```
+
 
 - Fade-in stagger classes: `.fade-in`, `.fade-in-delay-1` (0.1s), `.fade-in-delay-2` (0.2s), `.fade-in-delay-3` (0.3s)
 - Hero button glow: 2.5s infinite, cancelled on hover
@@ -430,9 +408,9 @@ Each button variant has its own distinct hover color — never one shared hover 
 |---|---|---|
 | `.section` | `#FAFAFA` | `4rem 0` |
 | `.section-alt` | `#FFFFFF` | `4rem 0` |
-| `.section-cream` | `#FAF7ED` | `4rem 0` |
-| `.section-warm` | `#FAF7ED` | `4rem 0` |
-| `.section-charcoal` | `#252535` | `4rem 0` |
+| `.section-cream` | `#F6F3EC` | `4rem 0` |
+| `.section-warm` | `#F6F3EC` | `4rem 0` |
+| `.section-charcoal` | `#262624` | `4rem 0` |
 | `.section-dusty` | `#E8EEF4` | `4rem 0` |
 
 Sections alternate to create visual rhythm — never two charcoal sections adjacent.
@@ -600,7 +578,7 @@ Content pages (non-cover) in all products: neutral grays, off-whites, black text
 
 ## 12. ACCESSIBILITY BASELINE
 
-- Skip link implemented: `#C44570` bg, Montserrat 800, uppercase, appears on `:focus`
+- Skip link implemented: `#7A2E42` bg, DM Sans 800, uppercase, appears on `:focus`
 - `.sr-only` utility class present
 - All interactive elements minimum 44×44px on touch devices
 - ARIA labels and roles used on interactive widget elements
@@ -621,8 +599,8 @@ Content pages (non-cover) in all products: neutral grays, off-whites, black text
 - **No CSS custom properties (variables)** — entire color system is hardcoded throughout style.css. A token layer is missing and would be a major maintainability upgrade.
 - **No defined spacing scale** — spacing values exist in CSS but not as named tokens. No `--space-section`, `--space-card`, etc.
 - **No dark mode system** — charcoal sections exist but there is no `prefers-color-scheme` media query or formal dark-mode spec.
-- **Lavender `#C4B0E8` web usage underspecified** — no assigned CSS classes yet beyond "decorative." (Lemon/Lime/Peach, previously flagged here too, are now retired outright per the July 5, 2026 lock — no longer a gap to fill.)
-- **Soft Peach `#F5C4A8`** — defined in brand spec as logo accent bar but not referenced in site CSS; web usage underspecified.
+- ~~Lavender web usage underspecified~~ — resolved 2026-07-27: Lavender is retired outright, no longer a gap to fill.
+- ~~Soft Peach web usage underspecified~~ — resolved 2026-07-27: Soft Peach is retired outright; the logo accent bar role moved to Copper `#A15C3E`.
 
 ### 13.3 Typography — Missing
 
@@ -661,48 +639,45 @@ Content pages (non-cover) in all products: neutral grays, off-whites, black text
 ## APPENDIX A — Quick Reference Hex Codes
 
 ```css
-/* Foundation */
---charcoal:      #252535;
---warm-white:    #FAF7ED;   /* was --cream, #FFF8EE */
+/* Text / dark neutral */
+--charcoal:      #262624;
 
-/* Confident */
---deep-rose:     #C44570;   /* Primary signature — was --pink, #E87AAA */
---deep-rose-hover: #A33359; /* was --pink-hover, #C45A84 */
---periwinkle:    #8BA7D4;   /* text accent role only now — never buttons/bg */
---lavender:      #C4B0E8;
+/* Backgrounds and cards */
+--page-bg:       #F6F3EC;
+--clean-card:    #FEFCF8;   /* pair with a 0.5px hairline border */
+--cozy-card:     #EFE8DC;
 
-/* Warm */
---soft-peach:    #F5C4A8;
+/* Buttons — two signature action colors */
+--wine:          #7A2E42;   /* primary — emotional/connection CTAs */
+--wine-hover:    #5E2233;
+--copper:        #A15C3E;   /* secondary — product/functional CTAs */
 
-/* Utility (new, infrastructure only) */
---rose-tint:     #F9ECF0;
---peach-tint:    #FCF0E8;
---peach-mid:     #EFA276;
---warm-brown:    #6D4C3E;
+/* Labels and icons */
+--taupe:         #8C8272;   /* decorative labels only, AA-large — never buttons/bg/small text */
+--warm-gray:     #6B655C;   /* icons, utility — full AA at any size */
 
-/* Special use */
---tool-bg:       #FDFBF7;   /* interactive HTML tools only, not site pages */
+/* Error and success */
+--dark-orange:   #9E3D0F;   /* error — pair with icon/text, never color alone */
+--moss:          #46703F;   /* success, and third tag color */
 
-/* Retired, do not use: --powder-blue #A8C5DA, --peach #F2A57A, --lemon #EDD96A, --lime #B5CC6A */
+/* Tags — colored text only, no fill, no border. Use --wine, --copper, or --moss directly on text-color. */
 
-/* Document elements (print/workbook only — unaffected by the July 5 lock) */
+/* Retired, do not use: --deep-rose #C44570, --periwinkle #8BA7D4, --lavender #C4B0E8,
+   --soft-peach #F5C4A8, --rose-tint #F9ECF0, --peach-tint #FCF0E8, --peach-mid #EFA276,
+   --warm-brown #6D4C3E, --tool-bg #FDFBF7, the entire Wine/Deep Rose Ramp, --powder-blue #A8C5DA,
+   --peach #F2A57A, --lemon #EDD96A, --lime #B5CC6A, old --error-red #C0392B, old --success-green #1E7E34 */
+
+/* Document elements (print/workbook only — unaffected by any web color revision) */
 --icon-gray:     #4B4B4B;
 --rule-line:     #D3D3D3;
 --box-border:    #ABABAB;
 --alt-rule:      #E0E0E0;
 
-/* Text */
+/* Text (print/PDF only) */
 --text-title:    #0D0D0D;
 --text-heading:  #333333;
 --text-body:     #101010;
-/* --text-mid #666666 and --text-light #999999 are retired for web use — use --periwinkle instead. Still fine in print/workbook context. */
-
-/* UI / States */
---page-bg:       #FAFAFA;
---input-bg:      #FCFCFC;
---error:         #C0392B;
---success:       #1E7E34;
---disabled:      #DDDDDD;
+/* --text-mid #666666 and --text-light #999999 are retired for web use — use --charcoal or --warm-gray instead. Still fine in print/workbook context. */
 ```
 
 ---
@@ -711,17 +686,20 @@ Content pages (non-cover) in all products: neutral grays, off-whites, black text
 
 **Web (site):**
 ```html
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@800&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 ```
 
 **Interactive HTML tools:**
 ```html
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;800&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
-<!-- Add &family=DM+Sans to the query if DM Sans is needed -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 ```
 
 **Print / Workbook / PDF:**
-Fonts loaded at build time from local files. Montserrat ExtraBold + Arial Regular only.
+Fonts loaded at build time from local files. Montserrat ExtraBold + Arial Regular only. Never loaded as a web font — print documents don't pull from Google Fonts.
 
 ---
 
