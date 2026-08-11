@@ -25,6 +25,8 @@ require_once __DIR__ . '/includes/header.php';
 
             <p>I write about it on the blog. Not polished advice from someone who's on the other side of it, but real updates from where I am right now. I build tools because I needed them myself. The workbooks, the widgets, the cheat sheets — all of it came from a specific moment where I thought, I need something for this and it doesn't exist.</p>
 
+            <p>None of it promises to fix you or make you happy. But I'm not going to pretend the goal is only getting through it, either — some nights now are good. Cooking something I want, doing something because I feel like it, realizing an hour went by and I didn't think about the quiet once. That didn't come from one workbook or one night deciding to feel better. It came from picking up one specific thing at a time — the money stuff, the closet stuff, the 6pm stuff — until most nights stopped aching the way they used to. Some still do. Most don't anymore. That's not a promise. That's what happened for me, one thing at a time.</p>
+
             <h2 style="margin-top: 2.5rem; margin-bottom: 1rem; font-size: 1.1rem; font-family: 'Montserrat', sans-serif; font-weight: 800;">What this is not</h2>
 
             <p>I'm not a coach. I'm not a therapist. I don't have a framework or a program or a promise of transformation. I'm a mom who did it alone, and I share what worked for me. Maybe some of it works for you. Maybe it doesn't. Either way — you're not broken. You don't need fixing.</p>
