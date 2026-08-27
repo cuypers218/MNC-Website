@@ -217,7 +217,7 @@ p { margin-bottom: 1rem; line-height: 1.6; }
     transition: all 0.2s ease; touch-action: manipulation;
 }
 .btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(37,37,53,0.15); }
-.btn:active { transform: translateY(1px); box-shadow: none; }
+.btn:active { transform: translateY(1px); box-shadow: inset 0 1px 3px rgba(0,0,0,0.15); }
 
 /* --- Microaction: arrow nudges on hover, shared by every "→" CTA --- */
 .cta-arrow { display: inline-block; transition: transform 0.2s ease; }
@@ -676,8 +676,8 @@ a:hover .cta-arrow, button:hover .cta-arrow { transform: translateX(4px); }
     html.no-js .mobile-toggle { display: none; }
     html.no-js .mobile-nav {
         position: static; right: auto; width: auto; height: auto;
-        border-left: none; border-top: 1px solid #ABABAB;
-        box-shadow: none; padding: 1rem 1.25rem;
+        border-left: none; border-top: 1px solid var(--warm-sand);
+        padding: 1rem 1.25rem;
     }
     html.no-js .mobile-close { display: none; }
     html.no-js .mobile-overlay { display: none; }
@@ -723,7 +723,7 @@ a:hover .cta-arrow, button:hover .cta-arrow { transform: translateX(4px); }
 .cece-photo-col { flex: 0 0 260px; }
 .cece-photo {
     display: block; width: 260px; height: 340px; object-fit: cover; object-position: center 15%;
-    border-radius: 20px; border: 6px solid var(--page-bg); box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+    border-radius: 10px; border: 6px solid var(--page-bg); box-shadow: 0 10px 25px rgba(0,0,0,0.15);
 }
 .cece-text-col { flex: 1; min-width: 0; text-align: left; }
 .cece-hook { font-family: var(--font-display-locked); font-style: italic; font-size: 1.05rem; color: var(--page-bg); line-height: 1.5; margin: 0 0 18px; }
@@ -819,7 +819,7 @@ a:hover .cta-arrow, button:hover .cta-arrow { transform: translateX(4px); }
 .connect-photo-section { background: var(--forest); padding: 56px 24px; text-align: center; }
 .connect-photo {
     display: inline-block; width: 200px; height: 260px; object-fit: cover; object-position: center 15%;
-    border-radius: 20px; border: 6px solid var(--page-bg); box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+    border-radius: 10px; border: 6px solid var(--page-bg); box-shadow: 0 10px 25px rgba(0,0,0,0.15);
 }
 .connect-photo-caption { font-family: var(--font-display-locked); font-style: italic; font-size: 0.9rem; color: var(--page-bg); margin: 16px 0 0; }
 
