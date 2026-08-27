@@ -2,6 +2,12 @@
 site/includes/config.php
 site/_onetime-password-reset.php
 
+# Local-only dev tools (never deploy)
+site/_dev-editor.php
+site/_dev-editor-backups/
+site/_dev-editor-config.php
+site/_dev-editor-cacert.pem
+
 # Generated images (large files)
 *.jpg
 *.jpeg
@@ -29,3 +35,4 @@ node_modules/
 .github/hooks/
 .github/skills/
 .impeccable/
+site/_preview_hero_*.php

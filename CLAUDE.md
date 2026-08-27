@@ -23,13 +23,26 @@ This file lives in the repo so both AI assistants working on this site — the o
 
 *(Update this section at the end of every session — check off what's done, note what's next.)*
 
-**Working on:** Propagating the new July 27, 2026 color palette (see Design System Quick Reference) across every file and every live page. This replaces the July 5 palette everywhere it appears.
+**Working on:** Two threads active as of 2026-08-01.
 
-**Next up, in order:**
-1. Live `style.css` and site-wide PHP pages — color values + border-radius/box-shadow rollout to the current standard.
+**Thread 1 — Homepage redesign.** Gate 1 (the five questions) is answered — do NOT re-ask these, proceed straight to Gate 2:
+1. *What is this homepage?* Introduces the brand by making an empty-nest mom feel seen, heard, and like she's in the right place.
+2. *Who specifically, and when?* An empty-nest mom who has no idea what to do now that her last child has left home.
+3. *Exact pain point?* She should land on the page and think "wow, this is me — someone gets it, someone gets me."
+4. *What the page needs to do (draft, Cece hasn't given final sign-off on this list specifically):* hero with real "I see you" story moment; a "you're not alone" section mirroring her exact feeling; the existing "What Kind of Nester Are You?" quiz as the feel-seen/email-capture hook; a freebie callout (e.g. 6pm Cheat Sheet) for direct email signup; a brief founder story/"meet Cece"; light social proof. Deliberately NOT on the homepage: full product catalog, blog previews, anything sales-heavy — that's what Shop/Blog are for.
+5. *Primary conversion goal:* email newsletter / freebie signup — NOT direct purchase.
+
+Structural references Cece confirmed she likes (from 3 Pinterest mockups, session of 2026-07-31/08-01): centered top nav with login, soft/blurred hero imagery with white space tied together by small decorative touches + a real photo + short story text, a credibility stats row, cards staggered/offset rather than flat-aligned, a repeating section rhythm scrolling down, bold confident type on generous white space, a small deliberate color palette (not busy) — this already matches the current Wine/Copper/Deep Teal system, no real conflict.
+
+**Next step: Gate 2 — produce the design plan** (token system, type scale, layout structure, signature element, self-critique) and get Cece's literal "approved" before writing any homepage code. §7.6 of DESIGN.md has a placeholder note on this — update it once the redesign actually ships.
+
+**Thread 2 — Color palette propagation (July 27/Aug 1 palette).** Still needs rolling out:
+1. Live `style.css` and site-wide PHP pages — color values + border-radius/box-shadow rollout to the current standard, including the four 2026-08-01 additions (Soft White, Warm Sand, Bark, Deep Teal).
 2. Garage Sale Planner (`widgets/garage-sale-planner/widget.html`) — largest single file still on the old palette; also has Lavender used as a live chip-fill background (chip-online, tour-banner, confetti) that needs a new treatment since Lavender doesn't exist in the new system.
 3. Remaining widgets (`cooking-for-one` alone has 130+ old-palette occurrences across its two files).
 4. New Grandma Planner — high priority, not yet started, needs a blueprint doc first (Build Playbook Phase 1).
+
+**Also open, unrelated to either thread above:** a GitHub personal access token was found embedded in plain text in the git remote of a stale, duplicate local copy of this repo (`c:\Users\cuype\MNC-Website` — NOT this one). Cece was told to revoke/regenerate it on GitHub directly; unconfirmed as of this writing whether she has. If a session finds that stale folder again, don't build from it — it's missing the July 27 palette entirely.
 
 ---
 
@@ -143,9 +156,16 @@ Full palette and typography rules live in the brand skill file — below is just
 - **Warm gray** `#6B655C` — icons and utility. Full AA at any size.
 - **Dark orange** `#9E3D0F` — error states. Never rely on color alone — pair with an icon or the word "Error."
 - **Moss** `#46703F` — success states, and the third tag color.
-- **Tags** — colored text only, no fill, no border. Wine, Copper, or Moss text directly on the page/card background.
+- **Rosewood** `#80475E` — added 2026-07-31, sitewide tertiary accent. Flexible use (decorative highlights, a fourth tag color), 6.36:1 against Page background (AA). Name is provisional. Don't pair with Wine in the same small element — too close in family to read as intentional. See DESIGN.md §2.9 for the full note.
+- **Soft White** `#FFFEFB` — added 2026-08-01, alternate background brighter than Page background (photo-heavy sections, forms, checkout). Not a card surface — use Clean card for that.
+- **Warm Sand** `#D9C7AC` — added 2026-08-01, fills the gap between Cozy card and Taupe. Dividers, borders, muted/disabled UI.
+- **Bark** `#5B3A28` — added 2026-08-01, deeper brown between Copper and Charcoal. Hover state on Copper buttons; secondary text darker than Warm gray. 9.11:1 against Page background (AAA).
+- **Tags** — colored text only, no fill, no border. Wine, Copper, Moss, or Rosewood text directly on the page/card background.
+- **Candidates, added 2026-08-11 — NOT role-assigned yet:** Almond Cream `#EAE0D5`, Khaki Beige `#C6AC8F`, Golden Earth `#99621E`, plus three given directly as hex with placeholder names — Warm Amber `#CE8147`, Deep Umber `#504136`, Warm Ivory `#F7F4EA` — plus Marigold `#FFA500` (the bright version; solves an earlier "where's my marigold" question — it was in a Coolors AI chat, not a repo file). Don't use in new code until a role is picked — see DESIGN.md §2.12. Two more colors from that same Coolors screenshot (dark warm browns, `#685044` and `#582419`) are pending name confirmation before they're added at all.
 
 Source: the current color reference file — ask Cece which one is live if in doubt; this changed twice in one month (May 2026 → July 5, 2026 → July 27, 2026).
+
+**Retired 2026-08-11:** Deep Teal `#114B5F` — was the single pop/accent color added 2026-08-01, retired after less than two weeks. No replacement pop-accent chosen yet; badges/highlight markers fall back to Rosewood or plain tag-text until one is.
 
 **Retired — should never appear in new code:** Everything from the July 5, 2026 palette (Velvety Charcoal `#252535`, Warm Antique White `#FAF7ED`, Deep Rose `#C44570`, Periwinkle `#8BA7D4`, Lavender `#C4B0E8`, Soft Peach `#F5C4A8`, Rose Tint `#F9ECF0`, Peach Tint `#FCF0E8`, Peach Mid `#EFA276`, Warm Brown `#6D4C3E`, Tool Background `#FDFBF7`) plus everything from the May 2026 palette before it: Vibrant Pink `#E87AAA`, Vanilla Cream `#FFF8EE`, Powder Blue `#A8C5DA`, Peach `#F2A57A`, Lemon `#EDD96A`, Lime `#B5CC6A`, Light blush `#facfd4`, Deep Berry `#811453`, Dark Berry `#5E1337`, any Berry shade, Muted Mauve `#A3918A`, Warm Blush `#D6C2B7`, Sage Gold, Peach Tan, Sage Gray, Blush Pink `#F8D4D4`, Soft Pink `#F8BBD0`, Linen White, Soft Rose, Warm Cream `#F4E8C1`, Warm Tan, Coral Orange, Teal, Gold, Navy, cool gray (`#6e6e6e`/`#666666`/`#999999`/`#ABABAB`/`#D3D3D3` and similar) for web text.
 
@@ -241,7 +261,7 @@ Fix every issue found. Do not ask permission to fix obvious bugs — fix them.
 CSS rule checks (grep the file):
 - border-radius: cards/containers must be 8–10px, buttons/inputs 6px, pills/tags/badges only 9999px. Anything else, including 0, is a violation. Find it, fix it.
 - box-shadow: cards should carry `0 10px 40px rgba(37,37,53,0.07)`; `none` on a card is a violation, a different/heavier shadow is also a violation. Find it, fix it.
-- Hex colors: only `#262624 #F6F3EC #FEFCF8 #EFE8DC #7A2E42 #A15C3E #8C8272 #6B655C #9E3D0F #46703F` allowed (July 27, 2026 palette — see Design System Quick Reference above). Everything else, including cool gray or any color from the retired list: flag and fix.
+- Hex colors: only `#262624 #F6F3EC #FEFCF8 #EFE8DC #7A2E42 #A15C3E #8C8272 #6B655C #9E3D0F #46703F #80475E #FFFEFB #D9C7AC #5B3A28 #114B5F` allowed (July 27, 2026 palette + Rosewood added 2026-07-31 + Soft White/Warm Sand/Bark/Deep Teal added 2026-08-01 — see Design System Quick Reference above). Everything else, including cool gray or any color from the retired list: flag and fix.
 
 Font check (widget files only):
 - Grep for Montserrat or Arial anywhere in a /widgets/ file. Replace with Lora (display/headers) or DM Sans (body). No other fonts allowed in widgets.
@@ -308,5 +328,9 @@ GitHub Action is a second layer — it catches the same CSS and color violations
 ## CHANGE LOG
 
 *(Full session-by-session history through July 2026 has been moved out of this file and lives permanently in git — run `git log -- CLAUDE.md` for the complete record, including the Garage Sale Planner's build history, past color migrations, and every contrast fix along the way. This file only keeps a short recent record going forward.)*
+
+**2026-08-01** — Added four colors to the July 27, 2026 lock, confirmed with Cece via a mockup preview before locking: Soft White `#FFFEFB` (alternate bright background), Warm Sand `#D9C7AC` (dividers/borders/muted UI, fills the Cozy card–Taupe gap), Bark `#5B3A28` (hover states, darker secondary text), Deep Teal `#114B5F` (the one pop/accent color — badges and highlight markers only, never a button; named "Deep Teal" not "Teal" to avoid confusion with the retired `#00CACA`). See Design System Quick Reference above and DESIGN.md §2 (Color System). Same day: DESIGN.md was fully rewritten (Version 5), consolidating all prior versions — the July 26 "Design Basics" draft was retired as an abandoned branch (it referenced colors retired the next day and is not a valid source).
+
+**2026-07-31** — Added Rosewood `#80475E` to the locked July 27, 2026 palette as a sitewide tertiary accent (not a replacement). Name is provisional. See Design System Quick Reference above and DESIGN.md §2.10.
 
 **2026-07-27** — Full rebuild of this file: retired the separate `MNC-PRODUCT-ROADMAP.md` (had drifted ~6 weeks out of sync with reality; its job is now the Current Focus section above), moved the full historical changelog out of the working file and into git history only, and rolled in the new July 27, 2026 color palette (replaces the July 5, 2026 palette sitewide — see Design System Quick Reference). Also consolidated four other fixes from earlier the same day: corrected the border-radius/box-shadow standard (was mistakenly documented as a per-widget 0px/8px choice; corrected to the actual sitewide 8–10px/6px/9999px standard), expanded the banned-phrase QA checklist to match the skill file's full list, fixed a wrong filename reference (skill file was pointed at a file that doesn't exist), and added an Open Items section consolidating everything still genuinely unresolved (security files, Know Before You Sell review, the exclusive-content-drip conflict, print-proofing Wine).

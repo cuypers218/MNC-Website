@@ -12,6 +12,18 @@
       "runtimeExecutable": "npx",
       "runtimeArgs": ["--yes", "serve", "site", "-l", "4520"],
       "port": 4520
+    },
+    {
+      "name": "homepage-live-edit",
+      "runtimeExecutable": "php",
+      "runtimeArgs": ["-S", "127.0.0.1:4530", "-t", "site"],
+      "port": 4530
+    },
+    {
+      "name": "mockup-tool",
+      "runtimeExecutable": "php",
+      "runtimeArgs": ["-S", "127.0.0.1:4540", "-t", "C:\\Users\\cuype\\Downloads"],
+      "port": 4540
     }
   ]
 }
