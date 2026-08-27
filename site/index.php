@@ -1,6 +1,7 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="no-js">
 <head>
+    <script>document.documentElement.classList.remove('no-js');</script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Solo Mom. Empty Nest. Now What? | My Nest Chapter</title>
@@ -79,373 +80,124 @@
 
 <main id="main-content" tabindex="-1">
 
+
+
+
+
+
+
+
+
+
+
+
 <!-- HERO -->
-<section class="hero">
-    <div class="container">
-        <h1 class="hero-tagline">Solo mom. Empty nest.<br>Now what?</h1>
-        <p class="hero-subtitle">Start with 6pm. That hour when the house feels wrong and you're just standing in the kitchen not knowing what to do with yourself.</p>
-        <a href="/6pm-experience/" onclick="event.preventDefault();open6pmExperience();" class="btn btn-primary btn-hero">GET THE FREE 6PM CHEAT SHEET →</a>
-        <p class="hero-cta-hint">No sign-up needed</p>
+<section class="home-hero">
+    <div class="home-hero-inner">
+        <div class="home-hero-copy">
+            <h1>Solo mom. Empty nest. What's next.</h1>
+            <p class="home-hero-body">Real tools, honest support, and a growing community for whatever's next.</p>
+            <a href="#start-here" class="btn btn-primary">Start Here <span class="cta-arrow">→</span></a>
+        </div>
     </div>
 </section>
 
-<!-- QUIZ MODAL -->
-
-<div id="mnc-modal" style="display:none;">
-  <div class="mnc-modal-overlay" onclick="mncCloseModal()"></div>
-  <div class="mnc-modal-wrap">
-    <div class="mnc-modal-card">
-      <button class="mnc-modal-close" onclick="mncCloseModal()" aria-label="Close">&#x2715;</button>
-      <div class="mnc-wrap">
-          <div class="mnc-card">
-            <div class="mnc-card-bar"></div>
-            <div class="mnc-card-inner">
-
-              <div id="mnc-cover" class="mnc-cover">
-                <div class="mnc-cover-tag">Free Quiz</div>
-                <h2 class="mnc-cover-title">How Quiet Is Your House?</h2>
-                <p class="mnc-cover-desc">Five questions. Two minutes.</p>
-                <p class="mnc-cover-note">I'll send you what got me through 6pm.</p>
-                <div class="mnc-cover-divider"></div>
-                <button class="mnc-btn-start" onclick="mncStart()">Take The Quiz</button>
-                <p class="mnc-cover-footer">My Nest Chapter · For Solo Moms</p>
-              </div>
-
-              <div id="mnc-questions" style="display:none;">
-                <div class="mnc-progress-label" id="mnc-prog-label">Question 1 of 5</div>
-                <div class="mnc-progress-bg">
-                  <div class="mnc-progress-fill" id="mnc-prog-fill" style="width:20%"></div>
-                </div>
-                <div id="mnc-q-container" class="mnc-fade"></div>
-                <div class="mnc-nav">
-                  <button class="mnc-btn-back" id="mnc-btn-back" onclick="mncBack()" style="visibility:hidden">← Back</button>
-                  <button class="mnc-btn-next" id="mnc-btn-next" onclick="mncNext()" disabled>Next →</button>
-                </div>
-              </div>
-
-              <div id="mnc-email" style="display:none;" class="mnc-email">
-                <h2>You're almost there.</h2>
-                <p>Enter your first name and email and I'll send you your results.</p>
-                <div class="mnc-form-group">
-                  <label>First Name</label>
-                  <input type="text" id="mnc-name" placeholder="Your first name" />
-                </div>
-                <div class="mnc-form-group">
-                  <label>Email Address</label>
-                  <input type="email" id="mnc-email-input" placeholder="your@email.com" />
-                </div>
-                <button class="mnc-btn-submit" onclick="mncSubmit()">Send My Results →</button>
-                <p class="mnc-privacy">No spam. Ever. Just real support for where you are right now.</p>
-              </div>
-
-              <div id="mnc-result" style="display:none;">
-                <div class="mnc-result-badge">Your Result</div>
-                <h2 class="mnc-result-title" id="mnc-result-title"></h2>
-                <p class="mnc-result-msg" id="mnc-result-msg"></p>
-                <div class="mnc-result-divider"></div>
-                <div class="mnc-freebie-box">
-                  <h3>Check Your Inbox</h3>
-                  <p>Your free guide — <strong>Where Do I Start? Your Next 3 Steps</strong> — is on its way to you right now.</p>
-                </div>
-                <p class="mnc-cta-note">Ready to go deeper? This is where most women start.</p>
-                <div class="mnc-result-btns">
-                  <a href="https://mynestchapter.com" class="mnc-btn-workbook">Get Workbook 1 →</a>
-                  <a href="https://mynestchapter.com" class="mnc-btn-browse">Browse Everything at My Nest Chapter</a>
-                </div>
-              </div>
-
-            </div>
-          </div>
+<!-- START HERE / THREE PILLARS -->
+<section class="start-here" id="start-here">
+    <div class="start-here-inner">
+        <div class="start-here-head">
+            <p class="start-here-eyebrow">The Three Pillars</p>
+            <h2>How I can help.</h2>
         </div>
-      </div>
+
+        <div class="pillars">
+            <div class="pillar support">
+                <p class="pillar-eyebrow">Support: The Tools</p>
+                <h3>Practical Tools for the Transition</h3>
+                <p>Interactive tools designed to help you organize your time, clear the clutter, and build steady new daily habits at your own pace.</p>
+                <a href="/6pm-experience/" onclick="event.preventDefault();open6pmExperience();">Get the 6pm Cheat Sheet <span class="cta-arrow">→</span></a>
+            </div>
+            <div class="pillar encourage">
+                <p class="pillar-eyebrow">Encourage: The Community &amp; Wisdom</p>
+                <h3>Connection &amp; Shared Stories</h3>
+                <p>Heartfelt guidance, relatable stories, and resources to remind you that while the house might be quiet at 6 PM, your world is just opening up.</p>
+                <a href="/workbook.php">See the Now What? Workbook <span class="cta-arrow">→</span></a>
+            </div>
+            <div class="pillar thrive">
+                <p class="pillar-eyebrow">Thrive: The Next Steps</p>
+                <h3>Designing Your Next Act</h3>
+                <p>Inspirational trackers and planners to help you dust off your old dreams, discover new passions, and confidently answer the question: "What's next?"</p>
+                <a href="/resources">Explore Next tools <span class="cta-arrow">→</span></a>
+            </div>
+        </div>
+
+        <div class="start-here-quiz-cta">
+            <button onclick="openQuizModal()" class="btn btn-outline" style="cursor:pointer;">Not sure? Take the 2-minute quiz <span class="cta-arrow">→</span></button>
+        </div>
     </div>
-  </div>
+</section>
+
+<div id="quizModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(37,37,53,0.82); z-index:1000; align-items:center; justify-content:center; padding:20px;" onclick="handleModalClick(event)">
+    <div style="max-width:640px; width:100%; position:relative;">
+        <button onclick="closeQuizModal()" aria-label="Close quiz" style="position:absolute; top:14px; right:14px; background:rgba(37,37,53,0.82); border:none; color:#FEFCF8; width:40px; height:40px; border-radius:9999px; font-size:22px; line-height:40px; text-align:center; cursor:pointer; z-index:10; font-family:'DM Sans',sans-serif;">×</button>
+        <iframe id="quizIframe" src="" data-src="/widgets/empty-nester-quiz/" style="width:100%; height:min(95vh,900px); border:none; border-radius:10px; overflow:hidden; display:block;" title="What Kind of Empty Nester Are You?"></iframe>
+    </div>
 </div>
 
-<script>
-window.mncOpenModal = function() {
-  document.getElementById('mnc-modal').style.display = 'block';
-  document.body.style.overflow = 'hidden';
-};
-window.mncCloseModal = function() {
-  document.getElementById('mnc-modal').style.display = 'none';
-  document.body.style.overflow = '';
-};
-(function() {
-          var questions = [
-            {
-              text: "How long ago did your last kid leave home?",
-              options: [
-                "Just happened — I'm still in shock",
-                "A few months ago — still figuring it out",
-                "6 months to a year — thought it would get easier by now",
-                "More than a year ago — still not where I want to be"
-              ]
-            },
-            {
-              text: "How would you describe most of your days right now?",
-              options: [
-                "Lost — I don't really know who I am without them",
-                "Numb — going through the motions but feeling empty",
-                "Angry — I gave everything and now what",
-                "Scared — I don't know what comes next",
-                "Ready — I want to move forward but don't know how"
-              ]
-            },
-            {
-              text: "What's the hardest part right now?",
-              options: [
-                "The silence — the house feels wrong without them",
-                "I don't recognize myself anymore",
-                "I have no idea what I actually want",
-                "I'm still carrying guilt about things I can't change",
-                "Every day feels pointless without a reason to get up"
-              ]
-            },
-            {
-              text: "What have you tried so far?",
-              options: [
-                "Nothing yet — I just found this",
-                "Staying busy but it's not helping",
-                "Talking to people but still feel stuck",
-                "I've been researching but haven't done anything yet",
-                "I've started working on myself but need more"
-              ]
-            },
-            {
-              text: "What do you need most right now?",
-              options: [
-                "To just feel less alone",
-                "To understand why this hurts as much as it does",
-                "To figure out who I am now that they're gone",
-                "Something concrete to do — a real place to start",
-                "To figure out what I actually want my life to look like now"
-              ]
-            }
-          ];
-
-          var results = [
-            {
-              title: "You Just Need to Breathe",
-              trigger: function(a) { return a[0] === 0 && (a[1] === 0 || a[1] === 1) && a[3] === 0; },
-              message: "You're in the thick of this right now and that's okay. You don't need to have everything figured out yet. You don't need to be okay. The first step is just understanding what you're actually feeling — and that's exactly what Workbook 1 is for. Start right where you are."
-            },
-            {
-              title: "You're Carrying More Than You Realize",
-              trigger: function(a) { return a[1] === 2 || a[2] === 3; },
-              message: "You gave everything for years — mostly alone. The anger makes sense. The exhaustion makes sense. Before you can figure out what's next, it helps to see everything you've actually been carrying. That's where this starts. Not with goals. With the truth of what you've handled."
-            },
-            {
-              title: "You've Lost Yourself and You Know It",
-              trigger: function(a) { return a[2] === 1 || a[2] === 2 || a[4] === 2; },
-              message: "You're not broken. You spent years being everything to everyone else — and there was no time left to figure out who you were outside of Mom. Now the kids are gone and the question is right there. There's a place to start."
-            },
-            {
-              title: "You're Ready to Move But Need Direction",
-              trigger: function(a) { return a[1] === 4 || a[4] === 3; },
-              message: "You're past the worst of this and you're ready to actually do something. You don't need more thinking — you need a structured place to work it out. Workbook 1 gives you exactly that. Start at Section 3 if the early stuff feels like old ground."
-            },
-            {
-              title: "The Loneliness Is the Hardest Part",
-              trigger: function(a) { return a[2] === 0 || a[4] === 0; },
-              message: "The quiet hits different when you did this solo. There was no one to share the hard parts with when the kids were home — and there's no one to share this part with either. You're not alone in feeling alone. That's what My Nest Chapter is here for."
-            },
-            {
-              title: "You Know What You Want — Now Build It",
-              trigger: function(a) { return a[0] === 3 && a[1] === 4 && a[4] === 4; },
-              message: "You've done some of the work already. You've sat with this, you've thought about this, and now you're ready to actually build the life you want — not just survive the transition. Start with Workbook 1 Section 4 and go from there."
-            }
-          ];
-
-          var answers = [null, null, null, null, null];
-          var currentQ = 0;
-
-          window.mncStart = function() {
-            document.getElementById('mnc-cover').style.display = 'none';
-            document.getElementById('mnc-questions').style.display = 'block';
-            mncRender();
-          };
-
-          function mncRender() {
-            var q = questions[currentQ];
-            var saved = answers[currentQ];
-            document.getElementById('mnc-prog-label').textContent = 'Question ' + (currentQ + 1) + ' of ' + questions.length;
-            document.getElementById('mnc-prog-fill').style.width = (((currentQ + 1) / questions.length) * 100) + '%';
-            document.getElementById('mnc-btn-back').style.visibility = currentQ === 0 ? 'hidden' : 'visible';
-            document.getElementById('mnc-btn-next').disabled = saved === null;
-            document.getElementById('mnc-btn-next').textContent = currentQ === questions.length - 1 ? 'See My Results →' : 'Next →';
-
-            var html = '<p class="mnc-question">' + q.text + '</p><ul class="mnc-options">';
-            q.options.forEach(function(opt, i) {
-              var sel = saved === i ? 'selected' : '';
-              html += '<li><button class="mnc-option ' + sel + '" onclick="mncPick(' + i + ')">' + opt + '</button></li>';
-            });
-            html += '</ul>';
-
-            var container = document.getElementById('mnc-q-container');
-            container.innerHTML = html;
-            container.className = 'mnc-fade';
-            void container.offsetWidth;
-            container.className = 'mnc-fade';
-          }
-
-          window.mncPick = function(idx) {
-            answers[currentQ] = idx;
-            document.querySelectorAll('.mnc-option').forEach(function(btn, i) {
-              btn.classList.toggle('selected', i === idx);
-            });
-            document.getElementById('mnc-btn-next').disabled = false;
-          };
-
-          window.mncNext = function() {
-            if (answers[currentQ] === null) return;
-            if (currentQ < questions.length - 1) {
-              currentQ++;
-              mncRender();
-            } else {
-              document.getElementById('mnc-questions').style.display = 'none';
-              var el = document.getElementById('mnc-email');
-              el.style.display = 'block';
-              el.className = 'mnc-email mnc-fade';
-            }
-          };
-
-          window.mncBack = function() {
-            if (currentQ > 0) { currentQ--; mncRender(); }
-          };
-
-          window.mncSubmit = function() {
-            var name = document.getElementById('mnc-name').value.trim();
-            var email = document.getElementById('mnc-email-input').value.trim();
-            if (!name) { alert('Please enter your first name.'); return; }
-            if (!email || email.indexOf('@') < 0) { alert('Please enter a valid email address.'); return; }
-
-            var result = null;
-            for (var i = 0; i < results.length; i++) {
-              if (results[i].trigger(answers)) { result = results[i]; break; }
-            }
-            if (!result) result = results[2];
-
-            var btn = document.querySelector('.mnc-btn-submit');
-            btn.textContent = 'Sending...';
-            btn.disabled = true;
-
-            fetch('/api/quiz.php', {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({ name: name, email: email, result: result.title })
-            })
-            .then(function() { showResult(result); })
-            .catch(function() { showResult(result); });
-          };
-
-          function showResult(r) {
-            document.getElementById('mnc-email').style.display = 'none';
-            var rs = document.getElementById('mnc-result');
-            rs.style.display = 'block';
-            rs.className = 'mnc-fade';
-            document.getElementById('mnc-result-title').textContent = r.title;
-            document.getElementById('mnc-result-msg').textContent = r.message;
-          }
-        })();
-</script>
-
-<!-- I'M CECE SECTION -->
-<section class="cece-section">
+<!-- CHAPTER FOUR: MEET CECE -->
+<section class="chapter cece-section" id="chapter-4" data-chapter-name="Chapter Four — Meet Cece" style="position: relative;">
   <div class="cece-inner">
 
     <div class="cece-photo-col">
-      <img
-        src="/images/cece-photo.jpg"
-        alt="Cece, founder of My Nest Chapter"
-        class="cece-photo"
-      >
+      <img src="/assets/images/cece-photo-2026.png" alt="Cece, founder of My Nest Chapter" class="cece-photo">
     </div>
 
     <div class="cece-text-col">
       <p class="cece-hook">Hey. I see you. I get you. I am you. Stay a minute.</p>
       <p class="cece-eyebrow">I'M CECE</p>
       <h2 class="cece-heading">I raised my kids mostly on my own. When my last one left, I wasn't ready for what hit me.</h2>
-      <p class="cece-body">I went looking for something — anything — that sounded like my life, and it didn't exist. So I created My Nest Chapter.</p>
-      <p class="cece-body">I built every product here myself, because I needed it and it wasn't out there. Your people are here. I'm here. I'm only an email, a Zoom call, or a message away.</p>
-      <p class="cece-body">And since I built all of this by hand, alone — there will be glitches. There will be mistakes. Tell me when you find one. I want to do better.</p>
-      <a href="/contact" class="cece-btn">Get in touch &rarr;</a>
-      <a href="/booking" class="cece-btn" style="background:#A15C3E; color:#F6F3EC;">Book a time &rarr;</a>
-      <p class="cece-connect-note">Video call &nbsp;&middot;&nbsp; Voice call &nbsp;&middot;&nbsp; Text chat &nbsp;&middot;&nbsp; Email &mdash; whatever feels right.</p>
-      <a href="/about" class="cece-link">Read my full story &rarr;</a>
+      <p class="cece-body">I went looking for something, anything, that sounded like my life. It didn't exist. So I built My Nest Chapter.</p>
+      <p class="cece-body">I build every product here myself, out of things I needed and couldn't find anywhere else. If you're a solo mom in an empty nest, there's probably something here for you, now or somewhere down the road. If you want to reach out, I'm here. Send a message, or ask for more than that if you want it.</p>
+      <p class="cece-body">I built all of this by hand, alone. There will be glitches. There will be mistakes. Tell me when you find one. I want to do better.</p>
+      <a href="/connect" class="cece-btn">Say hello <span class="cta-arrow">→</span></a>
+      <br>
+      <a href="/about" class="cece-link">Read my full story <span class="cta-arrow">→</span></a>
     </div>
 
   </div>
 </section>
 
+<!-- CHAPTER FIVE: STAY CLOSE -->
 
-<!-- LATEST FROM THE BLOG -->
-
-<!-- FEATURED PRODUCTS -->
-<section class="section">
-    <div class="container">
-        <h2 class="text-center" style="margin-bottom: 0.5rem;">Each one helped me. Still does.<br>Maybe they can help you too.</h2>
-        <p class="text-center" style="color: #666666; font-size: 0.9rem; margin-bottom: 2rem;">Some are free. Some aren't. All of them came from something real.</p>
-
-        <div class="product-grid">
-
-            <!-- Now What? Workbook -->
-            <div class="product-card fade-in">
-                <span class="badge">$14.99</span>
-                <div class="product-card-content">
-                    <span class="product-card-category">Workbook</span>
-                    <h3 class="product-card-title">Now What? A Workbook for Solo Moms in the Empty Nest</h3>
-                    <p class="product-card-description">The workbook I made because nothing out there sounded like me. Activities, reflections, and honest space for solo moms figuring out what comes next.</p>
-                    <a href="/shop/now-what-workbook" class="btn btn-primary">Get the Now What?</a>
-                </div>
-            </div>
-
-            <!-- Garage Sale Planner — highlighted as interactive app -->
-            <div class="product-card fade-in" style="border: 2px solid #7A2E42;">
-                <span class="badge">$27</span>
-                <div class="product-card-content">
-                    <span class="product-card-category" style="color: #6B655C;">Interactive App</span>
-                    <h3 class="product-card-title">The Garage Sale Planner</h3>
-                    <p class="product-card-description">Not a PDF — a live app that runs in your browser. Price your items, track every sale, and hit your money goal. Try it free before you buy.</p>
-                    <a href="/shop/garage-sale-planner" class="btn btn-primary">Open the Planner</a>
-                </div>
-            </div>
-
-            <!-- Someday List Builder -->
-            <div class="product-card fade-in">
-                <span class="badge badge-free">FREE</span>
-                <div class="product-card-content">
-                    <span class="product-card-category">Free Tool</span>
-                    <h3 class="product-card-title">The Someday List Builder</h3>
-                    <p class="product-card-description">All those things you said you'd do someday? This is where you finally write them down.</p>
-                    <a href="/freebies" class="btn btn-outline">Get This Free</a>
-                </div>
-            </div>
-
-        </div>
-
-        <div class="text-center" style="margin-top: 2rem;">
-            <a href="/shop" class="btn btn-outline">See Everything</a>
-        </div>
-    </div>
-</section>
-
-<!-- ACCOUNT + NEWSLETTER -->
-
-<section class="account-newsletter-section">
+<section class="chapter account-newsletter-section" id="chapter-5" data-chapter-name="Chapter Five — Stay Close" style="position: relative;">
   <div class="an-inner">
 
-    <!-- PRIMARY: FREE ACCOUNT -->
-    <div class="an-account-block">
-      <p class="an-eyebrow">YOUR SPOT. FREE. ALWAYS.</p>
-      <h2 class="an-heading">Create a free account and everything lives in one place — your tools, your downloads, your resources.</h2>
-      <p class="an-body">Plus freebies that aren't anywhere else on the site. The ones on the public pages are for anyone who finds them. The ones inside your account are just for you.</p>
-      <a href="/register" class="an-btn-primary">UNLOCK MY FREE RESOURCES →</a>
-      <div style="margin-top:20px;display:flex;flex-direction:column;gap:6px;align-items:center;">
-        <p style="font-family:'DM Sans','Helvetica Neue',sans-serif;font-size:13px;color:rgba(250,247,237,0.65);margin:0;">Instant access to all freebies — no waiting</p>
-        <p style="font-family:'DM Sans','Helvetica Neue',sans-serif;font-size:13px;color:rgba(250,247,237,0.65);margin:0;">Member-only exclusives added every month</p>
-        <p style="font-family:'DM Sans','Helvetica Neue',sans-serif;font-size:13px;color:rgba(250,247,237,0.65);margin:0;">Free. Always.</p>
-      </div>
+    <p class="chapter-eyebrow" style="text-align:center;width:100%;">CHAPTER FIVE — STAY CLOSE</p>
+
+    <!-- PRIMARY: WEEKLY EMAIL — matches the locked homepage conversion goal (email/freebie signup, not account creation) -->
+    <div class="an-primary-block">
+      <p class="an-eyebrow">FREE. WEEKLY. NO STRINGS.</p>
+      <h2 class="an-heading">Whatever tonight's 6pm looks like, I'll be in your inbox before the next one.</h2>
+      <p class="an-body">I write every week. What I'm still figuring out, what helped me this week, what's hard right now. Not advice. Not a program. Just where I am — the honest parts and the better parts both.</p>
+      <!--?php $anSubscribed = ($_GET['subscribed'] ?? '') === '1'; $anSubscribeError = ($_GET['subscribe_error'] ?? '') === '1'; ?-->
+      <!--?php if ($anSubscribed): ?-->
+        <p class="an-form-note" style="color:var(--moss);font-weight:800;text-transform:uppercase;letter-spacing:1px;font-size:0.8rem;">Check your inbox.</p>
+      <!--?php else: ?-->
+        <form class="an-email-form" action="/api/email.php" method="POST" onsubmit="event.preventDefault(); submitToReach(this);">
+          <input type="hidden" name="source" value="homepage-newsletter">
+          <input type="hidden" name="return_to" value="/">
+          <div class="an-form-row">
+            <input type="email" id="homepage-email" name="email" placeholder="Your email" required="" class="an-email-input" aria-label="Email address">
+            <button type="submit" id="homepage-submit" class="an-btn-secondary">SEND IT</button>
+          </div>
+          <!--?php if ($anSubscribeError): ?-->
+            <p class="an-form-note" style="color:var(--dark-orange);">That didn't go through — please check your email and try again.</p>
+          <!--?php else: ?-->
+            <p class="an-form-note">Nothing else. Just the weekly note.</p>
+          <!--?php endif; ?-->
+        </form>
+      <!--?php endif; ?-->
+      <p id="homepage-msg" style="display:none; margin-top:12px; font-family:'DM Sans',sans-serif; font-weight:800; font-size:0.8rem; text-transform:uppercase; letter-spacing:1px; color:var(--moss);"></p>
     </div>
 
     <!-- DIVIDER -->
@@ -453,19 +205,17 @@ window.mncCloseModal = function() {
       <span>or</span>
     </div>
 
-    <!-- SECONDARY: NEWSLETTER -->
-    <div class="an-newsletter-block">
-      <p class="an-newsletter-label">NOT READY FOR THAT?</p>
-      <p class="an-newsletter-body">I write every week. What I'm still figuring out, what helped me this week, what's hard right now. Not advice. Not a program. Just where I am — the honest parts and the better parts both.</p>
-      <p class="an-newsletter-sub">Drop your email and I'll send it to you.</p>
-      <form class="an-email-form" onsubmit="event.preventDefault(); submitToReach(this);">
-        <div class="an-form-row">
-          <input type="email" id="homepage-email" name="email" placeholder="Your email" required class="an-email-input" aria-label="Email address">
-          <button type="submit" id="homepage-submit" class="an-btn-secondary">SEND IT</button>
-        </div>
-        <p class="an-form-note">Nothing else. Just the weekly note.</p>
-      </form>
-      <p id="homepage-msg" style="display:none; margin-top:12px; font-family:'DM Sans',sans-serif; font-weight:800; font-size:0.8rem; text-transform:uppercase; letter-spacing:1px; color:#46703F;"></p>
+    <!-- SECONDARY: FREE ACCOUNT -->
+    <div class="an-secondary-block">
+      <p class="an-secondary-label">WANT THE FULL LIBRARY TOO?</p>
+      <h2 class="an-secondary-heading">Create a free account and everything lives in one place — your tools, your downloads, your resources.</h2>
+      <p class="an-secondary-body">Plus freebies that aren't anywhere else on the site. The ones on the public pages are for anyone who finds them. The ones inside your account are just for you.</p>
+      <a href="/register" class="an-btn-primary">UNLOCK MY FREE RESOURCES <span class="cta-arrow">→</span></a>
+      <div style="margin-top:20px;display:flex;flex-direction:column;gap:6px;align-items:center;">
+        <p class="an-secondary-sub">Instant access to all freebies — no waiting</p>
+        <p class="an-secondary-sub">Member-only exclusives added every month</p>
+        <p class="an-secondary-sub">Free. Always.</p>
+      </div>
     </div>
 
   </div>
@@ -490,6 +240,59 @@ window.addEventListener('message', function(e) {
   if (e.data === 'mnc-6pm-close') window.close6pmExperience();
 });
 </script>
+
+<!-- PRODUCT CARDS — a teaser trio, not the full catalog (see /shop for everything). Static per CLAUDE.md Gate 3 review: update by hand if price/products change until this homepage is wired to the database. -->
+<section class="home-products">
+    <svg class="home-products-mark" viewBox="0 0 100 100" aria-hidden="true" focusable="false">
+        <path d="M10,50 C25,20 55,15 70,35 C85,55 65,80 40,75 C20,71 8,65 10,50 Z" />
+    </svg>
+    <div class="home-products-inner">
+        <div class="home-products-head">
+            <h2>Ready when you are.</h2>
+        </div>
+        <div class="product-grid">
+            <div class="product-card">
+                <span class="badge">$14.99</span>
+                <div class="product-card-image" style="background: linear-gradient(135deg, var(--cozy-card) 0%, var(--warm-sand) 100%);"></div>
+                <div class="product-card-content">
+                    <span class="product-card-category">Workbook</span>
+                    <h3 class="product-card-title">Now What? Workbook</h3>
+                    <p class="product-card-description">A guided way to work through this chapter at your own pace. No pressure to have it figured out.</p>
+                    <a href="/workbook.php" class="btn btn-primary">Get the Workbook</a>
+                </div>
+            </div>
+            <div class="product-card">
+                <span class="badge">$27</span>
+                <div class="product-card-image" style="background: linear-gradient(135deg, var(--warm-sand) 0%, var(--cozy-card) 100%);"></div>
+                <div class="product-card-content">
+                    <span class="product-card-category">Interactive Tool</span>
+                    <h3 class="product-card-title">Garage Sale Planner</h3>
+                    <p class="product-card-description">Sort, price, and sell what's left behind — without doing the math in your head at 11pm.</p>
+                    <a href="/shop" class="btn btn-primary">Get the Planner</a>
+                </div>
+            </div>
+            <div class="product-card">
+                <span class="badge">$27</span>
+                <div class="product-card-image" style="background: linear-gradient(135deg, var(--cozy-card) 0%, var(--rosewood) 100%);"></div>
+                <div class="product-card-content">
+                    <span class="product-card-category">Interactive Tool</span>
+                    <h3 class="product-card-title">Cooking for One Planner</h3>
+                    <p class="product-card-description">Real meals, sized for one, without the leftovers going bad in the back of the fridge.</p>
+                    <a href="/shop" class="btn btn-primary">Get the Planner</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+
+
+
+
+
+
 
 </main>
 
@@ -554,15 +357,54 @@ async function submitToReach(form) {
     }
 }
 
+// --- Quiz Modal (embeds the real, locked quiz widget) ---
+function openQuizModal() {
+    var modal = document.getElementById('quizModal');
+    var iframe = document.getElementById('quizIframe');
+    if (!iframe.src || iframe.src === window.location.href) {
+        iframe.src = iframe.getAttribute('data-src');
+    }
+    modal.style.display = 'flex';
+    document.body.style.overflow = 'hidden';
+}
+function closeQuizModal() {
+    document.getElementById('quizModal').style.display = 'none';
+    document.body.style.overflow = '';
+}
+function handleModalClick(e) {
+    if (e.target === document.getElementById('quizModal')) closeQuizModal();
+}
+
+// --- Start Here pillar reveal (the one scroll-triggered animation on the page) ---
+(function() {
+    var pillars = document.querySelectorAll('.pillar');
+    if (!pillars.length) return;
+    if (!('IntersectionObserver' in window)) {
+        pillars.forEach(function(p) { p.classList.add('is-revealed'); });
+        return;
+    }
+    var observer = new IntersectionObserver(function(entries, obs) {
+        entries.forEach(function(entry) {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('is-revealed');
+                obs.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.3 });
+    pillars.forEach(function(p) { observer.observe(p); });
+})();
+
 // --- Mobile Nav ---
 function openMobileNav() {
     document.getElementById('mobileNav').classList.add('open');
     document.getElementById('mobileOverlay').style.display = 'block';
+    document.querySelector('.mobile-toggle').classList.add('is-open');
     document.body.style.overflow = 'hidden';
 }
 function closeMobileNav() {
     document.getElementById('mobileNav').classList.remove('open');
     document.getElementById('mobileOverlay').style.display = 'none';
+    document.querySelector('.mobile-toggle').classList.remove('is-open');
     document.body.style.overflow = '';
 }
 

@@ -34,6 +34,9 @@ RewriteRule ^$ index.php [L]
 # About
 RewriteRule ^about/?$ about.php [L]
 
+# Connect (email/book-a-call page, not in main nav)
+RewriteRule ^connect/?$ connect.php [L]
+
 # Blog index
 RewriteRule ^blog/?$ blog.php [L]
 
