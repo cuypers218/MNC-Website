@@ -37,6 +37,9 @@ RewriteRule ^about/?$ about.php [L]
 # Connect (email/book-a-call page, not in main nav)
 RewriteRule ^connect/?$ connect.php [L]
 
+# Start Here (hero CTA destination, not in main nav)
+RewriteRule ^start-here/?$ start-here.php [L]
+
 # Blog index
 RewriteRule ^blog/?$ blog.php [L]
 

@@ -588,7 +588,7 @@ a:hover .cta-arrow, button:hover .cta-arrow { transform: translateX(4px); }
     font-family: var(--font-body); font-weight: 800; font-size: 11px; letter-spacing: 2px;
     text-transform: uppercase; color: var(--copper); margin: 0 0 14px;
 }
-.start-here-head h2 {
+.start-here-head h1, .start-here-head h2 {
     font-family: var(--font-display-locked); font-weight: 700; font-size: clamp(1.6rem, 3vw, 2.1rem);
     margin: 0 0 14px; color: var(--charcoal); text-transform: none;
 }

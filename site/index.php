@@ -97,7 +97,7 @@
         <div class="home-hero-copy">
             <h1>Solo mom. Empty nest. What's next.</h1>
             <p class="home-hero-body">Real tools, honest support, and a growing community for whatever's next.</p>
-            <a href="#start-here" class="btn btn-primary">Start Here <span class="cta-arrow">→</span></a>
+            <a href="/start-here" class="btn btn-primary">Start Here <span class="cta-arrow">→</span></a>
         </div>
     </div>
 </section>
