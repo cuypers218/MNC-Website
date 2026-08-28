@@ -108,6 +108,15 @@ Added to the July 27 lock, not a replacement for anything above. Name is provisi
 
 Deep Teal `#114B5F` was the single "pop of color" against the earthy palette for about a week and a half — Cece retired it 2026-08-11. No replacement pop-accent has been chosen yet; badges/highlight markers fall back to Rosewood (§2.9) or plain Wine/Copper text (§2.6) until one is picked.
 
+### 2.13 Homepage Section Colors — Golden Earth and Forest (added 2026-08-27)
+
+Both were already live in `style.css` before being formally logged here — this entry catches the documentation up to the code, per the 2026-08-27 audit's finding that they were shipped without a changelog entry. Neither is a replacement for anything above; both are scoped to the specific homepage elements they already style.
+
+| Name | Hex | Role |
+|---|---|---|
+| Golden Earth | `#99621E` | Homepage Start Here / Three Pillars section — the "Thrive" pillar's eyebrow text and link color. 4.6:1 against Page background — same AA tier as Copper. Promoted from the "not yet assigned" candidate list below (§2.12) to this assigned role. |
+| Forest | `#2D3B32` | Meet Cece section background, replacing Charcoal for that one section only, per Cece's direct call. Not a sitewide background substitute for Charcoal — scoped to that section. |
+
 ### 2.12 Candidates — Pulled from Coolors, Not Yet Role-Assigned (added 2026-08-11)
 
 Sourced from a Coolors screenshot Cece was reviewing in a separate session ("Balancing empathy with optimism on homepage," 2026-08-08), where they were tracked as "not added yet." Added here as available colors — nothing below has an assigned role, a button/tag/background rule, or a contrast check yet. Don't use in new code until a role is picked; that's a deliberate design decision, not a documentation gap to fill in guessing.
@@ -116,7 +125,7 @@ Sourced from a Coolors screenshot Cece was reviewing in a separate session ("Bal
 |---|---|---|
 | Almond Cream | `#EAE0D5` | Not yet assigned |
 | Khaki Beige | `#C6AC8F` | Not yet assigned |
-| Golden Earth | `#99621E` | Not yet assigned |
+| Golden Earth | `#99621E` | **Assigned 2026-08-27 — see §2.13.** No longer a candidate. |
 | Warm Amber *(name placeholder)* | `#CE8147` | Not yet assigned |
 | Deep Umber *(name placeholder)* | `#504136` | Not yet assigned |
 | Warm Ivory *(name placeholder)* | `#F7F4EA` | Not yet assigned |
@@ -476,17 +485,21 @@ Sections alternate to create visual rhythm — never two Charcoal sections adjac
 - Margin after headings: h1 `1rem`, h2 `0.75rem`, h3 `0.5rem`
 - Paragraph margin-bottom: `1rem` (body), `1.5rem` (blog post body)
 
-### 7.6 Homepage Structure — Current (Live)
+### 7.6 Homepage Structure — Current (Live, rewritten 2026-08-27)
 
-1. Sticky header
-2. Hero — Charcoal bg + photo overlay, CTA "Get the Free 6pm Cheat Sheet →"
-3. 6pm Experience widget (inline, NOT a lightbox — never call it a lightbox)
-4. "I'm Cece" section — narrow portrait photo, side-by-side layout
-5. Combined account/newsletter signup section
+The redesign referenced in the prior version of this section shipped. Current structure, top to bottom:
+
+1. Sticky header — centered nav, Log In link, mobile toggle
+2. Hero — headline "Solo mom. Empty nest. What's next.", single CTA "Start Here →" linking to `/start-here`
+3. "Meet Cece" section (Chapter Four) — Forest background (§2.13), portrait photo side-by-side with founder story copy, "Say hello →" button to `/connect`, "Read my full story →" link to `/about`
+4. Three Pillars ("How I can help.") — Thrive (full catalog → `/shop`), Support (1:1 connect → `/connect`), Encourage (blog/community → `/blog`); scroll-reveal on each card via IntersectionObserver; quiz CTA below the cards
+5. Newsletter signup section
 6. Product cards with action-specific CTAs
 7. Footer
 
-**Redesign in progress, not yet built:** a new homepage direction is in planning as of 2026-08-01 — centered nav with login, soft-photography hero with staggered stats/story cards, the "What Kind of Nester Are You?" quiz as a feel-seen/email-capture moment, a freebie callout, founder story, and light social proof. Gate 1 (five questions) is answered; Gate 2 (design plan, needs Cece's literal "approved") has not run yet. Do not build against this paragraph — it's a plan, not a lock. This section (§7.6) will be rewritten to describe the new structure once it actually ships.
+The 6pm Experience widget that used to sit inline on the homepage was removed 2026-08-26 as dead code (it had zero remaining callers). This left **The 6pm Cheat Sheet** — a real, live free product — without a homepage entry point; Cece has this open as a decision to make on where (if anywhere) to re-link it.
+
+`/start-here` is a separate standalone page (not just an anchor) with the same three-pillar content, used as the hero CTA's actual destination. The homepage's own Three Pillars section is not a duplicate to prune — Cece confirmed she wants both: the inline homepage section AND the dedicated page.
 
 ---
 

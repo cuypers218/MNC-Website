@@ -56,7 +56,7 @@
         </div>
 
         <!-- Mobile Toggle -->
-        <button class="mobile-toggle" aria-label="Open menu" onclick="openMobileNav()">
+        <button class="mobile-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="mobileNav" onclick="openMobileNav()">
             <span></span><span></span><span></span>
         </button>
     </div>
@@ -142,7 +142,7 @@
 
 <!-- PHOTO -->
 <section class="connect-photo-section">
-    <img src="/assets/images/cece-photo-2026.png" alt="Cece, founder of My Nest Chapter" class="connect-photo">
+    <img src="/assets/images/cece-photo-2026.png" alt="Cece, founder of My Nest Chapter" class="connect-photo" width="200" height="260">
     <p class="connect-photo-caption">Cece, the mom behind My Nest Chapter</p>
 </section>
 
@@ -185,14 +185,21 @@
 function openMobileNav() {
     document.getElementById('mobileNav').classList.add('open');
     document.getElementById('mobileOverlay').style.display = 'block';
-    document.querySelector('.mobile-toggle').classList.add('is-open');
+    var toggle = document.querySelector('.mobile-toggle');
+    toggle.classList.add('is-open');
+    toggle.setAttribute('aria-expanded', 'true');
     document.body.style.overflow = 'hidden';
+    var closeBtn = document.querySelector('.mobile-close');
+    if (closeBtn) closeBtn.focus();
 }
 function closeMobileNav() {
     document.getElementById('mobileNav').classList.remove('open');
     document.getElementById('mobileOverlay').style.display = 'none';
-    document.querySelector('.mobile-toggle').classList.remove('is-open');
+    var toggle = document.querySelector('.mobile-toggle');
+    toggle.classList.remove('is-open');
+    toggle.setAttribute('aria-expanded', 'false');
     document.body.style.overflow = '';
+    toggle.focus();
 }
 </script>
 

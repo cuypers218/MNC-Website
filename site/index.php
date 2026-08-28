@@ -56,7 +56,7 @@
                     </div>
         
         <!-- Mobile Toggle -->
-        <button class="mobile-toggle" aria-label="Open menu" onclick="openMobileNav()">
+        <button class="mobile-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="mobileNav" onclick="openMobileNav()">
             <span></span><span></span><span></span>
         </button>
     </div>
@@ -107,7 +107,7 @@
   <div class="cece-inner">
 
     <div class="cece-photo-col">
-      <img src="/assets/images/cece-photo-2026.png" alt="Cece, founder of My Nest Chapter" class="cece-photo">
+      <img src="/assets/images/cece-photo-2026.png" alt="Cece, founder of My Nest Chapter" class="cece-photo" width="260" height="340">
     </div>
 
     <div class="cece-text-col">
@@ -172,10 +172,10 @@
       <p class="an-eyebrow">FREE. WEEKLY. NO STRINGS.</p>
       <h2 class="an-heading">Whatever tonight's 6pm looks like, I'll be in your inbox before the next one.</h2>
       <p class="an-body">I write every week. What I'm still figuring out, what helped me this week, what's hard right now. Not advice. Not a program. Just where I am — the honest parts and the better parts both.</p>
-      <!--?php $anSubscribed = ($_GET['subscribed'] ?? '') === '1'; $anSubscribeError = ($_GET['subscribe_error'] ?? '') === '1'; ?-->
-      <!--?php if ($anSubscribed): ?-->
+      <?php $anSubscribed = ($_GET['subscribed'] ?? '') === '1'; $anSubscribeError = ($_GET['subscribe_error'] ?? '') === '1'; ?>
+      <?php if ($anSubscribed): ?>
         <p class="an-form-note" style="color:var(--moss);font-weight:800;text-transform:uppercase;letter-spacing:1px;font-size:0.8rem;">Check your inbox.</p>
-      <!--?php else: ?-->
+      <?php else: ?>
         <form class="an-email-form" action="/api/email.php" method="POST" onsubmit="event.preventDefault(); submitToReach(this);">
           <input type="hidden" name="source" value="homepage-newsletter">
           <input type="hidden" name="return_to" value="/">
@@ -183,13 +183,13 @@
             <input type="email" id="homepage-email" name="email" placeholder="Your email" required="" class="an-email-input" aria-label="Email address">
             <button type="submit" id="homepage-submit" class="an-btn-secondary">SEND IT</button>
           </div>
-          <!--?php if ($anSubscribeError): ?-->
+          <?php if ($anSubscribeError): ?>
             <p class="an-form-note" style="color:var(--dark-orange);">That didn't go through — please check your email and try again.</p>
-          <!--?php else: ?-->
+          <?php else: ?>
             <p class="an-form-note">Nothing else. Just the weekly note.</p>
-          <!--?php endif; ?-->
+          <?php endif; ?>
         </form>
-      <!--?php endif; ?-->
+      <?php endif; ?>
       <p id="homepage-msg" style="display:none; margin-top:12px; font-family:'DM Sans',sans-serif; font-weight:800; font-size:0.8rem; text-transform:uppercase; letter-spacing:1px; color:var(--moss);"></p>
     </div>
 
@@ -213,26 +213,6 @@
 
   </div>
 </section>
-
-<!-- 6PM EXPERIENCE WIDGET -->
-<div id="exp-overlay" style="display:none;position:fixed;inset:0;z-index:99999;background:rgba(37,37,53,0.85);">
-  <iframe id="exp-frame" src="" title="The 6pm Experience" style="width:100%;height:100%;border:none;"></iframe>
-</div>
-<script>
-window.open6pmExperience = function() {
-  var f = document.getElementById('exp-frame');
-  if (!f.getAttribute('src')) f.setAttribute('src', '/6pm-experience/');
-  document.getElementById('exp-overlay').style.display = 'block';
-  document.body.style.overflow = 'hidden';
-};
-window.close6pmExperience = function() {
-  document.getElementById('exp-overlay').style.display = 'none';
-  document.body.style.overflow = '';
-};
-window.addEventListener('message', function(e) {
-  if (e.data === 'mnc-6pm-close') window.close6pmExperience();
-});
-</script>
 
 <!-- PRODUCT CARDS — a teaser trio, not the full catalog (see /shop for everything). Static per CLAUDE.md Gate 3 review: update by hand if price/products change until this homepage is wired to the database. -->
 <section class="home-products">
@@ -373,14 +353,21 @@ async function submitToReach(form) {
 function openMobileNav() {
     document.getElementById('mobileNav').classList.add('open');
     document.getElementById('mobileOverlay').style.display = 'block';
-    document.querySelector('.mobile-toggle').classList.add('is-open');
+    var toggle = document.querySelector('.mobile-toggle');
+    toggle.classList.add('is-open');
+    toggle.setAttribute('aria-expanded', 'true');
     document.body.style.overflow = 'hidden';
+    var closeBtn = document.querySelector('.mobile-close');
+    if (closeBtn) closeBtn.focus();
 }
 function closeMobileNav() {
     document.getElementById('mobileNav').classList.remove('open');
     document.getElementById('mobileOverlay').style.display = 'none';
-    document.querySelector('.mobile-toggle').classList.remove('is-open');
+    var toggle = document.querySelector('.mobile-toggle');
+    toggle.classList.remove('is-open');
+    toggle.setAttribute('aria-expanded', 'false');
     document.body.style.overflow = '';
+    toggle.focus();
 }
 
 // --- Toast ---

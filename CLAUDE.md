@@ -83,7 +83,7 @@ Follow `MNC-BUILD-PLAYBOOK.md` in full. Mandatory, no skipping phases — the tw
 
 ## LIVE PAGES
 
-Homepage, About (includes quiz), Shop, workbook.php, Blog, Resources, Freebies, Member Dashboard, Login/Register, Checkout, `/nester-quiz` (dedicated shareable quiz page, also linked from dashboard).
+Homepage, About (includes quiz), Shop, workbook.php, Blog, Resources, Freebies, Member Dashboard, Login/Register, Checkout, `/nester-quiz` (dedicated shareable quiz page, also linked from dashboard), `/connect` (added 2026-08-26, email/text/booking page, not in main nav), `/start-here` (added 2026-08-26, hero CTA destination — full three-pillar catalog page, not in main nav).
 
 ---
 
@@ -160,6 +160,8 @@ Full palette and typography rules live in the brand skill file — below is just
 - **Soft White** `#FFFEFB` — added 2026-08-01, alternate background brighter than Page background (photo-heavy sections, forms, checkout). Not a card surface — use Clean card for that.
 - **Warm Sand** `#D9C7AC` — added 2026-08-01, fills the gap between Cozy card and Taupe. Dividers, borders, muted/disabled UI.
 - **Bark** `#5B3A28` — added 2026-08-01, deeper brown between Copper and Charcoal. Hover state on Copper buttons; secondary text darker than Warm gray. 9.11:1 against Page background (AAA).
+- **Golden Earth** `#99621E` — added 2026-08-27 (was shipped 2026-08-26 without a changelog entry; documentation caught up during the same-day audit fix). Homepage Start Here "Thrive" pillar eyebrow/link color, 4.6:1 against Page background, same AA tier as Copper.
+- **Forest** `#2D3B32` — added 2026-08-27 (shipped 2026-08-26 without a changelog entry). Meet Cece section background only, replaces Charcoal for that one section per Cece's direct call — not a sitewide substitute for Charcoal.
 - **Tags** — colored text only, no fill, no border. Wine, Copper, Moss, or Rosewood text directly on the page/card background.
 - **Candidates, added 2026-08-11 — NOT role-assigned yet:** Almond Cream `#EAE0D5`, Khaki Beige `#C6AC8F`, Golden Earth `#99621E`, plus three given directly as hex with placeholder names — Warm Amber `#CE8147`, Deep Umber `#504136`, Warm Ivory `#F7F4EA` — plus Marigold `#FFA500` (the bright version; solves an earlier "where's my marigold" question — it was in a Coolors AI chat, not a repo file). Don't use in new code until a role is picked — see DESIGN.md §2.12. Two more colors from that same Coolors screenshot (dark warm browns, `#685044` and `#582419`) are pending name confirmation before they're added at all.
 
