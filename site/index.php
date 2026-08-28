@@ -125,48 +125,6 @@
   </div>
 </section>
 
-<!-- START HERE / THREE PILLARS -->
-<section class="start-here" id="start-here">
-    <div class="start-here-inner">
-        <div class="start-here-head">
-            <p class="start-here-eyebrow">The Three Pillars</p>
-            <h2>How I can help.</h2>
-        </div>
-
-        <div class="pillars">
-            <div class="pillar support">
-                <p class="pillar-eyebrow">Support: The Tools</p>
-                <h3>Practical Tools for the Transition</h3>
-                <p>Interactive tools designed to help you organize your time, clear the clutter, and build steady new daily habits at your own pace.</p>
-                <a href="/6pm-experience/" onclick="event.preventDefault();open6pmExperience();">Get the 6pm Cheat Sheet <span class="cta-arrow">→</span></a>
-            </div>
-            <div class="pillar encourage">
-                <p class="pillar-eyebrow">Encourage: The Community &amp; Wisdom</p>
-                <h3>Connection &amp; Shared Stories</h3>
-                <p>Heartfelt guidance, relatable stories, and resources to remind you that while the house might be quiet at 6 PM, your world is just opening up.</p>
-                <a href="/workbook.php">See the Now What? Workbook <span class="cta-arrow">→</span></a>
-            </div>
-            <div class="pillar thrive">
-                <p class="pillar-eyebrow">Thrive: The Next Steps</p>
-                <h3>Designing Your Next Act</h3>
-                <p>Inspirational trackers and planners to help you dust off your old dreams, discover new passions, and confidently answer the question: "What's next?"</p>
-                <a href="/resources">Explore Next tools <span class="cta-arrow">→</span></a>
-            </div>
-        </div>
-
-        <div class="start-here-quiz-cta">
-            <button onclick="openQuizModal()" class="btn btn-outline" style="cursor:pointer;">Not sure? Take the 2-minute quiz <span class="cta-arrow">→</span></button>
-        </div>
-    </div>
-</section>
-
-<div id="quizModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(37,37,53,0.82); z-index:1000; align-items:center; justify-content:center; padding:20px;" onclick="handleModalClick(event)">
-    <div style="max-width:640px; width:100%; position:relative;">
-        <button onclick="closeQuizModal()" aria-label="Close quiz" style="position:absolute; top:14px; right:14px; background:rgba(37,37,53,0.82); border:none; color:#FEFCF8; width:40px; height:40px; border-radius:9999px; font-size:22px; line-height:40px; text-align:center; cursor:pointer; z-index:10; font-family:'DM Sans',sans-serif;">×</button>
-        <iframe id="quizIframe" src="" data-src="/widgets/empty-nester-quiz/" style="width:100%; height:min(95vh,900px); border:none; border-radius:10px; overflow:hidden; display:block;" title="What Kind of Empty Nester Are You?"></iframe>
-    </div>
-</div>
-
 <!-- CHAPTER FIVE: STAY CLOSE -->
 
 <section class="chapter account-newsletter-section" id="chapter-5" data-chapter-name="Chapter Five — Stay Close" style="position: relative;">
@@ -356,43 +314,6 @@ async function submitToReach(form) {
         msg.style.display = 'block';
     }
 }
-
-// --- Quiz Modal (embeds the real, locked quiz widget) ---
-function openQuizModal() {
-    var modal = document.getElementById('quizModal');
-    var iframe = document.getElementById('quizIframe');
-    if (!iframe.src || iframe.src === window.location.href) {
-        iframe.src = iframe.getAttribute('data-src');
-    }
-    modal.style.display = 'flex';
-    document.body.style.overflow = 'hidden';
-}
-function closeQuizModal() {
-    document.getElementById('quizModal').style.display = 'none';
-    document.body.style.overflow = '';
-}
-function handleModalClick(e) {
-    if (e.target === document.getElementById('quizModal')) closeQuizModal();
-}
-
-// --- Start Here pillar reveal (the one scroll-triggered animation on the page) ---
-(function() {
-    var pillars = document.querySelectorAll('.pillar');
-    if (!pillars.length) return;
-    if (!('IntersectionObserver' in window)) {
-        pillars.forEach(function(p) { p.classList.add('is-revealed'); });
-        return;
-    }
-    var observer = new IntersectionObserver(function(entries, obs) {
-        entries.forEach(function(entry) {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('is-revealed');
-                obs.unobserve(entry.target);
-            }
-        });
-    }, { threshold: 0.3 });
-    pillars.forEach(function(p) { observer.observe(p); });
-})();
 
 // --- Mobile Nav ---
 function openMobileNav() {
