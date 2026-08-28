@@ -125,6 +125,41 @@
   </div>
 </section>
 
+<!-- START HERE / THREE PILLARS -->
+<section class="start-here" id="start-here">
+    <div class="start-here-inner">
+        <div class="start-here-head">
+            <p class="start-here-eyebrow">The Three Pillars</p>
+            <h2>How I can help.</h2>
+        </div>
+
+        <div class="pillars">
+            <div class="pillar thrive">
+                <p class="pillar-eyebrow">Thrive</p>
+                <h3>The full catalog</h3>
+                <p>Tools. Digital PDFs. Web and mobile apps. Freebies and other resources. Whatever you're focusing on right now, there's something here for you.</p>
+                <a href="/shop">See everything <span class="cta-arrow">→</span></a>
+            </div>
+            <div class="pillar support">
+                <p class="pillar-eyebrow">Support</p>
+                <h3>Talk to me directly</h3>
+                <p>Whenever you need a friend, someone to bounce ideas off of, vent to, or just listen, I'm here.</p>
+                <a href="/connect">Say hello <span class="cta-arrow">→</span></a>
+            </div>
+            <div class="pillar encourage">
+                <p class="pillar-eyebrow">Encourage</p>
+                <h3>Stories and community</h3>
+                <p>Find other women who get it, along with tips and what's worked for me.</p>
+                <a href="/blog">Read the blog <span class="cta-arrow">→</span></a>
+            </div>
+        </div>
+
+        <div class="start-here-quiz-cta">
+            <a href="/nester-quiz" class="btn btn-outline">Not sure? Take the 2-minute quiz <span class="cta-arrow">→</span></a>
+        </div>
+    </div>
+</section>
+
 <!-- CHAPTER FIVE: STAY CLOSE -->
 
 <section class="chapter account-newsletter-section" id="chapter-5" data-chapter-name="Chapter Five — Stay Close" style="position: relative;">
@@ -314,6 +349,25 @@ async function submitToReach(form) {
         msg.style.display = 'block';
     }
 }
+
+// --- Start Here pillar reveal (the one scroll-triggered animation on the page) ---
+(function() {
+    var pillars = document.querySelectorAll('.pillar');
+    if (!pillars.length) return;
+    if (!('IntersectionObserver' in window)) {
+        pillars.forEach(function(p) { p.classList.add('is-revealed'); });
+        return;
+    }
+    var observer = new IntersectionObserver(function(entries, obs) {
+        entries.forEach(function(entry) {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('is-revealed');
+                obs.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.3 });
+    pillars.forEach(function(p) { observer.observe(p); });
+})();
 
 // --- Mobile Nav ---
 function openMobileNav() {
