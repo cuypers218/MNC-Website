@@ -102,6 +102,29 @@
     </div>
 </section>
 
+<!-- CHAPTER FOUR: MEET CECE -->
+<section class="chapter cece-section" id="chapter-4" data-chapter-name="Chapter Four — Meet Cece" style="position: relative;">
+  <div class="cece-inner">
+
+    <div class="cece-photo-col">
+      <img src="/assets/images/cece-photo-2026.png" alt="Cece, founder of My Nest Chapter" class="cece-photo">
+    </div>
+
+    <div class="cece-text-col">
+      <p class="cece-hook">Hey. I see you. I get you. I am you. Stay a minute.</p>
+      <p class="cece-eyebrow">I'M CECE</p>
+      <h2 class="cece-heading">I raised my kids mostly on my own. When my last one left, I wasn't ready for what hit me.</h2>
+      <p class="cece-body">I went looking for something, anything, that sounded like my life. It didn't exist. So I built My Nest Chapter.</p>
+      <p class="cece-body">I build every product here myself, out of things I needed and couldn't find anywhere else. If you're a solo mom in an empty nest, there's probably something here for you, now or somewhere down the road. If you want to reach out, I'm here. Send a message, or ask for more than that if you want it.</p>
+      <p class="cece-body">I built all of this by hand, alone. There will be glitches. There will be mistakes. Tell me when you find one. I want to do better.</p>
+      <a href="/connect" class="cece-btn">Say hello <span class="cta-arrow">→</span></a>
+      <br>
+      <a href="/about" class="cece-link">Read my full story <span class="cta-arrow">→</span></a>
+    </div>
+
+  </div>
+</section>
+
 <!-- START HERE / THREE PILLARS -->
 <section class="start-here" id="start-here">
     <div class="start-here-inner">
@@ -143,29 +166,6 @@
         <iframe id="quizIframe" src="" data-src="/widgets/empty-nester-quiz/" style="width:100%; height:min(95vh,900px); border:none; border-radius:10px; overflow:hidden; display:block;" title="What Kind of Empty Nester Are You?"></iframe>
     </div>
 </div>
-
-<!-- CHAPTER FOUR: MEET CECE -->
-<section class="chapter cece-section" id="chapter-4" data-chapter-name="Chapter Four — Meet Cece" style="position: relative;">
-  <div class="cece-inner">
-
-    <div class="cece-photo-col">
-      <img src="/assets/images/cece-photo-2026.png" alt="Cece, founder of My Nest Chapter" class="cece-photo">
-    </div>
-
-    <div class="cece-text-col">
-      <p class="cece-hook">Hey. I see you. I get you. I am you. Stay a minute.</p>
-      <p class="cece-eyebrow">I'M CECE</p>
-      <h2 class="cece-heading">I raised my kids mostly on my own. When my last one left, I wasn't ready for what hit me.</h2>
-      <p class="cece-body">I went looking for something, anything, that sounded like my life. It didn't exist. So I built My Nest Chapter.</p>
-      <p class="cece-body">I build every product here myself, out of things I needed and couldn't find anywhere else. If you're a solo mom in an empty nest, there's probably something here for you, now or somewhere down the road. If you want to reach out, I'm here. Send a message, or ask for more than that if you want it.</p>
-      <p class="cece-body">I built all of this by hand, alone. There will be glitches. There will be mistakes. Tell me when you find one. I want to do better.</p>
-      <a href="/connect" class="cece-btn">Say hello <span class="cta-arrow">→</span></a>
-      <br>
-      <a href="/about" class="cece-link">Read my full story <span class="cta-arrow">→</span></a>
-    </div>
-
-  </div>
-</section>
 
 <!-- CHAPTER FIVE: STAY CLOSE -->
 
