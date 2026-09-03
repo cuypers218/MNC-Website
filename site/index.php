@@ -223,7 +223,7 @@
         <div class="product-grid">
             <div class="product-card">
                 <span class="badge">$14.99</span>
-                <div class="product-card-image" style="background: linear-gradient(135deg, var(--soft-beige) 0%, var(--warm-sand) 100%);"></div>
+                <img class="product-card-image" src="/assets/images/workbook-cover.png" alt="Now What? Workbook cover">
                 <div class="product-card-content">
                     <span class="product-card-category">Workbook</span>
                     <h3 class="product-card-title">Now What? Workbook</h3>
@@ -233,7 +233,7 @@
             </div>
             <div class="product-card">
                 <span class="badge">$27</span>
-                <div class="product-card-image" style="background: linear-gradient(135deg, var(--warm-sand) 0%, var(--soft-beige) 100%);"></div>
+                <img class="product-card-image" src="/assets/images/garage-sale-planner-cover.png" alt="Garage Sale Planner cover">
                 <div class="product-card-content">
                     <span class="product-card-category">Interactive Tool</span>
                     <h3 class="product-card-title">Garage Sale Planner</h3>
@@ -243,7 +243,7 @@
             </div>
             <div class="product-card">
                 <span class="badge">$27</span>
-                <div class="product-card-image" style="background: linear-gradient(135deg, var(--soft-beige) 0%, var(--rosewood) 100%);"></div>
+                <img class="product-card-image" src="/assets/images/cooking-for-one-cover.png" alt="Cooking for One Planner cover">
                 <div class="product-card-content">
                     <span class="product-card-category">Interactive Tool</span>
                     <h3 class="product-card-title">Cooking for One Planner</h3>
