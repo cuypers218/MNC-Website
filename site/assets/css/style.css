@@ -26,8 +26,21 @@
     --golden-earth: #99621E; /* homepage Start Here "Next" eyebrow — 4.6:1 on Page bg, same AA tier as Copper */
     --forest: #2D3B32; /* added 2026-08-26 — Meet Cece section background, replaces Charcoal for that one section per Cece's direct call */
 
-    --font-display: 'Playfair Display', serif;
-    --font-display-locked: 'Lora', serif; /* the DESIGN.md-locked display face. The token above isn't loaded and silently falls back sitewide — a separate, unapproved fix. New homepage sections below use this one directly. */
+    /* 2026-08-30 palette (DESIGN.md §2) — homepage-scoped rollout only, added for this
+       page's restyle. Not yet propagated sitewide; every other page still runs the
+       tokens above. See DESIGN.md §2's header note before extending these further. */
+    --deep-current: #0A2F3A;       /* primary per DESIGN.md §2.3 — used for headings on this page, not buttons (see below) */
+    --burnished-copper: #A35E33;   /* secondary per DESIGN.md §2.3 — used as the visible CTA color on this page per this restyle's steer; DESIGN.md's own role table still calls this "secondary," flagged as a discrepancy to resolve */
+    --burnished-copper-hover: #7F4928; /* DESIGN.md §2.3's proposed hover shade, reused here as a small-text color — base Burnished Copper measures only 3.64:1 on Soft Sand, a real fail for text this size; this darker shade passes at 5.31:1 */
+    --golden-drift: #D8975A;       /* Card & Box color, used here as the CTA hover fill */
+    --vanilla-cream: #F6F1E6;      /* Core System background per DESIGN.md §2.2 — this page's actual background/light-on-dark text color, per Cece's 2026-08-30 correction */
+    --soft-sand: #F1D9B3;          /* Card & Box color — no longer used on this page as of the Vanilla Cream correction; left defined in case a future section wants it */
+    --soft-beige: #EBDCC3;         /* NOT in DESIGN.md's Card & Box set — closest documented color is Warm Beige #E6D6C2; used as given, flagged for confirmation */
+    --warm-beige-card: #E6D6C2;    /* the actual documented Card & Box "Warm Beige" (DESIGN.md §2.new-cards) — distinct token from --soft-beige above so both stay traceable to their source */
+    --deep-coffee: #2B1F18;        /* text per DESIGN.md §2.1 — used as the hover-state button text (white fails contrast on Golden Drift, see comment at .home-hero-copy .btn-primary:hover) */
+
+    --font-display: 'Playfair Display', serif; /* dead again as of 2026-08-31 — was activated for the hero H1 (see DESIGN.md §5.2b), reverted. Not loaded as a web font anywhere; falls back silently if referenced. */
+    --font-display-locked: 'Lora', serif; /* the DESIGN.md-locked display face for everything else. */
     --font-body: 'DM Sans', 'Helvetica Neue', Arial, sans-serif;
 
     --section-padding: 4rem;
@@ -97,6 +110,9 @@ p { margin-bottom: 1rem; line-height: 1.6; }
     background: var(--clean-card);
     border-bottom: 1px solid #D9C7AC;
 }
+/* Homepage-only override, added 2026-09-02 — every other page keeps the
+   shared .site-header above (same class, different markup file). */
+.home-header { background: var(--vanilla-cream); border-bottom-color: var(--warm-sand); }
 .site-header::before {
     content: '';
     position: absolute;
@@ -393,6 +409,39 @@ a:hover .cta-arrow, button:hover .cta-arrow { transform: translateX(4px); }
 .blog-post-body h2 { margin-top: 2.5rem; margin-bottom: 1rem; }
 
 /* ============================================
+   BLOG COMMENTS (added 2026-08-31, gated to logged-in members)
+   Uses the sitewide pre-rollout tokens (Wine/Charcoal/etc.), matching
+   every other non-homepage page — not the new homepage-only palette
+   (DESIGN.md §2's rollout is index.php only, see its own header note).
+   ============================================ */
+.blog-comments-inner { max-width: 700px; margin: 0 auto; padding: 0 24px 4rem; }
+.blog-comments-heading { font-size: 1.4rem; margin-bottom: 1.5rem; color: var(--charcoal); }
+.blog-comments-empty { color: var(--warm-gray); font-size: 0.95rem; margin-bottom: 2rem; }
+.blog-comments-list { list-style: none; margin: 0 0 2rem; padding: 0; display: flex; flex-direction: column; gap: 1rem; }
+.blog-comment {
+    background: var(--clean-card); border: 0.5px solid var(--warm-sand); border-radius: 8px;
+    padding: 1.25rem 1.5rem;
+}
+.blog-comment-meta { display: flex; align-items: baseline; gap: 0.6rem; margin-bottom: 0.5rem; }
+.blog-comment-name { font-family: var(--font-body); font-weight: 700; font-size: 0.9rem; color: var(--charcoal); }
+.blog-comment-date { font-family: var(--font-body); font-size: 0.78rem; color: var(--warm-gray); }
+.blog-comment-body { font-size: 0.95rem; line-height: 1.6; color: var(--charcoal); margin: 0; }
+.blog-comment-note { font-family: var(--font-body); font-size: 0.85rem; font-weight: 700; margin-bottom: 1.25rem; }
+.blog-comment-note-success { color: var(--moss); }
+.blog-comment-note-error { color: var(--dark-orange); }
+.blog-comment-form { display: flex; flex-direction: column; gap: 0.75rem; }
+.blog-comment-label { font-family: var(--font-body); font-weight: 700; font-size: 0.8rem; color: var(--charcoal); }
+.blog-comment-form textarea {
+    width: 100%; padding: 0.9rem 1rem; border: 1px solid var(--warm-sand); border-radius: 6px;
+    font-family: var(--font-body); font-size: 0.95rem; color: var(--charcoal); background: var(--page-bg);
+    resize: vertical; outline: none; transition: border-color 0.2s ease;
+}
+.blog-comment-form textarea:focus { border-color: var(--wine); }
+.blog-comment-form .btn-primary { align-self: flex-start; }
+.blog-comment-login-prompt { font-family: var(--font-body); font-size: 0.95rem; color: var(--warm-gray); }
+.blog-comment-login-prompt a { color: var(--wine); font-weight: 700; }
+
+/* ============================================
    EMAIL CAPTURE
    ============================================ */
 .email-capture {
@@ -472,6 +521,10 @@ a:hover .cta-arrow, button:hover .cta-arrow { transform: translateX(4px); }
     background: #FFFFFF; border-top: 1px solid #ABABAB;
     padding: 3rem 0; margin-top: 4rem;
 }
+/* Homepage-only override, added 2026-09-02 — every other page keeps the
+   shared .site-footer above (same class, different markup file). */
+.home-footer { background: var(--vanilla-cream); border-top-color: var(--warm-sand); }
+.home-footer .footer-brand { color: var(--deep-current); } /* small dark-teal tie-in, added 2026-09-02, echoes the Cece/newsletter cards without touching the background */
 .footer-inner {
     max-width: 1200px; margin: 0 auto; padding: 0 24px;
     text-align: center;
@@ -540,63 +593,81 @@ a:hover .cta-arrow, button:hover .cta-arrow { transform: translateX(4px); }
 
 /* ============================================
    HOMEPAGE — HERO (centered, text-only — Aug 2026 mockup)
+   Reverted 2026-08-31 to this original simple structure — everything
+   hero-specific from the 2026-08-30 editorial experiments (linen texture,
+   organic divider, Playfair Display, the two-column grid, the floating
+   overlap card) is removed per Cece's request. See DESIGN.md §5.2b for
+   the full history of what was tried and undone.
+   Colors are NOT reverted — Vanilla Cream/Deep Current/Burnished Copper
+   stay, since those came from the separate sitewide palette work, not
+   from the hero-specific prompts this revert undoes.
    ============================================ */
 .home-hero {
     position: relative;
     overflow: hidden;
     padding: 64px 0 68px;
-    background-color: var(--cozy-card);
-}
-.home-hero::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background-image:
-        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.015' numOctaves='5' stitchTiles='stitch' result='noise'/%3E%3CfeColorMatrix in='noise' type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"),
-        radial-gradient(ellipse at center, transparent 45%, rgba(60,40,20,0.4) 100%);
-    background-size: 400px 400px, 100% 100%;
-    background-blend-mode: multiply, normal;
-    opacity: 0.136;
-    pointer-events: none;
+    background-color: var(--vanilla-cream);
 }
 .home-hero-inner {
     position: relative;
-    max-width: 760px; margin: 0 auto; padding: 0 24px;
+    /* Widened from 760px 2026-09-02 — at the new 4.25rem headline size,
+       760px wasn't wide enough for "Solo mom. Empty nest." to hold one
+       line before wrapping mid-phrase. */
+    max-width: 1000px; margin: 0 auto; padding: 0 24px;
     text-align: center;
 }
+/* Container removed 2026-08-31, same day it was added — Cece wanted the
+   hero text plain again. .cece-card below keeps its dark-teal container;
+   this reverts the hero only. Text goes back to dark-on-Vanilla-Cream. */
 .home-hero-copy h1 {
-    font-family: var(--font-display-locked); font-weight: 700; font-size: clamp(1.7rem, 5.4vw, 3rem);
-    line-height: 1.28; margin: 0 0 20px; color: var(--charcoal); text-transform: none;
+    /* Type contrast pushed 2026-09-02, staying inside the locked Lora/DM
+       Sans system (no third face): bigger size step vs. the body text
+       below, tighter line-height + tracking so the big size reads
+       confident/intentional rather than just "large." */
+    font-family: var(--font-display-locked); font-weight: 700; font-size: clamp(2.1rem, 6vw, 4.25rem);
+    line-height: 1.05; letter-spacing: -0.01em; margin: 0 0 22px; color: var(--deep-current); text-transform: none;
 }
 .home-hero-copy .home-hero-body {
-    font-family: var(--font-body); font-size: 1.05rem; line-height: 1.6; color: var(--charcoal);
-    max-width: 46ch; margin: 0 auto 28px;
+    /* Stays roomy/small — the contrast against h1 above is the point.
+       max-width loosened 2026-09-02 from 46ch (forced an awkward 2-line
+       wrap on every viewport) to 68ch — fits the whole sentence on one
+       line within the 760px hero column on typical/wide screens; still
+       wraps normally on narrow ones, where the &nbsp; below (see HTML)
+       keeps "next." from ever standing alone. */
+    font-family: var(--font-body); font-weight: 400; font-size: 1.05rem; line-height: 1.6; color: var(--deep-coffee);
+    max-width: 68ch; margin: 0 auto 28px;
 }
-.home-hero-copy .btn-primary { display: inline-flex; }
+.home-hero-copy .btn-primary {
+    display: inline-flex;
+    background-color: var(--burnished-copper);
+}
+.home-hero-copy .btn-primary:hover {
+    background-color: var(--golden-drift);
+    color: var(--deep-coffee);
+}
 
 @media (max-width: 860px) {
-    .home-hero { padding: 48px 0 52px; }
+    .home-hero { padding: 48px 0 68px; }
 }
 
 /* ============================================
    HOMEPAGE — START HERE / THREE PILLARS
    ============================================ */
-.start-here { padding: 8px 0 96px; }
+.start-here { padding: 8px 0 96px; background-color: var(--vanilla-cream); } /* was falling through to body's old --page-bg — now matches the hero/newsletter background explicitly */
 .start-here-inner { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
 .start-here-head { text-align: center; max-width: 620px; margin: 0 auto 52px; }
-.start-here-eyebrow {
-    font-family: var(--font-body); font-weight: 800; font-size: 11px; letter-spacing: 2px;
-    text-transform: uppercase; color: var(--copper); margin: 0 0 14px;
-}
 .start-here-head h1, .start-here-head h2 {
     font-family: var(--font-display-locked); font-weight: 700; font-size: clamp(1.6rem, 3vw, 2.1rem);
-    margin: 0 0 14px; color: var(--charcoal); text-transform: none;
+    margin: 0 0 14px; color: var(--deep-current); text-transform: none;
 }
 .start-here-head p { font-family: var(--font-body); font-size: 1rem; color: var(--warm-gray); margin: 0; line-height: 1.6; }
 
 .pillars { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; margin-bottom: 40px; }
 .pillar {
-    background: var(--clean-card); border: 0.5px solid var(--warm-sand); border-radius: 10px;
+    /* Soft Beige + 12px (Tailwind rounded-xl) per this restyle's steer — was
+       Clean card + 10px, the sitewide card radius (DESIGN.md §5.4). Scoped to
+       this page's pillar cards only. */
+    background: var(--soft-beige); border: 0.5px solid var(--warm-sand); border-radius: 12px;
     box-shadow: 0 10px 40px rgba(37,37,53,0.07); padding: 32px 28px;
     display: flex; flex-direction: column;
     opacity: 0; transform: translateY(16px); transition: opacity 0.5s ease, transform 0.5s ease;
@@ -608,13 +679,13 @@ a:hover .cta-arrow, button:hover .cta-arrow { transform: translateX(4px); }
 @media (prefers-reduced-motion: reduce) { .pillar { opacity: 1; transform: none; transition: none; } }
 
 .pillar-eyebrow { font-family: var(--font-body); font-weight: 800; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; margin: 0 0 14px; }
-.pillar.support .pillar-eyebrow { color: var(--copper); }
+.pillar.support .pillar-eyebrow { color: var(--burnished-copper-hover); } /* base Burnished Copper fails small-text contrast on Soft Beige (3.6:1-ish); the hover-darkened shade passes at 5.39:1 */
 .pillar.encourage .pillar-eyebrow { color: var(--rosewood); }
 .pillar.thrive .pillar-eyebrow { color: var(--golden-earth); }
-.pillar h3 { font-family: var(--font-display-locked); font-weight: 700; font-size: 1.2rem; line-height: 1.35; margin: 0 0 12px; color: var(--charcoal); text-transform: none; }
+.pillar h3 { font-family: var(--font-display-locked); font-weight: 700; font-size: 1.2rem; line-height: 1.35; margin: 0 0 12px; color: var(--deep-current); text-transform: none; }
 .pillar p { font-family: var(--font-body); font-size: 0.92rem; line-height: 1.6; color: var(--warm-gray); margin: 0 0 20px; flex-grow: 1; }
 .pillar a { font-family: var(--font-body); font-weight: 700; font-size: 0.82rem; letter-spacing: 0.4px; text-decoration: none; }
-.pillar.support a { color: var(--copper); }
+.pillar.support a { color: var(--burnished-copper-hover); }
 .pillar.encourage a { color: var(--rosewood); }
 .pillar.thrive a { color: var(--golden-earth); }
 .pillar a:hover { text-decoration: underline; }
@@ -633,29 +704,37 @@ a:hover .cta-arrow, button:hover .cta-arrow { transform: translateX(4px); }
    ============================================ */
 .home-products {
     position: relative; overflow: hidden;
-    background: var(--charcoal); padding: 96px 0 104px;
+    /* Vanilla Cream as of 2026-09-02, per Cece's "whole background, nav to
+       footer" steer — was Deep Current, the page's remaining dark full-bleed
+       section. Text below flipped from light-on-dark to dark-on-light. */
+    background: var(--vanilla-cream); padding: 96px 0 104px;
 }
-.home-products-mark {
-    position: absolute; top: -60px; right: -40px; width: 420px; height: 420px;
-    opacity: 0.07; pointer-events: none; z-index: 0;
-}
-.home-products-mark path { stroke: var(--warm-sand); stroke-width: 2.5; fill: none; stroke-linecap: round; }
 .home-products-inner { position: relative; z-index: 1; max-width: 1200px; margin: 0 auto; padding: 0 24px; }
 .home-products-head { text-align: center; max-width: 560px; margin: 0 auto 48px; }
 .home-products-head h2 {
     font-family: var(--font-display-locked); font-weight: 700; font-size: clamp(1.9rem, 3.4vw, 2.5rem);
-    margin: 0; color: var(--page-bg);
+    margin: 0; color: var(--deep-current);
 }
 .home-products .product-card {
-    background: var(--clean-card); border: 0.5px solid var(--warm-sand);
-    border-radius: 10px; box-shadow: 0 10px 40px rgba(37,37,53,0.07);
+    /* Soft Beige + 12px per this restyle's steer — was Clean card + 10px. */
+    background: var(--soft-beige); border: 0.5px solid var(--warm-sand);
+    border-radius: 12px; box-shadow: 0 10px 40px rgba(37,37,53,0.07);
+}
+.home-products .product-card-title, .home-products .product-card h3 {
+    color: var(--deep-current);
+}
+.home-products .btn-primary {
+    background-color: var(--burnished-copper);
+}
+.home-products .btn-primary:hover {
+    background-color: var(--golden-drift);
+    color: var(--deep-coffee); /* same contrast fix as the hero CTA — white fails on Golden Drift */
 }
 .home-products .badge {
-    border-radius: 9999px; border-color: var(--warm-sand); color: var(--charcoal);
+    border-radius: 9999px; border-color: var(--warm-sand); color: var(--deep-coffee);
 }
-.home-products .badge-free { background: #FFFFFF; color: var(--wine); border-color: var(--wine); }
-.home-products .badge-coming { background: var(--page-bg); color: var(--charcoal); border-color: var(--warm-sand); }
-@media (max-width: 768px) { .home-products-mark { width: 260px; height: 260px; top: -30px; right: -60px; } }
+.home-products .badge-free { background: #FFFFFF; color: var(--burnished-copper); border-color: var(--burnished-copper); }
+.home-products .badge-coming { background: var(--vanilla-cream); color: var(--deep-coffee); border-color: var(--warm-sand); }
 
 /* ============================================
    RESPONSIVE
@@ -717,52 +796,81 @@ a:hover .cta-arrow, button:hover .cta-arrow { transform: translateX(4px); }
 
 /* ============================================
    HOMEPAGE — CECE SECTION (cece-* classes)
+   Recolored again 2026-08-31, same session: the page background stays
+   Vanilla Cream, but the Soft Beige text-only card is replaced by one
+   dark-teal (Deep Current) card holding BOTH the photo and the text
+   together — per Cece's steer. .cece-inner is now a pure outer
+   constrainer (matches .home-hero-inner's role); .cece-card carries the
+   visual container styling and the photo+text flex row that used to live
+   directly on .cece-inner.
    ============================================ */
-.cece-section { background-color: var(--forest); padding: 80px 24px; }
-.cece-inner { max-width: 980px; margin: 0 auto; display: flex; align-items: center; gap: 56px; }
+.cece-section { background-color: var(--vanilla-cream); padding: 80px 24px; }
+.cece-inner { max-width: 980px; margin: 0 auto; }
+.cece-card {
+    background: var(--deep-current);
+    border-radius: 16px;
+    padding: 48px;
+    display: flex; align-items: center; gap: 56px;
+}
 .cece-photo-col { flex: 0 0 260px; }
 .cece-photo {
     display: block; width: 260px; height: 340px; object-fit: cover; object-position: center 15%;
-    border-radius: 10px; border: 10px solid var(--page-bg); box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+    border-radius: 10px; border: 10px solid var(--vanilla-cream); box-shadow: 0 10px 25px rgba(0,0,0,0.15); /* light frame reads clearly against the card's own dark teal fill */
 }
 .cece-text-col { flex: 1; min-width: 0; text-align: left; }
-.cece-hook { font-family: var(--font-display-locked); font-style: italic; font-size: 1.05rem; color: var(--page-bg); line-height: 1.5; margin: 0 0 18px; }
-.cece-eyebrow { font-family: var(--font-body); font-weight: 800; font-size: 11px; letter-spacing: 2px; color: var(--copper); text-transform: uppercase; margin: 0 0 14px; }
-.cece-heading { font-family: var(--font-display-locked); font-weight: 700; font-size: 22px; color: var(--page-bg); line-height: 1.35; margin: 0 0 16px; text-transform: none; }
-.cece-body { font-family: var(--font-body); font-size: 15px; color: rgba(246,243,236, 0.85); line-height: 1.7; margin: 0 0 16px; }
-.cece-btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 44px; background: var(--wine); color: #fff; font-family: var(--font-body); font-weight: 800; font-size: 12px; letter-spacing: 0.5px; text-transform: uppercase; padding: 13px 26px; border-radius: 6px; text-decoration: none; margin: 14px 0 16px; transition: background 0.2s ease, transform 0.15s ease; box-sizing: border-box; }
-.cece-btn:hover { background: var(--wine-hover); transform: translateY(-2px); }
-.cece-link { display: inline-block; color: var(--page-bg); font-family: var(--font-body); font-weight: 700; font-size: 12px; letter-spacing: 0.5px; text-decoration: underline; }
+.cece-hook { font-family: var(--font-display-locked); font-style: italic; font-size: 1.05rem; color: var(--vanilla-cream); line-height: 1.5; margin: 0 0 18px; }
+.cece-eyebrow {
+    /* Burnished Copper measures only 2.84:1 directly on Deep Current — a
+       real contrast fail. Warm Sand passes at 8.59:1 (same fix as the
+       newsletter block's an-eyebrow, which never had this problem). */
+    font-family: var(--font-body); font-weight: 800; font-size: 11px; letter-spacing: 2px; color: var(--warm-sand); text-transform: uppercase; margin: 0 0 14px;
+}
+.cece-heading { font-family: var(--font-display-locked); font-weight: 700; font-size: 22px; color: var(--vanilla-cream); line-height: 1.35; margin: 0 0 16px; text-transform: none; }
+.cece-body { font-family: var(--font-body); font-size: 15px; color: rgba(246,241,230, 0.85); line-height: 1.7; margin: 0 0 16px; }
+.cece-btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 44px; background: var(--burnished-copper); color: #fff; font-family: var(--font-body); font-weight: 800; font-size: 12px; letter-spacing: 0.5px; text-transform: uppercase; padding: 13px 26px; border-radius: 6px; text-decoration: none; margin: 14px 0 16px; transition: background 0.2s ease, transform 0.15s ease; box-sizing: border-box; }
+.cece-btn:hover { background: var(--golden-drift); color: var(--deep-coffee); transform: translateY(-2px); }
+.cece-link { display: inline-block; color: var(--vanilla-cream); font-family: var(--font-body); font-weight: 700; font-size: 12px; letter-spacing: 0.5px; text-decoration: underline; }
 @media (max-width: 860px) {
-  .cece-inner { flex-direction: column; text-align: center; }
+  .cece-card { flex-direction: column; text-align: center; padding: 36px 28px; }
   .cece-text-col { text-align: center; }
 }
 
 /* ============================================
    HOMEPAGE — ACCOUNT + NEWSLETTER (an-* classes)
+   Recolored 2026-08-30 — see comments below for each swap's source.
    ============================================ */
-.account-newsletter-section { background-color: var(--page-bg); padding: 72px 24px; }
+.account-newsletter-section { background-color: var(--vanilla-cream); padding: 72px 24px; }
 .an-inner { max-width: 680px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; gap: 0; }
-.an-primary-block { background: var(--charcoal); border-radius: 8px; box-shadow: 0 10px 40px rgba(37,37,53,0.07); padding: 48px 40px; text-align: center; width: 100%; box-sizing: border-box; }
-.an-eyebrow { font-family: var(--font-body); font-weight: 800; font-size: 11px; letter-spacing: 2px; color: var(--warm-sand); margin: 0 0 16px; text-transform: uppercase; }
-.an-heading { font-family: var(--font-display-locked); font-weight: 700; font-size: 22px; color: var(--page-bg); line-height: 1.35; margin: 0 0 16px; }
-.an-body { font-family: var(--font-body); font-size: 15px; color: rgba(246,243,236, 0.78); line-height: 1.65; margin: 0 0 28px; }
-.an-btn-primary { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; background: var(--wine); color: #fff; font-family: var(--font-body); font-weight: 800; font-size: 13px; letter-spacing: 0.5px; text-transform: uppercase; padding: 14px 32px; border-radius: 6px; text-decoration: none; transition: background 0.2s ease, transform 0.15s ease; }
-.an-btn-primary:hover { background: var(--wine-hover); transform: translateY(-1px); }
+.an-primary-block { background: var(--deep-current); border-radius: 8px; box-shadow: 0 10px 40px rgba(37,37,53,0.07); padding: 48px 40px; text-align: center; width: 100%; box-sizing: border-box; }
+.an-eyebrow { font-family: var(--font-body); font-weight: 800; font-size: 11px; letter-spacing: 2px; color: var(--warm-sand); margin: 0 0 16px; text-transform: uppercase; } /* already the right choice — see .cece-eyebrow's comment above */
+.an-heading { font-family: var(--font-display-locked); font-weight: 700; font-size: 22px; color: var(--vanilla-cream); line-height: 1.35; margin: 0 0 16px; }
+.an-body { font-family: var(--font-body); font-size: 15px; color: rgba(246,241,230, 0.78); line-height: 1.65; margin: 0 0 28px; }
+.an-btn-primary { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; background: var(--burnished-copper); color: #fff; font-family: var(--font-body); font-weight: 800; font-size: 13px; letter-spacing: 0.5px; text-transform: uppercase; padding: 14px 32px; border-radius: 6px; text-decoration: none; transition: background 0.2s ease, transform 0.15s ease; }
+.an-btn-primary:hover { background: var(--golden-drift); color: var(--deep-coffee); transform: translateY(-1px); }
 .an-divider { display: flex; align-items: center; width: 100%; gap: 12px; padding: 28px 0 20px; color: var(--warm-gray); font-family: var(--font-body); font-size: 13px; }
 .an-divider::before, .an-divider::after { content: ''; flex: 1; height: 1px; background: var(--warm-sand); }
-.an-secondary-block { background: #fff; border: 1px solid var(--warm-sand); border-radius: 8px; box-shadow: 0 10px 40px rgba(37,37,53,0.07); padding: 40px 40px 36px; text-align: center; width: 100%; box-sizing: border-box; }
+.an-secondary-block { background: var(--warm-beige-card); border: 1px solid var(--warm-sand); border-radius: 12px; box-shadow: 0 10px 40px rgba(37,37,53,0.07); padding: 40px 40px 36px; text-align: center; width: 100%; box-sizing: border-box; } /* was white — now Warm Beige + rounded-xl, matching the pillar/product card treatment */
 .an-secondary-label { font-family: var(--font-body); font-weight: 800; font-size: 11px; letter-spacing: 2px; color: var(--warm-gray); margin: 0 0 14px; text-transform: uppercase; }
-.an-secondary-heading { font-family: var(--font-display-locked); font-weight: 700; font-size: 20px; color: var(--charcoal); line-height: 1.35; margin: 0 0 16px; }
-.an-secondary-body { font-family: var(--font-body); font-size: 15px; color: var(--charcoal); line-height: 1.65; margin: 0 0 22px; }
+.an-secondary-heading { font-family: var(--font-display-locked); font-weight: 700; font-size: 20px; color: var(--deep-current); line-height: 1.35; margin: 0 0 16px; }
+.an-secondary-list {
+    list-style: none; margin: 0 0 22px; padding: 0;
+    display: inline-flex; flex-direction: column; gap: 10px; text-align: left;
+}
+.an-secondary-list li {
+    font-family: var(--font-body); font-size: 15px; color: var(--deep-coffee); line-height: 1.5;
+    padding-left: 22px; position: relative;
+}
+.an-secondary-list li::before {
+    content: '—'; position: absolute; left: 0; color: var(--burnished-copper-hover); font-weight: 700;
+}
 .an-secondary-sub { font-family: var(--font-body); font-size: 13px; color: var(--warm-gray); margin: 0; }
 .an-email-form { display: flex; flex-direction: column; align-items: center; gap: 10px; }
 .an-form-row { display: flex; gap: 8px; width: 100%; max-width: 420px; }
-.an-email-input { flex: 1; padding: 13px 18px; border: 1.5px solid var(--warm-sand); border-radius: 6px; font-family: var(--font-body); font-size: 14px; color: var(--charcoal); background: var(--page-bg); outline: none; transition: border-color 0.2s ease, box-shadow 0.2s ease; }
-.an-email-input:focus { border-color: var(--wine); box-shadow: 0 0 0 3px rgba(122,46,66,0.12); }
+.an-email-input { flex: 1; padding: 13px 18px; border: 1.5px solid var(--warm-sand); border-radius: 6px; font-family: var(--font-body); font-size: 14px; color: var(--deep-coffee); background: var(--vanilla-cream); outline: none; transition: border-color 0.2s ease, box-shadow 0.2s ease; }
+.an-email-input:focus { border-color: var(--burnished-copper); box-shadow: 0 0 0 3px rgba(163,94,51,0.12); }
 .an-email-input::placeholder { color: var(--taupe); }
-.an-btn-secondary { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; background: var(--wine); color: #fff; font-family: var(--font-body); font-weight: 800; font-size: 12px; letter-spacing: 0.5px; text-transform: uppercase; padding: 13px 22px; border: none; border-radius: 6px; cursor: pointer; white-space: nowrap; transition: background 0.2s ease, transform 0.15s ease; }
-.an-btn-secondary:hover { background: var(--wine-hover); transform: translateY(-2px); }
+.an-btn-secondary { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; background: var(--burnished-copper); color: #fff; font-family: var(--font-body); font-weight: 800; font-size: 12px; letter-spacing: 0.5px; text-transform: uppercase; padding: 13px 22px; border: none; border-radius: 6px; cursor: pointer; white-space: nowrap; transition: background 0.2s ease, transform 0.15s ease; }
+.an-btn-secondary:hover { background: var(--golden-drift); color: var(--deep-coffee); transform: translateY(-2px); }
 .an-form-note { font-family: var(--font-body); font-size: 12px; color: var(--warm-gray); margin: 0; }
 @media (max-width: 560px) {
   .an-primary-block, .an-secondary-block { padding: 36px 24px; }

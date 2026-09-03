@@ -36,7 +36,7 @@
 
 <a href="#main-content" class="skip-link">Skip to main content</a>
 
-<header class="site-header">
+<header class="site-header home-header">
     <div class="header-inner">
         <a href="/" class="brand-mark">My Nest Chapter</a>
         
@@ -95,8 +95,8 @@
 <section class="home-hero">
     <div class="home-hero-inner">
         <div class="home-hero-copy">
-            <h1>Solo mom. Empty nest. What's next.</h1>
-            <p class="home-hero-body">Real tools, honest support, and a growing community for whatever's next.</p>
+            <h1>Solo mom. Empty nest.<br>What's next.</h1>
+            <p class="home-hero-body">Real tools, honest support, and a growing community for whatever's&nbsp;next.</p>
             <a href="/start-here" class="btn btn-primary">Start Here <span class="cta-arrow">→</span></a>
         </div>
     </div>
@@ -105,23 +105,24 @@
 <!-- CHAPTER FOUR: MEET CECE -->
 <section class="chapter cece-section" id="chapter-4" data-chapter-name="Chapter Four — Meet Cece" style="position: relative;">
   <div class="cece-inner">
+    <div class="cece-card">
 
-    <div class="cece-photo-col">
-      <img src="/assets/images/cece-photo-2026.png" alt="Cece, founder of My Nest Chapter" class="cece-photo" width="260" height="340">
+      <div class="cece-photo-col">
+        <img src="/assets/images/cece-photo-2026.png" alt="Cece, founder of My Nest Chapter" class="cece-photo" width="260" height="340">
+      </div>
+
+      <div class="cece-text-col">
+        <p class="cece-hook">Hey. I see you. I get you. I am you. Stay a minute.</p>
+        <p class="cece-eyebrow">I'M CECE</p>
+        <h2 class="cece-heading">I raised my kids mostly on my own. When my last one left, I wasn't ready for what hit me.</h2>
+        <p class="cece-body">I went looking for something, anything, that sounded like my life. It didn't exist. So I built My Nest Chapter.</p>
+        <p class="cece-body">I build every product myself. There will be glitches. There will be mistakes. Tell me when you find one.</p>
+        <a href="/connect" class="cece-btn">Say hello <span class="cta-arrow">→</span></a>
+        <br>
+        <a href="/about" class="cece-link">Read my full story <span class="cta-arrow">→</span></a>
+      </div>
+
     </div>
-
-    <div class="cece-text-col">
-      <p class="cece-hook">Hey. I see you. I get you. I am you. Stay a minute.</p>
-      <p class="cece-eyebrow">I'M CECE</p>
-      <h2 class="cece-heading">I raised my kids mostly on my own. When my last one left, I wasn't ready for what hit me.</h2>
-      <p class="cece-body">I went looking for something, anything, that sounded like my life. It didn't exist. So I built My Nest Chapter.</p>
-      <p class="cece-body">I build every product here myself, out of things I needed and couldn't find anywhere else. If you're a solo mom in an empty nest, there's probably something here for you, now or somewhere down the road. If you want to reach out, I'm here. Send a message, or ask for more than that if you want it.</p>
-      <p class="cece-body">I built all of this by hand, alone. There will be glitches. There will be mistakes. Tell me when you find one. I want to do better.</p>
-      <a href="/connect" class="cece-btn">Say hello <span class="cta-arrow">→</span></a>
-      <br>
-      <a href="/about" class="cece-link">Read my full story <span class="cta-arrow">→</span></a>
-    </div>
-
   </div>
 </section>
 
@@ -129,7 +130,6 @@
 <section class="start-here" id="start-here">
     <div class="start-here-inner">
         <div class="start-here-head">
-            <p class="start-here-eyebrow">The Three Pillars</p>
             <h2>How I can help.</h2>
         </div>
 
@@ -148,9 +148,9 @@
             </div>
             <div class="pillar encourage">
                 <p class="pillar-eyebrow">Encourage</p>
-                <h3>Stories and community</h3>
-                <p>Find other women who get it, along with tips and what's worked for me.</p>
-                <a href="/blog">Read the blog <span class="cta-arrow">→</span></a>
+                <h3>Stories and conversation</h3>
+                <p>Read what's helped me, then talk it through with other women in the comments. You don't have to figure this out on your own.</p>
+                <a href="/blog">Join the conversation <span class="cta-arrow">→</span></a>
             </div>
         </div>
 
@@ -165,13 +165,11 @@
 <section class="chapter account-newsletter-section" id="chapter-5" data-chapter-name="Chapter Five — Stay Close" style="position: relative;">
   <div class="an-inner">
 
-    <p class="chapter-eyebrow" style="text-align:center;width:100%;">CHAPTER FIVE — STAY CLOSE</p>
-
-    <!-- PRIMARY: WEEKLY EMAIL — matches the locked homepage conversion goal (email/freebie signup, not account creation) -->
+    <!-- PRIMARY: MONTHLY EMAIL — matches the locked homepage conversion goal (email/freebie signup, not account creation) -->
     <div class="an-primary-block">
-      <p class="an-eyebrow">FREE. WEEKLY. NO STRINGS.</p>
-      <h2 class="an-heading">Whatever tonight's 6pm looks like, I'll be in your inbox before the next one.</h2>
-      <p class="an-body">I write every week. What I'm still figuring out, what helped me this week, what's hard right now. Not advice. Not a program. Just where I am — the honest parts and the better parts both.</p>
+      <p class="an-eyebrow">FREE. MONTHLY. NO STRINGS.</p>
+      <h2 class="an-heading">I show up in your inbox every month and tell you the truth about mine.</h2>
+      <p class="an-body">What I'm working through right now. What actually helped. What still doesn't. No advice. No program. Just where I really am.</p>
       <?php $anSubscribed = ($_GET['subscribed'] ?? '') === '1'; $anSubscribeError = ($_GET['subscribe_error'] ?? '') === '1'; ?>
       <?php if ($anSubscribed): ?>
         <p class="an-form-note" style="color:var(--moss);font-weight:800;text-transform:uppercase;letter-spacing:1px;font-size:0.8rem;">Check your inbox.</p>
@@ -181,12 +179,12 @@
           <input type="hidden" name="return_to" value="/">
           <div class="an-form-row">
             <input type="email" id="homepage-email" name="email" placeholder="Your email" required="" class="an-email-input" aria-label="Email address">
-            <button type="submit" id="homepage-submit" class="an-btn-secondary">SEND IT</button>
+            <button type="submit" id="homepage-submit" class="an-btn-secondary">COUNT ME IN</button>
           </div>
           <?php if ($anSubscribeError): ?>
             <p class="an-form-note" style="color:var(--dark-orange);">That didn't go through — please check your email and try again.</p>
           <?php else: ?>
-            <p class="an-form-note">Nothing else. Just the weekly note.</p>
+            <p class="an-form-note">One email a month. Nothing else.</p>
           <?php endif; ?>
         </form>
       <?php endif; ?>
@@ -201,13 +199,15 @@
     <!-- SECONDARY: FREE ACCOUNT -->
     <div class="an-secondary-block">
       <p class="an-secondary-label">WANT THE FULL LIBRARY TOO?</p>
-      <h2 class="an-secondary-heading">Create a free account and everything lives in one place — your tools, your downloads, your resources.</h2>
-      <p class="an-secondary-body">Plus freebies that aren't anywhere else on the site. The ones on the public pages are for anyone who finds them. The ones inside your account are just for you.</p>
-      <a href="/register" class="an-btn-primary">UNLOCK MY FREE RESOURCES <span class="cta-arrow">→</span></a>
+      <h2 class="an-secondary-heading">Create a free account and get every tool, download, and freebie in one place.</h2>
+      <ul class="an-secondary-list">
+        <li>Every freebie on the site, unlocked</li>
+        <li>New ones added just for members</li>
+        <li>Nothing you have to go hunting for again</li>
+      </ul>
+      <a href="/register" class="an-btn-primary">UNLOCK MY FREEBIES <span class="cta-arrow">→</span></a>
       <div style="margin-top:20px;display:flex;flex-direction:column;gap:6px;align-items:center;">
-        <p class="an-secondary-sub">Instant access to all freebies — no waiting</p>
-        <p class="an-secondary-sub">Member-only exclusives added every month</p>
-        <p class="an-secondary-sub">Free. Always.</p>
+        <p class="an-secondary-sub">Instant access. No waiting. That's free.</p>
       </div>
     </div>
 
@@ -216,9 +216,6 @@
 
 <!-- PRODUCT CARDS — a teaser trio, not the full catalog (see /shop for everything). Static per CLAUDE.md Gate 3 review: update by hand if price/products change until this homepage is wired to the database. -->
 <section class="home-products">
-    <svg class="home-products-mark" viewBox="0 0 100 100" aria-hidden="true" focusable="false">
-        <path d="M10,50 C25,20 55,15 70,35 C85,55 65,80 40,75 C20,71 8,65 10,50 Z" />
-    </svg>
     <div class="home-products-inner">
         <div class="home-products-head">
             <h2>Ready when you are.</h2>
@@ -226,7 +223,7 @@
         <div class="product-grid">
             <div class="product-card">
                 <span class="badge">$14.99</span>
-                <div class="product-card-image" style="background: linear-gradient(135deg, var(--cozy-card) 0%, var(--warm-sand) 100%);"></div>
+                <div class="product-card-image" style="background: linear-gradient(135deg, var(--soft-beige) 0%, var(--warm-sand) 100%);"></div>
                 <div class="product-card-content">
                     <span class="product-card-category">Workbook</span>
                     <h3 class="product-card-title">Now What? Workbook</h3>
@@ -236,7 +233,7 @@
             </div>
             <div class="product-card">
                 <span class="badge">$27</span>
-                <div class="product-card-image" style="background: linear-gradient(135deg, var(--warm-sand) 0%, var(--cozy-card) 100%);"></div>
+                <div class="product-card-image" style="background: linear-gradient(135deg, var(--warm-sand) 0%, var(--soft-beige) 100%);"></div>
                 <div class="product-card-content">
                     <span class="product-card-category">Interactive Tool</span>
                     <h3 class="product-card-title">Garage Sale Planner</h3>
@@ -246,7 +243,7 @@
             </div>
             <div class="product-card">
                 <span class="badge">$27</span>
-                <div class="product-card-image" style="background: linear-gradient(135deg, var(--cozy-card) 0%, var(--rosewood) 100%);"></div>
+                <div class="product-card-image" style="background: linear-gradient(135deg, var(--soft-beige) 0%, var(--rosewood) 100%);"></div>
                 <div class="product-card-content">
                     <span class="product-card-category">Interactive Tool</span>
                     <h3 class="product-card-title">Cooking for One Planner</h3>
@@ -269,7 +266,7 @@
 
 </main>
 
-<footer class="site-footer">
+<footer class="site-footer home-footer">
     <div class="footer-inner">
         <div class="footer-brand">My Nest Chapter</div>
         <div class="footer-tagline">For Single &amp; Solo Moms</div>

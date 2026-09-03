@@ -181,3 +181,19 @@ function getNextExclusiveUnlock($userId) {
     $stmt->execute([':uid1' => $userId, ':uid2' => $userId]);
     return $stmt->fetch();
 }
+
+/**
+ * Get visible comments for a blog post, oldest first, with the commenter's first name.
+ */
+function getCommentsForPost($postId) {
+    $db = getDB();
+    $stmt = $db->prepare("
+        SELECT c.id, c.body, c.created_at, u.first_name
+        FROM blog_comments c
+        JOIN users u ON u.id = c.user_id
+        WHERE c.post_id = ? AND c.status = 'visible'
+        ORDER BY c.created_at ASC
+    ");
+    $stmt->execute([$postId]);
+    return $stmt->fetchAll();
+}

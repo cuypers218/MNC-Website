@@ -1,5 +1,5 @@
 # My Nest Chapter — Design System
-**Version 5 — August 1, 2026 — Full rewrite**
+**Version 5 — August 1, 2026 — Full rewrite** *(§12.2/§12.4 refreshed 2026-08-30 against live `style.css` — no structural changes, no new colors; see those sections for what was verified. §2 COLOR SYSTEM and Appendix A replaced 2026-08-30 — the entire July 27/August 1 palette retired in favor of a new Cece-authored system; role mapping and WCAG contrast confirmed in that pass, but the lock is documentation-only — `style.css` has not been updated yet. See §2's own header note for what's settled versus still open.)*
 *Consolidated from the three prior DESIGN.md versions (June 2026 v4, the July 27 correction pass, and the July 26 "Design Basics" draft) plus the live color/type state as of 2026-08-01. The July 26 "Design Basics" draft is not used as a source here — it referenced Deep Rose/Periwinkle/Lavender/Soft Peach, all retired July 27, and its own footer claim that Lavender/Soft Peach were "reinstated" contradicts the July 27 lock. Treat that version as an abandoned branch, not a prior state of truth. Voice, tone, and copy rules are intentionally NOT duplicated here — see `Skill_File_07-05-2026_v4.md` (the Brand & Voice Bible). This file is visual/structural only, per the split already defined in `CLAUDE.md`.*
 
 ---
@@ -21,58 +21,106 @@
 
 ## 2. COLOR SYSTEM
 
-> **Locked July 27, 2026, extended August 1, 2026.** Supersedes every earlier palette (May 2026, July 5, July 16 Wine Ramp) entirely — all retired, not amended. Built and confirmed with Cece through live mockups and WCAG contrast checks. One palette for everything — web, print, and interactive tools all draw from this same set, except where §2.7–2.8 note a deliberate print-only exception.
+> **Locked 2026-08-30.** Supersedes the entire July 27/August 1 system (Wine, Copper, Charcoal, Page background, and everything added on top of it through August 27) entirely — all retired, not amended. This palette was authored by Cece as a complete, named set (5 Core System colors + 9 Card & Box colors) and handed over ready-made, not built live in this doc the way prior versions were; role assignment and WCAG contrast verification happened in this pass. **Print/workbook colors (§2.7–2.8) are untouched by this revision** — that exception continues exactly as before.
+>
+> **Scope: `index.php` fully done, everywhere else still retired.** As of 2026-08-30 the entire homepage (`site/index.php`) runs this palette — hero, Meet Cece, Start Here/Pillars, Stay Close/Newsletter, and the product cards, all done the same day across two passes (a scoped restyle, then a second pass finishing the sections deliberately deferred from the first). All overrides live under `.home-*`/`.cece-*`/`.an-*`/`.pillar`/`.start-here` selectors — the pattern already established for this page — plus new `:root` tokens (see the CSS comments at the top of `:root` in `style.css`). Every other page still renders the retired Wine/Copper/Charcoal system. Treat this the way the July 27 palette was treated before its full rollout (CLAUDE.md Thread 2): one page shipped complete, the rest tracked follow-up work.
+>
+> **What changed in the second pass:** the Meet Cece section's background moved from Forest (`#2D3B32`, homepage-only, §2.homepage-legacy) to Deep Current — both "dark moment" sections on the page (Meet Cece and the product showcase) now share one dark color instead of two different ones. The hero's fluid divider was recolored to match. `--forest` itself is untouched (still used by `connect.php`, a different page). A new small-text finding: **Burnished Copper fails contrast as small text on light backgrounds** (3.64:1 and similar — a real fail, not borderline, and too small to qualify for the AA-large exception). The already-proposed hover shade `#7F4928` (`--burnished-copper-hover`) is reused as a small-text color where this comes up (eyebrows, the Support pillar's accent) — passes comfortably. Worth folding this shade into §2.3 proper next time that section gets revisited, since it's now doing two jobs (hover fill and small-text color), not one.
+>
+> **Correction, same day:** the second pass initially used Soft Sand (a Card & Box color) as this page's actual background and as light-on-dark text in the Meet Cece/newsletter sections. Cece corrected this — **Vanilla Cream is the background**, exactly as §2.2 above already specified; Soft Sand was the wrong token for that job from the start (a Card & Box color standing in for the Core System's actual background role). Every background and light-on-dark text use on the homepage now uses Vanilla Cream; `--soft-sand` is still defined in `style.css` but nothing on this page currently calls it.
+>
+> **Two things resolved during that homepage pass, worth folding back into this record:**
+> - **Role conflict, resolved in favor of the homepage's visible use:** Burnished Copper is used as the visible/primary-looking CTA color on the homepage (steer explicitly called it out that way), even though §2.3 above still lists it as *secondary* with Deep Current as primary. Deep Current is used for headings on the homepage instead of buttons. This is a live discrepancy between this table and the shipped page, not yet reconciled — whoever continues the rollout should either update §2.3's role table to match what shipped, or restyle the homepage buttons to match the table. Not resolved here.
+> - **Hover-contrast pattern, now established:** Golden Drift as a button hover fill fails badly with white text (2.47:1). The homepage CTA buttons swap text to Deep Coffee on hover instead of keeping it white. Reuse this pattern anywhere else Golden Drift becomes a hover state.
+>
+> **"Soft Beige" `#EBDCC3`, used for card backgrounds on the homepage, is not in the Card & Box list above** — the closest documented color is Warm Beige `#E6D6C2` (§2.new-cards). Contrast-verified independently (11.86:1 with Deep Coffee text) and used as given, but this is either a slightly different color than Warm Beige or a re-typo of it — worth confirming with Cece which one is canonical before it spreads further.
 
 ### 2.1 Text / Dark Neutral
 
 | Name | Hex | Role |
 |---|---|---|
-| Charcoal | `#262624` | All body text, headings, nav, footer. 15:1+ against every background below — AAA everywhere. Never more than 20–30% of any page as a fill/background. |
+| Deep Coffee | `#2B1F18` | All body text, headings, nav, footer — replaces Charcoal. 14.21:1 against Vanilla Cream — AAA everywhere. |
 
-### 2.2 Backgrounds and Cards
+### 2.2 Background
 
 | Name | Hex | Role |
 |---|---|---|
-| Page background | `#F6F3EC` | Main page background — hero, most content sections. 70–80% of every page. |
-| Clean card | `#FEFCF8` | Near-white card surface. Pair with a 0.5px hairline border — the difference from Page background alone is too subtle to read as "layered." |
-| Cozy card | `#EFE8DC` | Deeper, warmer card surface. Same hairline-border rule. Also used for dividers and the old "Alt Section BG" role. |
-| Soft White *(added 2026-08-01)* | `#FFFEFB` | Alternate background, brighter than Page background — for sections that want more light/contrast (photo-heavy sections, forms, checkout). Not a card surface — use Clean card for that. |
+| Vanilla Cream | `#F6F1E6` | Main page background — replaces Page background. 70–80% of every page, same convention as before. |
+
+**Open gap, not yet decided:** the new palette gives one flat background, not the old four-shade ramp (Page bg / Clean card / Cozy card / Soft White). Until Cece confirms a replacement, treat plain/neutral card surfaces as an open question — **do not** silently reuse Soft Sand or Warm Beige from §2.new-cards for this without asking; they're confirmed as Card & Box colors, not as a Clean-card substitute.
 
 ### 2.3 Buttons — Two Signature Action Colors
 
 | Name | Hex | Role |
 |---|---|---|
-| Wine | `#7A2E42` | **Primary** — emotional/connection CTAs: 6pm Experience, founder story, newsletter. 8.44:1 against Page background — AAA. |
-| Copper | `#A15C3E` | **Secondary** — product/functional CTAs. 4.60:1 against Page background — AA. |
+| Deep Current | `#0A2F3A` | **Primary** — replaces Wine. White text: 14.18:1 — AAA. |
+| Burnished Copper | `#A35E33` | **Secondary** — replaces Copper. **White text required, not cream** — see note below. |
 
-Both confirmed liked independently — this is a genuine two-color system, not primary-with-a-fallback. If a screen needs just one, default to Wine. **No other color is ever a button fill** — Rosewood and Deep Teal are accents, not action colors (see §2.6, §2.10).
+Role mapping confirmed 2026-08-30: Deep Current (the palette's "Anchor") → primary button; Burnished Copper (the palette's "Warm") → secondary button — same two-button structure as the retired system, no other color is a button fill.
 
-### 2.4 Labels, Icons, and Structure
+**Contrast finding — secondary button text color must change.** The retired system's secondary button used cream text (`#F6F3EC` on Copper, 4.60:1 AA). The direct equivalent here — Vanilla Cream on Burnished Copper — measures **4.43:1, just under the 4.5 AA line** for the button's 0.85rem/700 label size. **Use white `#FFFFFF` instead (4.99:1, passes AA)** — a deliberate, measured deviation from the old cream-on-secondary convention, not an oversight.
 
-| Name | Hex | Role |
-|---|---|---|
-| Taupe | `#8C8272` | Decorative labels, eyebrow text, category labels only. 3.41:1 against Page background — AA-large only, never small primary reading text. Never on buttons, never as a background. |
-| Warm gray | `#6B655C` | Icons, small UI elements. 5.20:1 against Page background — full AA at any size. |
-| Warm Sand *(added 2026-08-01)* | `#D9C7AC` | Fills the gap between Cozy card and Taupe in the neutral ramp. Dividers, borders, muted/disabled UI. 9.18:1 against Charcoal — safe even if text ever sits on it, though that's not its intended job. |
-| Bark *(added 2026-08-01)* | `#5B3A28` | Deeper brown between Copper and Charcoal. Hover state on Copper buttons; secondary text darker than Warm gray where Charcoal reads too heavy. 9.11:1 against Page background — AAA. |
+**Hover states — computed, not yet eyeballed.** Derived at the same ~78% darkening ratio the retired Wine-hover/Copper-hover pair used; these have not been checked against a live mockup the way every prior hover value in this doc was:
+- Deep Current hover: `#08252D` (proposed)
+- Burnished Copper hover: `#7F4928` (proposed)
 
-### 2.5 Error and Success
+### 2.new-accent Accent — Golden Honey
 
 | Name | Hex | Role |
 |---|---|---|
-| Dark orange | `#9E3D0F` | Error states, form validation failures. 6.06:1 against Page background. Never rely on color alone — pair with an icon or the word "Error"; sits close in family to Copper. |
-| Moss | `#46703F` | Success states, confirmations. 6.30:1 against Page background. |
+| Golden Honey | `#C8A878` | Decorative accent fill — badges, highlight blocks, small accent details. **Fill only, with Deep Coffee text on top (7.11:1, AAA) — never as small text or a link color on Vanilla Cream** (2.00:1, a hard fail, not a borderline one). This is the opposite job of the retired Golden Earth, which *was* a text/link color — don't carry that usage forward onto this color. |
+
+### 2.4 Labels, Icons, and Structure — carried over, unresolved
+
+The new palette does not include replacements for Taupe, Warm gray, Warm Sand, or Bark (decorative labels, icon color, dividers, button-hover neutral). These four **stay on their retired-system values for now** — they are not part of the 2026-08-30 lock and not yet decided:
+
+| Name | Hex | Role (unchanged from retired system) |
+|---|---|---|
+| Taupe | `#8C8272` | Decorative labels, eyebrow text, category labels only. Never on buttons, never as a background. |
+| Warm gray | `#6B655C` | Icons, small UI elements. |
+| Warm Sand | `#D9C7AC` | Dividers, borders, muted/disabled UI. |
+| Bark | `#5B3A28` | Secondary text darker than Warm gray. |
+
+### 2.5 Error and Success — carried over, unresolved
+
+The new palette does not include error or success colors. Dark orange and Moss **stay on their retired-system values for now**, pending a decision:
+
+| Name | Hex | Role (unchanged from retired system) |
+|---|---|---|
+| Dark orange | `#9E3D0F` | Error states, form validation failures. Never rely on color alone — pair with an icon or the word "Error." |
+| Moss | `#46703F` | Success states, confirmations. |
 
 ### 2.6 Tags
 
-Colored text only — no fill, no background tint, no border. Tested and rejected both alternatives directly with Cece (filled tint backgrounds, then outlined borders) before landing here; plain colored text tested as the most legible option.
+Colored text only — no fill, no background tint, no border, per the retired system's own tested-and-confirmed rule (§2.6 history: filled tint and outlined-border were tried and rejected before landing here). That rule carries forward unchanged; only the color options change:
 
 | Name | Hex | Use |
 |---|---|---|
-| Wine | `#7A2E42` | e.g. "solo mom favorite" |
-| Copper | `#A15C3E` | e.g. "most popular" — on Cozy card specifically, keep to large/bold text only (4.19:1, AA-large not full AA) |
-| Moss | `#46703F` | e.g. "new this week" |
-| Rosewood | `#80475E` | A fourth tag-text option (see §2.9) |
+| Deep Current | `#0A2F3A` | Primary tag color, e.g. "solo mom favorite." 12.59:1 against Vanilla Cream. |
+| Burnished Copper | `#A35E33` | e.g. "most popular" — **AA-large only, not full AA** (4.43:1 against Vanilla Cream) — same caveat the retired Copper tag carried, keep to large/bold text. |
+| Moss | `#46703F` | e.g. "new this week" — carried over from §2.5, unresolved along with the rest of that section. |
+
+Golden Honey is **not** a tag-text option (see §2.new-accent) — it fails contrast as text. The retired system's fourth tag color, Rosewood, has no confirmed replacement.
+
+### 2.new-cards Card & Box Colors (added 2026-08-30)
+
+Nine colors for product/content card backgrounds, per Cece. Each row shows the text color that actually passes contrast on it — computed 2026-08-30, not yet checked against a live mockup:
+
+| Name | Hex | Text pairing | Contrast | Note |
+|---|---|---|---|---|
+| Soft Sand | `#F1D9B3` | Deep Coffee text | 11.67:1 — AAA | Light, reads closest to the retired system's Clean/Cozy card role |
+| Warm Beige | `#E6D6C2` | Deep Coffee text | 11.25:1 — AAA | Light, same near-neutral role as Soft Sand |
+| Golden Drift | `#D8975A` | Deep Coffee text | 6.47:1 — AAA | |
+| Caramel | `#B88A5A` | Deep Coffee text | 5.20:1 — AA | |
+| Caramel Brown | `#8B5E3C` | Vanilla Cream text | 4.95:1 — AA | |
+| Spiced Caramel | `#A67C52` | Deep Coffee text | 4.29:1 — **AA-large only** | Below 4.5, do not use for small body-size card copy — headings/large text only, same caveat class as Taupe and the Copper tag |
+| Oceanic Teal | `#1D6B78` | Vanilla Cream text | 5.44:1 — AA | |
+| Smoky Sienna | `#5A4839` | Vanilla Cream text | 7.70:1 — AAA | |
+| Mocha Brown | `#5E3E2B` | Vanilla Cream text | 8.47:1 — AAA | |
+
+### 2.homepage-legacy Homepage Section Colors — Golden Earth and Forest
+
+Not addressed by the 2026-08-30 palette. Both are still live in `style.css` (Golden Earth on the Start Here/Three Pillars "Thrive" eyebrow, Forest as the Meet Cece section background) and neither is retired by this revision — but neither is confirmed to survive it either. Open decision for Cece: keep these two as scoped exceptions alongside the new system, or fold their roles into it (Forest's "one dark section" job is a natural candidate for Deep Current, for instance, but that's a suggestion, not a decision made here).
 
 ### 2.7 Workbook / Document Element Colors
 
@@ -96,50 +144,25 @@ Colored text only — no fill, no background tint, no border. Tested and rejecte
 
 **Rule: no cool gray anywhere on the web.** `#666666`, `#999999`, `#6e6e6e`, `#333333`, `#444444` and similar as web text/border/fill are all violations — use Charcoal for primary text, Warm gray for muted/utility text, Taupe for decorative labels only.
 
-### 2.9 Tertiary Accent — Rosewood (added 2026-07-31)
+### 2.9 Tertiary Accent — Rosewood — carried over, unresolved
 
-Added to the July 27 lock, not a replacement for anything above. Name is provisional — rename here and in `CLAUDE.md` if "Rosewood" doesn't stick.
+Like §2.4/§2.5, the new palette gives no replacement for this role. Rosewood stays usable on its retired-system value until Cece decides whether it survives:
 
 | Name | Hex | Role |
 |---|---|---|
-| Rosewood | `#80475E` | Flexible sitewide accent — decorative highlights, a fourth tag-text option, small accent details. 6.36:1 against Page background — AA, just under the AAA line Wine hits. Sits close in family to Wine; don't use both in the same small element (e.g. not adjacent tag + button) — they'll read as a mismatched pair rather than a deliberate duo. |
+| Rosewood | `#80475E` | Flexible sitewide accent — decorative highlights, a fourth tag-text option, small accent details. |
 
 ### 2.10 Pop Accent — Retired (was Deep Teal, added 2026-08-01, retired 2026-08-11)
 
-Deep Teal `#114B5F` was the single "pop of color" against the earthy palette for about a week and a half — Cece retired it 2026-08-11. No replacement pop-accent has been chosen yet; badges/highlight markers fall back to Rosewood (§2.9) or plain Wine/Copper text (§2.6) until one is picked.
-
-### 2.13 Homepage Section Colors — Golden Earth and Forest (added 2026-08-27)
-
-Both were already live in `style.css` before being formally logged here — this entry catches the documentation up to the code, per the 2026-08-27 audit's finding that they were shipped without a changelog entry. Neither is a replacement for anything above; both are scoped to the specific homepage elements they already style.
-
-| Name | Hex | Role |
-|---|---|---|
-| Golden Earth | `#99621E` | Homepage Start Here / Three Pillars section — the "Thrive" pillar's eyebrow text and link color. 4.6:1 against Page background — same AA tier as Copper. Promoted from the "not yet assigned" candidate list below (§2.12) to this assigned role. |
-| Forest | `#2D3B32` | Meet Cece section background, replacing Charcoal for that one section only, per Cece's direct call. Not a sitewide background substitute for Charcoal — scoped to that section. |
-
-### 2.12 Candidates — Pulled from Coolors, Not Yet Role-Assigned (added 2026-08-11)
-
-Sourced from a Coolors screenshot Cece was reviewing in a separate session ("Balancing empathy with optimism on homepage," 2026-08-08), where they were tracked as "not added yet." Added here as available colors — nothing below has an assigned role, a button/tag/background rule, or a contrast check yet. Don't use in new code until a role is picked; that's a deliberate design decision, not a documentation gap to fill in guessing.
-
-| Name | Hex | Role |
-|---|---|---|
-| Almond Cream | `#EAE0D5` | Not yet assigned |
-| Khaki Beige | `#C6AC8F` | Not yet assigned |
-| Golden Earth | `#99621E` | **Assigned 2026-08-27 — see §2.13.** No longer a candidate. |
-| Warm Amber *(name placeholder)* | `#CE8147` | Not yet assigned |
-| Deep Umber *(name placeholder)* | `#504136` | Not yet assigned |
-| Warm Ivory *(name placeholder)* | `#F7F4EA` | Not yet assigned |
-| Marigold | `#FFA500` | Not yet assigned — the bright, saturated version. Confirmed 2026-08-11 as the color behind an earlier session's "where's my marigold" question; it lives in a Coolors AI chat, not any file in this repo. |
-
-The three "name placeholder" rows are hex-only as given — I generated a descriptive name from the color itself so they're not just raw hex in prose; rename freely, nothing is riding on these names yet.
-
-Two more colors were visible in that same Coolors screenshot (`#685044` and `#582419`, both dark warm browns) but their names were cut off — added once confirmed.
+Deep Teal `#114B5F` was the single "pop of color" against the earthy palette for about a week and a half — Cece retired it 2026-08-11. No replacement pop-accent has been chosen from the retired system; Golden Honey (§2.new-accent) is a candidate for this job going forward, as a fill, but that's not a decision made here.
 
 ### 2.11 Retired Colors — Never Use
 
+**Retired 2026-08-30 (the entire July 27/August 1 system, in full):** Wine `#7A2E42`, Wine-hover `#5E2233`, Copper `#A15C3E`, Copper-hover `#83492F`, Charcoal `#262624`, Page background `#F6F3EC`, Clean card `#FEFCF8`, Cozy card `#EFE8DC`, Soft White `#FFFEFB`. The July 27/August 1 lock's stale, never-role-assigned candidate list (Almond Cream `#EAE0D5`, Khaki Beige `#C6AC8F`, Warm Amber `#CE8147`, Deep Umber `#504136`, Warm Ivory `#F7F4EA`, Marigold `#FFA500`, plus the two unnamed browns `#685044`/`#582419` that were never confirmed) retires with it — the new Card & Box set (§2.new-cards) is the fresh candidate pool now, not an addition to the old one. Golden Earth `#99621E` is not retired — see §2.homepage-legacy, still open. **Name collision to note:** this retired list already used the name "Vanilla Cream" for a *different* color (`#FFF8EE`, retired July 5, below) — the 2026-08-30 palette's Vanilla Cream (`#F6F1E6`, §2.2) is unrelated to that retired one; don't confuse them by name alone.
+
 **Retired July 27, 2026 (the entire July 5–16 system):** Velvety Charcoal `#252535`, Warm Antique White `#FAF7ED`, Deep Rose `#C44570`, Periwinkle `#8BA7D4`, Lavender `#C4B0E8`, Soft Peach `#F5C4A8`, Rose Tint `#F9ECF0`, Peach Tint `#FCF0E8`, Peach Mid `#EFA276`, Warm Brown `#6D4C3E`, Tool Background `#FDFBF7`, the entire Wine/Deep Rose Ramp (stops 50–950, including `#F3D8E1`, `#E7B1C3`, `#DA8BA5`, `#CE6487`, `#74253F`, `#4E182A`, `#270C15`, `#1B090F`), Error Red `#C0392B`, Error BG `#FDEDEC`, Success Green `#1E7E34`, Success BG `#E8F5E9`, Page Gray `#FAFAFA`, Input BG `#FCFCFC`.
 
-**Retired July 5, 2026 (still retired):** Vibrant Pink `#E87AAA`, Vanilla Cream `#FFF8EE`, Powder Blue `#A8C5DA`, Peach `#F2A57A`, Lemon `#EDD96A`, Lime `#B5CC6A`.
+**Retired July 5, 2026 (still retired):** Vibrant Pink `#E87AAA`, Vanilla Cream `#FFF8EE` *(different color than the 2026-08-30 Vanilla Cream — see note above)*, Powder Blue `#A8C5DA`, Peach `#F2A57A`, Lemon `#EDD96A`, Lime `#B5CC6A`.
 
 **Retired August 11, 2026:** Deep Teal `#114B5F` — the pop-accent color added 2026-08-01 (former §2.10). Not a fill, badge, or accent anywhere anymore.
 
@@ -234,6 +257,16 @@ Two more colors were visible in that same Coolors screenshot (`#685044` and `#58
 - `linear-gradient(to bottom, rgba(37,37,53,0.55) 0%, rgba(37,37,53,0.75) 100%)` overlay on hero images
 - Photo opacity ~0.55 where text sits above it
 
+### 5.2b Homepage Hero — Editorial Accent Experiments (2026-08-30, reverted 2026-08-31)
+
+**All of it undone.** On 2026-08-30 the hero went through four rounds of experimentation — a linen texture background, a fluid organic divider into the Meet Cece section, a Playfair Display display-face accent with mixed italic/roman styling, an asymmetrical two-column editorial grid, and a floating Soft Beige card whose bottom edge overlapped into the next section. Cece asked 2026-08-31 to revert the hero to its state from before that first steer. It's back to the original: a plain centered single column, Lora-only heading (no Playfair, no separate `--font-display` font link), no divider, no card, no texture, flat boundary into Meet Cece.
+
+**What was NOT reverted:** the hero's colors. Vanilla Cream background, Deep Current heading, and Burnished Copper button/hover stay — those came from the separate, sitewide 2026-08-30 color-system work (§2), not from the hero-specific steers this revert undoes, and reverting them would have put the hero out of sync with every other section on the page (which still runs the new palette). If Cece wants the hero back on the fully retired system too (old Wine/Charcoal/Cozy card), that's a separate, explicit ask — not assumed here.
+
+The linen texture is gone for a second, independent reason too: Cece said 2026-08-30 she didn't like it, before ever asking for the full revert — so even a literal "restore exactly what was there before" would not have brought it back.
+
+None of the specific techniques tried (organic divider curves, mixed-weight display accents, editorial grids, overlapping cards) are banned — any could resurface in a future request. This entry stays as the record of what was tried on this hero and undone, not as a rule against trying it again.
+
 ### 5.3 Widget / Interactive Tool Aesthetic
 
 - Full-screen or large viewport experiences
@@ -297,9 +330,13 @@ Two more colors were visible in that same Coolors screenshot (`#685044` and `#58
 ### 5.6b Confident + Warm Blend
 
 Brief: "sexy and confident" blended with "warm, nurturing and encouraging." The two qualities aren't blended evenly across a screen — they're separated by zone:
-- **Confidence/boldness** lives in one committed dark moment per screen — a Charcoal `#262624` (or Bark `#5B3A28` for something a touch warmer than pure near-black) section with a single decisive Wine accent, not scattered small accents. Restraint is what makes it read confident rather than loud.
-- **Warmth/nurturing** lives in everything surrounding that moment — Page background space, soft-shadow cards (§5.4), rounded icon circles, encouraging first-person-adjacent copy ("Pick up where you left off," not "Dashboard").
+- **Confidence/boldness** lives in one committed dark moment per screen — a dark section (Deep Current per the 2026-08-30 palette, §2.3) with a single decisive accent, not scattered small accents. Restraint is what makes it read confident rather than loud.
+- **Warmth/nurturing** lives in everything surrounding that moment — background space, soft-shadow cards (§5.4), rounded icon circles, encouraging first-person-adjacent copy ("Pick up where you left off," not "Dashboard").
 - Apply this zone split to every new screen: pick one moment to be bold and dark, let the rest be soft and warm. Don't spread boldness evenly (reads busy) or softness evenly (reads flat/timid).
+
+**Homepage note, 2026-08-31 (superseded same day, see next note):** the Meet Cece section was briefly converted from a dark moment (first Forest, then Deep Current) to Vanilla Cream with text in inset Soft Beige containers.
+
+**Homepage note, 2026-08-31 (current):** same day, Cece asked for a different pattern — the whole hero-through-Meet-Cece area is now Vanilla Cream page background with two separate dark-teal (Deep Current) *card* containers standing on it: one holding the hero text, one holding the Cece photo and bio text together (`.home-hero-copy`, `.cece-card`). This is a different visual language than the "one full-bleed dark section" rule above was written for — dark now reads as a contained accent card on a light page, not an alternating full-bleed section. The rule's spirit (one deliberate zone of confidence/boldness, not scattered darkness) still roughly holds since both dark cards sit in the same opening area of the page and read as one connected "chapter," but this is a genuine pattern shift worth a deliberate decision next time §5.6b itself gets revisited, not something this entry resolves on its own. `.home-products` further down the page is still a third, separate full-bleed dark section, unrelated to this pair.
 
 ---
 
@@ -576,8 +613,8 @@ For live-page inventory, dashboard gating logic, and the exclusive-content drop 
 
 ### 12.2 Design Tokens / Code
 
-- No CSS custom properties — color system is hardcoded throughout `style.css`. A token layer would be a real maintainability upgrade.
-- No defined spacing scale as named tokens
+- `style.css` has a `:root` custom-property block (verified live, 2026-08-30) covering every locked color through Rosewood/Warm Sand/Bark/Golden Earth/Forest — no longer hardcoded for those. Two dead tokens sit in the same block: `--font-display` (Playfair Display, never loaded as a web font and never referenced — every rule uses `--font-display-locked` (Lora) instead) and `--section-padding` (defined, zero usages — sections hardcode `4rem 0` directly). Both are harmless as long as nobody starts using them; worth deleting next time someone's in that file.
+- Spacing has no scale beyond the one unused `--section-padding` token above — still an open gap.
 - No dark mode system — no `prefers-color-scheme` spec exists or is planned
 
 ### 12.3 Typography
@@ -587,6 +624,9 @@ For live-page inventory, dashboard gating logic, and the exclusive-content drop 
 
 ### 12.4 Components
 
+- **Forms & Inputs (§6.4) don't match live code (verified 2026-08-30).** `style.css` `.form-group input` and `.email-capture-form input` still use pre-July-27 values — border `#ABABAB` instead of Warm Sand `#D9C7AC`, background `#FCFCFC` instead of Clean card `#FEFCF8`, text `#101010` instead of Charcoal. `#FCFCFC` is explicitly on the retired list (§2.11, "Input BG"). Rollout gap, not a documentation error — §6.4 states the intended spec correctly.
+- **`.form-error` / `.form-success` still use retired colors (verified 2026-08-30).** Both classes use the pre-July-27 Error Red `#C0392B`/`#FDEDEC` and Success Green `#1E7E34`/`#E8F5E9` (§2.11) instead of the locked Dark orange `#9E3D0F` / Moss `#46703F` (§2.5). Same rollout gap as above — the only two live style-sheet rules still on the retired system as of this check.
+- **Footer (§6.9) doesn't match live code (verified 2026-08-30).** `.site-footer` uses `#FFFFFF`/`#ABABAB` instead of the documented Soft White `#FFFEFB` background and Warm Sand `#D9C7AC` border-top.
 - Quiet House Meter — redesign flagged as priority, current version not approved final
 - Email gate on Pick Your Mood Coloring Widget — built into dashboard, not yet on public Freebies version
 - No dedicated downloads section on dashboard separating PDFs from interactive tools
@@ -604,63 +644,74 @@ For live-page inventory, dashboard gating logic, and the exclusive-content drop 
 
 ## APPENDIX A — Quick Reference Hex Codes
 
+**As of 2026-08-30, these two blocks describe different things.** `style.css` has not been touched by the 2026-08-30 color lock — its `:root` still holds the retired July 27/August 1 tokens exactly as shipped. The second block is the rollout target: the token names code should move to once that work is scheduled, not what's live today.
+
+### Currently live in `style.css` (retired per §2.11, unchanged by this pass)
+
+```css
+--charcoal:      #262624;   /* retired — text/dark neutral */
+--page-bg:       #F6F3EC;   /* retired — background */
+--clean-card:    #FEFCF8;   /* retired */
+--cozy-card:     #EFE8DC;   /* retired */
+--soft-white:    #FFFEFB;   /* retired */
+--wine:          #7A2E42;   /* retired — was primary button */
+--wine-hover:    #5E2233;   /* retired */
+--copper:        #A15C3E;   /* retired — was secondary button */
+--copper-hover:  #83492F;   /* retired */
+--golden-earth:  #99621E;   /* NOT retired — see §2.homepage-legacy, still open */
+--forest:        #2D3B32;   /* NOT retired — see §2.homepage-legacy, still open */
+--font-display:  'Playfair Display', serif;   /* dead token — briefly activated as a hero accent 2026-08-30, reverted 2026-08-31 (see §5.2b). Unrelated to the color rollout either way. */
+```
+
+Still live and **not** part of the color lock either way (§2.4/§2.5/§2.9 — carried over, unresolved): `--taupe #8C8272`, `--warm-gray #6B655C`, `--warm-sand #D9C7AC`, `--bark #5B3A28`, `--dark-orange #9E3D0F`, `--moss #46703F`, `--rosewood #80475E`.
+
+### Target — 2026-08-30 palette, not yet in code
+
 ```css
 /* Text / dark neutral */
---charcoal:      #262624;
+--deep-coffee:       #2B1F18;   /* replaces --charcoal */
 
-/* Backgrounds and cards */
---page-bg:       #F6F3EC;
---clean-card:    #FEFCF8;
---cozy-card:     #EFE8DC;
---soft-white:    #FFFEFB;   /* added 2026-08-01 — alt bright background */
+/* Background */
+--vanilla-cream:     #F6F1E6;   /* replaces --page-bg. No confirmed replacement yet for
+                                    --clean-card/--cozy-card/--soft-white — see §2.2 */
 
 /* Buttons — two signature action colors */
---wine:          #7A2E42;   /* primary — emotional/connection CTAs */
---wine-hover:    #5E2233;
---copper:        #A15C3E;   /* secondary — product/functional CTAs */
---copper-hover:  #83492F;
+--deep-current:        #0A2F3A;   /* primary, replaces --wine. Use white text. */
+--deep-current-hover:  #08252D;   /* proposed, not yet eyeballed — see §2.3 */
+--burnished-copper:        #A35E33;   /* secondary, replaces --copper. Use white text, NOT cream — see §2.3 */
+--burnished-copper-hover:  #7F4928;   /* proposed, not yet eyeballed — see §2.3 */
 
-/* Labels, icons, structure */
---taupe:         #8C8272;   /* decorative labels only, AA-large — never buttons/bg/small text */
---warm-gray:     #6B655C;   /* icons, utility — full AA at any size */
---warm-sand:     #D9C7AC;   /* added 2026-08-01 — dividers, borders, muted UI */
---bark:          #5B3A28;   /* added 2026-08-01 — hover states, darker secondary text */
+/* Accent */
+--golden-honey:      #C8A878;   /* fill only, Deep Coffee text on top — never as text/link on Vanilla Cream, see §2.new-accent */
 
-/* Error and success */
---dark-orange:   #9E3D0F;   /* error — pair with icon/text, never color alone */
---moss:          #46703F;   /* success, and third tag color */
+/* Card & Box colors (§2.new-cards) — each paired with its passing text color */
+--soft-sand:          #F1D9B3;   /* + Deep Coffee text */
+--warm-beige-card:     #E6D6C2;   /* + Deep Coffee text — distinct from any retired token of a similar name */
+--golden-drift:       #D8975A;   /* + Deep Coffee text */
+--caramel:            #B88A5A;   /* + Deep Coffee text */
+--caramel-brown:      #8B5E3C;   /* + Vanilla Cream text */
+--spiced-caramel:     #A67C52;   /* + Deep Coffee text — AA-large only, headings/large text, not body copy */
+--oceanic-teal:       #1D6B78;   /* + Vanilla Cream text */
+--smoky-sienna:       #5A4839;   /* + Vanilla Cream text */
+--mocha-brown:        #5E3E2B;   /* + Vanilla Cream text */
+```
 
-/* Accents */
---rosewood:      #80475E;   /* tertiary accent — decorative highlights, fourth tag color */
+Not carried into this block because they're unresolved, not because they're settled (see §2.4/§2.5/§2.9): Taupe, Warm gray, Warm Sand, Bark, Dark orange, Moss, Rosewood keep their current retired-system hex values until Cece decides whether the new palette replaces them too.
 
-/* Tags — colored text only, no fill, no border (see §6.2) */
-
-/* Candidates, added 2026-08-11 — NOT role-assigned, do not use in new code yet (see §2.12) */
---almond-cream:  #EAE0D5;
---khaki-beige:   #C6AC8F;
---golden-earth:  #99621E;
---warm-amber:    #CE8147;   /* name placeholder */
---deep-umber:    #504136;   /* name placeholder */
---warm-ivory:    #F7F4EA;   /* name placeholder */
---marigold:      #FFA500;
-
-/* Document elements (print/workbook only) */
+```css
+/* Document elements (print/workbook only, untouched by this revision) */
 --icon-gray:     #4B4B4B;
 --rule-line:     #D3D3D3;
 --box-border:    #ABABAB;
 --alt-rule:      #E0E0E0;
 
-/* Text (print/PDF only) */
+/* Text (print/PDF only, untouched by this revision) */
 --text-title:    #0D0D0D;
 --text-heading:  #333333;
 --text-body:     #101010;
-
-/* Retired, never use: --deep-rose #C44570, --periwinkle #8BA7D4, --lavender #C4B0E8,
-   --soft-peach #F5C4A8, --rose-tint #F9ECF0, --peach-tint #FCF0E8, --peach-mid #EFA276,
-   --warm-brown #6D4C3E, --tool-bg #FDFBF7, the entire Wine/Deep Rose Ramp, --powder-blue #A8C5DA,
-   --peach #F2A57A, --lemon #EDD96A, --lime #B5CC6A, old --teal #00CACA (not --deep-teal above),
-   old --error-red #C0392B, old --success-green #1E7E34. Full list: §2.11. */
 ```
+
+Full retired-color ledger, including the entire July 27/August 1 system now retired by this pass: §2.11.
 
 ---
 
