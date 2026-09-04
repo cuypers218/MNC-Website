@@ -8,6 +8,7 @@
     <meta name="description" content="Tools and resources built from lived experience, for single and solo moms navigating the empty nest transition.">
     
     <link rel="canonical" href="https://mynestchapter.com/">
+    <link rel="icon" type="image/svg+xml" href="/assets/images/favicon.svg">
     <!-- Open Graph -->
     <meta property="og:site_name" content="My Nest Chapter">
     <meta property="og:title" content="Solo Mom. Empty Nest. Now What? | My Nest Chapter">
@@ -149,13 +150,13 @@
             <div class="pillar encourage">
                 <p class="pillar-eyebrow">Encourage</p>
                 <h3>Stories and conversation</h3>
-                <p>Read what's helped me, then talk it through with other women in the comments. You don't have to figure this out on your own.</p>
-                <a href="/blog">Join the conversation <span class="cta-arrow">→</span></a>
+                <p>Read what's helped me, and tell me what's true for you in the comments. You don't have to figure this out on your own.</p>
+                <a href="/blog">Read the blog <span class="cta-arrow">→</span></a>
             </div>
         </div>
 
         <div class="start-here-quiz-cta">
-            <a href="/nester-quiz" class="btn btn-outline">Not sure? Take the 2-minute quiz <span class="cta-arrow">→</span></a>
+            <button type="button" onclick="openQuizModal()" class="btn btn-outline" style="cursor:pointer;">Not sure? Take the 2-minute quiz <span class="cta-arrow">→</span></button>
         </div>
     </div>
 </section>
@@ -295,6 +296,36 @@
 
 <!-- Toast container -->
 <div class="toast" id="toast" aria-live="polite" aria-atomic="true"></div>
+
+<!-- Quiz Modal -->
+<div id="quizModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(37,37,53,0.82); z-index:1000; align-items:center; justify-content:center; padding:20px;" onclick="handleModalClick(event)">
+    <div style="position:relative; width:100%; max-width:610px;">
+        <button onclick="closeQuizModal()" aria-label="Close quiz" style="position:absolute; top:14px; right:14px; background:rgba(37,37,53,0.82); border:none; color:#FAF7ED; width:40px; height:40px; border-radius:9999px; font-size:22px; line-height:40px; text-align:center; cursor:pointer; z-index:10; font-family:'Montserrat',sans-serif;">&times;</button>
+        <iframe id="quizIframe" src="" data-src="/widgets/empty-nester-quiz/" style="width:100%; height:min(95vh,900px); border:none; border-radius:10px; overflow:hidden; display:block;" title="What Kind of Empty Nester Are You?"></iframe>
+    </div>
+</div>
+
+<script>
+function openQuizModal() {
+    var modal = document.getElementById('quizModal');
+    var iframe = document.getElementById('quizIframe');
+    if (!iframe.src || iframe.src === window.location.href) {
+        iframe.src = iframe.getAttribute('data-src');
+    }
+    modal.style.display = 'flex';
+    document.body.style.overflow = 'hidden';
+}
+function closeQuizModal() {
+    document.getElementById('quizModal').style.display = 'none';
+    document.body.style.overflow = '';
+}
+function handleModalClick(e) {
+    if (e.target === document.getElementById('quizModal')) closeQuizModal();
+}
+window.addEventListener('message', function(e) {
+    if (e.data === 'closeQuiz') closeQuizModal();
+});
+</script>
 
 <script>
 // --- Reach Email Capture ---

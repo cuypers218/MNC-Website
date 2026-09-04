@@ -8,6 +8,7 @@
     <meta name="description" content="Email Cece directly, free, or book a thirty minute call with her for $45. One mom talking to another.">
 
     <link rel="canonical" href="https://mynestchapter.com/connect">
+    <link rel="icon" type="image/svg+xml" href="/assets/images/favicon.svg">
     <!-- Open Graph -->
     <meta property="og:site_name" content="My Nest Chapter">
     <meta property="og:title" content="Talk to Cece | My Nest Chapter">

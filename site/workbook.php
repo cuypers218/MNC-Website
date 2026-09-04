@@ -9,6 +9,7 @@ $AMAZON_LINK = "https://www.amazon.com/YOUR_BOOK_LINK"; // replace with Amazon l
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Now What? A Workbook for Solo Moms in the Empty Nest | My Nest Chapter</title>
 <meta name="description" content="14 activities across 4 weeks. Written by a solo mom who raised five kids alone and fell apart when they left. This is the workbook I wish I'd had.">
+<link rel="icon" type="image/svg+xml" href="/assets/images/favicon.svg">
 <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }

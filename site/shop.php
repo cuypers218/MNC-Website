@@ -21,7 +21,7 @@ $allProducts = getProducts();
         </nav>
 
         <!-- Product Grid — paid products only -->
-        <div class="product-grid" id="shopGrid">
+        <div class="product-grid shop-products" id="shopGrid">
 
             <?php
             $paidProducts = array_filter($allProducts, fn($p) => $p['price'] > 0);
@@ -42,7 +42,7 @@ $allProducts = getProducts();
                     <?php endif; ?>
 
                     <?php if ($product['image_path']): ?>
-                        <img src="<?= esc($product['image_path']) ?>" alt="" class="product-card-image">
+                        <img src="<?= esc($product['image_path']) ?>" alt="<?= esc($product['title']) ?> cover" class="product-card-image">
                     <?php else: ?>
                         <div class="product-card-image" style="background: linear-gradient(135deg, #F3D8E1 0%, #DA8BA5 100%);"></div>
                     <?php endif; ?>

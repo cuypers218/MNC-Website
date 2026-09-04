@@ -44,7 +44,7 @@ if (!isLoggedIn()) {
     <div class="blog-post-meta fade-in-delay-1"><?= formatDate($post['published_at']) ?></div>
     
     <?php if ($post['featured_image']): ?>
-        <img src="<?= esc($post['featured_image']) ?>" alt="" style="width: 100%; margin-bottom: 2rem; border: 1px solid #ABABAB;">
+        <img src="<?= esc($post['featured_image']) ?>" alt="<?= esc($post['title']) ?>" style="width: 100%; margin-bottom: 2rem; border: 1px solid #ABABAB;">
     <?php endif; ?>
     
     <div class="blog-post-body fade-in-delay-2">
@@ -141,7 +141,7 @@ if (!isLoggedIn()) {
             <?php foreach ($related as $rel): ?>
             <article class="blog-card">
                 <?php if ($rel['featured_image']): ?>
-                    <img src="<?= esc($rel['featured_image']) ?>" alt="" class="blog-card-image">
+                    <img src="<?= esc($rel['featured_image']) ?>" alt="<?= esc($rel['title']) ?>" class="blog-card-image">
                 <?php endif; ?>
                 <div class="blog-card-content">
                     <?php if ($rel['category']): ?>

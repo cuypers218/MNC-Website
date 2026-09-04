@@ -127,7 +127,7 @@ $nextUnlock     = getNextExclusiveUnlock($user['id']);
                     <div class="product-card fade-in">
 
                         <?php if ($product['image_path']): ?>
-                            <img src="<?= esc($product['image_path']) ?>" alt="" class="product-card-image">
+                            <img src="<?= esc($product['image_path']) ?>" alt="<?= esc($product['title']) ?> cover" class="product-card-image">
                         <?php else: ?>
                             <div class="product-card-image" style="background:linear-gradient(135deg,#F3D8E1 0%,#DA8BA5 100%);"></div>
                         <?php endif; ?>
@@ -168,7 +168,7 @@ $nextUnlock     = getNextExclusiveUnlock($user['id']);
                     <span class="badge badge-free">FREE</span>
 
                     <?php if ($product['image_path']): ?>
-                        <img src="<?= esc($product['image_path']) ?>" alt="" class="product-card-image">
+                        <img src="<?= esc($product['image_path']) ?>" alt="<?= esc($product['title']) ?> cover" class="product-card-image">
                     <?php else: ?>
                         <div class="product-card-image" style="background:linear-gradient(135deg,#F3D8E1 0%,#DA8BA5 100%);"></div>
                     <?php endif; ?>
@@ -224,7 +224,7 @@ $nextUnlock     = getNextExclusiveUnlock($user['id']);
                             <a href="/nest-type" class="btn btn-primary">View Your Type &rarr;</a>
                         <?php else: ?>
                             <p class="product-card-description">Ten questions. Three possible types. Find out which one fits where you are right now.</p>
-                            <a href="/nester-quiz" class="btn btn-primary">Discover Your Type &rarr;</a>
+                            <button type="button" onclick="openQuizModal()" class="btn btn-primary" style="cursor:pointer;">Discover Your Type &rarr;</button>
                         <?php endif; ?>
                     </div>
                 </div>
@@ -413,6 +413,36 @@ function copyTierCode() {
     var hash = (window.location.hash || '').replace('#', '');
     switchTab(valid.indexOf(hash) !== -1 ? hash : 'products');
 })();
+</script>
+
+<!-- Quiz Modal -->
+<div id="quizModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(37,37,53,0.82); z-index:1000; align-items:center; justify-content:center; padding:20px;" onclick="handleModalClick(event)">
+    <div style="position:relative; width:100%; max-width:610px;">
+        <button onclick="closeQuizModal()" aria-label="Close quiz" style="position:absolute; top:14px; right:14px; background:rgba(37,37,53,0.82); border:none; color:#FAF7ED; width:40px; height:40px; border-radius:9999px; font-size:22px; line-height:40px; text-align:center; cursor:pointer; z-index:10; font-family:'Montserrat',sans-serif;">&times;</button>
+        <iframe id="quizIframe" src="" data-src="/widgets/empty-nester-quiz/" style="width:100%; height:min(95vh,900px); border:none; border-radius:10px; overflow:hidden; display:block;" title="What Kind of Empty Nester Are You?"></iframe>
+    </div>
+</div>
+
+<script>
+function openQuizModal() {
+    var modal = document.getElementById('quizModal');
+    var iframe = document.getElementById('quizIframe');
+    if (!iframe.src || iframe.src === window.location.href) {
+        iframe.src = iframe.getAttribute('data-src');
+    }
+    modal.style.display = 'flex';
+    document.body.style.overflow = 'hidden';
+}
+function closeQuizModal() {
+    document.getElementById('quizModal').style.display = 'none';
+    document.body.style.overflow = '';
+}
+function handleModalClick(e) {
+    if (e.target === document.getElementById('quizModal')) closeQuizModal();
+}
+window.addEventListener('message', function(e) {
+    if (e.data === 'closeQuiz') closeQuizModal();
+});
 </script>
 
 <?php require_once __DIR__ . '/includes/footer.php'; ?>

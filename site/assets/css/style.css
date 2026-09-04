@@ -32,6 +32,8 @@
     --deep-current: #0A2F3A;       /* primary per DESIGN.md §2.3 — used for headings on this page, not buttons (see below) */
     --burnished-copper: #A35E33;   /* secondary per DESIGN.md §2.3 — used as the visible CTA color on this page per this restyle's steer; DESIGN.md's own role table still calls this "secondary," flagged as a discrepancy to resolve */
     --burnished-copper-hover: #7F4928; /* DESIGN.md §2.3's proposed hover shade, reused here as a small-text color — base Burnished Copper measures only 3.64:1 on Soft Sand, a real fail for text this size; this darker shade passes at 5.31:1 */
+    --golden-earth-hover: #774C17; /* darkened per the same pattern as burnished-copper-hover — base Golden Earth measures only 3.78:1 on Soft Beige, a real fail for the .thrive pillar-eyebrow text; this shade passes at 5.50:1 (2026-09 axe-core finding) */
+    --warm-gray-on-beige: #534F48; /* darkened Warm Gray for text on Soft Beige specifically — base Warm Gray measures only 4.27:1 there (fails AA for normal text), though it's fine at 5.12–5.77:1 on Vanilla Cream/white elsewhere; this shade passes at 6.03:1 on Soft Beige (2026-09 axe-core finding) */
     --golden-drift: #D8975A;       /* Card & Box color, used here as the CTA hover fill */
     --vanilla-cream: #F6F1E6;      /* Core System background per DESIGN.md §2.2 — this page's actual background/light-on-dark text color, per Cece's 2026-08-30 correction */
     --soft-sand: #F1D9B3;          /* Card & Box color — no longer used on this page as of the Vanilla Cream correction; left defined in case a future section wants it */
@@ -681,9 +683,9 @@ a:hover .cta-arrow, button:hover .cta-arrow { transform: translateX(4px); }
 .pillar-eyebrow { font-family: var(--font-body); font-weight: 800; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; margin: 0 0 14px; }
 .pillar.support .pillar-eyebrow { color: var(--burnished-copper-hover); } /* base Burnished Copper fails small-text contrast on Soft Beige (3.6:1-ish); the hover-darkened shade passes at 5.39:1 */
 .pillar.encourage .pillar-eyebrow { color: var(--rosewood); }
-.pillar.thrive .pillar-eyebrow { color: var(--golden-earth); }
+.pillar.thrive .pillar-eyebrow { color: var(--golden-earth-hover); } /* base Golden Earth fails small-text contrast on Soft Beige (3.78:1); this darker shade passes at 5.50:1 */
 .pillar h3 { font-family: var(--font-display-locked); font-weight: 700; font-size: 1.2rem; line-height: 1.35; margin: 0 0 12px; color: var(--deep-current); text-transform: none; }
-.pillar p { font-family: var(--font-body); font-size: 0.92rem; line-height: 1.6; color: var(--warm-gray); margin: 0 0 20px; flex-grow: 1; }
+.pillar p { font-family: var(--font-body); font-size: 0.92rem; line-height: 1.6; color: var(--warm-gray-on-beige); margin: 0 0 20px; flex-grow: 1; }
 .pillar a { font-family: var(--font-body); font-weight: 700; font-size: 0.82rem; letter-spacing: 0.4px; text-decoration: none; }
 .pillar.support a { color: var(--burnished-copper-hover); }
 .pillar.encourage a { color: var(--rosewood); }
@@ -735,6 +737,15 @@ a:hover .cta-arrow, button:hover .cta-arrow { transform: translateX(4px); }
 }
 .home-products .badge-free { background: #FFFFFF; color: var(--burnished-copper); border-color: var(--burnished-copper); }
 .home-products .badge-coming { background: var(--vanilla-cream); color: var(--deep-coffee); border-color: var(--warm-sand); }
+.home-products .product-card-category { color: var(--warm-gray-on-beige); } /* base Warm Gray fails at 4.27:1 on this section's Soft Beige cards; this darker shade passes at 6.03:1 */
+
+/* Shop page — same product buttons as the homepage's new-system preview,
+   so "Get the [Product]" isn't copper on Home and wine on Shop for the
+   identical product (2026-09 critique finding). Scoped narrowly to the
+   product-card buttons only; the rest of shop.php stays on the sitewide
+   default pending the full Thread 2 color rollout (see CLAUDE.md). */
+.shop-products .btn-primary { background-color: var(--burnished-copper); }
+.shop-products .btn-primary:hover { background-color: var(--golden-drift); color: var(--deep-coffee); }
 
 /* ============================================
    RESPONSIVE

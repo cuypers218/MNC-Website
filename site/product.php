@@ -72,7 +72,7 @@ $related = $stmt->fetchAll();
                         <source src="/assets/videos/garage-sale-planner-demo.mp4" type="video/mp4">
                     </video>
                 <?php elseif ($product['image_path']): ?>
-                    <img src="<?= esc($product['image_path']) ?>" alt="" style="width: 100%; border-radius: 10px; box-shadow: 0 10px 40px rgba(37,37,53,0.07);">
+                    <img src="<?= esc($product['image_path']) ?>" alt="<?= esc($product['title']) ?> cover" style="width: 100%; border-radius: 10px; box-shadow: 0 10px 40px rgba(37,37,53,0.07);">
                 <?php else: ?>
                     <div style="width: 100%; height: 400px; background: linear-gradient(135deg, #F3D8E1 0%, #DA8BA5 100%); border-radius: 10px; display: flex; align-items: center; justify-content: center;">
                         <span style="font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; color: #74253F;">PRODUCT IMAGE</span>
@@ -179,7 +179,7 @@ $related = $stmt->fetchAll();
                 <?php endif; ?>
                 
                 <?php if ($rel['image_path']): ?>
-                    <img src="<?= esc($rel['image_path']) ?>" alt="" class="product-card-image">
+                    <img src="<?= esc($rel['image_path']) ?>" alt="<?= esc($rel['title']) ?> cover" class="product-card-image">
                 <?php else: ?>
                     <div class="product-card-image" style="background: linear-gradient(135deg, #F3D8E1 0%, #DA8BA5 100%);"></div>
                 <?php endif; ?>

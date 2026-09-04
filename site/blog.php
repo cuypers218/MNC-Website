@@ -1,6 +1,6 @@
 <?php
 $pageTitle = 'Blog';
-$pageDescription = 'Weekly updates from a solo mom figuring out the empty nest. No advice. Just what this looks like from where I am.';
+$pageDescription = 'Monthly updates from a solo mom figuring out the empty nest. No advice. Just what this looks like from where I am.';
 require_once __DIR__ . '/includes/header.php';
 
 // Get category filter
@@ -23,7 +23,7 @@ $categories = $db->query('SELECT DISTINCT category FROM blog_posts WHERE status 
     <div class="container">
         
         <h1 class="text-center fade-in" style="margin-bottom: 0.5rem;">Blog</h1>
-        <p class="text-center fade-in-delay-1" style="color: #8BA7D4; font-size: 0.95rem; margin-bottom: 2rem;">Weekly updates from where I am right now — not where I've been.</p>
+        <p class="text-center fade-in-delay-1" style="color: #8BA7D4; font-size: 0.95rem; margin-bottom: 2rem;">Monthly updates from where I am right now — not where I've been.</p>
         
         <!-- Category Filter -->
         <?php if (!empty($categories)): ?>
@@ -41,7 +41,7 @@ $categories = $db->query('SELECT DISTINCT category FROM blog_posts WHERE status 
             <?php foreach ($posts as $post): ?>
             <article class="blog-card fade-in">
                 <?php if ($post['featured_image']): ?>
-                    <img src="<?= esc($post['featured_image']) ?>" alt="" class="blog-card-image">
+                    <img src="<?= esc($post['featured_image']) ?>" alt="<?= esc($post['title']) ?>" class="blog-card-image">
                 <?php endif; ?>
                 <div class="blog-card-content">
                     <?php if ($post['category']): ?>
@@ -71,7 +71,7 @@ $categories = $db->query('SELECT DISTINCT category FROM blog_posts WHERE status 
     <div class="container">
         <div class="email-capture">
             <h3>Get New Posts in Your Inbox</h3>
-            <p>I write about this every week. Real updates, not advice.</p>
+            <p>I write about this every month. Real updates, not advice.</p>
             <form class="email-capture-form" onsubmit="event.preventDefault(); submitEmailCapture(this, 'blog');">
                 <input type="email" placeholder="Your email" required aria-label="Email address">
                 <button type="submit" class="btn btn-primary">Send It</button>
