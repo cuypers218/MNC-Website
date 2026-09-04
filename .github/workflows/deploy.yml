@@ -42,10 +42,14 @@ jobs:
 
       - name: Run MNC QA checks
         run: python3 .github/scripts/mnc_qa.py
+        continue-on-error: true
 
+  # 2026-09-03: qa-check no longer blocks deploy (Cece: "I don't want to
+  # change anything, fix it so I can deploy whatever I want"). The QA
+  # report above still runs on every push and still shows red/green in
+  # the Actions tab as a heads-up — it just can't stop a deploy anymore.
   deploy:
     name: FTP Deploy to Hostinger
-    needs: qa-check
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
