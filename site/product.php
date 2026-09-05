@@ -60,9 +60,9 @@ $stmt->execute([$product['category'], $product['id']]);
 $related = $stmt->fetchAll();
 ?>
 
-<section class="section">
+<section class="section pd-scope">
     <div class="container">
-        
+
         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: start;">
             
             <!-- Product Image / Video -->
@@ -74,20 +74,20 @@ $related = $stmt->fetchAll();
                 <?php elseif ($product['image_path']): ?>
                     <img src="<?= esc($product['image_path']) ?>" alt="<?= esc($product['title']) ?> cover" style="width: 100%; border-radius: 10px; box-shadow: 0 10px 40px rgba(37,37,53,0.07);">
                 <?php else: ?>
-                    <div style="width: 100%; height: 400px; background: linear-gradient(135deg, #F3D8E1 0%, #DA8BA5 100%); border-radius: 10px; display: flex; align-items: center; justify-content: center;">
-                        <span style="font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; color: #74253F;">PRODUCT IMAGE</span>
+                    <div style="width: 100%; height: 400px; background: var(--warm-beige-card); border-radius: 10px; display: flex; align-items: center; justify-content: center;">
+                        <span style="font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--deep-coffee);">PRODUCT IMAGE</span>
                     </div>
                 <?php endif; ?>
             </div>
             
             <!-- Product Details -->
             <div>
-                <span style="font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.1em; color: #8BA7D4;"><?= esc(str_replace('_', ' ', $product['category'])) ?></span>
-                
+                <span style="font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--taupe);"><?= esc(str_replace('_', ' ', $product['category'])) ?></span>
+
                 <h1 style="font-size: 1.75rem; margin: 0.5rem 0 1rem;"><?= esc($product['title']) ?></h1>
-                
+
                 <?php if (!$isComingSoon): ?>
-                    <p style="font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 1.5rem; color: #C44570; margin-bottom: 1.5rem;">
+                    <p style="font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 1.5rem; color: var(--burnished-copper); margin-bottom: 1.5rem;">
                         <?= formatPrice($product['price']) ?>
                     </p>
                 <?php endif; ?>
@@ -128,9 +128,19 @@ $related = $stmt->fetchAll();
                 <?php else: ?>
                     <?php if (isLoggedIn()): ?>
                         <a href="/checkout?product=<?= esc($product['slug']) ?>" class="btn btn-primary btn-full">Get the <?= esc(ctaTitle($product['title'])) ?></a>
-                        <p style="font-family:Arial,sans-serif;font-size:0.8rem;color:#8BA7D4;text-align:center;margin-top:0.6rem;">Secure checkout via Stripe. Instant download after purchase.</p>
+                        <p style="font-family:Arial,sans-serif;font-size:0.8rem;color:var(--warm-gray);text-align:center;margin-top:0.6rem;">Secure checkout via Stripe. Instant download after purchase.</p>
                     <?php else: ?>
+                        <?php
+                            // Carry the product through registration so she lands back on
+                            // checkout instead of the generic dashboard (2026-09 critique:
+                            // this was the real friction, not just "an account is required" —
+                            // she had to re-find and re-click the product after signing up).
+                            // Reuses login.php's existing redirect_after_login mechanism rather
+                            // than inventing a second one.
+                            $_SESSION['redirect_after_login'] = '/checkout?product=' . $product['slug'];
+                        ?>
                         <a href="/register" class="btn btn-primary btn-full">Create Account to Purchase</a>
+                        <p style="font-family:Arial,sans-serif;font-size:0.8rem;color:var(--warm-gray);text-align:center;margin-top:0.6rem;">Takes about 30 seconds — you'll land right back here to finish.</p>
                         <p style="color: #8BA7D4; font-size: 0.85rem; margin-top: 0.75rem; text-align: center;">You'll need an account to buy and access your download.</p>
                     <?php endif; ?>
                     <?php

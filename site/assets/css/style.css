@@ -748,6 +748,13 @@ a:hover .cta-arrow, button:hover .cta-arrow { transform: translateX(4px); }
 .shop-products .btn-primary { background-color: var(--burnished-copper); }
 .shop-products .btn-primary:hover { background-color: var(--golden-drift); color: var(--deep-coffee); }
 
+/* Product detail page — same fix as .shop-products above, applied here too
+   (2026-09 re-critique finding): product.php's CTA never got scoped into the
+   Home/Shop override, so it was rendering the sitewide default (Deep Current)
+   instead of matching the copper button on the card that linked here. */
+.pd-scope .btn-primary { background-color: var(--burnished-copper); }
+.pd-scope .btn-primary:hover { background-color: var(--golden-drift); color: var(--deep-coffee); }
+
 /* ============================================
    RESPONSIVE
    ============================================ */
@@ -862,7 +869,7 @@ a:hover .cta-arrow, button:hover .cta-arrow { transform: translateX(4px); }
 .an-divider { display: flex; align-items: center; width: 100%; gap: 12px; padding: 28px 0 20px; color: var(--warm-gray); font-family: var(--font-body); font-size: 13px; }
 .an-divider::before, .an-divider::after { content: ''; flex: 1; height: 1px; background: var(--warm-sand); }
 .an-secondary-block { background: var(--warm-beige-card); border: 1px solid var(--warm-sand); border-radius: 12px; box-shadow: 0 10px 40px rgba(37,37,53,0.07); padding: 40px 40px 36px; text-align: center; width: 100%; box-sizing: border-box; } /* was white — now Warm Beige + rounded-xl, matching the pillar/product card treatment */
-.an-secondary-label { font-family: var(--font-body); font-weight: 800; font-size: 11px; letter-spacing: 2px; color: var(--warm-gray); margin: 0 0 14px; text-transform: uppercase; }
+.an-secondary-label { font-family: var(--font-body); font-weight: 800; font-size: 11px; letter-spacing: 2px; color: var(--bark); margin: 0 0 14px; text-transform: uppercase; } /* was warm-gray at 4.05:1 on this card's Warm Beige background; Bark ("secondary text darker than Warm gray" per DESIGN.md §2.4) passes at 7.09:1 (2026-09 re-critique finding) */
 .an-secondary-heading { font-family: var(--font-display-locked); font-weight: 700; font-size: 20px; color: var(--deep-current); line-height: 1.35; margin: 0 0 16px; }
 .an-secondary-list {
     list-style: none; margin: 0 0 22px; padding: 0;
@@ -875,7 +882,7 @@ a:hover .cta-arrow, button:hover .cta-arrow { transform: translateX(4px); }
 .an-secondary-list li::before {
     content: '—'; position: absolute; left: 0; color: var(--burnished-copper-hover); font-weight: 700;
 }
-.an-secondary-sub { font-family: var(--font-body); font-size: 13px; color: var(--warm-gray); margin: 0; }
+.an-secondary-sub { font-family: var(--font-body); font-size: 13px; color: var(--bark); margin: 0; } /* was warm-gray at 4.05:1 on this card's Warm Beige background; Bark passes at 7.09:1 (2026-09 re-critique finding) */
 .an-email-form { display: flex; flex-direction: column; align-items: center; gap: 10px; }
 .an-form-row { display: flex; gap: 8px; width: 100%; max-width: 420px; }
 .an-email-input { flex: 1; padding: 13px 18px; border: 1.5px solid var(--warm-sand); border-radius: 6px; font-family: var(--font-body); font-size: 14px; color: var(--deep-coffee); background: var(--vanilla-cream); outline: none; transition: border-color 0.2s ease, box-shadow 0.2s ease; }
@@ -883,7 +890,7 @@ a:hover .cta-arrow, button:hover .cta-arrow { transform: translateX(4px); }
 .an-email-input::placeholder { color: var(--taupe); }
 .an-btn-secondary { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; background: var(--burnished-copper); color: #fff; font-family: var(--font-body); font-weight: 800; font-size: 12px; letter-spacing: 0.5px; text-transform: uppercase; padding: 13px 22px; border: none; border-radius: 6px; cursor: pointer; white-space: nowrap; transition: background 0.2s ease, transform 0.15s ease; }
 .an-btn-secondary:hover { background: var(--golden-drift); color: var(--deep-coffee); transform: translateY(-2px); }
-.an-form-note { font-family: var(--font-body); font-size: 12px; color: var(--warm-gray); margin: 0; }
+.an-form-note { font-family: var(--font-body); font-size: 12px; color: var(--vanilla-cream); margin: 0; } /* was warm-gray at 2.45:1 on this card's Deep Current background — a real fail; Vanilla Cream (already this page's light-on-dark convention) passes at 12.59:1 (2026-09 re-critique finding) */
 @media (max-width: 560px) {
   .an-primary-block, .an-secondary-block { padding: 36px 24px; }
   .an-heading { font-size: 19px; }
