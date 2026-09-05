@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Free Coloring Pages — Pick Your Mood | My Nest Chapter</title>
 <meta name="description" content="Some nights you don't need advice. Pick where you are right now and get a free coloring page that fits. From My Nest Chapter.">
+<link rel="icon" type="image/svg+xml" href="/assets/images/favicon.svg">
 
 <!-- Open Graph -->
 <meta property="og:title" content="Free Coloring Pages — Pick Your Mood">

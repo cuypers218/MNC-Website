@@ -23,9 +23,9 @@ if (isset($_GET['success']) && $_GET['success'] === '1') {
     ?>
     <section class="section">
         <div class="container text-center" style="padding: 3rem 0;">
-            <h1 style="color: #C44570;">You're In</h1>
-            <p style="color: #444; font-size: 1.05rem; margin: 1rem 0 0.5rem;">Your purchase is confirmed.</p>
-            <p style="color: #8BA7D4; margin-bottom: 2rem;">It's now in your dashboard, ready to download.</p>
+            <h1 style="color: var(--deep-current);">You're In</h1>
+            <p style="color: var(--warm-gray); font-size: 1.05rem; margin: 1rem 0 0.5rem;">Your purchase is confirmed.</p>
+            <p style="color: var(--warm-gray); margin-bottom: 2rem;">It's now in your dashboard, ready to download.</p>
             <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
                 <a href="/dashboard" class="btn btn-primary">Go to Dashboard</a>
                 <?php if ($productSlug): ?>
@@ -101,7 +101,7 @@ if ($httpCode === 200 && isset($session['url'])) {
     <section class="section">
         <div class="container text-center" style="padding: 3rem 0;">
             <h1>Something Went Wrong</h1>
-            <p style="color: #8BA7D4; margin: 1rem 0 2rem;">The checkout couldn't be started. Please try again.</p>
+            <p style="color: var(--warm-gray); margin: 1rem 0 2rem;">The checkout couldn't be started. Please try again.</p>
             <a href="/shop/<?= esc($product['slug']) ?>" class="btn btn-primary">Try Again</a>
         </div>
     </section>

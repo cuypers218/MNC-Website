@@ -22,6 +22,15 @@ $db = getDB();
 $stmt = $db->prepare('SELECT id, title, slug, excerpt, featured_image, category, published_at FROM blog_posts WHERE status = "published" AND id != ? ORDER BY published_at DESC LIMIT 3');
 $stmt->execute([$post['id']]);
 $related = $stmt->fetchAll();
+
+// Comments
+$comments = getCommentsForPost($post['id']);
+$commented = ($_GET['commented'] ?? '') === '1';
+$commentError = ($_GET['comment_error'] ?? '') === '1';
+if (!isLoggedIn()) {
+    // So clicking "Log in" below sends the visitor back to this exact post afterward.
+    $_SESSION['redirect_after_login'] = $_SERVER['REQUEST_URI'];
+}
 ?>
 
 <article class="blog-post">
@@ -35,7 +44,7 @@ $related = $stmt->fetchAll();
     <div class="blog-post-meta fade-in-delay-1"><?= formatDate($post['published_at']) ?></div>
     
     <?php if ($post['featured_image']): ?>
-        <img src="<?= esc($post['featured_image']) ?>" alt="" style="width: 100%; margin-bottom: 2rem; border: 1px solid #ABABAB;">
+        <img src="<?= esc($post['featured_image']) ?>" alt="<?= esc($post['title']) ?>" style="width: 100%; margin-bottom: 2rem; border: 1px solid #ABABAB;">
     <?php endif; ?>
     
     <div class="blog-post-body fade-in-delay-2">
@@ -66,11 +75,11 @@ $related = $stmt->fetchAll();
 
     <!-- Email Capture -->
     <div class="email-capture" style="margin-top: 3rem;">
-        <h3>I Write About This Every Week</h3>
+        <h3>I Write About This Every Month</h3>
         <p>If this one landed, there's more where it came from. Real updates, not advice.</p>
         <form class="email-capture-form" onsubmit="event.preventDefault(); submitEmailCapture(this, 'blog-<?= esc($post['slug']) ?>');">
             <input type="email" placeholder="Your email" required aria-label="Email address">
-            <button type="submit" class="btn btn-primary">Send It</button>
+            <button type="submit" class="btn btn-secondary">Send It</button>
         </form>
     </div>
     
@@ -78,8 +87,50 @@ $related = $stmt->fetchAll();
     <div style="margin-top: 2.5rem; padding-top: 1.5rem; border-top: 1px solid #D3D3D3;">
         <a href="/blog" style="font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em; color: #C44570;">&larr; Back to Blog</a>
     </div>
-    
+
 </article>
+
+<!-- Comments — gated to logged-in members, see includes/functions.php getCommentsForPost() and blog-comment-submit.php -->
+<section class="blog-comments" id="comments">
+    <div class="blog-comments-inner">
+        <h2 class="blog-comments-heading"><?= count($comments) ?> <?= count($comments) === 1 ? 'Comment' : 'Comments' ?></h2>
+
+        <?php if ($commented): ?>
+            <p class="blog-comment-note blog-comment-note-success">Your comment is up — thank you.</p>
+        <?php endif; ?>
+
+        <?php if (empty($comments)): ?>
+            <p class="blog-comments-empty">No comments yet — be the first to say something.</p>
+        <?php else: ?>
+            <ul class="blog-comments-list">
+                <?php foreach ($comments as $c): ?>
+                    <li class="blog-comment">
+                        <div class="blog-comment-meta">
+                            <span class="blog-comment-name"><?= esc($c['first_name']) ?></span>
+                            <span class="blog-comment-date"><?= formatDate($c['created_at']) ?></span>
+                        </div>
+                        <p class="blog-comment-body"><?= nl2br(esc($c['body'])) ?></p>
+                    </li>
+                <?php endforeach; ?>
+            </ul>
+        <?php endif; ?>
+
+        <?php if (isLoggedIn()): ?>
+            <?php if ($commentError): ?>
+                <p class="blog-comment-note blog-comment-note-error">That didn't go through — say a little more and try again.</p>
+            <?php endif; ?>
+            <form class="blog-comment-form" method="POST" action="/blog-comment-submit.php">
+                <?= csrfField() ?>
+                <input type="hidden" name="slug" value="<?= esc($post['slug']) ?>">
+                <label for="comment-body" class="blog-comment-label">Add a comment</label>
+                <textarea id="comment-body" name="body" rows="4" required maxlength="2000" placeholder="What's on your mind?"></textarea>
+                <button type="submit" class="btn btn-primary">Post Comment</button>
+            </form>
+        <?php else: ?>
+            <p class="blog-comment-login-prompt"><a href="/login">Log in</a> to join the conversation.</p>
+        <?php endif; ?>
+    </div>
+</section>
 
 <!-- Related Posts -->
 <?php if (!empty($related)): ?>
@@ -90,7 +141,7 @@ $related = $stmt->fetchAll();
             <?php foreach ($related as $rel): ?>
             <article class="blog-card">
                 <?php if ($rel['featured_image']): ?>
-                    <img src="<?= esc($rel['featured_image']) ?>" alt="" class="blog-card-image">
+                    <img src="<?= esc($rel['featured_image']) ?>" alt="<?= esc($rel['title']) ?>" class="blog-card-image">
                 <?php endif; ?>
                 <div class="blog-card-content">
                     <?php if ($rel['category']): ?>

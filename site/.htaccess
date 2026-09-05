@@ -76,6 +76,9 @@ RewriteRule ^dashboard/?$ dashboard.php [L]
 # Nest Type result page
 RewriteRule ^nest-type/?$ nest-type.php [L]
 
+# Empty Nester quiz (dedicated shareable page)
+RewriteRule ^nester-quiz/?$ nester-quiz.php [L]
+
 # Checkout
 RewriteRule ^checkout/?$ checkout.php [L]
 

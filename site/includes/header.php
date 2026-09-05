@@ -9,6 +9,7 @@
     <title><?= esc($pageTitle ?? 'My Nest Chapter') ?> | My Nest Chapter</title>
     <meta name="description" content="<?= esc($pageDescription ?? 'Solo mom. Empty nest. Now what? Tools and resources built from lived experience, for single and solo moms.') ?>">
     <link rel="canonical" href="https://mynestchapter.com<?= esc(strtok($_SERVER['REQUEST_URI'] ?? '/', '?')) ?>">
+    <link rel="icon" type="image/svg+xml" href="/assets/images/favicon.svg">
 
     <!-- Open Graph -->
     <meta property="og:site_name" content="My Nest Chapter">
@@ -37,7 +38,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;800&display=swap" rel="stylesheet">
     
     <!-- Styles -->
-    <link rel="stylesheet" href="/assets/css/style.css">
+    <link rel="stylesheet" href="/assets/css/style.css?v=<?= @filemtime(__DIR__ . '/../assets/css/style.css') ?: '1' ?>">
 </head>
 <body>
 

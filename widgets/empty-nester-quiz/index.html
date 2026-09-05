@@ -11,8 +11,8 @@
   body {
     font-family: 'DM Sans', sans-serif;
     font-size: 12pt;
-    color: #101010;
-    background-color: #FAFAFA;
+    color: #2B1F18;
+    background-color: #F6F1E6;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
@@ -22,7 +22,7 @@
 
   .skip-link {
     position: absolute; top: -40px; left: 0;
-    background: #252535; color: #FFF8EE;
+    background: #2B1F18; color: #F6F1E6;
     padding: 8px 16px;
     font-family: 'DM Sans', sans-serif; font-weight: 800; font-size: 9pt;
     text-decoration: none; z-index: 100;
@@ -40,7 +40,7 @@
   .brand-tag {
     display: inline-flex; align-items: center; gap: 12px;
     font-family: 'DM Sans', sans-serif; font-weight: 800;
-    font-size: 9pt; letter-spacing: 3.5px; color: #8BA7D4;
+    font-size: 9pt; letter-spacing: 3.5px; color: #6B655C;
     text-transform: uppercase; text-align: center; margin-bottom: 6px;
     justify-content: center;
   }
@@ -48,19 +48,19 @@
 
   .brand-sub {
     font-family: 'DM Sans', sans-serif; font-weight: 400;
-    font-size: 8pt; letter-spacing: 1px; color: #8BA7D4;
+    font-size: 8pt; letter-spacing: 1px; color: #6B655C;
     text-transform: uppercase; text-align: center; margin-bottom: 32px;
   }
 
   .widget-container {
     width: 100%; max-width: 550px;
     background: #FFFFFF;
-    border: 1px solid rgba(196,176,232,0.4);
-    border-radius: 0;
+    border: 1px solid #D9C7AC;
+    border-radius: 10px;
     padding: 24px;
     overflow: visible;
     position: relative;
-    box-shadow: none;
+    box-shadow: 0 10px 40px rgba(37,37,53,0.07);
   }
   .widget-container::before { display: none; }
 
@@ -73,11 +73,11 @@
   .progress-wrap { margin-bottom: 14px; }
   .progress-label {
     font-family: 'DM Sans', sans-serif; font-weight: 400;
-    font-size: 8pt; color: #666666; margin-bottom: 6px;
+    font-size: 8pt; color: #6B655C; margin-bottom: 6px;
     text-transform: uppercase; letter-spacing: 1px;
   }
-  .progress-bar-bg { background: #F0F0F0; height: 4px; width: 100%; }
-  .progress-bar-fill { background: #E87AAA; height: 4px; transition: width 0.3s ease; }
+  .progress-bar-bg { background: #D9C7AC; height: 4px; width: 100%; overflow: hidden; }
+  .progress-bar-fill { background: #A35E33; height: 4px; width: 100%; transform-origin: left; transform: scaleX(0); transition: transform 0.3s ease; }
 
   .scene {
     display: block !important;
@@ -105,8 +105,8 @@
     width: 100% !important;
     aspect-ratio: auto !important;
     margin: 0 0 28px 0 !important;
-    background: #FFF8EE !important;
-    border: 1px solid #D3D3D3 !important;
+    background: #F6F1E6 !important;
+    border: 1px solid #D9C7AC !important;
     padding: 20px 16px !important;
     overflow: hidden !important;
     border-radius: 0 !important;
@@ -124,106 +124,107 @@
 
   h2.question {
     font-family: 'DM Sans', sans-serif; font-weight: 800;
-    font-size: 14pt; color: #333333; text-transform: uppercase;
+    font-size: 14pt; color: #2B1F18; text-transform: uppercase;
     letter-spacing: 0.5px; margin-bottom: 12px; line-height: 1.3;
   }
 
   .answers { display: flex; flex-direction: column; gap: 0; }
 
   .answer-btn {
-    font-family: 'DM Sans', sans-serif; font-size: 11pt; color: #101010;
+    font-family: 'DM Sans', sans-serif; font-size: 11pt; color: #2B1F18;
     background: #FFFFFF; border: 1px solid #ABABAB; border-bottom: none;
     padding: 11px 16px; text-align: left; cursor: pointer;
     line-height: 1.5; transition: background 0.15s; touch-action: manipulation;
   }
   .answer-btn:last-child { border-bottom: 1px solid #ABABAB; }
-  .answer-btn:hover { background: #FFF8EE; border-color: #E87AAA; }
-  .answer-btn.selected { background: #FFF8EE; border-color: #E87AAA; color: #101010; font-weight: bold; }
+  .answer-btn:hover { background: #F6F1E6; border-color: #A35E33; }
+  .answer-btn.selected { background: #F6F1E6; border-color: #A35E33; color: #2B1F18; font-weight: bold; }
   .answer-btn:active { transform: translateY(1px); }
 
   .answer-letter {
     font-family: 'DM Sans', sans-serif; font-weight: 800;
-    font-size: 9pt; color: #E87AAA; margin-right: 12px; text-transform: uppercase;
+    font-size: 9pt; color: #A35E33; margin-right: 12px; text-transform: uppercase;
   }
 
   .btn-primary {
     font-family: 'DM Sans', sans-serif; font-weight: 800;
-    font-size: 12pt; color: #FFFFFF; background: #E87AAA; border: none;
+    font-size: 12pt; color: #FFFFFF; background: #A35E33; border: none;
+    border-radius: 6px;
     padding: 12px 32px; cursor: pointer; text-transform: uppercase;
     letter-spacing: 1px; width: 100%; margin-top: 14px;
     touch-action: manipulation; display: block;
   }
-  .btn-primary:hover { background: #C4567E; }
+  .btn-primary:hover { background: #7F4928; }
   .btn-primary:active { transform: translateY(1px); }
   .btn-primary:disabled { background: #DDDDDD; color: #ABABAB; cursor: not-allowed; }
 
   .btn-secondary {
     font-family: 'DM Sans', sans-serif; font-weight: 800;
-    font-size: 11pt; color: #E87AAA; background: #FFFFFF;
-    border: 1px solid #E87AAA; padding: 14px 32px; cursor: pointer;
+    font-size: 11pt; color: #A35E33; background: #FFFFFF;
+    border: 1px solid #A35E33; border-radius: 6px; padding: 14px 32px; cursor: pointer;
     text-transform: uppercase; letter-spacing: 1px; width: 100%;
     margin-top: 12px; touch-action: manipulation; display: block;
   }
-  .btn-secondary:hover { background: #FFF8EE; }
+  .btn-secondary:hover { background: #F6F1E6; }
   .btn-secondary:active { transform: translateY(1px); }
 
   .cover-title {
     font-family: 'Lora', serif; font-weight: 700;
-    font-size: 20pt; color: #252535;
+    font-size: 20pt; color: #2B1F18;
     letter-spacing: -0.3px; margin-bottom: 14px; line-height: 1.2; text-align: center;
   }
 
   .cover-sub {
-    font-family: 'DM Sans', sans-serif; font-size: 12pt; color: #666666;
+    font-family: 'DM Sans', sans-serif; font-size: 12pt; color: #6B655C;
     line-height: 1.6; text-align: center; margin-bottom: 8px;
   }
 
   .email-label {
     font-family: 'DM Sans', sans-serif; font-weight: 800;
-    font-size: 9pt; color: #333333; text-transform: uppercase;
+    font-size: 9pt; color: #2B1F18; text-transform: uppercase;
     letter-spacing: 1px; display: block; margin-bottom: 8px;
   }
 
   input[type="email"] {
-    font-family: 'DM Sans', sans-serif; font-size: 12pt; color: #101010;
-    background: #FCFCFC; border: 1px solid #ABABAB;
+    font-family: 'DM Sans', sans-serif; font-size: 12pt; color: #2B1F18;
+    background: #FFFFFF; border: 1px solid #ABABAB;
     padding: 14px; width: 100%; outline: none;
     touch-action: manipulation;
   }
-  input[type="email"]:focus { border-color: #E87AAA; background: #FFFFFF; }
+  input[type="email"]:focus { border-color: #A35E33; background: #FFFFFF; }
   input[type="email"]::placeholder { color: #BCBCBC; }
 
   .privacy-note {
     font-family: 'DM Sans', sans-serif; font-weight: 400;
-    font-size: 8pt; color: #666666; text-align: center; margin-top: 14px;
+    font-size: 8pt; color: #6B655C; text-align: center; margin-top: 14px;
   }
 
   .result-type {
     font-family: 'DM Sans', sans-serif; font-weight: 800;
-    font-size: 18pt; color: #E87AAA; text-transform: uppercase;
+    font-size: 18pt; color: #A35E33; text-transform: uppercase;
     letter-spacing: 1px; text-align: center; margin-bottom: 8px;
   }
 
-  .result-divider { border: none; border-top: 1px solid #D3D3D3; margin: 20px 0; }
+  .result-divider { border: none; border-top: 1px solid #D9C7AC; margin: 20px 0; }
 
   .result-body {
     font-family: 'DM Sans', sans-serif; font-size: 12pt;
-    color: #101010; line-height: 1.6; margin-bottom: 12px;
+    color: #2B1F18; line-height: 1.6; margin-bottom: 12px;
   }
 
   .result-note {
     font-family: 'DM Sans', sans-serif; font-size: 11pt;
-    color: #666666; line-height: 1.6; font-style: italic; margin-bottom: 0;
+    color: #6B655C; line-height: 1.6; font-style: italic; margin-bottom: 0;
   }
 
   .error-msg {
     font-family: 'DM Sans', sans-serif; font-weight: 400;
-    font-size: 9pt; color: #C4567E; margin-top: 8px; display: none;
+    font-size: 9pt; color: #9E3D0F; margin-top: 8px; display: none;
   }
 
   .toast {
     position: fixed; top: 20px; left: 50%; transform: translateX(-50%);
-    background: #252535; border-bottom: 2px solid #E87AAA; color: #FFF8EE;
+    background: #2B1F18; border-bottom: 2px solid #A35E33; color: #F6F1E6;
     font-family: 'DM Sans', sans-serif; font-weight: 800;
     font-size: 9pt; letter-spacing: 2px; text-transform: uppercase;
     padding: 12px 24px; z-index: 999; display: none;
@@ -238,14 +239,14 @@
     top: 14px; right: 14px;
     display: none;
     width: 36px; height: 36px;
-    background: rgba(37,37,53,0.72);
-    border: none; border-radius: 0;
+    background: rgba(43,31,24,0.72);
+    border: none; border-radius: 9999px;
     align-items: center; justify-content: center;
     cursor: pointer; font-size: 20px; line-height: 1;
-    color: #FFF8EE; z-index: 20;
+    color: #F6F1E6; z-index: 20;
     font-family: 'DM Sans', sans-serif;
   }
-  .quiz-close-btn:hover { background: #E87AAA; }
+  .quiz-close-btn:hover { background: #A35E33; }
 
   @media (max-width: 600px) {
     body { padding: 20px 12px; }
@@ -352,7 +353,7 @@ const scenes = {
 
   yelling:  `<img src="images/scene-yelling.png.png" alt="Stick figure yelling into empty house">`,
 
-  email:    `<div style="background:#E87AAA;padding:32px;text-align:center;"><p style="font-family:'DM Sans',sans-serif;font-weight:800;font-size:13pt;color:#ffffff;text-transform:uppercase;letter-spacing:2px;margin:0;">My Nest Chapter</p></div>`,
+  email:    `<div style="background:#A35E33;padding:32px;text-align:center;"><p style="font-family:'DM Sans',sans-serif;font-weight:800;font-size:13pt;color:#ffffff;text-transform:uppercase;letter-spacing:2px;margin:0;">My Nest Chapter</p></div>`,
   nester:   `<img src="scene-result-nester.png" alt="The Nester">`,
   busyer:   `<img src="scene-result-busyer.png" alt="The Busy-er">`,
   wonderer: `<img src="scene-result-wonderer.png" alt="The Wonderer">`
@@ -403,7 +404,7 @@ function progressHTML(step) {
   return `<div class="progress-wrap">
     <div class="progress-label">Question ${step} of 5</div>
     <div class="progress-bar-bg">
-      <div class="progress-bar-fill" style="width:${pct}%" role="progressbar" aria-valuenow="${step}" aria-valuemin="0" aria-valuemax="5"></div>
+      <div class="progress-bar-fill" style="transform:scaleX(${pct/100})" role="progressbar" aria-valuenow="${step}" aria-valuemin="0" aria-valuemax="5"></div>
     </div>
   </div>`;
 }
@@ -456,8 +457,8 @@ function showEmailCapture() {
   result = calculateResult();
   render(`
     <div class="scene">${scenes.email}</div>
-    <h2 style="font-family:'DM Sans',sans-serif;font-weight:800;font-size:16pt;color:#333333;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:12px;text-align:center;">Okay. Your result is ready.</h2>
-    <p style="font-family:'DM Sans',sans-serif;font-size:12pt;color:#101010;line-height:1.6;margin-bottom:24px;text-align:center;">Drop your email and I'll send it over — plus something small I made that goes with your type.</p>
+    <h2 style="font-family:'DM Sans',sans-serif;font-weight:800;font-size:16pt;color:#2B1F18;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:12px;text-align:center;">Okay. Your result is ready.</h2>
+    <p style="font-family:'DM Sans',sans-serif;font-size:12pt;color:#2B1F18;line-height:1.6;margin-bottom:24px;text-align:center;">Drop your email and I'll send it over — plus something small I made that goes with your type.</p>
     <div class="input-group">
       <label class="email-label" for="emailInput">Your email address</label>
       <input type="email" id="emailInput" placeholder="you@email.com" autocomplete="email" aria-required="true"/>

@@ -215,7 +215,7 @@
       padding:14px 18px;min-width:120px;text-align:center;
       display:flex;flex-direction:column;align-items:center;
     }
-    .stat-tile.stat-tile-goal{background:var(--color-primary)}
+    .stat-tile.stat-tile-goal{background:var(--color-primary-hover)} /* was --color-primary: #FAF7ED text on it measured 4.42:1, just under AA — the hover shade (already an existing token, no new color) passes at 6.17:1 */
     .stat-tile-icon{width:20px;height:20px;margin-bottom:6px}
     .stat-tile-icon svg{width:100%;height:100%;stroke:#F6F3EC}
     .stat-tile-num{font-family:var(--font-display);font-weight:700;font-size:26px;line-height:1;color:#F6F3EC}
@@ -681,7 +681,7 @@
         box-shadow:0 -6px 20px rgba(37,37,53,0.08);
       }
       .topbar-tabs{padding-bottom:0}
-      .outer{padding-bottom:calc(80px + env(safe-area-inset-bottom,0px))}
+      .outer{padding-bottom:calc(var(--mobile-nav-bottom-h,80px) + env(safe-area-inset-bottom,0px))}
       /* Icon-over-short-label, stacked — the side-by-side full-label layout
          above is what caused the squished/illegible tabs on phone. */
       .tab-btn{flex-direction:column;gap:3px;padding:7px 14px;font-size:10.5px}
@@ -1019,8 +1019,8 @@
   <div class="hero-banner-inner">
     <div>
       <span class="hero-label">My Nest Chapter</span>
-      <div class="hero-title" id="hero-title">Your New Spaces</div>
-      <div class="hero-sub">Taking things one step, one memory, at a time.</div>
+      <div class="hero-title" id="hero-title">Your Garage Sale</div>
+      <div class="hero-sub">One box, one item, one step closer to sale day.</div>
     </div>
     <div class="hero-stats" id="hero-stats"></div>
   </div>
@@ -1638,6 +1638,10 @@ function updateStickyOffsets(){
   const navIsBottomFixed=window.matchMedia('(max-width:768px)').matches;
   document.documentElement.style.setProperty('--nav-sticky-top',topbarH+'px');
   document.documentElement.style.setProperty('--subnav-sticky-top',(navIsBottomFixed?topbarH:(topbarH+mainNav.offsetHeight))+'px');
+  // Real measured height of the bottom-fixed nav, not a guessed constant — the tab
+  // bar's height shifts with label wrapping/font metrics, and a hardcoded 80px was
+  // letting "+ Add an item" render underneath it on some phones (2026-09 critique).
+  document.documentElement.style.setProperty('--mobile-nav-bottom-h',navIsBottomFixed?mainNav.offsetHeight+'px':'0px');
 }
 
 // ─── HEADER + METRICS ─────────────────────────────────────────────────────────
@@ -1645,7 +1649,7 @@ function refreshHeroTitle(){
   const el=document.getElementById('hero-title');
   if(!el)return;
   const name=(P.setup?.yourName||'').trim();
-  el.textContent=name?`Welcome back, ${name}.`:'Your New Spaces';
+  el.textContent=name?`Welcome back, ${name}.`:'Your Garage Sale';
 }
 function refreshAvatarDisplay(){
   const name=(P.setup?.yourName||'').trim();
@@ -2162,9 +2166,10 @@ function renderInventory(){
     <div class="gap-y">
       ${eyebrowTitle}
       <div class="empty-state-prompt">Nothing sorted yet. Start with the room you've been avoiding — snap a photo, or add the first item by hand. One item at a time.</div>
+      ${quickAddRow()}
       <div style="display:flex;gap:12px;flex-wrap:wrap">
         <button class="btn btn-primary" onclick="openGuidedSort('camera')">Sort with your camera →</button>
-        <button class="btn btn-secondary" onclick="openGuidedSort('manual')">+ Add an item</button>
+        <button class="btn btn-secondary" onclick="openGuidedSort('manual')">Add with details</button>
       </div>
     </div>`;
   }
@@ -2193,11 +2198,24 @@ function renderInventory(){
         ${unpricedSellable>0?`<div class="inv-tally-sub">${unpricedSellable} still need${unpricedSellable===1?'s':''} a price</div>`:`<div class="inv-tally-sub">all priced</div>`}
       </div>
     </div>
+    ${quickAddRow()}
     <div style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:20px">
       <button class="btn btn-primary" onclick="openGuidedSort('camera')">Sort with your camera →</button>
-      <button class="btn btn-secondary" onclick="openGuidedSort('manual')">+ Add an item</button>
+      <button class="btn btn-secondary" onclick="openGuidedSort('manual')">Add with details</button>
     </div>
     ${renderSectionTip("When you're not sure whether to price it .50¢ or $1, ask yourself which one means you don't have to carry it back inside. That's your answer.")}
+  </div>`;
+}
+// Always-visible fast path (2026-09 shape): a single line she can type in her own
+// words ("shirts 3 for $5") instead of stepping through the full guided form for
+// every item. "Add with details" above stays for anything that actually needs a
+// category, condition, or photo.
+function quickAddRow(){
+  return`
+  <div style="display:flex;gap:8px;margin-bottom:16px" role="group" aria-label="Quick add an item">
+    <input type="text" id="qa-input" class="input" placeholder="shirts 3 for $5, or lamp $8" aria-label="Item name, quantity, and price"
+      onkeydown="if(event.key==='Enter'){event.preventDefault();submitQuickAdd();}" style="flex:1;min-width:0" />
+    <button class="btn btn-primary" onclick="submitQuickAdd()" style="flex-shrink:0">Add</button>
   </div>`;
 }
 
@@ -2626,6 +2644,44 @@ function gsChooseDecision(kind){
   if(kind==='batch'){guidedUI.screen='batch';renderGuidedSort();return;}
   if(kind==='sell'){guidedUI.current.condition=guidedUI.current.condition||'Good';guidedUI.screen='sell';renderGuidedSort();return;}
 }
+// Quick-add (2026-09 shape): parses a line like "shirts 3 for $5" or "lamp $8" into
+// a real item without the full guided-sort flow. Deliberately tolerant, not exact —
+// on anything ambiguous it still creates the item (name always wins), just without
+// a price/quantity guess it isn't sure of, so nothing she types is ever dropped.
+function parseQuickAdd(raw){
+  let s=String(raw||'').trim();
+  if(!s)return null;
+  let price='',qty='';
+  const priceMatch=s.match(/\$\s*(\d+(?:\.\d{1,2})?)/)||s.match(/\bfor\s+(\d+(?:\.\d{1,2})?)\b/i);
+  if(priceMatch){price=priceMatch[1];s=s.slice(0,priceMatch.index)+s.slice(priceMatch.index+priceMatch[0].length);}
+  const qtyMatch=s.match(/\b(\d+)\b/);
+  if(qtyMatch){qty=qtyMatch[1];s=s.slice(0,qtyMatch.index)+s.slice(qtyMatch.index+qtyMatch[0].length);}
+  const name=s.replace(/\bfor\b/gi,' ').replace(/\s{2,}/g,' ').trim().replace(/^[\s,.\-]+|[\s,.\-]+$/g,'');
+  if(!name)return null;
+  return{name,qty:qty?String(Math.max(1,parseInt(qty,10))):'1',price:price?String(nn(price)):''};
+}
+function submitQuickAdd(){
+  const el=document.getElementById('qa-input');
+  if(!el)return;
+  const parsed=parseQuickAdd(el.value);
+  if(!parsed){showToast('Type a name — like "lamp $8"');el.focus();return;}
+  const category='Other',condition='Good',decision='Garage Sale';
+  const item={
+    id:makeId(),name:parsed.name,label:parsed.name,categoryKey:'',itemType:'',category,
+    condition,quantity:parsed.qty,decision,price:parsed.price,
+    notes:'',photo:'',room:null,brand:false,
+    batchId:null,storage:'',alsoGiveToKids:false,given:false,sold:false,
+    suggested:'',platform:'',kanbanCol:'priced',
+  };
+  item.suggested=priceRange(item.category,item.condition);
+  item.platform=suggestPlatform(item.category,item.condition,item.price,item.decision);
+  P.items=[item,...(P.items||[])];
+  P.isDemo=false;save();
+  el.value='';
+  refreshInvSurfaces();refreshMetrics();checkUnpricedNotif();
+  gsToastUndo(`Added ${item.name}`);
+  el.focus();
+}
 function gsSaveItem(extra){
   const c=guidedUI.current;
   const category=SORT_PRICE_TO_CATEGORY[c.categoryKey]||'Other';
@@ -2771,7 +2827,7 @@ function gsSellScreen(){
       ${c.brand?`<div class="gs-brand-badge">Brand detected</div><br>`:''}
       <div class="gs-price-lbl">Garage sale price</div>
       <label class="sr-only" for="gs-sell-price">Price</label>
-      <input class="gs-price-edit" id="gs-sell-price" type="number" min="0" step="0.25" value="${c.priceOverride}" oninput="guidedUI.current.priceOverride=String(nn(this.value))" />
+      <input class="gs-price-edit" id="gs-sell-price" type="number" min="0" step="0.25" value="${c.priceOverride}" oninput="guidedUI.current.priceOverride=String(nn(this.value))" onblur="checkPriceFeedback(this.value,'Price')" />
     </div>
     <div class="gs-action-row">
       <button class="gs-btn-accept" onclick="gsFinishSell('Garage Sale')">Use this price</button>
@@ -2867,7 +2923,7 @@ function renderAddItemForm(){
       </div>
       <div class="form-field">
         <label class="form-label">My price ($)</label>
-        <input class="input" id="di-price" type="number" min="0" step="1" value="${esc(d.price)}" oninput="draftItem('price',this.value)" onblur="draftItemAndRefresh('price',this.value)" placeholder="0" />
+        <input class="input" id="di-price" type="number" min="0" step="1" value="${esc(d.price)}" oninput="draftItem('price',this.value)" onblur="draftItemAndRefresh('price',this.value);checkPriceFeedback(this.value,'Price')" placeholder="0" />
       </div>
     </div>
     <div class="info-box" style="margin-bottom:6px;background:#EFE8DC;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap">
@@ -3067,7 +3123,7 @@ function renderBatch(){
         </div>
         <div class="form-field">
           <label class="form-label" for="bx-price">Price — everything here ($)</label>
-          <input class="input" type="number" min="0" step="0.5" id="bx-price" value="${esc(draft.batch.price)}" oninput="draft.batch.price=String(nn(this.value))" />
+          <input class="input" type="number" min="0" step="0.5" id="bx-price" value="${esc(draft.batch.price)}" oninput="draft.batch.price=String(nn(this.value))" onblur="checkPriceFeedback(this.value,'Price')" />
         </div>
       </div>
       <div class="form-field" style="margin-bottom:14px">
@@ -5660,6 +5716,15 @@ function exportPDF(){
 // sf() = "set field" — safe varargs alternative to setField; path as spread args avoids JSON-in-HTML quoting issues
 // nn()/nnMin1() = clamp a typed price/cash/quantity value to a non-negative (or min-1) number before it's stored and rendered as currency
 function nn(v){const n=parseFloat(v);return isFinite(n)&&n>0?Math.min(n,100000):0}
+// nn() clamps silently by design (it runs on every keystroke) — call this alongside it
+// on blur to tell her when what she typed actually got corrected, instead of just
+// showing a different number with no explanation (2026-09 critique finding).
+function checkPriceFeedback(v,label){
+  const raw=parseFloat(v);
+  if(v===''||v==null||!isFinite(raw))return;
+  if(raw<0)showToast(`${label} can't be negative — set to $0`);
+  else if(raw>100000)showToast(`${label} capped at $100,000`);
+}
 function nnMin1(v){const n=parseInt(v,10);return isFinite(n)&&n>0?n:1}
 let _weatherFetchTimer,_lastWeatherSaleDate;
 function sf(el,...path){
@@ -6746,7 +6811,13 @@ refreshBell();
 checkTimeNotifs();
 checkGoalNotifs();
 checkUnpricedNotif();
-if(localStorage.getItem(TOUR_KEY)!=='true'){setTimeout(()=>openTour(),700);}
+// No longer auto-opens on first load — 2026-09 critique: an unsolicited tutorial
+// popup before any action is taken is exactly what DESIGN.md §5.6 rules out — "no
+// talking-at-her tutorial overlay, one subtle inline hint on her first real action,
+// then never repeat it." The Sort+Price empty state ("Start with the room you've
+// been avoiding...") already IS that hint — it's contextual and shows exactly once,
+// when there's nothing sorted yet. The full spotlight tour stays available on
+// request via retakeTourFromHelp() for anyone who wants a guided walkthrough.
 setInterval(checkTimeNotifs,60000);
 let _resizeTimer;
 window.addEventListener('resize',()=>{
