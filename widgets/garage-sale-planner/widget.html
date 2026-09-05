@@ -12,8 +12,8 @@
     * { box-sizing: border-box; }
     *, *::before, *::after { margin: 0; padding: 0; }
     html, body, #root, [data-framework], main, .app-container {
-      background-color: #F6F3EC !important;
-      background: #F6F3EC !important;
+      background-color: #F6F1E6 !important;
+      background: #F6F1E6 !important;
       margin: 0;
       padding: 0;
       width: 100% !important;
@@ -32,17 +32,17 @@
       --space-5:1.25rem;--space-6:1.5rem;--space-8:2rem;--space-10:2.5rem;
       --space-12:3rem;--space-16:4rem;
 
-      --color-bg:             #F6F3EC;
-      --color-surface:        #FEFCF8;
-      --color-surface-2:      #EFE8DC;
+      --color-bg:             #F6F1E6;
+      --color-surface:        #F6F1E6;
+      --color-surface-2:      rgba(43,31,24,0.06);
       --color-divider:        #D9C7AC;
       --color-border:         #D9C7AC;
-      --color-text:           #262624;
+      --color-text:           #2B1F18;
       --color-text-muted:     #6B655C;
-      --color-primary:        #7A2E42;
-      --color-primary-hover:  #5E2233;
-      --color-primary-hl:     #EFE8DC;
-      --color-primary-text:   #7A2E42;
+      --color-primary:        #0A2F3A;
+      --color-primary-hover:  #08252D;
+      --color-primary-hl:     rgba(10,47,58,0.08);
+      --color-primary-text:   #0A2F3A;
       --color-accent:         #80475E;
       --radius-sm:4px;--radius-md:6px;--radius-lg:8px;
       --radius-xl:10px;--radius-2xl:10px;--radius-full:9999px;
@@ -79,7 +79,7 @@
     /* ─── TOPBAR ─── */
     .topbar {
       position:-webkit-sticky;position:sticky;top:0;z-index:200;
-      background:#FEFCF8;
+      background:#F6F1E6;
       border-bottom:1px solid var(--color-divider);
       padding:var(--space-3) var(--space-6);
       display:flex;align-items:center;justify-content:space-between;gap:var(--space-4);
@@ -135,7 +135,7 @@
     .tab-btn-label-short{display:none}
     .tab-btn.active{background:var(--color-primary-text);color:#fff;font-weight:700;box-shadow:none}
     .tab-btn:hover:not(.active){color:var(--color-text);background:var(--color-primary-hl)}
-    .tab-btn.tour-spotlight-tab{outline:2px solid #7A2E42;outline-offset:-2px}
+    .tab-btn.tour-spotlight-tab{outline:2px solid #0A2F3A;outline-offset:-2px}
 
     /* ─── ICON RAIL (topbar: avatar, bell, pricing guide, save, help, reset) ─── */
     .icon-btn {
@@ -148,12 +148,12 @@
     /* Avatar stays the one filled, colored anchor in the topbar — everything else
        (bell, save, more) is now a quiet ghost icon, so there's a single strong
        visual anchor instead of four bordered boxes competing for attention. */
-    .avatar-btn{background:var(--color-primary-text);color:#F6F3EC}
-    .avatar-btn:hover{background:#5E2233;color:#F6F3EC}
+    .avatar-btn{background:var(--color-primary-text);color:#F6F1E6}
+    .avatar-btn:hover{background:#08252D;color:#F6F1E6}
     .avatar-btn #avatar-initial{font-family:var(--font-body);font-weight:800;font-size:15px}
     .avatar-pop{
       position:absolute;top:calc(100% + 10px);left:0;width:230px;
-      background:#FEFCF8;border:2px solid var(--color-text);border-radius:var(--radius-lg);
+      background:#F6F1E6;border:2px solid var(--color-text);border-radius:var(--radius-lg);
       padding:16px;display:none;z-index:250;box-shadow:var(--shadow-float);
     }
     .avatar-pop.open{display:block}
@@ -200,7 +200,7 @@
     }
     .hero-title{
       font-family:var(--font-display);font-weight:700;font-size:clamp(24px,3vw,34px);
-      color:#F6F3EC;margin:0;letter-spacing:-0.01em;
+      color:#F6F1E6;margin:0;letter-spacing:-0.01em;
     }
     .hero-sub{
       font-family:var(--font-display);font-style:italic;font-weight:400;
@@ -217,11 +217,11 @@
     }
     .stat-tile.stat-tile-goal{background:var(--color-primary-hover)} /* was --color-primary: #FAF7ED text on it measured 4.42:1, just under AA — the hover shade (already an existing token, no new color) passes at 6.17:1 */
     .stat-tile-icon{width:20px;height:20px;margin-bottom:6px}
-    .stat-tile-icon svg{width:100%;height:100%;stroke:#F6F3EC}
-    .stat-tile-num{font-family:var(--font-display);font-weight:700;font-size:26px;line-height:1;color:#F6F3EC}
+    .stat-tile-icon svg{width:100%;height:100%;stroke:#F6F1E6}
+    .stat-tile-num{font-family:var(--font-display);font-weight:700;font-size:26px;line-height:1;color:#F6F1E6}
     .stat-tile-label{font-family:var(--font-body);font-size:9px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:rgba(246,243,236,.85);margin-top:3px}
     .tag-bar{width:100%;height:5px;margin-top:8px;overflow:hidden;background:rgba(246,243,236,.3);border-radius:var(--radius-full)}
-    .tag-bar-fill{height:100%;background:#F6F3EC;border-radius:var(--radius-full);transition:width 180ms cubic-bezier(0.16,1,0.3,1)}
+    .tag-bar-fill{height:100%;background:#F6F1E6;border-radius:var(--radius-full);transition:width 180ms cubic-bezier(0.16,1,0.3,1)}
     .tag-sub{margin-top:7px;font-size:9px;text-align:center;line-height:1.35;color:rgba(246,243,236,.85)}
     .tag-legend{display:flex;flex-direction:column;gap:2px;margin-top:8px;font-size:7.5px;font-weight:600;color:rgba(246,243,236,.85)}
     .tag-legend span{display:flex;align-items:center;gap:4px;justify-content:center}
@@ -244,7 +244,7 @@
     /* ─── METRICS ─── */
     .metric-value{
       font-size:28px;font-weight:700;line-height:1.3;
-      font-family:var(--font-display);color:#262624;
+      font-family:var(--font-display);color:#2B1F18;
     }
 
     /* ─── DEMO PILL (topbar indicator, shown only if a legacy demo planner is loaded) ─── */
@@ -269,7 +269,7 @@
     }
     .sec-btn.active{background:var(--color-primary);color:#fff}
     .sec-btn:hover:not(.active){background:var(--color-primary-hl);color:var(--color-primary-text)}
-    .sec-btn:active:not(.active){background:#5E2233;color:#fff}
+    .sec-btn:active:not(.active){background:#08252D;color:#fff}
     /* utility actions appended after the real sections — smaller, so they never read as equal tabs */
     .sec-btn-util{font-size:12.5px;padding:7px 14px;background:transparent;border:1.5px dashed var(--color-divider);color:var(--color-text-muted)}
     .sec-btn-util:hover{border-color:var(--color-primary);color:var(--color-primary-text);background:var(--color-primary-hl)}
@@ -292,17 +292,17 @@
     }
     .btn:disabled{opacity:.45;cursor:not-allowed}
     .btn-primary{background:var(--color-primary);color:#FFFFFF;border:1.5px solid var(--color-primary);padding:11px 20px;font-family:var(--font-body);font-weight:700;font-size:14px;letter-spacing:0.2px}
-    .btn-primary:hover{background:#5E2233;border-color:#5E2233}
-    .btn-primary:active{background:#5E2233;border-color:#5E2233;transform:translateY(1px)}
+    .btn-primary:hover{background:#08252D;border-color:#08252D}
+    .btn-primary:active{background:#08252D;border-color:#08252D;transform:translateY(1px)}
     .btn-secondary{background:transparent;color:var(--color-primary-text);border:1.5px solid var(--color-primary);padding:11px 20px;font-family:var(--font-body);font-weight:700;font-size:14px;letter-spacing:0.2px}
-    .btn-secondary:hover{background:#EFE8DC}
-    .btn-secondary:active{background:#5E2233;color:#fff;transform:translateY(1px)}
+    .btn-secondary:hover{background:rgba(43,31,24,0.06)}
+    .btn-secondary:active{background:#08252D;color:#fff;transform:translateY(1px)}
     .btn-ghost{background:transparent;color:var(--color-primary-text);border:1.5px solid transparent;padding:var(--space-2) var(--space-3)}
     .btn-ghost:hover{background:var(--color-primary-hl)}
-    .btn-ghost:active{background:#5E2233;color:#fff}
-    .btn-danger{background:var(--color-surface);color:#262624;border:1.5px solid var(--color-primary)}
-    .btn-danger:hover{background:#EFE8DC}
-    .btn-danger:active{background:#5E2233;color:#fff}
+    .btn-ghost:active{background:#08252D;color:#fff}
+    .btn-danger{background:var(--color-surface);color:#2B1F18;border:1.5px solid var(--color-primary)}
+    .btn-danger:hover{background:rgba(43,31,24,0.06)}
+    .btn-danger:active{background:#08252D;color:#fff}
     .btn-sm{font-size:var(--text-xs);padding:var(--space-2) var(--space-3)}
     .btn-xs{font-size:var(--text-xs);padding:var(--space-1) var(--space-3)}
 
@@ -316,7 +316,7 @@
     .start-card-lg,.start-card-sm,.bold-card{border:2px solid var(--color-text)!important;box-shadow:none!important;position:relative}
     .corner-tag{
       position:absolute;top:-16px;left:28px;
-      background:var(--color-primary);color:#F6F3EC;
+      background:var(--color-primary);color:#F6F1E6;
       font-family:var(--font-body);font-weight:800;font-size:11px;
       letter-spacing:.12em;text-transform:uppercase;
       padding:8px 18px 8px 22px;
@@ -324,18 +324,18 @@
       z-index:2;
     }
     /* ─── DARK "MOMENT" CARD — extends the Wrap Up completion card look ─── */
-    .block-dark{background:var(--color-text);color:#F6F3EC;border-radius:var(--radius-xl);padding:30px}
+    .block-dark{background:var(--color-text);color:#F6F1E6;border-radius:var(--radius-xl);padding:30px}
     .block-dark .card-title-dark{font-family:var(--font-body);font-weight:700;font-size:13px;letter-spacing:.1em;text-transform:uppercase;color:#D9C7AC;margin-bottom:10px}
-    .block-dark .big-stat{font-family:var(--font-display);font-weight:800;font-size:48px;line-height:.95;color:#F6F3EC}
+    .block-dark .big-stat{font-family:var(--font-display);font-weight:800;font-size:48px;line-height:.95;color:#F6F1E6}
     .block-dark .stat-sub{font-size:13px;color:rgba(246,243,236,.75);margin-top:8px}
     .block-dark .bar-track{height:10px;background:rgba(246,243,236,.2);border-radius:var(--radius-full);margin-top:16px;overflow:hidden}
     .block-dark .bar-fill{height:100%;background:var(--color-primary);border-radius:var(--radius-full);transition:width 180ms cubic-bezier(0.16,1,0.3,1)}
     .block-dark-divider{margin:22px 0 18px;border-top:1px solid rgba(246,243,236,.2)}
     .block-dark .quote-line{margin-top:20px;padding-top:16px;border-top:1px solid rgba(246,243,236,.2);font-family:var(--font-display);font-style:italic;font-size:14px;color:rgba(246,243,236,.88);line-height:1.55}
     .block-dark .quote-attr{display:block;margin-top:8px;font-style:normal;font-weight:700;font-size:12px;letter-spacing:.04em;color:#D9C7AC}
-    .block-dark #countdown-body,.block-dark #countdown-body .metric-value{color:#F6F3EC}
+    .block-dark #countdown-body,.block-dark #countdown-body .metric-value{color:#F6F1E6}
     .block-dark #countdown-body .text-muted{color:rgba(246,243,236,.7)}
-    .block-dark #countdown-body .btn-secondary{background:transparent;color:#F6F3EC;border-color:rgba(246,243,236,.45)}
+    .block-dark #countdown-body .btn-secondary{background:transparent;color:#F6F1E6;border-color:rgba(246,243,236,.45)}
     .block-dark #countdown-body .btn-secondary:hover{background:rgba(246,243,236,.12)}
     /* ─── HOME TAB — v2, 2026-07-26: consolidated status card (no duplicate sale
        date), bold saturated tiles instead of pale-tint monotone, Command Center
@@ -348,23 +348,23 @@
        sale date so the date isn't repeated anywhere else on this tab. */
     .home-status-card{
       background:#5B3A28;border-radius:var(--radius-xl);
-      box-shadow:0 16px 44px rgba(91,58,40,0.35);padding:24px;
-      color:#F6F3EC;
+      box-shadow:0 16px 44px rgba(37,37,53,0.22);padding:24px;
+      color:#F6F1E6;
     }
     .home-status-top{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;flex-wrap:wrap}
     .home-status-label{font-family:var(--font-display);font-style:italic;font-weight:600;font-size:15px;color:#D9C7AC}
-    .home-status-amount{font-family:var(--font-display);font-weight:700;font-size:32px;color:#F6F3EC;margin-top:2px}
+    .home-status-amount{font-family:var(--font-display);font-weight:700;font-size:32px;color:#F6F1E6;margin-top:2px}
     .home-status-badge{font-family:var(--font-body);font-weight:700;font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:#D9C7AC;border:1px dashed rgba(246,243,236,0.35);border-radius:9999px;padding:5px 12px;white-space:nowrap}
     .home-status-body{display:flex;align-items:center;gap:22px;margin-top:20px;flex-wrap:wrap}
     .home-ring-wrap{width:84px;height:84px;flex-shrink:0;position:relative}
     .home-ring-wrap svg{width:100%;height:100%}
     .home-ring-fill{transition:stroke-dashoffset 900ms cubic-bezier(0.16,1,0.3,1)}
-    .home-ring-num{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-weight:700;font-size:16px;color:#F6F3EC;font-variant-numeric:tabular-nums}
+    .home-ring-num{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-weight:700;font-size:16px;color:#F6F1E6;font-variant-numeric:tabular-nums}
     .home-status-raised-label{font-family:var(--font-body);font-weight:700;font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:#D9C7AC}
-    .home-status-raised-value{font-family:var(--font-display);font-weight:700;font-size:22px;color:#F6F3EC;margin-top:2px}
+    .home-status-raised-value{font-family:var(--font-display);font-weight:700;font-size:22px;color:#F6F1E6;margin-top:2px}
     .home-status-divider{width:1px;align-self:stretch;background:rgba(246,243,236,0.15)}
     .home-status-date-label{font-family:var(--font-body);font-weight:700;font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:#D9C7AC}
-    .home-status-date-value{font-family:var(--font-display);font-weight:700;font-size:16px;color:#F6F3EC;margin-top:2px;line-height:1.3}
+    .home-status-date-value{font-family:var(--font-display);font-weight:700;font-size:16px;color:#F6F1E6;margin-top:2px;line-height:1.3}
     .home-status-adjust{display:inline-block;margin-top:8px;font-family:var(--font-body);font-weight:700;font-size:12.5px;color:#D9C7AC;text-decoration:underline;background:none;border:none;cursor:pointer;padding:0;margin-left:auto}
 
     /* Stat tiles — bold saturated fills, one per category, matching the same decision colors used across Sort + Price and the sale stat strip */
@@ -372,10 +372,10 @@
     .home-count-card{border-radius:var(--radius-xl);box-shadow:0 10px 40px rgba(37,37,53,0.07);padding:14px}
     .home-count-label{font-family:var(--font-body);font-weight:700;font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;opacity:.85}
     .home-count-value{font-family:var(--font-display);font-weight:700;font-size:28px;margin-top:8px;font-variant-numeric:tabular-nums}
-    .home-count-card.tone-forsale{background:var(--color-primary);color:#FEFCF8}
-    .home-count-card.tone-donate{background:#46703F;color:#FEFCF8}
-    .home-count-card.tone-kids{background:#80475E;color:#FEFCF8}
-    .home-count-card.tone-memory{background:#5B3A28;color:#FEFCF8}
+    .home-count-card.tone-forsale{background:var(--color-primary);color:#F6F1E6}
+    .home-count-card.tone-donate{background:#46703F;color:#F6F1E6}
+    .home-count-card.tone-kids{background:#80475E;color:#F6F1E6}
+    .home-count-card.tone-memory{background:#5B3A28;color:#F6F1E6}
 
     /* Command Center — live status per section, not a duplicate of the top nav */
     .home-command-top{display:flex;align-items:baseline;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:14px}
@@ -411,7 +411,7 @@
       width:52px;height:52px;border-radius:50%;
       border:1.5px solid rgba(246,243,236,.55);
       display:flex;align-items:center;justify-content:center;
-      margin:0 auto 18px;color:#F6F3EC;font-family:var(--font-display);font-size:20px;
+      margin:0 auto 18px;color:#F6F1E6;font-family:var(--font-display);font-size:20px;
     }
     .wc-record{
       border-top:1px dashed rgba(246,243,236,.25);
@@ -419,7 +419,7 @@
       display:flex;justify-content:center;gap:28px;flex-wrap:wrap;
     }
     .wc-record-item{font-family:var(--font-body);font-size:12.5px;text-align:center}
-    .wc-record-item b{display:block;font-family:var(--font-display);font-size:17px;font-weight:700;color:#F6F3EC;font-variant-numeric:tabular-nums}
+    .wc-record-item b{display:block;font-family:var(--font-display);font-size:17px;font-weight:700;color:#F6F1E6;font-variant-numeric:tabular-nums}
     .wc-record-item span{color:rgba(246,243,236,.6);text-transform:uppercase;letter-spacing:.06em;font-size:10.5px}
 
     /* ─── GRIDS ─── */
@@ -434,8 +434,8 @@
       width:100%;border:1px solid var(--color-border);
       border-radius:var(--radius-md);
       padding:12px 14px;
-      font-size:16px;color:#262624;
-      background:#FEFCF8;transition:border-color var(--t);outline:none;
+      font-size:16px;color:#2B1F18;
+      background:#F6F1E6;transition:border-color var(--t);outline:none;
     }
     .input:focus,.select:focus,.textarea:focus{border-color:var(--color-primary-text)}
     .textarea{resize:none;min-height:80px}
@@ -470,13 +470,13 @@
     /* ─── CUSTOM CALENDAR PICKER ─── */
     .cal-trigger{font-family:var(--font-body)}
     .cal-panel{
-      position:absolute;z-index:1000;width:260px;background:#FEFCF8;
+      position:absolute;z-index:1000;width:260px;background:#F6F1E6;
       border:2px solid var(--color-text);border-radius:var(--radius-lg);
       box-shadow:var(--shadow-float);padding:14px;
     }
     .cal-panel-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;font-family:var(--font-display);font-weight:700;font-size:14px;color:var(--color-text)}
     .cal-nav-btn{width:44px;height:44px;border-radius:9999px;background:none;font-size:18px;line-height:1;color:var(--color-primary-text);display:flex;align-items:center;justify-content:center;cursor:pointer}
-    .cal-nav-btn:hover{background:#EFE8DC}
+    .cal-nav-btn:hover{background:rgba(43,31,24,0.06)}
     .cal-panel-dow{display:grid;grid-template-columns:repeat(7,1fr);text-align:center;font-size:11px;font-weight:600;color:#6B655C;margin-bottom:4px}
     .cal-panel-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:2px}
     .cal-day{
@@ -484,7 +484,7 @@
       font-size:13px;color:var(--color-text);cursor:pointer;display:flex;align-items:center;justify-content:center;
       transition:background var(--t),color var(--t);
     }
-    .cal-day:hover{background:#EFE8DC}
+    .cal-day:hover{background:rgba(43,31,24,0.06)}
     .cal-day.is-today{border:1.5px solid var(--color-primary);font-weight:700}
     .cal-day.is-selected{background:var(--color-primary);color:#fff;font-weight:700}
     .cal-today-link{margin-top:10px;width:100%;text-align:center;background:none;color:var(--color-primary-text);font-size:12px;font-weight:700;text-decoration:underline;cursor:pointer}
@@ -508,14 +508,14 @@
     tbody td{padding:var(--space-3) var(--space-4);vertical-align:middle}
     .td-name{font-weight:600;max-width:160px}
     .td-chip{display:inline-block;border-radius:var(--radius-full);padding:var(--space-1) var(--space-3);font-size:var(--text-xs);font-weight:600}
-    .chip-sale{background:#7A2E42;color:#FEFCF8}
-    .chip-online{background:#A15C3E;color:#FEFCF8}
-    .chip-donate{background:#46703F;color:#FEFCF8}
-    .chip-kids{background:#80475E;color:#FEFCF8}
-    .chip-memory{background:#5B3A28;color:#FEFCF8}
-    .chip-batch{background:#6B655C;color:#FEFCF8}
+    .chip-sale{background:#0A2F3A;color:#F6F1E6}
+    .chip-online{background:#A35E33;color:#FFFFFF}
+    .chip-donate{background:#46703F;color:#F6F1E6}
+    .chip-kids{background:#80475E;color:#F6F1E6}
+    .chip-memory{background:#5B3A28;color:#F6F1E6}
+    .chip-batch{background:#6B655C;color:#F6F1E6}
     .chip-trash{background:transparent;color:#9E3D0F;border:1.5px solid #9E3D0F}
-    .chip-notsure{background:transparent;color:#262624;border:1.5px solid #D9C7AC}
+    .chip-notsure{background:transparent;color:#2B1F18;border:1.5px solid #D9C7AC}
     .sold-row{opacity:.5}
 
     /* ─── PROGRESS ─── */
@@ -617,7 +617,7 @@
 
     /* ─── INFO / WARN BOXES ─── */
     .info-box{background:var(--color-primary-hl);border-radius:var(--radius-lg);padding:var(--space-4) var(--space-5);font-size:var(--text-sm);color:var(--color-text);line-height:1.7}
-    .warn-box{background:#D9C7AC;border-radius:var(--radius-lg);padding:var(--space-4) var(--space-5);font-size:var(--text-sm);color:#262624;line-height:1.7}
+    .warn-box{background:#D9C7AC;border-radius:var(--radius-lg);padding:var(--space-4) var(--space-5);font-size:var(--text-sm);color:#2B1F18;line-height:1.7}
 
     /* ─── UTILITY ─── */
     .gap-y{display:flex;flex-direction:column;gap:var(--space-4)}
@@ -637,7 +637,7 @@
     .sign-details{font-size:var(--text-sm);color:var(--color-text);margin-top:var(--space-3)}
 
     /* ─── INVENTORY CARDS (mobile) ─── */
-    .inv-card{border:2px solid var(--color-text);border-radius:var(--radius-lg);padding:14px 12px;display:flex;gap:10px;align-items:flex-start;background:#FEFCF8}
+    .inv-card{border:2px solid var(--color-text);border-radius:var(--radius-lg);padding:14px 12px;display:flex;gap:10px;align-items:flex-start;background:#F6F1E6}
     .inv-card.sold-card{opacity:0.5}
     .inv-card-check{display:flex;align-items:center;justify-content:center;min-width:44px;min-height:44px;cursor:pointer}
     .inv-card-check input[type="checkbox"]{width:20px;height:20px;accent-color:var(--plum);cursor:pointer;pointer-events:none}
@@ -696,12 +696,12 @@
 
     /* ─── ACCESSIBILITY ─── */
     .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
-    .skip-link{position:absolute;top:-40px;left:0;background:#7A2E42;color:#fff;padding:8px 16px;z-index:9999;font-family:var(--font-display);font-weight:800;font-size:9pt;text-transform:uppercase}
+    .skip-link{position:absolute;top:-40px;left:0;background:#0A2F3A;color:#fff;padding:8px 16px;z-index:9999;font-family:var(--font-display);font-weight:800;font-size:9pt;text-transform:uppercase}
     .skip-link:focus{top:0}
 
     /* ─── TOAST ─── */
     .mnc-toast{position:fixed;top:20px;left:50%;transform:translateX(-50%);
-      background:#262624;color:#F6F3EC;border-bottom:2px solid #7A2E42;
+      background:#2B1F18;color:#F6F1E6;border-bottom:2px solid #0A2F3A;
       font-family:var(--font-body);font-weight:800;font-size:9pt;
       letter-spacing:2px;text-transform:uppercase;
       padding:10px 20px;z-index:9999;pointer-events:none;
@@ -710,69 +710,69 @@
 
     /* ─── GUIDED SORT (Sort + Price camera flow, 2026-07-10 brief) ─── */
     .mnc-undo-toast{position:fixed;top:20px;left:50%;transform:translateX(-50%);
-      background:#262624;color:#F6F3EC;font-family:var(--font-body);font-weight:600;font-size:13px;
+      background:#2B1F18;color:#F6F1E6;font-family:var(--font-body);font-weight:600;font-size:13px;
       padding:12px 18px;z-index:9999;display:flex;align-items:center;gap:16px;white-space:nowrap;
       opacity:0;pointer-events:none;transition:opacity 0.18s}
     .mnc-undo-toast.show{opacity:1;pointer-events:auto}
     .mnc-undo-toast button{font-family:var(--font-body);font-weight:700;font-size:12px;letter-spacing:.06em;
-      text-transform:uppercase;color:#7A2E42;background:none;border:none;cursor:pointer;padding:6px 4px;min-height:44px}
-    .gs-stat-strip{background:#EFE8DC;padding:14px 16px 12px;font-family:var(--font-body);margin-bottom:16px;
+      text-transform:uppercase;color:#0A2F3A;background:none;border:none;cursor:pointer;padding:6px 4px;min-height:44px}
+    .gs-stat-strip{background:rgba(43,31,24,0.06);padding:14px 16px 12px;font-family:var(--font-body);margin-bottom:16px;
       border-radius:var(--radius-lg)}
     .gs-stat-strip-nums{display:flex;gap:10px}
-    .gs-stat-block{flex:1;background:#262624;color:#F6F3EC;padding:8px 10px;text-align:center;border-radius:var(--radius-md)}
-    .gs-stat-block.rose{background:#7A2E42}
+    .gs-stat-block{flex:1;background:#2B1F18;color:#F6F1E6;padding:8px 10px;text-align:center;border-radius:var(--radius-md)}
+    .gs-stat-block.rose{background:#0A2F3A}
     .gs-stat-block .gs-stat-num{font-family:var(--font-display);font-weight:700;font-size:18px;line-height:1}
     .gs-stat-block .gs-stat-lbl{font-size:9px;text-transform:uppercase;letter-spacing:.06em;opacity:.85;margin-top:2px}
     /* Pill-shaped like this file's other progress meters (.tag-bar, .block-dark .bar-track/.bar-fill). */
-    .gs-seg-bar{width:100%;height:10px;border:1.5px solid #262624;display:flex;overflow:hidden;margin:12px 0 10px;
+    .gs-seg-bar{width:100%;height:10px;border:1.5px solid #2B1F18;display:flex;overflow:hidden;margin:12px 0 10px;
       border-radius:var(--radius-full)}
     .gs-seg{height:100%}
     .gs-legend{display:flex;flex-wrap:wrap;gap:5px 14px;font-size:10px;color:var(--color-text-muted)}
     .gs-legend-item{display:flex;align-items:center;gap:5px}
     .gs-legend-dot{width:8px;height:8px;flex-shrink:0;display:inline-block;border-radius:var(--radius-full)}
-    .gs-tile{border:2px solid var(--color-text);padding:16px;text-align:center;cursor:pointer;background:#FEFCF8;
+    .gs-tile{border:2px solid var(--color-text);padding:16px;text-align:center;cursor:pointer;background:#F6F1E6;
       font-family:var(--font-body);min-height:44px;border-radius:var(--radius-lg);
       box-shadow:0 10px 40px rgba(37,37,53,0.07)}
-    .gs-tile:hover{background:#EFE8DC}
-    .gs-tile.gs-tile-done{background:#262624;color:#F6F3EC}
+    .gs-tile:hover{background:rgba(43,31,24,0.06)}
+    .gs-tile.gs-tile-done{background:#2B1F18;color:#F6F1E6}
     .gs-tile .gs-tile-check{display:block;font-size:11px;font-weight:400;margin-top:4px;opacity:.85}
     .gs-tile-quiet{border:1px solid var(--color-divider);padding:12px;text-align:center;cursor:pointer;
-      background:#FEFCF8;opacity:.85;font-family:var(--font-body);min-height:44px;border-radius:var(--radius-lg)}
-    .gs-tile-quiet:hover{opacity:1;background:#EFE8DC}
+      background:#F6F1E6;opacity:.85;font-family:var(--font-body);min-height:44px;border-radius:var(--radius-lg)}
+    .gs-tile-quiet:hover{opacity:1;background:rgba(43,31,24,0.06)}
     /* The button IS the camera — a drawn body/flash/lens, not an icon inside a generic tile. */
     .gs-camera-btn{display:flex;flex-direction:column;align-items:center;width:100%;max-width:260px;
       margin:0 auto 16px;padding:8px 20px 4px;border:none;background:none;cursor:pointer;touch-action:manipulation}
     .gs-camera-svg{margin-bottom:14px;transition:transform 140ms ease}
     .gs-camera-btn:hover .gs-camera-svg{transform:translateY(-2px)}
     .gs-camera-btn:active .gs-camera-svg{transform:scale(.94)}
-    .gs-camera-btn:focus-visible{outline:2px solid #7A2E42;outline-offset:6px;border-radius:var(--radius-lg)}
+    .gs-camera-btn:focus-visible{outline:2px solid #0A2F3A;outline-offset:6px;border-radius:var(--radius-lg)}
     .gs-camera-btn-label{font-family:var(--font-display);font-weight:700;font-size:16px;color:var(--color-text)}
     .gs-camera-btn-sub{font-size:13px;color:var(--color-text-muted);margin-top:4px}
     .gs-dec-btn{border:1.5px solid transparent;padding:14px 8px;font-size:13px;font-weight:700;cursor:pointer;
       font-family:var(--font-body);text-align:center;min-height:44px;border-radius:var(--radius-md)}
-    .gs-dec-btn.gs-sell{background:#7A2E42;color:#FEFCF8;border-color:#7A2E42}
+    .gs-dec-btn.gs-sell{background:#0A2F3A;color:#F6F1E6;border-color:#0A2F3A}
     .gs-dec-btn.gs-donate{background:transparent;color:#46703F;border-color:#46703F}
-    .gs-dec-btn.gs-kids{background:#80475E;color:#FEFCF8;border-color:#80475E}
+    .gs-dec-btn.gs-kids{background:#80475E;color:#F6F1E6;border-color:#80475E}
     .gs-dec-btn.gs-trash{background:transparent;color:#9E3D0F;border-color:#9E3D0F}
-    .gs-dec-btn.gs-memory{background:#5B3A28;color:#FEFCF8;border-color:#5B3A28}
+    .gs-dec-btn.gs-memory{background:#5B3A28;color:#F6F1E6;border-color:#5B3A28}
     .gs-dec-btn.gs-batch{background:transparent;color:#6B655C;border:1.5px dashed #6B655C}
     .gs-dec-btn:hover{opacity:.85}
     .gs-dec-btn:active{opacity:.7;transform:translateY(1px)}
-    .gs-price-tag{position:relative;background:#7A2E42;color:#F6F3EC;border:2px solid #262624;padding:18px 20px;
+    .gs-price-tag{position:relative;background:#0A2F3A;color:#F6F1E6;border:2px solid #2B1F18;padding:18px 20px;
       text-align:center;margin-bottom:14px;border-radius:var(--radius-xl)}
     .gs-price-tag .gs-price-lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;opacity:.85}
-    .gs-price-edit{border:none;background:transparent;color:#F6F3EC;font-family:var(--font-display);font-size:36px;
+    .gs-price-edit{border:none;background:transparent;color:#F6F1E6;font-family:var(--font-display);font-size:36px;
       font-weight:700;text-align:center;width:100%;border-bottom:2px dashed rgba(246,243,236,.5);padding:4px 0}
     .gs-brand-badge{display:inline-block;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;
-      background:#262624;color:#F6F3EC;padding:3px 8px;margin-bottom:8px;border-radius:var(--radius-full)}
-    .gs-nudge{font-size:12px;color:var(--color-text-muted);background:#EFE8DC;border:1.5px solid #D9C7AC;padding:8px 10px;
+      background:#2B1F18;color:#F6F1E6;padding:3px 8px;margin-bottom:8px;border-radius:var(--radius-full)}
+    .gs-nudge{font-size:12px;color:var(--color-text-muted);background:rgba(43,31,24,0.06);border:1.5px solid #D9C7AC;padding:8px 10px;
       margin-bottom:14px;line-height:1.4;border-radius:var(--radius-lg)}
     .gs-cond-row{display:flex;gap:8px;margin-bottom:16px}
-    .gs-cond-btn{flex:1;border:1.5px solid var(--color-text);background:#FEFCF8;color:var(--color-text);
+    .gs-cond-btn{flex:1;border:1.5px solid var(--color-text);background:#F6F1E6;color:var(--color-text);
       font-family:var(--font-body);font-weight:700;font-size:13px;padding:10px 8px;cursor:pointer;
       border-radius:var(--radius-md);min-height:44px}
-    .gs-cond-btn.active{background:#262624;color:#F6F3EC;border-color:#262624}
-    .gs-cond-btn:hover:not(.active){background:#EFE8DC}
+    .gs-cond-btn.active{background:#2B1F18;color:#F6F1E6;border-color:#2B1F18}
+    .gs-cond-btn:hover:not(.active){background:rgba(43,31,24,0.06)}
     .gs-cond-btn:active{opacity:.8;transform:translateY(1px)}
     /* Shared accent-border-left roles — consolidates what was 8 separate ad-hoc inline declarations of the same border */
     .accent-border-left{border-left:3px solid var(--color-primary)}
@@ -780,9 +780,9 @@
     .script-line{border-left:3px solid var(--color-primary);padding:8px 12px;font-size:13px;line-height:1.65;color:var(--color-text);font-style:italic}
     .money-purpose-accent{border-left:3px solid var(--color-primary);padding-left:16px;margin-bottom:28px}
     .gs-action-row{display:flex;gap:8px}
-    .gs-btn-accept{flex:1;background:#262624;color:#F6F3EC;border:2px solid #262624;padding:12px;font-weight:700;
+    .gs-btn-accept{flex:1;background:#2B1F18;color:#F6F1E6;border:2px solid #2B1F18;padding:12px;font-weight:700;
       font-size:13px;cursor:pointer;font-family:var(--font-body);min-height:44px;border-radius:var(--radius-md)}
-    .gs-btn-online{flex:1;background:transparent;color:#7A2E42;border:2px solid #7A2E42;padding:12px;font-weight:700;
+    .gs-btn-online{flex:1;background:transparent;color:#0A2F3A;border:2px solid #0A2F3A;padding:12px;font-weight:700;
       font-size:13px;cursor:pointer;font-family:var(--font-body);min-height:44px;border-radius:var(--radius-md)}
 
     /* ─── PRINT ─── */
@@ -792,17 +792,17 @@
       .print-grid-tags{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
       .print-grid-signs{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;margin-bottom:24px}
       .print-grid-batches{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
-      .print-tag{border:2px dashed #7A2E42;padding:18px;text-align:center;min-height:140px}
-      .print-sign{border:3px solid #7A2E42;padding:28px;text-align:center;min-height:300px}
-      .print-batch-sign{border:3px solid #7A2E42;padding:28px;text-align:center;min-height:240px;break-inside:avoid;page-break-inside:avoid}
+      .print-tag{border:2px dashed #0A2F3A;padding:18px;text-align:center;min-height:140px}
+      .print-sign{border:3px solid #0A2F3A;padding:28px;text-align:center;min-height:300px}
+      .print-batch-sign{border:3px solid #0A2F3A;padding:28px;text-align:center;min-height:240px;break-inside:avoid;page-break-inside:avoid}
       .print-page-break{break-after:page;page-break-after:always}
       /* ── Quick price tag sheets */
       .print-quick-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:0;width:100%}
       .print-quick-tag{border:1px dashed #D9C7AC;display:flex;align-items:center;justify-content:center;flex-direction:column;aspect-ratio:1;text-align:center;break-inside:avoid;page-break-inside:avoid;padding:2pt}
       .print-sign-cut{border-top:1pt dashed #D9C7AC;width:100%;margin:6pt 0}
       /* ── Area signs — 2 per page */
-      .print-area-sign{height:47vh;display:flex;align-items:center;justify-content:center;flex-direction:column;text-align:center;border:1.5pt solid #262624;padding:30pt;break-inside:avoid;page-break-inside:avoid}
-      .print-dir-sign{height:47vh;display:flex;align-items:center;justify-content:center;flex-direction:column;text-align:center;border:2pt solid #262624;padding:24pt;break-inside:avoid;page-break-inside:avoid;gap:10pt}
+      .print-area-sign{height:47vh;display:flex;align-items:center;justify-content:center;flex-direction:column;text-align:center;border:1.5pt solid #2B1F18;padding:30pt;break-inside:avoid;page-break-inside:avoid}
+      .print-dir-sign{height:47vh;display:flex;align-items:center;justify-content:center;flex-direction:column;text-align:center;border:2pt solid #2B1F18;padding:24pt;break-inside:avoid;page-break-inside:avoid;gap:10pt}
       /* ── Sale flyers */
       .print-flyer{width:100%;min-height:88vh;break-after:always;page-break-after:always;display:flex;flex-direction:column;text-align:center;padding:20pt}
       .print-tearoff-strip{border-top:1pt dashed #D9C7AC;padding:7pt 0;font-size:10pt;font-family:var(--font-body);text-align:center}
@@ -825,48 +825,48 @@
     /* ─── BELL + NOTIFICATION PANEL ─── */
     .bell-panel{
       position:fixed;top:64px;right:12px;width:340px;max-height:480px;
-      background:#FEFCF8;border:2px solid var(--color-text);border-radius:var(--radius-lg);z-index:1000;overflow-y:auto;
+      background:#F6F1E6;border:2px solid var(--color-text);border-radius:var(--radius-lg);z-index:1000;overflow-y:auto;
       box-shadow:var(--shadow-float);
       display:flex;flex-direction:column;
     }
     @media(max-width:600px){.bell-panel{top:56px;right:4px;left:4px;width:auto}}
     .bell-notif{padding:14px 16px;border-bottom:1px solid #D9C7AC}
     .bell-notif:last-child{border-bottom:none}
-    .bell-notif-msg{font-family:'DM Sans',sans-serif;font-size:13px;color:#262624;line-height:1.5}
+    .bell-notif-msg{font-family:'DM Sans',sans-serif;font-size:13px;color:#2B1F18;line-height:1.5}
     .bell-notif-time{font-family:'DM Sans',sans-serif;font-size:11px;color:var(--color-text-muted);margin-top:3px}
     .bell-notif-actions{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
-    .bell-action-btn{font-family:'DM Sans',sans-serif;font-size:11px;font-weight:700;color:var(--color-primary-text);background:#EFE8DC;border:none;padding:6px 12px;cursor:pointer}
-    .bell-action-btn:hover{background:#EFE8DC}
+    .bell-action-btn{font-family:'DM Sans',sans-serif;font-size:11px;font-weight:700;color:var(--color-primary-text);background:rgba(43,31,24,0.06);border:none;padding:6px 12px;cursor:pointer}
+    .bell-action-btn:hover{background:rgba(43,31,24,0.06)}
     .bell-dismiss-btn{font-family:'DM Sans',sans-serif;font-size:11px;color:var(--color-text-muted);background:none;border:1px solid var(--color-border);padding:6px 12px;cursor:pointer}
-    .bell-dismiss-btn:hover{background:#FEFCF8}
+    .bell-dismiss-btn:hover{background:#F6F1E6}
     .bell-empty{padding:28px 16px;text-align:center;font-family:'DM Sans',sans-serif;font-size:13px;color:var(--color-text-muted)}
 
     /* ─── FIRST-OPEN WALKTHROUGH ─── */
     #tour-scrim{position:fixed;inset:0;background:rgba(37,37,53,0.75);z-index:150;display:none}
 
     /* ─── QUICK-CAPTURE SCRATCH PAD ─── */
-    #scratch-toggle{position:fixed;bottom:16px;right:16px;z-index:600;width:48px;height:48px;display:flex;align-items:center;justify-content:center;background:var(--color-primary-text);border:2px solid var(--color-text);border-radius:var(--radius-full);color:#F6F3EC;cursor:grab;touch-action:none;transition:bottom 150ms;box-shadow:var(--shadow-float)}
+    #scratch-toggle{position:fixed;bottom:16px;right:16px;z-index:600;width:48px;height:48px;display:flex;align-items:center;justify-content:center;background:var(--color-primary-text);border:2px solid var(--color-text);border-radius:var(--radius-full);color:#F6F1E6;cursor:grab;touch-action:none;transition:bottom 150ms;box-shadow:var(--shadow-float)}
     #scratch-toggle:hover{background:var(--color-primary-text)}
     #scratch-toggle.is-dragging{cursor:grabbing;user-select:none;transition:none}
-    #scratch-panel{position:fixed;bottom:70px;right:16px;z-index:600;width:300px;max-width:calc(100vw - 32px);background:#FEFCF8;border:2px solid var(--color-text);border-radius:var(--radius-lg);padding:14px;display:none;transition:bottom 150ms;box-shadow:var(--shadow-float)}
-    #scratch-panel .scratch-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;font-family:var(--font-display);font-weight:700;font-size:13px;color:#262624}
+    #scratch-panel{position:fixed;bottom:70px;right:16px;z-index:600;width:300px;max-width:calc(100vw - 32px);background:#F6F1E6;border:2px solid var(--color-text);border-radius:var(--radius-lg);padding:14px;display:none;transition:bottom 150ms;box-shadow:var(--shadow-float)}
+    #scratch-panel .scratch-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;font-family:var(--font-display);font-weight:700;font-size:13px;color:#2B1F18}
     #scratch-panel .scratch-clear{background:none;border:none;font-family:var(--font-body);font-size:12px;color:#6B655C;text-decoration:underline;cursor:pointer;padding:0}
     #scratch-drag-handle{cursor:grab;color:#6B655C;font-size:15px;padding:2px 6px;user-select:none;line-height:1;letter-spacing:3px;touch-action:none}
     #scratch-drag-handle:active{cursor:grabbing}
     #scratch-panel.is-dragging{user-select:none;transition:none}
-    .scratch-back{background:none;border:none;font-family:var(--font-body);font-weight:600;font-size:13px;color:#7A2E42;cursor:pointer;padding:0}
-    .scratch-close{background:none;border:none;font-size:20px;line-height:1;color:#262624;cursor:pointer;padding:0;min-width:24px;min-height:24px}
-    .scratch-close:hover{color:#7A2E42}
-    #scratch-textarea{width:100%;min-height:140px;border:1px solid var(--color-border);background:#FEFCF8;padding:10px;font-family:var(--font-body);font-size:14px;color:#262624;resize:vertical;box-sizing:border-box}
+    .scratch-back{background:none;border:none;font-family:var(--font-body);font-weight:600;font-size:13px;color:#0A2F3A;cursor:pointer;padding:0}
+    .scratch-close{background:none;border:none;font-size:20px;line-height:1;color:#2B1F18;cursor:pointer;padding:0;min-width:24px;min-height:24px}
+    .scratch-close:hover{color:#0A2F3A}
+    #scratch-textarea{width:100%;min-height:140px;border:1px solid var(--color-border);background:#F6F1E6;padding:10px;font-family:var(--font-body);font-size:14px;color:#2B1F18;resize:vertical;box-sizing:border-box}
     .scratch-footer{display:flex;align-items:center;justify-content:flex-end;gap:10px;margin-top:10px}
     .scratch-status{font-family:var(--font-body);font-size:11px;color:#6B655C}
     .scratch-list{max-height:260px;overflow-y:auto;display:flex;flex-direction:column;gap:6px}
-    .scratch-note-item{display:flex;align-items:flex-start;gap:8px;background:#EFE8DC;border:1px solid #D9C7AC;padding:10px 10px;cursor:pointer}
-    .scratch-note-item:hover{background:#EFE8DC}
-    .scratch-note-preview{font-family:var(--font-body);font-size:13px;font-weight:600;color:#262624;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+    .scratch-note-item{display:flex;align-items:flex-start;gap:8px;background:rgba(43,31,24,0.06);border:1px solid #D9C7AC;padding:10px 10px;cursor:pointer}
+    .scratch-note-item:hover{background:rgba(43,31,24,0.06)}
+    .scratch-note-preview{font-family:var(--font-body);font-size:13px;font-weight:600;color:#2B1F18;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
     .scratch-note-date{font-family:var(--font-body);font-size:11px;color:#6B655C;margin-top:2px}
     .scratch-note-delete{background:none;border:none;font-size:16px;line-height:1;color:#6B655C;cursor:pointer;padding:2px;flex-shrink:0}
-    .scratch-note-delete:hover{color:#7A2E42}
+    .scratch-note-delete:hover{color:#0A2F3A}
     .scratch-empty{font-family:var(--font-body);font-size:13px;color:#6B655C;line-height:1.6;padding:8px 2px}
     /* Scratchpad FAB defaults into the same bottom-right corner the mobile nav bar
        now occupies (see @media(max-width:768px) main-nav-wrap rule above) — lift
@@ -881,17 +881,17 @@
     /* ─── SECTION TIP STRIP ─── */
     .section-tip{border-top:1px solid var(--color-border);border-bottom:1px solid var(--color-border);padding:13px 0;margin-top:24px;display:flex;align-items:baseline;gap:10px}
     .section-tip-label{font-family:'DM Sans',sans-serif;font-weight:800;font-size:7.5pt;letter-spacing:2px;text-transform:uppercase;color:var(--color-text-muted);flex-shrink:0;white-space:nowrap}
-    .section-tip-text{font-family:'DM Sans',sans-serif;font-size:10pt;color:#262624;line-height:1.5;flex:1}
+    .section-tip-text{font-family:'DM Sans',sans-serif;font-size:10pt;color:#2B1F18;line-height:1.5;flex:1}
 
     /* ─── NIGHT BEFORE CHECKLIST ─── */
     .night-before{margin-bottom:28px}
     .night-before-heading{font-family:'DM Sans',sans-serif;font-weight:800;font-size:7.5pt;letter-spacing:2px;text-transform:uppercase;color:var(--color-text-muted);margin-bottom:10px}
     .night-before-item{display:flex;align-items:flex-start;gap:10px;padding:8px 0;border-bottom:1px solid var(--color-border);cursor:pointer}
     .night-before-item:first-of-type{border-top:1px solid var(--color-border)}
-    .night-before-cb{width:16px;height:16px;border:1.5px solid var(--color-border);flex-shrink:0;margin-top:2px;appearance:none;-webkit-appearance:none;cursor:pointer;background:#FEFCF8;border-radius:var(--radius-sm)}
-    .night-before-cb:checked{background:#262624;border-color:#262624}
-    .night-before-cb:checked::after{content:'';display:block;width:8px;height:5px;border-left:2px solid #F6F3EC;border-bottom:2px solid #F6F3EC;transform:rotate(-45deg);margin:3px auto 0}
-    .night-before-text{font-family:'DM Sans',sans-serif;font-size:10pt;color:#262624;line-height:1.5}
+    .night-before-cb{width:16px;height:16px;border:1.5px solid var(--color-border);flex-shrink:0;margin-top:2px;appearance:none;-webkit-appearance:none;cursor:pointer;background:#F6F1E6;border-radius:var(--radius-sm)}
+    .night-before-cb:checked{background:#2B1F18;border-color:#2B1F18}
+    .night-before-cb:checked::after{content:'';display:block;width:8px;height:5px;border-left:2px solid #F6F1E6;border-bottom:2px solid #F6F1E6;transform:rotate(-45deg);margin:3px auto 0}
+    .night-before-text{font-family:'DM Sans',sans-serif;font-size:10pt;color:#2B1F18;line-height:1.5}
     .night-before-item.checked .night-before-text{color:#6B655C;text-decoration:line-through}
 
     /* ───────────────────────────────────────────────────────────────
@@ -986,7 +986,7 @@
       <button class="icon-btn" id="bell-btn" onclick="toggleBellPanel()" aria-label="Notifications" title="Notifications">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
       </button>
-      <span id="bell-badge" style="display:none;position:absolute;top:2px;right:2px;background:#7A2E42;color:#fff;font-family:'DM Sans',sans-serif;font-size:9px;font-weight:700;min-width:16px;height:16px;align-items:center;justify-content:center;pointer-events:none;padding:0 3px;line-height:1">0</span>
+      <span id="bell-badge" style="display:none;position:absolute;top:2px;right:2px;background:#0A2F3A;color:#fff;font-family:'DM Sans',sans-serif;font-size:9px;font-weight:700;min-width:16px;height:16px;align-items:center;justify-content:center;pointer-events:none;padding:0 3px;line-height:1">0</span>
     </div>
     <button class="icon-btn" onclick="save();showToast('Saved!')" aria-label="Save your planner" title="Save your planner">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2Z"/><path d="M17 21v-8H7v8M7 3v5h8"/></svg>
@@ -1062,8 +1062,8 @@ function unlockBodyScroll(){_scrollLockCount=Math.max(0,_scrollLockCount-1);if(_
 // its summary tile should route to. Add a decision here once and every screen that
 // lists decisions (stat strip, sort summary, chips) picks it up automatically.
 const DECISION_META = {
-  "Garage Sale":{color:"#7A2E42",chip:"chip-sale",tab:"saleWrap",section:"tags"},
-  "Sell Online":{color:"#A15C3E",chip:"chip-online",tab:"sellPromote",section:"platformGuide"},
+  "Garage Sale":{color:"#0A2F3A",chip:"chip-sale",tab:"saleWrap",section:"tags"},
+  "Sell Online":{color:"#A35E33",chip:"chip-online",tab:"sellPromote",section:"platformGuide"},
   "Donate":{color:"#46703F",chip:"chip-donate",tab:"saleWrap",section:"wrap"},
   "Trash":{color:"#9E3D0F",chip:"chip-trash",tab:"saleWrap",section:"wrap"},
   "Given to kids":{color:"#80475E",chip:"chip-kids",tab:"sortPrice",section:"memory"},
@@ -1428,7 +1428,7 @@ function renderSectionTip(text){
 }
 function renderTourNote(text){
   if(!P.isDemo)return'';
-  return`<div style="background:#D9C7AC;color:#262624;padding:9px 20px;font-family:var(--font-body);font-size:13px;line-height:1.4;margin-bottom:12px;display:flex;align-items:flex-start;justify-content:space-between;gap:16px"><span><strong>Tour:</strong> ${text}</span><button onclick="P.isDemo=false;save();renderContent()" style="font-size:12px;font-family:var(--font-body);font-weight:600;color:var(--color-primary-text);text-transform:uppercase;letter-spacing:.08em;white-space:nowrap;flex-shrink:0">Exit tour</button></div>`;
+  return`<div style="background:#D9C7AC;color:#2B1F18;padding:9px 20px;font-family:var(--font-body);font-size:13px;line-height:1.4;margin-bottom:12px;display:flex;align-items:flex-start;justify-content:space-between;gap:16px"><span><strong>Tour:</strong> ${text}</span><button onclick="P.isDemo=false;save();renderContent()" style="font-size:12px;font-family:var(--font-body);font-weight:600;color:var(--color-primary-text);text-transform:uppercase;letter-spacing:.08em;white-space:nowrap;flex-shrink:0">Exit tour</button></div>`;
 }
 const changePlanRows = [
   {label:"$1 bills",key:"ones",suggested:"40",note:"Great for $1, $2, and $3 items."},
@@ -1451,14 +1451,14 @@ function showToast(msg){
 function mncConfirm(msg,onConfirm,opts){
   opts=opts||{};
   const confirmLabel=opts.confirmLabel||"Confirm";
-  const confirmBg=opts.confirmBg||"#7A2E42";
+  const confirmBg=opts.confirmBg||"#0A2F3A";
   const confirmColor=opts.confirmColor||"#fff";
   const ov=document.createElement('div');
   ov.style.cssText='position:fixed;inset:0;background:rgba(0,0,0,0.45);z-index:8000;display:flex;align-items:center;justify-content:center';
-  ov.innerHTML=`<div style="background:#FEFCF8;border:1px solid var(--color-border);border-radius:var(--radius-xl);padding:32px 36px;max-width:400px;width:90%;box-sizing:border-box">
-    <p style="font-family:'DM Sans',sans-serif;font-size:12pt;color:#262624;margin:0 0 24px;line-height:1.5">${esc(msg)}</p>
+  ov.innerHTML=`<div style="background:#F6F1E6;border:1px solid var(--color-border);border-radius:var(--radius-xl);padding:32px 36px;max-width:400px;width:90%;box-sizing:border-box">
+    <p style="font-family:'DM Sans',sans-serif;font-size:12pt;color:#2B1F18;margin:0 0 24px;line-height:1.5">${esc(msg)}</p>
     <div style="display:flex;gap:12px;justify-content:flex-end">
-      <button id="mnc-cancel-btn" style="font-family:var(--font-body);font-weight:600;font-size:14px;color:#7A2E42;background:#FEFCF8;border:1px solid #7A2E42;padding:10px 20px;cursor:pointer;text-transform:uppercase;touch-action:manipulation">Cancel</button>
+      <button id="mnc-cancel-btn" style="font-family:var(--font-body);font-weight:600;font-size:14px;color:#0A2F3A;background:#F6F1E6;border:1px solid #0A2F3A;padding:10px 20px;cursor:pointer;text-transform:uppercase;touch-action:manipulation">Cancel</button>
       <button id="mnc-ok-btn" style="font-family:var(--font-body);font-weight:600;font-size:14px;color:${confirmColor};background:${confirmBg};border:none;padding:10px 20px;cursor:pointer;text-transform:uppercase;touch-action:manipulation">${esc(confirmLabel)}</button>
     </div>
   </div>`;
@@ -1742,7 +1742,7 @@ function refreshMetrics(){
         <div class="stat-tile-num">${total}</div>
         <div class="stat-tile-label">item${total===1?'':'s'} total</div>
         <div class="tag-legend">
-          <span><span class="tag-legend-sq" style="background:#A15C3E"></span>${onlineSeg} online</span>
+          <span><span class="tag-legend-sq" style="background:#A35E33"></span>${onlineSeg} online</span>
           <span><span class="tag-legend-sq" style="background:var(--color-primary)"></span>${pricedOnly} priced</span>
           <span><span class="tag-legend-sq" style="background:rgba(246,243,236,.3)"></span>${unpriced} unpriced</span>
         </div>
@@ -1763,7 +1763,7 @@ function renderCountdownBody(){
   <div class="text-muted" style="margin-top:8px;font-size:15px">${saleDateLabel}</div>
   <div style="margin-top:16px;position:relative;display:inline-block">
     <button id="cal-menu-btn" class="btn btn-secondary btn-sm" onclick="event.stopPropagation();UI.calMenu=!UI.calMenu;renderContent()">Add to calendar ▾</button>
-    ${UI.calMenu?`<div id="cal-menu-dropdown" style="position:absolute;top:calc(100% + 6px);left:0;z-index:300;background:#FEFCF8;border:1.5px solid var(--color-divider);min-width:200px;overflow:hidden">
+    ${UI.calMenu?`<div id="cal-menu-dropdown" style="position:absolute;top:calc(100% + 6px);left:0;z-index:300;background:#F6F1E6;border:1.5px solid var(--color-divider);min-width:200px;overflow:hidden">
       <button class="cal-opt-btn" onclick="openGoogleCal()">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><rect x="3" y="4" width="18" height="17" rx="2" stroke="#4285F4" stroke-width="2"/><line x1="3" y1="9" x2="21" y2="9" stroke="#4285F4" stroke-width="2"/><line x1="8" y1="2" x2="8" y2="6" stroke="#4285F4" stroke-width="2"/><line x1="16" y1="2" x2="16" y2="6" stroke="#4285F4" stroke-width="2"/><text x="12" y="19" text-anchor="middle" font-size="7" font-weight="900" fill="#EA4335">G</text></svg>
         Google Calendar
@@ -1773,7 +1773,7 @@ function renderCountdownBody(){
         Outlook / Microsoft
       </button>
       <button class="cal-opt-btn" style="border-top:1px solid var(--color-divider)" onclick="downloadCalendar()">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><rect x="3" y="4" width="18" height="17" rx="2" stroke="#262624" stroke-width="2"/><line x1="3" y1="9" x2="21" y2="9" stroke="#262624" stroke-width="2"/><line x1="8" y1="2" x2="8" y2="6" stroke="#262624" stroke-width="2"/><line x1="16" y1="2" x2="16" y2="6" stroke="#262624" stroke-width="2"/></svg>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><rect x="3" y="4" width="18" height="17" rx="2" stroke="#2B1F18" stroke-width="2"/><line x1="3" y1="9" x2="21" y2="9" stroke="#2B1F18" stroke-width="2"/><line x1="8" y1="2" x2="8" y2="6" stroke="#2B1F18" stroke-width="2"/><line x1="16" y1="2" x2="16" y2="6" stroke="#2B1F18" stroke-width="2"/></svg>
         Apple / Other (.ics)
       </button>
     </div>`:""}
@@ -1846,14 +1846,14 @@ function homeCommandCardHtml(c){
 function homeSectionCards(stats,P){
   const adWritten=!!P.sellPromote?.promoteChecklist?.tier2?.writeAd;
   return[
-    {icon:TAB_ICON_SORT,tint:"#EFE8DC",glyph:"#7A2E42",title:"Sort + Price",
+    {icon:TAB_ICON_SORT,tint:"rgba(43,31,24,0.06)",glyph:"#0A2F3A",title:"Sort + Price",
       status:stats.totalItems>0?`${stats.itemsPriced}/${stats.totalItems} priced`:"No items yet",
       done:stats.totalItems>0&&stats.itemsPriced===stats.totalItems,
       onclick:"goTab('sortPrice')"},
-    {icon:TAB_ICON_SELL,tint:"#EFE8DC",glyph:"#A15C3E",title:"Sell + Promote",
+    {icon:TAB_ICON_SELL,tint:"rgba(43,31,24,0.06)",glyph:"#A35E33",title:"Sell + Promote",
       status:adWritten?"Ad written":"Ad not started yet",done:adWritten,
       onclick:"goTab('sellPromote')"},
-    {icon:TAB_ICON_PREP,tint:"#EFE8DC",glyph:"#80475E",title:"Prep + Safety",
+    {icon:TAB_ICON_PREP,tint:"rgba(43,31,24,0.06)",glyph:"#80475E",title:"Prep + Safety",
       status:`${stats.prepProgress}% ready`,done:stats.prepProgress===100,
       onclick:"goTab('prepSafety')"},
   ];
@@ -1863,7 +1863,7 @@ function homeGoalRingSvg(){
   const C=2*Math.PI*42;
   return`<svg viewBox="0 0 100 100" role="img" aria-label="Sale value progress toward goal">
     <circle cx="50" cy="50" r="42" fill="none" stroke="rgba(246,243,236,0.15)" stroke-width="10"/>
-    <circle id="home-ring-fill" class="home-ring-fill" cx="50" cy="50" r="42" fill="none" stroke="#7A2E42" stroke-width="10" stroke-linecap="round" stroke-dasharray="${C.toFixed(1)}" stroke-dashoffset="${C.toFixed(1)}"/>
+    <circle id="home-ring-fill" class="home-ring-fill" cx="50" cy="50" r="42" fill="none" stroke="#0A2F3A" stroke-width="10" stroke-linecap="round" stroke-dasharray="${C.toFixed(1)}" stroke-dashoffset="${C.toFixed(1)}"/>
   </svg>`;
 }
 function renderHome(){
@@ -2099,7 +2099,7 @@ function renderStart(){
   <div style="display:flex;gap:32px;flex-wrap:wrap;align-items:flex-start;padding-top:8px">
 
     <!-- LEFT: form -->
-    <div class="start-card-lg" style="flex:1.7 1 430px;background:#FEFCF8;border-radius:var(--radius-xl);padding:40px 36px 32px">
+    <div class="start-card-lg" style="flex:1.7 1 430px;background:#F6F1E6;border-radius:var(--radius-xl);padding:40px 36px 32px">
       <span class="corner-tag">Sale Setup</span>
       <div class="card-title" style="font-size:28px;margin-bottom:28px">Let's get your sale on the calendar.</div>
       <div class="gap-y-sm" id="start-setup-fields" style="gap:22px">${renderStartSetupFields()}</div>
@@ -2125,10 +2125,10 @@ function renderStart(){
       </div>
 
       <!-- Weather -->
-      <div class="start-card-sm" style="background:#FEFCF8;border-radius:var(--radius-xl);padding:28px" id="weather-card"></div>
+      <div class="start-card-sm" style="background:#F6F1E6;border-radius:var(--radius-xl);padding:28px" id="weather-card"></div>
 
       <!-- Day-before reminder -->
-      <div class="start-card-sm" style="background:#FEFCF8;border-radius:var(--radius-xl);padding:30px">
+      <div class="start-card-sm" style="background:#F6F1E6;border-radius:var(--radius-xl);padding:30px">
         <div class="card-title" style="margin-bottom:6px">Day-before reminder</div>
         <p style="font-size:14px;color:var(--color-muted);line-height:1.55;margin-bottom:14px">Get a prep email the morning before sale day — your items, your goal, and a link back here.</p>
         <div class="form-field" style="margin-bottom:12px">
@@ -2186,7 +2186,7 @@ function renderInventory(){
         ${dollarPct===null?`
         <div class="inv-tally-badge"><b>$${stats.estimated.toFixed(0)}</b></div>`:`
         <div class="inv-ring-wrap">
-          ${ringSvg(dollarPct,"#D9C7AC","#7A2E42",`${stats.estimated.toFixed(0)} dollars of ${stats.goal.toFixed(0)} dollar goal, ${dollarPct} percent`)}
+          ${ringSvg(dollarPct,"#D9C7AC","#0A2F3A",`${stats.estimated.toFixed(0)} dollars of ${stats.goal.toFixed(0)} dollar goal, ${dollarPct} percent`)}
           <div class="inv-ring-num"><b>$${stats.estimated.toFixed(0)}</b></div>
         </div>`}
         <div class="inv-tally-cap">Sale value</div>
@@ -2241,7 +2241,7 @@ function renderGuidedPricingPanel(){
       const open=gsExpandedCat===cat.key;
       return`
       <div style="border:1.5px solid var(--color-divider)">
-        <button onclick="gsToggleCatPanel('${cat.key}')" style="width:100%;text-align:left;background:${open?'#EFE8DC':'#fff'};border:none;padding:14px 18px;font-family:var(--font-display);font-weight:700;font-size:14px;color:var(--color-text);cursor:pointer;display:flex;justify-content:space-between;align-items:center;min-height:44px">
+        <button onclick="gsToggleCatPanel('${cat.key}')" style="width:100%;text-align:left;background:${open?'rgba(43,31,24,0.06)':'#fff'};border:none;padding:14px 18px;font-family:var(--font-display);font-weight:700;font-size:14px;color:var(--color-text);cursor:pointer;display:flex;justify-content:space-between;align-items:center;min-height:44px">
           <span>${esc(cat.label)}</span><span aria-hidden="true">${open?'−':'+'}</span>
         </button>
         ${open?`<div style="padding:0 18px 18px">
@@ -2482,10 +2482,10 @@ function gsCaptureScreen(){
     <p style="color:var(--color-text-muted);margin-bottom:24px">Snap what you're holding. You'll decide what to do with it next.</p>
     <label class="gs-camera-btn" tabindex="0" role="button" aria-label="Tap to open your camera" onkeydown="if(event.key===' '||event.key==='Enter'){event.preventDefault();this.querySelector('input').click();}">
       <svg class="gs-camera-svg" viewBox="0 0 160 118" width="140" height="104" aria-hidden="true">
-        <rect x="14" y="4" width="34" height="16" rx="4" fill="#262624"/>
-        <rect x="2" y="16" width="156" height="100" rx="16" fill="#262624"/>
-        <circle cx="80" cy="68" r="35" fill="none" stroke="#F6F3EC" stroke-width="6"/>
-        <circle cx="80" cy="68" r="20" fill="#7A2E42"/>
+        <rect x="14" y="4" width="34" height="16" rx="4" fill="#2B1F18"/>
+        <rect x="2" y="16" width="156" height="100" rx="16" fill="#2B1F18"/>
+        <circle cx="80" cy="68" r="35" fill="none" stroke="#F6F1E6" stroke-width="6"/>
+        <circle cx="80" cy="68" r="20" fill="#0A2F3A"/>
       </svg>
       <span class="gs-camera-btn-label">Tap to open your camera</span>
       <span class="gs-camera-btn-sub">Works with your phone's camera directly</span>
@@ -2926,9 +2926,9 @@ function renderAddItemForm(){
         <input class="input" id="di-price" type="number" min="0" step="1" value="${esc(d.price)}" oninput="draftItem('price',this.value)" onblur="draftItemAndRefresh('price',this.value);checkPriceFeedback(this.value,'Price')" placeholder="0" />
       </div>
     </div>
-    <div class="info-box" style="margin-bottom:6px;background:#EFE8DC;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap">
+    <div class="info-box" style="margin-bottom:6px;background:rgba(43,31,24,0.06);display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap">
       <span><strong>Suggested:</strong> ${suggested} &nbsp;·&nbsp; <strong>Best fit:</strong> ${platform}</span>
-      <a href="#" onclick="openPriceGuide();return false" style="font-family:var(--font-display);font-size:12px;font-weight:700;color:#262624;text-decoration:underline;white-space:nowrap;flex-shrink:0">Full pricing guide →</a>
+      <a href="#" onclick="openPriceGuide();return false" style="font-family:var(--font-display);font-size:12px;font-weight:700;color:#2B1F18;text-decoration:underline;white-space:nowrap;flex-shrink:0">Full pricing guide →</a>
     </div>
     <div class="form-field" style="margin-bottom:14px">
       <label class="form-label">Notes</label>
@@ -2946,7 +2946,7 @@ function invTally(items){
 }
 
 function invSearchBar(){
-  const pillStyle=`font-family:var(--font-display);font-size:13px;font-weight:600;border:1.5px solid #D9C7AC;background:#FEFCF8;padding:8px 32px 8px 14px;appearance:none;-webkit-appearance:none;cursor:pointer;color:var(--color-text);background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%23888' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 10px center`;
+  const pillStyle=`font-family:var(--font-display);font-size:13px;font-weight:600;border:1.5px solid #D9C7AC;background:#F6F1E6;padding:8px 32px 8px 14px;appearance:none;-webkit-appearance:none;cursor:pointer;color:var(--color-text);background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%23888' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 10px center`;
   return`<div class="row" style="gap:8px;margin-bottom:20px;flex-wrap:wrap;align-items:center">
     <input class="input" id="inv-search" placeholder="Search items..." value="${esc(itemSearch)}" style="flex:1;min-width:160px" oninput="handleInvSearch(this)" />
     <select style="${pillStyle}" onchange="invCatFilter=this.value;renderInvDrawer()">
@@ -3015,8 +3015,8 @@ function renderItemTable(){
     ${visible.length===0?`<div class="empty-state-prompt">${items.length===0?"Nothing sorted yet. Start with the room you've been avoiding. One item at a time.":"Nothing matches that filter. Try a different one or clear it to see everything."}</div>`:`
     <div class="tbl-wrap"><table>
       <thead><tr>
-        <th style="background:#EFE8DC">Sold</th><th style="background:#EFE8DC">Item</th><th style="background:#EFE8DC">Category</th><th style="background:#EFE8DC">Condition</th><th style="background:#EFE8DC">Decision</th>
-        <th style="background:#EFE8DC">Price</th><th style="background:#EFE8DC">Best Fit</th><th style="background:#EFE8DC"></th>
+        <th style="background:rgba(43,31,24,0.06)">Sold</th><th style="background:rgba(43,31,24,0.06)">Item</th><th style="background:rgba(43,31,24,0.06)">Category</th><th style="background:rgba(43,31,24,0.06)">Condition</th><th style="background:rgba(43,31,24,0.06)">Decision</th>
+        <th style="background:rgba(43,31,24,0.06)">Price</th><th style="background:rgba(43,31,24,0.06)">Best Fit</th><th style="background:rgba(43,31,24,0.06)"></th>
       </tr></thead>
       <tbody>${visible.map(item=>`
         <tr class="${item.sold?"sold-row":""}">
@@ -3067,7 +3067,7 @@ function toggleSold(id,v){const item=(P.items||[]).find(i=>i.id===id);if(item){i
 function heartBtnHtml(item){
   const inMem=(P.items||[]).some(i=>i.decision==='Memory Box'&&i.linkedFrom===item.id);
   return inMem
-    ?`<button class="btn btn-ghost btn-xs" style="color:#7A2E42;cursor:default" disabled aria-label="${esc(item.name)} saved to Memories">&#9829;</button>`
+    ?`<button class="btn btn-ghost btn-xs" style="color:#0A2F3A;cursor:default" disabled aria-label="${esc(item.name)} saved to Memories">&#9829;</button>`
     :`<button class="btn btn-ghost btn-xs" onclick="saveToMemory('${esc(item.id)}')" aria-label="Save ${esc(item.name)} to Memories">&#9825;</button>`;
 }
 function saveToMemory(id){
@@ -3220,8 +3220,8 @@ function renderBatchPrintOverlay(){
             <div style="font-family:var(--font-body);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--color-primary-text);margin-bottom:14px">My Nest Chapter</div>
             <input class="input" value="${esc(mainLine)}" oninput="_batchSignOverrides['${esc(it.id)}']={...(_batchSignOverrides['${esc(it.id)}']||{}),mainLine:this.value}" style="font-family:var(--font-display);font-weight:800;font-size:16px;text-align:center;margin-bottom:12px" />
             <div style="display:flex;align-items:center;justify-content:center;gap:4px;margin-bottom:12px">
-              <span style="font-family:var(--font-display);font-weight:800;font-size:26px;color:#7A2E42">$</span>
-              <input class="input" value="${esc(price)}" oninput="_batchSignOverrides['${esc(it.id)}']={...(_batchSignOverrides['${esc(it.id)}']||{}),price:this.value}" style="font-family:var(--font-display);font-weight:800;font-size:26px;color:#7A2E42;text-align:center;max-width:100px" />
+              <span style="font-family:var(--font-display);font-weight:800;font-size:26px;color:#0A2F3A">$</span>
+              <input class="input" value="${esc(price)}" oninput="_batchSignOverrides['${esc(it.id)}']={...(_batchSignOverrides['${esc(it.id)}']||{}),price:this.value}" style="font-family:var(--font-display);font-weight:800;font-size:26px;color:#0A2F3A;text-align:center;max-width:100px" />
             </div>
             <div style="font-family:var(--font-body);font-size:13px;color:var(--color-text-muted)">${esc(it.description||"")}</div>
           </div>`;
@@ -3243,7 +3243,7 @@ function printBatchSigns(){
       <div class="print-batch-sign">
         <div style="font-size:10px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--color-primary-text);margin-bottom:14px">My Nest Chapter</div>
         <div style="font-size:26px;font-weight:800;font-family:var(--font-display)">${esc(mainLine)}</div>
-        <div style="font-size:36px;font-weight:800;font-family:var(--font-display);color:#7A2E42;margin-top:14px">$${esc(price||"___")}</div>
+        <div style="font-size:36px;font-weight:800;font-family:var(--font-display);color:#0A2F3A;margin-top:14px">$${esc(price||"___")}</div>
         <div style="font-size:14px;font-family:var(--font-body);margin-top:12px">${esc(it.title||"")}</div>
       </div>`;
     }).join("")}
@@ -3385,7 +3385,7 @@ function pricingCatRowsHTML(expandedCat,toggleFn){
     const items=itemPricingRows.filter(r=>r.cat===cat);
     return`
     <div style="border:1.5px solid var(--color-divider)">
-      <button onclick="${toggleFn}('${cat}')" style="width:100%;text-align:left;background:${open?'#EFE8DC':'#fff'};border:none;padding:14px 18px;font-family:var(--font-display);font-weight:700;font-size:14px;color:var(--color-text);cursor:pointer;display:flex;justify-content:space-between;align-items:center;min-height:44px;gap:12px">
+      <button onclick="${toggleFn}('${cat}')" style="width:100%;text-align:left;background:${open?'rgba(43,31,24,0.06)':'#fff'};border:none;padding:14px 18px;font-family:var(--font-display);font-weight:700;font-size:14px;color:var(--color-text);cursor:pointer;display:flex;justify-content:space-between;align-items:center;min-height:44px;gap:12px">
         <span>${esc(cat)}</span>
         <span style="display:flex;align-items:center;gap:12px;flex-shrink:0">
           <span class="text-muted" style="font-family:var(--font-body);font-weight:600;font-size:13px">${priceRange(cat,"Good")}</span>
@@ -3435,7 +3435,7 @@ function renderPricing(){
     <div style="display:flex;flex-direction:column;gap:10px">
       ${catRows}
       <div style="border:1.5px solid var(--color-divider)">
-        <button onclick="pgToggleCat('__camera')" style="width:100%;text-align:left;background:${cameraOpen?'#EFE8DC':'#fff'};border:none;padding:14px 18px;font-family:var(--font-display);font-weight:700;font-size:14px;color:var(--color-text);cursor:pointer;display:flex;justify-content:space-between;align-items:center;min-height:44px">
+        <button onclick="pgToggleCat('__camera')" style="width:100%;text-align:left;background:${cameraOpen?'rgba(43,31,24,0.06)':'#fff'};border:none;padding:14px 18px;font-family:var(--font-display);font-weight:700;font-size:14px;color:var(--color-text);cursor:pointer;display:flex;justify-content:space-between;align-items:center;min-height:44px">
           <span>Camera-flow item lookup</span><span aria-hidden="true">${cameraOpen?'−':'+'}</span>
         </button>
         ${cameraOpen?`<div style="padding:0 18px 18px">${renderGuidedPricingPanel()}</div>`:""}
@@ -3549,7 +3549,7 @@ function renderPromote(){
     <div class="section-header-accent">
       <h2 class="page-title" style="text-transform:uppercase">Promote Your Sale</h2>
     </div>
-    ${totalChecked===totalItems?`<div style="background:#FEFCF8;border:1px solid var(--color-divider);padding:12px;font-family:var(--font-body);font-size:12pt;color:var(--color-text)">You're promoted. Now get some sleep.</div>`:""}
+    ${totalChecked===totalItems?`<div style="background:#F6F1E6;border:1px solid var(--color-divider);padding:12px;font-family:var(--font-body);font-size:12pt;color:var(--color-text)">You're promoted. Now get some sleep.</div>`:""}
     ${totalChecked===0?`
     <div class="empty-state-prompt" style="border:1px dashed var(--color-divider);text-align:left">
       <div style="font-family:var(--font-body);font-weight:800;font-size:9pt;letter-spacing:.1em;text-transform:uppercase;color:var(--color-primary-text);margin-bottom:8px">My Nest Chapter</div>
@@ -3617,7 +3617,7 @@ function adEmptyStateHTML(){
   </div>`;
 }
 function adOutputBoxHTML(lines){
-  return`<div id="ad-output-box" style="border:1px solid var(--color-divider);background:#FEFCF8;padding:16px;font-family:var(--font-body);font-size:12px;color:var(--color-text);white-space:pre-wrap;line-height:1.7">${esc(lines.join("\n"))}</div>`;
+  return`<div id="ad-output-box" style="border:1px solid var(--color-divider);background:#F6F1E6;padding:16px;font-family:var(--font-body);font-size:12px;color:var(--color-text);white-space:pre-wrap;line-height:1.7">${esc(lines.join("\n"))}</div>`;
 }
 function adBuilderInput(el,key){
   deepSet(P,["sellPromote","adBuilder",key],el.value);
@@ -3859,14 +3859,14 @@ function printBankScript(){
   document.getElementById('print-inner').innerHTML=`
     <div style="padding:32px;font-family:'DM Sans',sans-serif;max-width:520px">
       <div style="font-size:9px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--color-primary-text);margin-bottom:14px">My Nest Chapter · Bank Script</div>
-      <div style="font-family:'Lora',serif;font-size:20px;font-weight:700;color:#262624;margin-bottom:18px">What to ask for at the bank</div>
-      <div style="font-size:14px;color:#262624;line-height:2;margin-bottom:18px">
+      <div style="font-family:'Lora',serif;font-size:20px;font-weight:700;color:#2B1F18;margin-bottom:18px">What to ask for at the bank</div>
+      <div style="font-size:14px;color:#2B1F18;line-height:2;margin-bottom:18px">
         <div>${numWord(stack.tens)} ($${stack.tens*10} in ten-dollar bills)</div>
         <div>${numWord(stack.fives)} ($${stack.fives*5} in five-dollar bills)</div>
         <div>${numWord(stack.ones)} ($${stack.ones} in one-dollar bills)</div>
         <div>${numWord(stack.quarterRolls)} roll${stack.quarterRolls===1?'':'s'} of quarters ($${stack.quarterRolls*10} in quarters)</div>
       </div>
-      <div style="font-size:15px;font-weight:700;color:#262624;border-top:1px solid #D9C7AC;padding-top:12px">Estimated cash on hand: $${stack.total}</div>
+      <div style="font-size:15px;font-weight:700;color:#2B1F18;border-top:1px solid #D9C7AC;padding-top:12px">Estimated cash on hand: $${stack.total}</div>
     </div>`;
   document.getElementById('print-section').style.display='block';
   window.print();
@@ -4059,7 +4059,7 @@ function renderSafety(){
     <!-- EMERGENCY INFO -->
     <div class="card" style="border:1px solid var(--color-border)">
       <div class="card-title" style="margin-bottom:10px">Emergency info</div>
-      ${addr?`<div style="font-family:var(--font-display);font-size:22px;font-weight:700;color:#262624;line-height:1.3;margin-bottom:14px">${esc(addr)}</div>`
+      ${addr?`<div style="font-family:var(--font-display);font-size:22px;font-weight:700;color:#2B1F18;line-height:1.3;margin-bottom:14px">${esc(addr)}</div>`
         :`<div style="font-size:14px;color:var(--color-text-muted);margin-bottom:14px">Add your address on the <a href="#" onclick="goTab('start','start');return false" style="color:var(--color-primary-text);font-weight:700;text-decoration:underline">Start tab →</a></div>`}
       <div class="form-field">
         <label class="form-label">Emergency contact name + number</label>
@@ -4184,7 +4184,7 @@ function renderSaleDay(){
       <h2 class="page-title">Sale Day</h2>
       <p class="page-sub">Calculate purchases, log sales, and track what you've earned.</p>
     </div>
-    ${sdGoal?`<div style="background:#FEFCF8;border:1px solid var(--color-divider);border-radius:var(--radius-xl);padding:16px 20px;display:flex;align-items:center;gap:20px;flex-wrap:wrap">
+    ${sdGoal?`<div style="background:#F6F1E6;border:1px solid var(--color-divider);border-radius:var(--radius-xl);padding:16px 20px;display:flex;align-items:center;gap:20px;flex-wrap:wrap">
       <div style="flex:1;min-width:200px">
         <div style="font-family:var(--font-display);font-size:13px;font-weight:500;color:var(--color-text);text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px">Earned so far</div>
         <div style="font-family:var(--font-display);font-size:28px;font-weight:800;color:var(--color-text);line-height:1">$${totalEarned.toFixed(2)}<span style="font-size:14px;font-weight:500;color:var(--color-text-muted);margin-left:8px">of $${sdGoal} goal</span></div>
@@ -4237,7 +4237,7 @@ function renderSaleDay(){
             <label class="form-label" for="change-given">Customer gave me ($)</label>
             <input class="input" type="number" id="change-given" min="0" step="0.25" placeholder="0.00" oninput="calcChange()" style="font-size:20px;font-weight:700" />
           </div>
-          <div id="change-result" style="display:none;background:#EFE8DC;padding:16px 20px">
+          <div id="change-result" style="display:none;background:rgba(43,31,24,0.06);padding:16px 20px">
             <div style="font-size:11px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--color-text);margin-bottom:4px">Give back</div>
             <div id="change-amount" style="font-family:var(--font-display);font-size:40px;font-weight:700;color:var(--color-text)">$0.00</div>
             <div id="change-denom" style="font-family:var(--font-body);font-size:13px;color:var(--color-text);margin-top:8px"></div>
@@ -4297,7 +4297,7 @@ function renderSaleDay(){
           <button class="btn btn-secondary btn-sm" onclick="haggleCalc(25)">−25%</button>
           <button class="btn btn-secondary btn-sm" onclick="haggleCalc(50)">−50%</button>
         </div>
-        <div id="haggle-result" style="display:none;background:#EFE8DC;padding:16px 20px">
+        <div id="haggle-result" style="display:none;background:rgba(43,31,24,0.06);padding:16px 20px">
           <div style="font-size:11px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--color-text);margin-bottom:4px">Counter-offer</div>
           <div id="haggle-offer" style="font-family:var(--font-display);font-size:32px;font-weight:700;color:var(--color-text)">$0.00</div>
           <div id="haggle-giveup" style="font-family:var(--font-body);font-size:13px;color:var(--color-text);margin-top:6px"></div>
@@ -4334,7 +4334,7 @@ function renderBundleBuilder(){
       <button class="btn ${pct===20?'btn-primary':'btn-secondary'} btn-sm" onclick="bundleDiscount(20)">−20%</button>
       <button class="btn ${pct===30?'btn-primary':'btn-secondary'} btn-sm" onclick="bundleDiscount(30)">−30%</button>
     </div>
-    ${pct?`<div style="background:#EFE8DC;padding:16px 20px;margin-bottom:14px">
+    ${pct?`<div style="background:rgba(43,31,24,0.06);padding:16px 20px;margin-bottom:14px">
       <div style="font-size:11px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--color-text);margin-bottom:4px">Bundle price</div>
       <div style="font-family:var(--font-display);font-size:32px;font-weight:700;color:var(--color-text)">$${final.toFixed(2)}</div>
       <div style="font-size:13px;color:var(--color-text);margin-top:6px">$${discountAmt.toFixed(2)} off</div>
@@ -4361,7 +4361,7 @@ function renderLastHourHelper(){
       <label class="form-label" for="lh-custom">Drop amount ($)</label>
       <input class="input" type="number" id="lh-custom" min="0" step="0.25" placeholder="0.00" value="${esc(lh.custom)}" oninput="lhUpdate('custom',this.value)" />
     </div>
-    <div id="lh-result-wrap" style="background:#EFE8DC;padding:16px 20px;margin-bottom:14px;display:none">
+    <div id="lh-result-wrap" style="background:rgba(43,31,24,0.06);padding:16px 20px;margin-bottom:14px;display:none">
       <div style="font-size:11px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--color-text);margin-bottom:4px">New price</div>
       <div id="lh-newprice" style="font-family:var(--font-display);font-size:40px;font-weight:700;color:var(--color-text)">$0.00</div>
       <div id="lh-sub" style="font-size:13px;color:var(--color-text);margin-top:6px"></div>
@@ -4506,15 +4506,15 @@ function renderBuyerOverlay(){
     {label:"Zelle",value:s.zelleHandle},
   ].filter(r=>r.value);
   ov.innerHTML=`
-  <div style="position:absolute;inset:0;background:#262624;display:flex;align-items:center;justify-content:center;padding:32px 24px">
-    <button onclick="closeBuyerPayment()" aria-label="Close" style="position:absolute;top:20px;right:20px;background:transparent;border:1.5px solid rgba(246,243,236,0.35);color:#FEFCF8;font-family:var(--font-body);font-weight:600;font-size:14px;padding:10px 20px;cursor:pointer">Done</button>
+  <div style="position:absolute;inset:0;background:#2B1F18;display:flex;align-items:center;justify-content:center;padding:32px 24px">
+    <button onclick="closeBuyerPayment()" aria-label="Close" style="position:absolute;top:20px;right:20px;background:transparent;border:1.5px solid rgba(246,243,236,0.35);color:#F6F1E6;font-family:var(--font-body);font-weight:600;font-size:14px;padding:10px 20px;cursor:pointer">Done</button>
     <div style="max-width:560px;width:100%;text-align:center">
       <p style="font-family:var(--font-display);font-size:11px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:rgba(246,243,236,.6);margin-bottom:24px">Pay here</p>
       <div style="display:flex;flex-direction:column;gap:22px">
         ${rows.map(r=>`
         <div>
           <div style="font-family:var(--font-body);font-size:14px;color:rgba(246,243,236,0.6);margin-bottom:4px">${esc(r.label)}</div>
-          <div style="font-family:var(--font-display);font-size:clamp(24px,6vw,36px);font-weight:800;color:#FEFCF8">${esc(r.value)}</div>
+          <div style="font-family:var(--font-display);font-size:clamp(24px,6vw,36px);font-weight:800;color:#F6F1E6">${esc(r.value)}</div>
         </div>`).join('')}
       </div>
     </div>
@@ -4533,14 +4533,14 @@ function calcChange(){
   if(given<sub){
     result.style.display='block';
     result.style.background='#D9C7AC';
-    amt.style.color='#262624';
+    amt.style.color='#2B1F18';
     amt.textContent='Short by $'+(sub-given).toFixed(2);
     if(denomEl)denomEl.textContent='';
     return;
   }
   const change=given-sub;
   result.style.display='block';
-  result.style.background='#EFE8DC';
+  result.style.background='rgba(43,31,24,0.06)';
   amt.style.color='var(--color-text)';
   amt.textContent='$'+change.toFixed(2);
   if(denomEl){
@@ -4678,7 +4678,7 @@ function renderPCTagsContent(tagItems,selItems,allSigns,chosenSign,boxes){
       ${tagItems.length===0?`
         <div class="info-box">No items yet. Add items in Sort + Price, mark them Garage Sale, then come back here to print tags.</div>
       `:`
-      ${tagItems.some(i=>!i.price)?`<div class="warn-box" style="margin-bottom:14px">Some items don't have prices yet — those tags will print with $___. <a href="#" onclick="goSection('inventory');return false" style="color:#262624;font-weight:700;text-decoration:underline">Set prices in Items →</a></div>`:''}
+      ${tagItems.some(i=>!i.price)?`<div class="warn-box" style="margin-bottom:14px">Some items don't have prices yet — those tags will print with $___. <a href="#" onclick="goSection('inventory');return false" style="color:#2B1F18;font-weight:700;text-decoration:underline">Set prices in Items →</a></div>`:''}
       `+`
         <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
           <span class="text-muted" style="font-size:var(--text-sm)">${selItems.length} of ${tagItems.length} selected</span>
@@ -4698,7 +4698,7 @@ function renderPCTagsContent(tagItems,selItems,allSigns,chosenSign,boxes){
           <div style="font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:1.5px;color:var(--color-text);margin-bottom:10px">Preview — first ${Math.min(selItems.length,6)} of ${selItems.length} tags</div>
           <div class="grid-3">
             ${selItems.slice(0,6).map(i=>`
-              <div style="border:2px dashed var(--color-primary);padding:10px;text-align:center;background:#FEFCF8">
+              <div style="border:2px dashed var(--color-primary);padding:10px;text-align:center;background:#F6F1E6">
                 <div style="font-size:8px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--color-primary-text)">My Nest Chapter</div>
                 <div style="font-size:12px;font-weight:700;margin:5px 0;line-height:1.3">${esc(i.name)}</div>
                 <div style="font-size:22px;font-weight:800;font-family:var(--font-display);color:var(--color-primary-text)">$${esc(i.price||"__")}</div>
@@ -4732,7 +4732,7 @@ function renderPCTagsContent(tagItems,selItems,allSigns,chosenSign,boxes){
         <div style="font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:1.5px;color:var(--color-text);margin-bottom:10px">Preview</div>
         <div class="grid-3">
           ${pricePoints.filter((_,i)=>(UI.ppQty?.[i]??3)>0).slice(0,6).map(p=>`
-            <div style="border:2px dashed var(--color-primary);padding:10px;text-align:center;background:#FEFCF8">
+            <div style="border:2px dashed var(--color-primary);padding:10px;text-align:center;background:#F6F1E6">
               <div style="font-size:8px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--color-primary-text)">My Nest Chapter</div>
               <div style="font-size:26px;font-weight:800;font-family:var(--font-display);color:var(--color-primary-text);margin:6px 0">${p.label||"____"}</div>
               <div style="font-size:8px;color:var(--color-text-muted)">Thank you!</div>
@@ -4755,7 +4755,7 @@ function renderPCTagsContent(tagItems,selItems,allSigns,chosenSign,boxes){
           </div>`).join("")}
       </div>
       ${chosenSign?`
-        <div style="border:3px solid var(--color-primary);padding:32px 28px;text-align:center;background:#FEFCF8;margin-bottom:16px">
+        <div style="border:3px solid var(--color-primary);padding:32px 28px;text-align:center;background:#F6F1E6;margin-bottom:16px">
           <div style="font-size:10px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--color-primary-text);margin-bottom:14px">My Nest Chapter</div>
           <div style="font-size:clamp(20px,4vw,32px);font-weight:800;font-family:var(--font-display);color:var(--color-text);line-height:1.5;white-space:pre-line">${esc(chosenSign.text)}</div>
         </div>
@@ -4773,7 +4773,7 @@ function renderPCTagsContent(tagItems,selItems,allSigns,chosenSign,boxes){
       ${boxes.length===0?`<div class="info-box">No batch items yet. Add items in Sort + Price → Batch Items, then come back here to print signs.</div>`:`
         <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:16px">
           ${boxes.slice(0,4).map(b=>`
-            <div style="border:2px solid var(--color-divider);padding:14px;text-align:center;background:#FEFCF8">
+            <div style="border:2px solid var(--color-divider);padding:14px;text-align:center;background:#F6F1E6">
               <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.14em;color:var(--color-primary-text)">${esc(b.type||"Box")} · ${esc(b.category)}</div>
               <div style="font-size:20px;font-weight:800;font-family:var(--font-display);color:var(--color-primary-text);margin-top:4px">All items $${esc(b.price||"__")}</div>
               <div style="font-size:14px;font-weight:700;margin-top:4px">${esc(b.title||b.category||"Mixed items")}</div>
@@ -4870,7 +4870,7 @@ function renderPCFlyersContent(){
     <div class="card">
       <div class="card-title">Standard flyer</div>
       <p class="card-sub" style="margin-bottom:14px">One flyer per page.</p>
-      <div id="flyer-standard-preview" style="border:2px solid var(--color-divider);padding:28px 24px;background:#FEFCF8;margin-bottom:16px;text-align:center">
+      <div id="flyer-standard-preview" style="border:2px solid var(--color-divider);padding:28px 24px;background:#F6F1E6;margin-bottom:16px;text-align:center">
         ${buildFlyerPreviewHTML('standard')}
       </div>
       <button class="btn btn-primary" onclick="printFlyer('standard')">Print standard flyer</button>
@@ -4879,7 +4879,7 @@ function renderPCFlyersContent(){
     <div class="card">
       <div class="card-title">Tear-off flyer</div>
       <p class="card-sub" style="margin-bottom:14px">Same as standard with 8 tear-off strips at the bottom.</p>
-      <div id="flyer-tearoff-preview" style="border:2px solid var(--color-divider);padding:28px 24px;background:#FEFCF8;margin-bottom:16px;text-align:center">
+      <div id="flyer-tearoff-preview" style="border:2px solid var(--color-divider);padding:28px 24px;background:#F6F1E6;margin-bottom:16px;text-align:center">
         ${buildFlyerPreviewHTML('tearoff')}
       </div>
       <button class="btn btn-primary" onclick="printFlyer('tearoff')">Print tear-off flyer</button>
@@ -4927,11 +4927,11 @@ function renderPCDirectionalContent(){
         <button class="btn ${ds.dir==='right'?'btn-primary':'btn-secondary'}" style="flex:1" onclick="setDirSignField('dir','right')">Right →</button>
       </div>
       <div style="font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:1.5px;color:var(--color-text);margin-bottom:12px">Preview</div>
-      <div style="border:2px solid #262624;padding:28px 24px;background:#FEFCF8;margin-bottom:16px;text-align:center;display:flex;flex-direction:column;align-items:center;gap:10px">
-        <div style="font-size:56px;line-height:1;color:#7A2E42">${arrowChar}</div>
-        <div style="font-family:'Lora',serif;font-size:22px;font-weight:700;color:#262624">${esc(saleName)}</div>
-        ${date?`<div style="font-family:'DM Sans',sans-serif;font-size:14px;font-weight:600;color:#262624">${esc(date)}</div>`:''}
-        ${time?`<div style="font-family:'DM Sans',sans-serif;font-size:13px;color:#262624">${esc(time)}</div>`:''}
+      <div style="border:2px solid #2B1F18;padding:28px 24px;background:#F6F1E6;margin-bottom:16px;text-align:center;display:flex;flex-direction:column;align-items:center;gap:10px">
+        <div style="font-size:56px;line-height:1;color:#0A2F3A">${arrowChar}</div>
+        <div style="font-family:'Lora',serif;font-size:22px;font-weight:700;color:#2B1F18">${esc(saleName)}</div>
+        ${date?`<div style="font-family:'DM Sans',sans-serif;font-size:14px;font-weight:600;color:#2B1F18">${esc(date)}</div>`:''}
+        ${time?`<div style="font-family:'DM Sans',sans-serif;font-size:13px;color:#2B1F18">${esc(time)}</div>`:''}
         <div style="font-family:'DM Sans',sans-serif;font-size:7pt;color:#6B655C;letter-spacing:.1em;text-transform:uppercase;margin-top:8px">My Nest Chapter</div>
       </div>
       <button class="btn btn-primary" onclick="printDirectionalSigns()">Print 2 signs</button>
@@ -4957,7 +4957,7 @@ function renderTimeOfDayPattern(){
   const byTotal=Object.values(buckets).sort((a,b)=>b.total-a.total);
   const peak=byTotal[0];
   const peakLabel=`${fmtHourLabel(peak.hour)}–${fmtHourLabel((peak.hour+1)%24)}`;
-  const peakLine=`<div style="font-family:var(--font-body);font-size:14px;color:#F6F3EC">Your busiest hour: ${peakLabel}. ${peak.count} sale${peak.count===1?"":"s"}, $${peak.total.toFixed(2)}.</div>`;
+  const peakLine=`<div style="font-family:var(--font-body);font-size:14px;color:#F6F1E6">Your busiest hour: ${peakLabel}. ${peak.count} sale${peak.count===1?"":"s"}, $${peak.total.toFixed(2)}.</div>`;
   if(tx.length<6)return`<div style="margin-top:16px">${peakLine}</div>`;
   const byHour=Object.values(buckets).sort((a,b)=>a.hour-b.hour);
   const maxTotal=Math.max(...byHour.map(b=>b.total));
@@ -4967,7 +4967,7 @@ function renderTimeOfDayPattern(){
     <div style="display:flex;align-items:flex-end;gap:6px;height:90px;margin-top:12px">
       ${byHour.map(b=>`
         <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%">
-          <div style="width:100%;background:#7A2E42;height:${Math.max(4,Math.round((b.total/maxTotal)*100))}%"></div>
+          <div style="width:100%;background:#0A2F3A;height:${Math.max(4,Math.round((b.total/maxTotal)*100))}%"></div>
           <div style="font-size:10px;color:rgba(246,243,236,0.6);margin-top:4px">${fmtHourLabel(b.hour)}</div>
         </div>`).join("")}
     </div>
@@ -4995,22 +4995,22 @@ function buildWrapCompletion(){
   const memories=(P.items||[]).filter(i=>i.decision==='Memory Box');
   const memoryList=memories.length?`
     <div style="margin-top:24px;text-align:left;max-width:480px;margin-left:auto;margin-right:auto">
-      <h3 style="font-family:var(--font-display);font-weight:700;font-size:16px;color:#F6F3EC;margin:0 0 12px">What you let go of</h3>
+      <h3 style="font-family:var(--font-display);font-weight:700;font-size:16px;color:#F6F1E6;margin:0 0 12px">What you let go of</h3>
       ${memories.map(m=>`
         <div style="margin-bottom:12px">
-          <div style="font-family:var(--font-body);font-weight:700;font-size:14px;color:#F6F3EC">${esc(m.name||m.label||"Memory")}</div>
+          <div style="font-family:var(--font-body);font-weight:700;font-size:14px;color:#F6F1E6">${esc(m.name||m.label||"Memory")}</div>
           ${m.notes?`<div style="font-family:var(--font-body);font-weight:400;font-size:13px;color:rgba(246,243,236,0.6);margin-top:2px">${esc(m.notes)}</div>`:""}
         </div>`).join("")}
     </div>`:"";
   const emotionalCheckIn=`
     <div style="margin-top:24px;display:flex;gap:8px;justify-content:center;flex-wrap:wrap">
-      ${emotionalCheckInOptions.map(opt=>`<button class="toggle-chip" onclick="setEmotionalCheckIn('${esc(opt)}')" style="font-family:var(--font-body);font-size:13px;font-weight:600;padding:8px 16px;cursor:pointer;${w.emotionalCheckIn===opt?'background:#F6F3EC;color:#262624;border:1px solid #F6F3EC':'background:transparent;color:#F6F3EC;border:1px solid rgba(246,243,236,0.4)'}">${esc(opt)}</button>`).join("")}
+      ${emotionalCheckInOptions.map(opt=>`<button class="toggle-chip" onclick="setEmotionalCheckIn('${esc(opt)}')" style="font-family:var(--font-body);font-size:13px;font-weight:600;padding:8px 16px;cursor:pointer;${w.emotionalCheckIn===opt?'background:#F6F1E6;color:#2B1F18;border:1px solid #F6F1E6':'background:transparent;color:#F6F1E6;border:1px solid rgba(246,243,236,0.4)'}">${esc(opt)}</button>`).join("")}
     </div>`;
   return`
-  <div id="wrap-completion" style="background:#262624;padding:40px 36px;text-align:center;margin-bottom:8px;">
+  <div id="wrap-completion" style="background:#2B1F18;padding:40px 36px;text-align:center;margin-bottom:8px;">
     <div class="wc-seal">&#10003;</div>
     <p style="font-family:var(--font-display);font-weight:800;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:rgba(246,243,236,.6);margin:0 0 14px;">Sale Complete</p>
-    <h2 style="font-family:var(--font-display);font-weight:800;font-size:26px;color:#FEFCF8;margin:0 0 10px;line-height:1.3;">You earned $${stats.earned.toFixed(2)}.</h2>
+    <h2 style="font-family:var(--font-display);font-weight:800;font-size:26px;color:#F6F1E6;margin:0 0 10px;line-height:1.3;">You earned $${stats.earned.toFixed(2)}.</h2>
     ${stats.goal?`<p style="font-family:'DM Sans',sans-serif;font-size:15px;color:rgba(246,243,236,0.75);margin:0 0 6px;">${stats.goalProgress}% of your $${stats.goal} goal reached.</p>`:""}
     ${P.setup?.moneyPurpose?`<p style="font-family:'DM Sans',sans-serif;font-size:14px;color:rgba(246,243,236,0.75);margin:0 0 20px;font-style:italic;">${esc(P.setup.moneyPurpose)}</p>`:"<div style='margin-bottom:20px'></div>"}
     <p style="font-family:'DM Sans',sans-serif;font-size:15px;color:rgba(246,243,236,0.78);line-height:1.7;max-width:480px;margin:0 auto 24px;">Every item sorted, priced, and moved out the door. That doesn&rsquo;t happen by accident. Here&rsquo;s to your next chapter.</p>
@@ -5030,7 +5030,7 @@ function cashTallyResultHTML(tally,cashSales){
   if(!tally)return'';
   const diff=Number(tally)-cashSales;
   const match=Math.abs(diff)<0.02;
-  return`<div style="background:${match?'#EFE8DC':'#D9C7AC'};padding:12px 16px;font-size:var(--text-sm);color:#262624;line-height:1.7">${match?'Matches your logged cash sales.':diff<0?'$'+Math.abs(diff).toFixed(2)+' short — a few cash sales might not be in the log.':'$'+diff.toFixed(2)+' more than logged — check for duplicate entries.'}</div>`;
+  return`<div style="background:${match?'rgba(43,31,24,0.06)':'#D9C7AC'};padding:12px 16px;font-size:var(--text-sm);color:#2B1F18;line-height:1.7">${match?'Matches your logged cash sales.':diff<0?'$'+Math.abs(diff).toFixed(2)+' short — a few cash sales might not be in the log.':'$'+diff.toFixed(2)+' more than logged — check for duplicate entries.'}</div>`;
 }
 function refreshCashTally(el){
   sf(el,'wrap','cashTally');
@@ -5062,7 +5062,7 @@ function renderWrap(){
       </div>
       <button class="btn btn-secondary btn-sm" onclick="goTab('sortPrice','memory')">Manage in Memories →</button>
     </div>`:""}
-    <div style="border:1px solid #D9C7AC;background:#FEFCF8;padding:16px">
+    <div style="border:1px solid #D9C7AC;background:#F6F1E6;padding:16px">
       <div style="font-family:var(--font-body);font-weight:700;font-size:12px;color:var(--color-text);margin-bottom:6px">Have items that didn't sell?</div>
       <div style="font-family:var(--font-body);font-size:12px;color:var(--color-text);line-height:1.6">Your platform guide is in the Sell + Promote tab — it covers eight options from Facebook Marketplace to ThredUp, with exactly what each one is good for.</div>
     </div>
@@ -5198,7 +5198,7 @@ function printSelectedTags(){
     <div class="print-tag">
       <div style="font-size:9px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--color-primary-text)">My Nest Chapter</div>
       <div style="font-size:14px;font-weight:700;margin:8px 0;min-height:36px">${esc(i.name||"Item")}</div>
-      <div style="font-size:36px;font-weight:800;font-family:var(--font-display);color:#7A2E42">$${esc(i.price||"___")}</div>
+      <div style="font-size:36px;font-weight:800;font-family:var(--font-display);color:#0A2F3A">$${esc(i.price||"___")}</div>
       <div style="font-size:10px;color:#6B655C;margin-top:4px">${esc(i.category||"")}</div>
     </div>`).join("")}</div>`;
   document.getElementById("print-inner").innerHTML=tagsHTML;
@@ -5221,7 +5221,7 @@ function printPricePointTags(){
   const tagsHTML=`<div class="print-grid-tags">${tags.map(p=>`
     <div class="print-tag">
       <div style="font-size:9px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--color-primary-text)">My Nest Chapter</div>
-      <div style="font-size:40px;font-weight:800;font-family:var(--font-display);color:#7A2E42;margin:10px 0">${p.label||"____"}</div>
+      <div style="font-size:40px;font-weight:800;font-family:var(--font-display);color:#0A2F3A;margin:10px 0">${p.label||"____"}</div>
       <div style="font-size:9px;color:#6B655C">Thank you!</div>
     </div>`).join("")}</div>`;
   document.getElementById("print-inner").innerHTML=tagsHTML;
@@ -5240,7 +5240,7 @@ function printChosenSign(){
   document.getElementById("print-inner").innerHTML=`
     <div class="print-sign">
       <div style="font-size:11px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--color-primary-text);margin-bottom:16px">My Nest Chapter</div>
-      <div style="font-size:36px;font-weight:700;font-family:var(--font-display);color:#262624;line-height:1.4;white-space:pre-line">${esc(s.text)}</div>
+      <div style="font-size:36px;font-weight:700;font-family:var(--font-display);color:#2B1F18;line-height:1.4;white-space:pre-line">${esc(s.text)}</div>
     </div>`;
   document.getElementById("print-section").style.display="block";
   window.print();
@@ -5265,9 +5265,9 @@ function pcFmtDate(d){
 
 function buildAreaSignPreviewHTML(mainText,priceText){
   function signCard(){
-    return`<div style="border:2px solid #262624;padding:20px;text-align:center;background:#FEFCF8">
-      <div style="font-family:var(--font-display);font-size:clamp(18px,3vw,26px);font-weight:800;line-height:1.3;color:#262624">${esc(mainText)||'—'}</div>
-      ${priceText?`<div style="font-family:var(--font-display);font-size:clamp(22px,4vw,34px);font-weight:800;color:#262624;margin-top:8px">${esc(priceText)}</div>`:''}
+    return`<div style="border:2px solid #2B1F18;padding:20px;text-align:center;background:#F6F1E6">
+      <div style="font-family:var(--font-display);font-size:clamp(18px,3vw,26px);font-weight:800;line-height:1.3;color:#2B1F18">${esc(mainText)||'—'}</div>
+      ${priceText?`<div style="font-family:var(--font-display);font-size:clamp(22px,4vw,34px);font-weight:800;color:#2B1F18;margin-top:8px">${esc(priceText)}</div>`:''}
       <div style="font-size:9px;font-family:var(--font-body);color:#6B655C;letter-spacing:.1em;text-transform:uppercase;margin-top:10px">My Nest Chapter</div>
     </div>`;
   }
@@ -5285,9 +5285,9 @@ function buildFlyerPreviewHTML(type){
       ${Array(8).fill(`<div style="border-top:1px dashed var(--color-divider);padding:4px 0;font-size:11px;font-family:var(--font-body);color:var(--color-text-muted)">${esc([f.address,f.date].filter(Boolean).join(' · '))||'Address · Date'}</div>`).join('')}
     </div>`:'';
   return`
-    <div style="font-family:var(--font-display);font-size:clamp(22px,4vw,30px);font-weight:800;color:#262624;margin-bottom:6px">${esc(f.title||'GARAGE SALE')}</div>
-    ${f.date||f.time?`<div style="font-size:16px;font-weight:700;font-family:var(--font-body);margin-bottom:4px;color:#262624">${esc([f.date,f.time].filter(Boolean).join(' · '))}</div>`:''}
-    ${f.address?`<div style="font-size:14px;font-family:var(--font-body);margin-bottom:10px;color:#262624">${esc(f.address)}</div>`:''}
+    <div style="font-family:var(--font-display);font-size:clamp(22px,4vw,30px);font-weight:800;color:#2B1F18;margin-bottom:6px">${esc(f.title||'GARAGE SALE')}</div>
+    ${f.date||f.time?`<div style="font-size:16px;font-weight:700;font-family:var(--font-body);margin-bottom:4px;color:#2B1F18">${esc([f.date,f.time].filter(Boolean).join(' · '))}</div>`:''}
+    ${f.address?`<div style="font-size:14px;font-family:var(--font-body);margin-bottom:10px;color:#2B1F18">${esc(f.address)}</div>`:''}
     ${f.featured?`<div style="font-size:13px;font-family:var(--font-body);color:var(--color-text-muted);margin-bottom:6px">${esc(f.featured)}</div>`:''}
     ${f.tagline?`<div style="font-size:12px;font-family:var(--font-body);color:var(--color-text-muted)">${esc(f.tagline)}</div>`:''}
     <div style="font-size:9px;font-family:var(--font-body);color:#6B655C;margin-top:14px;letter-spacing:.1em;text-transform:uppercase">My Nest Chapter</div>
@@ -5324,7 +5324,7 @@ function setFlyerField(key,val){
 function printQuickTags(type){
   function qtHTML(price){
     return`<div class="print-quick-tag">
-      <div style="font-family:'Lora',serif;font-size:18pt;font-weight:700;color:#262624;line-height:1">${price}</div>
+      <div style="font-family:'Lora',serif;font-size:18pt;font-weight:700;color:#2B1F18;line-height:1">${price}</div>
       <div style="font-family:'DM Sans',sans-serif;font-size:5pt;color:#6B655C;margin-top:4pt;letter-spacing:.1em;text-transform:uppercase">My Nest Chapter</div>
     </div>`;
   }
@@ -5358,8 +5358,8 @@ function printAreaSigns(){
   if(!mainText&&!priceText){showToast('Enter sign text or price first.');return;}
   function signHTML(){
     return`<div class="print-area-sign">
-      <div style="font-family:'Lora',serif;font-size:36pt;font-weight:700;line-height:1.2;color:#262624">${esc(mainText)}</div>
-      ${priceText?`<div style="font-family:'Lora',serif;font-size:48pt;font-weight:700;color:#262624;margin-top:12pt">${esc(priceText)}</div>`:''}
+      <div style="font-family:'Lora',serif;font-size:36pt;font-weight:700;line-height:1.2;color:#2B1F18">${esc(mainText)}</div>
+      ${priceText?`<div style="font-family:'Lora',serif;font-size:48pt;font-weight:700;color:#2B1F18;margin-top:12pt">${esc(priceText)}</div>`:''}
       <div style="font-family:'DM Sans',sans-serif;font-size:7pt;color:#6B655C;margin-top:20pt;letter-spacing:.1em;text-transform:uppercase">My Nest Chapter</div>
     </div>`;
   }
@@ -5378,10 +5378,10 @@ function printDirectionalSigns(){
   const arrowChar=ds.dir==='left'?'←':'→';
   function signHTML(){
     return`<div class="print-dir-sign">
-      <div style="font-size:72pt;line-height:1;color:#262624">${arrowChar}</div>
-      <div style="font-family:'Lora',serif;font-size:30pt;font-weight:700;color:#262624">${esc(saleName)}</div>
-      ${date?`<div style="font-family:'DM Sans',sans-serif;font-size:16pt;font-weight:700;color:#262624">${esc(date)}</div>`:''}
-      ${time?`<div style="font-family:'DM Sans',sans-serif;font-size:14pt;color:#262624">${esc(time)}</div>`:''}
+      <div style="font-size:72pt;line-height:1;color:#2B1F18">${arrowChar}</div>
+      <div style="font-family:'Lora',serif;font-size:30pt;font-weight:700;color:#2B1F18">${esc(saleName)}</div>
+      ${date?`<div style="font-family:'DM Sans',sans-serif;font-size:16pt;font-weight:700;color:#2B1F18">${esc(date)}</div>`:''}
+      ${time?`<div style="font-family:'DM Sans',sans-serif;font-size:14pt;color:#2B1F18">${esc(time)}</div>`:''}
       <div style="font-family:'DM Sans',sans-serif;font-size:7pt;color:#6B655C;letter-spacing:.1em;text-transform:uppercase;margin-top:8pt">My Nest Chapter</div>
     </div>`;
   }
@@ -5400,10 +5400,10 @@ function printFlyer(type){
     </div>`:'';
   document.getElementById('print-inner').innerHTML=`
     <div class="print-flyer">
-      <div style="font-family:'Lora',serif;font-size:48pt;font-weight:700;line-height:1.1;color:#262624;margin-bottom:10pt">${esc(f.title||'GARAGE SALE')}</div>
-      ${dateTime?`<div style="font-family:'DM Sans',sans-serif;font-size:18pt;font-weight:700;color:#262624;margin-bottom:6pt">${dateTime}</div>`:''}
-      ${f.address?`<div style="font-family:'DM Sans',sans-serif;font-size:15pt;color:#262624;margin-bottom:12pt">${esc(f.address)}</div>`:''}
-      ${f.featured?`<div style="font-family:'DM Sans',sans-serif;font-size:12pt;color:#262624;margin-bottom:8pt">${esc(f.featured)}</div>`:''}
+      <div style="font-family:'Lora',serif;font-size:48pt;font-weight:700;line-height:1.1;color:#2B1F18;margin-bottom:10pt">${esc(f.title||'GARAGE SALE')}</div>
+      ${dateTime?`<div style="font-family:'DM Sans',sans-serif;font-size:18pt;font-weight:700;color:#2B1F18;margin-bottom:6pt">${dateTime}</div>`:''}
+      ${f.address?`<div style="font-family:'DM Sans',sans-serif;font-size:15pt;color:#2B1F18;margin-bottom:12pt">${esc(f.address)}</div>`:''}
+      ${f.featured?`<div style="font-family:'DM Sans',sans-serif;font-size:12pt;color:#2B1F18;margin-bottom:8pt">${esc(f.featured)}</div>`:''}
       ${f.tagline?`<div style="font-family:'DM Sans',sans-serif;font-size:11pt;color:#6B655C">${esc(f.tagline)}</div>`:''}
       <div style="font-family:'DM Sans',sans-serif;font-size:7pt;color:#6B655C;margin-top:auto;padding-top:20pt;letter-spacing:.1em;text-transform:uppercase">My Nest Chapter</div>
       ${tearStrips}
@@ -5417,13 +5417,13 @@ function printFlyer(type){
 function printMemoryBoxList(){
   const items=(P.items||[]).filter(i=>i.decision==='Memory Box');
   if(!items.length){showToast("Nothing in Memory Box yet.");return;}
-  const titleLine=P.setup?.saleTitle?`<div style="font-family:'Lora',serif;font-size:18px;font-weight:700;color:#262624;margin-bottom:28px">${esc(P.setup.saleTitle)}</div>`:"<div style='margin-bottom:28px'></div>";
+  const titleLine=P.setup?.saleTitle?`<div style="font-family:'Lora',serif;font-size:18px;font-weight:700;color:#2B1F18;margin-bottom:28px">${esc(P.setup.saleTitle)}</div>`:"<div style='margin-bottom:28px'></div>";
   document.getElementById("print-inner").innerHTML=`
     <div style="padding:32px;font-family:'DM Sans',sans-serif;max-width:680px">
       <div style="font-size:9px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--color-primary-text);margin-bottom:14px">My Nest Chapter · Memory Box</div>
       ${titleLine}
       ${items.map(m=>`
-        <div style="margin-bottom:14px;padding-bottom:14px;border-bottom:1px solid #D9C7AC;font-size:14px;color:#262624">
+        <div style="margin-bottom:14px;padding-bottom:14px;border-bottom:1px solid #D9C7AC;font-size:14px;color:#2B1F18">
           ${esc(m.name||m.label||"Memory")}${m.storage?` — stored: ${esc(m.storage)}`:""}
         </div>`).join("")}
       <div style="margin-top:36px;font-size:10px;color:#6B655C">My Nest Chapter · mynestchapter.com</div>
@@ -5435,14 +5435,14 @@ function printMemoryBoxList(){
 function printGiveToKidsList(){
   const items=(P.items||[]).filter(i=>i.decision==='Given to kids');
   if(!items.length){showToast("Nothing in Give to Kids yet.");return;}
-  const titleLine=P.setup?.saleTitle?`<div style="font-family:'Lora',serif;font-size:18px;font-weight:700;color:#262624;margin-bottom:28px">${esc(P.setup.saleTitle)}</div>`:"<div style='margin-bottom:28px'></div>";
+  const titleLine=P.setup?.saleTitle?`<div style="font-family:'Lora',serif;font-size:18px;font-weight:700;color:#2B1F18;margin-bottom:28px">${esc(P.setup.saleTitle)}</div>`:"<div style='margin-bottom:28px'></div>";
   document.getElementById("print-inner").innerHTML=`
     <div style="padding:32px;font-family:'DM Sans',sans-serif;max-width:680px">
       <div style="font-size:9px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--color-primary-text);margin-bottom:14px">My Nest Chapter · Give to Kids</div>
       ${titleLine}
       ${items.map(g=>`
-        <div style="margin-bottom:14px;padding-bottom:14px;border-bottom:1px solid #D9C7AC;font-size:14px;color:#262624;display:flex;gap:10px;align-items:flex-start">
-          <span style="display:inline-block;width:16px;height:16px;border:1.5px solid #262624;flex-shrink:0;margin-top:2px"></span>
+        <div style="margin-bottom:14px;padding-bottom:14px;border-bottom:1px solid #D9C7AC;font-size:14px;color:#2B1F18;display:flex;gap:10px;align-items:flex-start">
+          <span style="display:inline-block;width:16px;height:16px;border:1.5px solid #2B1F18;flex-shrink:0;margin-top:2px"></span>
           <span>${esc(g.name||g.label||"Item")}${g.notes?` — ${esc(g.notes)}`:""}</span>
         </div>`).join("")}
       <div style="margin-top:36px;font-size:10px;color:#6B655C">My Nest Chapter · mynestchapter.com</div>
@@ -5490,8 +5490,8 @@ function renderBellPanel(){
   p.className='bell-panel';
   const notifs=activeNotifs();
   p.innerHTML=`
-    <div style="display:flex;align-items:center;justify-content:space-between;padding:12px 16px;border-bottom:1px solid #D9C7AC;background:#262624;flex-shrink:0">
-      <span style="font-family:'DM Sans',sans-serif;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#FEFCF8">Notifications</span>
+    <div style="display:flex;align-items:center;justify-content:space-between;padding:12px 16px;border-bottom:1px solid #D9C7AC;background:#2B1F18;flex-shrink:0">
+      <span style="font-family:'DM Sans',sans-serif;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#F6F1E6">Notifications</span>
       ${notifs.length?`<button onclick="dismissAllNotifs()" style="font-family:'DM Sans',sans-serif;font-size:11px;color:rgba(246,243,236,.75);background:none;border:none;cursor:pointer;padding:0;text-decoration:underline">Clear all</button>`:''}
     </div>
     ${notifs.length===0
@@ -5593,7 +5593,7 @@ function startFresh(){
     itemSearch="";invCatFilter="All";invDecFilter="All";
     draft={item:{id:null,name:"",category:"Decor",condition:"Good",quantity:"1",decision:"Garage Sale",price:"",notes:""},batch:{id:null,type:"Table",price:"2",description:""},memory:{id:null,name:"",storage:"",notes:""},giveKids:{id:null,name:"",notes:""},sale:{description:"",amount:"",method:"Cash"}};
     render();
-  },{confirmLabel:"Reset Everything",confirmBg:"#262624",confirmColor:"#F6F3EC"});
+  },{confirmLabel:"Reset Everything",confirmBg:"#2B1F18",confirmColor:"#F6F1E6"});
 }
 
 function sectionClear(key){
@@ -5618,21 +5618,21 @@ function exportPDF(){
 
   function row(label,val){
     if(!val)return"";
-    return`<div style="margin-bottom:14px"><div style="font-family:'DM Sans',sans-serif;font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--color-primary-text);margin-bottom:3px">${label}</div><div style="font-family:'DM Sans',sans-serif;font-size:13px;color:#262624;line-height:1.6">${esc(val)}</div></div>`;
+    return`<div style="margin-bottom:14px"><div style="font-family:'DM Sans',sans-serif;font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--color-primary-text);margin-bottom:3px">${label}</div><div style="font-family:'DM Sans',sans-serif;font-size:13px;color:#2B1F18;line-height:1.6">${esc(val)}</div></div>`;
   }
 
   const itemRows=items.slice(0,50).map(i=>`
     <tr>
-      <td style="padding:7px 8px;border-bottom:1px solid #D9C7AC;font-size:12px;font-family:'DM Sans',sans-serif;color:#262624">${esc(i.name)}</td>
+      <td style="padding:7px 8px;border-bottom:1px solid #D9C7AC;font-size:12px;font-family:'DM Sans',sans-serif;color:#2B1F18">${esc(i.name)}</td>
       <td style="padding:7px 8px;border-bottom:1px solid #D9C7AC;font-size:12px;font-family:'DM Sans',sans-serif;color:#6B655C">${esc(i.category)}</td>
       <td style="padding:7px 8px;border-bottom:1px solid #D9C7AC;font-size:12px;font-family:'DM Sans',sans-serif;color:#6B655C">${esc(i.decision)}</td>
-      <td style="padding:7px 8px;border-bottom:1px solid #D9C7AC;font-size:12px;font-family:'DM Sans',sans-serif;color:#262624;font-weight:700">${i.price?"$"+esc(i.price):""}</td>
+      <td style="padding:7px 8px;border-bottom:1px solid #D9C7AC;font-size:12px;font-family:'DM Sans',sans-serif;color:#2B1F18;font-weight:700">${i.price?"$"+esc(i.price):""}</td>
       <td style="padding:7px 8px;border-bottom:1px solid #D9C7AC;font-size:12px;font-family:'DM Sans',sans-serif;color:#6B655C">${i.sold?"Sold":""}</td>
     </tr>`).join("");
 
   const txRows=tx.map(t=>`
     <tr>
-      <td style="padding:7px 8px;border-bottom:1px solid #D9C7AC;font-size:12px;font-family:'DM Sans',sans-serif;color:#262624">${esc(t.description||"Sale")}</td>
+      <td style="padding:7px 8px;border-bottom:1px solid #D9C7AC;font-size:12px;font-family:'DM Sans',sans-serif;color:#2B1F18">${esc(t.description||"Sale")}</td>
       <td style="padding:7px 8px;border-bottom:1px solid #D9C7AC;font-size:12px;font-family:'DM Sans',sans-serif;color:#6B655C">${esc(t.method||"Cash")}</td>
       <td style="padding:7px 8px;border-bottom:1px solid #D9C7AC;font-size:12px;font-family:'DM Sans',sans-serif;color:#6B655C">${esc(t.time||"")}</td>
       <td style="padding:7px 8px;border-bottom:1px solid #D9C7AC;font-size:12px;font-family:'DM Sans',sans-serif;font-weight:700;color:var(--color-primary-text)">$${Number(t.amount||0).toFixed(2)}</td>
@@ -5640,29 +5640,29 @@ function exportPDF(){
 
   const html=`
   <div style="max-width:680px;margin:0 auto;padding:40px 32px;font-family:'DM Sans',sans-serif">
-    <div style="background:#262624;padding:20px 28px;margin-bottom:32px">
+    <div style="background:#2B1F18;padding:20px 28px;margin-bottom:32px">
       <div style="font-family:'DM Sans',sans-serif;font-size:9px;font-weight:800;letter-spacing:3px;text-transform:uppercase;color:rgba(246,243,236,.65)">MY NEST CHAPTER</div>
     </div>
-    <h1 style="font-family:'DM Sans',sans-serif;font-weight:800;font-size:22px;color:#262624;margin:0 0 4px">${esc(s.saleTitle||"My Garage Sale")}</h1>
+    <h1 style="font-family:'DM Sans',sans-serif;font-weight:800;font-size:22px;color:#2B1F18;margin:0 0 4px">${esc(s.saleTitle||"My Garage Sale")}</h1>
     ${saleDate?`<p style="font-size:13px;color:#6B655C;margin:0 0 28px">${saleDate}</p>`:"<div style='margin-bottom:28px'></div>"}
 
-    <div style="background:#EFE8DC;padding:18px 22px;margin-bottom:28px;display:flex;justify-content:space-between;align-items:center">
+    <div style="background:rgba(43,31,24,0.06);padding:18px 22px;margin-bottom:28px;display:flex;justify-content:space-between;align-items:center">
       <div><div style="font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--color-primary-text);margin-bottom:2px">Total Earned</div>
-      <div style="font-size:28px;font-weight:800;color:#262624">$${stats.earned.toFixed(2)}</div></div>
-      ${stats.goal?`<div style="text-align:right"><div style="font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--color-primary-text);margin-bottom:2px">Goal</div><div style="font-size:18px;font-weight:700;color:#262624">$${stats.goal} &nbsp;·&nbsp; ${stats.goalProgress}%</div></div>`:""}
+      <div style="font-size:28px;font-weight:800;color:#2B1F18">$${stats.earned.toFixed(2)}</div></div>
+      ${stats.goal?`<div style="text-align:right"><div style="font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--color-primary-text);margin-bottom:2px">Goal</div><div style="font-size:18px;font-weight:700;color:#2B1F18">$${stats.goal} &nbsp;·&nbsp; ${stats.goalProgress}%</div></div>`:""}
     </div>
 
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:28px">
-      <div style="border:1px solid #D9C7AC;padding:14px 16px"><div style="font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#6B655C;margin-bottom:2px">Total Items</div><div style="font-size:18px;font-weight:800;color:#262624">${stats.totalItems}</div></div>
-      <div style="border:1px solid #D9C7AC;padding:14px 16px"><div style="font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#6B655C;margin-bottom:2px">Transactions</div><div style="font-size:18px;font-weight:800;color:#262624">${tx.length}</div></div>
+      <div style="border:1px solid #D9C7AC;padding:14px 16px"><div style="font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#6B655C;margin-bottom:2px">Total Items</div><div style="font-size:18px;font-weight:800;color:#2B1F18">${stats.totalItems}</div></div>
+      <div style="border:1px solid #D9C7AC;padding:14px 16px"><div style="font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#6B655C;margin-bottom:2px">Transactions</div><div style="font-size:18px;font-weight:800;color:#2B1F18">${tx.length}</div></div>
     </div>
 
     ${s.moneyPurpose?`<div class="money-purpose-accent">${row("What the money is for",s.moneyPurpose)}</div>`:""}
 
     ${items.length?`
-    <h2 style="font-size:13px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:#262624;margin:0 0 12px;border-bottom:2px solid #262624;padding-bottom:8px">Item List</h2>
+    <h2 style="font-size:13px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:#2B1F18;margin:0 0 12px;border-bottom:2px solid #2B1F18;padding-bottom:8px">Item List</h2>
     <table width="100%" cellpadding="0" cellspacing="0" style="margin-bottom:28px;border:1px solid #D9C7AC">
-      <thead><tr style="background:#262624">
+      <thead><tr style="background:#2B1F18">
         <th style="padding:8px;text-align:left;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:rgba(246,243,236,.65)">Item</th>
         <th style="padding:8px;text-align:left;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:rgba(246,243,236,.65)">Category</th>
         <th style="padding:8px;text-align:left;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:rgba(246,243,236,.65)">Decision</th>
@@ -5673,9 +5673,9 @@ function exportPDF(){
     </table>`:""}
 
     ${tx.length?`
-    <h2 style="font-size:13px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:#262624;margin:0 0 12px;border-bottom:2px solid #262624;padding-bottom:8px">Sales Log</h2>
+    <h2 style="font-size:13px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:#2B1F18;margin:0 0 12px;border-bottom:2px solid #2B1F18;padding-bottom:8px">Sales Log</h2>
     <table width="100%" cellpadding="0" cellspacing="0" style="margin-bottom:28px;border:1px solid #D9C7AC">
-      <thead><tr style="background:#262624">
+      <thead><tr style="background:#2B1F18">
         <th style="padding:8px;text-align:left;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:rgba(246,243,236,.65)">Description</th>
         <th style="padding:8px;text-align:left;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:rgba(246,243,236,.65)">Payment</th>
         <th style="padding:8px;text-align:left;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:rgba(246,243,236,.65)">Time</th>
@@ -5685,7 +5685,7 @@ function exportPDF(){
     </table>`:""}
 
     ${(w.donate||w.sellOnline||w.keep||w.trash||w.notes)?`
-    <h2 style="font-size:13px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:#262624;margin:0 0 16px;border-bottom:2px solid #262624;padding-bottom:8px">What Happens Next</h2>
+    <h2 style="font-size:13px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:#2B1F18;margin:0 0 16px;border-bottom:2px solid #2B1F18;padding-bottom:8px">What Happens Next</h2>
     ${row("Donating",w.donate)}
     ${row("Selling online",w.sellOnline)}
     ${row("Keeping",w.keep)}
@@ -5693,10 +5693,10 @@ function exportPDF(){
     ${row("Lessons learned",w.notes)}`:""}
 
     ${(P.items||[]).filter(i=>i.decision==='Memory Box').length?`
-    <h2 style="font-size:13px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:#262624;margin:0 0 16px;border-bottom:2px solid #262624;padding-bottom:8px">Memories</h2>
+    <h2 style="font-size:13px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:#2B1F18;margin:0 0 16px;border-bottom:2px solid #2B1F18;padding-bottom:8px">Memories</h2>
     ${(P.items||[]).filter(i=>i.decision==='Memory Box').map(m=>`
       <div style="margin-bottom:14px;padding-bottom:14px;border-bottom:1px solid #D9C7AC">
-        <div style="font-family:'DM Sans',sans-serif;font-size:13px;font-weight:700;color:#262624">${esc(m.name||m.label||"Memory")}</div>
+        <div style="font-family:'DM Sans',sans-serif;font-size:13px;font-weight:700;color:#2B1F18">${esc(m.name||m.label||"Memory")}</div>
         ${m.notes?`<div style="font-family:'DM Sans',sans-serif;font-size:12px;color:#6B655C;margin-top:4px;font-style:italic;line-height:1.6">${esc(m.notes)}</div>`:""}
       </div>`).join("")}`:""}
 
@@ -6018,8 +6018,8 @@ function checkConfetti(stats){
   if(sessionStorage.getItem(key))return;
   sessionStorage.setItem(key,'1');
   if(typeof confetti==='function'){
-    confetti({particleCount:140,spread:80,origin:{y:0.55},colors:['#7A2E42','#A15C3E','#FEFCF8','#262624','#80475E']});
-    setTimeout(()=>confetti({particleCount:60,spread:50,origin:{y:0.4},colors:['#7A2E42','#D9C7AC']}),400);
+    confetti({particleCount:140,spread:80,origin:{y:0.55},colors:['#0A2F3A','#A35E33','#F6F1E6','#2B1F18','#80475E']});
+    setTimeout(()=>confetti({particleCount:60,spread:50,origin:{y:0.4},colors:['#0A2F3A','#D9C7AC']}),400);
   }
 }
 
@@ -6037,7 +6037,7 @@ function wCodeInfo(c){
 }
 function weatherIconSvg(code,size){
   size=size||24;
-  const cloud='#6B655C',sun='#A15C3E',accent='#80475E',warn='#9E3D0F';
+  const cloud='#6B655C',sun='#A35E33',accent='#80475E',warn='#9E3D0F';
   const wrap=inner=>`<svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${inner}</svg>`;
   if(code===0)return wrap(`<circle cx="12" cy="12" r="5" stroke="${sun}"/><g stroke="${sun}"><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></g>`);
   if(code<=2)return wrap(`<circle cx="7.2" cy="7.2" r="3" stroke="${sun}"/><g stroke="${sun}"><line x1="7.2" y1="1.2" x2="7.2" y2="2.6"/><line x1="1.4" y1="7.2" x2="2.8" y2="7.2"/><line x1="2.85" y1="2.85" x2="3.85" y2="3.85"/></g><path d="M9 20h8a4 4 0 0 0 0-8h-.74A6 6 0 0 0 5 13.3 4.5 4.5 0 0 0 9 20z" stroke="${cloud}"/>`);
@@ -6169,7 +6169,7 @@ function renderWeatherCard(){
   const sdInfo=wCodeInfo(sd.code);
   const good=sdInfo.good&&sd.rain<40;
   const dotColor=good?'#46703F':'#9E3D0F';
-  const indicatorBg=good?'#EFE8DC':'#D9C7AC';
+  const indicatorBg=good?'rgba(43,31,24,0.06)':'#D9C7AC';
   const indicatorText=good?'Good sale weather'
     :sd.rain>=40?`Heads up — rain ${sd.day}`
     :`Heads up — ${sdInfo.label.toLowerCase()} ${sd.day}`;
@@ -6178,10 +6178,10 @@ function renderWeatherCard(){
   const visible=days.slice(vs,vs+3);
   const canLeft=vs>0;
   const canRight=vs+3<days.length;
-  const arrowBtn=(dir,enabled)=>`<button onclick="shiftWeather(${dir})" style="background:none;border:1.5px solid ${enabled?'#7A2E42':'#D9C7AC'};width:30px;height:30px;display:flex;align-items:center;justify-content:center;cursor:${enabled?'pointer':'default'};color:${enabled?'#7A2E42':'#D9C7AC'};font-size:14px;flex-shrink:0" ${enabled?'':'disabled'}>${dir<0?'‹':'›'}</button>`;
+  const arrowBtn=(dir,enabled)=>`<button onclick="shiftWeather(${dir})" style="background:none;border:1.5px solid ${enabled?'#0A2F3A':'#D9C7AC'};width:30px;height:30px;display:flex;align-items:center;justify-content:center;cursor:${enabled?'pointer':'default'};color:${enabled?'#0A2F3A':'#D9C7AC'};font-size:14px;flex-shrink:0" ${enabled?'':'disabled'}>${dir<0?'‹':'›'}</button>`;
   const stripHTML=visible.map(d=>{
     const info=wCodeInfo(d.code);
-    const highlight=d.isSaleDay?'background:#EFE8DC;':'';
+    const highlight=d.isSaleDay?'background:rgba(43,31,24,0.06);':'';
     const labelColor=d.isSaleDay?'var(--color-primary)':d.isToday?'var(--color-text)':'var(--color-text-muted)';
     const topLabel=d.isToday&&!d.isSaleDay?'Today':d.isSaleDay?`${d.day} — SALE`:d.day;
     return`<div style="flex:1;text-align:center;padding:10px 4px;${highlight}">
@@ -6273,11 +6273,11 @@ function renderTourStep(){
     ov.style.pointerEvents='auto';
     ov.innerHTML=`
     <div style="position:absolute;inset:0;background:rgba(37,37,53,0.75);display:flex;align-items:center;justify-content:center;padding:24px">
-      <div style="background:#F6F3EC;border-radius:var(--radius-xl);max-width:480px;width:100%;padding:36px 32px;text-align:center">
-        <p style="font-family:var(--font-body);font-size:16px;color:#262624;line-height:1.6;margin-bottom:26px">I built this so nothing gets missed. Let me show you where everything lives.</p>
+      <div style="background:#F6F1E6;border-radius:var(--radius-xl);max-width:480px;width:100%;padding:36px 32px;text-align:center">
+        <p style="font-family:var(--font-body);font-size:16px;color:#2B1F18;line-height:1.6;margin-bottom:26px">I built this so nothing gets missed. Let me show you where everything lives.</p>
         <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap">
-          <button onclick="startSpotlightTour()" style="font-family:var(--font-body);font-weight:600;font-size:14px;background:#262624;color:#F6F3EC;border:none;padding:13px 26px;cursor:pointer">Show me around</button>
-          <button onclick="jumpIn()" style="font-family:var(--font-body);font-weight:600;font-size:14px;background:transparent;color:#262624;border:1.5px solid #262624;padding:13px 26px;cursor:pointer">Jump in</button>
+          <button onclick="startSpotlightTour()" style="font-family:var(--font-body);font-weight:600;font-size:14px;background:#2B1F18;color:#F6F1E6;border:none;padding:13px 26px;cursor:pointer">Show me around</button>
+          <button onclick="jumpIn()" style="font-family:var(--font-body);font-weight:600;font-size:14px;background:transparent;color:#2B1F18;border:1.5px solid #2B1F18;padding:13px 26px;cursor:pointer">Jump in</button>
         </div>
       </div>
     </div>`;
@@ -6305,11 +6305,11 @@ function renderTourStep(){
     if(left<16)left=16;
 
     ov.innerHTML=`
-    <div style="position:absolute;top:${top}px;left:${left}px;width:${cardW}px;max-width:calc(100vw - 32px);background:#F6F3EC;border:1px solid var(--color-border);border-radius:var(--radius-lg);padding:18px 20px;pointer-events:auto">
+    <div style="position:absolute;top:${top}px;left:${left}px;width:${cardW}px;max-width:calc(100vw - 32px);background:#F6F1E6;border:1px solid var(--color-border);border-radius:var(--radius-lg);padding:18px 20px;pointer-events:auto">
       <div style="font-family:var(--font-body);font-size:12px;color:#6B655C;margin-bottom:8px">Step ${_tourStep+1} of 5</div>
-      <div style="font-family:var(--font-body);font-size:14px;color:#262624;line-height:1.55;margin-bottom:16px">${esc(step.body)}</div>
+      <div style="font-family:var(--font-body);font-size:14px;color:#2B1F18;line-height:1.55;margin-bottom:16px">${esc(step.body)}</div>
       <div style="display:flex;align-items:center;gap:16px">
-        <button onclick="nextTourStep()" style="font-family:var(--font-body);font-weight:600;font-size:14px;background:#262624;color:#F6F3EC;border:none;padding:9px 20px;cursor:pointer">${isLast?'Got it':'Next'}</button>
+        <button onclick="nextTourStep()" style="font-family:var(--font-body);font-weight:600;font-size:14px;background:#2B1F18;color:#F6F1E6;border:none;padding:9px 20px;cursor:pointer">${isLast?'Got it':'Next'}</button>
         <button onclick="skipTour()" style="font-family:var(--font-body);font-size:13px;color:#6B655C;background:none;border:none;cursor:pointer;padding:0">Skip tour</button>
       </div>
     </div>`;
@@ -6321,9 +6321,9 @@ function renderTourStep(){
   ov.style.pointerEvents='auto';
   ov.innerHTML=`
   <div style="position:absolute;inset:0;background:rgba(37,37,53,0.75);display:flex;align-items:center;justify-content:center;padding:24px">
-    <div style="background:#F6F3EC;max-width:480px;width:100%;padding:36px 32px;text-align:center">
-      <p style="font-family:var(--font-body);font-size:16px;color:#262624;line-height:1.6;margin-bottom:26px">That's it. Everything saves automatically as you go.</p>
-      <button onclick="finishTour()" style="font-family:var(--font-body);font-weight:600;font-size:14px;background:#262624;color:#F6F3EC;border:none;padding:13px 26px;cursor:pointer">Got it</button>
+    <div style="background:#F6F1E6;max-width:480px;width:100%;padding:36px 32px;text-align:center">
+      <p style="font-family:var(--font-body);font-size:16px;color:#2B1F18;line-height:1.6;margin-bottom:26px">That's it. Everything saves automatically as you go.</p>
+      <button onclick="finishTour()" style="font-family:var(--font-body);font-weight:600;font-size:14px;background:#2B1F18;color:#F6F1E6;border:none;padding:13px 26px;cursor:pointer">Got it</button>
     </div>
   </div>`;
 }
