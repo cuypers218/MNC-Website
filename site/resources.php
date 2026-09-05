@@ -42,17 +42,17 @@ require_once __DIR__ . '/includes/header.php';
             
             <div style="margin-bottom: 1.25rem;">
                 <p style="font-weight: bold; margin-bottom: 0.25rem;">988 Suicide & Crisis Lifeline</p>
-                <p style="color: var(--warm-gray); font-size: 0.95rem; margin: 0;">Call or text <a href="tel:988">988</a>. Available 24/7.</p>
+                <p style="color: var(--warm-gray); font-size: 0.95rem; margin: 0;">Call or text <a href="tel:988" style="color: var(--deep-current); text-decoration: underline; font-weight: 700;">988</a>. Available 24/7.</p>
             </div>
 
             <div style="margin-bottom: 1.25rem;">
                 <p style="font-weight: bold; margin-bottom: 0.25rem;">Crisis Text Line</p>
-                <p style="color: var(--warm-gray); font-size: 0.95rem; margin: 0;">Text <a href="sms:741741?body=HOME">HOME to 741741</a>. Free, confidential, available 24/7.</p>
+                <p style="color: var(--warm-gray); font-size: 0.95rem; margin: 0;">Text <a href="sms:741741?body=HOME" style="color: var(--deep-current); text-decoration: underline; font-weight: 700;">HOME to 741741</a>. Free, confidential, available 24/7.</p>
             </div>
 
             <div style="margin-bottom: 1.25rem;">
                 <p style="font-weight: bold; margin-bottom: 0.25rem;">SAMHSA National Helpline</p>
-                <p style="color: var(--warm-gray); font-size: 0.95rem; margin: 0;"><a href="tel:+18006624357">1-800-662-4357</a>. Free referrals and information, 24/7.</p>
+                <p style="color: var(--warm-gray); font-size: 0.95rem; margin: 0;"><a href="tel:+18006624357" style="color: var(--deep-current); text-decoration: underline; font-weight: 700;">1-800-662-4357</a>. Free referrals and information, 24/7.</p>
             </div>
         </div>
         

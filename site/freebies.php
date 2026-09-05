@@ -30,9 +30,9 @@ $PDF_URL  = 'https://drive.google.com/uc?export=download&id=1dVTgwgBjwsg0jz9HCcG
           <div class="cs-fields">
             <input type="text"  id="cs-name"  placeholder="First name"    autocomplete="given-name" aria-label="First name">
             <input type="email" id="cs-email" placeholder="Email address" autocomplete="email"      aria-label="Email address">
-            <button class="btn btn-primary" id="cs-btn" onclick="submitCSForm()">Send it to me</button>
+            <button class="btn btn-secondary" id="cs-btn" onclick="submitCSForm()">Send it to me</button>
           </div>
-          <p id="cs-error" style="display:none;color:#C45C88;font-size:0.85rem;margin-top:0.75rem;">Something went wrong — please try again.</p>
+          <p id="cs-error" style="display:none;color:var(--dark-orange);font-size:0.85rem;margin-top:0.75rem;">Something went wrong — please try again.</p>
         </div>
         <div id="cs-success" style="display:none;">
           <p style="font-family:'Montserrat',sans-serif;font-weight:700;font-size:0.85rem;color:#FAF7ED;margin-bottom:1rem;">Check your inbox — it's on its way.</p>

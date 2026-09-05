@@ -75,11 +75,11 @@ if (!isLoggedIn()) {
 
     <!-- Email Capture -->
     <div class="email-capture" style="margin-top: 3rem;">
-        <h3>I Write About This Every Week</h3>
+        <h3>I Write About This Every Month</h3>
         <p>If this one landed, there's more where it came from. Real updates, not advice.</p>
         <form class="email-capture-form" onsubmit="event.preventDefault(); submitEmailCapture(this, 'blog-<?= esc($post['slug']) ?>');">
             <input type="email" placeholder="Your email" required aria-label="Email address">
-            <button type="submit" class="btn btn-primary">Send It</button>
+            <button type="submit" class="btn btn-secondary">Send It</button>
         </form>
     </div>
     

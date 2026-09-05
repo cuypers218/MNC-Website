@@ -246,6 +246,13 @@ a:hover .cta-arrow, button:hover .cta-arrow { transform: translateX(4px); }
 .btn-primary { background-color: var(--deep-current); color: #FFFFFF; }
 .btn-primary:hover { background-color: var(--deep-current-hover); color: #FFFFFF; }
 
+/* Documented in DESIGN.md §6.1 but never actually implemented sitewide -- added here
+   to close that gap and fix a real inconsistency (2026-09 critique): the "join my
+   email list" action rendered as copper on the homepage and teal on Blog/Freebies
+   for the identical action. Matches .an-btn-secondary's existing homepage values. */
+.btn-secondary { background-color: var(--burnished-copper); color: #FFFFFF; }
+.btn-secondary:hover { background-color: var(--golden-drift); color: var(--deep-coffee); }
+
 @keyframes heroPulse {
     0%   { opacity: 1; }
     50%  { opacity: 0.82; }
@@ -796,8 +803,14 @@ a:hover .cta-arrow, button:hover .cta-arrow { transform: translateX(4px); }
     .email-capture-form input[type="email"] { border-right: 1px solid #ABABAB; }
     .email-capture-form button { width: 100%; }
 
-    /* Filter tabs scroll */
-    .filter-nav { justify-content: flex-start; overflow-x: auto; flex-wrap: nowrap; gap: 0.5rem; padding: 1.5rem 0; }
+    /* Filter tabs scroll -- the row itself scrolls fine, but with no visual cue the
+       last visible tab reads as the final one instead of a cutoff (2026-09 critique
+       finding). A right-edge fade hints there's more without adding markup. */
+    .filter-nav {
+        justify-content: flex-start; overflow-x: auto; flex-wrap: nowrap; gap: 0.5rem; padding: 1.5rem 0;
+        mask-image: linear-gradient(to right, #000 calc(100% - 28px), transparent 100%);
+        -webkit-mask-image: linear-gradient(to right, #000 calc(100% - 28px), transparent 100%);
+    }
     .filter-tab { white-space: nowrap; flex-shrink: 0; }
 }
 

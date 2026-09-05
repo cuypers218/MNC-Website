@@ -74,7 +74,7 @@ $categories = $db->query('SELECT DISTINCT category FROM blog_posts WHERE status 
             <p>I write about this every month. Real updates, not advice.</p>
             <form class="email-capture-form" onsubmit="event.preventDefault(); submitEmailCapture(this, 'blog');">
                 <input type="email" placeholder="Your email" required aria-label="Email address">
-                <button type="submit" class="btn btn-primary">Send It</button>
+                <button type="submit" class="btn btn-secondary">Send It</button>
             </form>
         </div>
     </div>
