@@ -52,34 +52,34 @@ foreach ($previewRows as $row) {
 <body style="margin:0;padding:0;background:#FAFAFA;font-family:Arial,sans-serif;">
   <table width="100%" cellpadding="0" cellspacing="0" style="background:#FAFAFA;padding:40px 0;">
     <tr><td align="center">
-      <table width="580" cellpadding="0" cellspacing="0" style="background:#FFFFFF;max-width:580px;width:100%;border:1px solid #E8E4F0;">
+      <table width="580" cellpadding="0" cellspacing="0" style="background:#FFFFFF;max-width:580px;width:100%;border:1px solid #D9C7AC;">
 
-        <tr><td style="background:#252535;padding:24px 40px;">
-          <p style="margin:0;font-family:Arial,sans-serif;font-weight:800;font-size:11px;letter-spacing:3px;text-transform:uppercase;color:#8BA7D4;">MY NEST CHAPTER</p>
+        <tr><td style="background:#0A2F3A;padding:24px 40px;">
+          <p style="margin:0;font-family:Arial,sans-serif;font-weight:800;font-size:11px;letter-spacing:3px;text-transform:uppercase;color:#F6F1E6;">MY NEST CHAPTER</p>
         </td></tr>
 
         <tr><td style="padding:40px 40px 28px;">
-          <p style="font-family:Arial,sans-serif;font-size:22px;font-weight:700;color:#252535;margin:0 0 6px;">Something unlocks for you tomorrow.</p>
-          <p style="font-family:Arial,sans-serif;font-size:14px;color:#8BA7D4;margin:0 0 24px;">For you, ' . $firstName . '</p>
-          <p style="font-family:Arial,sans-serif;font-size:15px;color:#252535;line-height:1.7;margin:0 0 8px;font-weight:700;">' . $title . '</p>
-          <p style="font-family:Arial,sans-serif;font-size:14px;color:#252535;line-height:1.7;margin:0 0 28px;">It\'ll be waiting on your dashboard tomorrow morning.</p>
+          <p style="font-family:Arial,sans-serif;font-size:22px;font-weight:700;color:#2B1F18;margin:0 0 6px;">Something unlocks for you tomorrow.</p>
+          <p style="font-family:Arial,sans-serif;font-size:14px;color:#6B655C;margin:0 0 24px;">For you, ' . $firstName . '</p>
+          <p style="font-family:Arial,sans-serif;font-size:15px;color:#2B1F18;line-height:1.7;margin:0 0 8px;font-weight:700;">' . $title . '</p>
+          <p style="font-family:Arial,sans-serif;font-size:14px;color:#2B1F18;line-height:1.7;margin:0 0 28px;">It\'ll be waiting on your dashboard tomorrow morning.</p>
         </td></tr>
 
         <tr><td style="padding:0 40px 28px;">
           <a href="' . $dashLink . '"
-             style="display:inline-block;background:#C44570;color:#fff;font-family:Arial,sans-serif;font-weight:700;font-size:13px;text-transform:uppercase;letter-spacing:1px;padding:14px 28px;text-decoration:none;">
+             style="display:inline-block;background:#A35E33;color:#fff;font-family:Arial,sans-serif;font-weight:700;font-size:13px;text-transform:uppercase;letter-spacing:1px;padding:14px 28px;text-decoration:none;">
             Go to my dashboard
           </a>
         </td></tr>
 
         <tr><td style="padding:0 40px 40px;">
-          <p style="font-family:Arial,sans-serif;font-size:14px;color:#8BA7D4;margin:0;">— Cece</p>
+          <p style="font-family:Arial,sans-serif;font-size:14px;color:#6B655C;margin:0;">— Cece</p>
         </td></tr>
 
-        <tr><td style="padding:20px 40px;border-top:1px solid #F0ECF8;">
-          <p style="margin:0;font-family:Arial,sans-serif;font-size:12px;color:#ABABAB;line-height:1.6;">
+        <tr><td style="padding:20px 40px;border-top:1px solid #D9C7AC;">
+          <p style="margin:0;font-family:Arial,sans-serif;font-size:12px;color:#6B655C;line-height:1.6;">
             You\'re receiving this because you\'re a My Nest Chapter member.
-            <a href="https://mynestchapter.com" style="color:#ABABAB;">mynestchapter.com</a>
+            <a href="https://mynestchapter.com" style="color:#6B655C;">mynestchapter.com</a>
           </p>
         </td></tr>
 
@@ -141,34 +141,34 @@ foreach ($unlockRows as $row) {
 <body style="margin:0;padding:0;background:#FAFAFA;font-family:Arial,sans-serif;">
   <table width="100%" cellpadding="0" cellspacing="0" style="background:#FAFAFA;padding:40px 0;">
     <tr><td align="center">
-      <table width="580" cellpadding="0" cellspacing="0" style="background:#FFFFFF;max-width:580px;width:100%;border:1px solid #E8E4F0;">
+      <table width="580" cellpadding="0" cellspacing="0" style="background:#FFFFFF;max-width:580px;width:100%;border:1px solid #D9C7AC;">
 
-        <tr><td style="background:#252535;padding:24px 40px;">
-          <p style="margin:0;font-family:Arial,sans-serif;font-weight:800;font-size:11px;letter-spacing:3px;text-transform:uppercase;color:#8BA7D4;">MY NEST CHAPTER</p>
+        <tr><td style="background:#0A2F3A;padding:24px 40px;">
+          <p style="margin:0;font-family:Arial,sans-serif;font-weight:800;font-size:11px;letter-spacing:3px;text-transform:uppercase;color:#F6F1E6;">MY NEST CHAPTER</p>
         </td></tr>
 
         <tr><td style="padding:40px 40px 28px;">
-          <p style="font-family:Arial,sans-serif;font-size:22px;font-weight:700;color:#252535;margin:0 0 6px;">Something new just unlocked.</p>
-          <p style="font-family:Arial,sans-serif;font-size:14px;color:#8BA7D4;margin:0 0 24px;">For you, ' . $firstName . '</p>
-          <p style="font-family:Arial,sans-serif;font-size:15px;color:#252535;line-height:1.7;margin:0 0 8px;font-weight:700;">' . $title . '</p>
-          <p style="font-family:Arial,sans-serif;font-size:14px;color:#252535;line-height:1.7;margin:0 0 28px;">' . $desc . '</p>
+          <p style="font-family:Arial,sans-serif;font-size:22px;font-weight:700;color:#2B1F18;margin:0 0 6px;">Something new just unlocked.</p>
+          <p style="font-family:Arial,sans-serif;font-size:14px;color:#6B655C;margin:0 0 24px;">For you, ' . $firstName . '</p>
+          <p style="font-family:Arial,sans-serif;font-size:15px;color:#2B1F18;line-height:1.7;margin:0 0 8px;font-weight:700;">' . $title . '</p>
+          <p style="font-family:Arial,sans-serif;font-size:14px;color:#2B1F18;line-height:1.7;margin:0 0 28px;">' . $desc . '</p>
         </td></tr>
 
         <tr><td style="padding:0 40px 28px;">
           <a href="' . $dashLink . '"
-             style="display:inline-block;background:#C44570;color:#fff;font-family:Arial,sans-serif;font-weight:700;font-size:13px;text-transform:uppercase;letter-spacing:1px;padding:14px 28px;text-decoration:none;">
+             style="display:inline-block;background:#A35E33;color:#fff;font-family:Arial,sans-serif;font-weight:700;font-size:13px;text-transform:uppercase;letter-spacing:1px;padding:14px 28px;text-decoration:none;">
             Go to my dashboard
           </a>
         </td></tr>
 
         <tr><td style="padding:0 40px 40px;">
-          <p style="font-family:Arial,sans-serif;font-size:14px;color:#8BA7D4;margin:0;">— Cece</p>
+          <p style="font-family:Arial,sans-serif;font-size:14px;color:#6B655C;margin:0;">— Cece</p>
         </td></tr>
 
-        <tr><td style="padding:20px 40px;border-top:1px solid #F0ECF8;">
-          <p style="margin:0;font-family:Arial,sans-serif;font-size:12px;color:#ABABAB;line-height:1.6;">
+        <tr><td style="padding:20px 40px;border-top:1px solid #D9C7AC;">
+          <p style="margin:0;font-family:Arial,sans-serif;font-size:12px;color:#6B655C;line-height:1.6;">
             You\'re receiving this because you\'re a My Nest Chapter member.
-            <a href="https://mynestchapter.com" style="color:#ABABAB;">mynestchapter.com</a>
+            <a href="https://mynestchapter.com" style="color:#6B655C;">mynestchapter.com</a>
           </p>
         </td></tr>
 

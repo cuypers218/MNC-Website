@@ -1,5 +1,5 @@
 <?php
-$pageTitle = 'About';
+$pageTitle = 'Solo Mom Empty Nest Support';
 $pageDescription = 'I\'m Cece. I raised my kids alone. When they left, I built what I wished had existed.';
 require_once __DIR__ . '/includes/header.php';
 ?>

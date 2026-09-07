@@ -25,7 +25,7 @@ if (!in_array($result, ['nester', 'busyer', 'wonderer'])) {
     exit;
 }
 
-$apiToken = '6MIeMuGCJNf9Fp6NpRLB2xCAW5mmy2gIXQyKxdmS1e9982ba';
+$apiToken = REACH_API_KEY;
 $baseUrl  = 'https://developers.hostinger.com/api/reach/v1';
 
 $segments = [
@@ -88,19 +88,19 @@ $emails = [
 <p>I made something for exactly where you are. One page, yours to keep.</p>
 <p style="text-align:center;margin:28px 0;">
   <a href="https://mynestchapter.com/downloads/freebie_the_nester.pdf"
-     style="background:#C44570;color:#ffffff;font-family:\'Montserrat\',Arial,sans-serif;font-weight:800;font-size:14px;text-transform:uppercase;letter-spacing:1px;text-decoration:none;padding:14px 28px;display:inline-block;">
+     style="background:#A35E33;color:#ffffff;font-family:\'DM Sans\',Arial,sans-serif;font-weight:800;font-size:14px;text-transform:uppercase;letter-spacing:1px;text-decoration:none;padding:14px 28px;display:inline-block;">
     Get Your Free Guide &rarr;
   </a>
 </p>
 <p>When you\'re ready for more &mdash; the workbook is where I actually started figuring things out. Every page written for a mom who did this alone.</p>
 <p style="text-align:center;margin:28px 0;">
   <a href="https://mynestchapter.com/shop/now-what-workbook"
-     style="background:#252535;color:#ffffff;font-family:\'Montserrat\',Arial,sans-serif;font-weight:800;font-size:14px;text-transform:uppercase;letter-spacing:1px;text-decoration:none;padding:14px 28px;display:inline-block;">
+     style="background:#0A2F3A;color:#ffffff;font-family:\'DM Sans\',Arial,sans-serif;font-weight:800;font-size:14px;text-transform:uppercase;letter-spacing:1px;text-decoration:none;padding:14px 28px;display:inline-block;">
     Get the Workbook &rarr;
   </a>
 </p>
 <p>&mdash; Cece</p>
-<p style="color:#ABABAB;font-size:13px;font-style:italic;">P.S. Put the juice boxes back. Nobody\'s coming for them.</p>
+<p style="color:#6B655C;font-size:13px;font-style:italic;">P.S. Put the juice boxes back. Nobody\'s coming for them.</p>
 ',
     ],
     'busyer' => [
@@ -110,19 +110,19 @@ $emails = [
 <p>I made something for the five minutes between things. One page, yours to keep.</p>
 <p style="text-align:center;margin:28px 0;">
   <a href="https://mynestchapter.com/downloads/freebie_the_busyer.pdf"
-     style="background:#C44570;color:#ffffff;font-family:\'Montserrat\',Arial,sans-serif;font-weight:800;font-size:14px;text-transform:uppercase;letter-spacing:1px;text-decoration:none;padding:14px 28px;display:inline-block;">
+     style="background:#A35E33;color:#ffffff;font-family:\'DM Sans\',Arial,sans-serif;font-weight:800;font-size:14px;text-transform:uppercase;letter-spacing:1px;text-decoration:none;padding:14px 28px;display:inline-block;">
     Get Your Free Guide &rarr;
   </a>
 </p>
 <p>When you\'re ready to look at what\'s underneath all the busy &mdash; the workbook is where I started. Written for a mom who did this alone.</p>
 <p style="text-align:center;margin:28px 0;">
   <a href="https://mynestchapter.com/shop/now-what-workbook"
-     style="background:#252535;color:#ffffff;font-family:\'Montserrat\',Arial,sans-serif;font-weight:800;font-size:14px;text-transform:uppercase;letter-spacing:1px;text-decoration:none;padding:14px 28px;display:inline-block;">
+     style="background:#0A2F3A;color:#ffffff;font-family:\'DM Sans\',Arial,sans-serif;font-weight:800;font-size:14px;text-transform:uppercase;letter-spacing:1px;text-decoration:none;padding:14px 28px;display:inline-block;">
     Get the Workbook &rarr;
   </a>
 </p>
 <p>&mdash; Cece</p>
-<p style="color:#ABABAB;font-size:13px;font-style:italic;">P.S. The quiet will wait. It\'s very patient.</p>
+<p style="color:#6B655C;font-size:13px;font-style:italic;">P.S. The quiet will wait. It\'s very patient.</p>
 ',
     ],
     'wonderer' => [
@@ -132,19 +132,19 @@ $emails = [
 <p>I made something for right where you are. One page, yours to keep.</p>
 <p style="text-align:center;margin:28px 0;">
   <a href="https://mynestchapter.com/downloads/freebie_the_wonderer.pdf"
-     style="background:#C44570;color:#ffffff;font-family:\'Montserrat\',Arial,sans-serif;font-weight:800;font-size:14px;text-transform:uppercase;letter-spacing:1px;text-decoration:none;padding:14px 28px;display:inline-block;">
+     style="background:#A35E33;color:#ffffff;font-family:\'DM Sans\',Arial,sans-serif;font-weight:800;font-size:14px;text-transform:uppercase;letter-spacing:1px;text-decoration:none;padding:14px 28px;display:inline-block;">
     Get Your Free Guide &rarr;
   </a>
 </p>
 <p>If you want to go further &mdash; the workbook is where I figured out what actually came next. Every page written for a mom who did this alone.</p>
 <p style="text-align:center;margin:28px 0;">
   <a href="https://mynestchapter.com/shop/now-what-workbook"
-     style="background:#252535;color:#ffffff;font-family:\'Montserrat\',Arial,sans-serif;font-weight:800;font-size:14px;text-transform:uppercase;letter-spacing:1px;text-decoration:none;padding:14px 28px;display:inline-block;">
+     style="background:#0A2F3A;color:#ffffff;font-family:\'DM Sans\',Arial,sans-serif;font-weight:800;font-size:14px;text-transform:uppercase;letter-spacing:1px;text-decoration:none;padding:14px 28px;display:inline-block;">
     Get the Workbook &rarr;
   </a>
 </p>
 <p>&mdash; Cece</p>
-<p style="color:#ABABAB;font-size:13px;font-style:italic;">P.S. Go to the thrift shop.</p>
+<p style="color:#6B655C;font-size:13px;font-style:italic;">P.S. Go to the thrift shop.</p>
 ',
     ],
 ];
@@ -160,19 +160,19 @@ $html = '<!DOCTYPE html>
     <tr><td align="center">
       <table width="580" cellpadding="0" cellspacing="0" style="background:#ffffff;max-width:580px;width:100%;">
         <tr>
-          <td style="background:#C44570;padding:20px 40px;">
-            <p style="margin:0;font-family:\'Montserrat\',Arial,sans-serif;font-weight:800;font-size:11px;letter-spacing:3px;text-transform:uppercase;color:#ffffff;">MY NEST CHAPTER</p>
+          <td style="background:#0A2F3A;padding:20px 40px;">
+            <p style="margin:0;font-family:\'DM Sans\',Arial,sans-serif;font-weight:800;font-size:11px;letter-spacing:3px;text-transform:uppercase;color:#ffffff;">MY NEST CHAPTER</p>
           </td>
         </tr>
         <tr>
-          <td style="padding:40px;color:#252535;font-size:16px;line-height:1.7;">
+          <td style="padding:40px;color:#2B1F18;font-size:16px;line-height:1.7;">
             ' . $emailData['body'] . '
           </td>
         </tr>
         <tr>
-          <td style="padding:20px 40px;border-top:1px solid #F9ECF0;">
-            <p style="margin:0;font-family:Arial,sans-serif;font-size:12px;color:#ABABAB;line-height:1.6;">
-              You\'re receiving this because you took the What Kind of Empty Nester Are You? quiz at <a href="https://mynestchapter.com" style="color:#C44570;">mynestchapter.com</a>
+          <td style="padding:20px 40px;border-top:1px solid #D9C7AC;">
+            <p style="margin:0;font-family:Arial,sans-serif;font-size:12px;color:#6B655C;line-height:1.6;">
+              You\'re receiving this because you took the What Kind of Empty Nester Are You? quiz at <a href="https://mynestchapter.com" style="color:#A35E33;">mynestchapter.com</a>
             </p>
           </td>
         </tr>

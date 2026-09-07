@@ -1,6 +1,6 @@
 <?php
 // Hostinger Reach API — read-only stats for the admin panel
-$apiToken   = '6MIeMuGCJNf9Fp6NpRLB2xCAW5mmy2gIXQyKxdmS1e9982ba';
+$apiToken   = REACH_API_KEY;
 $baseUrl    = 'https://developers.hostinger.com/api/reach/v1';
 
 function reachGet($url, $token) {

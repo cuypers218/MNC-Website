@@ -73,7 +73,7 @@ if ($event['type'] === 'checkout.session.completed') {
         // Tag buyer in Reach for goal-habit-tracker purchases
         if ($customerEmail && $productSlug === 'goal-habit-tracker') {
             try {
-                $reachToken   = '6MIeMuGCJNf9Fp6NpRLB2xCAW5mmy2gIXQyKxdmS1e9982ba';
+                $reachToken   = REACH_API_KEY;
                 $reachBase    = 'https://developers.hostinger.com/api/reach/v1';
                 $reachSegment = '1fda3952-0309-46c3-ad2e-0d197a24b574';
 
@@ -170,11 +170,11 @@ if ($event['type'] === 'checkout.session.completed') {
                         <table cellpadding="0" cellspacing="0" border="0" width="100%">
                           <tr>
                             <td width="36" valign="top" style="padding-right:14px;">
-                              <div style="width:28px;height:28px;background:#C44570;color:#252535;font-family:Arial,sans-serif;font-size:13px;font-weight:700;text-align:center;line-height:28px;">' . $num . '</div>
+                              <div style="width:28px;height:28px;background:#A35E33;color:#ffffff;font-family:Arial,sans-serif;font-size:13px;font-weight:700;text-align:center;line-height:28px;border-radius:9999px;">' . $num . '</div>
                             </td>
                             <td valign="top">
-                              <p style="margin:0 0 4px;font-family:Arial,sans-serif;font-size:15px;font-weight:700;color:#252535;">' . htmlspecialchars($step['title']) . '</p>
-                              <p style="margin:0;font-family:Arial,sans-serif;font-size:14px;color:#5A5A72;line-height:1.6;">' . htmlspecialchars($step['text']) . '</p>
+                              <p style="margin:0 0 4px;font-family:Arial,sans-serif;font-size:15px;font-weight:700;color:#2B1F18;">' . htmlspecialchars($step['title']) . '</p>
+                              <p style="margin:0;font-family:Arial,sans-serif;font-size:14px;color:#6B655C;line-height:1.6;">' . htmlspecialchars($step['text']) . '</p>
                             </td>
                           </tr>
                         </table>
@@ -188,21 +188,21 @@ if ($event['type'] === 'checkout.session.completed') {
 <body style="margin:0;padding:0;background:#FAFAFA;font-family:Arial,sans-serif;">
 <table cellpadding="0" cellspacing="0" border="0" width="100%" style="background:#FAFAFA;padding:40px 20px;">
   <tr><td align="center">
-    <table cellpadding="0" cellspacing="0" border="0" width="560" style="max-width:560px;width:100%;background:#ffffff;border:1px solid #D3D3D3;">
+    <table cellpadding="0" cellspacing="0" border="0" width="560" style="max-width:560px;width:100%;background:#ffffff;border:1px solid #D9C7AC;">
 
       <!-- Header -->
       <tr>
-        <td style="background:#252535;padding:28px 40px 24px;text-align:left;">
-          <p style="margin:0 0 2px;font-family:Arial,sans-serif;font-size:9px;font-weight:700;letter-spacing:4px;text-transform:uppercase;color:#8BA7D4;">MY NEST CHAPTER</p>
-          <p style="margin:0;font-family:Arial,sans-serif;font-size:22px;font-weight:700;color:#C44570;letter-spacing:1px;">You\'re in.</p>
+        <td style="background:#0A2F3A;padding:28px 40px 24px;text-align:left;">
+          <p style="margin:0 0 2px;font-family:Arial,sans-serif;font-size:9px;font-weight:700;letter-spacing:4px;text-transform:uppercase;color:#F6F1E6;">MY NEST CHAPTER</p>
+          <p style="margin:0;font-family:Arial,sans-serif;font-size:22px;font-weight:700;color:#F6F1E6;letter-spacing:1px;">You\'re in.</p>
         </td>
       </tr>
 
       <!-- Body -->
       <tr>
         <td style="padding:36px 40px 0;">
-          <p style="margin:0 0 8px;font-family:Arial,sans-serif;font-size:18px;font-weight:700;color:#252535;">Hey ' . htmlspecialchars($firstName) . ',</p>
-          <p style="margin:0 0 28px;font-family:Arial,sans-serif;font-size:15px;color:#5A5A72;line-height:1.7;">Your <strong style="color:#252535;">' . htmlspecialchars($productName) . '</strong> is ready and waiting. Here\'s how to get started:</p>
+          <p style="margin:0 0 8px;font-family:Arial,sans-serif;font-size:18px;font-weight:700;color:#2B1F18;">Hey ' . htmlspecialchars($firstName) . ',</p>
+          <p style="margin:0 0 28px;font-family:Arial,sans-serif;font-size:15px;color:#6B655C;line-height:1.7;">Your <strong style="color:#2B1F18;">' . htmlspecialchars($productName) . '</strong> is ready and waiting. Here\'s how to get started:</p>
 
           <table cellpadding="0" cellspacing="0" border="0" width="100%">
             ' . $stepsHtml . '
@@ -211,20 +211,20 @@ if ($event['type'] === 'checkout.session.completed') {
           <!-- CTA -->
           <table cellpadding="0" cellspacing="0" border="0" style="margin:8px 0 32px;">
             <tr>
-              <td style="background:#C44570;padding:0;">
-                <a href="' . $directUrl . '" style="display:inline-block;padding:14px 32px;font-family:Arial,sans-serif;font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#252535;text-decoration:none;">' . $ctaLabel . '</a>
+              <td style="background:#A35E33;padding:0;border-radius:6px;">
+                <a href="' . $directUrl . '" style="display:inline-block;padding:14px 32px;font-family:Arial,sans-serif;font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#FFFFFF;text-decoration:none;">' . $ctaLabel . '</a>
               </td>
             </tr>
           </table>
 
-          <p style="margin:0 0 36px;font-family:Arial,sans-serif;font-size:13px;color:#5A5A72;line-height:1.7;">If the button doesn\'t work, copy this link into your browser:<br><a href="' . $directUrl . '" style="color:#C44570;">' . $directUrl . '</a></p>
+          <p style="margin:0 0 36px;font-family:Arial,sans-serif;font-size:13px;color:#6B655C;line-height:1.7;">If the button doesn\'t work, copy this link into your browser:<br><a href="' . $directUrl . '" style="color:#A35E33;">' . $directUrl . '</a></p>
         </td>
       </tr>
 
       <!-- Footer -->
       <tr>
-        <td style="padding:20px 40px 28px;border-top:1px solid #D3D3D3;">
-          <p style="margin:0;font-family:Arial,sans-serif;font-size:12px;color:#ABABAB;">My Nest Chapter &nbsp;&middot;&nbsp; mynestchapter.com<br>You\'re receiving this because you made a purchase.</p>
+        <td style="padding:20px 40px 28px;border-top:1px solid #D9C7AC;">
+          <p style="margin:0;font-family:Arial,sans-serif;font-size:12px;color:#6B655C;">My Nest Chapter &nbsp;&middot;&nbsp; mynestchapter.com<br>You\'re receiving this because you made a purchase.</p>
         </td>
       </tr>
 

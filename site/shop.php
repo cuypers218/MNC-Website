@@ -1,6 +1,6 @@
 <?php
-$pageTitle = 'Shop';
-$pageDescription = 'Tools and resources built from lived experience, for single and solo moms navigating the empty nest.';
+$pageTitle = 'Empty Nest Tools for Single Moms';
+$pageDescription = 'Workbooks, planners, and interactive tools built from lived experience — for solo and single moms navigating the empty nest. $7.99-$27, instant download.';
 require_once __DIR__ . '/includes/header.php';
 
 $allProducts = getProducts();
@@ -10,7 +10,7 @@ $allProducts = getProducts();
     <div class="container">
 
         <h1 class="text-center fade-in" style="margin-bottom: 0.25rem;">Shop</h1>
-        <p class="text-center fade-in-delay-1" style="color: #8BA7D4; font-size: 0.95rem; margin-bottom: 0;">Tools built from lived experience.</p>
+        <p class="text-center fade-in-delay-1" style="color: var(--warm-gray); font-size: 0.95rem; margin-bottom: 0;">Tools built from lived experience.</p>
 
         <!-- Filter Tabs -->
         <nav class="filter-nav">
@@ -27,8 +27,8 @@ $allProducts = getProducts();
             $paidProducts = array_filter($allProducts, fn($p) => $p['price'] > 0);
             if (empty($paidProducts)): ?>
                 <div style="grid-column: 1 / -1; text-align: center; padding: 3rem;">
-                    <p style="font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; color: #D3D3D3; margin-bottom: 0.5rem;">MY NEST CHAPTER</p>
-                    <p style="color: #8BA7D4; font-size: 0.9rem;">Products are on the way. Check back soon.</p>
+                    <p style="font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--taupe); margin-bottom: 0.5rem;">MY NEST CHAPTER</p>
+                    <p style="color: var(--warm-gray); font-size: 0.9rem;">Products are on the way. Check back soon.</p>
                 </div>
             <?php else: ?>
                 <?php foreach ($paidProducts as $product):
@@ -44,7 +44,7 @@ $allProducts = getProducts();
                     <?php if ($product['image_path']): ?>
                         <img src="<?= esc($product['image_path']) ?>" alt="<?= esc($product['title']) ?> cover" class="product-card-image">
                     <?php else: ?>
-                        <div class="product-card-image" style="background: linear-gradient(135deg, #F3D8E1 0%, #DA8BA5 100%);"></div>
+                        <div class="product-card-image" style="background: var(--warm-beige-card);"></div>
                     <?php endif; ?>
 
                     <div class="product-card-content">
@@ -64,9 +64,9 @@ $allProducts = getProducts();
         </div>
 
         <!-- Freebies nudge -->
-        <div style="text-align:center;margin-top:3rem;padding-top:2rem;border-top:1px solid #D3D3D3;">
-            <p style="font-family:'Montserrat',sans-serif;font-weight:800;font-size:0.75rem;text-transform:uppercase;letter-spacing:0.1em;color:#ABABAB;margin-bottom:0.5rem;">Looking for the free stuff?</p>
-            <a href="/freebies" style="font-family:'Montserrat',sans-serif;font-weight:800;font-size:0.8rem;text-transform:uppercase;letter-spacing:0.05em;color:#C44570;">Browse the Freebies Page &rarr;</a>
+        <div style="text-align:center;margin-top:3rem;padding-top:2rem;border-top:1px solid var(--warm-sand);">
+            <p style="font-family:'Montserrat',sans-serif;font-weight:800;font-size:0.75rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--taupe);margin-bottom:0.5rem;">Looking for the free stuff?</p>
+            <a href="/freebies" style="font-family:'Montserrat',sans-serif;font-weight:800;font-size:0.8rem;text-transform:uppercase;letter-spacing:0.05em;color:var(--burnished-copper);">Browse the Freebies Page &rarr;</a>
         </div>
     </div>
 </section>

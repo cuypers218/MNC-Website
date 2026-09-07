@@ -35,7 +35,7 @@
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@400;700;800&display=swap" rel="stylesheet">
     
     <!-- Styles -->
     <link rel="stylesheet" href="/assets/css/style.css?v=<?= @filemtime(__DIR__ . '/../assets/css/style.css') ?: '1' ?>">
@@ -50,12 +50,12 @@
         
         <!-- Desktop Nav -->
         <nav class="main-nav" aria-label="Main navigation">
-            <a href="/" class="<?= isPage('home') ?>">Home</a>
-            <a href="/about" class="<?= isPage('about') ?>">About</a>
-            <a href="/blog" class="<?= isPage('blog') ?>">Blog</a>
-            <a href="/shop" class="<?= isPage('shop') ?>">Shop</a>
-            <a href="/resources" class="<?= isPage('resources') ?>">Resources</a>
-            <a href="/freebies" class="<?= isPage('freebies') ?>">Freebies</a>
+            <a href="/" class="<?= isPage('home') ?>"<?= ariaCurrentPage('home') ?>>Home</a>
+            <a href="/about" class="<?= isPage('about') ?>"<?= ariaCurrentPage('about') ?>>About</a>
+            <a href="/blog" class="<?= isPage('blog') ?>"<?= ariaCurrentPage('blog') ?>>Blog</a>
+            <a href="/shop" class="<?= isPage('shop') ?>"<?= ariaCurrentPage('shop') ?>>Shop</a>
+            <a href="/resources" class="<?= isPage('resources') ?>"<?= ariaCurrentPage('resources') ?>>Resources</a>
+            <a href="/freebies" class="<?= isPage('freebies') ?>"<?= ariaCurrentPage('freebies') ?>>Freebies</a>
         </nav>
         
         <!-- Auth Link -->
@@ -68,7 +68,7 @@
         </div>
         
         <!-- Mobile Toggle -->
-        <button class="mobile-toggle" aria-label="Open menu" onclick="openMobileNav()">
+        <button class="mobile-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="mobileNav" onclick="openMobileNav()">
             <span></span><span></span><span></span>
         </button>
     </div>
@@ -80,12 +80,12 @@
 <!-- Mobile Nav Panel -->
 <nav class="mobile-nav" id="mobileNav" aria-label="Mobile navigation">
     <button class="mobile-close" aria-label="Close menu" onclick="closeMobileNav()">&#x2715;</button>
-    <a href="/" class="<?= isPage('home') ?>">Home</a>
-    <a href="/about" class="<?= isPage('about') ?>">About</a>
-    <a href="/blog" class="<?= isPage('blog') ?>">Blog</a>
-    <a href="/shop" class="<?= isPage('shop') ?>">Shop</a>
-    <a href="/resources" class="<?= isPage('resources') ?>">Resources</a>
-    <a href="/freebies" class="<?= isPage('freebies') ?>">Freebies</a>
+    <a href="/" class="<?= isPage('home') ?>"<?= ariaCurrentPage('home') ?>>Home</a>
+    <a href="/about" class="<?= isPage('about') ?>"<?= ariaCurrentPage('about') ?>>About</a>
+    <a href="/blog" class="<?= isPage('blog') ?>"<?= ariaCurrentPage('blog') ?>>Blog</a>
+    <a href="/shop" class="<?= isPage('shop') ?>"<?= ariaCurrentPage('shop') ?>>Shop</a>
+    <a href="/resources" class="<?= isPage('resources') ?>"<?= ariaCurrentPage('resources') ?>>Resources</a>
+    <a href="/freebies" class="<?= isPage('freebies') ?>"<?= ariaCurrentPage('freebies') ?>>Freebies</a>
     <?php if (isLoggedIn()): ?>
         <a href="/dashboard">My Dashboard</a>
         <a href="/api/auth?action=logout">Log Out</a>

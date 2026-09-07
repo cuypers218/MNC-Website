@@ -10,21 +10,40 @@ $AMAZON_LINK = "https://www.amazon.com/YOUR_BOOK_LINK"; // replace with Amazon l
 <title>Now What? A Workbook for Solo Moms in the Empty Nest | My Nest Chapter</title>
 <meta name="description" content="14 activities across 4 weeks. Written by a solo mom who raised five kids alone and fell apart when they left. This is the workbook I wish I'd had.">
 <link rel="icon" type="image/svg+xml" href="/assets/images/favicon.svg">
-<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
+  /* Current locked palette (DESIGN.md §2) — was the retired July 5-16 system
+     (Velvety Charcoal/Deep Rose/Periwinkle/Lavender/Soft Peach, plus a Wine-
+     ramp gradient and Vibrant Pink glow further down this file) until
+     2026-09-05. Role mapping: --charcoal -> Deep Coffee (§2.1, replaces
+     Charcoal), --vanilla/--bg-warm -> Vanilla Cream (§2.2), --pink -> Rosewood
+     (§2.9) — used here as a button fill (7.05:1 with white text) and as
+     light-background label/accent text, both verified; --periwinkle -> Warm
+     Gray (matches .brand-mark's wordmark color sitewide), --soft-peach ->
+     Warm Sand (the light-warm-accent-on-dark pattern used by .cece-eyebrow/
+     .an-eyebrow — every use here is a hover or eyebrow on a dark surface),
+     --lavender -> Golden Honey (§2.new-accent, fill-only with Deep Coffee
+     text — an exact match for .book-badge's existing dark-text-on-light-fill
+     pairing), --border -> Warm Sand, --text -> Deep Coffee, --text-light ->
+     Warm Gray. */
   :root {
-    --charcoal: #252535;
-    --vanilla: #FAF7ED;
-    --pink: #C44570;
-    --periwinkle: #8BA7D4;
-    --lavender: #E7B1C3;
-    --soft-peach: #DA8BA5;
-    --text: #252535;
-    --text-light: #555566;
-    --border: #F3D8E1;
-    --bg-warm: #FAF7ED;
+    --charcoal: #2B1F18;
+    --vanilla: #F6F1E6;
+    --pink: #80475E; /* Rosewood (DESIGN.md §2.9) — decorative accent only (labels, thin borders/dashes, per-card stripes). NOT a button fill — DESIGN.md §2.3 reserves button fills to Deep Current/Burnished Copper only; see --burnished-copper below for the buy buttons that used to sit on this color. */
+    --pink-hover: #64374A; /* hover shade for --pink's remaining decorative uses only, not a button hover */
+    --burnished-copper: #A35E33; /* DESIGN.md §2.3 secondary/CTA button fill — used for .btn-pdf/.cta-pdf. White text required (4.99:1), not cream. */
+    --burnished-copper-hover: #7F4928; /* DESIGN.md §2.3 proposed hover shade for Burnished Copper */
+    --dark-anchor-hover: #08252D; /* DESIGN.md §2.3's Deep Current hover shade — reused here for the book mockup's back face and the Amazon button hover, same "borrow an existing dark anchor" pattern DESIGN.md itself uses */
+    --copper-glow: rgba(163,94,51,0.12); /* Burnished Copper at low opacity — replaces a Vibrant Pink (#E87AAA) glow retired even earlier than this page's other colors */
+    --periwinkle: #6B655C;
+    --lavender: #C8A878;
+    --soft-peach: #D9C7AC;
+    --text: #2B1F18;
+    --text-light: #6B655C;
+    --border: #D9C7AC;
+    --bg-warm: #F6F1E6;
   }
 
   html { scroll-behavior: smooth; }
@@ -59,7 +78,7 @@ $AMAZON_LINK = "https://www.amazon.com/YOUR_BOOK_LINK"; // replace with Amazon l
   .nav-logo span { color: var(--pink); }
   .nav-links { display: flex; gap: 28px; list-style: none; }
   .nav-links a {
-    color: rgba(255,248,238,0.7);
+    color: rgba(246,241,230,0.7);
     text-decoration: none;
     font-size: 0.82rem;
     letter-spacing: 0.08em;
@@ -77,13 +96,13 @@ $AMAZON_LINK = "https://www.amazon.com/YOUR_BOOK_LINK"; // replace with Amazon l
   }
   .breadcrumb a, .breadcrumb span {
     font-size: 0.78rem;
-    color: rgba(255,248,238,0.5);
+    color: rgba(246,241,230,0.5);
     text-decoration: none;
     letter-spacing: 0.06em;
   }
   .breadcrumb a:hover { color: var(--soft-peach); }
   .breadcrumb .sep { margin: 0 8px; }
-  .breadcrumb .current { color: rgba(255,248,238,0.85); }
+  .breadcrumb .current { color: rgba(246,241,230,0.85); }
 
   /* ── HERO PRODUCT SECTION ── */
   .product-hero {
@@ -109,7 +128,7 @@ $AMAZON_LINK = "https://www.amazon.com/YOUR_BOOK_LINK"; // replace with Amazon l
     position: absolute;
     top: -60px; right: -60px;
     width: 300px; height: 300px;
-    background: radial-gradient(circle, rgba(232,122,170,0.12) 0%, transparent 70%);
+    background: radial-gradient(circle, var(--copper-glow) 0%, transparent 70%);
   }
   /* 3D BOOK MOCKUP */
   .book-scene {
@@ -151,7 +170,7 @@ $AMAZON_LINK = "https://www.amazon.com/YOUR_BOOK_LINK"; // replace with Amazon l
     top: 3px; left: 0;
     width: var(--thickness);
     height: calc(100% - 6px);
-    background: linear-gradient(to right, #4E182A, #74253F, #A33359);
+    background: linear-gradient(to right, var(--dark-anchor-hover), #0A2F3A, #1C4F5E);
     transform: translateX(-50%) rotateY(90deg);
     border-radius: 0;
   }
@@ -160,7 +179,7 @@ $AMAZON_LINK = "https://www.amazon.com/YOUR_BOOK_LINK"; // replace with Amazon l
     content: '';
     position: absolute;
     inset: 0;
-    background: #1B090F;
+    background: var(--dark-anchor-hover);
     transform: translateZ(calc(var(--thickness) / -2)) rotateY(180deg);
     backface-visibility: hidden;
   }
@@ -294,15 +313,15 @@ $AMAZON_LINK = "https://www.amazon.com/YOUR_BOOK_LINK"; // replace with Amazon l
   }
   .btn-buy:active { transform: translateY(1px); }
   .btn-pdf {
-    background: var(--pink);
+    background: var(--burnished-copper);
     color: white;
   }
-  .btn-pdf:hover { background: #A33359; }
+  .btn-pdf:hover { background: var(--burnished-copper-hover); }
   .btn-amazon {
     background: var(--charcoal);
     color: var(--vanilla);
   }
-  .btn-amazon:hover { background: #1B090F; }
+  .btn-amazon:hover { background: var(--dark-anchor-hover); }
 
   /* ── PRODUCT BODY ── */
   .product-body {
@@ -354,7 +373,7 @@ $AMAZON_LINK = "https://www.amazon.com/YOUR_BOOK_LINK"; // replace with Amazon l
   .callout-attr {
     font-size: 0.78rem;
     letter-spacing: 0.08em;
-    color: rgba(255,248,238,0.5);
+    color: rgba(246,241,230,0.5);
     text-transform: uppercase;
   }
 
@@ -526,7 +545,7 @@ $AMAZON_LINK = "https://www.amazon.com/YOUR_BOOK_LINK"; // replace with Amazon l
     line-height: 1.3;
   }
   .cta-sub {
-    color: rgba(255,248,238,0.6);
+    color: rgba(246,241,230,0.6);
     font-size: 0.95rem;
     margin-bottom: 36px;
   }
@@ -548,14 +567,14 @@ $AMAZON_LINK = "https://www.amazon.com/YOUR_BOOK_LINK"; // replace with Amazon l
     transition: transform 0.15s;
   }
   .cta-btn:hover { transform: translateY(-2px); }
-  .cta-pdf { background: var(--pink); color: white; }
-  .cta-paperback { background: transparent; color: var(--vanilla); border: 2px solid rgba(255,248,238,0.3); }
+  .cta-pdf { background: var(--burnished-copper); color: white; }
+  .cta-paperback { background: transparent; color: var(--vanilla); border: 2px solid rgba(246,241,230,0.3); }
   .cta-paperback:hover { border-color: var(--soft-peach); }
 
   /* Footer */
   .site-footer {
     background: var(--charcoal);
-    border-top: 1px solid rgba(255,248,238,0.08);
+    border-top: 1px solid rgba(246,241,230,0.08);
     padding: 32px 40px;
     text-align: center;
   }
@@ -572,13 +591,13 @@ $AMAZON_LINK = "https://www.amazon.com/YOUR_BOOK_LINK"; // replace with Amazon l
     font-size: 0.72rem;
     letter-spacing: 0.1em;
     text-transform: uppercase;
-    color: rgba(255,248,238,0.35);
+    color: rgba(246,241,230,0.35);
     margin-bottom: 20px;
   }
   .footer-links { display: flex; gap: 24px; justify-content: center; flex-wrap: wrap; }
   .footer-links a {
     font-size: 0.78rem;
-    color: rgba(255,248,238,0.45);
+    color: rgba(246,241,230,0.45);
     text-decoration: none;
     letter-spacing: 0.06em;
     text-transform: uppercase;
@@ -587,7 +606,7 @@ $AMAZON_LINK = "https://www.amazon.com/YOUR_BOOK_LINK"; // replace with Amazon l
   .footer-copy {
     margin-top: 20px;
     font-size: 0.72rem;
-    color: rgba(255,248,238,0.25);
+    color: rgba(246,241,230,0.25);
   }
 
   @media (max-width: 768px) {
@@ -638,7 +657,7 @@ $AMAZON_LINK = "https://www.amazon.com/YOUR_BOOK_LINK"; // replace with Amazon l
     <div class="book-scene">
       <div class="book-mockup">
         <div class="book-badge">WORKBOOK</div>
-        <img src="/assets/images/workbook-cover.png" alt="Now What? A Workbook for Solo Moms in the Empty Nest by Cecilia Ann">
+        <img src="/assets/images/workbook-cover.jpg" alt="Now What? A Workbook for Solo Moms in the Empty Nest by Cecilia Ann">
       </div>
     </div>
   </div>

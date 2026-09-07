@@ -185,7 +185,7 @@ async function submitCSForm() {
     var res = await fetch('/reach-subscribe.php', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email: email, first_name: name })
+      body: JSON.stringify({ email: email, first_name: name, freebie: '6pm-cheat-sheet' })
     });
     if (res.ok) {
       document.getElementById('cs-form').style.display = 'none';

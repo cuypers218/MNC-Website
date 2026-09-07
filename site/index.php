@@ -28,7 +28,7 @@
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@400;700;800&display=swap" rel="stylesheet">
     
     <!-- Styles -->
     <link rel="stylesheet" href="/assets/css/style.css?v=<?= @filemtime(__DIR__ . '/assets/css/style.css') ?: '1' ?>">
@@ -43,7 +43,7 @@
         
         <!-- Desktop Nav -->
         <nav class="main-nav" aria-label="Main navigation">
-            <a href="/" class="active">Home</a>
+            <a href="/" class="active" aria-current="page">Home</a>
             <a href="/about" class="">About</a>
             <a href="/blog" class="">Blog</a>
             <a href="/shop" class="">Shop</a>
@@ -69,7 +69,7 @@
 <!-- Mobile Nav Panel -->
 <nav class="mobile-nav" id="mobileNav" aria-label="Mobile navigation">
     <button class="mobile-close" aria-label="Close menu" onclick="closeMobileNav()">&#x2715;</button>
-    <a href="/" class="active">Home</a>
+    <a href="/" class="active" aria-current="page">Home</a>
     <a href="/about" class="">About</a>
     <a href="/blog" class="">Blog</a>
     <a href="/shop" class="">Shop</a>
@@ -97,9 +97,27 @@
     <div class="home-hero-inner">
         <div class="home-hero-copy">
             <h1>Solo mom. Empty nest.<br>What's next.</h1>
-            <p class="home-hero-body">Real tools, honest support, and a growing community for whatever's&nbsp;next.</p>
-            <a href="/start-here" class="btn btn-primary">Start Here <span class="cta-arrow">→</span></a>
+            <p class="home-hero-body">Tools. A real person to talk to. A growing community that gets it.</p>
+            <button type="button" onclick="openQuizModal()" class="btn btn-primary">Start Here <span class="cta-arrow">→</span></button>
         </div>
+    </div>
+</section>
+
+<!-- READER VOICES -->
+<section class="home-voices">
+    <div class="home-voices-inner">
+        <blockquote class="home-voice">
+            <p>"[Real reader quote goes here]"</p>
+            <cite>— First name, situation</cite>
+        </blockquote>
+        <blockquote class="home-voice">
+            <p>"[Real reader quote goes here]"</p>
+            <cite>— First name, situation</cite>
+        </blockquote>
+        <blockquote class="home-voice">
+            <p>"[Real reader quote goes here]"</p>
+            <cite>— First name, situation</cite>
+        </blockquote>
     </div>
 </section>
 
@@ -118,7 +136,7 @@
         <h2 class="cece-heading">I raised my kids mostly on my own. When my last one left, I wasn't ready for what hit me.</h2>
         <p class="cece-body">I went looking for something, anything, that sounded like my life. It didn't exist. So I built My Nest Chapter.</p>
         <p class="cece-body">I build every product myself. There will be glitches. There will be mistakes. Tell me when you find one.</p>
-        <a href="/connect" class="cece-btn">Say hello <span class="cta-arrow">→</span></a>
+        <a href="/connect" class="cece-link">Say hello <span class="cta-arrow">→</span></a>
         <br>
         <a href="/about" class="cece-link">Read my full story <span class="cta-arrow">→</span></a>
       </div>
@@ -135,24 +153,27 @@
         </div>
 
         <div class="pillars">
-            <div class="pillar thrive">
+            <a class="pillar thrive" href="/shop">
+                <svg class="pillar-icon" viewBox="0 0 32 32" fill="none" aria-hidden="true"><circle cx="16" cy="19" r="8" stroke="currentColor" stroke-width="1.6"/><path d="M16 11V5M16 5L12 8M16 5L20 8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
                 <p class="pillar-eyebrow">Thrive</p>
                 <h3>The full catalog</h3>
                 <p>Tools. Digital PDFs. Web and mobile apps. Freebies and other resources. Whatever you're focusing on right now, there's something here for you.</p>
-                <a href="/shop">See everything <span class="cta-arrow">→</span></a>
-            </div>
-            <div class="pillar support">
+                <span class="pillar-cta">See everything <span class="cta-arrow">→</span></span>
+            </a>
+            <a class="pillar support" href="/connect">
+                <svg class="pillar-icon" viewBox="0 0 32 32" fill="none" aria-hidden="true"><path d="M6 10a3 3 0 0 1 3-3h14a3 3 0 0 1 3 3v8a3 3 0 0 1-3 3H14l-6 5v-5H9a3 3 0 0 1-3-3v-8Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><circle cx="13" cy="14" r="1.2" fill="currentColor"/><circle cx="19" cy="14" r="1.2" fill="currentColor"/></svg>
                 <p class="pillar-eyebrow">Support</p>
                 <h3>Talk to me directly</h3>
                 <p>Whenever you need a friend, someone to bounce ideas off of, vent to, or just listen, I'm here.</p>
-                <a href="/connect">Say hello <span class="cta-arrow">→</span></a>
-            </div>
-            <div class="pillar encourage">
+                <span class="pillar-cta">Say hello <span class="cta-arrow">→</span></span>
+            </a>
+            <a class="pillar encourage" href="/blog">
+                <svg class="pillar-icon" viewBox="0 0 32 32" fill="none" aria-hidden="true"><path d="M16 9c-2-1.5-5-2-8-1.5v14c3-.5 6 0 8 1.5 2-1.5 5-2 8-1.5v-14c-3-.5-6 0-8 1.5Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M16 9v14" stroke="currentColor" stroke-width="1.6"/></svg>
                 <p class="pillar-eyebrow">Encourage</p>
                 <h3>Stories and conversation</h3>
                 <p>Read what's helped me, and tell me what's true for you in the comments. You don't have to figure this out on your own.</p>
-                <a href="/blog">Read the blog <span class="cta-arrow">→</span></a>
-            </div>
+                <span class="pillar-cta">Read the blog <span class="cta-arrow">→</span></span>
+            </a>
         </div>
 
         <div class="start-here-quiz-cta">
@@ -224,7 +245,7 @@
         <div class="product-grid">
             <div class="product-card">
                 <span class="badge">$14.99</span>
-                <img class="product-card-image" src="/assets/images/workbook-cover.png" alt="Now What? Workbook cover">
+                <img class="product-card-image" src="/assets/images/workbook-cover.jpg" alt="Now What? Workbook cover" loading="lazy">
                 <div class="product-card-content">
                     <span class="product-card-category">Workbook</span>
                     <h3 class="product-card-title">Now What? Workbook</h3>
@@ -234,7 +255,7 @@
             </div>
             <div class="product-card">
                 <span class="badge">$27</span>
-                <img class="product-card-image" src="/assets/images/garage-sale-planner-cover.png" alt="Garage Sale Planner cover">
+                <img class="product-card-image" src="/assets/images/garage-sale-planner-cover.jpg" alt="Garage Sale Planner cover" loading="lazy">
                 <div class="product-card-content">
                     <span class="product-card-category">Interactive Tool</span>
                     <h3 class="product-card-title">Garage Sale Planner</h3>
@@ -244,7 +265,7 @@
             </div>
             <div class="product-card">
                 <span class="badge">$27</span>
-                <img class="product-card-image" src="/assets/images/cooking-for-one-cover.png" alt="Cooking for One Planner cover">
+                <img class="product-card-image" src="/assets/images/cooking-for-one-cover.jpg" alt="Cooking for One Planner cover" loading="lazy">
                 <div class="product-card-content">
                     <span class="product-card-category">Interactive Tool</span>
                     <h3 class="product-card-title">Cooking for One Planner</h3>
@@ -298,9 +319,9 @@
 <div class="toast" id="toast" aria-live="polite" aria-atomic="true"></div>
 
 <!-- Quiz Modal -->
-<div id="quizModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(37,37,53,0.82); z-index:1000; align-items:center; justify-content:center; padding:20px;" onclick="handleModalClick(event)">
+<div id="quizModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(43,31,24,0.82); z-index:1000; align-items:center; justify-content:center; padding:20px;" onclick="handleModalClick(event)">
     <div style="position:relative; width:100%; max-width:610px;">
-        <button onclick="closeQuizModal()" aria-label="Close quiz" style="position:absolute; top:14px; right:14px; background:rgba(37,37,53,0.82); border:none; color:#FAF7ED; width:40px; height:40px; border-radius:9999px; font-size:22px; line-height:40px; text-align:center; cursor:pointer; z-index:10; font-family:'Montserrat',sans-serif;">&times;</button>
+        <button onclick="closeQuizModal()" aria-label="Close quiz" style="position:absolute; top:14px; right:14px; background:rgba(43,31,24,0.82); border:none; color:var(--vanilla-cream); width:40px; height:40px; border-radius:9999px; font-size:22px; line-height:40px; text-align:center; cursor:pointer; z-index:10; font-family:var(--font-body);">&times;</button>
         <iframe id="quizIframe" src="" data-src="/widgets/empty-nester-quiz/" style="width:100%; height:min(95vh,900px); border:none; border-radius:10px; overflow:hidden; display:block;" title="What Kind of Empty Nester Are You?"></iframe>
     </div>
 </div>
@@ -358,12 +379,13 @@ async function submitToReach(form) {
     }
 }
 
-// --- Start Here pillar reveal (the one scroll-triggered animation on the page) ---
+// --- Scroll-triggered reveals: pillars, hero copy, Meet Cece card, Stay Close blocks ---
 (function() {
-    var pillars = document.querySelectorAll('.pillar');
-    if (!pillars.length) return;
-    if (!('IntersectionObserver' in window)) {
-        pillars.forEach(function(p) { p.classList.add('is-revealed'); });
+    var reveals = document.querySelectorAll('.pillar, .home-hero-copy, .cece-card, .an-primary-block, .an-secondary-block, .home-voice');
+    if (!reveals.length) return;
+    var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduceMotion || !('IntersectionObserver' in window)) {
+        reveals.forEach(function(el) { el.classList.add('is-revealed'); });
         return;
     }
     var observer = new IntersectionObserver(function(entries, obs) {
@@ -374,7 +396,7 @@ async function submitToReach(form) {
             }
         });
     }, { threshold: 0.3 });
-    pillars.forEach(function(p) { observer.observe(p); });
+    reveals.forEach(function(el) { observer.observe(el); });
 })();
 
 // --- Mobile Nav ---

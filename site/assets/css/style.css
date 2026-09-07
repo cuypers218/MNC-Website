@@ -7,14 +7,7 @@
    Edited only via the local _dev-editor.php tool or a deliberate brand
    decision — see DESIGN.md before changing any value here. */
 :root {
-    --charcoal: #262624;
-    --page-bg: #F6F3EC;
-    --clean-card: #FEFCF8;
-    --cozy-card: #EFE8DC;
-    --wine: #7A2E42;
-    --wine-hover: #5E2233;
-    --copper: #A15C3E;
-    --copper-hover: #83492F;
+    --clean-card: #FEFCF8; /* no confirmed 2026-08-30 replacement yet — DESIGN.md §2.2's open gap, kept in active use */
     --taupe: #8C8272;
     --warm-gray: #6B655C;
     --dark-orange: #9E3D0F;
@@ -26,9 +19,13 @@
     --golden-earth: #99621E; /* homepage Start Here "Next" eyebrow — 4.6:1 on Page bg, same AA tier as Copper */
     --forest: #2D3B32; /* added 2026-08-26 — Meet Cece section background, replaces Charcoal for that one section per Cece's direct call */
 
-    /* 2026-08-30 palette (DESIGN.md §2) — homepage-scoped rollout only, added for this
-       page's restyle. Not yet propagated sitewide; every other page still runs the
-       tokens above. See DESIGN.md §2's header note before extending these further. */
+    /* 2026-08-30 palette (DESIGN.md §2). Corrected 2026-09-05: this is already live
+       sitewide via the shared body/heading/button/badge/section rules below, not
+       homepage-scoped as previously noted here — see DESIGN.md §2's corrected scope
+       note. The tokens above it in this block (Clean card / Taupe / Warm gray / Dark
+       orange / Moss / Rosewood / Soft White / Warm Sand / Bark / Golden Earth /
+       Forest) are the ones DESIGN.md still lists as unresolved or scoped exceptions,
+       not retired-system leftovers. */
     --deep-current: #0A2F3A;       /* primary per DESIGN.md §2.3 — used for headings on this page, not buttons (see below) */
     --deep-current-hover: #08252D; /* DESIGN.md §2.3's proposed hover shade for Deep Current — not yet checked against a live mockup per that section's own note */
     --burnished-copper: #A35E33;   /* secondary per DESIGN.md §2.3 — used as the visible CTA color on this page per this restyle's steer; DESIGN.md's own role table still calls this "secondary," flagged as a discrepancy to resolve */
@@ -42,11 +39,8 @@
     --warm-beige-card: #E6D6C2;    /* the actual documented Card & Box "Warm Beige" (DESIGN.md §2.new-cards) — distinct token from --soft-beige above so both stay traceable to their source */
     --deep-coffee: #2B1F18;        /* text per DESIGN.md §2.1 — used as the hover-state button text (white fails contrast on Golden Drift, see comment at .home-hero-copy .btn-primary:hover) */
 
-    --font-display: 'Playfair Display', serif; /* dead again as of 2026-08-31 — was activated for the hero H1 (see DESIGN.md §5.2b), reverted. Not loaded as a web font anywhere; falls back silently if referenced. */
     --font-display-locked: 'Lora', serif; /* the DESIGN.md-locked display face for everything else. */
     --font-body: 'DM Sans', 'Helvetica Neue', Arial, sans-serif;
-
-    --section-padding: 4rem;
 }
 
 /* --- Reset & Base --- */
@@ -455,7 +449,7 @@ a:hover .cta-arrow, button:hover .cta-arrow { transform: translateX(4px); }
    EMAIL CAPTURE
    ============================================ */
 .email-capture {
-    background: #FFFFFF; border: 1px solid #ABABAB;
+    background: var(--soft-white); border: 1px solid var(--warm-sand);
     padding: 2.5rem; text-align: center; margin: 3rem 0;
 }
 .email-capture h3 { margin-bottom: 0.75rem; }
@@ -465,13 +459,13 @@ a:hover .cta-arrow, button:hover .cta-arrow { transform: translateX(4px); }
 }
 .email-capture-form input[type="email"] {
     flex: 1; font-family: var(--font-body); font-size: 0.95rem;
-    color: #101010; padding: 14px; border: 1px solid #ABABAB;
-    border-right: none; background: #FCFCFC; outline: none;
+    color: var(--deep-coffee); padding: 14px; border: 1px solid var(--warm-sand);
+    border-right: none; background: var(--clean-card); outline: none;
 }
 .email-capture-form input[type="email"]:focus {
-    border-color: var(--deep-current); background: #FFFFFF;
+    border-color: var(--deep-current); background: var(--soft-white);
 }
-.email-capture-form input[type="email"]::placeholder { color: #BCBCBC; }
+.email-capture-form input[type="email"]::placeholder { color: var(--taupe); }
 .email-capture-form button { padding: 14px 24px; }
 
 /* ============================================
@@ -487,21 +481,21 @@ a:hover .cta-arrow, button:hover .cta-arrow { transform: translateX(4px); }
 }
 .form-group input {
     width: 100%; font-family: var(--font-body); font-size: 0.95rem;
-    color: #101010; padding: 12px 14px; border: 1px solid #ABABAB;
-    background: #FCFCFC; outline: none;
+    color: var(--deep-coffee); padding: 12px 14px; border: 1px solid var(--warm-sand);
+    background: var(--clean-card); outline: none;
 }
-.form-group input:focus { border-color: var(--deep-current); background: #FFFFFF; }
-.form-group input::placeholder { color: #BCBCBC; }
+.form-group input:focus { border-color: var(--deep-current); background: var(--soft-white); }
+.form-group input::placeholder { color: var(--taupe); }
 
 .form-error {
     font-family: var(--font-body); font-size: 0.85rem;
-    color: #C0392B; margin-bottom: 1rem; padding: 0.75rem;
-    border: 1px solid #C0392B; background: #FDEDEC;
+    color: var(--dark-orange); margin-bottom: 1rem; padding: 0.75rem;
+    border: 1px solid var(--dark-orange); background: rgba(158,61,15,0.08);
 }
 .form-success {
     font-family: var(--font-body); font-size: 0.85rem;
-    color: #1E7E34; margin-bottom: 1rem; padding: 0.75rem;
-    border: 1px solid #1E7E34; background: #E8F5E9;
+    color: var(--moss); margin-bottom: 1rem; padding: 0.75rem;
+    border: 1px solid var(--moss); background: rgba(70,112,63,0.08);
 }
 .form-link {
     font-family: var(--font-body); font-size: 0.9rem;
@@ -528,7 +522,7 @@ a:hover .cta-arrow, button:hover .cta-arrow { transform: translateX(4px); }
    FOOTER
    ============================================ */
 .site-footer {
-    background: #FFFFFF; border-top: 1px solid #ABABAB;
+    background: var(--soft-white); border-top: 1px solid var(--warm-sand);
     padding: 3rem 0; margin-top: 4rem;
 }
 /* Homepage-only override, added 2026-09-02 — every other page keeps the
@@ -556,7 +550,7 @@ a:hover .cta-arrow, button:hover .cta-arrow { transform: translateX(4px); }
 .footer-nav a {
     font-family: var(--font-body); font-weight: 800;
     font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.05em;
-    color: #101010; text-decoration: none;
+    color: var(--deep-coffee); text-decoration: none;
 }
 .footer-nav a:hover { color: var(--deep-current); }
 .footer-social {
@@ -661,6 +655,30 @@ a:hover .cta-arrow, button:hover .cta-arrow { transform: translateX(4px); }
 }
 
 /* ============================================
+   HOMEPAGE — READER VOICES (social proof strip)
+   Deliberately plain text, no card/border — quiet credibility that
+   doesn't compete with the pillar or product card grids below it.
+   ============================================ */
+.home-voices { background-color: var(--vanilla-cream); padding: 0 24px 56px; }
+.home-voices-inner {
+    max-width: 1000px; margin: 0 auto;
+    display: flex; gap: 40px; justify-content: center;
+}
+.home-voice { margin: 0; flex: 1; max-width: 320px; text-align: center; }
+.home-voice p {
+    font-family: var(--font-display-locked); font-style: italic; font-size: 1rem;
+    color: var(--deep-coffee); line-height: 1.5; margin: 0 0 10px;
+}
+.home-voice cite {
+    font-family: var(--font-body); font-style: normal; font-weight: 700; font-size: 0.78rem;
+    letter-spacing: 0.4px; color: var(--warm-gray); text-transform: uppercase;
+}
+@media (max-width: 860px) {
+    .home-voices-inner { flex-direction: column; align-items: center; gap: 28px; }
+    .home-voice { max-width: 420px; }
+}
+
+/* ============================================
    HOMEPAGE — START HERE / THREE PILLARS
    ============================================ */
 .start-here { padding: 8px 0 96px; background-color: var(--vanilla-cream); } /* was falling through to body's old --page-bg — now matches the hero/newsletter background explicitly */
@@ -680,24 +698,60 @@ a:hover .cta-arrow, button:hover .cta-arrow { transform: translateX(4px); }
     background: var(--soft-beige); border: 0.5px solid var(--warm-sand); border-radius: 12px;
     box-shadow: 0 10px 40px rgba(37,37,53,0.07); padding: 32px 28px;
     display: flex; flex-direction: column;
-    opacity: 0; transform: translateY(16px); transition: opacity 0.5s ease, transform 0.5s ease;
+    text-decoration: none; color: inherit; cursor: pointer;
+    opacity: 0; transform: translateY(16px);
+    transition: opacity 0.5s ease, transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
 }
 .pillar.is-revealed { opacity: 1; transform: translateY(0); }
 .pillar.is-revealed:nth-child(1) { transition-delay: 0s; }
 .pillar.is-revealed:nth-child(2) { transition-delay: 0.13s; }
 .pillar.is-revealed:nth-child(3) { transition-delay: 0.26s; }
-@media (prefers-reduced-motion: reduce) { .pillar { opacity: 1; transform: none; transition: none; } }
 
+/* Whole card is now the link (Cece's call — was just the bottom text line
+   before). Hover lift + shadow + border all shift to that pillar's own
+   accent color instead of a generic gray lift, so each card's hover reads
+   as distinctly "its" color rather than a templated card-hover default. */
+.pillar.is-revealed:hover { transform: translateY(-6px); }
+.pillar.thrive:hover { border-color: var(--golden-earth-hover); box-shadow: 0 18px 40px rgba(119,76,23,0.24); }
+.pillar.support:hover { border-color: var(--burnished-copper-hover); box-shadow: 0 18px 40px rgba(127,73,40,0.24); }
+.pillar.encourage:hover { border-color: var(--rosewood); box-shadow: 0 18px 40px rgba(128,71,94,0.24); }
+.pillar:hover .pillar-icon { transform: scale(1.12) rotate(-6deg); }
+.pillar:hover .pillar-cta { text-decoration: underline; }
+@media (prefers-reduced-motion: reduce) {
+    .pillar.is-revealed:hover { transform: none; }
+    .pillar:hover .pillar-icon { transform: none; }
+}
+
+/* Same reveal treatment extended to hero copy, Meet Cece, Stay Close, and reader-voice blocks */
+.home-hero-copy, .cece-card, .an-primary-block, .an-secondary-block, .home-voice {
+    opacity: 0; transform: translateY(16px); transition: opacity 0.5s ease, transform 0.5s ease;
+}
+.home-hero-copy.is-revealed, .cece-card.is-revealed, .an-primary-block.is-revealed, .an-secondary-block.is-revealed, .home-voice.is-revealed {
+    opacity: 1; transform: translateY(0);
+}
+.an-secondary-block.is-revealed { transition-delay: 0.1s; }
+
+@media (prefers-reduced-motion: reduce) {
+    .pillar, .home-hero-copy, .cece-card, .an-primary-block, .an-secondary-block, .home-voice { opacity: 1; transform: none; transition: none; }
+}
+
+.pillar-icon { width: 28px; height: 28px; display: block; margin: 0 0 16px; color: inherit; transition: transform 0.3s ease; }
 .pillar-eyebrow { font-family: var(--font-body); font-weight: 800; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; margin: 0 0 14px; }
+.pillar.support .pillar-icon { color: var(--burnished-copper-hover); }
+.pillar.encourage .pillar-icon { color: var(--rosewood); }
+.pillar.thrive .pillar-icon { color: var(--golden-earth-hover); }
 .pillar.support .pillar-eyebrow { color: var(--burnished-copper-hover); } /* base Burnished Copper fails small-text contrast on Soft Beige (3.6:1-ish); the hover-darkened shade passes at 5.39:1 */
 .pillar.encourage .pillar-eyebrow { color: var(--rosewood); }
 .pillar.thrive .pillar-eyebrow { color: var(--golden-earth-hover); } /* base Golden Earth fails small-text contrast on Soft Beige (3.78:1); this darker shade passes at 5.50:1 */
 .pillar h3 { font-family: var(--font-display-locked); font-weight: 700; font-size: 1.2rem; line-height: 1.35; margin: 0 0 12px; color: var(--deep-current); text-transform: none; }
 .pillar p { font-family: var(--font-body); font-size: 0.92rem; line-height: 1.6; color: var(--warm-gray-on-beige); margin: 0 0 20px; flex-grow: 1; }
-.pillar a { font-family: var(--font-body); font-weight: 700; font-size: 0.82rem; letter-spacing: 0.4px; text-decoration: none; }
-.pillar.support a { color: var(--burnished-copper-hover); }
-.pillar.encourage a { color: var(--rosewood); }
-.pillar.thrive a { color: var(--golden-earth); }
+/* .pillar-cta = the homepage's whole-card-is-a-link version (span, not anchor).
+   .pillar a stays for /start-here, which still uses the old per-link markup —
+   see the "start-here page" open question in CLAUDE.md before touching that page. */
+.pillar-cta, .pillar a { font-family: var(--font-body); font-weight: 700; font-size: 0.82rem; letter-spacing: 0.4px; text-decoration: none; }
+.pillar.support .pillar-cta, .pillar.support a { color: var(--burnished-copper-hover); }
+.pillar.encourage .pillar-cta, .pillar.encourage a { color: var(--rosewood); }
+.pillar.thrive .pillar-cta, .pillar.thrive a { color: var(--golden-earth); }
 .pillar a:hover { text-decoration: underline; }
 
 .start-here-quiz-cta { text-align: center; }
@@ -836,7 +890,7 @@ a:hover .cta-arrow, button:hover .cta-arrow { transform: translateX(4px); }
    visual container styling and the photo+text flex row that used to live
    directly on .cece-inner.
    ============================================ */
-.cece-section { background-color: var(--vanilla-cream); padding: 80px 24px; }
+.cece-section { background-color: var(--vanilla-cream); padding: 48px 24px 80px; }
 .cece-inner { max-width: 980px; margin: 0 auto; }
 .cece-card {
     background: var(--deep-current);
@@ -859,9 +913,8 @@ a:hover .cta-arrow, button:hover .cta-arrow { transform: translateX(4px); }
 }
 .cece-heading { font-family: var(--font-display-locked); font-weight: 700; font-size: 22px; color: var(--vanilla-cream); line-height: 1.35; margin: 0 0 16px; text-transform: none; }
 .cece-body { font-family: var(--font-body); font-size: 15px; color: rgba(246,241,230, 0.85); line-height: 1.7; margin: 0 0 16px; }
-.cece-btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 44px; background: var(--burnished-copper); color: #fff; font-family: var(--font-body); font-weight: 800; font-size: 12px; letter-spacing: 0.5px; text-transform: uppercase; padding: 13px 26px; border-radius: 6px; text-decoration: none; margin: 14px 0 16px; transition: background 0.2s ease, transform 0.15s ease; box-sizing: border-box; }
-.cece-btn:hover { background: var(--golden-drift); color: var(--deep-coffee); transform: translateY(-2px); }
-.cece-link { display: inline-block; color: var(--vanilla-cream); font-family: var(--font-body); font-weight: 700; font-size: 12px; letter-spacing: 0.5px; text-decoration: underline; }
+.cece-link { display: inline-block; color: var(--vanilla-cream); font-family: var(--font-body); font-weight: 700; font-size: 12px; letter-spacing: 0.5px; text-decoration: underline; margin: 14px 0 4px; transition: color 0.2s ease; }
+.cece-link:hover { color: var(--warm-sand); }
 @media (max-width: 860px) {
   .cece-card { flex-direction: column; text-align: center; padding: 36px 28px; }
   .cece-text-col { text-align: center; }

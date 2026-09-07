@@ -13,20 +13,32 @@
 <meta property="og:url" content="https://mynestchapter.com/coloring">
 <meta property="og:type" content="website">
 
-<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
+  /* Current locked palette (DESIGN.md §2) — was the retired July 5-16 system
+     (Velvety Charcoal/Deep Rose/Periwinkle/Soft Peach) until 2026-09-05.
+     Role mapping: --charcoal -> Deep Coffee (dark chrome, replaces Charcoal
+     per §2.1), --vanilla/--bg-warm -> Vanilla Cream (§2.2), --pink -> Rosewood
+     (§2.9, the flexible accent that replaced the old pink family) for the
+     light-background hero eyebrow only — Rosewood measures just 2.3:1 on this
+     page's dark chrome, so --accent-on-dark (Golden Drift, §2.new-cards,
+     6.5:1 on Deep Coffee) covers every dark-background use of the old pink
+     instead. --periwinkle -> Warm Gray (matches .brand-mark's wordmark color
+     sitewide), --soft-peach -> Warm Sand (the light-warm-accent-on-dark
+     pattern used by .cece-eyebrow/.an-eyebrow), --border -> Warm Sand. */
   :root {
-    --charcoal: #252535;
-    --vanilla: #FAF7ED;
-    --pink: #C44570;
-    --periwinkle: #8BA7D4;
-    --soft-peach: #DA8BA5;
-    --text: #252535;
-    --text-light: #555566;
-    --border: #F3D8E1;
-    --bg-warm: #FAF7ED;
+    --charcoal: #2B1F18;
+    --vanilla: #F6F1E6;
+    --pink: #80475E;
+    --accent-on-dark: #D8975A;
+    --periwinkle: #6B655C;
+    --soft-peach: #D9C7AC;
+    --text: #2B1F18;
+    --text-light: #6B655C;
+    --border: #D9C7AC;
+    --bg-warm: #F6F1E6;
   }
 
   html { scroll-behavior: smooth; }
@@ -52,10 +64,10 @@
     color: var(--periwinkle);
     text-decoration: none;
   }
-  .nav-logo span { color: var(--pink); }
+  .nav-logo span { color: var(--accent-on-dark); }
   .nav-links { display: flex; gap: 28px; list-style: none; }
   .nav-links a {
-    color: rgba(255,248,238,0.7);
+    color: rgba(246,241,230,0.7);
     text-decoration: none;
     font-size: 0.82rem;
     letter-spacing: 0.08em;
@@ -69,17 +81,17 @@
   .breadcrumb {
     background: var(--charcoal);
     padding: 10px 40px;
-    border-bottom: 3px solid var(--pink);
+    border-bottom: 3px solid var(--accent-on-dark);
   }
   .breadcrumb a, .breadcrumb span {
     font-size: 0.78rem;
-    color: rgba(255,248,238,0.5);
+    color: rgba(246,241,230,0.5);
     text-decoration: none;
     letter-spacing: 0.06em;
   }
   .breadcrumb a:hover { color: var(--soft-peach); }
   .breadcrumb .sep { margin: 0 8px; }
-  .breadcrumb .current { color: rgba(255,248,238,0.85); }
+  .breadcrumb .current { color: rgba(246,241,230,0.85); }
 
   /* HERO */
   .hero {
@@ -165,12 +177,12 @@
     justify-content: center;
     max-width: 760px;
     margin: 0 auto;
-    border: 1px solid rgba(255,248,238,0.1);
+    border: 1px solid rgba(246,241,230,0.1);
   }
   .what-item {
     flex: 1;
     padding: 28px 24px;
-    border-right: 1px solid rgba(255,248,238,0.1);
+    border-right: 1px solid rgba(246,241,230,0.1);
     text-align: left;
   }
   .what-item:last-child { border-right: none; }
@@ -179,19 +191,19 @@
     font-weight: 700;
     letter-spacing: 0.14em;
     text-transform: uppercase;
-    color: var(--pink);
+    color: var(--accent-on-dark);
     margin-bottom: 8px;
   }
   .what-desc {
     font-size: 0.9rem;
-    color: rgba(255,248,238,0.65);
+    color: rgba(246,241,230,0.65);
     line-height: 1.6;
   }
 
   /* FOOTER */
   .site-footer {
     background: var(--charcoal);
-    border-top: 1px solid rgba(255,248,238,0.08);
+    border-top: 1px solid rgba(246,241,230,0.08);
     padding: 32px 40px;
     text-align: center;
   }
@@ -203,18 +215,18 @@
     color: var(--periwinkle);
     margin-bottom: 6px;
   }
-  .footer-logo span { color: var(--pink); }
+  .footer-logo span { color: var(--accent-on-dark); }
   .footer-sub {
     font-size: 0.72rem;
     letter-spacing: 0.1em;
     text-transform: uppercase;
-    color: rgba(255,248,238,0.35);
+    color: rgba(246,241,230,0.35);
     margin-bottom: 20px;
   }
   .footer-links { display: flex; gap: 24px; justify-content: center; flex-wrap: wrap; }
   .footer-links a {
     font-size: 0.78rem;
-    color: rgba(255,248,238,0.45);
+    color: rgba(246,241,230,0.45);
     text-decoration: none;
     letter-spacing: 0.06em;
     text-transform: uppercase;
@@ -223,7 +235,7 @@
   .footer-copy {
     margin-top: 20px;
     font-size: 0.72rem;
-    color: rgba(255,248,238,0.25);
+    color: rgba(246,241,230,0.25);
   }
 
   @media (max-width: 768px) {
@@ -234,7 +246,7 @@
     .hero h1 { font-size: 1.75rem; }
     .what-section { padding: 48px 20px; }
     .what-grid { flex-direction: column; }
-    .what-item { border-right: none; border-bottom: 1px solid rgba(255,248,238,0.1); }
+    .what-item { border-right: none; border-bottom: 1px solid rgba(246,241,230,0.1); }
     .what-item:last-child { border-bottom: none; }
     .site-footer { padding: 32px 20px; }
   }
@@ -293,7 +305,7 @@
     </div>
     <div class="what-item">
       <div class="what-label">I just feel like coloring</div>
-      <div class="what-desc">No reason needed. Sometimes you just want to color. That's enough.</div>
+      <div class="what-desc">No reason needed. Sometimes you just want to color.</div>
     </div>
   </div>
 </section>

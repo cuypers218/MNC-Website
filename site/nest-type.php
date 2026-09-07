@@ -36,30 +36,36 @@ $types = [
   <div class="container" style="max-width:640px;">
 
     <?php if ($result && isset($types[$result])):
-      $t = $types[$result]; ?>
+      $t = $types[$result];
+      $pdfExists = file_exists(__DIR__ . '/downloads/' . basename($t['pdf']));
+    ?>
 
-      <p style="font-family:'Montserrat',sans-serif;font-weight:800;font-size:0.7rem;text-transform:uppercase;letter-spacing:0.15em;color:#C44570;margin-bottom:0.5rem;">YOUR EMPTY NEST TYPE</p>
+      <p style="font-family:'DM Sans',sans-serif;font-weight:800;font-size:0.7rem;text-transform:uppercase;letter-spacing:0.15em;color:#A35E33;margin-bottom:0.5rem;">YOUR EMPTY NEST TYPE</p>
       <h1 style="font-size:2rem;margin-bottom:1rem;"><?= esc($t['label']) ?></h1>
-      <p style="font-family:'Montserrat',sans-serif;font-weight:700;font-size:1rem;color:#252535;line-height:1.5;margin-bottom:1.5rem;font-style:italic;"><?= esc($t['tagline']) ?></p>
-      <p style="font-size:1rem;color:#5A5A72;line-height:1.8;margin-bottom:2.5rem;"><?= esc($t['body']) ?></p>
+      <p style="font-family:'DM Sans',sans-serif;font-weight:700;font-size:1rem;color:#2B1F18;line-height:1.5;margin-bottom:1.5rem;font-style:italic;"><?= esc($t['tagline']) ?></p>
+      <p style="font-size:1rem;color:#6B655C;line-height:1.8;margin-bottom:2.5rem;"><?= esc($t['body']) ?></p>
 
-      <a href="<?= esc($t['pdf']) ?>" target="_blank" rel="noopener" class="btn btn-primary" style="display:inline-block;margin-bottom:1rem;"><?= esc($t['pdf_label']) ?></a>
+      <?php if ($pdfExists): ?>
+        <a href="<?= esc($t['pdf']) ?>" target="_blank" rel="noopener" class="btn btn-primary" style="display:inline-block;margin-bottom:1rem;"><?= esc($t['pdf_label']) ?></a>
+      <?php else: ?>
+        <p style="font-family:'DM Sans',sans-serif;font-weight:700;font-size:0.9rem;color:#6B655C;margin-bottom:1rem;">Your guide is being finished up — check back soon.</p>
+      <?php endif; ?>
 
-      <p style="font-size:0.85rem;color:#ABABAB;margin-top:1.5rem;">
-        Think your result has changed? <a href="/about" style="color:#C44570;">Retake the quiz on the About page &rarr;</a>
+      <p style="font-size:0.85rem;color:#6B655C;margin-top:1.5rem;">
+        Think your result has changed? <a href="/about" style="color:#A35E33;">Retake the quiz on the About page &rarr;</a>
       </p>
 
     <?php else: ?>
 
-      <p style="font-family:'Montserrat',sans-serif;font-weight:800;font-size:0.7rem;text-transform:uppercase;letter-spacing:0.15em;color:#ABABAB;margin-bottom:0.5rem;">YOUR EMPTY NEST TYPE</p>
+      <p style="font-family:'DM Sans',sans-serif;font-weight:800;font-size:0.7rem;text-transform:uppercase;letter-spacing:0.15em;color:#6B655C;margin-bottom:0.5rem;">YOUR EMPTY NEST TYPE</p>
       <h1 style="font-size:1.75rem;margin-bottom:1rem;">What kind of empty nester are you?</h1>
-      <p style="font-size:1rem;color:#5A5A72;line-height:1.8;margin-bottom:2rem;">There are three ways women land in the empty nest. Take the quiz on the About page — your result saves here automatically so you can come back to it anytime.</p>
+      <p style="font-size:1rem;color:#6B655C;line-height:1.8;margin-bottom:2rem;">There are three ways women land in the empty nest. Take the quiz on the About page — your result saves here automatically so you can come back to it anytime.</p>
       <a href="/about" class="btn btn-primary">Take the Quiz &rarr;</a>
 
     <?php endif; ?>
 
-    <div style="margin-top:3rem;padding-top:2rem;border-top:1px solid #D3D3D3;">
-      <a href="/dashboard" style="font-family:'Montserrat',sans-serif;font-weight:800;font-size:0.75rem;text-transform:uppercase;letter-spacing:0.05em;color:#C44570;">&larr; Back to Dashboard</a>
+    <div style="margin-top:3rem;padding-top:2rem;border-top:1px solid #D9C7AC;">
+      <a href="/dashboard" style="font-family:'DM Sans',sans-serif;font-weight:800;font-size:0.75rem;text-transform:uppercase;letter-spacing:0.05em;color:#A35E33;">&larr; Back to Dashboard</a>
     </div>
 
   </div>

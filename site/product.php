@@ -25,7 +25,7 @@ if (!$product) {
     http_response_code(404);
     $pageTitle = 'Not Found';
     require_once __DIR__ . '/includes/header.php';
-    echo '<section class="section"><div class="container text-center"><h1>Not Found</h1><p style="color:#8BA7D4;margin-top:1rem;">This product doesn\'t exist or isn\'t available yet.</p><a href="/shop" class="btn btn-outline" style="margin-top:1.5rem;">Back to Shop</a></div></section>';
+    echo '<section class="section"><div class="container text-center"><h1>Not Found</h1><p style="color:var(--warm-gray);margin-top:1rem;">This product doesn\'t exist or isn\'t available yet.</p><a href="/shop" class="btn btn-outline" style="margin-top:1.5rem;">Back to Shop</a></div></section>';
     require_once __DIR__ . '/includes/footer.php';
     exit;
 }
@@ -68,7 +68,7 @@ $related = $stmt->fetchAll();
             <!-- Product Image / Video -->
             <div>
                 <?php if ($product['slug'] === 'garage-sale-planner'): ?>
-                    <video autoplay loop muted playsinline controls style="width:100%;border:1px solid #ABABAB;display:block;">
+                    <video autoplay loop muted playsinline controls style="width:100%;border:1px solid var(--warm-sand);display:block;">
                         <source src="/assets/videos/garage-sale-planner-demo.mp4" type="video/mp4">
                     </video>
                 <?php elseif ($product['image_path']): ?>
@@ -92,7 +92,7 @@ $related = $stmt->fetchAll();
                     </p>
                 <?php endif; ?>
                 
-                <div style="line-height: 1.7; color: #252535; margin-bottom: 2rem;">
+                <div style="line-height: 1.7; color: var(--deep-coffee); margin-bottom: 2rem;">
                     <?= nl2br(esc($product['description'] ?? $product['short_description'])) ?>
                 </div>
                 
@@ -114,7 +114,7 @@ $related = $stmt->fetchAll();
                     <?php else: ?>
                         <a href="/widgets/<?= esc($widgetSlug) ?>/" class="btn btn-primary btn-full">Open <?= esc(ctaTitle($product['title'])) ?></a>
                     <?php endif; ?>
-                    <p style="color: #8BA7D4; font-size: 0.85rem; margin-top: 0.75rem; text-align: center;">You own this product.</p>
+                    <p style="color: var(--warm-gray); font-size: 0.85rem; margin-top: 0.75rem; text-align: center;">You own this product.</p>
                 <?php elseif ($isFree): ?>
                     <?php if (strpos($product['file_path'] ?? '', 'http') === 0): ?>
                         <a href="<?= esc($product['file_path']) ?>" target="_blank" rel="noopener" class="btn btn-primary btn-full">Download Free</a>
@@ -141,7 +141,7 @@ $related = $stmt->fetchAll();
                         ?>
                         <a href="/register" class="btn btn-primary btn-full">Create Account to Purchase</a>
                         <p style="font-family:Arial,sans-serif;font-size:0.8rem;color:var(--warm-gray);text-align:center;margin-top:0.6rem;">Takes about 30 seconds — you'll land right back here to finish.</p>
-                        <p style="color: #8BA7D4; font-size: 0.85rem; margin-top: 0.75rem; text-align: center;">You'll need an account to buy and access your download.</p>
+                        <p style="color: var(--warm-gray); font-size: 0.85rem; margin-top: 0.75rem; text-align: center;">You'll need an account to buy and access your download.</p>
                     <?php endif; ?>
                     <?php
                     $slugsWithDemo = ['cooking-for-one'];
@@ -149,15 +149,15 @@ $related = $stmt->fetchAll();
                     $slugsWithDirectDemo = ['garage-sale-planner'];
                     if ($isInteractiveTool && in_array($product['slug'], $slugsWithDemo)): ?>
                         <p style="margin-top: 1rem; text-align: center;">
-                            <a href="/widgets/<?= esc($product['slug']) ?>-demo/" style="font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em; color: #C44570;">Try the demo first &rarr;</a>
+                            <a href="/widgets/<?= esc($product['slug']) ?>-demo/" style="font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--burnished-copper);">Try the demo first &rarr;</a>
                         </p>
                     <?php elseif ($isInteractiveTool && in_array($product['slug'], $slugsWithQueryDemo)): ?>
                         <p style="margin-top: 1rem; text-align: center;">
-                            <a href="/widgets/<?= esc($product['slug']) ?>/?demo=1" style="font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em; color: #C44570;">Try the demo first &rarr;</a>
+                            <a href="/widgets/<?= esc($product['slug']) ?>/?demo=1" style="font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--burnished-copper);">Try the demo first &rarr;</a>
                         </p>
                     <?php elseif ($isInteractiveTool && in_array($product['slug'], $slugsWithDirectDemo)): ?>
                         <p style="margin-top: 1rem; text-align: center;">
-                            <a href="/widgets/<?= esc($product['slug']) ?>/" style="font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em; color: #C44570;">Try it free — no account needed &rarr;</a>
+                            <a href="/widgets/<?= esc($product['slug']) ?>/" style="font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--burnished-copper);">Try it free — no account needed &rarr;</a>
                         </p>
                     <?php endif; ?>
                 <?php endif; ?>
@@ -165,8 +165,8 @@ $related = $stmt->fetchAll();
         </div>
         
         <!-- Back to shop -->
-        <div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid #D3D3D3;">
-            <a href="/shop" style="font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em; color: #C44570;">&larr; Back to Shop</a>
+        <div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--warm-sand);">
+            <a href="/shop" style="font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--burnished-copper);">&larr; Back to Shop</a>
         </div>
         
     </div>
@@ -191,7 +191,7 @@ $related = $stmt->fetchAll();
                 <?php if ($rel['image_path']): ?>
                     <img src="<?= esc($rel['image_path']) ?>" alt="<?= esc($rel['title']) ?> cover" class="product-card-image">
                 <?php else: ?>
-                    <div class="product-card-image" style="background: linear-gradient(135deg, #F3D8E1 0%, #DA8BA5 100%);"></div>
+                    <div class="product-card-image" style="background: var(--warm-beige-card);"></div>
                 <?php endif; ?>
                 
                 <div class="product-card-content">

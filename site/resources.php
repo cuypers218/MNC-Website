@@ -20,7 +20,7 @@ require_once __DIR__ . '/includes/header.php';
             </div>
 
             <div style="margin-bottom: 1.5rem;">
-                <p style="font-weight: bold; margin-bottom: 0.25rem;"><a href="/6pm-experience/" style="color: var(--deep-current);">The 6pm Cheat Sheet</a></p>
+                <p style="font-weight: bold; margin-bottom: 0.25rem;"><a href="/widgets/6pm-experience/" style="color: var(--deep-current);">The 6pm Cheat Sheet</a></p>
                 <p style="color: var(--warm-gray); font-size: 0.95rem; margin: 0;">A real list of things that got me from 6pm to bedtime on the hard nights.</p>
             </div>
         </div>
@@ -55,13 +55,7 @@ require_once __DIR__ . '/includes/header.php';
                 <p style="color: var(--warm-gray); font-size: 0.95rem; margin: 0;"><a href="tel:+18006624357" style="color: var(--deep-current); text-decoration: underline; font-weight: 700;">1-800-662-4357</a>. Free referrals and information, 24/7.</p>
             </div>
         </div>
-        
-        <!-- Recommended Reading -->
-        <div style="margin-bottom: 3rem;">
-            <h2 style="font-size: 1rem; padding-bottom: 0.5rem; border-bottom: 1px solid #4B4B4B; margin-bottom: 1.25rem;">Books That Helped Me</h2>
-            <p style="color: var(--warm-gray); font-size: 0.95rem;">Coming soon — I'm putting together a list of books I actually read and found useful. Not a curated "must-read" list. Just what worked for me.</p>
-        </div>
-        
+
     </div>
 </section>
 

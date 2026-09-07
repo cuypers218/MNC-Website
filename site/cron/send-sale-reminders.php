@@ -13,6 +13,8 @@
 require_once __DIR__ . '/../includes/config.php';
 require_once __DIR__ . '/../includes/db.php';
 
+$pdo = getDB();
+
 // Find all unsent reminders where the sale is tomorrow
 $stmt = $pdo->prepare(
     "SELECT * FROM sale_reminders
@@ -49,8 +51,8 @@ foreach ($reminders as $reminder) {
     foreach ($prepChecklist as $item) {
         $checklistHtml .= '
             <tr>
-              <td style="padding:10px 0;border-bottom:1px solid #F0ECF8;">
-                <span style="font-family:Arial,sans-serif;font-size:14px;color:#252535;">&#9633; &nbsp;' . $item . '</span>
+              <td style="padding:10px 0;border-bottom:1px solid #D9C7AC;">
+                <span style="font-family:Arial,sans-serif;font-size:14px;color:#2B1F18;">&#9633; &nbsp;' . $item . '</span>
               </td>
             </tr>';
     }
@@ -59,48 +61,48 @@ foreach ($reminders as $reminder) {
 <body style="margin:0;padding:0;background:#FAFAFA;font-family:Arial,sans-serif;">
   <table width="100%" cellpadding="0" cellspacing="0" style="background:#FAFAFA;padding:40px 0;">
     <tr><td align="center">
-      <table width="580" cellpadding="0" cellspacing="0" style="background:#FFFFFF;max-width:580px;width:100%;border:1px solid #E8E4F0;">
+      <table width="580" cellpadding="0" cellspacing="0" style="background:#FFFFFF;max-width:580px;width:100%;border:1px solid #D9C7AC;">
 
-        <tr><td style="background:#252535;padding:24px 40px;">
-          <p style="margin:0;font-family:Arial,sans-serif;font-weight:800;font-size:11px;letter-spacing:3px;text-transform:uppercase;color:#8BA7D4;">MY NEST CHAPTER</p>
+        <tr><td style="background:#0A2F3A;padding:24px 40px;">
+          <p style="margin:0;font-family:Arial,sans-serif;font-weight:800;font-size:11px;letter-spacing:3px;text-transform:uppercase;color:#F6F1E6;">MY NEST CHAPTER</p>
         </td></tr>
 
         <tr><td style="padding:40px 40px 28px;">
-          <p style="font-family:Arial,sans-serif;font-size:22px;font-weight:700;color:#252535;margin:0 0 6px;">Your sale is tomorrow.</p>
-          <p style="font-family:Arial,sans-serif;font-size:14px;color:#8BA7D4;margin:0 0 24px;">' . $saleTitle . ' &nbsp;&middot;&nbsp; ' . $saleDateFmt . '</p>
-          <p style="font-family:Arial,sans-serif;font-size:15px;color:#252535;line-height:1.7;margin:0 0 28px;">
+          <p style="font-family:Arial,sans-serif;font-size:22px;font-weight:700;color:#2B1F18;margin:0 0 6px;">Your sale is tomorrow.</p>
+          <p style="font-family:Arial,sans-serif;font-size:14px;color:#6B655C;margin:0 0 24px;">' . $saleTitle . ' &nbsp;&middot;&nbsp; ' . $saleDateFmt . '</p>
+          <p style="font-family:Arial,sans-serif;font-size:15px;color:#2B1F18;line-height:1.7;margin:0 0 28px;">
             Here is a quick checklist to get ready. Everything you put into your planner is waiting for you when you get there.
           </p>
         </td></tr>
 
         <tr><td style="padding:0 40px 28px;">
-          <p style="font-family:Arial,sans-serif;font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:#C44570;margin:0 0 12px;">Day-Before Checklist</p>
+          <p style="font-family:Arial,sans-serif;font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:#A35E33;margin:0 0 12px;">Day-Before Checklist</p>
           <table width="100%" cellpadding="0" cellspacing="0">' . $checklistHtml . '</table>
         </td></tr>
 
         <tr><td style="padding:0 40px 28px;">
           <a href="https://mynestchapter.com/widgets/garage-sale-planner/"
-             style="display:inline-block;background:#C44570;color:#fff;font-family:Arial,sans-serif;font-weight:700;font-size:13px;text-transform:uppercase;letter-spacing:1px;padding:14px 28px;text-decoration:none;">
+             style="display:inline-block;background:#A35E33;color:#fff;font-family:Arial,sans-serif;font-weight:700;font-size:13px;text-transform:uppercase;letter-spacing:1px;padding:14px 28px;text-decoration:none;border-radius:6px;">
             Open my planner
           </a>
         </td></tr>
 
         ' . ($moneyPurpose ? '<tr><td style="padding:0 40px 28px;">
-          <div style="background:#FDEEF5;padding:18px 22px;">
-            <p style="font-family:Arial,sans-serif;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#C44570;margin:0 0 4px;">What the money is for</p>
-            <p style="font-family:Arial,sans-serif;font-size:14px;color:#252535;line-height:1.6;margin:0;">' . $moneyPurpose . '</p>
+          <div style="background:#E6D6C2;padding:18px 22px;">
+            <p style="font-family:Arial,sans-serif;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#A35E33;margin:0 0 4px;">What the money is for</p>
+            <p style="font-family:Arial,sans-serif;font-size:14px;color:#2B1F18;line-height:1.6;margin:0;">' . $moneyPurpose . '</p>
           </div>
         </td></tr>' : '') . '
 
         <tr><td style="padding:0 40px 40px;">
-          <p style="font-family:Arial,sans-serif;font-size:14px;color:#252535;line-height:1.7;margin:0 0 8px;">You have done the hard part. Tomorrow is just showing up. You have got this.</p>
-          <p style="font-family:Arial,sans-serif;font-size:14px;color:#8BA7D4;margin:0;">— Cece</p>
+          <p style="font-family:Arial,sans-serif;font-size:14px;color:#2B1F18;line-height:1.7;margin:0 0 8px;">You have done the hard part. Tomorrow is just showing up.</p>
+          <p style="font-family:Arial,sans-serif;font-size:14px;color:#6B655C;margin:0;">— Cece</p>
         </td></tr>
 
-        <tr><td style="padding:20px 40px;border-top:1px solid #F0ECF8;">
-          <p style="margin:0;font-family:Arial,sans-serif;font-size:12px;color:#ABABAB;line-height:1.6;">
+        <tr><td style="padding:20px 40px;border-top:1px solid #D9C7AC;">
+          <p style="margin:0;font-family:Arial,sans-serif;font-size:12px;color:#6B655C;line-height:1.6;">
             You requested this reminder from the Garage Sale Planner at
-            <a href="https://mynestchapter.com" style="color:#ABABAB;">mynestchapter.com</a>
+            <a href="https://mynestchapter.com" style="color:#6B655C;">mynestchapter.com</a>
           </p>
         </td></tr>
 

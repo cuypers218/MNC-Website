@@ -63,29 +63,29 @@ $html = '<!DOCTYPE html><html><head><meta charset="UTF-8"></head>
 <body style="margin:0;padding:0;background:#FAFAFA;font-family:Arial,sans-serif;">
   <table width="100%" cellpadding="0" cellspacing="0" style="background:#FAFAFA;padding:40px 0;">
     <tr><td align="center">
-      <table width="580" cellpadding="0" cellspacing="0" style="background:#FFFFFF;max-width:580px;width:100%;border:1px solid #F3D8E1;">
+      <table width="580" cellpadding="0" cellspacing="0" style="background:#FFFFFF;max-width:580px;width:100%;border:1px solid #D9C7AC;">
 
-        <tr><td style="background:#252535;padding:24px 40px;">
-          <p style="margin:0;font-family:Arial,sans-serif;font-weight:800;font-size:11px;letter-spacing:3px;text-transform:uppercase;color:#8BA7D4;">MY NEST CHAPTER</p>
+        <tr><td style="background:#0A2F3A;padding:24px 40px;">
+          <p style="margin:0;font-family:Arial,sans-serif;font-weight:800;font-size:11px;letter-spacing:3px;text-transform:uppercase;color:#F6F1E6;">MY NEST CHAPTER</p>
         </td></tr>
 
         <tr><td style="padding:40px 40px 28px;">
-          <p style="font-family:Arial,sans-serif;font-size:22px;font-weight:700;color:#252535;margin:0 0 8px;">Reminder set.</p>
-          <p style="font-family:Arial,sans-serif;font-size:14px;color:#8BA7D4;margin:0 0 24px;">' . $saleTitle . ' &nbsp;&middot;&nbsp; ' . $saleDateFmt . '</p>
-          <p style="font-family:Arial,sans-serif;font-size:15px;color:#252535;line-height:1.7;margin:0 0 20px;">
+          <p style="font-family:Arial,sans-serif;font-size:22px;font-weight:700;color:#2B1F18;margin:0 0 8px;">Reminder set.</p>
+          <p style="font-family:Arial,sans-serif;font-size:14px;color:#6B655C;margin:0 0 24px;">' . $saleTitle . ' &nbsp;&middot;&nbsp; ' . $saleDateFmt . '</p>
+          <p style="font-family:Arial,sans-serif;font-size:15px;color:#2B1F18;line-height:1.7;margin:0 0 20px;">
             You will get an email on <strong>' . $reminderDate . '</strong> with a prep checklist and a direct link back to your planner. You do not need to do anything else.
           </p>
-          ' . ($moneyPurpose ? '<div style="background:#F9ECF0;padding:18px 22px;margin-bottom:20px;">
-            <p style="font-family:Arial,sans-serif;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#C44570;margin:0 0 4px;">What the money is for</p>
-            <p style="font-family:Arial,sans-serif;font-size:14px;color:#252535;line-height:1.6;margin:0;">' . $moneyPurpose . '</p>
+          ' . ($moneyPurpose ? '<div style="background:#D9C7AC;padding:18px 22px;margin-bottom:20px;">
+            <p style="font-family:Arial,sans-serif;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#A35E33;margin:0 0 4px;">What the money is for</p>
+            <p style="font-family:Arial,sans-serif;font-size:14px;color:#2B1F18;line-height:1.6;margin:0;">' . $moneyPurpose . '</p>
           </div>' : '') . '
-          <p style="font-family:Arial,sans-serif;font-size:14px;color:#5A5A72;line-height:1.7;margin:0;">Keep going. The hardest part is the sorting.</p>
+          <p style="font-family:Arial,sans-serif;font-size:14px;color:#6B655C;line-height:1.7;margin:0;">Keep going. The hardest part is the sorting.</p>
         </td></tr>
 
-        <tr><td style="padding:20px 40px;border-top:1px solid #F9ECF0;">
-          <p style="margin:0;font-family:Arial,sans-serif;font-size:12px;color:#ABABAB;line-height:1.6;">
+        <tr><td style="padding:20px 40px;border-top:1px solid #D9C7AC;">
+          <p style="margin:0;font-family:Arial,sans-serif;font-size:12px;color:#6B655C;line-height:1.6;">
             You\'re receiving this because you requested a reminder from the Garage Sale Planner at
-            <a href="https://mynestchapter.com" style="color:#ABABAB;">mynestchapter.com</a>
+            <a href="https://mynestchapter.com" style="color:#6B655C;">mynestchapter.com</a>
           </p>
         </td></tr>
 

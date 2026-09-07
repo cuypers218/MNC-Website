@@ -247,7 +247,7 @@ async function submitEmail() {
   btn.classList.add('loading');
   document.getElementById('email-error').style.display = 'none';
   try {
-    const res = await fetch('/reach-subscribe.php', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ email, first_name: firstName }) });
+    const res = await fetch('/reach-subscribe.php', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ email, first_name: firstName, freebie: '6pm-cheat-sheet' }) });
     if (res.ok) {
       document.getElementById('email-form').style.display = 'none';
       document.getElementById('email-success').style.display = 'block';

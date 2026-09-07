@@ -42,39 +42,39 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <body style="margin:0;padding:0;background:#FAFAFA;font-family:Arial,sans-serif;">
 <table cellpadding="0" cellspacing="0" border="0" width="100%" style="background:#FAFAFA;padding:40px 20px;">
   <tr><td align="center">
-    <table cellpadding="0" cellspacing="0" border="0" width="560" style="max-width:560px;width:100%;background:#ffffff;border:1px solid #D3D3D3;">
+    <table cellpadding="0" cellspacing="0" border="0" width="560" style="max-width:560px;width:100%;background:#ffffff;border:1px solid #D9C7AC;">
 
       <!-- Header -->
       <tr>
-        <td style="background:#252535;padding:28px 40px 24px;text-align:left;">
-          <p style="margin:0 0 2px;font-family:Arial,sans-serif;font-size:9px;font-weight:700;letter-spacing:4px;text-transform:uppercase;color:#8BA7D4;">MY NEST CHAPTER</p>
-          <p style="margin:0;font-family:Arial,sans-serif;font-size:22px;font-weight:700;color:#C44570;letter-spacing:1px;">Reset your password</p>
+        <td style="background:#0A2F3A;padding:28px 40px 24px;text-align:left;">
+          <p style="margin:0 0 2px;font-family:Arial,sans-serif;font-size:9px;font-weight:700;letter-spacing:4px;text-transform:uppercase;color:#F6F1E6;">MY NEST CHAPTER</p>
+          <p style="margin:0;font-family:Arial,sans-serif;font-size:22px;font-weight:700;color:#F6F1E6;letter-spacing:1px;">Reset your password</p>
         </td>
       </tr>
 
       <!-- Body -->
       <tr>
         <td style="padding:36px 40px 0;">
-          <p style="margin:0 0 8px;font-family:Arial,sans-serif;font-size:18px;font-weight:700;color:#252535;">Hey ' . htmlspecialchars($user['first_name']) . ',</p>
-          <p style="margin:0 0 28px;font-family:Arial,sans-serif;font-size:15px;color:#5A5A72;line-height:1.7;">We got a request to reset your password. This link expires in 1 hour. If you didn\'t ask for this, you can ignore this email.</p>
+          <p style="margin:0 0 8px;font-family:Arial,sans-serif;font-size:18px;font-weight:700;color:#2B1F18;">Hey ' . htmlspecialchars($user['first_name']) . ',</p>
+          <p style="margin:0 0 28px;font-family:Arial,sans-serif;font-size:15px;color:#6B655C;line-height:1.7;">We got a request to reset your password. This link expires in 1 hour. If you didn\'t ask for this, you can ignore this email.</p>
 
           <!-- CTA -->
           <table cellpadding="0" cellspacing="0" border="0" style="margin:8px 0 32px;">
             <tr>
-              <td style="background:#C44570;padding:0;">
-                <a href="' . $resetLink . '" style="display:inline-block;padding:14px 32px;font-family:Arial,sans-serif;font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#252535;text-decoration:none;">Set New Password</a>
+              <td style="background:#A35E33;padding:0;border-radius:6px;">
+                <a href="' . $resetLink . '" style="display:inline-block;padding:14px 32px;font-family:Arial,sans-serif;font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#FFFFFF;text-decoration:none;">Set New Password</a>
               </td>
             </tr>
           </table>
 
-          <p style="margin:0 0 36px;font-family:Arial,sans-serif;font-size:13px;color:#5A5A72;line-height:1.7;">If the button doesn\'t work, copy this link into your browser:<br><a href="' . $resetLink . '" style="color:#C44570;">' . $resetLink . '</a></p>
+          <p style="margin:0 0 36px;font-family:Arial,sans-serif;font-size:13px;color:#6B655C;line-height:1.7;">If the button doesn\'t work, copy this link into your browser:<br><a href="' . $resetLink . '" style="color:#A35E33;">' . $resetLink . '</a></p>
         </td>
       </tr>
 
       <!-- Footer -->
       <tr>
-        <td style="padding:20px 40px 28px;border-top:1px solid #D3D3D3;">
-          <p style="margin:0;font-family:Arial,sans-serif;font-size:12px;color:#ABABAB;">My Nest Chapter &nbsp;&middot;&nbsp; mynestchapter.com<br>You\'re receiving this because a password reset was requested for this email.</p>
+        <td style="padding:20px 40px 28px;border-top:1px solid #D9C7AC;">
+          <p style="margin:0;font-family:Arial,sans-serif;font-size:12px;color:#6B655C;">My Nest Chapter &nbsp;&middot;&nbsp; mynestchapter.com<br>You\'re receiving this because a password reset was requested for this email.</p>
         </td>
       </tr>
 
@@ -102,7 +102,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <section class="section">
     <div class="form-page">
         <h1 class="text-center" style="margin-bottom: 0.5rem;">Reset Password</h1>
-        <p class="text-center" style="color: #8BA7D4; font-size: 0.9rem; margin-bottom: 2rem;">Enter your email and I'll send you a link to reset your password.</p>
+        <p class="text-center" style="color: #6B655C; font-size: 0.9rem; margin-bottom: 2rem;">Enter your email and I'll send you a link to reset your password.</p>
         
         <?php if ($message): ?>
             <div class="form-success"><?= esc($message) ?></div>

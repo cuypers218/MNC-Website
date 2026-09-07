@@ -35,12 +35,21 @@
 function openMobileNav() {
     document.getElementById('mobileNav').classList.add('open');
     document.getElementById('mobileOverlay').style.display = 'block';
+    var toggle = document.querySelector('.mobile-toggle');
+    toggle.classList.add('is-open');
+    toggle.setAttribute('aria-expanded', 'true');
     document.body.style.overflow = 'hidden';
+    var closeBtn = document.querySelector('.mobile-close');
+    if (closeBtn) closeBtn.focus();
 }
 function closeMobileNav() {
     document.getElementById('mobileNav').classList.remove('open');
     document.getElementById('mobileOverlay').style.display = 'none';
+    var toggle = document.querySelector('.mobile-toggle');
+    toggle.classList.remove('is-open');
+    toggle.setAttribute('aria-expanded', 'false');
     document.body.style.overflow = '';
+    toggle.focus();
 }
 
 // --- Toast ---

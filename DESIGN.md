@@ -23,7 +23,13 @@
 
 > **Locked 2026-08-30.** Supersedes the entire July 27/August 1 system (Wine, Copper, Charcoal, Page background, and everything added on top of it through August 27) entirely — all retired, not amended. This palette was authored by Cece as a complete, named set (5 Core System colors + 9 Card & Box colors) and handed over ready-made, not built live in this doc the way prior versions were; role assignment and WCAG contrast verification happened in this pass. **Print/workbook colors (§2.7–2.8) are untouched by this revision** — that exception continues exactly as before.
 >
-> **Scope: `index.php` fully done, everywhere else still retired.** As of 2026-08-30 the entire homepage (`site/index.php`) runs this palette — hero, Meet Cece, Start Here/Pillars, Stay Close/Newsletter, and the product cards, all done the same day across two passes (a scoped restyle, then a second pass finishing the sections deliberately deferred from the first). All overrides live under `.home-*`/`.cece-*`/`.an-*`/`.pillar`/`.start-here` selectors — the pattern already established for this page — plus new `:root` tokens (see the CSS comments at the top of `:root` in `style.css`). Every other page still renders the retired Wine/Copper/Charcoal system. Treat this the way the July 27 palette was treated before its full rollout (CLAUDE.md Thread 2): one page shipped complete, the rest tracked follow-up work.
+> **Scope, corrected 2026-09-05 after a technical audit of live code: sitewide base is on this palette, several standalone pages and the homepage's own quiz modal were not.** The earlier "index.php fully done, everywhere else still retired" claim below was wrong on two counts, both fixed 2026-09-05:
+> 1. `style.css`'s shared `body`, headings, links, buttons, badges, and section classes were already running the new tokens (`--deep-coffee`/`--vanilla-cream`/`--deep-current`) sitewide, not just under the `.home-*`/`.cece-*`/`.an-*` overrides — this doc had not been re-checked against the live file since the palette work landed. The retired-named tokens (`--charcoal`, `--page-bg`, `--cozy-card`, `--wine`, `--wine-hover`, `--copper`, `--copper-hover`) were still sitting in `:root` with zero remaining usages; deleted 2026-09-05.
+> 2. The homepage's own quiz-modal overlay ([index.php](site/index.php)) was still hardcoding retired Velvety-Charcoal/Warm-Antique-White hex directly, and `coloring.php`/`workbook.php` (both live product pages, standalone `<style>` blocks that don't share `style.css`) were still running the entire July 5–16 system untouched through three palette migrations. All three fixed 2026-09-05 — see each file's own in-file comment for the exact role mapping used.
+>
+> Forms, email-capture, and the sitewide footer (§12.4's flagged gap) were also fixed 2026-09-05 — no longer on retired raw hex.
+>
+> All overrides for the homepage's distinct sections still live under `.home-*`/`.cece-*`/`.an-*`/`.pillar`/`.start-here` selectors, the pattern already established for this page.
 >
 > **What changed in the second pass:** the Meet Cece section's background moved from Forest (`#2D3B32`, homepage-only, §2.homepage-legacy) to Deep Current — both "dark moment" sections on the page (Meet Cece and the product showcase) now share one dark color instead of two different ones. The hero's fluid divider was recolored to match. `--forest` itself is untouched (still used by `connect.php`, a different page). A new small-text finding: **Burnished Copper fails contrast as small text on light backgrounds** (3.64:1 and similar — a real fail, not borderline, and too small to qualify for the AA-large exception). The already-proposed hover shade `#7F4928` (`--burnished-copper-hover`) is reused as a small-text color where this comes up (eyebrows, the Support pillar's accent) — passes comfortably. Worth folding this shade into §2.3 proper next time that section gets revisited, since it's now doing two jobs (hover fill and small-text color), not one.
 >
@@ -613,8 +619,8 @@ For live-page inventory, dashboard gating logic, and the exclusive-content drop 
 
 ### 12.2 Design Tokens / Code
 
-- `style.css` has a `:root` custom-property block (verified live, 2026-08-30) covering every locked color through Rosewood/Warm Sand/Bark/Golden Earth/Forest — no longer hardcoded for those. Two dead tokens sit in the same block: `--font-display` (Playfair Display, never loaded as a web font and never referenced — every rule uses `--font-display-locked` (Lora) instead) and `--section-padding` (defined, zero usages — sections hardcode `4rem 0` directly). Both are harmless as long as nobody starts using them; worth deleting next time someone's in that file.
-- Spacing has no scale beyond the one unused `--section-padding` token above — still an open gap.
+- `style.css`'s `:root` (re-verified live, 2026-09-05) covers every locked color through Rosewood/Warm Sand/Bark/Golden Earth/Forest, and its shared `body`/heading/button/badge/section rules already resolve to the 2026-08-30 palette tokens sitewide, not just under the homepage's own selectors — see §2's corrected scope note above. The retired-named tokens (`--charcoal`, `--page-bg`, `--cozy-card`, `--wine`, `--wine-hover`, `--copper`, `--copper-hover`) and the two previously-flagged dead tokens (`--font-display`, `--section-padding`) all had zero remaining usages and were deleted 2026-09-05.
+- Spacing has no scale — sections hardcode `4rem 0` directly. Still an open gap.
 - No dark mode system — no `prefers-color-scheme` spec exists or is planned
 
 ### 12.3 Typography
@@ -624,9 +630,10 @@ For live-page inventory, dashboard gating logic, and the exclusive-content drop 
 
 ### 12.4 Components
 
-- **Forms & Inputs (§6.4) don't match live code (verified 2026-08-30).** `style.css` `.form-group input` and `.email-capture-form input` still use pre-July-27 values — border `#ABABAB` instead of Warm Sand `#D9C7AC`, background `#FCFCFC` instead of Clean card `#FEFCF8`, text `#101010` instead of Charcoal. `#FCFCFC` is explicitly on the retired list (§2.11, "Input BG"). Rollout gap, not a documentation error — §6.4 states the intended spec correctly.
-- **`.form-error` / `.form-success` still use retired colors (verified 2026-08-30).** Both classes use the pre-July-27 Error Red `#C0392B`/`#FDEDEC` and Success Green `#1E7E34`/`#E8F5E9` (§2.11) instead of the locked Dark orange `#9E3D0F` / Moss `#46703F` (§2.5). Same rollout gap as above — the only two live style-sheet rules still on the retired system as of this check.
-- **Footer (§6.9) doesn't match live code (verified 2026-08-30).** `.site-footer` uses `#FFFFFF`/`#ABABAB` instead of the documented Soft White `#FFFEFB` background and Warm Sand `#D9C7AC` border-top.
+- **RESOLVED 2026-09-05 — Forms & Inputs, `.form-error`/`.form-success`, and Footer now match §6.4/§6.9.** All three were previously flagged (verified 2026-08-30) as still running pre-July-27 raw hex (`#ABABAB`, `#FCFCFC`, `#101010`, `#C0392B`/`#FDEDEC`, `#1E7E34`/`#E8F5E9`, footer's `#FFFFFF`/`#ABABAB`). Fixed: inputs now use Warm Sand borders / Clean card backgrounds / Deep Coffee text, error/success states use Dark orange / Moss, and the footer uses Soft White / Warm Sand per §6.9.
+- **RESOLVED 2026-09-05 — `coloring.php` and `workbook.php` migrated off the retired July 5–16 system.** Both are standalone pages (their own `<style>` block, not `style.css`) and had survived three separate palette migrations untouched — `coloring.php` was still on Deep Rose/Periwinkle/Velvety-Charcoal-family colors, `workbook.php` the same plus a retired Wine-ramp gradient and a Vibrant Pink decorative glow. Each file's own comment documents the exact role mapping used (e.g. `--pink` → Rosewood for light backgrounds, a new `--accent-on-dark` token → Golden Drift for the same role wherever it sat on a dark surface, since Rosewood measures only ~2.3:1 there).
+- **RESOLVED 2026-09-05 — Montserrat was being loaded as a web font sitewide, violating Appendix B.** `header.php` (shared by every non-homepage page) was loading only Montserrat, meaning Lora/DM Sans — what every rule in `style.css` actually requests via `--font-display-locked`/`--font-body` — were never fetched for any page except the homepage (which has its own separate, correct font link). Fixed; see Appendix B for the current trimmed link.
+- **RESOLVED 2026-09-05 — mobile-nav `aria-expanded`/focus management was homepage-only.** `index.php`'s inline script toggled `aria-expanded`, the hamburger's open state, and moved focus into/out of the drawer; the shared script in `footer.php` (every other page) did none of that. `footer.php` and `header.php`'s toggle button now match.
 - Quiet House Meter — redesign flagged as priority, current version not approved final
 - Email gate on Pick Your Mood Coloring Widget — built into dashboard, not yet on public Freebies version
 - No dedicated downloads section on dashboard separating PDFs from interactive tools
@@ -644,28 +651,20 @@ For live-page inventory, dashboard gating logic, and the exclusive-content drop 
 
 ## APPENDIX A — Quick Reference Hex Codes
 
-**As of 2026-08-30, these two blocks describe different things.** `style.css` has not been touched by the 2026-08-30 color lock — its `:root` still holds the retired July 27/August 1 tokens exactly as shipped. The second block is the rollout target: the token names code should move to once that work is scheduled, not what's live today.
+**Reconciled 2026-09-05 against live `style.css`.** The prior two-block split here (retired-tokens-still-live vs. a not-yet-shipped target) was stale — `style.css`'s shared rules already resolve to the block below sitewide (see §2's corrected scope note), and the retired-named tokens (`--charcoal`, `--page-bg`, `--cozy-card`, `--wine`, `--wine-hover`, `--copper`, `--copper-hover`) had zero remaining usages and were deleted from `:root` the same day. `--golden-earth` and `--forest` are unchanged — still not retired, see §2.homepage-legacy.
 
-### Currently live in `style.css` (retired per §2.11, unchanged by this pass)
+### Live in `style.css`
 
 ```css
---charcoal:      #262624;   /* retired — text/dark neutral */
---page-bg:       #F6F3EC;   /* retired — background */
---clean-card:    #FEFCF8;   /* retired */
---cozy-card:     #EFE8DC;   /* retired */
---soft-white:    #FFFEFB;   /* retired */
---wine:          #7A2E42;   /* retired — was primary button */
---wine-hover:    #5E2233;   /* retired */
---copper:        #A15C3E;   /* retired — was secondary button */
---copper-hover:  #83492F;   /* retired */
+--soft-white:    #FFFEFB;   /* no confirmed 2026-08-30 replacement yet — §2.2's open gap */
+--clean-card:    #FEFCF8;   /* same open gap */
 --golden-earth:  #99621E;   /* NOT retired — see §2.homepage-legacy, still open */
 --forest:        #2D3B32;   /* NOT retired — see §2.homepage-legacy, still open */
---font-display:  'Playfair Display', serif;   /* dead token — briefly activated as a hero accent 2026-08-30, reverted 2026-08-31 (see §5.2b). Unrelated to the color rollout either way. */
 ```
 
 Still live and **not** part of the color lock either way (§2.4/§2.5/§2.9 — carried over, unresolved): `--taupe #8C8272`, `--warm-gray #6B655C`, `--warm-sand #D9C7AC`, `--bark #5B3A28`, `--dark-orange #9E3D0F`, `--moss #46703F`, `--rosewood #80475E`.
 
-### Target — 2026-08-30 palette, not yet in code
+### The 2026-08-30 palette (live sitewide as of this reconciliation)
 
 ```css
 /* Text / dark neutral */
@@ -718,10 +717,13 @@ Full retired-color ledger, including the entire July 27/August 1 system now reti
 ## APPENDIX B — Font Loading
 
 **Web (site):**
+
+Trimmed 2026-09-05: an audit of every page sharing `header.php`/`style.css` found Lora 600 and DM Sans 300/500/600 with zero live usages sitewide (only `workbook.php`/`coloring.php` — standalone pages with their own font `<link>`, not this one — genuinely use 500/600). This also fixed a real bug: `header.php` had been loading only Montserrat, so every non-homepage page was silently falling back to system fonts instead of Lora/DM Sans until 2026-09-05.
+
 ```html
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@400;700;800&display=swap" rel="stylesheet">
 ```
 
 **Interactive HTML tools:**

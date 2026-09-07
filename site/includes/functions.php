@@ -150,6 +150,14 @@ function isPage($page) {
 }
 
 /**
+ * aria-current="page" for the nav link matching the current page — screen
+ * readers otherwise have no signal beyond the .active CSS class isPage() sets.
+ */
+function ariaCurrentPage($page) {
+    return currentPage() === $page ? ' aria-current="page"' : '';
+}
+
+/**
  * Get all exclusive queue items unlocked for a member based on their signup date.
  */
 function getUnlockedExclusiveContent($userId) {

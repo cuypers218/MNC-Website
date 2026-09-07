@@ -7,6 +7,8 @@ header('Access-Control-Allow-Headers: Content-Type');
 if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') { http_response_code(200); exit; }
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') { http_response_code(405); echo json_encode(['success' => false]); exit; }
 
+require_once __DIR__ . '/includes/config.php';
+
 $data = json_decode(file_get_contents('php://input'), true);
 $email = filter_var($data['email'] ?? '', FILTER_VALIDATE_EMAIL);
 $summary = trim($data['summary'] ?? '');
@@ -41,7 +43,7 @@ mail($email, $subject, $body, $headers);
 // TODO: Create this segment in Reach and replace the UUID below
 $segmentId = '70b39fa6-44c6-47f1-b4ba-edad574e4472';
 
-$reachApiKey = '6MIeMuGCJNf9Fp6NpRLB2xCAW5mmy2gIXQyKxdmS1e9982ba';
+$reachApiKey = REACH_API_KEY;
 $profileId   = 'c35b23af-4088-4bb8-b52d-51f4f7694c73';
 
 $contact = [
