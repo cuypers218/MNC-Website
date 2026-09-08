@@ -111,9 +111,6 @@ jobs:
           # "../widgets/" restores the commit d300e87 fix, which WAS verified
           # against a real live file at the time — cancels out the same extra
           # "public_html/" segment the site/ step has.
-          # know-before-you-sell/ is deliberately excluded: CLAUDE.md flags it as
-          # pulled off the live site pending Cece's review of which version is
-          # correct — do not let an auto-deploy put it back live silently.
           local-dir: widgets/
           server-dir: ../widgets/
           exclude: |
@@ -127,4 +124,3 @@ jobs:
             **/node_modules/**
             **/.claude/**
             **/*DRAFT*
-            **/know-before-you-sell/**

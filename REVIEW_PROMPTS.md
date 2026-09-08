@@ -32,7 +32,6 @@ Use these as-is or adapt them for your widget:
 | Widget | Swap line |
 |---|---|
 | Garage Sale Planner | The user is a solo mom who has never sold anything online before and is moderately overwhelmed — she just needs to get through her garage sale without feeling like she's doing it wrong. |
-| Know Before You Sell | The user is a solo mom who has never sold anything online and is quietly worried about being ripped off or doing it wrong. |
 | Cooking for One Planner | The user is a solo mom cooking for herself for the first time in decades — she feels slightly embarrassed that she needs help with something this basic. |
 | 6pm Experience | The user is a solo mom who just hit 6pm in a quiet house and is already starting to spiral — she opened this because she didn't know what else to do. |
 | Goal & Habit Tracker | The user is a solo mom trying to figure out who she is now — she wants to feel like she's moving forward but is one more abandoned checklist away from giving up on the idea entirely. |

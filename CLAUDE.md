@@ -68,7 +68,6 @@ Follow `MNC-BUILD-PLAYBOOK.md` in full. Mandatory, no skipping phases — the tw
 ## OPEN ITEMS — NEEDS CECE'S CALL, NOT A CLAUDE DECISION
 
 - **Security:** `setup-database.php` (installer script, meant to be deleted after first run) and `gen-hash.php` (contains the live account password in plain text) are both still sitting in the public web root. Needs a decision on removal/rotation.
-- **Know Before You Sell:** built and brand-compliant, but pulled off the live site pending Cece's review — do not redeploy `widgets/know-before-you-sell/widget.html` until she confirms it's the intended version and it's been through Phase 5 QA.
 - **Exclusive content drip logic — real conflict, not just staleness:** `ExclusiveContentDrip_ClaudeCode_Brief.md` (locked by Cece June 21) specifies a personalized 30-day drip anchored to each member's own signup date. The Gating Logic section below describes a single shared monthly drop for all members instead. Both can't be true of the live code at once — check `getUnlockedExclusiveContent()`/`getNextExclusiveUnlock()` in `functions.php` to see which was actually built, then fix whichever description is wrong.
 - **Print proofing:** Wine (`#7A2E42`) hasn't been proofed in CMYK. Needed before it goes on anything physically printed (e.g. the Now What? Workbook paperback cover, if used there).
 - **Off-palette hairline grays:** a few widget files still use `#D3D3D3`/`#ABABAB` for hairline borders/dividers — not on the current palette. Low priority, fold into the rollout above rather than a separate task.
@@ -138,7 +137,6 @@ Drop order:
 - Cooking for One Planner — live, $27
 - 30-Day Goal & Habit Tracker — live, $27 (visual rebuild pending — back burner)
 - Garage Sale Planner — live, $27
-- Know Before You Sell — built, pending Cece's review before redeploying (see Open Items)
 - The Quiet House Meter — back-burner; widget never built
 
 ---

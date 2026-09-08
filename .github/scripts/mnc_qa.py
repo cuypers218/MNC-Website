@@ -86,8 +86,7 @@ WIDGET_BANNED_FONTS = ['Montserrat', 'Arial']
 #
 # When a widget is migrated, add it to NEW_STANDARD_WIDGET_FILES.
 # NOT YET MIGRATED: garage-sale-planner, 6pm-experience,
-# know-before-you-sell, cooking-for-one, empty-nester-quiz,
-# someday-list, coloring-widget.
+# cooking-for-one, empty-nester-quiz, someday-list, coloring-widget.
 # ─────────────────────────────────────────────────────────────────
 
 NEW_STANDARD_WIDGET_FILES = []

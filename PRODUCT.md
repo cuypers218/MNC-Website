@@ -39,7 +39,7 @@ Custom PHP/HTML site on Hostinger. Stripe live for payments. Amazon KDP for the 
 
 ## Evidence on Hand
 
-Live, purchasable products: Garage Sale Planner ($27), Cooking for One Planner ($27), Now What? Workbook (Book 1, $14.99 PDF / $24.99 paperback). Live free products: The 6pm Cheat Sheet, Empty Nester Quiz, Pick Your Mood Coloring Widget. Built-but-unlisted: What's This Worth, Know Before You Sell (pending Cece's review before redeploy). No testimonials, case studies, or press are on hand — do not fabricate any.
+Live, purchasable products: Garage Sale Planner ($27), Cooking for One Planner ($27), Now What? Workbook (Book 1, $14.99 PDF / $24.99 paperback). Live free products: The 6pm Cheat Sheet, Empty Nester Quiz, Pick Your Mood Coloring Widget. Built-but-unlisted: What's This Worth. No testimonials, case studies, or press are on hand — do not fabricate any.
 
 ## Product Principles
 

@@ -570,7 +570,6 @@ The one rule worth repeating here because it's a design decision, not a copy one
 | Cooking for One Planner | $27 | Live |
 | 30-Day Goal & Habit Tracker | $27 | Live — visual rebuild pending, back burner |
 | Garage Sale Planner | $27 | Live |
-| Know Before You Sell | Built | Pending Cece's review before redeploy |
 | The Quiet House Meter | — | Back burner — widget never built |
 
 ### 9.2 Priority Pipeline
