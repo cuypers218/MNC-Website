@@ -689,7 +689,7 @@ $AMAZON_LINK = "https://www.amazon.com/YOUR_BOOK_LINK"; // replace with Amazon l
         </div>
         <div class="buy-option-right">
           <div class="buy-price">$14.99</div>
-          <a href="/checkout?product=now-what-workbook" class="btn-buy btn-pdf">Buy PDF</a>
+          <a href="https://hub.mynestchapter.com/#/shop" class="btn-buy btn-pdf">Buy PDF</a>
         </div>
       </div>
 
@@ -828,7 +828,7 @@ $AMAZON_LINK = "https://www.amazon.com/YOUR_BOOK_LINK"; // replace with Amazon l
   <h2 class="cta-headline">Pick your format and get started today.</h2>
   <p class="cta-sub">PDF download · $14.99 &nbsp;|&nbsp; Amazon paperback · $24.99</p>
   <div class="cta-buttons">
-    <a href="/checkout?product=now-what-workbook" class="cta-btn cta-pdf">Get the PDF — $14.99</a>
+    <a href="https://hub.mynestchapter.com/#/shop" class="cta-btn cta-pdf">Get the PDF — $14.99</a>
     <a href="<?= htmlspecialchars($AMAZON_LINK) ?>" target="_blank" rel="noopener" class="cta-btn cta-paperback">Buy the Paperback on Amazon</a>
   </div>
 </div>

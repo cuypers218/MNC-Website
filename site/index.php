@@ -53,7 +53,7 @@
         
         <!-- Auth Link -->
         <div class="nav-auth">
-                            <a href="/login">Log In</a>
+                            <a href="https://hub.mynestchapter.com">Log In</a>
                     </div>
         
         <!-- Mobile Toggle -->
@@ -75,8 +75,8 @@
     <a href="/shop" class="">Shop</a>
     <a href="/resources" class="">Resources</a>
     <a href="/freebies" class="">Freebies</a>
-            <a href="/login">Log In</a>
-        <a href="/register">Create Account</a>
+            <a href="https://hub.mynestchapter.com">Log In</a>
+        <a href="https://hub.mynestchapter.com">Create Account</a>
     </nav>
 
 <main id="main-content" tabindex="-1">
@@ -98,7 +98,7 @@
         <div class="home-hero-copy">
             <h1>Solo mom. Empty nest.<br>What's next.</h1>
             <p class="home-hero-body">Tools. A real person to talk to. A growing community that gets it.</p>
-            <button type="button" onclick="openQuizModal()" class="btn btn-primary">Start Here <span class="cta-arrow">→</span></button>
+            <a href="https://hub.mynestchapter.com" class="btn btn-primary">Start Here <span class="cta-arrow">→</span></a>
         </div>
     </div>
 </section>
@@ -136,8 +136,6 @@
         <h2 class="cece-heading">I raised my kids mostly on my own. When my last one left, I wasn't ready for what hit me.</h2>
         <p class="cece-body">I went looking for something, anything, that sounded like my life. It didn't exist. So I built My Nest Chapter.</p>
         <p class="cece-body">I build every product myself. There will be glitches. There will be mistakes. Tell me when you find one.</p>
-        <a href="/connect" class="cece-link">Say hello <span class="cta-arrow">→</span></a>
-        <br>
         <a href="/about" class="cece-link">Read my full story <span class="cta-arrow">→</span></a>
       </div>
 
@@ -154,24 +152,24 @@
 
         <div class="pillars">
             <a class="pillar thrive" href="/shop">
-                <svg class="pillar-icon" viewBox="0 0 32 32" fill="none" aria-hidden="true"><circle cx="16" cy="19" r="8" stroke="currentColor" stroke-width="1.6"/><path d="M16 11V5M16 5L12 8M16 5L20 8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                <p class="pillar-eyebrow">Thrive</p>
-                <h3>The full catalog</h3>
-                <p>Tools. Digital PDFs. Web and mobile apps. Freebies and other resources. Whatever you're focusing on right now, there's something here for you.</p>
+                <svg class="pillar-icon" viewBox="0 0 32 32" fill="none" aria-hidden="true"><circle cx="15" cy="15" r="8" stroke="currentColor" stroke-width="1.6"/><path d="M20.8 20.8 26 26" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+                <p class="pillar-eyebrow">Explore</p>
+                <h3>Guides, tools, and printables</h3>
+                <p>For wherever you're at right now. Tools. Digital PDFs. Freebies and other resources — whatever you're focusing on, there's something here.</p>
                 <span class="pillar-cta">See everything <span class="cta-arrow">→</span></span>
             </a>
-            <a class="pillar support" href="/connect">
-                <svg class="pillar-icon" viewBox="0 0 32 32" fill="none" aria-hidden="true"><path d="M6 10a3 3 0 0 1 3-3h14a3 3 0 0 1 3 3v8a3 3 0 0 1-3 3H14l-6 5v-5H9a3 3 0 0 1-3-3v-8Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><circle cx="13" cy="14" r="1.2" fill="currentColor"/><circle cx="19" cy="14" r="1.2" fill="currentColor"/></svg>
-                <p class="pillar-eyebrow">Support</p>
-                <h3>Talk to me directly</h3>
-                <p>Whenever you need a friend, someone to bounce ideas off of, vent to, or just listen, I'm here.</p>
-                <span class="pillar-cta">Say hello <span class="cta-arrow">→</span></span>
+            <a class="pillar support" href="https://www.facebook.com/profile.php?id=61590806030391" target="_blank" rel="noopener">
+                <svg class="pillar-icon" viewBox="0 0 32 32" fill="none" aria-hidden="true"><circle cx="12" cy="13" r="5" stroke="currentColor" stroke-width="1.6"/><circle cx="21" cy="13" r="5" stroke="currentColor" stroke-width="1.6"/></svg>
+                <p class="pillar-eyebrow">Belong</p>
+                <h3>You don't have to figure this out solo</h3>
+                <p>Join other women in the same chapter — swap what's working, vent, or just lurk.</p>
+                <span class="pillar-cta">Join the community <span class="cta-arrow">→</span></span>
             </a>
             <a class="pillar encourage" href="/blog">
                 <svg class="pillar-icon" viewBox="0 0 32 32" fill="none" aria-hidden="true"><path d="M16 9c-2-1.5-5-2-8-1.5v14c3-.5 6 0 8 1.5 2-1.5 5-2 8-1.5v-14c-3-.5-6 0-8 1.5Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M16 9v14" stroke="currentColor" stroke-width="1.6"/></svg>
-                <p class="pillar-eyebrow">Encourage</p>
-                <h3>Stories and conversation</h3>
-                <p>Read what's helped me, and tell me what's true for you in the comments. You don't have to figure this out on your own.</p>
+                <p class="pillar-eyebrow">Read</p>
+                <h3>Stories from this stage of life</h3>
+                <p>What's helped, what hasn't, and what I wish someone had told me.</p>
                 <span class="pillar-cta">Read the blog <span class="cta-arrow">→</span></span>
             </a>
         </div>
@@ -187,10 +185,24 @@
 <section class="chapter account-newsletter-section" id="chapter-5" data-chapter-name="Chapter Five — Stay Close" style="position: relative;">
   <div class="an-inner">
 
-    <!-- PRIMARY: MONTHLY EMAIL — matches the locked homepage conversion goal (email/freebie signup, not account creation) -->
+    <!-- PRIMARY: JOIN THE HUB — free account, replaces monthly-email-only as the main conversion goal now that the Hub is the front door -->
     <div class="an-primary-block">
-      <p class="an-eyebrow">FREE. MONTHLY. NO STRINGS.</p>
-      <h2 class="an-heading">I show up in your inbox every month and tell you the truth about mine.</h2>
+      <p class="an-eyebrow">FREE. YOURS. ALL IN ONE PLACE.</p>
+      <h2 class="an-heading">Your journal, your freebies, your shop — one place to check in.</h2>
+      <p class="an-body">Every tool and download on the site, unlocked. New freebies as I add them. And when you're ready to buy something, it just shows up here — nothing to go hunting for again.</p>
+      <a href="https://hub.mynestchapter.com" class="an-btn-primary">JOIN — IT'S FREE <span class="cta-arrow">→</span></a>
+      <p class="an-form-note">Instant access. No waiting.</p>
+    </div>
+
+    <!-- DIVIDER -->
+    <div class="an-divider">
+      <span>or</span>
+    </div>
+
+    <!-- SECONDARY: MONTHLY EMAIL — for the not-ready-to-sign-up-yet reader -->
+    <div class="an-secondary-block">
+      <p class="an-secondary-label">NOT READY FOR THAT YET?</p>
+      <h2 class="an-secondary-heading">I show up in your inbox once a month and tell you the truth about mine.</h2>
       <p class="an-body">What I'm working through right now. What actually helped. What still doesn't. No advice. No program. Just where I really am.</p>
       <?php $anSubscribed = ($_GET['subscribed'] ?? '') === '1'; $anSubscribeError = ($_GET['subscribe_error'] ?? '') === '1'; ?>
       <?php if ($anSubscribed): ?>
@@ -211,26 +223,6 @@
         </form>
       <?php endif; ?>
       <p id="homepage-msg" style="display:none; margin-top:12px; font-family:'DM Sans',sans-serif; font-weight:800; font-size:0.8rem; text-transform:uppercase; letter-spacing:1px; color:var(--moss);"></p>
-    </div>
-
-    <!-- DIVIDER -->
-    <div class="an-divider">
-      <span>or</span>
-    </div>
-
-    <!-- SECONDARY: FREE ACCOUNT -->
-    <div class="an-secondary-block">
-      <p class="an-secondary-label">WANT THE FULL LIBRARY TOO?</p>
-      <h2 class="an-secondary-heading">Create a free account and get every tool, download, and freebie in one place.</h2>
-      <ul class="an-secondary-list">
-        <li>Every freebie on the site, unlocked</li>
-        <li>New ones added just for members</li>
-        <li>Nothing you have to go hunting for again</li>
-      </ul>
-      <a href="/register" class="an-btn-primary">UNLOCK MY FREEBIES <span class="cta-arrow">→</span></a>
-      <div style="margin-top:20px;display:flex;flex-direction:column;gap:6px;align-items:center;">
-        <p class="an-secondary-sub">Instant access. No waiting. That's free.</p>
-      </div>
     </div>
 
   </div>

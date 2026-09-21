@@ -121,28 +121,13 @@ $related = $stmt->fetchAll();
                     <?php elseif ($hasRealFile && isLoggedIn()): ?>
                         <a href="/shop/<?= esc($product['slug']) ?>?download=1" class="btn btn-primary btn-full">Download Free</a>
                     <?php elseif ($hasRealFile): ?>
-                        <a href="/register" class="btn btn-primary btn-full">Create Free Account to Download</a>
+                        <a href="https://hub.mynestchapter.com/#/freebies" class="btn btn-primary btn-full">Join the Hub — It's Free</a>
                     <?php else: ?>
                         <a href="/widgets/<?= esc($widgetSlug) ?>/" class="btn btn-primary btn-full">Try It Free — No Account Needed</a>
                     <?php endif; ?>
                 <?php else: ?>
-                    <?php if (isLoggedIn()): ?>
-                        <a href="/checkout?product=<?= esc($product['slug']) ?>" class="btn btn-primary btn-full">Get the <?= esc(ctaTitle($product['title'])) ?></a>
-                        <p style="font-family:Arial,sans-serif;font-size:0.8rem;color:var(--warm-gray);text-align:center;margin-top:0.6rem;">Secure checkout via Stripe. Instant download after purchase.</p>
-                    <?php else: ?>
-                        <?php
-                            // Carry the product through registration so she lands back on
-                            // checkout instead of the generic dashboard (2026-09 critique:
-                            // this was the real friction, not just "an account is required" —
-                            // she had to re-find and re-click the product after signing up).
-                            // Reuses login.php's existing redirect_after_login mechanism rather
-                            // than inventing a second one.
-                            $_SESSION['redirect_after_login'] = '/checkout?product=' . $product['slug'];
-                        ?>
-                        <a href="/register" class="btn btn-primary btn-full">Create Account to Purchase</a>
-                        <p style="font-family:Arial,sans-serif;font-size:0.8rem;color:var(--warm-gray);text-align:center;margin-top:0.6rem;">Takes about 30 seconds — you'll land right back here to finish.</p>
-                        <p style="color: var(--warm-gray); font-size: 0.85rem; margin-top: 0.75rem; text-align: center;">You'll need an account to buy and access your download.</p>
-                    <?php endif; ?>
+                    <a href="https://hub.mynestchapter.com/#/shop" class="btn btn-primary btn-full">Get the <?= esc(ctaTitle($product['title'])) ?></a>
+                    <p style="font-family:Arial,sans-serif;font-size:0.8rem;color:var(--warm-gray);text-align:center;margin-top:0.6rem;">Free to join. Secure checkout via Stripe. Instant access after purchase.</p>
                     <?php
                     $slugsWithDemo = ['cooking-for-one'];
                     $slugsWithQueryDemo = ['goal-habit-tracker'];

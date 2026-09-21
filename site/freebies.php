@@ -12,7 +12,7 @@ $PDF_URL  = 'https://drive.google.com/uc?export=download&id=1dVTgwgBjwsg0jz9HCcG
   <div class="container">
 
     <h1 class="text-center fade-in" style="margin-bottom:0.25rem;">Freebies</h1>
-    <p class="text-center fade-in-delay-1" style="color:#8BA7D4;font-size:0.95rem;margin-bottom:3rem;">No catch. No upsell on the other side. Just things that helped me.</p>
+    <p class="text-center fade-in-delay-1" style="color:var(--warm-gray);font-size:0.95rem;margin-bottom:3rem;">No catch. No upsell on the other side. Just things that helped me.</p>
 
     <!-- 6pm Cheat Sheet -->
     <div class="freebie-feature fade-in">
@@ -35,7 +35,7 @@ $PDF_URL  = 'https://drive.google.com/uc?export=download&id=1dVTgwgBjwsg0jz9HCcG
           <p id="cs-error" style="display:none;color:var(--dark-orange);font-size:0.85rem;margin-top:0.75rem;">Something went wrong — please try again.</p>
         </div>
         <div id="cs-success" style="display:none;">
-          <p style="font-family:'Montserrat',sans-serif;font-weight:700;font-size:0.85rem;color:#FAF7ED;margin-bottom:1rem;">Check your inbox — it's on its way.</p>
+          <p style="font-family:'Montserrat',sans-serif;font-weight:700;font-size:0.85rem;color:var(--vanilla-cream);margin-bottom:1rem;">Check your inbox — it's on its way.</p>
           <a href="<?= $PDF_URL ?>" target="_blank" rel="noopener" class="btn btn-primary">Download it now instead</a>
         </div>
       <?php endif; ?>
@@ -64,8 +64,7 @@ $PDF_URL  = 'https://drive.google.com/uc?export=download&id=1dVTgwgBjwsg0jz9HCcG
       <h3 class="teaser-title">There's more inside.</h3>
       <p class="teaser-body">Create a free account to access the full freebie library — monthly drops, downloadable PDFs, and interactive tools.</p>
       <div style="display:flex;gap:1rem;flex-wrap:wrap;justify-content:center;margin-top:1.5rem;">
-        <a href="/register" class="btn btn-primary">Create Your Free Account</a>
-        <a href="/login" class="btn btn-outline">Log In</a>
+        <a href="https://hub.mynestchapter.com" class="btn btn-primary">Join the Hub — It's Free</a>
       </div>
     </div>
     <?php endif; ?>
@@ -77,7 +76,7 @@ $PDF_URL  = 'https://drive.google.com/uc?export=download&id=1dVTgwgBjwsg0jz9HCcG
 .freebie-feature {
   max-width: 600px;
   margin: 0 auto 4rem;
-  background: #252535;
+  background: var(--deep-current);
   padding: 48px 52px;
 }
 .freebie-eyebrow {
@@ -86,14 +85,14 @@ $PDF_URL  = 'https://drive.google.com/uc?export=download&id=1dVTgwgBjwsg0jz9HCcG
   font-size: 0.7rem;
   text-transform: uppercase;
   letter-spacing: 0.15em;
-  color: #C44570;
+  color: var(--golden-drift);
   margin-bottom: 0.75rem;
 }
 .freebie-title {
   font-family: 'Montserrat', sans-serif;
   font-weight: 800;
   font-size: 1.75rem;
-  color: #FAF7ED;
+  color: var(--vanilla-cream);
   text-transform: uppercase;
   letter-spacing: 0.03em;
   line-height: 1.15;
@@ -102,7 +101,7 @@ $PDF_URL  = 'https://drive.google.com/uc?export=download&id=1dVTgwgBjwsg0jz9HCcG
 .freebie-body {
   font-family: Arial, sans-serif;
   font-size: 0.95rem;
-  color: rgba(255,248,238,0.75);
+  color: rgba(246,241,230,0.75);
   line-height: 1.75;
   margin-bottom: 2rem;
 }
@@ -115,21 +114,21 @@ $PDF_URL  = 'https://drive.google.com/uc?export=download&id=1dVTgwgBjwsg0jz9HCcG
 .cs-fields input {
   font-family: Arial, sans-serif;
   font-size: 0.9rem;
-  color: #FAF7ED;
+  color: var(--vanilla-cream);
   background: rgba(255,255,255,0.08);
-  border: 1px solid rgba(255,248,238,0.2);
+  border: 1px solid rgba(246,241,230,0.2);
   padding: 13px 14px;
   outline: none;
   touch-action: manipulation;
 }
-.cs-fields input:focus { border-color: #C44570; }
-.cs-fields input::placeholder { color: rgba(255,248,238,0.35); }
+.cs-fields input:focus { border-color: var(--burnished-copper); }
+.cs-fields input::placeholder { color: rgba(246,241,230,0.35); }
 .member-teaser {
   max-width: 520px;
   margin: 0 auto;
   text-align: center;
   padding: 3rem 1.5rem;
-  border-top: 1px solid #D3D3D3;
+  border-top: 1px solid var(--warm-sand);
 }
 .teaser-eyebrow {
   font-family: 'Montserrat', sans-serif;
@@ -137,20 +136,20 @@ $PDF_URL  = 'https://drive.google.com/uc?export=download&id=1dVTgwgBjwsg0jz9HCcG
   font-size: 0.7rem;
   text-transform: uppercase;
   letter-spacing: 0.15em;
-  color: #ABABAB;
+  color: var(--warm-gray);
   margin-bottom: 0.75rem;
 }
 .teaser-title {
   font-family: 'Montserrat', sans-serif;
   font-weight: 800;
   font-size: 1.4rem;
-  color: #252535;
+  color: var(--deep-coffee);
   margin-bottom: 0.75rem;
 }
 .teaser-body {
   font-family: Arial, sans-serif;
   font-size: 0.9rem;
-  color: #8BA7D4;
+  color: var(--warm-gray);
   line-height: 1.7;
 }
 @media (max-width: 600px) {
@@ -172,7 +171,7 @@ async function submitCSForm() {
   var error = document.getElementById('cs-error');
 
   if (!email || !email.includes('@')) {
-    document.getElementById('cs-email').style.borderColor = 'rgba(242,165,122,0.8)';
+    document.getElementById('cs-email').style.borderColor = 'rgba(158,61,15,0.8)';
     document.getElementById('cs-email').focus();
     return;
   }

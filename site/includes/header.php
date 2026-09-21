@@ -63,7 +63,7 @@
             <?php if (isLoggedIn()): ?>
                 <a href="/dashboard"><?= esc($_SESSION['user_name'] ?? 'Dashboard') ?></a>
             <?php else: ?>
-                <a href="/login">Log In</a>
+                <a href="https://hub.mynestchapter.com">Log In</a>
             <?php endif; ?>
         </div>
         
@@ -90,8 +90,8 @@
         <a href="/dashboard">My Dashboard</a>
         <a href="/api/auth?action=logout">Log Out</a>
     <?php else: ?>
-        <a href="/login">Log In</a>
-        <a href="/register">Create Account</a>
+        <a href="https://hub.mynestchapter.com">Log In</a>
+        <a href="https://hub.mynestchapter.com">Create Account</a>
     <?php endif; ?>
 </nav>
 
