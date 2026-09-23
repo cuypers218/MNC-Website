@@ -441,8 +441,17 @@ a:hover .cta-arrow, button:hover .cta-arrow { transform: translateX(4px); }
     resize: vertical; outline: none; transition: border-color 0.2s ease;
 }
 .blog-comment-form textarea:focus { border-color: var(--deep-current); }
+.blog-comment-form input[type="text"],
+.blog-comment-form input[type="email"] {
+    width: 100%; padding: 0.9rem 1rem; border: 1px solid var(--warm-sand); border-radius: 6px;
+    font-family: var(--font-body); font-size: 0.95rem; color: var(--deep-coffee); background: var(--vanilla-cream);
+    outline: none; transition: border-color 0.2s ease;
+}
+.blog-comment-form input[type="text"]:focus,
+.blog-comment-form input[type="email"]:focus { border-color: var(--deep-current); }
 .blog-comment-form .btn-primary { align-self: flex-start; }
-.blog-comment-login-prompt { font-family: var(--font-body); font-size: 0.95rem; color: var(--warm-gray); }
+/* Honeypot — present in the DOM for bots to fill in, invisible and unreachable for real visitors */
+.blog-comment-form .hp-field { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
 .blog-comment-login-prompt a { color: var(--deep-current); font-weight: 700; }
 
 /* ============================================

@@ -205,10 +205,13 @@ function getNextExclusiveUnlock($userId) {
  */
 function getCommentsForPost($postId) {
     $db = getDB();
+    // LEFT JOIN, not JOIN — comments no longer require a member account
+    // (see blog-comment-submit.php); guest_name covers those, first_name
+    // only applies to any older comments that do have a real user_id.
     $stmt = $db->prepare("
-        SELECT c.id, c.body, c.created_at, u.first_name
+        SELECT c.id, c.body, c.created_at, COALESCE(u.first_name, c.guest_name) AS first_name
         FROM blog_comments c
-        JOIN users u ON u.id = c.user_id
+        LEFT JOIN users u ON u.id = c.user_id
         WHERE c.post_id = ? AND c.status = 'visible'
         ORDER BY c.created_at ASC
     ");

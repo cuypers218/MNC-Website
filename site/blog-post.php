@@ -27,10 +27,6 @@ $related = $stmt->fetchAll();
 $comments = getCommentsForPost($post['id']);
 $commented = ($_GET['commented'] ?? '') === '1';
 $commentError = ($_GET['comment_error'] ?? '') === '1';
-if (!isLoggedIn()) {
-    // So clicking "Log in" below sends the visitor back to this exact post afterward.
-    $_SESSION['redirect_after_login'] = $_SERVER['REQUEST_URI'];
-}
 ?>
 
 <article class="blog-post">
@@ -90,7 +86,7 @@ if (!isLoggedIn()) {
 
 </article>
 
-<!-- Comments — gated to logged-in members, see includes/functions.php getCommentsForPost() and blog-comment-submit.php -->
+<!-- Comments — open to anyone, no account needed. See includes/functions.php getCommentsForPost() and blog-comment-submit.php -->
 <section class="blog-comments" id="comments">
     <div class="blog-comments-inner">
         <h2 class="blog-comments-heading"><?= count($comments) ?> <?= count($comments) === 1 ? 'Comment' : 'Comments' ?></h2>
@@ -115,20 +111,22 @@ if (!isLoggedIn()) {
             </ul>
         <?php endif; ?>
 
-        <?php if (isLoggedIn()): ?>
-            <?php if ($commentError): ?>
-                <p class="blog-comment-note blog-comment-note-error">That didn't go through — say a little more and try again.</p>
-            <?php endif; ?>
-            <form class="blog-comment-form" method="POST" action="/blog-comment-submit.php">
-                <?= csrfField() ?>
-                <input type="hidden" name="slug" value="<?= esc($post['slug']) ?>">
-                <label for="comment-body" class="blog-comment-label">Add a comment</label>
-                <textarea id="comment-body" name="body" rows="4" required maxlength="2000" placeholder="What's on your mind?"></textarea>
-                <button type="submit" class="btn btn-primary">Post Comment</button>
-            </form>
-        <?php else: ?>
-            <p class="blog-comment-login-prompt"><a href="/login">Log in</a> to join the conversation.</p>
+        <?php if ($commentError): ?>
+            <p class="blog-comment-note blog-comment-note-error">That didn't go through — check your name and comment and try again.</p>
         <?php endif; ?>
+        <form class="blog-comment-form" method="POST" action="/blog-comment-submit.php">
+            <?= csrfField() ?>
+            <input type="hidden" name="slug" value="<?= esc($post['slug']) ?>">
+            <div class="hp-field" aria-hidden="true">
+                <label for="comment-website">Leave this blank</label>
+                <input type="text" id="comment-website" name="website" tabindex="-1" autocomplete="off">
+            </div>
+            <label for="comment-name" class="blog-comment-label">Name</label>
+            <input type="text" id="comment-name" name="name" required maxlength="100" placeholder="Your first name">
+            <label for="comment-body" class="blog-comment-label">Comment</label>
+            <textarea id="comment-body" name="body" rows="4" required maxlength="2000" placeholder="What's on your mind?"></textarea>
+            <button type="submit" class="btn btn-primary">Post Comment</button>
+        </form>
     </div>
 </section>
 

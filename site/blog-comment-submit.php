@@ -18,20 +18,22 @@ if (!$post) {
 
 $backTo = '/blog/' . $post['slug'];
 
-if (!isLoggedIn()) {
-    $_SESSION['redirect_after_login'] = $backTo;
-    header('Location: /login');
-    exit;
-}
-
 if (!validateCsrf()) {
     header('Location: ' . $backTo . '?comment_error=1#comments');
     exit;
 }
 
+// Honeypot — a field real visitors never see or fill in, bots often do.
+if (trim($_POST['website'] ?? '') !== '') {
+    header('Location: ' . $backTo . '?commented=1#comments');
+    exit;
+}
+
+$name = trim($_POST['name'] ?? '');
+$email = trim($_POST['email'] ?? '');
 $body = trim($_POST['body'] ?? '');
 
-if ($body === '' || mb_strlen($body) < 2) {
+if ($name === '' || mb_strlen($name) > 100 || $body === '' || mb_strlen($body) < 2) {
     header('Location: ' . $backTo . '?comment_error=1#comments');
     exit;
 }
@@ -42,8 +44,8 @@ if (mb_strlen($body) > 2000) {
 }
 
 $db = getDB();
-$stmt = $db->prepare('INSERT INTO blog_comments (post_id, user_id, body) VALUES (?, ?, ?)');
-$stmt->execute([$post['id'], $_SESSION['user_id'], $body]);
+$stmt = $db->prepare('INSERT INTO blog_comments (post_id, guest_name, guest_email, body) VALUES (?, ?, ?, ?)');
+$stmt->execute([$post['id'], $name, $email ?: null, $body]);
 
 header('Location: ' . $backTo . '?commented=1#comments');
 exit;
