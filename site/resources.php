@@ -8,11 +8,11 @@ require_once __DIR__ . '/includes/header.php';
     <div class="container-narrow">
         
         <h1 class="text-center fade-in" style="margin-bottom: 0.5rem;">Resources</h1>
-        <p class="text-center fade-in-delay-1" style="color: var(--warm-gray); font-size: 0.95rem; margin-bottom: 3rem;">Things I've found, made, or used that actually helped. No fluff. No affiliate links.</p>
+        <p class="text-center fade-in-delay-1" style="color: var(--warm-gray); font-size: 0.95rem; margin-bottom: 3rem;">Things I've found, made, or used that actually helped. No filler. No affiliate links.</p>
         
         <!-- Free Tools -->
         <div style="margin-bottom: 3rem;">
-            <h2 style="font-size: 1rem; padding-bottom: 0.5rem; border-bottom: 1px solid #4B4B4B; margin-bottom: 1.25rem;">Free Tools I Made</h2>
+            <h2 style="font-size: 1rem; padding-bottom: 0.5rem; border-bottom: 1px solid var(--warm-sand); margin-bottom: 1.25rem;">Free Tools I Made</h2>
             
             <div style="margin-bottom: 1.5rem;">
                 <p style="font-weight: bold; margin-bottom: 0.25rem;"><a href="/freebies" style="color: var(--deep-current);">The Someday List Builder</a></p>
@@ -20,14 +20,14 @@ require_once __DIR__ . '/includes/header.php';
             </div>
 
             <div style="margin-bottom: 1.5rem;">
-                <p style="font-weight: bold; margin-bottom: 0.25rem;"><a href="/widgets/6pm-experience/" style="color: var(--deep-current);">The 6pm Cheat Sheet</a></p>
+                <p style="font-weight: bold; margin-bottom: 0.25rem;"><a href="/freebies" style="color: var(--deep-current);">The 6pm Cheat Sheet</a></p>
                 <p style="color: var(--warm-gray); font-size: 0.95rem; margin: 0;">A real list of things that got me from 6pm to bedtime on the hard nights.</p>
             </div>
         </div>
         
         <!-- Blog Picks -->
         <div style="margin-bottom: 3rem;">
-            <h2 style="font-size: 1rem; padding-bottom: 0.5rem; border-bottom: 1px solid #4B4B4B; margin-bottom: 1.25rem;">Blog Posts Worth Reading First</h2>
+            <h2 style="font-size: 1rem; padding-bottom: 0.5rem; border-bottom: 1px solid var(--warm-sand); margin-bottom: 1.25rem;">Blog Posts Worth Reading First</h2>
 
             <div style="margin-bottom: 1.5rem;">
                 <p style="font-weight: bold; margin-bottom: 0.25rem;"><a href="/blog/what-i-do-at-6pm" style="color: var(--deep-current);">What I Do at 6pm Now That the House Is Quiet</a></p>
@@ -37,7 +37,7 @@ require_once __DIR__ . '/includes/header.php';
         
         <!-- For the Hard Nights -->
         <div style="margin-bottom: 3rem;">
-            <h2 style="font-size: 1rem; padding-bottom: 0.5rem; border-bottom: 1px solid #4B4B4B; margin-bottom: 1.25rem;">For When It's Really Hard</h2>
+            <h2 style="font-size: 1rem; padding-bottom: 0.5rem; border-bottom: 1px solid var(--warm-sand); margin-bottom: 1.25rem;">For When It's Really Hard</h2>
             <p style="color: var(--warm-gray); font-size: 0.95rem; margin-bottom: 1rem;">Sometimes the empty nest isn't just quiet — it's heavy. If that's where you are right now, these are real resources with real people on the other end.</p>
             
             <div style="margin-bottom: 1.25rem;">

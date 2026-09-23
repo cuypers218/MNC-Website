@@ -6,17 +6,17 @@
 <title>The 6pm Experience | My Nest Chapter</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;800&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 html, body { width: 100%; height: 100%; overflow: hidden; }
-body { font-family: Arial, sans-serif; background: #252535; }
-.skip-link { position: absolute; top: -40px; left: 0; background: #E87AAA; color: #252535; padding: 8px 16px; z-index: 9999; font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 9pt; text-transform: uppercase; text-decoration: none; }
+body { font-family: 'DM Sans', sans-serif; background: #0A2F3A; }
+.skip-link { position: absolute; top: -40px; left: 0; background: #A35E33; color: #FFFFFF; padding: 8px 16px; z-index: 9999; font-family: 'DM Sans', sans-serif; font-weight: 800; font-size: 9pt; text-transform: uppercase; text-decoration: none; }
 .skip-link:focus { top: 0; }
 .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
 .screen { position: fixed; inset: 0; width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; opacity: 0; pointer-events: none; transition: opacity 0.7s ease; }
 .screen.active { opacity: 1; pointer-events: all; }
-.story-screen { cursor: pointer; background: #252535; }
+.story-screen { cursor: pointer; background: #0A2F3A; }
 
 /* ── background images ── */
 .screen-bg { position: absolute; inset: 0; background-size: contain; background-position: center center; background-repeat: no-repeat; opacity: 0.55; }
@@ -24,57 +24,57 @@ body { font-family: Arial, sans-serif; background: #252535; }
 .screen-content { position: relative; z-index: 1; max-width: 620px; padding: 40px 32px; text-align: center; }
 
 /* ── type ── */
-.brand-tag { font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 9pt; letter-spacing: 3px; text-transform: uppercase; color: #E87AAA; margin-bottom: 32px; }
-.story-text { font-family: 'Lora', serif; font-size: 22pt; font-weight: 400; color: #FFF8EE; line-height: 1.55; text-shadow: 0 2px 16px rgba(0,0,0,0.65); }
-.intro-text { font-family: 'Lora', serif; font-size: 16pt; font-weight: 400; font-style: italic; color: #FFF8EE; line-height: 1.7; text-shadow: 0 2px 16px rgba(0,0,0,0.65); margin-bottom: 40px; }
-.tap-hint { font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 8pt; letter-spacing: 3px; text-transform: uppercase; color: rgba(255,248,238,0.5); animation: pulse 2.5s ease-in-out infinite; }
+.brand-tag { font-family: 'DM Sans', sans-serif; font-weight: 800; font-size: 9pt; letter-spacing: 3px; text-transform: uppercase; color: #D8975A; margin-bottom: 32px; }
+.story-text { font-family: 'Lora', serif; font-size: 22pt; font-weight: 400; color: #F6F1E6; line-height: 1.55; text-shadow: 0 2px 16px rgba(0,0,0,0.65); }
+.intro-text { font-family: 'Lora', serif; font-size: 16pt; font-weight: 400; font-style: italic; color: #F6F1E6; line-height: 1.7; text-shadow: 0 2px 16px rgba(0,0,0,0.65); margin-bottom: 40px; }
+.tap-hint { font-family: 'DM Sans', sans-serif; font-weight: 800; font-size: 8pt; letter-spacing: 3px; text-transform: uppercase; color: rgba(246,241,230,0.5); animation: pulse 2.5s ease-in-out infinite; }
 @keyframes pulse { 0%, 100% { opacity: 0.5; } 50% { opacity: 1; } }
 
 /* ── chrome ── */
-.close-btn { position: fixed; top: 20px; left: 24px; width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; background: rgba(0,0,0,0.3); border: 1px solid rgba(255,248,238,0.2); cursor: pointer; z-index: 200; touch-action: manipulation; transition: background 0.2s; }
+.close-btn { position: fixed; top: 20px; left: 24px; width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; background: rgba(0,0,0,0.3); border: 1px solid rgba(246,241,230,0.2); cursor: pointer; z-index: 200; touch-action: manipulation; transition: background 0.2s; }
 .close-btn:hover { background: rgba(0,0,0,0.55); }
-.close-btn svg { width: 16px; height: 16px; fill: rgba(255,248,238,0.7); }
-.counter { position: fixed; top: 24px; right: 28px; font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 8pt; letter-spacing: 2px; color: rgba(255,248,238,0.45); z-index: 100; pointer-events: none; transition: opacity 0.4s; }
+.close-btn svg { width: 16px; height: 16px; fill: rgba(246,241,230,0.7); }
+.counter { position: fixed; top: 24px; right: 28px; font-family: 'DM Sans', sans-serif; font-weight: 800; font-size: 8pt; letter-spacing: 2px; color: rgba(246,241,230,0.45); z-index: 100; pointer-events: none; transition: opacity 0.4s; }
 .counter.hidden { opacity: 0; }
 .arrow-wrap { position: fixed; bottom: 32px; right: 28px; display: flex; align-items: center; gap: 10px; z-index: 100; transition: opacity 0.4s; }
 .arrow-wrap.hidden { opacity: 0; pointer-events: none; }
-.arrow-label { font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 8pt; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,248,238,0.5); }
-.arrow-btn { width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; background: rgba(232,122,170,0.2); border: 1px solid rgba(232,122,170,0.4); cursor: pointer; transition: background 0.2s; touch-action: manipulation; }
-.arrow-btn:hover { background: rgba(232,122,170,0.45); }
-.arrow-btn svg { width: 18px; height: 18px; fill: #FFF8EE; }
+.arrow-label { font-family: 'DM Sans', sans-serif; font-weight: 800; font-size: 8pt; letter-spacing: 2px; text-transform: uppercase; color: rgba(246,241,230,0.5); }
+.arrow-btn { width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; background: rgba(163,94,51,0.2); border: 1px solid rgba(163,94,51,0.4); cursor: pointer; transition: background 0.2s; touch-action: manipulation; }
+.arrow-btn:hover { background: rgba(163,94,51,0.45); }
+.arrow-btn svg { width: 18px; height: 18px; fill: #F6F1E6; }
 
 /* ── EMAIL SCREEN — dark, stays in the world ── */
-.email-screen { background: #252535; cursor: default; overflow-y: auto; align-items: flex-start; justify-content: flex-start; }
+.email-screen { background: #0A2F3A; cursor: default; overflow-y: auto; align-items: flex-start; justify-content: flex-start; }
 .email-card { width: 100%; max-width: 520px; padding: 60px 40px; margin: 0 auto; }
-.email-screen .brand-tag { color: #E87AAA; }
-.email-screen h2 { font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 18pt; color: #FFF8EE; text-transform: uppercase; letter-spacing: 0.5px; line-height: 1.2; margin-bottom: 14px; }
-.email-screen .sub { font-family: Arial, sans-serif; font-size: 12pt; color: rgba(255,248,238,0.65); line-height: 1.6; margin-bottom: 32px; }
+.email-screen .brand-tag { color: #D8975A; }
+.email-screen h2 { font-family: 'DM Sans', sans-serif; font-weight: 800; font-size: 18pt; color: #F6F1E6; text-transform: uppercase; letter-spacing: 0.5px; line-height: 1.2; margin-bottom: 14px; }
+.email-screen .sub { font-family: 'DM Sans', sans-serif; font-size: 12pt; color: rgba(246,241,230,0.65); line-height: 1.6; margin-bottom: 32px; }
 .field-col { display: flex; flex-direction: column; gap: 10px; }
-.email-screen input { font-family: Arial, sans-serif; font-size: 12pt; color: #FFF8EE; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,248,238,0.25); padding: 14px; outline: none; touch-action: manipulation; }
-.email-screen input:focus { border-color: #E87AAA; background: rgba(255,255,255,0.12); }
-.email-screen input::placeholder { color: rgba(255,248,238,0.3); }
-.send-btn { font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 12pt; text-transform: uppercase; color: #252535; background: #E87AAA; border: none; padding: 16px; cursor: pointer; touch-action: manipulation; margin-top: 4px; }
-.send-btn:hover { background: #CF638E; }
+.email-screen input { font-family: 'DM Sans', sans-serif; font-size: 12pt; color: #F6F1E6; background: rgba(255,255,255,0.08); border: 1px solid rgba(246,241,230,0.25); padding: 14px; outline: none; touch-action: manipulation; }
+.email-screen input:focus { border-color: #A35E33; background: rgba(255,255,255,0.12); }
+.email-screen input::placeholder { color: rgba(246,241,230,0.3); }
+.send-btn { font-family: 'DM Sans', sans-serif; font-weight: 800; font-size: 12pt; text-transform: uppercase; color: #FFFFFF; background: #A35E33; border: none; padding: 16px; cursor: pointer; touch-action: manipulation; margin-top: 4px; }
+.send-btn:hover { background: #7F4928; }
 .send-btn:active { transform: translateY(1px); }
 .send-btn.loading { opacity: 0.7; cursor: not-allowed; }
-.no-thanks { font-family: Arial, sans-serif; font-size: 10pt; color: rgba(255,248,238,0.35); background: none; border: none; cursor: pointer; padding: 14px 0 0; text-decoration: underline; text-underline-offset: 2px; display: block; touch-action: manipulation; }
-.no-thanks:hover { color: rgba(255,248,238,0.6); }
-.no-spam { font-family: Arial, sans-serif; font-size: 10pt; color: rgba(255,248,238,0.3); margin-top: 12px; }
+.no-thanks { font-family: 'DM Sans', sans-serif; font-size: 10pt; color: rgba(246,241,230,0.35); background: none; border: none; cursor: pointer; padding: 14px 0 0; text-decoration: underline; text-underline-offset: 2px; display: block; touch-action: manipulation; }
+.no-thanks:hover { color: rgba(246,241,230,0.6); }
+.no-spam { font-family: 'DM Sans', sans-serif; font-size: 10pt; color: rgba(246,241,230,0.3); margin-top: 12px; }
 .email-success { display: none; }
-.success-msg { font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 11pt; color: #E87AAA; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
-.success-sub { font-family: Arial, sans-serif; font-size: 12pt; color: rgba(255,248,238,0.65); line-height: 1.6; margin-bottom: 24px; }
-.download-btn { display: inline-block; font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 11pt; letter-spacing: 1px; text-transform: uppercase; color: #252535; background: #E87AAA; padding: 14px 24px; text-decoration: none; touch-action: manipulation; }
-.download-btn:hover { background: #CF638E; }
-.email-error { display: none; font-family: Arial, sans-serif; font-size: 11pt; color: #F2A57A; padding-top: 12px; }
+.success-msg { font-family: 'DM Sans', sans-serif; font-weight: 800; font-size: 11pt; color: #D8975A; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
+.success-sub { font-family: 'DM Sans', sans-serif; font-size: 12pt; color: rgba(246,241,230,0.65); line-height: 1.6; margin-bottom: 24px; }
+.download-btn { display: inline-block; font-family: 'DM Sans', sans-serif; font-weight: 800; font-size: 11pt; letter-spacing: 1px; text-transform: uppercase; color: #FFFFFF; background: #A35E33; padding: 14px 24px; text-decoration: none; touch-action: manipulation; }
+.download-btn:hover { background: #7F4928; }
+.email-error { display: none; font-family: 'DM Sans', sans-serif; font-size: 11pt; color: #9E3D0F; padding-top: 12px; }
 
 /* ── CONFIRM SCREEN — dark ── */
-.confirm-screen { background: #252535; cursor: default; }
+.confirm-screen { background: #0A2F3A; cursor: default; }
 .confirm-content { max-width: 520px; padding: 60px 40px; text-align: center; }
-.confirm-screen .brand-tag { color: #E87AAA; }
-.confirm-screen h2 { font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 18pt; color: #FFF8EE; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 16px; }
-.confirm-screen p { font-family: Arial, sans-serif; font-size: 12pt; color: rgba(255,248,238,0.65); line-height: 1.6; margin-bottom: 32px; }
-.home-link { font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 10pt; letter-spacing: 2px; text-transform: uppercase; color: #E87AAA; text-decoration: none; border-bottom: 1.5px solid rgba(255,248,238,0.2); padding-bottom: 2px; touch-action: manipulation; }
-.home-link:hover { color: #F5C4A8; }
+.confirm-screen .brand-tag { color: #D8975A; }
+.confirm-screen h2 { font-family: 'DM Sans', sans-serif; font-weight: 800; font-size: 18pt; color: #F6F1E6; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 16px; }
+.confirm-screen p { font-family: 'DM Sans', sans-serif; font-size: 12pt; color: rgba(246,241,230,0.65); line-height: 1.6; margin-bottom: 32px; }
+.home-link { font-family: 'DM Sans', sans-serif; font-weight: 800; font-size: 10pt; letter-spacing: 2px; text-transform: uppercase; color: #D8975A; text-decoration: none; border-bottom: 1.5px solid rgba(246,241,230,0.2); padding-bottom: 2px; touch-action: manipulation; }
+.home-link:hover { color: #7F4928; }
 
 button, input, a { touch-action: manipulation; }
 
@@ -121,7 +121,7 @@ button, input, a { touch-action: manipulation; }
 
 <!-- SCREEN 2 -->
 <div class="screen story-screen" id="screen-2" onclick="advance()" role="button" aria-label="Tap to continue">
-  <div class="screen-bg" style="background-color:#101010;background-image:url('bg-phone.jpg');background-size:contain;background-repeat:no-repeat;background-position:center;" aria-hidden="true"></div>
+  <div class="screen-bg" style="background-color:#2B1F18;background-image:url('bg-phone.jpg');background-size:contain;background-repeat:no-repeat;background-position:center;" aria-hidden="true"></div>
   <div class="screen-overlay" aria-hidden="true"></div>
   <div class="screen-content">
     <p class="story-text">You open the fridge. Close it. Open the pantry. Close it. Open the freezer. Close it. You're not even hungry.</p>
@@ -242,7 +242,7 @@ async function submitEmail() {
   const btn = document.getElementById('send-btn');
   const email = emailInput.value.trim();
   const firstName = nameInput.value.trim();
-  if (!email || !email.includes('@')) { emailInput.style.borderColor = 'rgba(242,165,122,0.6)'; emailInput.focus(); return; }
+  if (!email || !email.includes('@')) { emailInput.style.borderColor = 'rgba(158,61,15,0.6)'; emailInput.focus(); return; }
   btn.textContent = 'Sending…';
   btn.classList.add('loading');
   document.getElementById('email-error').style.display = 'none';

@@ -153,6 +153,8 @@
       display:inline-flex;align-items:center;gap:var(--space-2);
     }
     .btn-secondary:hover{background:var(--mnc-copper-hover)}
+    .btn-primary:disabled,.btn-secondary:disabled{background:var(--mnc-sand);color:var(--mnc-warm-gray);cursor:not-allowed}
+    .btn-primary:disabled:hover,.btn-secondary:disabled:hover{background:var(--mnc-sand)}
 
     .welcome-cards {
       display:grid;grid-template-columns:repeat(3,1fr);
@@ -439,7 +441,10 @@
       margin-bottom:var(--space-2);
     }
     .ideas-header p{font-family:'DM Sans',sans-serif;font-weight:400;font-size:15px;color:var(--mnc-warm-gray);line-height:1.6;max-width:52ch}
-    .ideas-filter{display:flex;gap:var(--space-2);flex-wrap:wrap;margin:var(--space-5) 0}
+    .ideas-filter{display:flex;gap:var(--space-4);flex-wrap:wrap;align-items:center;margin:var(--space-5) 0}
+    .ideas-filter-group{display:flex;gap:var(--space-2);flex-wrap:wrap}
+    .ideas-filter-group + .ideas-filter-group{padding-left:var(--space-4);border-left:1px solid var(--mnc-sand)}
+    @media(max-width:600px){.ideas-filter-group + .ideas-filter-group{padding-left:0;border-left:none;margin-top:var(--space-2)}}
     .filter-pill{
       padding:6px 16px;border-radius:var(--radius-pill);
       font-family:'DM Sans',sans-serif;font-weight:800;
@@ -560,7 +565,7 @@
       .topbar-logo-word{font-size:16px;letter-spacing:1px}
     }
     @media(hover:none) and (pointer:coarse){
-      .tab-btn,.bottom-nav-btn,.week-nav-btn,.filter-pill,.quick-add-btn,.grocery-add-btn,.icon-btn,.fav-btn,.modal-close{min-height:44px;min-width:44px;}
+      .tab-btn,.bottom-nav-btn,.week-nav-btn,.filter-pill,.quick-add-btn,.grocery-add-btn,.icon-btn,.fav-btn,.modal-close,.staple-chip,.rescue-howto-toggle{min-height:44px;min-width:44px;}
     }
     @media(prefers-reduced-motion:reduce){
       *,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}
@@ -743,6 +748,149 @@
     .info-box{background:var(--mnc-soft-sand);border-radius:var(--radius-card);padding:16px;font-size:var(--text-sm);color:var(--mnc-coffee);line-height:1.7}
     .warn-box{background:var(--mnc-honey);border-radius:var(--radius-card);padding:16px;font-size:var(--text-sm);color:var(--mnc-coffee);line-height:1.7}
     .card-placeholder{background:var(--mnc-soft-sand);border:1.5px dashed var(--mnc-sand);border-radius:var(--radius-card);color:var(--mnc-coffee)}
+
+    /* ─── MOBILE BOTTOM-SHEET MODALS (DESIGN.md §5.6) ─── */
+    @media(max-width:860px){
+      .modal-overlay{align-items:flex-end;padding:0}
+      .modal{
+        max-width:100%;width:100%;max-height:88vh;
+        border-radius:var(--radius-card-lg) var(--radius-card-lg) 0 0;
+        animation:none;opacity:0;transform:translateY(24px);
+        transition:transform .28s cubic-bezier(0.16,1,0.3,1),opacity .22s ease;
+      }
+      .modal-overlay.open .modal{opacity:1;transform:translateY(0)}
+    }
+
+    /* ─── TOAST (undo action support) ─── */
+    .mnc-toast{display:flex;align-items:center;gap:var(--space-5)}
+    .mnc-toast.show{pointer-events:auto}
+    .mnc-toast-action{color:#FFFFFF;text-decoration:underline;text-underline-offset:3px;font-weight:800;letter-spacing:1px;flex-shrink:0}
+    .mnc-toast-action:hover{opacity:.8}
+
+    /* ─── KITCHEN RESCUE SCREEN ─── */
+    .rescue-layout{max-width:760px;margin:0 auto;width:100%;padding:var(--space-8) clamp(var(--space-4),4vw,var(--space-10))}
+    .rescue-header h2{font-family:'Lora',serif;font-weight:700;font-size:22px;color:var(--mnc-coffee);margin-bottom:var(--space-1)}
+    .rescue-tagline{font-family:'Lora',serif;font-style:italic;font-size:15px;color:var(--mnc-copper-hover);margin-bottom:var(--space-2)}
+    .rescue-header p{font-family:'DM Sans',sans-serif;font-weight:400;font-size:15px;color:var(--mnc-warm-gray);line-height:1.6;max-width:56ch}
+
+    .rescue-section{margin-top:var(--space-8)}
+    .rescue-section-title{
+      display:flex;align-items:center;justify-content:space-between;gap:var(--space-3);
+      font-family:'DM Sans',sans-serif;font-weight:800;font-size:var(--text-sm);
+      color:var(--mnc-coffee);text-transform:uppercase;letter-spacing:.06em;
+      padding-bottom:var(--space-2);border-bottom:1px solid var(--mnc-sand);margin-bottom:var(--space-4);
+    }
+    .rescue-section-title button{font-family:'DM Sans',sans-serif;font-weight:800;font-size:var(--text-xs);color:var(--mnc-current);text-transform:none;letter-spacing:0;white-space:nowrap}
+    .rescue-section-title button:hover{color:var(--mnc-current-hover)}
+
+    /* Staples */
+    .staples-grid{display:flex;flex-wrap:wrap;gap:var(--space-2)}
+    .staple-chip{
+      display:inline-flex;align-items:center;gap:6px;
+      padding:8px 14px;border-radius:var(--radius-pill);
+      font-family:'DM Sans',sans-serif;font-weight:600;font-size:var(--text-sm);
+      border:1.5px solid var(--mnc-sand);color:var(--mnc-warm-gray);background:var(--mnc-surface);
+      transition:background var(--t),color var(--t),border-color var(--t);cursor:pointer;
+    }
+    .staple-chip.selected{background:var(--mnc-current-tint);border-color:var(--mnc-current);color:var(--mnc-current)}
+    .staple-chip .staple-check{width:14px;height:14px;flex-shrink:0}
+    .staple-chip .staple-check svg{display:none}
+    .staple-chip.selected .staple-check svg{display:block}
+    .staple-chip-custom{background:var(--mnc-current-tint);border-color:var(--mnc-current);color:var(--mnc-current)}
+    .staple-chip-remove{position:relative;margin-left:2px;font-size:.8em;opacity:.7}
+    .staple-chip-remove:hover{opacity:1}
+    .staple-chip-remove::before{content:'';position:absolute;top:50%;left:50%;width:44px;height:44px;transform:translate(-50%,-50%)}
+    .staple-add-row{display:flex;gap:var(--space-2);margin-top:var(--space-3);max-width:360px}
+    .staple-add-row input{
+      flex:1;background:#ffffff;border:1px solid var(--mnc-sand);border-radius:var(--radius-control);
+      padding:10px 12px;font-family:'DM Sans',sans-serif;font-size:var(--text-sm);color:var(--mnc-coffee);outline:none;
+      transition:border-color 180ms ease;
+    }
+    .staple-add-row input:focus{border-color:var(--mnc-current)}
+    .staple-add-row button{
+      background:var(--mnc-copper);color:#FFFFFF;border-radius:var(--radius-control);
+      padding:0 var(--space-4);font-family:'DM Sans',sans-serif;font-weight:800;font-size:var(--text-xs);text-transform:uppercase;
+    }
+    .staple-add-row button:hover{background:var(--mnc-copper-hover)}
+    .staples-hint{font-family:'DM Sans',sans-serif;font-size:var(--text-xs);color:var(--mnc-warm-gray);margin-top:var(--space-3);line-height:1.5}
+
+    /* Photo tiles */
+    .photo-tiles{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--space-3)}
+    .photo-tile{
+      position:relative;aspect-ratio:1;border-radius:var(--radius-card-lg);
+      border:1.5px dashed var(--mnc-sand);background:var(--mnc-surface);
+      display:flex;flex-direction:column;align-items:center;justify-content:center;gap:var(--space-2);
+      cursor:pointer;overflow:hidden;transition:border-color var(--t),background var(--t);
+    }
+    .photo-tile:hover{border-color:var(--mnc-current);background:var(--mnc-current-tint)}
+    .photo-tile-label{font-family:'DM Sans',sans-serif;font-weight:800;font-size:var(--text-xs);text-transform:uppercase;letter-spacing:.05em;color:var(--mnc-warm-gray)}
+    .photo-tile-sub{font-family:'DM Sans',sans-serif;font-size:0.65rem;color:var(--mnc-warm-gray)}
+    .photo-tile img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+    .photo-tile.has-image{border-style:solid;border-color:var(--mnc-current)}
+    .photo-tile-remove{
+      position:absolute;top:10px;right:10px;width:26px;height:26px;border-radius:50%;
+      background:rgba(43,31,24,0.65);color:#FFFFFF;display:flex;align-items:center;justify-content:center;
+      font-size:.85rem;z-index:2;
+    }
+    .photo-tile-remove:hover{background:var(--mnc-coffee)}
+    .photo-tile-remove::before{content:'';position:absolute;top:50%;left:50%;width:44px;height:44px;transform:translate(-50%,-50%)}
+    .rescue-scan-row{display:flex;align-items:center;gap:var(--space-4);margin-top:var(--space-5);flex-wrap:wrap}
+    .rescue-scan-hint{font-family:'DM Sans',sans-serif;font-size:var(--text-xs);color:var(--mnc-warm-gray)}
+
+    /* Loading */
+    .rescue-loading{display:none;text-align:center;padding:var(--space-10) var(--space-6)}
+    .rescue-loading.show{display:block}
+    .rescue-loading-spinner{
+      width:36px;height:36px;margin:0 auto var(--space-4);border-radius:50%;
+      border:3px solid var(--mnc-sand);border-top-color:var(--mnc-current);
+      animation:rescueSpin 0.8s linear infinite;
+    }
+    @keyframes rescueSpin{to{transform:rotate(360deg)}}
+    .rescue-loading-text{font-family:'DM Sans',sans-serif;font-weight:600;font-size:var(--text-base);color:var(--mnc-coffee)}
+    .rescue-cancel-btn{margin-top:var(--space-4);font-family:'DM Sans',sans-serif;font-weight:700;font-size:var(--text-sm);color:var(--mnc-warm-gray);text-decoration:underline;text-underline-offset:3px}
+    .rescue-cancel-btn:hover{color:var(--mnc-coffee)}
+
+    /* Results */
+    .rescue-results{display:none;margin-top:var(--space-8)}
+    .rescue-results.show{display:block}
+    .rescue-results-title{font-family:'Lora',serif;font-weight:700;font-size:20px;color:var(--mnc-coffee);margin-bottom:var(--space-1)}
+    .rescue-results-sub{font-family:'DM Sans',sans-serif;font-size:var(--text-sm);color:var(--mnc-warm-gray);margin-bottom:var(--space-5)}
+    .rescue-cards{display:grid;grid-template-columns:1fr 1fr;gap:var(--space-4)}
+    @media(max-width:600px){.rescue-cards{grid-template-columns:1fr}.photo-tile-label{font-size:.65rem}}
+    .rescue-card{
+      background:var(--mnc-surface);border:1px solid var(--mnc-sand);border-radius:var(--radius-card-lg);
+      box-shadow:var(--shadow-card);padding:var(--space-5);cursor:pointer;
+      display:flex;flex-direction:column;gap:var(--space-3);transition:border-color var(--t)
+    }
+    .rescue-card:hover{border-color:var(--mnc-current)}
+    .rescue-card-source{font-family:'DM Sans',sans-serif;font-weight:800;font-size:.65rem;text-transform:uppercase;letter-spacing:.08em;padding:2px var(--space-2);border-radius:var(--radius-pill);width:fit-content}
+    .rescue-card-source.built{background:var(--mnc-current-tint);color:var(--mnc-current)}
+    .rescue-card-source.web{background:var(--mnc-soft-sand);color:var(--mnc-bark)}
+    .rescue-card-title{font-family:'Lora',serif;font-weight:700;font-size:1.1rem;color:var(--mnc-coffee)}
+    .rescue-card-time{font-family:'DM Sans',sans-serif;font-weight:400;font-size:var(--text-xs);color:var(--mnc-warm-gray)}
+    .rescue-card-uses{font-family:'DM Sans',sans-serif;font-size:var(--text-xs);color:var(--mnc-warm-gray);line-height:1.5}
+
+    /* Detail modal contents */
+    .rescue-detail-source{font-family:'DM Sans',sans-serif;font-size:var(--text-xs);color:var(--mnc-warm-gray);margin-bottom:var(--space-4)}
+    .rescue-detail-source a{color:var(--mnc-current);text-decoration:underline}
+    .rescue-detail-block{margin-bottom:var(--space-5)}
+    .rescue-detail-block h4{font-family:'DM Sans',sans-serif;font-weight:800;font-size:var(--text-sm);text-transform:uppercase;letter-spacing:.05em;color:var(--mnc-coffee);margin-bottom:var(--space-2)}
+    .rescue-detail-uses{list-style:none;display:flex;flex-direction:column;gap:6px}
+    .rescue-detail-uses li{font-family:'DM Sans',sans-serif;font-size:var(--text-sm);color:var(--mnc-coffee);padding-left:18px;position:relative}
+    .rescue-detail-uses li::before{content:'';position:absolute;left:0;top:8px;width:6px;height:6px;border-radius:50%;background:var(--mnc-current)}
+    .rescue-howto-toggle{
+      background:var(--mnc-current-tint);color:var(--mnc-current);border-radius:var(--radius-control);
+      padding:var(--space-3) var(--space-4);font-family:'DM Sans',sans-serif;font-weight:800;font-size:var(--text-sm);
+      display:flex;align-items:center;justify-content:space-between;width:100%;text-align:left;
+    }
+    .rescue-howto-toggle:hover{background:var(--mnc-current);color:#FFFFFF}
+    .rescue-howto-steps{display:none;margin-top:var(--space-3);padding-left:var(--space-2)}
+    .rescue-howto-steps.show{display:block}
+    .rescue-howto-steps li{font-family:'DM Sans',sans-serif;font-size:var(--text-sm);color:var(--mnc-coffee);line-height:1.6;margin-bottom:var(--space-2)}
+
+    /* Empty / error state within Kitchen Rescue */
+    .rescue-empty,.rescue-error{display:none}
+    .rescue-empty.show,.rescue-error.show{display:block;margin-top:var(--space-8)}
   </style>
 </head>
 <body>
@@ -761,6 +909,7 @@
         <button class="tab-btn" role="tab" aria-selected="false" data-screen="planner">Meal Planner</button>
         <button class="tab-btn" role="tab" aria-selected="false" data-screen="grocery">Grocery List</button>
         <button class="tab-btn" role="tab" aria-selected="false" data-screen="ideas">Meal Ideas</button>
+        <button class="tab-btn" role="tab" aria-selected="false" data-screen="kitchen-rescue">Kitchen Rescue</button>
       </div>
       <div class="topbar-right">
         <button class="icon-btn" id="emailPlanBtn" aria-label="Email me my week plan" title="Email my week plan">
@@ -939,14 +1088,18 @@
         <h2>Meal Ideas for One</h2>
         <p>Quick, realistic meals scaled for one. Tap any to add it to your planner.</p>
       </div>
-      <div class="ideas-filter" role="group" aria-label="Filter by meal type">
-        <button class="filter-pill active" data-filter="all">All</button>
-        <button class="filter-pill" data-filter="breakfast">Breakfast</button>
-        <button class="filter-pill" data-filter="lunch">Lunch</button>
-        <button class="filter-pill" data-filter="dinner">Dinner</button>
-        <button class="filter-pill" data-filter="snack">Snack</button>
-        <button class="filter-pill" data-filter="quick">Under 15 min</button>
-        <button class="filter-pill" data-filter="favorites">&#9829; Favorites</button>
+      <div class="ideas-filter">
+        <div class="ideas-filter-group" role="group" aria-label="Filter by meal type">
+          <button class="filter-pill active" data-filter="all">All</button>
+          <button class="filter-pill" data-filter="breakfast">Breakfast</button>
+          <button class="filter-pill" data-filter="lunch">Lunch</button>
+          <button class="filter-pill" data-filter="dinner">Dinner</button>
+          <button class="filter-pill" data-filter="snack">Snack</button>
+        </div>
+        <div class="ideas-filter-group" role="group" aria-label="Filter by other attributes">
+          <button class="filter-pill" data-filter="quick">Under 15 min</button>
+          <button class="filter-pill" data-filter="favorites">&#9829; Favorites</button>
+        </div>
       </div>
       <div class="ideas-grid" id="ideasGrid" role="list"></div>
 
@@ -969,13 +1122,101 @@
     </div>
   </section>
 
+  <!-- KITCHEN RESCUE SCREEN -->
+  <section class="screen" id="screen-kitchen-rescue" role="tabpanel" aria-label="Kitchen Rescue">
+    <div class="rescue-layout">
+      <div class="rescue-header">
+        <h2>Kitchen Rescue</h2>
+        <div class="rescue-tagline">Use it up, don't waste it.</div>
+        <p>Tired? Didn't get to the store? Don't feel like tonight's plan? Snap what's actually in your fridge, freezer, or pantry, and get real ideas built only from what you have. This is separate from your weekly plan, just a save for whenever you need one.</p>
+      </div>
+
+      <!-- Pantry staples -->
+      <div class="rescue-section">
+        <div class="rescue-section-title">
+          <span>My Pantry Staples</span>
+          <button id="staplesToggleBtn" aria-expanded="true" aria-controls="staplesBody">Hide</button>
+        </div>
+        <div id="staplesBody">
+          <div class="staples-grid" id="staplesGrid" role="group" aria-label="Staples you always have on hand"></div>
+          <div class="staple-add-row">
+            <input type="text" id="staplesAddInput" placeholder="Add something else you always have" aria-label="Add a staple">
+            <button id="staplesAddBtn">Add</button>
+          </div>
+          <p class="staples-hint">Tap anything you always keep on hand. Kitchen Rescue will count these as available, on top of whatever's in your photos. Change this any time.</p>
+        </div>
+      </div>
+
+      <!-- Photos -->
+      <div class="rescue-section">
+        <div class="rescue-section-title"><span>Show Me What You Have</span></div>
+        <div class="photo-tiles" id="photoTiles">
+          <div class="photo-tile" data-slot="0" tabindex="0" role="button" aria-label="Add a photo of your fridge">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+            <span class="photo-tile-label">Fridge</span>
+            <span class="photo-tile-sub">Tap to add</span>
+          </div>
+          <div class="photo-tile" data-slot="1" tabindex="0" role="button" aria-label="Add a photo of your freezer">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+            <span class="photo-tile-label">Freezer</span>
+            <span class="photo-tile-sub">Optional</span>
+          </div>
+          <div class="photo-tile" data-slot="2" tabindex="0" role="button" aria-label="Add a photo of your pantry">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+            <span class="photo-tile-label">Pantry</span>
+            <span class="photo-tile-sub">Optional</span>
+          </div>
+        </div>
+        <input type="file" accept="image/*" capture="environment" id="photoFileInput" class="sr-only" tabindex="-1" aria-label="Photo upload">
+        <div class="rescue-scan-row">
+          <button class="btn-primary" id="rescueScanBtn" disabled>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M20 12v6a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-6M4 12l2-4h12l2 4"/></svg>
+            Scan My Kitchen
+          </button>
+          <span class="rescue-scan-hint" id="rescueScanHint">Add at least one photo to get started</span>
+        </div>
+      </div>
+
+      <!-- Loading -->
+      <div class="rescue-loading" id="rescueLoading" role="status" aria-live="polite">
+        <div class="rescue-loading-spinner" aria-hidden="true"></div>
+        <div class="rescue-loading-text" id="rescueLoadingText">Looking at what you have...</div>
+        <button type="button" class="rescue-cancel-btn" id="rescueCancelBtn">Cancel</button>
+      </div>
+
+      <!-- Results -->
+      <div class="rescue-results" id="rescueResults">
+        <div class="rescue-results-title">Here's what you can make</div>
+        <div class="rescue-results-sub" id="rescueResultsSub"></div>
+        <div class="rescue-cards" id="rescueCards"></div>
+      </div>
+
+      <!-- No good match -->
+      <div class="rescue-empty" id="rescueEmpty">
+        <div class="empty-state">
+          <span class="empty-state-mark">My Nest Chapter</span>
+          <div class="empty-state-text" id="rescueEmptyText">Didn't find a great match with just what you have. Try adding a photo of another shelf, or check off a few more pantry staples above.</div>
+          <div class="empty-state-text" id="rescueEmptyScansLeft" style="margin-top:var(--space-2);font-size:0.7rem"></div>
+        </div>
+      </div>
+
+      <!-- Error -->
+      <div class="rescue-error" id="rescueError">
+        <div class="empty-state" style="border-color:var(--mnc-error)">
+          <span class="empty-state-mark" style="color:var(--mnc-error)" id="rescueErrorTitle">Something went wrong</span>
+          <div class="empty-state-text" id="rescueErrorText">Could not scan your kitchen. Please try again.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
 </div>
 
 <!-- SUGGEST MODAL -->
 <div class="modal-overlay" id="suggestModal" role="dialog" aria-modal="true" aria-labelledby="suggestModalTitle">
   <div class="modal">
     <div class="modal-header">
-      <div class="modal-title" id="suggestModalTitle">Suggested Meals</div>
+      <h2 class="modal-title" id="suggestModalTitle">Suggested Meals</h2>
       <button class="modal-close" id="closeSuggestModal" aria-label="Close">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 6L6 18M6 6l12 12"/></svg>
       </button>
@@ -992,7 +1233,7 @@
 <div class="modal-overlay" id="addIdeaModal" role="dialog" aria-modal="true" aria-labelledby="addIdeaModalTitle">
   <div class="modal">
     <div class="modal-header">
-      <div class="modal-title" id="addIdeaModalTitle">Add to Planner</div>
+      <h2 class="modal-title" id="addIdeaModalTitle">Add to Planner</h2>
       <button class="modal-close" id="closeIdeaModal" aria-label="Close">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 6L6 18M6 6l12 12"/></svg>
       </button>
@@ -1010,7 +1251,7 @@
 <div class="modal-overlay" id="emailPlanModal" role="dialog" aria-modal="true" aria-labelledby="emailPlanModalTitle">
   <div class="modal">
     <div class="modal-header">
-      <div class="modal-title" id="emailPlanModalTitle">Email Me My Week Plan</div>
+      <h2 class="modal-title" id="emailPlanModalTitle">Email Me My Week Plan</h2>
       <button class="modal-close" id="closeEmailPlanModal" aria-label="Close">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 6L6 18M6 6l12 12"/></svg>
       </button>
@@ -1033,13 +1274,13 @@
 <div class="modal-overlay" id="weekCompleteModal" role="dialog" aria-modal="true" aria-labelledby="weekCompleteTitle">
   <div class="modal">
     <div class="modal-header">
-      <div class="modal-title" id="weekCompleteTitle">Your Week Is Planned</div>
+      <h2 class="modal-title" id="weekCompleteTitle">Your Week Is Planned</h2>
       <button class="modal-close" id="closeWeekCompleteModal" aria-label="Close">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 6L6 18M6 6l12 12"/></svg>
       </button>
     </div>
     <div class="modal-body">
-      <p style="font-family:'DM Sans',sans-serif;font-weight:800;font-size:var(--text-base);color:var(--mnc-coffee);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:var(--space-3)">Every day is planned. You did that.</p>
+      <p style="font-family:'DM Sans',sans-serif;font-weight:800;font-size:var(--text-lg);color:var(--mnc-coffee);margin-bottom:var(--space-3)">Every day is planned. You did that.</p>
       <p style="font-family:'DM Sans',sans-serif;font-weight:400;font-size:var(--text-sm);color:var(--mnc-warm-gray);margin-bottom:var(--space-6);line-height:1.6">Seven days, one decision at a time. Print it out or send it to your inbox so you have it with you all week.</p>
       <div style="display:flex;gap:var(--space-3);flex-wrap:wrap">
         <button class="btn-primary btn-primary--sm" id="weekCompletePrintBtn">Print my week</button>
@@ -1048,6 +1289,22 @@
     </div>
     <div class="modal-footer">
       <button class="btn-secondary" id="closeWeekCompleteModal2">Close</button>
+    </div>
+  </div>
+</div>
+
+<!-- KITCHEN RESCUE DETAIL MODAL -->
+<div class="modal-overlay" id="rescueDetailModal" role="dialog" aria-modal="true" aria-labelledby="rescueDetailTitle">
+  <div class="modal">
+    <div class="modal-header">
+      <h2 class="modal-title" id="rescueDetailTitle">Recipe</h2>
+      <button class="modal-close" id="closeRescueDetailModal" aria-label="Close">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 6L6 18M6 6l12 12"/></svg>
+      </button>
+    </div>
+    <div class="modal-body" id="rescueDetailBody"></div>
+    <div class="modal-footer">
+      <button class="btn-secondary" id="closeRescueDetailModal2">Close</button>
     </div>
   </div>
 </div>
@@ -1070,6 +1327,10 @@
     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="12" y1="2" x2="12" y2="6"/><line x1="12" y1="18" x2="12" y2="22"/><line x1="4.93" y1="4.93" x2="7.76" y2="7.76"/><line x1="16.24" y1="16.24" x2="19.07" y2="19.07"/><line x1="2" y1="12" x2="6" y2="12"/><line x1="18" y1="12" x2="22" y2="12"/><line x1="4.93" y1="19.07" x2="7.76" y2="16.24"/><line x1="16.24" y1="7.76" x2="19.07" y2="4.93"/></svg>
     Ideas
   </button>
+  <button class="bottom-nav-btn" data-screen="kitchen-rescue" aria-label="Kitchen Rescue">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 3h16v6a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V3z"/><path d="M9 11v10M15 11v10"/><path d="M4 21h16"/></svg>
+    Rescue
+  </button>
 </nav>
 
 <script>
@@ -1091,6 +1352,7 @@ let state = {
   favorites: [],
   customMeals: [],
   weekOffset: 0,
+  kitchenStaples: [],
 };
 
 let _saveTimer;
@@ -1183,7 +1445,7 @@ const tips = [
   "Keep a lemon in the fridge. It makes everything taste more intentional.",
   "Plan your grocery list after your meal plan — never before.",
   "'Use leftovers' counts as a meal. Put it on the plan.",
-  "One-pot meals mean one pot to wash. That matters when it's just you.",
+  "One-pot meals mean one pot to wash. Worth it when it's just you.",
 ];
 
 // ── HELPERS ───────────────────────────────────────────────────
@@ -1224,12 +1486,28 @@ function calcDayPrepTime(dayIdx) {
 }
 
 let _toastTimer;
-function toast(msg){
+function toast(msg, opts){
+  opts = opts || {};
   let el=document.getElementById('_mnc_toast');
-  if(!el){el=document.createElement('div');el.id='_mnc_toast';el.className='mnc-toast';document.body.appendChild(el)}
-  el.textContent=msg;clearTimeout(_toastTimer);
+  if(!el){
+    el=document.createElement('div');el.id='_mnc_toast';el.className='mnc-toast';
+    el.setAttribute('role','status');el.setAttribute('aria-live','polite');
+    document.body.appendChild(el);
+  }
+  el.innerHTML='';
+  const text=document.createElement('span');
+  text.textContent=msg;
+  el.appendChild(text);
+  if (opts.actionLabel && opts.onAction) {
+    const btn=document.createElement('button');
+    btn.className='mnc-toast-action';
+    btn.textContent=opts.actionLabel;
+    btn.addEventListener('click',()=>{ opts.onAction(); el.classList.remove('show'); clearTimeout(_toastTimer); });
+    el.appendChild(btn);
+  }
+  clearTimeout(_toastTimer);
   el.classList.add('show');
-  _toastTimer=setTimeout(()=>el.classList.remove('show'),2000);
+  _toastTimer=setTimeout(()=>el.classList.remove('show'), opts.duration || (opts.actionLabel ? 7000 : 2000));
 }
 
 function mncConfirm(msg,onConfirm){
@@ -1279,6 +1557,7 @@ function showScreen(id) {
   if (id === 'planner') renderPlanner();
   if (id === 'grocery') renderGrocery();
   if (id === 'ideas') renderIdeas('all');
+  if (id === 'kitchen-rescue') renderStaples();
 }
 
 document.querySelectorAll('[data-screen]').forEach(btn => btn.addEventListener('click', () => showScreen(btn.dataset.screen)));
@@ -1325,7 +1604,7 @@ function renderPlanner() {
   const pct = Math.round((filledDays/7)*100);
   document.getElementById('progressFill').style.transform = `scaleX(${pct/100})`;
   document.getElementById('progressBar').setAttribute('aria-valuenow', filledDays);
-  document.getElementById('progressText').textContent = `${filledDays} of 7 days planned`;
+  updateProgressText(filledDays);
 
   // Mobile day strip
   const strip = document.getElementById('mobileDayStrip');
@@ -1444,7 +1723,37 @@ function updateSidebarTab(dayIdx) {
   for(let i=0;i<7;i++) if(getMeal(i,'dinner')) filledDays++;
   const pct = Math.round((filledDays/7)*100);
   document.getElementById('progressFill').style.transform = `scaleX(${pct/100})`;
-  document.getElementById('progressText').textContent = `${filledDays} of 7 days planned`;
+  updateProgressText(filledDays);
+}
+
+// Momentum-framed progress copy ("3 more days to plan", not a raw count),
+// with the number tweening up/down when it changes rather than snapping.
+function animateCount(el, from, to, duration) {
+  duration = duration || 450;
+  const start = performance.now();
+  function step(now) {
+    const t = Math.min(1, (now - start) / duration);
+    const eased = 1 - Math.pow(1 - t, 3);
+    el.textContent = Math.round(from + (to - from) * eased);
+    if (t < 1) requestAnimationFrame(step);
+  }
+  requestAnimationFrame(step);
+}
+function updateProgressText(filledDays) {
+  const el = document.getElementById('progressText');
+  const remaining = 7 - filledDays;
+  const prev = el.dataset.lastRemaining !== undefined ? parseInt(el.dataset.lastRemaining) : remaining;
+  el.dataset.lastRemaining = remaining;
+  if (filledDays === 0) {
+    el.textContent = "7 days to plan — let's get started";
+  } else if (remaining === 0) {
+    el.textContent = 'Every day is planned!';
+  } else {
+    el.innerHTML = '<span id="progressRemainingNum">' + prev + '</span> more day' + (remaining === 1 ? '' : 's') + ' to plan';
+    const span = document.getElementById('progressRemainingNum');
+    if (span && prev !== remaining) animateCount(span, prev, remaining, 450);
+    else if (span) span.textContent = remaining;
+  }
 }
 
 document.addEventListener('click', (e) => {
@@ -1472,9 +1781,14 @@ document.getElementById('copyLastWeekBtn').addEventListener('click', () => {
   else { saveState(); renderPlanner(); toast(`Copied ${copied} meals from last week!`); }
 });
 document.getElementById('clearBtn').addEventListener('click', () => {
-  mncConfirm('Clear all meals for this week?', () => {
-    for(let i=0;i<7;i++) MEAL_TYPES.forEach(t => delete state.meals[getMealKey(i,t)]);
-    saveState(); renderPlanner(); toast('Week cleared.');
+  const hadAnyMeal = [...Array(7).keys()].some(i => MEAL_TYPES.some(t => state.meals[getMealKey(i,t)]));
+  if (!hadAnyMeal) { toast('Nothing to clear — this week is already empty.'); return; }
+  const snapshot = JSON.parse(JSON.stringify(state.meals));
+  for(let i=0;i<7;i++) MEAL_TYPES.forEach(t => delete state.meals[getMealKey(i,t)]);
+  saveState(); renderPlanner();
+  toast('Week cleared.', {
+    actionLabel: 'Undo',
+    onAction: () => { state.meals = snapshot; saveState(); renderPlanner(); toast('Week restored.'); }
   });
 });
 
@@ -1551,22 +1865,34 @@ function renderGrocery() {
 
 function doAutoFill() {
   const allIngredients = new Map();
+  const unmatchedMeals = [];
   for (let day = 0; day < 7; day++) {
     MEAL_TYPES.forEach(type => {
       const meal = getMeal(day, type);
       if (meal && meal.name) {
-        const idea = mealIdeas.find(m => m.name === meal.name);
-        if (idea && idea.ingredients) {
+        const idea = getAllMealIdeas().find(m => m.name === meal.name);
+        let contributed = false;
+        if (idea && idea.ingredients && idea.ingredients.length) {
           idea.ingredients.forEach(item => {
             const key = item.toLowerCase().trim();
             if (!allIngredients.has(key)) allIngredients.set(key, item);
           });
+          contributed = true;
+        } else if (meal.notes && meal.notes.trim()) {
+          // Fall back to whatever she typed in "Notes or Ingredients" herself,
+          // so a freely-typed meal still contributes something instead of silently nothing.
+          meal.notes.split(/[,\n]/).map(s => s.trim()).filter(Boolean).forEach(item => {
+            const key = item.toLowerCase();
+            if (!allIngredients.has(key)) allIngredients.set(key, item);
+          });
+          contributed = true;
         }
+        if (!contributed) unmatchedMeals.push(meal.name);
       }
     });
   }
-  if (allIngredients.size === 0) {
-    toast('No planned meals with known ingredients found. Add meals to your planner first.');
+  if (allIngredients.size === 0 && unmatchedMeals.length === 0) {
+    toast('No planned meals found. Add meals to your planner first.');
     return;
   }
   const categories = { Produce:[], Protein:[], Pantry:[], 'Dairy & Fridge':[], 'Bread & Grains':[] };
@@ -1582,7 +1908,13 @@ function doAutoFill() {
     items.forEach(name => state.grocery.push({name, category: cat, checked: false}));
   });
   saveState(); renderGrocery();
-  toast(`${allIngredients.size} ingredients added from your meal plan.`);
+  if (unmatchedMeals.length > 0) {
+    const uniqueUnmatched = [...new Set(unmatchedMeals)];
+    const noun = uniqueUnmatched.length > 1 ? 'meals had' : 'meal had';
+    toast(`${allIngredients.size} ingredients added. ${uniqueUnmatched.length} ${noun} no ingredient list — add ${uniqueUnmatched.length > 1 ? 'those' : 'it'} manually: ${uniqueUnmatched.join(', ')}`, {duration: 5000});
+  } else {
+    toast(`${allIngredients.size} ingredients added from your meal plan.`);
+  }
 }
 
 document.getElementById('autoFillGrocery').addEventListener('click', () => {
@@ -1906,6 +2238,262 @@ document.getElementById('closeWeekCompleteModal').addEventListener('click', () =
 document.getElementById('closeWeekCompleteModal2').addEventListener('click', () => closeModal('weekCompleteModal'));
 document.getElementById('weekCompletePrintBtn').addEventListener('click', () => { closeModal('weekCompleteModal'); window.print(); });
 document.getElementById('weekCompleteEmailBtn').addEventListener('click', () => { closeModal('weekCompleteModal'); openEmailPlanModal(); });
+
+// ── KITCHEN RESCUE ───────────────────────────────────────────
+const STAPLE_SUGGESTIONS = ['Salt','Pepper','Olive oil','Butter','Sugar','Flour','Garlic powder','Onion powder','Soy sauce','Ketchup','Mustard','Mayo','Milk','Eggs','Rice'];
+const SLOT_LABELS = ['Fridge','Freezer','Pantry'];
+let rescuePhotos = [null, null, null]; // File objects, one per slot
+let rescuePhotoUrls = [null, null, null]; // matching object URLs, so old ones can be revoked
+let rescueActiveSlot = null;
+let rescueResultsData = null;
+let rescueCappedToday = false; // true once a 429 confirms today's scans are used up
+let rescueAbortController = null; // lets an in-flight scan be cancelled
+
+function renderStaples() {
+  const custom = state.kitchenStaples.filter(s => !STAPLE_SUGGESTIONS.some(sg => sg.toLowerCase() === s.toLowerCase()));
+  const grid = document.getElementById('staplesGrid');
+  grid.innerHTML = STAPLE_SUGGESTIONS.map(name => {
+    const selected = state.kitchenStaples.some(s => s.toLowerCase() === name.toLowerCase());
+    return `<button type="button" class="staple-chip${selected ? ' selected' : ''}" data-staple="${esc(name)}" aria-pressed="${selected}">
+      <span class="staple-check"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></span>
+      ${esc(name)}
+    </button>`;
+  }).join('') + custom.map(name => `
+    <span class="staple-chip staple-chip-custom" data-staple="${esc(name)}">
+      ${esc(name)}<button type="button" class="staple-chip-remove" data-remove-staple="${esc(name)}" aria-label="Remove ${esc(name)}">&#x2715;</button>
+    </span>
+  `).join('');
+
+  grid.querySelectorAll('[data-staple]').forEach(chip => {
+    chip.addEventListener('click', (e) => {
+      if (e.target.closest('[data-remove-staple]')) return;
+      toggleStaple(chip.dataset.staple);
+    });
+  });
+  grid.querySelectorAll('[data-remove-staple]').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      state.kitchenStaples = state.kitchenStaples.filter(s => s.toLowerCase() !== btn.dataset.removeStaple.toLowerCase());
+      saveState(); renderStaples();
+    });
+  });
+}
+
+function toggleStaple(name) {
+  const idx = state.kitchenStaples.findIndex(s => s.toLowerCase() === name.toLowerCase());
+  if (idx === -1) state.kitchenStaples.push(name);
+  else state.kitchenStaples.splice(idx, 1);
+  saveState(); renderStaples();
+}
+
+document.getElementById('staplesAddBtn').addEventListener('click', () => {
+  const input = document.getElementById('staplesAddInput');
+  const val = input.value.trim();
+  if (!val) return;
+  if (!state.kitchenStaples.some(s => s.toLowerCase() === val.toLowerCase())) state.kitchenStaples.push(val);
+  input.value = '';
+  saveState(); renderStaples();
+});
+document.getElementById('staplesAddInput').addEventListener('keydown', e => { if (e.key === 'Enter') document.getElementById('staplesAddBtn').click(); });
+
+document.getElementById('staplesToggleBtn').addEventListener('click', () => {
+  const body = document.getElementById('staplesBody');
+  const btn = document.getElementById('staplesToggleBtn');
+  const hidden = body.style.display === 'none';
+  body.style.display = hidden ? '' : 'none';
+  btn.textContent = hidden ? 'Hide' : 'Show';
+  btn.setAttribute('aria-expanded', hidden ? 'true' : 'false');
+});
+
+// Photo tiles
+document.querySelectorAll('.photo-tile').forEach(tile => {
+  const open = () => { rescueActiveSlot = +tile.dataset.slot; document.getElementById('photoFileInput').click(); };
+  tile.addEventListener('click', (e) => { if (!e.target.closest('.photo-tile-remove')) open(); });
+  tile.addEventListener('keydown', e => { if ((e.key === 'Enter' || e.key === ' ') && !e.target.closest('.photo-tile-remove')) { e.preventDefault(); open(); } });
+});
+
+document.getElementById('photoFileInput').addEventListener('change', (e) => {
+  const file = e.target.files[0];
+  e.target.value = '';
+  if (!file || rescueActiveSlot === null) return;
+  rescuePhotos[rescueActiveSlot] = file;
+  renderPhotoTile(rescueActiveSlot);
+  updateScanButtonState();
+});
+
+function renderPhotoTile(slot) {
+  const tile = document.querySelector(`.photo-tile[data-slot="${slot}"]`);
+  const file = rescuePhotos[slot];
+  if (rescuePhotoUrls[slot]) { URL.revokeObjectURL(rescuePhotoUrls[slot]); rescuePhotoUrls[slot] = null; }
+  if (!file) {
+    tile.classList.remove('has-image');
+    tile.innerHTML = `
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+      <span class="photo-tile-label">${SLOT_LABELS[slot]}</span>
+      <span class="photo-tile-sub">${slot === 0 ? 'Tap to add' : 'Optional'}</span>`;
+    return;
+  }
+  tile.classList.add('has-image');
+  const url = URL.createObjectURL(file);
+  rescuePhotoUrls[slot] = url;
+  tile.innerHTML = `<img src="${url}" alt="${SLOT_LABELS[slot]} photo">
+    <button type="button" class="photo-tile-remove" data-remove-photo="${slot}" aria-label="Remove ${SLOT_LABELS[slot]} photo">&#x2715;</button>`;
+  tile.querySelector('[data-remove-photo]').addEventListener('click', (e) => {
+    e.stopPropagation();
+    rescuePhotos[slot] = null;
+    renderPhotoTile(slot);
+    updateScanButtonState();
+  });
+}
+
+function updateScanButtonState() {
+  const btn = document.getElementById('rescueScanBtn');
+  const hint = document.getElementById('rescueScanHint');
+  if (rescueCappedToday) {
+    btn.disabled = true;
+    hint.textContent = 'Come back tomorrow for more scans';
+    return;
+  }
+  const count = rescuePhotos.filter(Boolean).length;
+  btn.disabled = count === 0;
+  hint.textContent = count === 0 ? 'Add at least one photo to get started' : `${count} photo${count > 1 ? 's' : ''} ready`;
+}
+
+document.getElementById('rescueScanBtn').addEventListener('click', runKitchenRescueScan);
+
+function setRescueState(mode) {
+  document.getElementById('rescueLoading').classList.toggle('show', mode === 'loading');
+  document.getElementById('rescueResults').classList.toggle('show', mode === 'results');
+  document.getElementById('rescueEmpty').classList.toggle('show', mode === 'empty');
+  document.getElementById('rescueError').classList.toggle('show', mode === 'error');
+}
+
+// Only errors this app explicitly throws (with a real HTTP response) get their own message
+// shown to her — anything else (network failure, timeout, etc.) always gets the friendly fallback,
+// never a raw browser string like "Failed to fetch".
+function scrollRescueStateIntoView() {
+  const el = document.querySelector('.rescue-loading.show, .rescue-results.show, .rescue-empty.show, .rescue-error.show');
+  if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function runKitchenRescueScan() {
+  const form = new FormData();
+  rescuePhotos.forEach((file, i) => { if (file) form.append('photo' + (i + 1), file); });
+  form.append('staples', JSON.stringify(state.kitchenStaples));
+
+  setRescueState('loading');
+  scrollRescueStateIntoView();
+  const loadingText = document.getElementById('rescueLoadingText');
+  loadingText.textContent = 'Looking at what you have...';
+  const phaseTimer = setTimeout(() => { loadingText.textContent = 'Finding your options...'; }, 3500);
+  document.getElementById('rescueScanBtn').disabled = true;
+
+  rescueAbortController = new AbortController();
+  document.getElementById('rescueCancelBtn').onclick = () => { rescueAbortController.abort(); };
+
+  fetch('/api/kitchen-rescue-scan.php', { method: 'POST', body: form, signal: rescueAbortController.signal })
+    .then(async r => {
+      const data = await r.json().catch(() => null);
+      if (!r.ok || !data || data.success !== true) {
+        const err = new Error((data && data.error) || 'Could not scan your kitchen — please try again.');
+        err.isKnown = true;
+        err.status = r.status;
+        throw err;
+      }
+      return data;
+    })
+    .then(data => {
+      clearTimeout(phaseTimer);
+      rescueResultsData = data;
+      const scansLeftText = typeof data.scans_remaining === 'number'
+        ? (data.scans_remaining > 0 ? `${data.scans_remaining} scan${data.scans_remaining === 1 ? '' : 's'} left today` : "That's your last scan for today — more tomorrow.")
+        : '';
+      if (!data.suggestions || data.suggestions.length === 0) {
+        document.getElementById('rescueEmptyScansLeft').textContent = scansLeftText
+          ? `This one counted toward today's limit — ${scansLeftText}.`
+          : "This one counted toward today's limit.";
+        setRescueState('empty');
+      } else {
+        renderRescueResults(data, scansLeftText);
+        setRescueState('results');
+      }
+      scrollRescueStateIntoView();
+    })
+    .catch(err => {
+      clearTimeout(phaseTimer);
+      if (err && err.name === 'AbortError') {
+        // She cancelled on purpose — just go back to the pre-scan state, no error to show.
+        setRescueState('none');
+        return;
+      }
+      const friendlyMessage = err && err.isKnown ? err.message : 'Could not scan your kitchen — please try again.';
+      if (err && err.status === 429) rescueCappedToday = true;
+      document.getElementById('rescueErrorTitle').textContent = err && err.status === 429 ? "You're out for today" : 'Something went wrong';
+      document.getElementById('rescueErrorText').textContent = friendlyMessage;
+      setRescueState('error');
+      scrollRescueStateIntoView();
+    })
+    .finally(() => { rescueAbortController = null; updateScanButtonState(); });
+}
+
+function renderRescueResults(data, scansLeftText) {
+  const sub = data.detected_items && data.detected_items.length
+    ? `Based on what we spotted: ${data.detected_items.slice(0, 8).join(', ')}${data.detected_items.length > 8 ? '...' : ''}`
+    : 'Based on what\'s in your photos and your pantry staples.';
+  document.getElementById('rescueResultsSub').textContent = sub + (scansLeftText ? ` · ${scansLeftText}` : '');
+
+  document.getElementById('rescueCards').innerHTML = data.suggestions.map((s, i) => `
+    <div class="rescue-card" data-suggestion="${i}" tabindex="0" role="button" aria-label="${esc(s.title)}">
+      <span class="rescue-card-source ${s.source === 'web' ? 'web' : 'built'}">${s.source === 'web' ? 'Real recipe' : 'Made from what you have'}</span>
+      <div class="rescue-card-title">${esc(s.title)}</div>
+      <div class="rescue-card-time">${s.time ? s.time + ' min' : ''}</div>
+      <div class="rescue-card-uses">Uses: ${(s.uses || []).slice(0, 5).map(esc).join(', ')}</div>
+    </div>
+  `).join('');
+
+  document.querySelectorAll('[data-suggestion]').forEach(card => {
+    card.addEventListener('click', () => openRescueDetail(+card.dataset.suggestion));
+    card.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openRescueDetail(+card.dataset.suggestion); } });
+  });
+}
+
+function openRescueDetail(idx) {
+  const s = rescueResultsData.suggestions[idx];
+  document.getElementById('rescueDetailTitle').textContent = s.title;
+  const sourceHtml = s.source === 'web' && s.source_url
+    ? `<div class="rescue-detail-source">Real recipe${s.source_name ? ' from ' + esc(s.source_name) : ''} — <a href="${esc(s.source_url)}" target="_blank" rel="noopener noreferrer">view original</a></div>`
+    : `<div class="rescue-detail-source">Built from what's in your kitchen right now.</div>`;
+  const instructions = s.instructions && s.instructions.length ? s.instructions : null;
+  document.getElementById('rescueDetailBody').innerHTML = `
+    ${sourceHtml}
+    <div class="rescue-detail-block">
+      <h4>What You Need</h4>
+      <ul class="rescue-detail-uses">${(s.uses || []).map(u => `<li>${esc(u)}</li>`).join('') || '<li>Nothing extra — just what you already have.</li>'}</ul>
+    </div>
+    ${instructions ? `
+    <button type="button" class="rescue-howto-toggle" id="rescueHowtoToggle" aria-expanded="false" aria-controls="rescueHowtoSteps">
+      <span>Show me how</span><span aria-hidden="true">+</span>
+    </button>
+    <ol class="rescue-howto-steps" id="rescueHowtoSteps">
+      ${instructions.map(step => `<li>${esc(step)}</li>`).join('')}
+    </ol>` : ''}
+  `;
+  if (instructions) {
+    document.getElementById('rescueHowtoToggle').addEventListener('click', () => {
+      const steps = document.getElementById('rescueHowtoSteps');
+      const btn = document.getElementById('rescueHowtoToggle');
+      const showing = steps.classList.toggle('show');
+      btn.setAttribute('aria-expanded', showing ? 'true' : 'false');
+      btn.querySelector('span[aria-hidden]').textContent = showing ? '−' : '+';
+    });
+  }
+  openModal('rescueDetailModal', document.querySelector(`[data-suggestion="${idx}"]`));
+}
+
+document.getElementById('closeRescueDetailModal').addEventListener('click', () => closeModal('rescueDetailModal'));
+document.getElementById('closeRescueDetailModal2').addEventListener('click', () => closeModal('rescueDetailModal'));
+
+updateScanButtonState();
 
 // ── INIT ────────────────────────────────────────────────────
 loadState();

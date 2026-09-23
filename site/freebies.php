@@ -1,52 +1,38 @@
 <?php
 $pageTitle = 'Freebies';
-$pageDescription = 'Freebies from My Nest Chapter. No account needed, no catch.';
+$pageDescription = 'Freebies from My Nest Chapter. Join the Hub, free, and get every one of them.';
 require_once __DIR__ . '/includes/header.php';
-require_once __DIR__ . '/includes/auth.php';
 
-$loggedIn = isLoggedIn();
-$PDF_URL  = 'https://drive.google.com/uc?export=download&id=1dVTgwgBjwsg0jz9HCcGkPgif6edNhyQR';
+// Every freebie unlocks the same way — join the Hub, free — instead of each
+// running its own separate capture (previously: a one-off email form here for
+// the 6pm Cheat Sheet, and no gate at all for the other two, a known gap
+// CLAUDE.md had flagged but never fixed). One consistent path in, and every
+// signup lands in the same place instead of splitting across two lists.
+// Routed through /start-here (not straight to the Hub) — same "join" gateway
+// every Log In/Create Account link on the site now uses.
+$HUB_URL = '/start-here';
 ?>
 
 <section class="section">
   <div class="container">
 
     <h1 class="text-center fade-in" style="margin-bottom:0.25rem;">Freebies</h1>
-    <p class="text-center fade-in-delay-1" style="color:var(--warm-gray);font-size:0.95rem;margin-bottom:3rem;">No catch. No upsell on the other side. Just things that helped me.</p>
+    <p class="text-center fade-in-delay-1" style="color:var(--warm-gray);font-size:0.95rem;margin-bottom:3rem;">No catch. No upsell on the other side. Join the Hub, free, and every one of these is yours.</p>
 
     <!-- 6pm Cheat Sheet -->
     <div class="freebie-feature fade-in">
       <p class="freebie-eyebrow">FREE PDF</p>
       <h2 class="freebie-title">THE 6PM CHEAT SHEET</h2>
       <p class="freebie-body">The 6pm hour is the hardest part of the day. Nobody tells you that until you're already in it.<br><br>I put together 7 things that actually helped me get through it. Short. Honest. Free.</p>
-
-      <?php if ($loggedIn): ?>
-        <a href="<?= $PDF_URL ?>" target="_blank" rel="noopener" class="btn btn-primary">Download The 6pm Cheat Sheet</a>
-      <?php else: ?>
-        <div id="cs-cta">
-          <button class="btn btn-primary" onclick="openCSForm()">Get the 6pm Cheat Sheet &rarr;</button>
-        </div>
-        <div id="cs-form" style="display:none;">
-          <div class="cs-fields">
-            <input type="text"  id="cs-name"  placeholder="First name"    autocomplete="given-name" aria-label="First name">
-            <input type="email" id="cs-email" placeholder="Email address" autocomplete="email"      aria-label="Email address">
-            <button class="btn btn-secondary" id="cs-btn" onclick="submitCSForm()">Send it to me</button>
-          </div>
-          <p id="cs-error" style="display:none;color:var(--dark-orange);font-size:0.85rem;margin-top:0.75rem;">Something went wrong — please try again.</p>
-        </div>
-        <div id="cs-success" style="display:none;">
-          <p style="font-family:'Montserrat',sans-serif;font-weight:700;font-size:0.85rem;color:var(--vanilla-cream);margin-bottom:1rem;">Check your inbox — it's on its way.</p>
-          <a href="<?= $PDF_URL ?>" target="_blank" rel="noopener" class="btn btn-primary">Download it now instead</a>
-        </div>
-      <?php endif; ?>
+      <a href="<?= $HUB_URL ?>" class="btn btn-primary">Join the Hub — It's Free</a>
     </div>
 
     <!-- Someday List Builder -->
     <div class="freebie-feature fade-in">
       <p class="freebie-eyebrow">FREE TOOL</p>
       <h2 class="freebie-title">THE SOMEDAY LIST BUILDER</h2>
-      <p class="freebie-body">You know that list in your head — the things you've been saying you'll do someday? This is where you actually write them down.<br><br>Takes five minutes. No account needed. Your list gets emailed straight to you so it's there when you're ready.</p>
-      <a href="/widgets/someday-list/" class="btn btn-primary">Build Your List &rarr;</a>
+      <p class="freebie-body">You know that list in your head — the things you've been saying you'll do someday? This is where you actually write them down.<br><br>Takes five minutes. Your list can be emailed straight to you so it's there when you're ready.</p>
+      <a href="<?= $HUB_URL ?>" class="btn btn-primary">Join the Hub — It's Free</a>
     </div>
 
     <!-- Pick Your Mood Coloring Pages -->
@@ -54,20 +40,8 @@ $PDF_URL  = 'https://drive.google.com/uc?export=download&id=1dVTgwgBjwsg0jz9HCcG
       <p class="freebie-eyebrow">FREE DOWNLOAD</p>
       <h2 class="freebie-title">PICK YOUR MOOD COLORING PAGES</h2>
       <p class="freebie-body">Sometimes you don't need to talk about it. You just need something to do with your hands.<br><br>Pick your mood and get a coloring page made for exactly where you are right now. Download it, print it, and give yourself 20 minutes.</p>
-      <a href="/widgets/coloring-widget/" class="btn btn-primary">Pick Your Mood &rarr;</a>
+      <a href="<?= $HUB_URL ?>" class="btn btn-primary">Join the Hub — It's Free</a>
     </div>
-
-    <?php if (!$loggedIn): ?>
-    <!-- Member teaser — only shown to non-members -->
-    <div class="member-teaser fade-in">
-      <p class="teaser-eyebrow">MY NEST CHAPTER</p>
-      <h3 class="teaser-title">There's more inside.</h3>
-      <p class="teaser-body">Create a free account to access the full freebie library — monthly drops, downloadable PDFs, and interactive tools.</p>
-      <div style="display:flex;gap:1rem;flex-wrap:wrap;justify-content:center;margin-top:1.5rem;">
-        <a href="https://hub.mynestchapter.com" class="btn btn-primary">Join the Hub — It's Free</a>
-      </div>
-    </div>
-    <?php endif; ?>
 
   </div>
 </section>
@@ -80,7 +54,6 @@ $PDF_URL  = 'https://drive.google.com/uc?export=download&id=1dVTgwgBjwsg0jz9HCcG
   padding: 48px 52px;
 }
 .freebie-eyebrow {
-  font-family: 'Montserrat', sans-serif;
   font-weight: 800;
   font-size: 0.7rem;
   text-transform: uppercase;
@@ -89,7 +62,6 @@ $PDF_URL  = 'https://drive.google.com/uc?export=download&id=1dVTgwgBjwsg0jz9HCcG
   margin-bottom: 0.75rem;
 }
 .freebie-title {
-  font-family: 'Montserrat', sans-serif;
   font-weight: 800;
   font-size: 1.75rem;
   color: var(--vanilla-cream);
@@ -105,97 +77,9 @@ $PDF_URL  = 'https://drive.google.com/uc?export=download&id=1dVTgwgBjwsg0jz9HCcG
   line-height: 1.75;
   margin-bottom: 2rem;
 }
-.cs-fields {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  max-width: 340px;
-}
-.cs-fields input {
-  font-family: Arial, sans-serif;
-  font-size: 0.9rem;
-  color: var(--vanilla-cream);
-  background: rgba(255,255,255,0.08);
-  border: 1px solid rgba(246,241,230,0.2);
-  padding: 13px 14px;
-  outline: none;
-  touch-action: manipulation;
-}
-.cs-fields input:focus { border-color: var(--burnished-copper); }
-.cs-fields input::placeholder { color: rgba(246,241,230,0.35); }
-.member-teaser {
-  max-width: 520px;
-  margin: 0 auto;
-  text-align: center;
-  padding: 3rem 1.5rem;
-  border-top: 1px solid var(--warm-sand);
-}
-.teaser-eyebrow {
-  font-family: 'Montserrat', sans-serif;
-  font-weight: 800;
-  font-size: 0.7rem;
-  text-transform: uppercase;
-  letter-spacing: 0.15em;
-  color: var(--warm-gray);
-  margin-bottom: 0.75rem;
-}
-.teaser-title {
-  font-family: 'Montserrat', sans-serif;
-  font-weight: 800;
-  font-size: 1.4rem;
-  color: var(--deep-coffee);
-  margin-bottom: 0.75rem;
-}
-.teaser-body {
-  font-family: Arial, sans-serif;
-  font-size: 0.9rem;
-  color: var(--warm-gray);
-  line-height: 1.7;
-}
 @media (max-width: 600px) {
   .freebie-feature { padding: 36px 28px; }
 }
 </style>
-
-<script>
-function openCSForm() {
-  document.getElementById('cs-cta').style.display = 'none';
-  document.getElementById('cs-form').style.display = 'block';
-  document.getElementById('cs-name').focus();
-}
-
-async function submitCSForm() {
-  var name  = document.getElementById('cs-name').value.trim();
-  var email = document.getElementById('cs-email').value.trim();
-  var btn   = document.getElementById('cs-btn');
-  var error = document.getElementById('cs-error');
-
-  if (!email || !email.includes('@')) {
-    document.getElementById('cs-email').style.borderColor = 'rgba(158,61,15,0.8)';
-    document.getElementById('cs-email').focus();
-    return;
-  }
-
-  btn.textContent = 'Sending…';
-  btn.disabled = true;
-  error.style.display = 'none';
-
-  try {
-    var res = await fetch('/reach-subscribe.php', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email: email, first_name: name, freebie: '6pm-cheat-sheet' })
-    });
-    if (res.ok) {
-      document.getElementById('cs-form').style.display = 'none';
-      document.getElementById('cs-success').style.display = 'block';
-    } else { throw new Error(); }
-  } catch(e) {
-    btn.textContent = 'Send it to me';
-    btn.disabled = false;
-    error.style.display = 'block';
-  }
-}
-</script>
 
 <?php require_once __DIR__ . '/includes/footer.php'; ?>

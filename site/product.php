@@ -75,19 +75,19 @@ $related = $stmt->fetchAll();
                     <img src="<?= esc($product['image_path']) ?>" alt="<?= esc($product['title']) ?> cover" style="width: 100%; border-radius: 10px; box-shadow: 0 10px 40px rgba(37,37,53,0.07);">
                 <?php else: ?>
                     <div style="width: 100%; height: 400px; background: var(--warm-beige-card); border-radius: 10px; display: flex; align-items: center; justify-content: center;">
-                        <span style="font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--deep-coffee);">PRODUCT IMAGE</span>
+                        <span style="font-weight: 800; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--deep-coffee);">PRODUCT IMAGE</span>
                     </div>
                 <?php endif; ?>
             </div>
             
             <!-- Product Details -->
             <div>
-                <span style="font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--taupe);"><?= esc(str_replace('_', ' ', $product['category'])) ?></span>
+                <span style="font-weight: 800; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--taupe);"><?= esc(str_replace('_', ' ', $product['category'])) ?></span>
 
                 <h1 style="font-size: 1.75rem; margin: 0.5rem 0 1rem;"><?= esc($product['title']) ?></h1>
 
                 <?php if (!$isComingSoon): ?>
-                    <p style="font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 1.5rem; color: var(--burnished-copper); margin-bottom: 1.5rem;">
+                    <p style="font-weight: 800; font-size: 1.5rem; color: var(--burnished-copper); margin-bottom: 1.5rem;">
                         <?= formatPrice($product['price']) ?>
                     </p>
                 <?php endif; ?>
@@ -121,12 +121,12 @@ $related = $stmt->fetchAll();
                     <?php elseif ($hasRealFile && isLoggedIn()): ?>
                         <a href="/shop/<?= esc($product['slug']) ?>?download=1" class="btn btn-primary btn-full">Download Free</a>
                     <?php elseif ($hasRealFile): ?>
-                        <a href="https://hub.mynestchapter.com/#/freebies" class="btn btn-primary btn-full">Join the Hub — It's Free</a>
+                        <a href="/start-here" class="btn btn-primary btn-full">Join the Hub — It's Free</a>
                     <?php else: ?>
                         <a href="/widgets/<?= esc($widgetSlug) ?>/" class="btn btn-primary btn-full">Try It Free — No Account Needed</a>
                     <?php endif; ?>
                 <?php else: ?>
-                    <a href="https://hub.mynestchapter.com/#/shop" class="btn btn-primary btn-full">Get the <?= esc(ctaTitle($product['title'])) ?></a>
+                    <a href="<?= esc(hubBuyUrl($product['slug'])) ?>" class="btn btn-primary btn-full">Get the <?= esc(ctaTitle($product['title'])) ?></a>
                     <p style="font-family:Arial,sans-serif;font-size:0.8rem;color:var(--warm-gray);text-align:center;margin-top:0.6rem;">Free to join. Secure checkout via Stripe. Instant access after purchase.</p>
                     <?php
                     $slugsWithDemo = ['cooking-for-one'];
@@ -134,15 +134,15 @@ $related = $stmt->fetchAll();
                     $slugsWithDirectDemo = ['garage-sale-planner'];
                     if ($isInteractiveTool && in_array($product['slug'], $slugsWithDemo)): ?>
                         <p style="margin-top: 1rem; text-align: center;">
-                            <a href="/widgets/<?= esc($product['slug']) ?>-demo/" style="font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--burnished-copper);">Try the demo first &rarr;</a>
+                            <a href="/widgets/<?= esc($product['slug']) ?>-demo/" style="font-weight: 800; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--burnished-copper);">Try the demo first &rarr;</a>
                         </p>
                     <?php elseif ($isInteractiveTool && in_array($product['slug'], $slugsWithQueryDemo)): ?>
                         <p style="margin-top: 1rem; text-align: center;">
-                            <a href="/widgets/<?= esc($product['slug']) ?>/?demo=1" style="font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--burnished-copper);">Try the demo first &rarr;</a>
+                            <a href="/widgets/<?= esc($product['slug']) ?>/?demo=1" style="font-weight: 800; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--burnished-copper);">Try the demo first &rarr;</a>
                         </p>
                     <?php elseif ($isInteractiveTool && in_array($product['slug'], $slugsWithDirectDemo)): ?>
                         <p style="margin-top: 1rem; text-align: center;">
-                            <a href="/widgets/<?= esc($product['slug']) ?>/" style="font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--burnished-copper);">Try it free — no account needed &rarr;</a>
+                            <a href="/widgets/<?= esc($product['slug']) ?>/" style="font-weight: 800; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--burnished-copper);">Try it free — no account needed &rarr;</a>
                         </p>
                     <?php endif; ?>
                 <?php endif; ?>
@@ -151,7 +151,7 @@ $related = $stmt->fetchAll();
         
         <!-- Back to shop -->
         <div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--warm-sand);">
-            <a href="/shop" style="font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--burnished-copper);">&larr; Back to Shop</a>
+            <a href="/shop" style="font-weight: 800; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--burnished-copper);">&larr; Back to Shop</a>
         </div>
         
     </div>

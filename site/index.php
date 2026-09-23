@@ -53,7 +53,7 @@
         
         <!-- Auth Link -->
         <div class="nav-auth">
-                            <a href="https://hub.mynestchapter.com">Log In</a>
+                            <a href="/start-here">Log In</a>
                     </div>
         
         <!-- Mobile Toggle -->
@@ -75,8 +75,8 @@
     <a href="/shop" class="">Shop</a>
     <a href="/resources" class="">Resources</a>
     <a href="/freebies" class="">Freebies</a>
-            <a href="https://hub.mynestchapter.com">Log In</a>
-        <a href="https://hub.mynestchapter.com">Create Account</a>
+            <a href="/start-here">Log In</a>
+        <a href="/start-here">Create Account</a>
     </nav>
 
 <main id="main-content" tabindex="-1">
@@ -98,7 +98,7 @@
         <div class="home-hero-copy">
             <h1>Solo mom. Empty nest.<br>What's next.</h1>
             <p class="home-hero-body">Tools. A real person to talk to. A growing community that gets it.</p>
-            <a href="https://hub.mynestchapter.com" class="btn btn-primary">Start Here <span class="cta-arrow">→</span></a>
+            <a href="/start-here" class="btn btn-primary">Start Here <span class="cta-arrow">→</span></a>
         </div>
     </div>
 </section>
@@ -190,7 +190,7 @@
       <p class="an-eyebrow">FREE. YOURS. ALL IN ONE PLACE.</p>
       <h2 class="an-heading">Your journal, your freebies, your shop — one place to check in.</h2>
       <p class="an-body">Every tool and download on the site, unlocked. New freebies as I add them. And when you're ready to buy something, it just shows up here — nothing to go hunting for again.</p>
-      <a href="https://hub.mynestchapter.com" class="an-btn-primary">JOIN — IT'S FREE <span class="cta-arrow">→</span></a>
+      <a href="/start-here" class="an-btn-primary">JOIN — IT'S FREE <span class="cta-arrow">→</span></a>
       <p class="an-form-note">Instant access. No waiting.</p>
     </div>
 
@@ -242,7 +242,7 @@
                     <span class="product-card-category">Workbook</span>
                     <h3 class="product-card-title">Now What? Workbook</h3>
                     <p class="product-card-description">A guided way to work through this chapter at your own pace. No pressure to have it figured out.</p>
-                    <a href="/workbook.php" class="btn btn-primary">Get the Workbook</a>
+                    <a href="/workbook" class="btn btn-primary">Get the Workbook</a>
                 </div>
             </div>
             <div class="product-card">
@@ -257,12 +257,12 @@
             </div>
             <div class="product-card">
                 <span class="badge">$27</span>
-                <img class="product-card-image" src="/assets/images/cooking-for-one-cover.jpg" alt="Cooking for One Planner cover" loading="lazy">
+                <img class="product-card-image" src="/assets/images/cooking-for-one-cover.png" alt="Cooking for One Planner cover" loading="lazy">
                 <div class="product-card-content">
                     <span class="product-card-category">Interactive Tool</span>
                     <h3 class="product-card-title">Cooking for One Planner</h3>
                     <p class="product-card-description">Real meals, sized for one, without the leftovers going bad in the back of the fridge.</p>
-                    <a href="/shop" class="btn btn-primary">Get the Planner</a>
+                    <a href="https://hub.mynestchapter.com/#/shop" class="btn btn-primary">Get the Planner</a>
                 </div>
             </div>
         </div>
@@ -306,9 +306,6 @@
         <p class="footer-copy">&copy; 2026 My Nest Chapter. All rights reserved.</p>
     </div>
 </footer>
-
-<!-- Toast container -->
-<div class="toast" id="toast" aria-live="polite" aria-atomic="true"></div>
 
 <!-- Quiz Modal -->
 <div id="quizModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(43,31,24,0.82); z-index:1000; align-items:center; justify-content:center; padding:20px;" onclick="handleModalClick(event)">
@@ -412,45 +409,6 @@ function closeMobileNav() {
     toggle.focus();
 }
 
-// --- Toast ---
-function showToast(message, duration) {
-    duration = duration || 2000;
-    var toast = document.getElementById('toast');
-    toast.textContent = message;
-    toast.classList.add('show');
-    setTimeout(function() { toast.classList.remove('show'); }, duration);
-}
-
-// --- Email Capture (reusable) ---
-function submitEmailCapture(form, source) {
-    var email = form.querySelector('input[type="email"]').value.trim();
-    if (!email) return;
-    
-    var btn = form.querySelector('button');
-    var originalText = btn.textContent;
-    btn.textContent = 'SENDING...';
-    btn.disabled = true;
-    
-    fetch('/api/email', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email: email, source: source })
-    })
-    .then(function(r) { return r.json(); })
-    .then(function(data) {
-        if (data.success) {
-            showToast('CHECK YOUR INBOX');
-            form.querySelector('input[type="email"]').value = '';
-        } else {
-            showToast('SOMETHING WENT WRONG');
-        }
-    })
-    .catch(function() { showToast('SOMETHING WENT WRONG'); })
-    .finally(function() {
-        btn.textContent = originalText;
-        btn.disabled = false;
-    });
-}
 </script>
 
 </body>

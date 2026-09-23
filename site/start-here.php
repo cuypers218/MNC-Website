@@ -4,15 +4,15 @@
     <script>document.documentElement.classList.remove('no-js');</script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>So, What's Next? | My Nest Chapter</title>
-    <meta name="description" content="Start with whichever one you need — the full product catalog, a one-on-one conversation with Cece, or the blog.">
+    <title>Start Here | My Nest Chapter</title>
+    <meta name="description" content="Everything lives in one place now — the Hub. Your journal, your freebies, your shop, free to join.">
 
     <link rel="canonical" href="https://mynestchapter.com/start-here">
     <link rel="icon" type="image/svg+xml" href="/assets/images/favicon.svg">
     <!-- Open Graph -->
     <meta property="og:site_name" content="My Nest Chapter">
-    <meta property="og:title" content="So, What's Next? | My Nest Chapter">
-    <meta property="og:description" content="Start with whichever one you need — the full product catalog, a one-on-one conversation with Cece, or the blog.">
+    <meta property="og:title" content="Start Here | My Nest Chapter">
+    <meta property="og:description" content="Everything lives in one place now — the Hub. Your journal, your freebies, your shop, free to join.">
     <meta property="og:url" content="https://mynestchapter.com/start-here">
     <meta property="og:type" content="website">
     <meta property="og:image" content="https://mynestchapter.com/assets/images/logo.png">
@@ -21,8 +21,8 @@
     <meta property="og:see_also" content="https://www.pinterest.com/mynestchapter">
     <!-- Twitter / X Card -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="So, What's Next? | My Nest Chapter">
-    <meta name="twitter:description" content="Start with whichever one you need — the full product catalog, a one-on-one conversation with Cece, or the blog.">
+    <meta name="twitter:title" content="Start Here | My Nest Chapter">
+    <meta name="twitter:description" content="Everything lives in one place now — the Hub. Your journal, your freebies, your shop, free to join.">
     <meta name="twitter:image" content="https://mynestchapter.com/assets/images/logo.png">
 
     <!-- Fonts -->
@@ -53,7 +53,7 @@
 
         <!-- Auth Link -->
         <div class="nav-auth">
-            <a href="/login">Log In</a>
+            <a href="https://hub.mynestchapter.com">Log In</a>
         </div>
 
         <!-- Mobile Toggle -->
@@ -75,39 +75,37 @@
     <a href="/shop" class="">Shop</a>
     <a href="/resources" class="">Resources</a>
     <a href="/freebies" class="">Freebies</a>
-    <a href="/login">Log In</a>
-    <a href="/register">Create Account</a>
+    <a href="https://hub.mynestchapter.com">Log In</a>
+    <a href="https://hub.mynestchapter.com">Create Account</a>
 </nav>
 
 <main id="main-content" tabindex="-1">
 
-<!-- START HERE / THREE CARDS -->
+<!-- START HERE / THE HUB -->
 <section class="start-here" id="start-here" style="padding-top:64px;">
     <div class="start-here-inner">
         <div class="start-here-head">
-            <h1>So, what's next?</h1>
-            <p>Start with whichever one you need.</p>
+            <h1>Start here.</h1>
+            <p>Everything lives in one place now — the Hub.</p>
         </div>
 
-        <div class="pillars">
-            <div class="pillar thrive">
-                <p class="pillar-eyebrow">Thrive</p>
-                <h3>The full catalog</h3>
-                <p>Tools. Digital PDFs. Web and mobile apps. Freebies and other resources. Whatever you're focusing on right now, there's something here for you.</p>
-                <a href="/shop">See everything <span class="cta-arrow">→</span></a>
-            </div>
-            <div class="pillar support">
-                <p class="pillar-eyebrow">Support</p>
-                <h3>Talk to me directly</h3>
-                <p>Whenever you need a friend, someone to bounce ideas off of, vent to, or just listen, I'm here.</p>
-                <a href="/connect">Say hello <span class="cta-arrow">→</span></a>
-            </div>
-            <div class="pillar encourage">
-                <p class="pillar-eyebrow">Encourage</p>
-                <h3>Stories and community</h3>
-                <p>Find other women who get it, along with tips and what's worked for me.</p>
-                <a href="/blog">Read the blog <span class="cta-arrow">→</span></a>
-            </div>
+        <div class="an-primary-block" style="max-width:640px;margin:0 auto 48px;">
+            <p class="an-eyebrow">FREE. YOURS. ALL IN ONE PLACE.</p>
+            <h2 class="an-heading">Your journal, your freebies, your shop — one place to check in.</h2>
+            <p class="an-body">Every tool and download on the site, unlocked. New freebies as I add them. And when you're ready to buy something, it just shows up here — nothing to go hunting for again.</p>
+            <a href="https://hub.mynestchapter.com" class="an-btn-primary">JOIN — IT'S FREE <span class="cta-arrow">→</span></a>
+            <p class="an-form-note">Instant access. No waiting.</p>
+        </div>
+
+        <div class="start-here-inside">
+            <p class="start-here-inside-label">What's inside</p>
+            <ul class="start-here-inside-list">
+                <li><strong>Reflections</strong> — a private journal, just for you</li>
+                <li><strong>Meaningful Days</strong> — a record of what actually matters</li>
+                <li><strong>Support Circle</strong> — the people you lean on, in one place</li>
+                <li><strong>Freebies</strong> — every free tool and download, gate-free once you're in</li>
+                <li><strong>Shop</strong> — the paid tools, unlocked the moment you buy</li>
+            </ul>
         </div>
 
         <div class="start-here-quiz-cta">
@@ -115,6 +113,15 @@
         </div>
     </div>
 </section>
+
+<style>
+.start-here-inside { max-width: 560px; margin: 0 auto 40px; }
+.start-here-inside-label { font-family: var(--font-body); font-weight: 800; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--taupe); text-align: center; margin: 0 0 16px; }
+.start-here-inside-list { list-style: none; margin: 0; padding: 0; border: 1px solid var(--warm-sand); border-radius: 8px; overflow: hidden; }
+.start-here-inside-list li { padding: 14px 20px; font-family: var(--font-body); font-size: 14px; color: var(--deep-coffee); border-bottom: 1px solid var(--warm-sand); }
+.start-here-inside-list li:last-child { border-bottom: none; }
+.start-here-inside-list li strong { color: var(--deep-current); }
+</style>
 
 </main>
 
@@ -146,9 +153,9 @@
 </footer>
 
 <!-- Quiz Modal -->
-<div id="quizModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(37,37,53,0.82); z-index:1000; align-items:center; justify-content:center; padding:20px;" onclick="handleModalClick(event)">
+<div id="quizModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(43,31,24,0.82); z-index:1000; align-items:center; justify-content:center; padding:20px;" onclick="handleModalClick(event)">
     <div style="position:relative; width:100%; max-width:610px;">
-        <button onclick="closeQuizModal()" aria-label="Close quiz" style="position:absolute; top:14px; right:14px; background:rgba(37,37,53,0.82); border:none; color:#FAF7ED; width:40px; height:40px; border-radius:9999px; font-size:22px; line-height:40px; text-align:center; cursor:pointer; z-index:10; font-family:'Montserrat',sans-serif;">&times;</button>
+        <button onclick="closeQuizModal()" aria-label="Close quiz" style="position:absolute; top:14px; right:14px; background:rgba(43,31,24,0.82); border:none; color:var(--vanilla-cream); width:40px; height:40px; border-radius:9999px; font-size:22px; line-height:40px; text-align:center; cursor:pointer; z-index:10; font-family:var(--font-body);">&times;</button>
         <iframe id="quizIframe" src="" data-src="/widgets/empty-nester-quiz/" style="width:100%; height:min(95vh,900px); border:none; border-radius:10px; overflow:hidden; display:block;" title="What Kind of Empty Nester Are You?"></iframe>
     </div>
 </div>

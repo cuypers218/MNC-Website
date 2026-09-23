@@ -94,7 +94,7 @@ $emails = [
 </p>
 <p>When you\'re ready for more &mdash; the workbook is where I actually started figuring things out. Every page written for a mom who did this alone.</p>
 <p style="text-align:center;margin:28px 0;">
-  <a href="https://mynestchapter.com/shop/now-what-workbook"
+  <a href="https://mynestchapter.com/workbook"
      style="background:#0A2F3A;color:#ffffff;font-family:\'DM Sans\',Arial,sans-serif;font-weight:800;font-size:14px;text-transform:uppercase;letter-spacing:1px;text-decoration:none;padding:14px 28px;display:inline-block;">
     Get the Workbook &rarr;
   </a>
@@ -116,7 +116,7 @@ $emails = [
 </p>
 <p>When you\'re ready to look at what\'s underneath all the busy &mdash; the workbook is where I started. Written for a mom who did this alone.</p>
 <p style="text-align:center;margin:28px 0;">
-  <a href="https://mynestchapter.com/shop/now-what-workbook"
+  <a href="https://mynestchapter.com/workbook"
      style="background:#0A2F3A;color:#ffffff;font-family:\'DM Sans\',Arial,sans-serif;font-weight:800;font-size:14px;text-transform:uppercase;letter-spacing:1px;text-decoration:none;padding:14px 28px;display:inline-block;">
     Get the Workbook &rarr;
   </a>
@@ -138,7 +138,7 @@ $emails = [
 </p>
 <p>If you want to go further &mdash; the workbook is where I figured out what actually came next. Every page written for a mom who did this alone.</p>
 <p style="text-align:center;margin:28px 0;">
-  <a href="https://mynestchapter.com/shop/now-what-workbook"
+  <a href="https://mynestchapter.com/workbook"
      style="background:#0A2F3A;color:#ffffff;font-family:\'DM Sans\',Arial,sans-serif;font-weight:800;font-size:14px;text-transform:uppercase;letter-spacing:1px;text-decoration:none;padding:14px 28px;display:inline-block;">
     Get the Workbook &rarr;
   </a>

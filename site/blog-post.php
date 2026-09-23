@@ -8,7 +8,7 @@ if (!$post) {
     http_response_code(404);
     $pageTitle = 'Not Found';
     require_once __DIR__ . '/includes/header.php';
-    echo '<section class="section"><div class="container text-center"><h1>Post Not Found</h1><p style="color:#8BA7D4;margin-top:1rem;">This post doesn\'t exist or hasn\'t been published yet.</p><a href="/blog" class="btn btn-outline" style="margin-top:1.5rem;">Back to Blog</a></div></section>';
+    echo '<section class="section"><div class="container text-center"><h1>Post Not Found</h1><p style="color:var(--warm-gray);margin-top:1rem;">This post doesn\'t exist or hasn\'t been published yet.</p><a href="/blog" class="btn btn-outline" style="margin-top:1.5rem;">Back to Blog</a></div></section>';
     require_once __DIR__ . '/includes/footer.php';
     exit;
 }
@@ -36,7 +36,7 @@ if (!isLoggedIn()) {
 <article class="blog-post">
     
     <?php if ($post['category']): ?>
-        <span style="font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.12em; color: #8BA7D4;"><?= esc($post['category']) ?></span>
+        <span style="font-weight: 800; font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.12em; color: var(--warm-gray);"><?= esc($post['category']) ?></span>
     <?php endif; ?>
     
     <h1 class="blog-post-title fade-in"><?= esc($post['title']) ?></h1>
@@ -44,7 +44,7 @@ if (!isLoggedIn()) {
     <div class="blog-post-meta fade-in-delay-1"><?= formatDate($post['published_at']) ?></div>
     
     <?php if ($post['featured_image']): ?>
-        <img src="<?= esc($post['featured_image']) ?>" alt="<?= esc($post['title']) ?>" style="width: 100%; margin-bottom: 2rem; border: 1px solid #ABABAB;">
+        <img src="<?= esc($post['featured_image']) ?>" alt="<?= esc($post['title']) ?>" style="width: 100%; margin-bottom: 2rem; border: 1px solid var(--warm-sand);">
     <?php endif; ?>
     
     <div class="blog-post-body fade-in-delay-2">
@@ -64,13 +64,13 @@ if (!isLoggedIn()) {
         $ctaLabel = 'Get the Garage Sale Planner';
     } else {
         $ctaText  = 'If you\'re figuring out what comes next, the Now What? Workbook is where most women start.';
-        $ctaLink  = '/shop/now-what-workbook';
+        $ctaLink  = '/workbook';
         $ctaLabel = 'Get the Now What? Workbook';
     }
     ?>
-    <div style="background:#252535;padding:28px 32px;margin-top:3rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1.5rem;">
-        <p style="font-family:Arial,sans-serif;font-size:0.95rem;color:#FAF7ED;margin:0;line-height:1.6;max-width:520px;"><?= esc($ctaText) ?></p>
-        <a href="<?= esc($ctaLink) ?>" style="font-family:'Montserrat',sans-serif;font-weight:800;font-size:0.75rem;text-transform:uppercase;letter-spacing:0.05em;color:#C44570;white-space:nowrap;flex-shrink:0;"><?= esc($ctaLabel) ?> &rarr;</a>
+    <div style="background:var(--deep-coffee);padding:28px 32px;margin-top:3rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1.5rem;">
+        <p style="font-size:0.95rem;color:var(--vanilla-cream);margin:0;line-height:1.6;max-width:520px;"><?= esc($ctaText) ?></p>
+        <a href="<?= esc($ctaLink) ?>" style="font-weight:800;font-size:0.75rem;text-transform:uppercase;letter-spacing:0.05em;color:var(--warm-sand);white-space:nowrap;flex-shrink:0;"><?= esc($ctaLabel) ?> &rarr;</a>
     </div>
 
     <!-- Email Capture -->
@@ -84,8 +84,8 @@ if (!isLoggedIn()) {
     </div>
     
     <!-- Back to blog -->
-    <div style="margin-top: 2.5rem; padding-top: 1.5rem; border-top: 1px solid #D3D3D3;">
-        <a href="/blog" style="font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em; color: #C44570;">&larr; Back to Blog</a>
+    <div style="margin-top: 2.5rem; padding-top: 1.5rem; border-top: 1px solid var(--warm-sand);">
+        <a href="/blog" style="font-weight: 800; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--burnished-copper);">&larr; Back to Blog</a>
     </div>
 
 </article>

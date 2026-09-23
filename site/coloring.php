@@ -9,7 +9,7 @@
 
 <!-- Open Graph -->
 <meta property="og:title" content="Free Coloring Pages — Pick Your Mood">
-<meta property="og:description" content="Some nights you don't need advice. Pick your mood and get a free coloring page sent straight to your inbox.">
+<meta property="og:description" content="Some nights you don't need advice. Pick your mood and get a free coloring page that fits — free the moment you join the Hub.">
 <meta property="og:url" content="https://mynestchapter.com/coloring">
 <meta property="og:type" content="website">
 
@@ -39,6 +39,7 @@
     --text-light: #6B655C;
     --border: #D9C7AC;
     --bg-warm: #F6F1E6;
+    --burnished-copper: #A35E33; /* DESIGN.md §2.3 button-fill color — Rosewood (--pink) is decorative-only, never a button fill */
   }
 
   html { scroll-behavior: smooth; }
@@ -141,13 +142,27 @@
   }
   .widget-wrap {
     width: 100%;
-    max-width: 590px;
+    max-width: 460px;
+    text-align: center;
   }
-  .widget-wrap iframe {
-    width: 100%;
-    height: 620px;
-    border: none;
-    display: block;
+  .hub-cta-btn {
+    display: inline-block;
+    background: var(--burnished-copper);
+    color: var(--vanilla);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 16px 32px;
+    border-radius: 6px;
+    margin-top: 8px;
+  }
+  .hub-cta-note {
+    margin-top: 14px;
+    font-size: 0.82rem;
+    color: var(--text-light);
   }
 
   /* WHAT YOU GET */
@@ -277,17 +292,14 @@
 <section class="hero">
   <div class="hero-eyebrow">Free · No catch</div>
   <h1>Some nights you don't need advice.</h1>
-  <p class="hero-sub">Pick where you are right now and I'll send you a free coloring page that fits. Three pages, cover included — yours to keep.</p>
-  <p class="hero-note">Takes about 30 seconds. No spam. Unsubscribe anytime.</p>
+  <p class="hero-sub">Pick where you are right now and get a free coloring page that fits. Three pages, cover included — yours to keep.</p>
+  <p class="hero-note">Free with the Hub. Takes about a minute to join.</p>
 </section>
 
 <section class="widget-section">
   <div class="widget-wrap">
-    <iframe
-      src="/widgets/coloring-widget/"
-      title="Pick Your Mood — free coloring pages"
-      scrolling="no"
-    ></iframe>
+    <a href="/start-here" class="hub-cta-btn">Join the Hub — It's Free</a>
+    <p class="hub-cta-note">Every freebie unlocks the moment you join — this one included.</p>
   </div>
 </section>
 

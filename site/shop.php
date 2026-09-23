@@ -27,7 +27,7 @@ $allProducts = getProducts();
             $paidProducts = array_filter($allProducts, fn($p) => $p['price'] > 0);
             if (empty($paidProducts)): ?>
                 <div style="grid-column: 1 / -1; text-align: center; padding: 3rem;">
-                    <p style="font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--taupe); margin-bottom: 0.5rem;">MY NEST CHAPTER</p>
+                    <p style="font-weight: 800; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--taupe); margin-bottom: 0.5rem;">MY NEST CHAPTER</p>
                     <p style="color: var(--warm-gray); font-size: 0.9rem;">Products are on the way. Check back soon.</p>
                 </div>
             <?php else: ?>
@@ -55,7 +55,7 @@ $allProducts = getProducts();
                         <?php if ($isComingSoon): ?>
                             <button class="btn btn-disabled" disabled>Coming Soon</button>
                         <?php else: ?>
-                            <a href="https://hub.mynestchapter.com/#/shop" class="btn btn-primary">Get the <?= esc(ctaTitle($product['title'])) ?></a>
+                            <a href="<?= esc(hubBuyUrl($product['slug'])) ?>" class="btn btn-primary">Get the <?= esc(ctaTitle($product['title'])) ?></a>
                         <?php endif; ?>
                     </div>
                 </div>
@@ -65,8 +65,8 @@ $allProducts = getProducts();
 
         <!-- Freebies nudge -->
         <div style="text-align:center;margin-top:3rem;padding-top:2rem;border-top:1px solid var(--warm-sand);">
-            <p style="font-family:'Montserrat',sans-serif;font-weight:800;font-size:0.75rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--taupe);margin-bottom:0.5rem;">Looking for the free stuff?</p>
-            <a href="/freebies" style="font-family:'Montserrat',sans-serif;font-weight:800;font-size:0.8rem;text-transform:uppercase;letter-spacing:0.05em;color:var(--burnished-copper);">Browse the Freebies Page &rarr;</a>
+            <p style="font-weight:800;font-size:0.75rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--taupe);margin-bottom:0.5rem;">Looking for the free stuff?</p>
+            <a href="/freebies" style="font-weight:800;font-size:0.8rem;text-transform:uppercase;letter-spacing:0.05em;color:var(--burnished-copper);">Browse the Freebies Page &rarr;</a>
         </div>
     </div>
 </section>

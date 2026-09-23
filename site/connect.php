@@ -5,14 +5,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Talk to Cece | My Nest Chapter</title>
-    <meta name="description" content="Email Cece directly, free, or book a thirty minute call with her for $45. One mom talking to another.">
+    <meta name="description" content="Email or text Cece directly, free. One mom talking to another.">
 
     <link rel="canonical" href="https://mynestchapter.com/connect">
     <link rel="icon" type="image/svg+xml" href="/assets/images/favicon.svg">
     <!-- Open Graph -->
     <meta property="og:site_name" content="My Nest Chapter">
     <meta property="og:title" content="Talk to Cece | My Nest Chapter">
-    <meta property="og:description" content="Email Cece directly, free, or book a thirty minute call with her for $45. One mom talking to another.">
+    <meta property="og:description" content="Email or text Cece directly, free. One mom talking to another.">
     <meta property="og:url" content="https://mynestchapter.com/connect">
     <meta property="og:type" content="website">
     <meta property="og:image" content="https://mynestchapter.com/assets/images/logo.png">
@@ -22,7 +22,7 @@
     <!-- Twitter / X Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Talk to Cece | My Nest Chapter">
-    <meta name="twitter:description" content="Email Cece directly, free, or book a thirty minute call with her for $45. One mom talking to another.">
+    <meta name="twitter:description" content="Email or text Cece directly, free. One mom talking to another.">
     <meta name="twitter:image" content="https://mynestchapter.com/assets/images/logo.png">
 
     <!-- Fonts -->
@@ -53,7 +53,7 @@
 
         <!-- Auth Link -->
         <div class="nav-auth">
-            <a href="/login">Log In</a>
+            <a href="/start-here">Log In</a>
         </div>
 
         <!-- Mobile Toggle -->
@@ -75,8 +75,8 @@
     <a href="/shop" class="">Shop</a>
     <a href="/resources" class="">Resources</a>
     <a href="/freebies" class="">Freebies</a>
-    <a href="/login">Log In</a>
-    <a href="/register">Create Account</a>
+    <a href="/start-here">Log In</a>
+    <a href="/start-here">Create Account</a>
 </nav>
 
 <main id="main-content" tabindex="-1">
@@ -101,23 +101,12 @@
     </div>
 </section>
 
-<!-- BOOK A CALL -->
-<section class="connect-section">
-    <div class="connect-card">
-        <h2>Book thirty minutes with me</h2>
-        <p>If you want more than a message, if you want someone to sit with you and talk it through, you can book a call. Video or voice, whichever you'd rather do. Thirty minutes. $45.</p>
-        <div class="connect-btn-row">
-            <a href="https://buy.stripe.com/14A6oGbedeAe1ue82MgYU00" class="connect-btn connect-btn-primary">Book a 30-minute call, $45 <span class="cta-arrow">→</span></a>
-        </div>
-    </div>
-</section>
-
-<p class="connect-note">I'm not a therapist. I'm not your coach. I'm a mom who's been exactly where you are, with thirty minutes and a phone.</p>
+<p class="connect-note">I'm not a therapist. I'm not your coach. I'm a mom who's been exactly where you are, answering when I can.</p>
 
 <!-- PRIVACY -->
 <section class="connect-text-section">
     <h2>What happens with what you tell me</h2>
-    <p>What you share with me, by email, text, or on a call, stays between us. I don't share it, post about it, or bring it up anywhere else. The one exception is if something you tell me makes me think you or someone else could be in real danger. If that happens, I would reach out for help, even if it means breaking that privacy. I would rather do that than sit on something serious.</p>
+    <p>What you share with me, by email or text, stays between us. I don't share it, post about it, or bring it up anywhere else. The one exception is if something you tell me makes me think you or someone else could be in real danger. If that happens, I would reach out for help, even if it means breaking that privacy. I would rather do that than sit on something serious.</p>
     <p>This isn't the same as legal confidentiality you'd get from a licensed therapist. It's my word, and I take it seriously.</p>
 </section>
 

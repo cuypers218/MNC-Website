@@ -7,11 +7,11 @@ require_once __DIR__ . '/includes/header.php';
 <!-- Hero + Story — single cream section, no gap -->
 <section class="section-cream">
     <div class="container-narrow text-center" style="padding-bottom: 0;">
-        <h1 class="fade-in" style="font-size: 2rem; color: #252535; margin-bottom: 1rem;">I'm Cece</h1>
-        <p class="fade-in-delay-1" style="font-size: 1.1rem; line-height: 1.7; color: #252535; margin-bottom: 1rem;">Solo mom. Empty nest. Now what?<br>That question sat in my house for a long time before I did anything with it.</p>
+        <h1 class="fade-in" style="font-size: 2rem; color: var(--deep-coffee); margin-bottom: 1rem;">I'm Cece</h1>
+        <p class="fade-in-delay-1" style="font-size: 1.1rem; line-height: 1.7; color: var(--deep-coffee); margin-bottom: 1rem;">Solo mom. Empty nest. Now what?<br>That question sat in my house for a long time before I did anything with it.</p>
     </div>
     <div class="container-narrow" style="padding-top: 1rem;">
-        <div style="font-size: 1.05rem; line-height: 1.8; color: #252535;">
+        <div style="font-size: 1.05rem; line-height: 1.8; color: var(--deep-coffee);">
 
             <p>I raised my kids alone. No partner. No co-parent. No one on the other end of the couch when the house went quiet. When they left, I didn't just lose the noise — I lost the entire structure my life was built around. Everything I did was for them. Meals, schedules, the reason I got up in the morning. And then one day that reason was gone, and I had no idea what to do with myself or the house I was still standing in.</p>
 
@@ -19,7 +19,7 @@ require_once __DIR__ . '/includes/header.php';
 
             <p>So I started building what I wished had existed.</p>
 
-            <h2 style="margin-top: 2.5rem; margin-bottom: 1rem; font-size: 1.1rem; font-family: 'Montserrat', sans-serif; font-weight: 800;">What My Nest Chapter is</h2>
+            <h2 style="margin-top: 2.5rem; margin-bottom: 1rem; font-size: 1.1rem;">What My Nest Chapter is</h2>
 
             <p>Everything here comes from what I actually lived through — and what I'm still figuring out.</p>
 
@@ -27,13 +27,13 @@ require_once __DIR__ . '/includes/header.php';
 
             <p>None of it promises to fix you or make you happy. But I'm not going to pretend the goal is only getting through it, either — some nights now are good. Cooking something I want, doing something because I feel like it, realizing an hour went by and I didn't think about the quiet once. That didn't come from one workbook or one night deciding to feel better. It came from picking up one specific thing at a time — the money stuff, the closet stuff, the 6pm stuff — until most nights stopped aching the way they used to. Some still do. Most don't anymore. That's not a promise. That's what happened for me, one thing at a time.</p>
 
-            <h2 style="margin-top: 2.5rem; margin-bottom: 1rem; font-size: 1.1rem; font-family: 'Montserrat', sans-serif; font-weight: 800;">What this is not</h2>
+            <h2 style="margin-top: 2.5rem; margin-bottom: 1rem; font-size: 1.1rem;">What this is not</h2>
 
             <p>I'm not a coach. I'm not a therapist. I don't have a framework or a program or a promise of transformation. I'm a mom who did it alone, and I share what worked for me. Maybe some of it works for you. Maybe it doesn't. Either way — you're not broken. You don't need fixing.</p>
 
             <p>This is one mom talking to another. That's it.</p>
 
-            <h2 style="margin-top: 2.5rem; margin-bottom: 1rem; font-size: 1.1rem; font-family: 'Montserrat', sans-serif; font-weight: 800;">Where I am now</h2>
+            <h2 style="margin-top: 2.5rem; margin-bottom: 1rem; font-size: 1.1rem;">Where I am now</h2>
 
             <p>I'm a grandma now. That's a whole new chapter I didn't see coming — doing grandparenthood the same way I did everything else. On my own, figuring it out as I go. I'm writing about that too, because I can't find anything out there that sounds like my experience.</p>
 
@@ -44,17 +44,17 @@ require_once __DIR__ . '/includes/header.php';
 </section>
 
 <!-- QUIZ CTA -->
-<section class="section-cream" style="border-top: 1px solid #F3D8E1;">
+<section class="section-cream" style="border-top: 1px solid var(--warm-sand);">
     <div class="container-narrow text-center">
-        <p style="font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; color: #8BA7D4; margin-bottom: 1.5rem;">Not sure where you fit? Start here.</p>
+        <p style="font-weight: 800; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; color: var(--warm-gray); margin-bottom: 1.5rem;">Not sure where you fit? Start here.</p>
         <button onclick="openQuizModal()" class="btn btn-primary btn-pulse" style="cursor:pointer;">What Kind of Empty Nester Are You?</button>
     </div>
 </section>
 
 <!-- Quiz Modal -->
-<div id="quizModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(37,37,53,0.82); z-index:1000; align-items:center; justify-content:center; padding:20px;" onclick="handleModalClick(event)">
+<div id="quizModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(43,31,24,0.82); z-index:1000; align-items:center; justify-content:center; padding:20px;" onclick="handleModalClick(event)">
     <div style="position:relative; width:100%; max-width:610px;">
-        <button onclick="closeQuizModal()" aria-label="Close quiz" style="position:absolute; top:14px; right:14px; background:rgba(37,37,53,0.82); border:none; color:#FAF7ED; width:40px; height:40px; border-radius:9999px; font-size:22px; line-height:40px; text-align:center; cursor:pointer; z-index:10; font-family:'Montserrat',sans-serif;">&times;</button>
+        <button onclick="closeQuizModal()" aria-label="Close quiz" style="position:absolute; top:14px; right:14px; background:rgba(43,31,24,0.82); border:none; color:var(--vanilla-cream); width:40px; height:40px; border-radius:9999px; font-size:22px; line-height:40px; text-align:center; cursor:pointer; z-index:10; font-family:var(--font-body);">&times;</button>
         <iframe id="quizIframe" src="" data-src="/widgets/empty-nester-quiz/" style="width:100%; height:min(95vh,900px); border:none; border-radius:10px; overflow:hidden; display:block;" title="What Kind of Empty Nester Are You?"></iframe>
     </div>
 </div>

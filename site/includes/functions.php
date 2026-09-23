@@ -41,6 +41,16 @@ function ctaTitle($title) {
 }
 
 /**
+ * Where a product's "Get the X" button should send someone in the Hub.
+ * As of the 2026-09-22 Hub fix, every paid product — including Weekly
+ * Cooking for One — is listed on the Hub's Shop page (hub.mynestchapter.com/#/shop),
+ * so this is a single shared destination for all of them.
+ */
+function hubBuyUrl($slug) {
+    return 'https://hub.mynestchapter.com/#/shop';
+}
+
+/**
  * Get all active products, optionally filtered by category
  */
 function getProducts($category = null) {

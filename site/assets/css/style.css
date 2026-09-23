@@ -186,7 +186,7 @@ p { margin-bottom: 1rem; line-height: 1.6; }
 .mobile-close {
     position: absolute; top: 1.5rem; right: 1.5rem;
     background: none; border: none; font-size: 1.5rem;
-    color: #101010; cursor: pointer; touch-action: manipulation;
+    color: var(--deep-coffee); cursor: pointer; touch-action: manipulation;
 }
 
 /* ============================================
@@ -279,7 +279,7 @@ a:hover .cta-arrow, button:hover .cta-arrow { transform: translateX(4px); }
 .btn-dark:hover { background-color: var(--deep-current); color: #FFFFFF; }
 
 .btn:disabled, .btn-disabled {
-    background-color: #DDDDDD; color: #ABABAB; cursor: not-allowed; border: none;
+    background-color: rgba(43,31,24,0.10); color: rgba(43,31,24,0.35); cursor: not-allowed; border: none;
 }
 
 .btn-full { width: 100%; }
@@ -300,7 +300,7 @@ a:hover .cta-arrow, button:hover .cta-arrow { transform: translateX(4px); }
     gap: 2rem; padding: 2rem 0;
 }
 .product-card {
-    background-color: #FFFFFF; border: 1px solid #ABABAB;
+    background-color: #FFFFFF; border: 1px solid var(--warm-sand);
     overflow: hidden; display: flex; flex-direction: column;
     position: relative; transition: transform 0.3s ease;
 }
@@ -333,14 +333,14 @@ a:hover .cta-arrow, button:hover .cta-arrow { transform: translateX(4px); }
     padding: 0.4rem 0.8rem;
     font-family: var(--font-body); font-weight: 800; font-size: 0.7rem;
     text-transform: uppercase; background: #FFFFFF;
-    border: 1px solid #ABABAB; color: #101010; z-index: 10;
+    border: 1px solid var(--warm-sand); color: var(--deep-coffee); z-index: 10;
 }
 .badge-free { background: #FFFFFF; color: var(--deep-current); border-color: var(--deep-current); }
 .badge-unlocked { background-color: var(--deep-current); color: #FFFFFF; border: none; }
 .badge-coming { background: var(--vanilla-cream); color: var(--deep-coffee); border: none; }
 
 /* Locked card (dashboard) */
-.product-card-locked { border-color: rgba(171,171,171,0.4); background: #FFFFFF; }
+.product-card-locked { border-color: rgba(217,199,172,0.4); background: #FFFFFF; }
 .product-card-locked .product-card-image { filter: grayscale(40%); opacity: 0.7; }
 
 /* ============================================
@@ -353,7 +353,7 @@ a:hover .cta-arrow, button:hover .cta-arrow { transform: translateX(4px); }
 .filter-tab {
     font-family: var(--font-body); font-weight: 800;
     font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em;
-    color: #101010; cursor: pointer; padding: 0.5rem 1rem;
+    color: var(--deep-coffee); cursor: pointer; padding: 0.5rem 1rem;
     border: none; background: none;
     border-bottom: 2px solid transparent; transition: all 0.2s ease;
     touch-action: manipulation;
@@ -370,7 +370,7 @@ a:hover .cta-arrow, button:hover .cta-arrow { transform: translateX(4px); }
     gap: 2rem; padding: 2rem 0;
 }
 .blog-card {
-    background: #FFFFFF; border: 1px solid #ABABAB;
+    background: #FFFFFF; border: 1px solid var(--warm-sand);
     overflow: hidden; display: flex; flex-direction: column;
     transition: transform 0.3s ease;
 }
@@ -406,9 +406,9 @@ a:hover .cta-arrow, button:hover .cta-arrow { transform: translateX(4px); }
 .blog-post-meta {
     font-family: var(--font-body); font-weight: 400;
     font-size: 0.8rem; color: var(--warm-gray); margin-bottom: 2.5rem;
-    padding-bottom: 1.5rem; border-bottom: 1px solid #D3D3D3;
+    padding-bottom: 1.5rem; border-bottom: 1px solid var(--warm-sand);
 }
-.blog-post-body { font-size: 1.05rem; line-height: 1.7; color: #101010; }
+.blog-post-body { font-size: 1.05rem; line-height: 1.7; color: var(--deep-coffee); }
 .blog-post-body p { margin-bottom: 1.5rem; }
 .blog-post-body h2 { margin-top: 2.5rem; margin-bottom: 1rem; }
 
@@ -854,7 +854,7 @@ a:hover .cta-arrow, button:hover .cta-arrow { transform: translateX(4px); }
 
     /* Email capture */
     .email-capture-form { flex-direction: column; }
-    .email-capture-form input[type="email"] { border-right: 1px solid #ABABAB; }
+    .email-capture-form input[type="email"] { border-right: 1px solid var(--warm-sand); }
     .email-capture-form button { width: 100%; }
 
     /* Filter tabs scroll -- the row itself scrolls fine, but with no visual cue the

@@ -87,6 +87,72 @@ $AMAZON_LINK = "https://www.amazon.com/YOUR_BOOK_LINK"; // replace with Amazon l
     transition: color 0.2s;
   }
   .nav-links a:hover { color: var(--soft-peach); }
+  .mobile-toggle {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    width: 44px;
+    height: 44px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+  }
+  .mobile-toggle span {
+    display: block;
+    width: 22px;
+    height: 2px;
+    background: var(--vanilla);
+    margin: 0 auto;
+  }
+  .mobile-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(43,31,24,0.6);
+    z-index: 199;
+  }
+  .mobile-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    position: fixed;
+    top: 0; right: -280px;
+    width: 260px;
+    height: 100%;
+    background: var(--charcoal);
+    padding: 24px 20px;
+    z-index: 200;
+    transition: right 0.25s ease;
+  }
+  .mobile-nav.open { right: 0; }
+  .mobile-nav a {
+    color: rgba(246,241,230,0.8);
+    text-decoration: none;
+    font-size: 0.95rem;
+    letter-spacing: 0.04em;
+    padding: 12px 4px;
+    border-bottom: 1px solid rgba(246,241,230,0.1);
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+  }
+  .mobile-nav a:hover { color: var(--soft-peach); }
+  .mobile-close {
+    align-self: flex-end;
+    background: none;
+    border: none;
+    color: var(--vanilla);
+    font-size: 22px;
+    width: 44px;
+    height: 44px;
+    cursor: pointer;
+    margin-bottom: 12px;
+  }
+  @media (max-width: 768px) {
+    .mobile-toggle { display: flex; }
+  }
 
   /* ── BREADCRUMB ── */
   .breadcrumb {
@@ -638,6 +704,22 @@ $AMAZON_LINK = "https://www.amazon.com/YOUR_BOOK_LINK"; // replace with Amazon l
     <li><a href="/resources">Resources</a></li>
     <li><a href="/freebies">Freebies</a></li>
   </ul>
+  <button class="mobile-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="mobileNav" onclick="openMobileNav()">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<div class="mobile-overlay" id="mobileOverlay" onclick="closeMobileNav()"></div>
+<nav class="mobile-nav" id="mobileNav" aria-label="Mobile navigation">
+  <button class="mobile-close" aria-label="Close menu" onclick="closeMobileNav()">&#x2715;</button>
+  <a href="/">Home</a>
+  <a href="/about">About</a>
+  <a href="/blog">Blog</a>
+  <a href="/shop">Shop</a>
+  <a href="/resources">Resources</a>
+  <a href="/freebies">Freebies</a>
+  <a href="/start-here">Log In</a>
+  <a href="/start-here">Create Account</a>
 </nav>
 
 <!-- BREADCRUMB -->
@@ -847,6 +929,26 @@ $AMAZON_LINK = "https://www.amazon.com/YOUR_BOOK_LINK"; // replace with Amazon l
   </div>
   <div class="footer-copy">&copy; 2026 My Nest Chapter. All rights reserved.</div>
 </footer>
+
+<script>
+function openMobileNav() {
+  document.getElementById('mobileNav').classList.add('open');
+  document.getElementById('mobileOverlay').style.display = 'block';
+  var toggle = document.querySelector('.mobile-toggle');
+  toggle.setAttribute('aria-expanded', 'true');
+  document.body.style.overflow = 'hidden';
+  var closeBtn = document.querySelector('.mobile-close');
+  if (closeBtn) closeBtn.focus();
+}
+function closeMobileNav() {
+  document.getElementById('mobileNav').classList.remove('open');
+  document.getElementById('mobileOverlay').style.display = 'none';
+  var toggle = document.querySelector('.mobile-toggle');
+  toggle.setAttribute('aria-expanded', 'false');
+  document.body.style.overflow = '';
+  toggle.focus();
+}
+</script>
 
 </body>
 </html>
