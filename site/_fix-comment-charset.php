@@ -1,8 +1,6 @@
 <?php
-// ONE-TIME — isolate whether the em-dash corruption seen in the guest-comment
-// QA test happens at storage time or read/display time. Inserts a known-good
-// UTF-8 string directly via SQL (bypassing the PHP form path entirely) and
-// hex-dumps it back raw, so a PDO/PHP-side issue can't hide behind htmlspecialchars.
+// ONE-TIME — check what a real POST request through blog-comment-submit.php's
+// exact code path (trim($_POST['name'])) actually stores, hex-dumped raw.
 // Gated behind a secret token, deleted from the repo right after it runs.
 
 require_once __DIR__ . '/includes/config.php';
@@ -15,27 +13,16 @@ if (($_GET['token'] ?? '') !== $SECRET) {
 }
 
 header('Content-Type: text/plain');
-$db = getDB();
 
-$test = "Test \xe2\x80\x94 dash"; // raw UTF-8 bytes for "Test — dash"
-echo "Bytes we're sending (hex): " . bin2hex($test) . "\n\n";
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $raw = file_get_contents('php://input');
+    echo "Raw POST body received: $raw\n";
+    echo "Raw POST body (hex)   : " . bin2hex($raw) . "\n\n";
 
-$stmt = $db->prepare("SELECT id FROM blog_posts LIMIT 1");
-$stmt->execute();
-$postId = $stmt->fetchColumn();
+    $name = trim($_POST['name'] ?? '');
+    echo "\$_POST['name'] after trim(), as PHP sees it: $name\n";
+    echo "Its bytes (hex): " . bin2hex($name) . "\n";
+    exit;
+}
 
-$ins = $db->prepare("INSERT INTO blog_comments (post_id, guest_name, body) VALUES (?, ?, 'charset probe, safe to delete')");
-$ins->execute([$postId, $test]);
-$id = $db->lastInsertId();
-
-$sel = $db->prepare("SELECT guest_name, HEX(guest_name) AS hex FROM blog_comments WHERE id = ?");
-$sel->execute([$id]);
-$row = $sel->fetch();
-
-echo "Read back from DB:\n";
-echo "  Raw string   : {$row['guest_name']}\n";
-echo "  Bytes (hex)  : " . strtolower($row['hex']) . "\n";
-echo "  Match original: " . ($row['hex'] === strtoupper(bin2hex($test)) ? 'YES — storage is fine' : 'NO — corrupted in storage') . "\n";
-
-$db->prepare("DELETE FROM blog_comments WHERE id = ?")->execute([$id]);
-echo "\nCleaned up probe row.\n";
+echo "POST to this same URL with name=Test%20%E2%80%94%20dash to run the check.\n";
