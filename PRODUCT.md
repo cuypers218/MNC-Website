@@ -22,6 +22,10 @@ Cece, the brand's voice, is not a coach or expert who processed this stage and i
 
 Custom PHP/HTML site on Hostinger. Stripe live for payments. Amazon KDP for the Workbook 1 paperback. Member dashboard with gated freebies (public Freebies page requires email capture; logged-in members get everything gate-free) and a monthly exclusive-content drop cadence. Canva used for print/graphic asset creation (Brand Kit `kAHE-_Dmcm0`).
 
+## The Book (2026-09-26)
+
+Direction chosen by Cece: the website is an open book. The first chapters of her life (raising kids alone) are written. The site is about the **middle** of the book, and every chapter in it is hers to write: downsizing the house, cooking for one, the someday list, renting a room, traveling, friendship, whatever she decides. There is no chapter list on the site and nothing about "the end." The tools are what she picks up to help with whichever chapter she is in; the tools are not chapters. **The Hub is a free member card that opens everything** (every freebie, every product, whatever comes next). Pages: Home, About (Cece's story), Blog, Tools ("On the house" / "To take home"), The Hub. Feel: a modern book café, a place a woman takes herself to with a book or e-reader. See `mockups/hub-homepage-chapters/` and `INTEGRATION-PLAN.md`.
+
 ## Capabilities and Constraints
 
 - Interactive HTML tools are the repeat-use product format (vs. Workbook for long-form guided work, Companion for shorter topics, PDF for one-time concepts).

@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Nest Chapter — Homepage Mockup (Chapter One)</title>
+<meta name="description" content="Mockup: the homepage as the first chapter of a book, leading visitors into the Hub.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Next:wght@400;500;700&family=Homemade+Apple&family=Source+Serif+4:ital,wght@0,400;0,600;1,400&family=Young+Serif&display=swap" rel="stylesheet">
+<script>document.documentElement.classList.add('js');</script>
+<style>
+/* ============ TOKENS — Cece's palette + ONE new color (Marigold) ============ */
+:root{
+  --current:#0A2F3A; --copper:#A35E33; --honey:#C8A878; --cream:#F6F1E6; --coffee:#2B1F18;
+  --oceanic:#1D6B78; --drift:#D8975A; --sienna:#5A4839; --sand:#F1D9B3; --beige:#E6D6C2;
+  --brown:#8B5E3C; --mocha:#5E3E2B;
+  --marigold:#F2B63D;
+  --display:'Young Serif',Georgia,serif;
+  --serif:'Source Serif 4',Georgia,serif;
+  --ui:'Atkinson Hyperlegible Next','Atkinson Hyperlegible',system-ui,sans-serif;
+  --hand:'Homemade Apple','Segoe Script',cursive;
+  --ease:cubic-bezier(.16,1,.3,1);
+  --grain:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3CfeColorMatrix values='0 0 0 0 .35 0 0 0 0 .25 0 0 0 0 .15 0 0 0 .07 0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scrollbar-color:var(--honey) var(--current)}
+body{font-family:var(--serif);font-size:1.1875rem;line-height:1.7;color:var(--coffee);background:var(--current);background-image:repeating-linear-gradient(45deg,rgba(246,241,230,.018) 0 2px,transparent 2px 5px),radial-gradient(70% 40% at 50% 0,rgba(29,107,120,.4),transparent 70%);-webkit-font-smoothing:antialiased;overflow-x:hidden;caret-color:var(--copper)}
+img{display:block;max-width:100%}
+a{color:inherit}
+::selection{background:var(--marigold);color:var(--coffee)}
+:focus-visible{outline:3px solid var(--current);outline-offset:3px;border-radius:4px}
+.nav :focus-visible,.ribbon:focus-visible{outline-color:var(--marigold)}
+h1,h2,h3{font-family:var(--display);font-weight:400;letter-spacing:-.015em;text-wrap:balance;line-height:1.08}
+h1{font-size:clamp(2.5rem,4.6vw,4.1rem);line-height:1.03}
+h2{font-size:clamp(1.9rem,3vw,2.75rem)}
+p{max-width:60ch;text-wrap:pretty}
+.ui{font-family:var(--ui)}
+.hand{font-family:var(--hand)}
+
+.btn{display:inline-flex;align-items:center;gap:.7rem;min-height:56px;padding:.85rem 1.7rem;background:var(--copper);color:#fff;font:700 1.0625rem/1.2 var(--ui);text-decoration:none;border:0;border-radius:6px;cursor:pointer;box-shadow:0 1px 0 rgba(255,255,255,.18) inset,0 8px 18px -8px rgba(0,0,0,.45);transition:transform .35s var(--ease),background .25s}
+.btn .arr{transition:transform .35s var(--ease)}
+.btn:hover{background:#8f4f27;transform:translateY(-2px)}
+.btn:hover .arr{transform:translateX(5px)}
+.btn.sm{white-space:nowrap;min-height:44px;padding:.5rem 1.1rem;font-size:.98rem}
+.link{font:700 1.02rem var(--ui);text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:.28em;text-decoration-color:var(--honey);transition:text-decoration-color .2s}
+.link:hover{text-decoration-color:var(--copper)}
+.note-line{font:400 .98rem var(--ui);color:var(--sienna)}
+
+/* ============ MOCK BAR + NAV ============ */
+.mockbar{background:var(--marigold);color:var(--coffee);font:500 .9rem/1.35 var(--ui);text-align:center;padding:.5rem 1rem}
+.top{position:sticky;top:0;z-index:50}
+.nav{position:relative;z-index:50;background:var(--current);color:var(--cream);border-bottom:1px solid rgba(200,168,120,.22);font-family:var(--ui)}
+.nav-in{width:min(1240px,100% - 32px);margin-inline:auto;display:flex;align-items:center;gap:2rem;min-height:72px}
+.mark{white-space:nowrap;font-family:var(--display);font-size:1.5rem;text-decoration:none;color:var(--cream);display:flex;align-items:center;gap:.6rem;margin-right:auto}
+.mark svg{width:30px;height:30px;color:var(--honey)}
+.nav-links{display:flex;gap:1.9rem}
+.nav-links a{text-decoration:none;font-weight:500;padding:.4rem 0;background:linear-gradient(var(--honey),var(--honey)) 0 100%/0 2px no-repeat;transition:background-size .35s var(--ease)}
+.nav-links a:hover{background-size:100% 2px}
+.nav-login{white-space:nowrap;font-weight:500;text-decoration:none;padding:.6rem .2rem}
+.nav .btn.sm{display:none}
+@media(max-width:1000px){.nav-links{display:none}.nav .btn.sm{display:inline-flex}}
+@media(max-width:600px){.nav-login{display:none}.mark{font-size:1.25rem}.mark svg{width:24px;height:24px}}
+
+/* ============ RIBBON BOOKMARK (the Join button that follows her) ============ */
+.ribbon{position:fixed;z-index:60;top:107px;right:max(18px,calc(50vw - 640px));width:104px;padding:1.05rem .6rem 2.7rem;background:var(--copper);color:#fff;text-decoration:none;text-align:center;font-family:var(--ui);line-height:1.15;clip-path:polygon(0 0,100% 0,100% 100%,50% 86%,0 100%);transform-origin:50% 0;animation:drop 1.4s var(--ease) 1.6s both;transition:transform .4s var(--ease),background .25s}
+.ribbon b{display:block;font-size:1.05rem;font-weight:700}
+.ribbon span{display:block;font-size:.88rem;margin-top:.3rem;opacity:.95}
+.ribbon:hover{transform:translateY(10px);background:#8f4f27;animation:none}
+@media(max-width:1000px){.ribbon{display:none}}
+@media(min-width:1001px){.hero .rh span:last-child{margin-right:96px}}
+
+/* ============ BOOK PAGES ============ */
+.book{width:min(1240px,100% - 32px);margin-inline:auto;padding-block:clamp(24px,4vw,48px) 0}
+.spread{position:relative;display:grid;grid-template-columns:1fr 1fr;margin-bottom:clamp(36px,6vw,80px);perspective:2400px}
+.page{position:relative;background:var(--cream) var(--grain);padding:clamp(30px,4.2vw,60px) clamp(28px,4.2vw,64px) clamp(52px,5vw,72px);min-height:600px;box-shadow:0 1px 0 #e9dfcb,0 2px 0 var(--cream),0 3px 0 #e9dfcb,0 4px 0 var(--cream),0 5px 0 #e9dfcb,0 34px 46px -18px rgba(0,0,0,.6)}
+.page.l{border-radius:8px 0 0 8px;background-image:linear-gradient(90deg,transparent 86%,rgba(43,31,24,.16)),var(--grain)}
+.page.r{border-radius:0 8px 8px 0;background-image:linear-gradient(270deg,transparent 86%,rgba(43,31,24,.16)),var(--grain);transform-origin:0 50%}
+.page.one{min-height:0;grid-column:1/-1;border-radius:8px;background-image:var(--grain)}
+.rh{display:flex;justify-content:space-between;font:500 .78rem var(--ui);letter-spacing:.16em;text-transform:uppercase;color:var(--sienna);margin-bottom:2rem}
+.pn{position:absolute;bottom:1.5rem;left:0;right:0;text-align:center;font:400 .95rem var(--serif);color:var(--sienna)}
+.page h2{margin-bottom:1.3rem}
+.page p+p{margin-top:1.1rem}
+.drop::first-letter{font:400 4.6em/.78 var(--display);float:left;padding:.05em .1em 0 0;color:var(--copper)}
+.hl{-webkit-box-decoration-break:clone;box-decoration-break:clone;background:linear-gradient(transparent 58%,var(--marigold) 58% 92%,transparent 92%) 0 0/0% 100% no-repeat;transition:background-size 1s var(--ease) .6s;padding:0 .1em}
+.in .hl,.hl.in{background-size:100% 100%}
+.cta-row{display:flex;flex-wrap:wrap;align-items:center;gap:.9rem 1.5rem;margin-top:1.8rem}
+
+/* page-turn: the right page swings in from the gutter as its spread arrives */
+.js .spread:not(.hero) .page.r{opacity:0;transform:rotateY(-72deg);transition:transform 1.2s var(--ease),opacity .8s ease-out}
+.js .spread:not(.hero) .page.l,.js .spread:not(.hero) .page.one{opacity:0;transform:translateY(30px);transition:transform 1s var(--ease),opacity .8s ease-out}
+.js .spread:not(.hero).in .page,.js .spread:not(.hero).in .page.r,.js .spread:not(.hero).in .page.l,.js .spread:not(.hero).in .page.one{opacity:1;transform:none}
+.js .spread:not(.hero) .page.r{transition-delay:.25s}
+.js .rv{opacity:0;transform:translateY(18px);transition:opacity .8s var(--ease),transform .8s var(--ease)}
+.js .in .rv,.js .rv.in{opacity:1;transform:none}
+/* corner curl */
+.page.r::after{content:"";position:absolute;right:0;bottom:0;width:38px;height:38px;background:linear-gradient(315deg,var(--current) 0 50%,#d9ccb2 50% 100%);border-radius:0 0 8px 0;box-shadow:-3px -3px 6px rgba(43,31,24,.18);transform-origin:100% 100%;transition:transform .4s var(--ease)}
+.page.r:hover::after{transform:scale(1.5)}
+
+/* pencil marginalia */
+.pencil{position:relative;display:block;font:400 1rem/1.55 var(--hand);color:var(--sienna);max-width:15rem;transform:rotate(-3deg)}
+.pencil small{display:block;font:400 .82rem var(--hand);opacity:.85}
+.pencil svg{position:absolute;left:-2.4rem;top:-1.6rem;width:2.2rem;height:2.2rem;fill:none;stroke:var(--sienna);stroke-width:1.6;stroke-linecap:round;stroke-dasharray:60;stroke-dashoffset:60;transition:stroke-dashoffset 1s var(--ease) 1s}
+.in .pencil svg,.pencil.in svg{stroke-dashoffset:0}
+
+/* ============ HERO SPREAD ============ */
+.spread.hero .page.l{animation:openL 1.1s var(--ease) .1s both;transform-origin:100% 50%}
+.spread.hero .page.r{animation:fadeup .9s var(--ease) .6s both}
+.hero .rvl{display:block;clip-path:inset(0 100% 0 0);animation:wipe .9s var(--ease) both}
+.plate{display:flex;flex-direction:column;align-items:center;height:calc(100% - 3rem)}
+.plate .frame{width:min(100%,400px);box-shadow:0 0 0 9px var(--cream),0 0 0 10px var(--honey),0 14px 28px -10px rgba(0,0,0,.4)}
+.plate img{aspect-ratio:4/5;object-fit:cover;width:100%}
+.plate figcaption{margin-top:2rem;font:400 1.05rem/1.6 var(--hand);color:var(--current);text-align:center}
+.plate .pencil{position:absolute;right:clamp(20px,3vw,44px);bottom:clamp(60px,6vw,86px)}
+.hero h1 .hl{background-size:0 100%;animation:hlin 1s var(--ease) 2s forwards}
+.who{font-style:italic;color:var(--sienna);margin-top:1.5rem;font-size:1.08rem}
+.who b{font-style:normal;font-weight:600;color:var(--coffee)}
+.quiz{display:inline-block;margin-top:1.1rem}
+
+/* ============ HUB (contents page) ============ */
+.toc{list-style:none;margin-top:.4rem}
+.toc>li{border-bottom:1px solid rgba(43,31,24,.16)}
+.toc>li:first-child{border-top:1px solid rgba(43,31,24,.16)}
+.toc button{display:flex;align-items:baseline;gap:.6rem;width:100%;min-height:60px;padding:.7rem 0;background:none;border:0;cursor:pointer;text-align:left;font:400 1.55rem/1.2 var(--display);color:var(--current)}
+.toc .dots{flex:1;border-bottom:2px dotted rgba(90,72,57,.5);transform:translateY(-.3em);min-width:20px}
+.toc .pg{font:400 1.05rem var(--serif);color:var(--sienna)}
+.toc .t{background:linear-gradient(var(--marigold),var(--marigold)) 0 92%/0 .5em no-repeat;transition:background-size .5s var(--ease)}
+.toc button:hover .t,.toc button[aria-expanded=true] .t{background-size:100% .5em}
+.sample{display:grid;grid-template-rows:0fr;transition:grid-template-rows .6s var(--ease)}
+.sample>div{overflow:hidden}
+.toc button[aria-expanded=true]+.sample{grid-template-rows:1fr}
+.sample .in-s{padding:.2rem 0 1.3rem;font-family:var(--ui);font-size:1rem;line-height:1.5}
+.sample .prompt{color:var(--sienna);font-size:.95rem}
+.sample .journal{margin-top:.7rem;font:400 .98rem/32px var(--hand);color:var(--coffee);background:repeating-linear-gradient(transparent 0 31px,rgba(29,107,120,.25) 31px 32px);padding:0 .3rem}
+.sample ul{list-style:none}
+.sample li{display:flex;gap:.9rem;align-items:center;padding:.45rem 0}
+.sample li+li{border-top:1px solid rgba(43,31,24,.1)}
+.sample .d{flex:none;width:52px;text-align:center;background:var(--sand);border-radius:5px;padding:.2rem 0;line-height:1.1;font:700 .72rem var(--ui);text-transform:uppercase;letter-spacing:.06em;color:var(--mocha)}
+.sample .d b{display:block;font:400 1.35rem var(--display);letter-spacing:0;color:var(--current)}
+.sample .msg{display:flex;gap:.7rem;align-items:flex-end;margin:.35rem 0}
+.mono{flex:none;width:32px;height:32px;border-radius:50%;display:grid;place-items:center;font:700 .85rem var(--ui);color:#fff}
+.sample .msg span.b{background:var(--cream);padding:.45rem .85rem;border-radius:12px 12px 12px 3px;box-shadow:0 0 0 1px rgba(43,31,24,.12)}
+.sample .free{columns:2;column-gap:1.5rem}
+.sample .free li{border:0;padding:.3rem 0;break-inside:avoid;gap:.6rem}
+.tick{flex:none;width:20px;height:20px;border-radius:50%;background:var(--oceanic);display:grid;place-items:center}
+.tick svg{width:11px;height:11px;color:#fff}
+.sample .shop li b{margin-left:auto;font:400 1.1rem var(--display);color:var(--copper)}
+.sample .shop img{width:44px;height:44px;object-fit:cover;border-radius:5px}
+.sample .fine{margin-top:.6rem;font-size:.9rem;color:var(--sienna)}
+.sample-note{margin-top:1.1rem}
+
+/* three ways (one wide page) */
+.ways{display:grid;grid-template-columns:repeat(3,1fr);gap:0}
+.way{padding:0 2rem}
+.way:first-child{padding-left:0}.way:last-child{padding-right:0}
+.way+.way{border-left:1px solid rgba(43,31,24,.18)}
+.way h3{font-size:clamp(2rem,3.4vw,3rem);color:var(--current)}
+.way h4{font:700 1.1rem/1.35 var(--ui);margin:.6rem 0 .6rem}
+.way p{font-size:1.05rem;margin-top:0}
+.way .link{display:inline-block;margin-top:1rem}
+
+/* ============ MEET CECE ============ */
+.corners{position:relative;display:inline-block;max-width:430px;margin:0 auto}
+.corners img{aspect-ratio:4/5;object-fit:cover;width:100%;box-shadow:0 12px 24px -10px rgba(43,31,24,.5)}
+.corners i{position:absolute;width:44px;height:44px;background:var(--brown)}
+.corners i:nth-of-type(1){top:-8px;left:-8px;clip-path:polygon(0 0,100% 0,0 100%)}
+.corners i:nth-of-type(2){top:-8px;right:-8px;clip-path:polygon(0 0,100% 0,100% 100%)}
+.corners i:nth-of-type(3){bottom:-8px;left:-8px;clip-path:polygon(0 0,0 100%,100% 100%)}
+.corners i:nth-of-type(4){bottom:-8px;right:-8px;clip-path:polygon(100% 0,100% 100%,0 100%)}
+.center{display:grid;place-items:center;height:calc(100% - 3rem)}
+.epi{font:400 1.05rem/1.7 var(--hand);color:var(--copper);max-width:none;margin-bottom:1.2rem}
+.meet .pencil{margin:1.6rem 0 0 auto;max-width:17rem}
+
+/* ============ SHELF ============ */
+.shelf,.shelf-info{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(20px,3vw,44px)}
+.shelf{align-items:end;padding:0 1rem;border-bottom:16px solid var(--mocha);box-shadow:0 12px 0 -4px #4a3122;margin-top:2.4rem}
+.book-c{position:relative;transition:transform .6s var(--ease)}
+.book-c img{width:100%;object-fit:cover;box-shadow:0 10px 22px -8px rgba(0,0,0,.55)}
+.book-c::before{content:"";position:absolute;left:0;top:0;bottom:0;width:14px;z-index:2;background:linear-gradient(90deg,rgba(0,0,0,.35),rgba(255,255,255,.14) 40%,transparent);pointer-events:none}
+.book-c:hover{transform:translateY(-14px) rotate(-1.2deg)}
+.b1 img{aspect-ratio:4/3}.b2 img{aspect-ratio:1}.b3 img{aspect-ratio:3/2}
+.tag{position:absolute;z-index:3;top:-16px;right:-12px;width:78px;height:78px;display:grid;place-items:center;background:var(--marigold);color:var(--coffee);font:400 1.35rem var(--display);border-radius:50%;transform:rotate(9deg);box-shadow:0 4px 10px -2px rgba(0,0,0,.35)}
+.shelf-info{padding:0 1rem;margin-top:1.8rem}
+.shelf-info h3{font-size:1.6rem;line-height:1.15;color:var(--current)}
+.shelf-info p{margin-top:.5rem;font-size:1.05rem}
+.shelf-info .btn{margin-top:1rem}
+.sub{max-width:52ch;margin-top:-.4rem;color:var(--sienna)}
+
+/* ============ AUTHOR'S NOTE (newsletter) ============ */
+.plate-full{position:absolute;inset:clamp(28px,4vw,56px);overflow:hidden;border-radius:3px;box-shadow:0 12px 24px -10px rgba(43,31,24,.5)}
+.plate-full img{width:100%;height:100%;object-fit:cover}
+.mailform{display:flex;flex-wrap:wrap;gap:.8rem;margin-top:1.5rem}
+.mailform input{flex:1 1 210px;min-height:56px;padding:.7rem 1rem;font:1.05rem var(--ui);color:var(--coffee);background:#fff;border:2px solid var(--brown);border-radius:6px}
+.mailform input:focus{outline:3px solid var(--current);outline-offset:2px;border-color:var(--current)}
+.mailform input::placeholder{color:var(--sienna);opacity:.85}
+.mailform .btn{background:var(--current)}
+.mailform .btn:hover{background:#06212a}
+.thanks{margin-top:1.5rem;font:400 1.5rem var(--display);color:var(--current)}
+
+/* ============ BACK OF THE BOOK ============ */
+.blurbs{display:flex;flex-direction:column;gap:1.7rem}
+.blurb q{display:block;quotes:none;font-style:italic;font-size:1.15rem;line-height:1.6}
+.blurb cite{display:block;margin-top:.5rem;font:400 .95rem var(--hand);color:var(--current);font-style:normal}
+.blurb cite small{font:400 .88rem var(--ui);color:var(--sienna)}
+.slip{margin-top:1.4rem;background:var(--beige);padding:1.2rem 1.4rem 1.4rem;border-radius:3px;box-shadow:inset 0 0 0 1px rgba(43,31,24,.15);font-family:var(--ui)}
+.slip h3{font:700 .8rem var(--ui);letter-spacing:.16em;text-transform:uppercase;color:var(--sienna);margin-bottom:.6rem}
+.slip ol{list-style:none}
+.slip li{display:flex;justify-content:space-between;gap:1rem;border-bottom:1px solid rgba(43,31,24,.25);padding:.45rem 0;font-size:1rem;min-height:40px}
+.slip li span:last-child{font:500 .9rem var(--ui);color:var(--mocha);letter-spacing:.06em}
+.slip li.you{border-bottom-style:dashed}
+.slip .you-w{font:400 1.15rem var(--hand);color:var(--current);clip-path:inset(0 100% 0 0);transition:clip-path 1.6s var(--ease) 1.2s}
+.in .slip .you-w{clip-path:inset(0 0 0 0)}
+.back-r h2{font-size:clamp(2.6rem,5vw,4.4rem);line-height:1}
+
+.sw{position:fixed;z-index:70;left:16px;bottom:16px;display:flex;flex-wrap:wrap;align-items:center;gap:.4rem;max-width:min(680px,calc(100% - 32px));padding:.6rem .7rem;background:var(--marigold);color:var(--coffee);border-radius:10px;font:500 .88rem var(--ui);box-shadow:0 10px 24px -8px rgba(0,0,0,.5)}
+.sw span{margin-right:.3rem}
+.sw button{min-height:36px;padding:.3rem .7rem;font:500 .88rem var(--ui);background:var(--cream);color:var(--coffee);border:2px solid transparent;border-radius:6px;cursor:pointer}
+.sw button[aria-pressed=true]{background:var(--current);color:var(--cream)}
+.sw button:focus-visible{outline:3px solid var(--current);outline-offset:2px}
+.scene{--lat:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='22' height='22'%3E%3Cpath d='M11 3l4 8-4 8-4-8z' fill='none' stroke='%23C8A878' stroke-opacity='.5' stroke-width='1.2'/%3E%3C/svg%3E");container-type:inline-size;position:relative;display:block;aspect-ratio:4/5;overflow:hidden;background:var(--lat),var(--oceanic);text-decoration:none;color:var(--cream)}
+.scene .card-w{position:absolute;left:10%;top:22%;width:80%;z-index:2;animation:cardup 1.3s var(--ease) 1.5s both}
+.scene .card{position:relative;display:block;aspect-ratio:1.586;background:var(--current);border-radius:3.2cqw;padding:5cqw;box-shadow:0 1.4cqw 3cqw rgba(0,0,0,.45);transition:transform .7s var(--ease)}
+.scene .card::before{content:"";position:absolute;inset:2.2cqw;border:1px solid rgba(200,168,120,.55);border-radius:2cqw}
+.scene:hover .card,.scene:focus-visible .card{transform:translateY(-7cqw) rotate(-1.6deg)}
+.scene:focus-visible{outline:3px solid var(--marigold);outline-offset:-6px}
+.c-top{position:relative;display:flex;align-items:center;gap:2cqw;color:var(--honey)}
+.c-top svg{width:8cqw;height:8cqw;flex:none}
+.c-top b{white-space:nowrap;font:400 5.6cqw/1 var(--display);color:var(--cream)}
+.c-sub{position:relative;display:block;margin-top:2.6cqw;font:700 2.6cqw var(--ui);letter-spacing:.22em;text-transform:uppercase;color:var(--honey)}
+.c-name{position:relative;display:block;margin-top:3.6cqw;padding-bottom:.8cqw;border-bottom:1px solid rgba(246,241,230,.45);width:64%}
+.c-name i{display:block;font:500 2.1cqw var(--ui);letter-spacing:.16em;text-transform:uppercase;color:var(--honey);font-style:normal}
+.c-name em{display:block;font:400 4.4cqw/1.5 var(--hand);color:var(--cream);font-style:normal;clip-path:inset(0 100% 0 0);animation:wipe 1.6s var(--ease) 3s both}
+.c-bar{position:absolute;left:5cqw;right:5cqw;bottom:5cqw;height:7cqw;background:repeating-linear-gradient(90deg,var(--honey) 0 .6cqw,transparent .6cqw 1.2cqw,var(--honey) 1.2cqw 2.4cqw,transparent 2.4cqw 3cqw,var(--honey) 3cqw 3.4cqw,transparent 3.4cqw 4.6cqw);opacity:.85}
+.c-no{position:absolute;left:5cqw;bottom:1.4cqw;font:500 2.2cqw var(--ui);letter-spacing:.2em;color:var(--honey)}
+.seal{position:absolute;right:4cqw;top:4cqw;z-index:2;width:12cqw;height:12cqw;display:grid;place-items:center;background:var(--marigold);color:var(--coffee);border-radius:50%;font:400 4.4cqw var(--display);transform:rotate(10deg)}
+.pocket{position:absolute;left:6%;right:6%;bottom:4%;height:46%;z-index:3;display:flex;flex-direction:column;justify-content:flex-end;gap:1cqw;padding:0 6cqw 6cqw;background:var(--beige) var(--grain);border-radius:1cqw;box-shadow:inset 0 1.6cqw 1.6cqw -1.2cqw rgba(43,31,24,.4),0 1.6cqw 3cqw rgba(0,0,0,.35);color:var(--sienna)}
+.pocket::before{content:"";position:absolute;left:6cqw;right:6cqw;top:7cqw;height:17cqw;background:repeating-linear-gradient(transparent 0 5.4cqw,rgba(90,72,57,.28) 5.4cqw 5.7cqw)}
+.pocket b{font:400 6cqw/1.1 var(--display);color:var(--current)}
+.pocket span{font:500 3.4cqw var(--ui)}
+@keyframes cardup{from{opacity:0;transform:translateY(16cqw)}to{opacity:1;transform:none}}
+.plate .frame>svg{display:block;width:100%;aspect-ratio:4/5}
+@media(max-width:600px){.sw span{width:100%}}
+
+/* ============ FOOTER ============ */
+footer{background:var(--coffee);color:var(--beige);padding:56px 0 40px;text-align:center;font-family:var(--ui)}
+footer .mark{justify-content:center;margin:0;font-size:1.6rem}
+footer .tg{margin:.4rem auto 1.4rem;color:var(--honey)}
+footer nav{display:flex;flex-wrap:wrap;justify-content:center;gap:.2rem 1.8rem;margin-bottom:1.2rem}
+footer nav a{text-decoration:none;min-height:44px;display:inline-flex;align-items:center}
+footer nav a:hover{text-decoration:underline;text-decoration-color:var(--honey)}
+footer .soc{display:flex;justify-content:center;gap:.6rem;margin-bottom:1.2rem}
+footer .soc a{width:44px;height:44px;display:grid;place-items:center;border:1px solid rgba(200,168,120,.4);border-radius:50%;color:var(--honey);transition:background .25s,color .25s}
+footer .soc a:hover{background:var(--honey);color:var(--coffee)}
+footer .soc svg{width:20px;height:20px}
+footer small{font-size:.9rem;opacity:.75}
+
+/* ============ KEYFRAMES ============ */
+@keyframes openL{from{opacity:0;transform:rotateY(80deg)}to{opacity:1;transform:none}}
+@keyframes fadeup{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
+@keyframes wipe{to{clip-path:inset(0 -4% 0 0)}}
+@keyframes hlin{to{background-size:100% 100%}}
+@keyframes drop{0%{transform:translateY(-120%) rotate(0)}55%{transform:translateY(0) rotate(4deg)}75%{transform:rotate(-2.5deg)}100%{transform:rotate(0)}}
+
+/* ============ RESPONSIVE ============ */
+@media(max-width:900px){
+  .spread.hero .page.r{order:-1}
+  .spread{grid-template-columns:1fr;gap:18px}
+  .page{min-height:0;padding-bottom:72px}
+  .page.l,.page.r{border-radius:8px}
+  .page.l,.page.r{background-image:var(--grain)}
+  .js .spread:not(.hero) .page.r{transform:translateY(30px)}
+  .page.r::after{display:none}
+  .plate{height:auto}.plate .pencil{position:relative;right:auto;bottom:auto;margin:1.4rem 0 0 auto}
+  .center{height:auto}
+  .ways{grid-template-columns:1fr}
+  .way,.way:first-child,.way:last-child{padding:1.4rem 0;border-left:0}
+  .way+.way{border-top:1px solid rgba(43,31,24,.18)}
+  .shelf,.shelf-info{grid-template-columns:1fr;padding:0}
+  .shelf{border-bottom:0;box-shadow:none;gap:2rem}
+  .shelf-info{margin-top:0}
+  .plate-full{position:relative;inset:auto;aspect-ratio:16/11;margin-bottom:1.6rem}
+  .sample .free{columns:1}
+}
+
+/* ============ REDUCED MOTION ============ */
+@media(prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation-duration:.001ms!important;animation-delay:0s!important;transition-duration:.001ms!important;transition-delay:0s!important}
+  .js .spread .page,.js .rv{opacity:1!important;transform:none!important}
+  .hl{background-size:100% 100%}
+}
+</style>
+</head>
+<body>
+<!--
+THESIS: The homepage is chapter one of a book, and the Hub is its table of contents. It refuses the hero + icon-card grid + testimonial wall.
+OWN-WORLD: Deep Current book-cloth ground; Vanilla Cream pages with paper grain, page-edge stacks and gutter shading; Burnished Copper ribbon bookmark as the one Join button; Marigold only for highlighter and price tags. Young Serif titles, Source Serif 4 reading text, Homemade Apple for pencil margin notes.
+STORY: She opens a book that sounds like her life, sees a table of contents that is her own free Hub, and reads member pencil notes in the margins until she joins.
+FIRST VIEWPORT: An open spread. Left page: Cece's portrait as a framed frontispiece. Right page: the chapter title, drop-cap promise, Join button. A copper ribbon bookmark hangs from the top right and follows the scroll.
+FORM: Chapter-as-page (user-chosen, replaces the envelope concept). Page turns on scroll, one motion idea per spread.
+FINISH: unreviewed and undocumented is unfinished; this build ends with the finish review, the verdict, and DESIGN.md
+-->
+
+<div class="top"><div class="mockbar">MOCKUP — the member notes, names, and numbers on this page are placeholders. Nothing here is real yet.</div>
+
+<header class="nav">
+  <div class="nav-in">
+    <a class="mark" href="#top" aria-label="My Nest Chapter, home">
+      <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><path d="M3 15c1 8 7 12 13 12s12-4 13-12"/><path d="M6 17c4 2.5 16 2.5 20 0M9 22c4 1.5 10 1.5 14 0"/><ellipse cx="12" cy="13" rx="3" ry="4" transform="rotate(-12 12 13)"/><ellipse cx="20" cy="13" rx="3" ry="4" transform="rotate(12 20 13)"/></svg>
+      My Nest Chapter
+    </a>
+    <nav class="nav-links" aria-label="Main"><a href="#hub">The Hub</a><a href="#shop">Shop</a><a href="#hub">Freebies</a><a href="#">Blog</a><a href="#meet">About</a></nav>
+    <a class="nav-login" href="#">Log In</a>
+    <a class="btn sm" href="#join">Join free <span class="arr" aria-hidden="true">→</span></a>
+  </div>
+</header></div>
+
+<a class="ribbon" href="#join" aria-label="Join the Hub, it's free"><b>Join the Hub</b><span>It's free →</span></a>
+
+<div class="sw" role="group" aria-label="Mockup only: try a different opening picture"><span>Try a different opening picture:</span><button data-v="card" aria-pressed="true">Member card</button><button data-v="cece" aria-pressed="false">My photo</button><button data-v="kitchen" aria-pressed="false">Quiet kitchen</button><button data-v="chair" aria-pressed="false">Empty chair</button><button data-v="nest" aria-pressed="false">Drawn nest</button><button data-v="journal" aria-pressed="false">Open journal</button></div>
+
+<main id="top" class="book">
+
+<!-- ================= 1 · OPENING SPREAD ================= -->
+<section class="spread hero">
+  <div class="page l">
+    <figure class="plate">
+      <div class="frame" id="plateFrame"><a class="scene" href="#join" aria-label="Your Hub member card. Join free."><span class="card-w"><span class="card"><span class="seal">Free</span><span class="c-top"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><path d="M3 15c1 8 7 12 13 12s12-4 13-12"/><path d="M6 17c4 2.5 16 2.5 20 0M9 22c4 1.5 10 1.5 14 0"/><ellipse cx="12" cy="13" rx="3" ry="4" transform="rotate(-12 12 13)"/><ellipse cx="20" cy="13" rx="3" ry="4" transform="rotate(12 20 13)"/></svg><b>My Nest Chapter</b></span><span class="c-sub">Hub Member</span><span class="c-name"><i>Member</i><em>Your name here</em></span><span class="c-bar"></span><span class="c-no">No. 0001</span></span></span><span class="pocket"><b>Your card to the Hub.</b><span>Instant access. No waiting.</span></span></a></div>
+      <figcaption id="plateCap">Your card. Free, and yours.</figcaption>
+    </figure>
+    <span class="pencil">Same. Every Tuesday.<small>— D., Ohio</small></span>
+  </div>
+  <div class="page r">
+    <div class="rh"><span>My Nest Chapter</span><span>Chapter One</span></div>
+    <h1><span class="rvl" style="animation-delay:1s">Solo mom.</span><span class="rvl" style="animation-delay:1.25s">Empty nest.</span><span class="rvl" style="animation-delay:1.5s"><span class="hl">What's next.</span></span></h1>
+    <p class="drop" style="margin-top:1.6rem">Tools. A real person to talk to. A growing community that gets it.</p>
+    <p class="who"><b>Cece here.</b> I'm a single empty-nest mom too. I'm living this right alongside you, and I build everything here myself.</p>
+    <div class="cta-row">
+      <a class="btn" href="#join">Join the Hub — it's free <span class="arr" aria-hidden="true">→</span></a>
+      <span class="note-line">Instant access. No waiting.</span>
+    </div>
+    <a class="link quiz" href="#">Not sure? Take the 2-minute quiz →</a>
+    <div class="pn">1</div>
+  </div>
+</section>
+
+<!-- ================= 2 · THE HUB (table of contents) ================= -->
+<section class="spread" id="hub">
+  <div class="page l">
+    <div class="rh"><span>The Hub</span><span></span></div>
+    <h2 class="rv">Your journal, your freebies, your shop — <span class="hl">one place to check in.</span></h2>
+    <p class="rv">Every tool and download on the site, unlocked. New freebies as I add them. And when you're ready to buy something, it just shows up here — nothing to go hunting for again.</p>
+    <div class="cta-row rv">
+      <a class="btn" href="#join">Join — it's free <span class="arr" aria-hidden="true">→</span></a>
+      <span class="note-line">Instant access. No waiting.<br>1,240 women already have a Hub.</span>
+    </div>
+    <div class="pn">2</div>
+  </div>
+  <div class="page r">
+    <div class="rh"><span></span><span>Contents</span></div>
+    <ol class="toc" id="toc">
+      <li>
+        <button aria-expanded="true" aria-controls="s0"><span class="t">Reflections</span><span class="dots"></span><span class="pg">3</span></button>
+        <div class="sample" id="s0"><div><div class="in-s">
+          <p class="prompt">Tuesday, 6:04pm — what does the quiet sound like tonight?</p>
+          <div class="journal">Dinner for one again. I made the sheet pan thing anyway, and I ate it at the table instead of over the sink.</div>
+        </div></div></div>
+      </li>
+      <li>
+        <button aria-expanded="false" aria-controls="s1"><span class="t">Meaningful Days</span><span class="dots"></span><span class="pg">5</span></button>
+        <div class="sample" id="s1"><div><div class="in-s"><ul>
+          <li><span class="d"><b>18</b>Aug</span>The day the last box came out of the car</li>
+          <li><span class="d"><b>03</b>Oct</span>Her birthday — call at lunch</li>
+          <li><span class="d"><b>27</b>Nov</span>Thanksgiving, my way this year</li>
+        </ul></div></div></div>
+      </li>
+      <li>
+        <button aria-expanded="false" aria-controls="s2"><span class="t">Support Circle</span><span class="dots"></span><span class="pg">7</span></button>
+        <div class="sample" id="s2"><div><div class="in-s">
+          <div class="msg"><span class="mono" style="background:var(--oceanic)">M</span><span class="b">Anyone else eat cereal for dinner and call it fine?</span></div>
+          <div class="msg"><span class="mono" style="background:var(--brown)">D</span><span class="b">Tuesday. Twice. No notes.</span></div>
+        </div></div></div>
+      </li>
+      <li>
+        <button aria-expanded="false" aria-controls="s3"><span class="t">Freebies</span><span class="dots"></span><span class="pg">9</span></button>
+        <div class="sample" id="s3"><div><div class="in-s"><ul class="free">
+          <li><span class="tick"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8.5l3.2 3L13 4.5"/></svg></span>The 6pm Cheat Sheet</li>
+          <li><span class="tick"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8.5l3.2 3L13 4.5"/></svg></span>The 6pm Survival Plan</li>
+          <li><span class="tick"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8.5l3.2 3L13 4.5"/></svg></span>Who Am I Now</li>
+          <li><span class="tick"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8.5l3.2 3L13 4.5"/></svg></span>Someday List Builder</li>
+          <li><span class="tick"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8.5l3.2 3L13 4.5"/></svg></span>Pick Your Mood Coloring Pages</li>
+          <li><span class="tick"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8.5l3.2 3L13 4.5"/></svg></span>What Kind of Nester Are You? quiz</li>
+        </ul></div></div></div>
+      </li>
+      <li>
+        <button aria-expanded="false" aria-controls="s4"><span class="t">Shop</span><span class="dots"></span><span class="pg">11</span></button>
+        <div class="sample" id="s4"><div><div class="in-s"><ul class="shop">
+          <li><img src="img/garage.jpg" alt="">Garage Sale Planner<b>$27</b></li>
+          <li><img src="img/cooking.jpg" alt="">Cooking for One Planner<b>$27</b></li>
+          <li><img src="img/workbook.jpg" alt="">Now What? Workbook<b>$14.99</b></li>
+        </ul><p class="fine">Whatever you buy shows up here the moment you buy it.</p></div></div></div>
+      </li>
+    </ol>
+    <p class="note-line sample-note">A sketch of the Hub — the names and entries are made up.</p>
+    <div class="pn">3</div>
+  </div>
+</section>
+
+<!-- ================= 3 · THREE WAYS IN ================= -->
+<section class="spread">
+  <div class="page one">
+    <div class="ways">
+      <div class="way rv"><h3>Explore.</h3><h4>Guides, tools, and printables</h4><p>For wherever you're at right now. Tools. Digital PDFs. Freebies and other resources — whatever you're focusing on, there's something here.</p><a class="link" href="#shop">See everything →</a></div>
+      <div class="way rv"><h3>Belong.</h3><h4>You don't have to figure this out solo</h4><p>Join other women in the same chapter — swap what's working, vent, or just lurk.</p><a class="link" href="#join">Join the community →</a></div>
+      <div class="way rv"><h3>Read.</h3><h4>Stories from this stage of life</h4><p>What's helped, what hasn't, and what I wish someone had told me.</p><a class="link" href="#">Read the blog →</a></div>
+    </div>
+    <div class="pn">4</div>
+  </div>
+</section>
+
+<!-- ================= 4 · MEET CECE ================= -->
+<section class="spread meet" id="meet">
+  <div class="page l">
+    <div class="center"><div class="corners"><img src="img/cece-writing.jpg" alt="Cece writing in a notebook at a sunlit kitchen table" loading="lazy"><i></i><i></i><i></i><i></i></div></div>
+    <div class="pn">6</div>
+  </div>
+  <div class="page r">
+    <div class="rh"><span></span><span>Chapter Two</span></div>
+    <p class="epi rv">Hey. I see you. I get you. I am you. Stay a minute.</p>
+    <h2 class="rv">I raised my kids <span class="hl">mostly on my own.</span> When my last one left, I wasn't ready for what hit me.</h2>
+    <p class="rv">I went looking for something, anything, that sounded like my life. It didn't exist. So I built My Nest Chapter.</p>
+    <p class="rv">I build every product myself. There will be glitches. There will be mistakes. Tell me when you find one.</p>
+    <span class="pencil rv"><svg viewBox="0 0 40 40"><path d="M6 36C10 20 20 12 34 8M34 8l-9 1M34 8l-3 8"/></svg>Same. That was me in August.<small>— Linda, Arizona</small></span>
+    <a class="link rv" href="#" style="display:inline-block;margin-top:1.6rem">Read my full story →</a>
+    <div class="pn">7</div>
+  </div>
+</section>
+
+<!-- ================= 5 · THE SHELF ================= -->
+<section class="spread" id="shop">
+  <div class="page one">
+    <h2 class="rv">Ready when <span class="hl">you are.</span></h2>
+    <p class="sub rv">Buy inside the Hub and it lands in your purchases, ready to open.</p>
+    <div class="shelf rv">
+      <div class="book-c b1"><span class="tag">$27</span><img src="img/garage.jpg" alt="A teal Adirondack chair, a small side table, and a wicker basket in front of a garage door" loading="lazy"></div>
+      <div class="book-c b2"><span class="tag">$14.99</span><img src="img/workbook.jpg" alt="An open lined notebook with a fountain pen, a sprig of eucalyptus, and a coffee cup" loading="lazy"></div>
+      <div class="book-c b3"><span class="tag">$27</span><img src="img/cooking.jpg" alt="Cooking for One Planner cover" loading="lazy"></div>
+    </div>
+    <div class="shelf-info rv">
+      <div><h3>Garage Sale Planner</h3><p>Sort, price, and sell what's left behind — without doing the math in your head at 11pm.</p><a class="btn" href="#join">Get the Planner <span class="arr" aria-hidden="true">→</span></a></div>
+      <div><h3>Now What? Workbook</h3><p>A guided way to work through this chapter at your own pace. No pressure to have it figured out.</p><a class="btn" href="#join">Get the Workbook <span class="arr" aria-hidden="true">→</span></a></div>
+      <div><h3>Cooking for One Planner</h3><p>Real meals, sized for one, without the leftovers going bad in the back of the fridge.</p><a class="btn" href="#join">Get the Planner <span class="arr" aria-hidden="true">→</span></a></div>
+    </div>
+    <div class="pn">8</div>
+  </div>
+</section>
+
+<!-- ================= 6 · AUTHOR'S NOTE (email) ================= -->
+<section class="spread">
+  <div class="page l">
+    <div class="plate-full"><img src="img/kitchen-6pm.jpg" alt="A quiet kitchen at six in the evening, a mug on a wooden table in low golden light" loading="lazy"></div>
+    <div class="pn">10</div>
+  </div>
+  <div class="page r">
+    <div class="rh"><span></span><span>A note from Cece</span></div>
+    <h2 class="rv">Not ready for that yet? I'll show up in your inbox once a month and tell you the truth about mine.</h2>
+    <p class="rv">What I'm working through right now. What actually helped. What still doesn't. No advice. No program. Just where I really am.</p>
+    <form class="mailform rv" id="mailform">
+      <input type="email" placeholder="Your email" required aria-label="Email address">
+      <button class="btn" type="submit">Count me in</button>
+    </form>
+    <p class="note-line rv" id="mailnote" style="margin-top:.8rem">One email a month. Nothing else.</p>
+    <a class="link rv" href="#" style="display:inline-block;margin-top:1.4rem">Not sure where you are? Take the 2-minute quiz →</a>
+    <div class="pn">11</div>
+  </div>
+</section>
+
+<!-- ================= 7 · BACK OF THE BOOK ================= -->
+<section class="spread" id="join">
+  <div class="page l">
+    <div class="rh"><span>From the margins</span><span></span></div>
+    <p class="note-line" style="margin:-1rem 0 1.4rem">Placeholder notes for the mockup. Swap in real ones as they come.</p>
+    <div class="blurbs">
+      <div class="blurb rv"><q>I came for the freebies and stayed for the journal. It's the first place that sounded like my kitchen at 6pm.</q><cite>— Denise, 54 <small>· Ohio · youngest left two years ago</small></cite></div>
+      <div class="blurb rv"><q>Three weeks in and I'm not pretending I'm fine here. Cece isn't either. That's why I read every email.</q><cite>— Marcy, 47 <small>· Texas · dropped her off in August</small></cite></div>
+      <div class="blurb rv"><q>I used the Garage Sale Planner over one long weekend. Sorted, priced, done. Nobody doing math at 11pm.</q><cite>— Linda, 61 <small>· Arizona · years into the quiet</small></cite></div>
+    </div>
+    <div class="pn">12</div>
+  </div>
+  <div class="page r back-r">
+    <h2 class="rv">Stay a minute.</h2>
+    <p class="rv" style="margin-top:.8rem">Your journal, your freebies, your shop — one place to check in.</p>
+    <div class="slip rv">
+      <h3>Date due</h3>
+      <ol>
+        <li><span>Denise · Ohio</span><span>MAR 3</span></li>
+        <li><span>Marcy · Texas</span><span>JUN 18</span></li>
+        <li><span>Linda · Arizona</span><span>AUG 2</span></li>
+        <li class="you"><span class="you-w">You.</span><span>TODAY</span></li>
+      </ol>
+    </div>
+    <div class="cta-row rv">
+      <a class="btn" href="#">Join the Hub — it's free <span class="arr" aria-hidden="true">→</span></a>
+    </div>
+    <p class="note-line rv" style="margin-top:.8rem">Instant access. No waiting.</p>
+    <div class="pn">13</div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="nav-in" style="flex-direction:column;gap:0;min-height:0">
+    <a class="mark" href="#top" style="margin:0">My Nest Chapter</a>
+    <p class="tg">For Single &amp; Solo Moms</p>
+    <nav aria-label="Footer"><a href="#top">Home</a><a href="#meet">About</a><a href="#">Blog</a><a href="#shop">Shop</a><a href="#hub">Resources</a><a href="#hub">Freebies</a></nav>
+    <div class="soc">
+      <a href="#" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a>
+      <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.4" fill="currentColor" stroke="none"/></svg></a>
+      <a href="#" aria-label="Pinterest"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.4 0 0 5.4 0 12c0 5.1 3.2 9.4 7.6 11.2-.1-.9-.2-2.4 0-3.4l1.4-6s-.4-.7-.4-1.8c0-1.7 1-2.9 2.2-2.9 1 0 1.5.8 1.5 1.7 0 1-.7 2.6-1 4-.3 1.2.6 2.2 1.8 2.2 2.1 0 3.8-2.2 3.8-5.5 0-2.9-2.1-4.9-5-4.9-3.4 0-5.4 2.6-5.4 5.2 0 1 .4 2.1.9 2.7.1.1.1.2.1.3l-.3 1.4c0 .2-.2.3-.4.2-1.5-.7-2.4-2.9-2.4-4.6 0-3.8 2.7-7.3 7.9-7.3 4.2 0 7.4 3 7.4 6.9 0 4.1-2.6 7.5-6.2 7.5-1.2 0-2.4-.6-2.8-1.4l-.7 2.9c-.3 1-1 2.4-1.5 3.1 1.1.4 2.3.5 3.5.5 6.6 0 12-5.4 12-12S18.6 0 12 0z"/></svg></a>
+    </div>
+    <small>&copy; 2026 My Nest Chapter. All rights reserved.</small>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* page-turn: each spread (and stray reveal) gets .in once it's on screen */
+  var targets=[].slice.call(document.querySelectorAll('.spread:not(.hero)'));
+  if(reduce||!('IntersectionObserver' in window)){ targets.forEach(function(t){t.classList.add('in')}); }
+  else{
+    var io=new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } }); },{threshold:.22});
+    targets.forEach(function(t){io.observe(t)});
+  }
+  // stagger the reveal items inside each page
+  [].slice.call(document.querySelectorAll('.page')).forEach(function(p){
+    [].slice.call(p.querySelectorAll('.rv')).forEach(function(el,i){ el.style.transitionDelay=(0.45+i*0.12)+'s'; });
+  });
+  // hero highlighter + pencil note start after the page opens
+  setTimeout(function(){ [].slice.call(document.querySelectorAll('.hero .pencil')).forEach(function(p){p.classList.add('in')}); },1600);
+
+  /* contents page: one entry open at a time */
+  var btns=[].slice.call(document.querySelectorAll('#toc button'));
+  btns.forEach(function(b){
+    b.addEventListener('click',function(){
+      var open=b.getAttribute('aria-expanded')==='true';
+      btns.forEach(function(o){ o.setAttribute('aria-expanded','false'); });
+      if(!open) b.setAttribute('aria-expanded','true');
+    });
+  });
+
+
+  /* MOCKUP ONLY: swap the opening picture */
+  var NEST='<svg viewBox="0 0 400 500" role="img" aria-label="A drawn bird nest holding three eggs, framed like a library bookplate"><rect width="400" height="500" fill="#0A2F3A"/><rect x="16" y="16" width="368" height="468" fill="none" stroke="#C8A878" stroke-width="1.5"/><rect x="26" y="26" width="348" height="448" fill="none" stroke="#C8A878" stroke-opacity=".45"/><text x="200" y="96" text-anchor="middle" font-family="Young Serif,serif" font-size="32" fill="#F6F1E6">My Nest Chapter</text><g fill="#F1D9B3"><ellipse cx="158" cy="262" rx="32" ry="42" transform="rotate(-12 158 262)"/><ellipse cx="242" cy="262" rx="32" ry="42" transform="rotate(12 242 262)"/><ellipse cx="200" cy="246" rx="32" ry="42" fill="#E6D6C2"/></g><path d="M62 286C84 420 316 420 338 286Z" fill="#0A2F3A"/><g fill="none" stroke="#C8A878" stroke-width="3" stroke-linecap="round"><path d="M62 286C84 420 316 420 338 286"/><path d="M76 304C110 392 290 392 324 304"/><path d="M96 324C130 380 270 380 304 324"/><path d="M52 300L168 362M348 300L232 362M70 338C150 384 250 384 330 338M124 400L286 336M276 402L112 340" stroke-width="2.2"/></g><path d="M120 420C170 440 230 440 280 420" fill="none" stroke="#C8A878" stroke-opacity=".4" stroke-width="2"/></svg>';
+  var SCENE_HTML="<a class=\"scene\" href=\"#join\" aria-label=\"Your Hub member card. Join free.\"><span class=\"card-w\"><span class=\"card\"><span class=\"seal\">Free</span><span class=\"c-top\"><svg viewBox=\"0 0 32 32\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.7\" stroke-linecap=\"round\" aria-hidden=\"true\"><path d=\"M3 15c1 8 7 12 13 12s12-4 13-12\"/><path d=\"M6 17c4 2.5 16 2.5 20 0M9 22c4 1.5 10 1.5 14 0\"/><ellipse cx=\"12\" cy=\"13\" rx=\"3\" ry=\"4\" transform=\"rotate(-12 12 13)\"/><ellipse cx=\"20\" cy=\"13\" rx=\"3\" ry=\"4\" transform=\"rotate(12 20 13)\"/></svg><b>My Nest Chapter</b></span><span class=\"c-sub\">Hub Member</span><span class=\"c-name\"><i>Member</i><em>Your name here</em></span><span class=\"c-bar\"></span><span class=\"c-no\">No. 0001</span></span></span><span class=\"pocket\"><b>Your card to the Hub.</b><span>Instant access. No waiting.</span></span></a>";
+  var V={
+    card:{html:SCENE_HTML,cap:'Your card. Free, and yours.'},
+    cece:{img:'img/cece-portrait.jpg',alt:'Cece, founder of My Nest Chapter',cap:'Cece — solo mom, empty nest,<br>same as you.'},
+    kitchen:{img:'img/kitchen-6pm.jpg',alt:'A quiet kitchen at six in the evening, a mug on a wooden table in low golden light',cap:'The quiet hour.'},
+    chair:{img:'img/garage.jpg',alt:'A teal chair, a small side table, and a wicker basket',cap:'Pull up a chair.'},
+    nest:{svg:NEST,cap:'Ex libris — a place for you.'},
+    journal:{img:'img/workbook.jpg',alt:'An open lined notebook with a fountain pen and a coffee cup',cap:'Start on page one.'}
+  };
+  var frame=document.getElementById('plateFrame'), cap=document.getElementById('plateCap');
+  [].slice.call(document.querySelectorAll('.sw button')).forEach(function(b){
+    b.addEventListener('click',function(){
+      var v=V[b.dataset.v];
+      frame.innerHTML=v.html?v.html:v.svg?v.svg:'<img src="'+v.img+'" alt="'+v.alt+'" width="400" height="500">';
+      cap.innerHTML=v.cap;
+      [].slice.call(document.querySelectorAll('.sw button')).forEach(function(o){o.setAttribute('aria-pressed',o===b)});
+    });
+  });
+
+  /* newsletter (mock only) */
+  document.getElementById('mailform').addEventListener('submit',function(e){
+    e.preventDefault();
+    var p=document.createElement('p'); p.className='thanks'; p.textContent='Check your inbox.';
+    this.replaceWith(p); document.getElementById('mailnote').textContent='';
+  });
+})();
+</script>
+</body>
+</html>

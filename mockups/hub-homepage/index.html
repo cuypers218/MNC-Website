@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Nest Chapter — Homepage Mockup (Hub)</title>
+<meta name="description" content="Mockup: a homepage that turns visitors into Hub members, then into customers.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Next:wght@400;500;700&family=Homemade+Apple&family=Young+Serif&display=swap" rel="stylesheet">
+<script>document.documentElement.classList.add('js');</script>
+<style>
+/* ============ TOKENS — Cece's 14-color palette + ONE new color (Marigold Sticker) ============ */
+:root{
+  --current:#0A2F3A;      /* Deep Current — primary field */
+  --copper:#A35E33;       /* Burnished Copper — buttons */
+  --honey:#C8A878;        /* Golden Honey — fills, lines */
+  --cream:#F6F1E6;        /* Vanilla Cream — paper */
+  --coffee:#2B1F18;       /* Deep Coffee — text */
+  --oceanic:#1D6B78;      /* Oceanic Teal */
+  --drift:#D8975A;        /* Golden Drift */
+  --sienna:#5A4839;       /* Smoky Sienna */
+  --sand:#F1D9B3;         /* Soft Sand */
+  --beige:#E6D6C2;        /* Warm Beige */
+  --brown:#8B5E3C;        /* Caramel Brown */
+  --mocha:#5E3E2B;        /* Mocha Brown */
+  --marigold:#F2B63D;     /* NEW: Marigold Sticker — garage-sale price-sticker yellow */
+  --display:'Young Serif',Georgia,serif;
+  --body:'Atkinson Hyperlegible Next','Atkinson Hyperlegible',system-ui,sans-serif;
+  --hand:'Homemade Apple','Segoe Script',cursive;
+  --ease:cubic-bezier(.16,1,.3,1);
+  --shadow:0 2px 3px rgba(43,31,24,.12),0 18px 40px -12px rgba(0,0,0,.3);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scrollbar-color:var(--honey) var(--cream)}
+body{font-family:var(--body);font-size:1.125rem;line-height:1.65;color:var(--coffee);background:var(--cream);-webkit-font-smoothing:antialiased;overflow-x:hidden;caret-color:var(--copper)}
+img{display:block;max-width:100%}
+a{color:inherit}
+::selection{background:var(--marigold);color:var(--coffee)}
+:focus-visible{outline:3px solid var(--current);outline-offset:3px;border-radius:4px}
+.on-dark :focus-visible,.nav :focus-visible{outline-color:var(--marigold)}
+.wrap{width:min(1180px,100% - 40px);margin-inline:auto}
+h1,h2,h3{font-family:var(--display);font-weight:400;letter-spacing:-.015em;text-wrap:balance}
+h1{font-size:clamp(2.7rem,6vw,5.2rem);line-height:1.02}
+h2{font-size:clamp(2rem,3.7vw,3.3rem);line-height:1.08}
+p{max-width:62ch;text-wrap:pretty}
+.hand{font-family:var(--hand)}
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;gap:.7rem;min-height:56px;padding:.85rem 1.7rem;background:var(--copper);color:#fff;font:700 1.0625rem/1.2 var(--body);letter-spacing:.01em;text-decoration:none;border:0;border-radius:6px;cursor:pointer;box-shadow:0 1px 0 rgba(255,255,255,.18) inset,0 8px 20px -8px rgba(0,0,0,.45);transition:transform .35s var(--ease),background .25s,box-shadow .35s var(--ease)}
+.btn .arr{display:inline-block;transition:transform .35s var(--ease)}
+.btn:hover{background:#8f4f27;transform:translateY(-2px)}
+.btn:hover .arr{transform:translateX(5px)}
+.btn:active{transform:translateY(0)}
+.btn.sm{min-height:44px;padding:.55rem 1.1rem;font-size:.98rem}
+.link{font-weight:700;text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:.28em;text-decoration-color:var(--honey);transition:text-decoration-color .2s}
+.link:hover{text-decoration-color:var(--copper)}
+
+/* ============ MOCK BAR + NAV ============ */
+.mockbar{background:var(--marigold);color:var(--coffee);font-size:.9rem;font-weight:500;text-align:center;padding:.5rem 1rem;line-height:1.35}
+.nav{position:sticky;top:0;z-index:50;background:var(--current);color:var(--cream);border-bottom:1px solid rgba(200,168,120,.22)}
+.nav-in{display:flex;align-items:center;gap:2rem;min-height:72px}
+.mark{font-family:var(--display);font-size:1.5rem;text-decoration:none;color:var(--cream);letter-spacing:-.01em;display:flex;align-items:center;gap:.6rem;margin-right:auto}
+.mark svg{width:30px;height:30px;color:var(--honey)}
+.nav-links{display:flex;gap:1.9rem}
+.nav-links a{text-decoration:none;font-weight:500;font-size:1rem;padding:.4rem 0;background:linear-gradient(var(--honey),var(--honey)) 0 100%/0 2px no-repeat;transition:background-size .35s var(--ease)}
+.nav-links a:hover{background-size:100% 2px}
+.nav-login{font-weight:500;text-decoration:none;font-size:1rem;padding:.6rem .2rem}
+@media(max-width:900px){.nav-links{display:none}.nav-in{gap:1rem}.mark{font-size:1.25rem}}
+@media(max-width:480px){.nav-login{display:none}}
+
+/* ============ HERO ============ */
+.hero{background:var(--current);color:var(--cream);position:relative;overflow:hidden;padding:clamp(40px,6vw,88px) 0 clamp(56px,7vw,110px)}
+.hero::before{content:"";position:absolute;inset:0;background:radial-gradient(60% 70% at 78% 55%,rgba(29,107,120,.55),transparent 70%);pointer-events:none}
+.hero-grid{position:relative;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,600px);gap:clamp(24px,4vw,64px);align-items:center}
+.hero h1 .swoosh{position:relative;color:var(--marigold);white-space:nowrap}
+.hero h1 .swoosh svg{position:absolute;left:0;bottom:-.16em;width:100%;height:.3em;overflow:visible}
+.hero h1 .swoosh path{stroke:var(--marigold);stroke-width:5;fill:none;stroke-linecap:round;stroke-dasharray:420;stroke-dashoffset:420;animation:draw 1.1s var(--ease) 1.6s forwards}
+.hero-sub{font-size:clamp(1.2rem,1.7vw,1.5rem);line-height:1.45;margin-top:1.4rem;max-width:30ch;color:var(--sand)}
+.hero-who{display:flex;align-items:center;gap:1rem;margin-top:1.8rem;max-width:44ch}
+.hero-who img{width:64px;height:64px;border-radius:50%;object-fit:cover;object-position:50% 22%;border:2px solid var(--honey);flex:none}
+.hero-who p{font-size:1rem;line-height:1.5;color:var(--cream)}
+.hero-who b{font-weight:700;color:var(--marigold)}
+.cta-row{display:flex;flex-wrap:wrap;align-items:center;gap:1rem 1.6rem;margin-top:2rem}
+.cta-note{font-size:.98rem;color:var(--sand)}
+.hero-quiz{display:inline-block;margin-top:1.1rem;font-size:1rem;color:var(--cream)}
+.live{display:inline-flex;align-items:center;gap:.7rem;margin-top:1.7rem;padding:.55rem 1rem;border:1px solid rgba(200,168,120,.4);border-radius:999px;font-size:.95rem;color:var(--cream);min-height:44px}
+.live i{position:relative;width:9px;height:9px;border-radius:50%;background:var(--marigold);flex:none}
+.live i::after{content:"";position:absolute;inset:-4px;border-radius:50%;border:2px solid var(--marigold);opacity:0;animation:ring 2s ease-out infinite}
+.live span{transition:opacity .4s,transform .4s var(--ease)}
+.live span.out{opacity:0;transform:translateY(6px)}
+@media(max-width:900px){.hero-grid{grid-template-columns:1fr}.hero-sub{max-width:36ch}.stage{order:2}}
+
+/* --- the envelope (all sizes in cqw so it scales as one object) --- */
+.stage{container-type:inline-size;position:relative;width:100%;max-width:600px;justify-self:center;aspect-ratio:100/106}
+.env{position:absolute;left:6cqw;bottom:3cqw;width:88cqw;height:56cqw;perspective:140cqw}
+.env>*{position:absolute}
+.liner{--p:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='22' height='22'%3E%3Cpath d='M11 3l4 8-4 8-4-8z' fill='none' stroke='%23C8A878' stroke-opacity='.55' stroke-width='1.2'/%3E%3Ccircle cx='0' cy='0' r='1.3' fill='%23C8A878' fill-opacity='.5'/%3E%3Ccircle cx='22' cy='22' r='1.3' fill='%23C8A878' fill-opacity='.5'/%3E%3C/svg%3E");background:var(--p),var(--oceanic)}
+.env-back{inset:0;z-index:1;border-radius:1cqw;box-shadow:0 3cqw 6cqw -2cqw rgba(0,0,0,.5)}
+.env-flap{left:0;top:0;width:100%;height:29cqw;z-index:2;transform-origin:50% 0;transform-style:preserve-3d;animation:flap 1s var(--ease) .5s both}
+.env-flap>div{inset:0;position:absolute;clip-path:polygon(0 0,100% 0,50% 100%);backface-visibility:hidden;-webkit-backface-visibility:hidden}
+.flap-out{background:var(--beige)}
+.flap-in{transform:rotateY(180deg)}
+.letter-clip{left:0;top:0;width:100%;height:100%;z-index:3;clip-path:inset(-200cqw -20cqw 0 -20cqw);pointer-events:none}
+.letter>*{position:absolute}
+.letter{position:absolute;left:8cqw;top:32cqw;width:72cqw;height:70cqw;background:var(--cream);border-radius:.6cqw;box-shadow:0 1cqw 3cqw rgba(10,47,58,.35);animation:rise 1.3s var(--ease) 1.2s both;background-image:repeating-linear-gradient(transparent 0 5.6cqw,rgba(29,107,120,.14) 5.6cqw 5.75cqw)}
+.env-front-w{inset:0;z-index:4;filter:drop-shadow(0 -.25cqw 0 rgba(43,31,24,.22)) drop-shadow(0 1cqw 1.4cqw rgba(0,0,0,.25))}
+.env-front{position:absolute;inset:0;background:var(--beige);clip-path:polygon(0 0,50% 52%,100% 0,100% 100%,0 100%);border-radius:0 0 1cqw 1cqw}
+.env-front::after{content:"";position:absolute;inset:0;background:linear-gradient(115deg,transparent 35%,rgba(246,241,230,.5) 50%,transparent 65%);background-size:250% 100%;animation:sheen 1.6s ease 3s both}
+.env-to{left:6cqw;bottom:5cqw;z-index:5;font-family:var(--hand);font-size:3cqw;color:var(--sienna);line-height:1.5;transform:rotate(-2deg)}
+.stamp{right:5cqw;bottom:5cqw;width:13cqw;aspect-ratio:4/5;z-index:6;background:var(--cream);padding:.9cqw;border:.5cqw dashed rgba(43,31,24,.45);transform:rotate(3deg);animation:stampin .6s var(--ease) 2.9s both}
+.stamp div{width:100%;height:100%;background:var(--current);display:grid;place-items:center;color:var(--honey)}
+.stamp svg{width:70%}
+.postmark{right:15.5cqw;bottom:8cqw;width:16cqw;z-index:7;transform:rotate(-14deg);opacity:0;animation:fadein .5s ease 3.2s forwards;color:rgba(43,31,24,.6)}
+.tape{position:absolute;width:9cqw;height:3.2cqw;background:rgba(216,151,90,.55);transform:rotate(-38deg)}
+.photo{left:4.5cqw;top:4.5cqw;width:26cqw;padding:1cqw 1cqw 3.2cqw;background:#fff;box-shadow:0 .5cqw 1.6cqw rgba(43,31,24,.3);transform:rotate(-3.5deg);animation:photoin .7s var(--ease) 2.3s both}
+.photo img{aspect-ratio:4/5;object-fit:cover;width:100%}
+.photo .tape.t1{top:-1.4cqw;left:-2.6cqw}
+.photo .tape.t2{top:-1.4cqw;right:-2.6cqw;transform:rotate(36deg)}
+.photo b{position:absolute;bottom:.6cqw;left:0;right:0;text-align:center;font:400 1.9cqw var(--hand);color:var(--sienna)}
+.ltxt{left:35.5cqw;top:4cqw;width:34cqw;font-family:var(--hand);color:var(--coffee)}
+.ltxt .ln{display:block;clip-path:inset(0 100% 0 0);animation:wipe .8s var(--ease) both;white-space:nowrap}
+.ltxt .d{font-size:3.6cqw;line-height:5.6cqw;color:var(--copper);animation-delay:2.4s}
+.ltxt .l1{font-size:2.65cqw;line-height:5.6cqw;animation-delay:2.9s}
+.ltxt .l2{font-size:2.65cqw;line-height:5.6cqw;animation-delay:3.3s}
+.ltxt .l3{font-size:2.65cqw;line-height:5.6cqw;animation-delay:3.7s}
+.ltxt .l4{font-size:3cqw;line-height:5.6cqw;animation-delay:4.2s;color:var(--current)}
+.lfoot{left:5cqw;top:41cqw;width:62cqw;font-family:var(--hand);font-size:2.4cqw;line-height:5.6cqw;color:var(--sienna);clip-path:inset(0 100% 0 0);animation:wipe 1.1s var(--ease) 4.7s both}
+@media(max-width:900px){.stage{max-width:520px}}
+
+.js .stage:not(.go) *{animation-play-state:paused!important}
+/* ============ MARQUEE ============ */
+.band{background:var(--beige);border-block:1px solid rgba(43,31,24,.12);overflow:hidden;padding:1rem 0}
+.band-track{display:flex;width:max-content;animation:marq 48s linear infinite}
+.band:hover .band-track{animation-play-state:paused}
+.band-track span{display:flex;align-items:center;gap:1.4rem;padding-right:1.4rem;font-family:var(--display);font-size:1.25rem;white-space:nowrap;color:var(--mocha)}
+.band-track span::after{content:"";width:8px;height:8px;border-radius:50%;background:var(--copper);flex:none}
+
+/* ============ SECTIONS ============ */
+.sec{padding:clamp(64px,9vw,128px) 0}
+.rv{transition:opacity .9s var(--ease),transform .9s var(--ease),clip-path 1.1s var(--ease)}
+.js .rv{opacity:0;transform:translateY(34px)}
+.js .rv[data-r=wipe]{opacity:1;transform:none;clip-path:inset(0 0 100% 0)}
+.js .rv[data-r=drop]{transform:translateY(-70px) rotate(var(--rot0,-6deg))}
+.js .rv[data-r=tilt]{transform:perspective(1400px) rotateX(14deg) translateY(50px) scale(.96);transform-origin:50% 100%}
+.js .rv.in{opacity:1;transform:none}
+.js .rv[data-r=wipe].in{clip-path:inset(0 0 0 0)}
+.js .rv[data-r=drop].in{transform:rotate(var(--rot,0deg))}
+.hl{-webkit-box-decoration-break:clone;box-decoration-break:clone;background:linear-gradient(transparent 58%,var(--marigold) 58% 92%,transparent 92%) 0 0/0% 100% no-repeat;transition:background-size 1s var(--ease) .5s;padding:0 .1em}
+.in .hl,.hl.in{background-size:100% 100%}
+
+/* --- THE HUB --- */
+.hub{background:var(--cream)}
+.hub-grid{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:clamp(28px,5vw,80px);align-items:start}
+.hub-copy{position:sticky;top:110px}
+.hub-copy p{margin-top:1.3rem}
+.hub-copy .cta-row{margin-top:2rem}
+.hub-copy .cta-note{color:var(--sienna)}
+.count{font-weight:700;color:var(--copper)}
+@media(max-width:960px){.hub-grid{grid-template-columns:1fr}.hub-copy{position:static}}
+.win{background:#fff;border-radius:10px;box-shadow:var(--shadow);overflow:hidden;border:1px solid rgba(43,31,24,.12)}
+.win-bar{display:flex;align-items:center;gap:.8rem;padding:.7rem 1rem;background:var(--beige);border-bottom:1px solid rgba(43,31,24,.12)}
+.win-bar .url{flex:1;background:var(--cream);border-radius:999px;padding:.3rem 1rem;font-size:.9rem;color:var(--sienna);text-align:center;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.win-body{display:grid;grid-template-columns:200px minmax(0,1fr);min-height:400px}
+.tabs{background:var(--current);padding:1rem .7rem;display:flex;flex-direction:column;gap:.25rem}
+.tab{position:relative;text-align:left;background:none;border:0;color:var(--sand);font:500 1rem/1.2 var(--body);padding:.85rem .9rem;border-radius:6px;cursor:pointer;min-height:48px;transition:background .25s,color .25s}
+.tab:hover{background:rgba(246,241,230,.08);color:var(--cream)}
+.tab[aria-selected=true]{background:rgba(246,241,230,.12);color:var(--cream);font-weight:700}
+.tab::after{content:"";position:absolute;left:.9rem;right:.9rem;bottom:5px;height:2px;background:var(--marigold);transform:scaleX(0);transform-origin:left}
+.tab[aria-selected=true]::after{animation:prog 6.5s linear forwards}
+.win.paused .tab[aria-selected=true]::after{animation-play-state:paused}
+.win.static .tab[aria-selected=true]::after{animation:none;transform:scaleX(1)}
+.tabs .mine{margin-top:auto;padding:.8rem .9rem;font-size:.85rem;color:var(--honey);border-top:1px solid rgba(200,168,120,.3);line-height:1.4}
+.panel{padding:1.6rem 1.7rem;animation:panelin .6s var(--ease)}
+.panel[hidden]{display:none}
+.panel h3{font-size:1.5rem;margin-bottom:.9rem;color:var(--current)}
+.prompt{font-size:.98rem;color:var(--sienna);max-width:none}
+.journal{margin-top:1rem;padding:1rem 1.1rem;min-height:150px;background:repeating-linear-gradient(var(--cream) 0 31px,rgba(29,107,120,.22) 31px 32px);border-radius:6px;font-family:var(--hand);font-size:1.02rem;line-height:32px;color:var(--coffee)}
+.caret{display:inline-block;width:2px;height:1.1em;background:var(--copper);vertical-align:-.15em;margin-left:2px;animation:blink 1s steps(1) infinite}
+.days li,.frees li,.shopl li{list-style:none;display:flex;align-items:center;gap:1rem;padding:.75rem 0;border-bottom:1px solid rgba(43,31,24,.12)}
+.days li:last-child,.frees li:last-child,.shopl li:last-child{border:0}
+.date{flex:none;width:58px;text-align:center;background:var(--sand);border-radius:6px;padding:.3rem 0;line-height:1.1}
+.date b{display:block;font-family:var(--display);font-size:1.5rem;font-weight:400;color:var(--current)}
+.date small{font-size:.75rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--mocha)}
+.chat{display:flex;flex-direction:column;gap:.9rem}
+.msg{display:flex;gap:.75rem;align-items:flex-end;opacity:0;animation:msgin .6s var(--ease) forwards}
+.mono{flex:none;width:36px;height:36px;border-radius:50%;display:grid;place-items:center;font-weight:700;font-size:.95rem;color:#fff}
+.msg p{background:var(--cream);padding:.6rem .95rem;border-radius:14px 14px 14px 4px;font-size:1rem;line-height:1.45}
+.typing{display:inline-flex;gap:4px;padding:.8rem 1rem;background:var(--cream);border-radius:14px 14px 14px 4px}
+.typing i{width:7px;height:7px;border-radius:50%;background:var(--brown);animation:dot 1.2s infinite}
+.typing i:nth-child(2){animation-delay:.15s}.typing i:nth-child(3){animation-delay:.3s}
+.tick{flex:none;width:26px;height:26px;border-radius:50%;background:var(--oceanic);display:grid;place-items:center}
+.tick svg{width:14px;height:14px;color:#fff}
+.frees li span{flex:1;font-weight:500}
+.frees li em{font-style:normal;font-size:.82rem;font-weight:700;color:var(--oceanic)}
+.frees li{opacity:0;animation:msgin .5s var(--ease) forwards}
+.shopl li img{width:52px;height:52px;object-fit:cover;border-radius:6px;flex:none}
+.shopl li span{flex:1;font-weight:500;line-height:1.3}
+.shopl li b{font-family:var(--display);font-weight:400;font-size:1.15rem;color:var(--copper)}
+.win-foot{padding:.65rem 1.2rem;font-size:.85rem;color:var(--sienna);background:var(--cream);border-top:1px solid rgba(43,31,24,.1)}
+@media(max-width:640px){.win-body{grid-template-columns:1fr}.tabs{flex-direction:row;overflow-x:auto;padding:.5rem}.tab{white-space:nowrap;flex:none}.tabs .mine{display:none}.panel{padding:1.2rem}}
+
+.ways{display:grid;grid-template-columns:repeat(3,1fr);margin-top:clamp(56px,7vw,96px);border-top:1px solid rgba(43,31,24,.2)}
+.way{padding:2rem 2rem 0 0}
+.way+.way{padding-left:2rem;border-left:1px solid rgba(43,31,24,.2)}
+.way h3{font-size:clamp(2.2rem,3.6vw,3.2rem);color:var(--current)}
+.way h4{font:700 1.15rem/1.35 var(--body);margin:.6rem 0 .7rem}
+.way p{font-size:1.05rem}
+.way .link{display:inline-block;margin-top:1rem}
+@media(max-width:820px){.ways{grid-template-columns:1fr}.way,.way+.way{padding:1.6rem 0;border-left:0;border-bottom:1px solid rgba(43,31,24,.2)}}
+
+/* --- MEET CECE --- */
+.meet{background:var(--sand);overflow:hidden}
+.meet-grid{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap:clamp(32px,6vw,96px);align-items:center}
+.meet-photo{position:relative;justify-self:center;width:min(100%,470px)}
+.meet-photo .pic{aspect-ratio:4/5;overflow:hidden;border-radius:4px;box-shadow:var(--shadow);transform:rotate(-1.6deg)}
+.meet-photo img{width:100%;height:100%;object-fit:cover}
+.meet-photo .tape{background:rgba(163,94,51,.5);top:-1.2rem;left:38%;width:110px;height:34px;transform:rotate(3deg)}
+.note{position:absolute;right:-2%;bottom:6%;max-width:210px;font:400 1.02rem/1.55 var(--hand);color:var(--current);background:var(--cream);padding:1rem 1.15rem;border-radius:2px;box-shadow:0 10px 26px -8px rgba(43,31,24,.4);transform:rotate(3deg)}
+.meet h2{font-size:clamp(1.9rem,3.2vw,2.9rem)}
+.meet p{margin-top:1.2rem}
+.meet .link{display:inline-block;margin-top:1.6rem}
+@media(max-width:860px){.meet-grid{grid-template-columns:1fr}.note{right:0}}
+
+/* --- POSTCARDS (social proof) --- */
+.cards{background:var(--current);color:var(--cream)}
+.cards h2{max-width:18ch}
+.cards .lede{color:var(--sand);margin-top:1rem}
+.cards .mockcap{font-size:.9rem;color:var(--honey);margin-top:.6rem}
+.pgrid{display:grid;grid-template-columns:repeat(6,1fr);gap:clamp(18px,2.4vw,34px);margin-top:clamp(40px,5vw,72px);align-items:start}
+.pc{position:relative;background:var(--cream);color:var(--coffee);padding:1.7rem 1.7rem 1.4rem;border-radius:3px;box-shadow:0 2px 3px rgba(0,0,0,.25),0 22px 40px -14px rgba(0,0,0,.6);transition:transform .5s var(--ease),box-shadow .5s var(--ease);grid-column:span 2}
+.pc:nth-child(1){--rot:-1.8deg;grid-column:1/span 3}
+.pc:nth-child(2){--rot:1.4deg;grid-column:4/span 3;margin-top:3.5rem}
+.pc:nth-child(3){--rot:1deg;grid-column:1/span 3;margin-top:-1rem}
+.pc:nth-child(4){--rot:-1.5deg;grid-column:4/span 3;margin-top:1.5rem}
+.js .pc.in:hover{transform:rotate(0) translateY(-8px) scale(1.015)}
+.pc q{display:block;quotes:none;font-size:1.18rem;line-height:1.55;padding-right:6.2rem}
+.pc .by{display:flex;align-items:center;gap:.8rem;margin-top:1.3rem;padding-top:1rem;border-top:1px dashed rgba(43,31,24,.3)}
+.pc .by b{font:400 1.05rem var(--hand);color:var(--current);display:block;line-height:1.4}
+.pc .by small{font-size:.9rem;color:var(--sienna)}
+.pc .pst{position:absolute;top:1.1rem;right:1.1rem;width:52px;aspect-ratio:4/5;padding:4px;background:var(--cream);border:2px dashed rgba(43,31,24,.4);transform:rotate(4deg)}
+.pc .pst div{width:100%;height:100%;display:grid;place-items:center;color:var(--cream)}
+.pc .pst svg{width:66%}
+.pc .pm{position:absolute;top:.9rem;right:2.8rem;width:64px;color:rgba(43,31,24,.5);transform:rotate(-16deg)}
+.pc.you{background:var(--marigold);display:flex;flex-direction:column;justify-content:center;gap:1.2rem;min-height:250px}
+.pc.you q{font-family:var(--display);font-size:1.7rem;line-height:1.15;padding:0}
+@media(max-width:820px){.pgrid{display:flex;flex-direction:column}.pc,.pc:nth-child(n){margin-top:0}}
+
+/* --- PRODUCTS --- */
+.shop{background:var(--cream)}
+.shop-head{display:grid;grid-template-columns:1fr 1fr;gap:2rem 4rem;align-items:end}
+.shop-head p{color:var(--sienna)}
+@media(max-width:760px){.shop-head{grid-template-columns:1fr}}
+.prods{display:grid;grid-template-columns:repeat(12,1fr);gap:clamp(20px,3vw,44px);margin-top:clamp(40px,5vw,72px);align-items:start}
+.prod{position:relative}
+.prod .ph{position:relative;overflow:hidden;border-radius:4px;box-shadow:var(--shadow)}
+.prod .ph img{width:100%;height:100%;object-fit:cover;transition:transform 1.2s var(--ease)}
+.prod:hover .ph img{transform:scale(1.045)}
+.prod h3{font-size:1.75rem;line-height:1.15;margin-top:1.4rem;color:var(--current)}
+.prod p{margin-top:.5rem;font-size:1.05rem}
+.prod .btn{margin-top:1.1rem}
+.p1{grid-column:1/span 6}.p1 .ph{aspect-ratio:4/3}
+.p2{grid-column:7/span 3;margin-top:5rem}.p2 .ph{aspect-ratio:1}
+.p3{grid-column:10/span 3;margin-top:1.5rem}.p3 .ph{aspect-ratio:3/2}
+.sticker{position:absolute;z-index:3;width:88px;height:88px;top:-18px;left:-14px;display:grid;place-items:center;background:var(--marigold);color:var(--coffee);font:400 1.55rem var(--display);transform:rotate(9deg);transition:transform .5s var(--ease)}
+.sticker{clip-path:polygon(50% 0,61% 8%,73% 3%,78% 15%,91% 15%,90% 28%,100% 35%,94% 48%,100% 61%,90% 68%,90% 81%,77% 84%,71% 96%,59% 91%,50% 100%,41% 91%,29% 96%,23% 84%,10% 81%,10% 68%,0 61%,6% 48%,0 35%,10% 28%,9% 15%,22% 15%,27% 3%,39% 8%)}
+.prod:hover .sticker{transform:rotate(-6deg) scale(1.08)}
+.scrawl{display:block;margin-top:.9rem;font:400 .98rem/1.5 var(--hand);color:var(--brown);transform:rotate(-1.5deg)}
+@media(max-width:900px){.prods{display:flex;flex-direction:column}.p2,.p3{margin-top:1rem}.prod{max-width:520px}}
+
+/* --- INBOX --- */
+.inbox{background:var(--beige)}
+.inbox-grid{display:grid;grid-template-columns:minmax(0,6fr) minmax(0,5fr);gap:clamp(28px,5vw,80px);align-items:center}
+.kitchen{position:relative;aspect-ratio:16/11;overflow:hidden;border-radius:6px;box-shadow:var(--shadow)}
+.kitchen img{position:absolute;left:0;top:-9%;width:100%;height:118%;object-fit:cover;will-change:transform}
+.inbox h2{font-size:clamp(1.8rem,3vw,2.7rem)}
+.inbox p{margin-top:1.1rem}
+.mailform{display:flex;flex-wrap:wrap;gap:.8rem;margin-top:1.6rem}
+.mailform input{flex:1 1 220px;min-height:56px;padding:.7rem 1rem;font:1.05rem var(--body);color:var(--coffee);background:var(--cream);border:2px solid var(--brown);border-radius:6px}
+.mailform input:focus{outline:3px solid var(--current);outline-offset:2px;border-color:var(--current)}
+.mailform input::placeholder{color:var(--sienna);opacity:.8}
+.mailform .btn{background:var(--current)}
+.mailform .btn:hover{background:#06212a}
+.fine{font-size:.95rem;color:var(--sienna);margin-top:.8rem}
+.thanks{margin-top:1.6rem;font-family:var(--display);font-size:1.5rem;color:var(--current)}
+.quizline{margin-top:2rem;padding-top:1.4rem;border-top:1px solid rgba(43,31,24,.2)}
+@media(max-width:860px){.inbox-grid{grid-template-columns:1fr}}
+
+/* --- CLOSE --- */
+.close{background:var(--current);color:var(--cream);text-align:center;position:relative;overflow:hidden}
+.close::before{content:"";position:absolute;inset:0;background:radial-gradient(50% 80% at 50% 110%,rgba(29,107,120,.6),transparent 70%)}
+.close .wrap{position:relative}
+.close h2{font-size:clamp(3rem,9vw,7rem);line-height:.98}
+.close p{margin:1.4rem auto 0;color:var(--sand)}
+.close .cta-row{justify-content:center;margin-top:2.2rem}
+.close .cta-row .btn{font-size:1.2rem;min-height:64px;padding-inline:2.2rem}
+.badge{position:absolute;right:max(2vw,calc(50% - 560px));top:-1.5rem;width:150px;height:150px;color:var(--honey);animation:spin 26s linear infinite}
+.badge text{font:700 12.5px var(--body);letter-spacing:.2em;fill:currentColor}
+@media(max-width:900px){.badge{display:none}}
+
+/* --- FOOTER --- */
+footer{background:var(--coffee);color:var(--beige);padding:56px 0 40px;text-align:center}
+footer .mark{justify-content:center;margin:0;font-size:1.6rem}
+footer .tag{margin:.4rem auto 1.6rem;font-size:1rem;color:var(--honey)}
+footer nav{display:flex;flex-wrap:wrap;justify-content:center;gap:.4rem 1.8rem;margin-bottom:1.4rem}
+footer nav a{padding:.5rem 0;text-decoration:none;min-height:44px;display:inline-flex;align-items:center}
+footer nav a:hover{text-decoration:underline;text-decoration-color:var(--honey)}
+footer .soc{display:flex;justify-content:center;gap:.6rem;margin-bottom:1.4rem}
+footer .soc a{width:44px;height:44px;display:grid;place-items:center;border:1px solid rgba(200,168,120,.4);border-radius:50%;color:var(--honey);transition:background .25s,color .25s}
+footer .soc a:hover{background:var(--honey);color:var(--coffee)}
+footer .soc svg{width:20px;height:20px}
+footer small{font-size:.9rem;opacity:.75}
+
+/* ============ KEYFRAMES ============ */
+@keyframes flap{from{transform:rotateX(0)}to{transform:rotateX(180deg)}}
+@keyframes rise{from{transform:translateY(0)}to{transform:translateY(-72cqw) rotate(-.6deg)}}
+@keyframes wipe{to{clip-path:inset(0 -6% 0 0)}}
+@keyframes photoin{from{opacity:0;transform:translateY(-4cqw) rotate(-10deg) scale(1.15)}to{opacity:1;transform:rotate(-3.5deg)}}
+@keyframes stampin{from{opacity:0;transform:translateY(-6cqw) rotate(-12deg) scale(1.5)}to{opacity:1;transform:rotate(3deg)}}
+@keyframes fadein{to{opacity:1}}
+@keyframes sheen{from{background-position:120% 0}to{background-position:-60% 0}}
+@keyframes draw{to{stroke-dashoffset:0}}
+@keyframes ring{0%{transform:scale(.6);opacity:.9}100%{transform:scale(1.9);opacity:0}}
+@keyframes marq{to{transform:translateX(-50%)}}
+@keyframes prog{to{transform:scaleX(1)}}
+@keyframes panelin{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+@keyframes msgin{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+@keyframes blink{50%{opacity:0}}
+@keyframes dot{0%,60%,100%{transform:translateY(0);opacity:.5}30%{transform:translateY(-5px);opacity:1}}
+@keyframes spin{to{transform:rotate(360deg)}}
+.letter{animation-name:rise,bob}
+.letter{animation-duration:1.3s,5s;animation-delay:1.2s,3s;animation-timing-function:var(--ease),ease-in-out;animation-fill-mode:both,none;animation-iteration-count:1,infinite}
+@keyframes bob{0%,100%{transform:translateY(-72cqw) rotate(-.6deg)}50%{transform:translateY(-73cqw) rotate(.2deg)}}
+
+/* ============ REDUCED MOTION ============ */
+@media(prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation-duration:.001ms!important;animation-delay:0s!important;animation-iteration-count:1!important;transition-duration:.001ms!important}
+  .band-track{animation:none;flex-wrap:wrap;width:auto}
+  .band-track span[aria-hidden]{display:none}
+  .js .rv,.js .rv[data-r]{opacity:1;transform:none;clip-path:none}
+  .hl{background-size:100% 100%}
+}
+</style>
+</head>
+<body>
+<!--
+THESIS: A homepage that reads like a letter from one solo mom to another, and the envelope is the Hub. It refuses the "hero + three icon cards + testimonial grid" scaffold.
+OWN-WORLD: Deep Current envelope-liner fields with Golden Honey lattice; Vanilla Cream paper; Warm Beige envelope stock; Burnished Copper as the only button color; Marigold "garage-sale sticker" as the single new color. Young Serif, Atkinson Hyperlegible Next, Homemade Apple for handwriting only.
+STORY: She sees another single empty-nest mom talking to her, believes it's free and hers, joins the Hub; inside she meets the tools, then buys one when she's ready.
+FIRST VIEWPORT: Left: H1 + one-line promise + Join button + quiz link + Cece's first-person intro. Right: an envelope opens, a letter rises with Cece's portrait and the hook line.
+FORM: Assigned (my grounded list #3): postal correspondence. Seed key 47f41b99. Raises: negative space around the letter (ikebana ma), handwritten annotations on leader-style arrows (gyaru magazine), threshold-staged arrival (deco lobby).
+FINISH: unreviewed and undocumented is unfinished; this build ends with the finish review, the verdict, and DESIGN.md
+-->
+
+<div class="mockbar">MOCKUP — the member notes, names, and numbers on this page are placeholders. Nothing here is real yet.</div>
+
+<header class="nav">
+  <div class="wrap nav-in">
+    <a class="mark" href="#top" aria-label="My Nest Chapter, home">
+      <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><path d="M3 15c1 8 7 12 13 12s12-4 13-12"/><path d="M6 17c4 2.5 16 2.5 20 0M9 22c4 1.5 10 1.5 14 0"/><ellipse cx="12" cy="13" rx="3" ry="4" transform="rotate(-12 12 13)"/><ellipse cx="20" cy="13" rx="3" ry="4" transform="rotate(12 20 13)"/></svg>
+      My Nest Chapter
+    </a>
+    <nav class="nav-links" aria-label="Main">
+      <a href="#hub">The Hub</a><a href="#shop">Shop</a><a href="#hub">Freebies</a><a href="#">Blog</a><a href="#meet">About</a>
+    </nav>
+    <a class="nav-login" href="#">Log In</a>
+    <a class="btn sm" href="#join">Join free <span class="arr" aria-hidden="true">→</span></a>
+  </div>
+</header>
+
+<main id="top">
+
+<!-- ================= HERO ================= -->
+<section class="hero on-dark">
+  <div class="wrap hero-grid">
+    <div>
+      <h1>Solo mom. Empty nest. <span class="swoosh">What's next.<svg viewBox="0 0 400 20" preserveAspectRatio="none" aria-hidden="true"><path d="M4 12C90 4 220 4 396 10"/></svg></span></h1>
+      <p class="hero-sub">Tools. A real person to talk to. A growing community that gets it.</p>
+
+      <div class="cta-row">
+        <a class="btn" href="#join">Join the Hub — it's free <span class="arr" aria-hidden="true">→</span></a>
+        <span class="cta-note">Instant access. No waiting.</span>
+      </div>
+      <a class="link hero-quiz" href="#">Not sure? Take the 2-minute quiz →</a>
+
+      <div class="hero-who">
+        <img src="img/cece-portrait.jpg" alt="Cece, founder of My Nest Chapter" width="64" height="64">
+        <p><b>Cece here.</b> I'm a single empty-nest mom too. I'm living this right alongside you, and I build everything here myself.</p>
+      </div>
+
+      <div class="live" aria-live="polite"><i></i><span id="liveTxt">Denise in Ohio joined the Hub 4 minutes ago</span></div>
+    </div>
+
+    <!-- the envelope -->
+    <div class="stage" role="img" aria-label="Illustration: an envelope opens and a handwritten letter from Cece rises out of it, with her photo clipped to the page.">
+      <div class="env">
+        <div class="env-back liner"></div>
+        <div class="env-flap"><div class="flap-out"></div><div class="flap-in liner"></div></div>
+        <div class="letter-clip"><div class="letter">
+          <div class="photo"><span class="tape t1"></span><span class="tape t2"></span><img src="img/cece-portrait.jpg" alt=""><b>Cece</b></div>
+          <div class="ltxt">
+            <span class="ln d">Dear you,</span>
+            <span class="ln l1">Hey. I see you.</span>
+            <span class="ln l2">I get you.</span>
+            <span class="ln l3">I am you.</span>
+            <span class="ln l4">Stay a minute.</span>
+          </div>
+          <div class="lfoot">Solo mom. Empty nest. Same as you.</div>
+        </div></div>
+        <div class="env-front-w"><div class="env-front"></div></div>
+        <div class="env-to">To: you<br>(the one at the kitchen table)</div>
+        <div class="stamp"><div><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M3 15c1 8 7 12 13 12s12-4 13-12"/><path d="M6 17c4 2.5 16 2.5 20 0M9 22c4 1.5 10 1.5 14 0"/><ellipse cx="12" cy="13" rx="3" ry="4" transform="rotate(-12 12 13)"/><ellipse cx="20" cy="13" rx="3" ry="4" transform="rotate(12 20 13)"/></svg></div></div>
+        <svg class="postmark" viewBox="0 0 100 100" fill="none" stroke="currentColor" aria-hidden="true"><circle cx="50" cy="50" r="46" stroke-width="2"/><circle cx="50" cy="50" r="30" stroke-width="1.5"/><path id="pmPath" d="M50 50m-38 0a38 38 0 1 1 76 0a38 38 0 1 1-76 0" stroke="none"/><text font-size="8.4" font-weight="700" letter-spacing="1.2" fill="currentColor" stroke="none"><textPath href="#pmPath">MY NEST CHAPTER · MEMBER MAIL ·</textPath></text><path d="M32 52h36M32 58h36" stroke-width="2"/></svg>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= STAGES BAND ================= -->
+<div class="band" aria-label="Every stage of the empty nest is welcome">
+  <div class="band-track">
+    <span>The last one left in August</span><span>Year two, still learning the quiet</span><span>Twenty years past the moving boxes</span><span>Sunday nights</span><span>6pm</span><span>Just started reading the labels on the boxes</span><span>Every stage of the empty nest</span>
+    <span aria-hidden="true">The last one left in August</span><span aria-hidden="true">Year two, still learning the quiet</span><span aria-hidden="true">Twenty years past the moving boxes</span><span aria-hidden="true">Sunday nights</span><span aria-hidden="true">6pm</span><span aria-hidden="true">Just started reading the labels on the boxes</span><span aria-hidden="true">Every stage of the empty nest</span>
+  </div>
+</div>
+
+<!-- ================= THE HUB ================= -->
+<section class="sec hub" id="hub">
+  <div class="wrap">
+    <div class="hub-grid">
+      <div class="hub-copy">
+        <h2 class="rv">Your journal, your freebies, your shop — <span class="hl">one place to check in.</span></h2>
+        <p class="rv">Every tool and download on the site, unlocked. New freebies as I add them. And when you're ready to buy something, it just shows up here — nothing to go hunting for again.</p>
+        <div class="cta-row rv">
+          <a class="btn" href="#join">Join — it's free <span class="arr" aria-hidden="true">→</span></a>
+          <span class="cta-note">Instant access. No waiting.<br><span class="count" id="cnt" data-to="1240">1,240</span> women already have a Hub.</span>
+        </div>
+      </div>
+
+      <div class="rv" data-r="tilt">
+        <div class="win" id="hubwin">
+          <div class="win-bar"><span class="url">hub.mynestchapter.com</span></div>
+          <div class="win-body">
+            <div class="tabs" role="tablist" aria-label="What's inside the Hub" aria-orientation="vertical">
+              <button class="tab" role="tab" id="t0" aria-controls="p0" aria-selected="true">Reflections</button>
+              <button class="tab" role="tab" id="t1" aria-controls="p1" aria-selected="false" tabindex="-1">Meaningful Days</button>
+              <button class="tab" role="tab" id="t2" aria-controls="p2" aria-selected="false" tabindex="-1">Support Circle</button>
+              <button class="tab" role="tab" id="t3" aria-controls="p3" aria-selected="false" tabindex="-1">Freebies</button>
+              <button class="tab" role="tab" id="t4" aria-controls="p4" aria-selected="false" tabindex="-1">Shop</button>
+              <div class="mine">Your purchases show up here the moment you buy.</div>
+            </div>
+            <div>
+              <div class="panel" role="tabpanel" id="p0" aria-labelledby="t0">
+                <h3>Reflections</h3>
+                <p class="prompt">Tuesday, 6:04pm — what does the quiet sound like tonight?</p>
+                <div class="journal"><span id="typed" data-text="Dinner for one again. I made the sheet pan thing anyway, and I ate it at the table instead of over the sink."></span><i class="caret"></i></div>
+              </div>
+              <div class="panel" role="tabpanel" id="p1" aria-labelledby="t1" hidden>
+                <h3>Meaningful Days</h3>
+                <ul class="days">
+                  <li><div class="date"><b>18</b><small>Aug</small></div><span>The day the last box came out of the car</span></li>
+                  <li><div class="date"><b>03</b><small>Oct</small></div><span>Her birthday — call at lunch</span></li>
+                  <li><div class="date"><b>27</b><small>Nov</small></div><span>Thanksgiving, my way this year</span></li>
+                </ul>
+              </div>
+              <div class="panel" role="tabpanel" id="p2" aria-labelledby="t2" hidden>
+                <h3>Support Circle</h3>
+                <div class="chat">
+                  <div class="msg" style="animation-delay:.1s"><span class="mono" style="background:var(--oceanic)">M</span><p>Anyone else eat cereal for dinner and call it fine?</p></div>
+                  <div class="msg" style="animation-delay:1s"><span class="mono" style="background:var(--brown)">D</span><p>Tuesday. Twice. No notes.</p></div>
+                  <div class="msg" style="animation-delay:1.9s"><span class="mono" style="background:var(--mocha)">L</span><p>Sheet pan. One pan. Done.</p></div>
+                  <div class="msg" style="animation-delay:2.8s"><span class="mono" style="background:var(--copper)">T</span><span class="typing"><i></i><i></i><i></i></span></div>
+                </div>
+              </div>
+              <div class="panel" role="tabpanel" id="p3" aria-labelledby="t3" hidden>
+                <h3>Freebies</h3>
+                <ul class="frees">
+                  <li style="animation-delay:.05s"><span class="tick"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8.5l3.2 3L13 4.5"/></svg></span><span>The 6pm Cheat Sheet</span><em>Unlocked</em></li>
+                  <li style="animation-delay:.15s"><span class="tick"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8.5l3.2 3L13 4.5"/></svg></span><span>The 6pm Survival Plan</span><em>Unlocked</em></li>
+                  <li style="animation-delay:.25s"><span class="tick"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8.5l3.2 3L13 4.5"/></svg></span><span>Who Am I Now</span><em>Unlocked</em></li>
+                  <li style="animation-delay:.35s"><span class="tick"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8.5l3.2 3L13 4.5"/></svg></span><span>Someday List Builder</span><em>Unlocked</em></li>
+                  <li style="animation-delay:.45s"><span class="tick"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8.5l3.2 3L13 4.5"/></svg></span><span>Pick Your Mood Coloring Pages</span><em>Unlocked</em></li>
+                  <li style="animation-delay:.55s"><span class="tick"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8.5l3.2 3L13 4.5"/></svg></span><span>What Kind of Nester Are You? quiz</span><em>Unlocked</em></li>
+                </ul>
+              </div>
+              <div class="panel" role="tabpanel" id="p4" aria-labelledby="t4" hidden>
+                <h3>Shop</h3>
+                <ul class="shopl">
+                  <li><img src="img/garage.jpg" alt=""><span>Garage Sale Planner</span><b>$27</b></li>
+                  <li><img src="img/cooking.jpg" alt=""><span>Cooking for One Planner</span><b>$27</b></li>
+                  <li><img src="img/workbook.jpg" alt=""><span>Now What? Workbook</span><b>$14.99</b></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="win-foot">Illustration of the Hub — names and entries are made up.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="ways">
+      <div class="way rv">
+        <h3>Explore.</h3>
+        <h4>Guides, tools, and printables</h4>
+        <p>For wherever you're at right now. Tools. Digital PDFs. Freebies and other resources — whatever you're focusing on, there's something here.</p>
+        <a class="link" href="#shop">See everything →</a>
+      </div>
+      <div class="way rv">
+        <h3>Belong.</h3>
+        <h4>You don't have to figure this out solo</h4>
+        <p>Join other women in the same chapter — swap what's working, vent, or just lurk.</p>
+        <a class="link" href="#join">Join the community →</a>
+      </div>
+      <div class="way rv">
+        <h3>Read.</h3>
+        <h4>Stories from this stage of life</h4>
+        <p>What's helped, what hasn't, and what I wish someone had told me.</p>
+        <a class="link" href="#">Read the blog →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= MEET CECE ================= -->
+<section class="sec meet" id="meet">
+  <div class="wrap meet-grid">
+    <div class="meet-photo rv" data-r="wipe">
+      <span class="tape"></span>
+      <div class="pic"><img src="img/cece-writing.jpg" alt="Cece writing in a notebook at a sunlit kitchen table" loading="lazy"></div>
+      <p class="note rv">Solo mom. Empty nest. Same as you.</p>
+    </div>
+    <div>
+      <p class="hand rv" style="font-size:1.25rem;color:var(--copper);margin:0 0 1rem">Hey. I see you. I get you. I am you. Stay a minute.</p>
+      <h2 class="rv">I raised my kids <span class="hl">mostly on my own.</span> When my last one left, I wasn't ready for what hit me.</h2>
+      <p class="rv">I went looking for something, anything, that sounded like my life. It didn't exist. So I built My Nest Chapter.</p>
+      <p class="rv">I build every product myself. There will be glitches. There will be mistakes. Tell me when you find one.</p>
+      <a class="link rv" href="#">Read my full story →</a>
+    </div>
+  </div>
+</section>
+
+<!-- ================= POSTCARDS ================= -->
+<section class="sec cards on-dark">
+  <div class="wrap">
+    <h2 class="rv">Notes that came back to me.</h2>
+    <p class="lede rv">From women at every stage of the empty nest.</p>
+    <p class="mockcap rv">Placeholder notes for the mockup. Swap in real ones as they come.</p>
+
+    <div class="pgrid">
+      <article class="pc rv" data-r="drop">
+        <svg class="pm" viewBox="0 0 100 100" fill="none" stroke="currentColor" aria-hidden="true"><circle cx="50" cy="50" r="46" stroke-width="3"/><circle cx="50" cy="50" r="30" stroke-width="2"/><path d="M28 50h44" stroke-width="3"/></svg>
+        <span class="pst"><div style="background:var(--current)"><svg viewBox="0 0 32 32" fill="none" stroke="var(--honey)" stroke-width="2" stroke-linecap="round"><path d="M3 15c1 8 7 12 13 12s12-4 13-12M6 17c4 2.5 16 2.5 20 0"/></svg></div></span>
+        <q>I came for the freebies and stayed for the journal. It's the first place that sounded like my kitchen at 6pm.</q>
+        <div class="by"><span class="mono" style="background:var(--oceanic)">D</span><div><b>Denise, 54</b><small>Ohio · youngest left two years ago</small></div></div>
+      </article>
+      <article class="pc rv" data-r="drop">
+        <svg class="pm" viewBox="0 0 100 100" fill="none" stroke="currentColor" aria-hidden="true"><circle cx="50" cy="50" r="46" stroke-width="3"/><circle cx="50" cy="50" r="30" stroke-width="2"/><path d="M28 50h44" stroke-width="3"/></svg>
+        <span class="pst"><div style="background:var(--copper)"><svg viewBox="0 0 32 32" fill="none" stroke="var(--cream)" stroke-width="2" stroke-linecap="round"><path d="M3 15c1 8 7 12 13 12s12-4 13-12M6 17c4 2.5 16 2.5 20 0"/></svg></div></span>
+        <q>Three weeks in and I'm not pretending I'm fine here. Cece isn't either. That's why I read every email.</q>
+        <div class="by"><span class="mono" style="background:var(--copper)">M</span><div><b>Marcy, 47</b><small>Texas · dropped her off in August</small></div></div>
+      </article>
+      <article class="pc rv" data-r="drop">
+        <svg class="pm" viewBox="0 0 100 100" fill="none" stroke="currentColor" aria-hidden="true"><circle cx="50" cy="50" r="46" stroke-width="3"/><circle cx="50" cy="50" r="30" stroke-width="2"/><path d="M28 50h44" stroke-width="3"/></svg>
+        <span class="pst"><div style="background:var(--oceanic)"><svg viewBox="0 0 32 32" fill="none" stroke="var(--cream)" stroke-width="2" stroke-linecap="round"><path d="M3 15c1 8 7 12 13 12s12-4 13-12M6 17c4 2.5 16 2.5 20 0"/></svg></div></span>
+        <q>I used the Garage Sale Planner over one long weekend. Sorted, priced, done. Nobody doing math at 11pm.</q>
+        <div class="by"><span class="mono" style="background:var(--mocha)">L</span><div><b>Linda, 61</b><small>Arizona · years into the quiet</small></div></div>
+      </article>
+      <article class="pc you rv" data-r="drop">
+        <q>Yours could be next.</q>
+        <a class="btn" href="#join" style="align-self:flex-start">Join the Hub — free <span class="arr" aria-hidden="true">→</span></a>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ================= PRODUCTS ================= -->
+<section class="sec shop" id="shop">
+  <div class="wrap">
+    <div class="shop-head">
+      <h2 class="rv">Ready when <span class="hl">you are.</span></h2>
+      <p class="rv">Buy inside the Hub and it lands in your purchases, ready to open. No pressure to have it figured out.</p>
+    </div>
+
+    <div class="prods">
+      <article class="prod p1 rv">
+        <span class="sticker">$27</span>
+        <div class="ph"><img src="img/garage.jpg" alt="A teal Adirondack chair, a small side table, and a wicker basket in front of a garage door" loading="lazy"></div>
+        <h3>Garage Sale Planner</h3>
+        <p>Sort, price, and sell what's left behind — without doing the math in your head at 11pm.</p>
+        <span class="scrawl">a long weekend, start to finish</span>
+        <a class="btn" href="#join">Get the Planner <span class="arr" aria-hidden="true">→</span></a>
+      </article>
+      <article class="prod p2 rv">
+        <span class="sticker">$14.99</span>
+        <div class="ph"><img src="img/workbook.jpg" alt="An open lined notebook with a fountain pen, a sprig of eucalyptus, and a coffee cup" loading="lazy"></div>
+        <h3>Now What? Workbook</h3>
+        <p>A guided way to work through this chapter at your own pace. No pressure to have it figured out.</p>
+        <a class="btn" href="#join">Get the Workbook <span class="arr" aria-hidden="true">→</span></a>
+      </article>
+      <article class="prod p3 rv">
+        <span class="sticker">$27</span>
+        <div class="ph"><img src="img/cooking.jpg" alt="Cooking for One Planner cover" loading="lazy"></div>
+        <h3>Cooking for One Planner</h3>
+        <p>Real meals, sized for one, without the leftovers going bad in the back of the fridge.</p>
+        <a class="btn" href="#join">Get the Planner <span class="arr" aria-hidden="true">→</span></a>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ================= INBOX ================= -->
+<section class="sec inbox">
+  <div class="wrap inbox-grid">
+    <div class="kitchen rv" data-r="wipe"><img id="kimg" src="img/kitchen-6pm.jpg" alt="A quiet kitchen at six in the evening, a mug on a wooden table in low golden light" loading="lazy"></div>
+    <div>
+      <h2 class="rv">Not ready for that yet? I'll show up in your inbox once a month and tell you the truth about mine.</h2>
+      <p class="rv">What I'm working through right now. What actually helped. What still doesn't. No advice. No program. Just where I really am.</p>
+      <form class="mailform rv" id="mailform">
+        <input type="email" placeholder="Your email" required aria-label="Email address">
+        <button class="btn" type="submit">Count me in</button>
+      </form>
+      <p class="fine rv" id="mailnote">One email a month. Nothing else.</p>
+      <p class="quizline rv"><a class="link" href="#">Not sure where you are? Take the 2-minute quiz →</a></p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CLOSE ================= -->
+<section class="sec close on-dark" id="join">
+  <div class="wrap">
+    <svg class="badge" viewBox="0 0 150 150" aria-hidden="true"><defs><path id="bp" d="M75 75m-58 0a58 58 0 1 1 116 0a58 58 0 1 1-116 0"/></defs><text><textPath href="#bp">JOIN THE HUB · IT'S FREE · JOIN THE HUB · IT'S FREE ·</textPath></text><path d="M52 75h44M82 62l14 13-14 13" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    <h2 class="rv">Stay a minute.</h2>
+    <p class="rv">Your journal, your freebies, your shop — one place to check in.</p>
+    <div class="cta-row rv">
+      <a class="btn" href="#">Join the Hub — it's free <span class="arr" aria-hidden="true">→</span></a>
+    </div>
+    <p class="cta-note rv" style="margin-top:1rem">Instant access. No waiting.</p>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <a class="mark" href="#top">My Nest Chapter</a>
+    <p class="tag" style="margin-inline:auto">For Single &amp; Solo Moms</p>
+    <nav aria-label="Footer"><a href="#top">Home</a><a href="#meet">About</a><a href="#">Blog</a><a href="#shop">Shop</a><a href="#hub">Resources</a><a href="#hub">Freebies</a></nav>
+    <div class="soc">
+      <a href="#" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a>
+      <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.4" fill="currentColor" stroke="none"/></svg></a>
+      <a href="#" aria-label="Pinterest"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.4 0 0 5.4 0 12c0 5.1 3.2 9.4 7.6 11.2-.1-.9-.2-2.4 0-3.4l1.4-6s-.4-.7-.4-1.8c0-1.7 1-2.9 2.2-2.9 1 0 1.5.8 1.5 1.7 0 1-.7 2.6-1 4-.3 1.2.6 2.2 1.8 2.2 2.1 0 3.8-2.2 3.8-5.5 0-2.9-2.1-4.9-5-4.9-3.4 0-5.4 2.6-5.4 5.2 0 1 .4 2.1.9 2.7.1.1.1.2.1.3l-.3 1.4c0 .2-.2.3-.4.2-1.5-.7-2.4-2.9-2.4-4.6 0-3.8 2.7-7.3 7.9-7.3 4.2 0 7.4 3 7.4 6.9 0 4.1-2.6 7.5-6.2 7.5-1.2 0-2.4-.6-2.8-1.4l-.7 2.9c-.3 1-1 2.4-1.5 3.1 1.1.4 2.3.5 3.5.5 6.6 0 12-5.4 12-12S18.6 0 12 0z"/></svg></a>
+    </div>
+    <small>&copy; 2026 My Nest Chapter. All rights reserved.</small>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* --- scroll reveals, each staggered within its own parent --- */
+  var els = [].slice.call(document.querySelectorAll('.rv'));
+  els.forEach(function(el){
+    var sibs = [].slice.call(el.parentNode.children).filter(function(c){return c.classList.contains('rv')});
+    el.style.transitionDelay = (sibs.indexOf(el) * 110) + 'ms';
+  });
+  if(reduce || !('IntersectionObserver' in window)){ els.forEach(function(e){e.classList.add('in')}); }
+  else{
+    var io = new IntersectionObserver(function(es){
+      es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); if(e.target.querySelector('#cnt')) countUp(); } });
+    },{threshold:.18, rootMargin:'0px 0px -6% 0px'});
+    els.forEach(function(e){io.observe(e)});
+  }
+
+  /* --- start the envelope only once she can see it --- */
+  var stg=document.querySelector(".stage");
+  if(reduce||!("IntersectionObserver" in window)) stg.classList.add("go");
+  else new IntersectionObserver(function(es,o){ if(es[0].isIntersecting){ stg.classList.add("go"); o.disconnect(); } },{threshold:.35}).observe(stg);
+
+  /* --- member count-up (placeholder number) --- */
+  var counted=false;
+  function countUp(){
+    if(counted) return; counted=true;
+    var n=document.getElementById('cnt'); if(!n||reduce) return;
+    var to=+n.dataset.to, t0=performance.now();
+    (function step(t){ var p=Math.min(1,(t-t0)/1400), v=Math.round(to*(1-Math.pow(1-p,3)));
+      n.textContent=v.toLocaleString('en-US'); if(p<1) requestAnimationFrame(step); })(t0);
+  }
+
+  /* --- "just joined" ticker (placeholder names) --- */
+  var joins=['Denise in Ohio joined the Hub 4 minutes ago','Marcy in Texas joined the Hub 11 minutes ago','Linda in Arizona joined the Hub 26 minutes ago','Tanya in Georgia joined the Hub an hour ago'];
+  var jt=document.getElementById('liveTxt'), ji=0;
+  if(!reduce) setInterval(function(){
+    jt.classList.add('out');
+    setTimeout(function(){ ji=(ji+1)%joins.length; jt.textContent=joins[ji]; jt.classList.remove('out'); },400);
+  },4600);
+
+  /* --- Hub tabs: auto-advance, pause on hover/focus, manual choice stops autoplay --- */
+  var win=document.getElementById('hubwin'), tabs=[].slice.call(win.querySelectorAll('.tab')), panels=[].slice.call(win.querySelectorAll('.panel'));
+  var cur=0, auto=!reduce, seen=false;
+  var typed=document.getElementById('typed'), full=typed.dataset.text, tt;
+  function type(){ clearInterval(tt); typed.textContent=''; var i=0;
+    if(reduce){typed.textContent=full;return}
+    tt=setInterval(function(){ typed.textContent=full.slice(0,++i); if(i>=full.length) clearInterval(tt); },38); }
+  function show(i,focus){
+    cur=i;
+    tabs.forEach(function(t,k){ var on=k===i; t.setAttribute('aria-selected',on); t.tabIndex=on?0:-1; });
+    panels.forEach(function(p,k){ p.hidden=k!==i; });
+    if(i===0) type();
+    if(focus) tabs[i].focus();
+  }
+  tabs.forEach(function(t,k){
+    t.addEventListener('click',function(){ auto=false; win.classList.add('static'); show(k); });
+    t.addEventListener('keydown',function(e){
+      var d={ArrowDown:1,ArrowRight:1,ArrowUp:-1,ArrowLeft:-1}[e.key]; if(!d) return;
+      e.preventDefault(); auto=false; win.classList.add('static'); show((cur+d+tabs.length)%tabs.length,true);
+    });
+    t.addEventListener('animationend',function(){ if(auto && k===cur) show((cur+1)%tabs.length); });
+  });
+  if(reduce) win.classList.add('static');
+  win.addEventListener('mouseenter',function(){win.classList.add('paused')});
+  win.addEventListener('mouseleave',function(){win.classList.remove('paused')});
+  win.addEventListener('focusin',function(){win.classList.add('paused')});
+  win.addEventListener('focusout',function(){win.classList.remove('paused')});
+  // don't burn the first panel before she can see it
+  win.classList.add('paused');
+  if('IntersectionObserver' in window){
+    new IntersectionObserver(function(es){ es.forEach(function(e){
+      if(e.isIntersecting){ if(!seen){seen=true; type();} win.classList.remove('paused'); } else win.classList.add('paused');
+    }); },{threshold:.5}).observe(win);
+  } else { type(); win.classList.remove('paused'); }
+
+  /* --- gentle parallax on the kitchen photo --- */
+  var k=document.getElementById('kimg');
+  if(k && !reduce){
+    var ticking=false;
+    function par(){ var r=k.parentNode.getBoundingClientRect(), vh=innerHeight;
+      if(r.bottom>0 && r.top<vh){ var p=(r.top+r.height/2-vh/2)/vh; k.style.transform='translateY('+(p*-40).toFixed(1)+'px)'; }
+      ticking=false; }
+    addEventListener('scroll',function(){ if(!ticking){ticking=true; requestAnimationFrame(par);} },{passive:true}); par();
+  }
+
+  /* --- newsletter (mock only) --- */
+  document.getElementById('mailform').addEventListener('submit',function(e){
+    e.preventDefault();
+    var p=document.createElement('p'); p.className='thanks'; p.textContent='Check your inbox.';
+    this.replaceWith(p); document.getElementById('mailnote').textContent='';
+  });
+})();
+</script>
+</body>
+</html>
