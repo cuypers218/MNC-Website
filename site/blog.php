@@ -40,7 +40,8 @@ $posts = $stmt->fetchAll();
 $categories = $db->query('SELECT DISTINCT category FROM blog_posts WHERE status = "published" AND category IS NOT NULL ORDER BY category')->fetchAll(PDO::FETCH_COLUMN);
 
 // The post the old Resources page told new readers to start with.
-$startPost = ($category === '' && $page === 1) ? getPostBySlug('what-i-do-at-6pm') : null;
+// Only worth pointing at once there are a few posts to choose from.
+$startPost = ($category === '' && $page === 1 && $total > 2) ? getPostBySlug('what-i-do-at-6pm') : null;
 
 $q = function ($p) use ($category) {
     $args = [];
@@ -74,6 +75,7 @@ $arrR = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width
       <p class="startpick-text"><?= esc(truncateWords($startPost['excerpt'] ?? '', 26)) ?></p>
     </div>
 <?php endif; ?>
+    <figure class="album blogphoto"><div class="corners"><img src="/assets/images/kitchen-6pm.jpg" alt="A quiet kitchen at six in the evening, a mug on a wooden table in low golden light" width="340" height="255" loading="lazy"><i></i><i></i><i></i><i></i></div></figure>
   </div>
 
   <div class="page r">
