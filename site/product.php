@@ -44,6 +44,11 @@ if (!$product) {
 $pageTitle = $product['title'];
 $pageDescription = $product['short_description'] ?? 'A tool from My Nest Chapter.';
 $pageImage = $product['image_path'] ?? null;
+// The Now What? Workbook has its own richer page at /workbook (see tools.php
+// and blog-post.php, which already link there instead of here). This generic
+// page still renders for anyone who lands on it directly, but points search
+// engines and social shares at the real page instead of counting as a duplicate.
+if ($product['slug'] === 'now-what-workbook') $pageCanonicalPath = '/workbook';
 require_once __DIR__ . '/includes/header-book.php';
 
 $isFree = $product['price'] == 0;

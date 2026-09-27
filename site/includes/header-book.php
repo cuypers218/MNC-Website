@@ -16,7 +16,7 @@ require_once __DIR__ . '/auth.php';
 
 $__desc  = $pageDescription ?? 'Solo mom. Empty nest. Now what? Tools and resources built from lived experience, for single and solo moms.';
 $__title = ($pageTitle ?? 'My Nest Chapter') . ' | My Nest Chapter';
-$__path  = esc(strtok($_SERVER['REQUEST_URI'] ?? '/', '?'));
+$__path  = esc($pageCanonicalPath ?? strtok($_SERVER['REQUEST_URI'] ?? '/', '?'));
 $__img   = !empty($pageImage) ? $pageImage : '/assets/images/logo.png';
 ?>
 <!DOCTYPE html>
