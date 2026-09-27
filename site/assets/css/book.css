@@ -383,3 +383,6 @@ footer small{font-size:.9rem;opacity:.75}
 footer .hard-link{margin:.2rem 0 .8rem;max-width:none}
 footer .hard-link a{display:inline-flex;align-items:center;min-height:44px;color:var(--beige);text-decoration:underline;text-decoration-color:var(--honey);text-underline-offset:.25em}
 @media(max-width:900px){.ring{display:none}.hard-grid{grid-template-columns:1fr}.book>.spread+.spread{margin-top:1.2rem}}
+
+/* page turn between real pages (assets/js/book.js) */
+.book.turning>.spread{display:none}

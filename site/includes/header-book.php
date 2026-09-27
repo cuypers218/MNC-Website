@@ -55,6 +55,7 @@ $__img   = !empty($pageImage) ? $pageImage : '/assets/images/logo.png';
     <link rel="preload" href="/assets/fonts/atkinson-hyperlegible-next-400.woff2" as="font" type="font/woff2" crossorigin>
 
     <link rel="stylesheet" href="/assets/css/book.css?v=<?= @filemtime(__DIR__ . '/../assets/css/book.css') ?: '1' ?>">
+    <script src="/assets/js/book.js?v=<?= @filemtime(__DIR__ . '/../assets/js/book.js') ?: '1' ?>" defer></script>
     <script>
     document.documentElement.classList.add('js');
     // The bolder handwriting outline is only added once the font has really loaded,
