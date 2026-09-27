@@ -1,227 +1,33 @@
-<!DOCTYPE html>
-<html lang="en" class="no-js">
-<head>
-    <script>document.documentElement.classList.remove('no-js');</script>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Start Here | My Nest Chapter</title>
-    <meta name="description" content="Everything lives in one place now — the Hub. Your journal, your freebies, your shop, free to join.">
-
-    <link rel="canonical" href="https://mynestchapter.com/start-here">
-    <link rel="icon" type="image/svg+xml" href="/assets/images/favicon.svg">
-    <!-- Open Graph -->
-    <meta property="og:site_name" content="My Nest Chapter">
-    <meta property="og:title" content="Start Here | My Nest Chapter">
-    <meta property="og:description" content="Everything lives in one place now — the Hub. Your journal, your freebies, your shop, free to join.">
-    <meta property="og:url" content="https://mynestchapter.com/start-here">
-    <meta property="og:type" content="website">
-    <meta property="og:image" content="https://mynestchapter.com/assets/images/logo.png">
-    <meta property="og:see_also" content="https://www.facebook.com/profile.php?id=61590806030391">
-    <meta property="og:see_also" content="https://www.instagram.com/my.nest.chapter/">
-    <meta property="og:see_also" content="https://www.pinterest.com/mynestchapter">
-    <!-- Twitter / X Card -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Start Here | My Nest Chapter">
-    <meta name="twitter:description" content="Everything lives in one place now — the Hub. Your journal, your freebies, your shop, free to join.">
-    <meta name="twitter:image" content="https://mynestchapter.com/assets/images/logo.png">
-
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-
-    <!-- Styles -->
-    <link rel="stylesheet" href="/assets/css/style.css?v=<?= @filemtime(__DIR__ . '/assets/css/style.css') ?: '1' ?>">
-</head>
-<body>
-
-<a href="#main-content" class="skip-link">Skip to main content</a>
-
-<header class="site-header">
-    <div class="header-inner">
-        <a href="/" class="brand-mark">My Nest Chapter</a>
-
-        <!-- Desktop Nav -->
-        <nav class="main-nav" aria-label="Main navigation">
-            <a href="/" class="">Home</a>
-            <a href="/about" class="">About</a>
-            <a href="/blog" class="">Blog</a>
-            <a href="/shop" class="">Shop</a>
-            <a href="/resources" class="">Resources</a>
-            <a href="/freebies" class="">Freebies</a>
-        </nav>
-
-        <!-- Auth Link -->
-        <div class="nav-auth">
-            <a href="https://hub.mynestchapter.com">Log In</a>
-        </div>
-
-        <!-- Mobile Toggle -->
-        <button class="mobile-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="mobileNav" onclick="openMobileNav()">
-            <span></span><span></span><span></span>
-        </button>
+<?php
+// Built from mockups/hub-homepage-chapters/index.html (2026-09-26 book redesign).
+$pageTitle = "Start Here";
+$pageDescription = "Everything lives in one place now: the Hub. Your journal, your freebies, your shop, free to join.";
+require_once __DIR__ . '/includes/header-book.php';
+?>
+<section class="spread" id="p-hub" aria-label="Page five: the Hub">
+  <div class="page l">
+    <div class="pager desk"><a class="bk" href="/tools"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 12H5M11 6l-6 6 6 6"/></svg> Back</a></div>
+    <figure class="plate">
+      <div class="frame"><a class="scene solo" href="https://hub.mynestchapter.com" aria-label="Your Hub member card. Join free."><span class="card-w"><span class="card"><span class="seal">Free</span><span class="c-top"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><path d="M3 15c1 8 7 12 13 12s12-4 13-12"/><path d="M6 17c4 2.5 16 2.5 20 0M9 22c4 1.5 10 1.5 14 0"/><ellipse cx="12" cy="13" rx="3" ry="4" transform="rotate(-12 12 13)"/><ellipse cx="20" cy="13" rx="3" ry="4" transform="rotate(12 20 13)"/></svg><b>My Nest Chapter</b></span><span class="c-sub">Hub Member</span><span class="c-fields"><span class="c-name"><i>Member</i><em>Your name here</em></span><span class="c-name"><i>Chapter</i><em>Yours to write</em></span></span><span class="c-bar"></span><span class="c-no">No. 0001</span></span></span></a></div>
+      <figcaption>One card for whatever chapter you're in.</figcaption>
+      <p class="login-line"><a class="link" href="https://hub.mynestchapter.com">Already have a card? Log in →</a></p>
+    </figure>
+  </div>
+  <div class="page r">
+    <h1 class="as-h2" tabindex="-1">The Hub opens <span class="hl">everything.</span></h1>
+    <p>The Hub is your free member space on My Nest Chapter. Whatever chapter you're in, it's in here. So is the next one.</p>
+    <ul class="opens">
+      <li><span class="tick"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8.5l3.2 3L13 4.5"/></svg></span><span><b>Every freebie,</b> the moment you join.</span></li>
+      <li><span class="tick"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8.5l3.2 3L13 4.5"/></svg></span><span><b>Every planner you buy,</b> ready to open.</span></li>
+      <li><span class="tick"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8.5l3.2 3L13 4.5"/></svg></span><span><b>Reflections,</b> a private journal, just for you.</span></li>
+      <li><span class="tick"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8.5l3.2 3L13 4.5"/></svg></span><span><b>Meaningful Days,</b> a record of what actually matters.</span></li>
+      <li><span class="tick"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8.5l3.2 3L13 4.5"/></svg></span><span><b>Support Circle,</b> the people you lean on, in one place.</span></li>
+    </ul>
+    <div class="cta-row" style="margin-top:1.4rem">
+      <a class="btn" href="https://hub.mynestchapter.com">Get your card — it's free <span class="arr" aria-hidden="true">→</span></a>
     </div>
-</header>
-
-<!-- Mobile Nav Overlay -->
-<div class="mobile-overlay" id="mobileOverlay" onclick="closeMobileNav()"></div>
-
-<!-- Mobile Nav Panel -->
-<nav class="mobile-nav" id="mobileNav" aria-label="Mobile navigation">
-    <button class="mobile-close" aria-label="Close menu" onclick="closeMobileNav()">&#x2715;</button>
-    <a href="/" class="">Home</a>
-    <a href="/about" class="">About</a>
-    <a href="/blog" class="">Blog</a>
-    <a href="/shop" class="">Shop</a>
-    <a href="/resources" class="">Resources</a>
-    <a href="/freebies" class="">Freebies</a>
-    <a href="https://hub.mynestchapter.com">Log In</a>
-    <a href="https://hub.mynestchapter.com">Create Account</a>
-</nav>
-
-<main id="main-content" tabindex="-1">
-
-<!-- START HERE / THE HUB -->
-<section class="start-here" id="start-here" style="padding-top:64px;">
-    <div class="start-here-inner">
-        <div class="start-here-head">
-            <h1>Start here.</h1>
-            <p>Everything lives in one place now — the Hub.</p>
-        </div>
-
-        <div class="an-primary-block" style="max-width:640px;margin:0 auto 48px;">
-            <p class="an-eyebrow">FREE. YOURS. ALL IN ONE PLACE.</p>
-            <h2 class="an-heading">Your journal, your freebies, your shop — one place to check in.</h2>
-            <p class="an-body">Every tool and download on the site, unlocked. New freebies as I add them. And when you're ready to buy something, it just shows up here — nothing to go hunting for again.</p>
-            <a href="https://hub.mynestchapter.com" class="an-btn-primary">JOIN — IT'S FREE <span class="cta-arrow">→</span></a>
-            <p class="an-form-note">Instant access. No waiting.</p>
-        </div>
-
-        <div class="start-here-inside">
-            <p class="start-here-inside-label">What's inside</p>
-            <ul class="start-here-inside-list">
-                <li><strong>Reflections</strong> — a private journal, just for you</li>
-                <li><strong>Meaningful Days</strong> — a record of what actually matters</li>
-                <li><strong>Support Circle</strong> — the people you lean on, in one place</li>
-                <li><strong>Freebies</strong> — every free tool and download, gate-free once you're in</li>
-                <li><strong>Shop</strong> — the paid tools, unlocked the moment you buy</li>
-            </ul>
-        </div>
-
-        <div class="start-here-quiz-cta">
-            <button type="button" onclick="openQuizModal()" class="btn btn-outline" style="cursor:pointer;">Not sure? Take the 2-minute quiz <span class="cta-arrow">→</span></button>
-        </div>
-    </div>
+    <div class="pager"><a class="bk mob" href="/tools"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 12H5M11 6l-6 6 6 6"/></svg> Back</a><a class="nx" href="/">Back to page one <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg></a></div>
+    <a class="curl" href="/" tabindex="-1" aria-hidden="true"></a>
+  </div>
 </section>
-
-<style>
-.start-here-inside { max-width: 560px; margin: 0 auto 40px; }
-.start-here-inside-label { font-family: var(--font-body); font-weight: 800; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--taupe); text-align: center; margin: 0 0 16px; }
-.start-here-inside-list { list-style: none; margin: 0; padding: 0; border: 1px solid var(--warm-sand); border-radius: 8px; overflow: hidden; }
-.start-here-inside-list li { padding: 14px 20px; font-family: var(--font-body); font-size: 14px; color: var(--deep-coffee); border-bottom: 1px solid var(--warm-sand); }
-.start-here-inside-list li:last-child { border-bottom: none; }
-.start-here-inside-list li strong { color: var(--deep-current); }
-</style>
-
-</main>
-
-<footer class="site-footer">
-    <div class="footer-inner">
-        <div class="footer-brand">My Nest Chapter</div>
-        <div class="footer-tagline">For Single &amp; Solo Moms</div>
-        <nav class="footer-nav" aria-label="Footer navigation">
-            <a href="/">Home</a>
-            <a href="/about">About</a>
-            <a href="/blog">Blog</a>
-            <a href="/shop">Shop</a>
-            <a href="/resources">Resources</a>
-            <a href="/freebies">Freebies</a>
-        </nav>
-        <div class="footer-social">
-            <a href="https://www.facebook.com/profile.php?id=61590806030391" target="_blank" rel="noopener" aria-label="Facebook">
-                <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
-            </a>
-            <a href="https://www.instagram.com/my.nest.chapter/" target="_blank" rel="noopener" aria-label="Instagram">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.5" fill="currentColor" stroke="none"/></svg>
-            </a>
-            <a href="https://www.pinterest.com/mynestchapter" target="_blank" rel="noopener" aria-label="Pinterest">
-                <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M12 0C5.373 0 0 5.373 0 12c0 5.084 3.163 9.426 7.627 11.174-.105-.949-.2-2.405.042-3.441.218-.937 1.407-5.965 1.407-5.965s-.359-.719-.359-1.782c0-1.668.967-2.914 2.171-2.914 1.023 0 1.518.769 1.518 1.69 0 1.029-.655 2.568-.994 3.995-.283 1.194.599 2.169 1.777 2.169 2.133 0 3.772-2.249 3.772-5.495 0-2.873-2.064-4.882-5.012-4.882-3.414 0-5.418 2.561-5.418 5.207 0 1.031.397 2.138.893 2.738a.36.36 0 0 1 .083.345l-.333 1.36c-.053.22-.174.267-.402.161-1.499-.698-2.436-2.889-2.436-4.649 0-3.785 2.75-7.262 7.929-7.262 4.163 0 7.398 2.967 7.398 6.931 0 4.136-2.607 7.464-6.227 7.464-1.216 0-2.359-.632-2.75-1.378l-.748 2.853c-.271 1.043-1.002 2.35-1.492 3.146C9.57 23.812 10.763 24 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0z"/></svg>
-            </a>
-        </div>
-        <p class="footer-copy">&copy; 2026 My Nest Chapter. All rights reserved.</p>
-    </div>
-</footer>
-
-<!-- Quiz Modal -->
-<div id="quizModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(43,31,24,0.82); z-index:1000; align-items:center; justify-content:center; padding:20px;" onclick="handleModalClick(event)">
-    <div style="position:relative; width:100%; max-width:610px;">
-        <button onclick="closeQuizModal()" aria-label="Close quiz" style="position:absolute; top:14px; right:14px; background:rgba(43,31,24,0.82); border:none; color:var(--vanilla-cream); width:40px; height:40px; border-radius:9999px; font-size:22px; line-height:40px; text-align:center; cursor:pointer; z-index:10; font-family:var(--font-body);">&times;</button>
-        <iframe id="quizIframe" src="" data-src="/widgets/empty-nester-quiz/" style="width:100%; height:min(95vh,900px); border:none; border-radius:10px; overflow:hidden; display:block;" title="What Kind of Empty Nester Are You?"></iframe>
-    </div>
-</div>
-
-<script>
-// --- Quiz Modal ---
-function openQuizModal() {
-    var modal = document.getElementById('quizModal');
-    var iframe = document.getElementById('quizIframe');
-    if (!iframe.src || iframe.src === window.location.href) {
-        iframe.src = iframe.getAttribute('data-src');
-    }
-    modal.style.display = 'flex';
-    document.body.style.overflow = 'hidden';
-}
-function closeQuizModal() {
-    document.getElementById('quizModal').style.display = 'none';
-    document.body.style.overflow = '';
-}
-function handleModalClick(e) {
-    if (e.target === document.getElementById('quizModal')) closeQuizModal();
-}
-window.addEventListener('message', function(e) {
-    if (e.data === 'closeQuiz') closeQuizModal();
-});
-
-// --- Mobile Nav ---
-function openMobileNav() {
-    document.getElementById('mobileNav').classList.add('open');
-    document.getElementById('mobileOverlay').style.display = 'block';
-    var toggle = document.querySelector('.mobile-toggle');
-    toggle.classList.add('is-open');
-    toggle.setAttribute('aria-expanded', 'true');
-    document.body.style.overflow = 'hidden';
-    var closeBtn = document.querySelector('.mobile-close');
-    if (closeBtn) closeBtn.focus();
-}
-function closeMobileNav() {
-    document.getElementById('mobileNav').classList.remove('open');
-    document.getElementById('mobileOverlay').style.display = 'none';
-    var toggle = document.querySelector('.mobile-toggle');
-    toggle.classList.remove('is-open');
-    toggle.setAttribute('aria-expanded', 'false');
-    document.body.style.overflow = '';
-    toggle.focus();
-}
-
-// --- Card reveal (same pattern as the homepage pillars) ---
-(function() {
-    var pillars = document.querySelectorAll('.pillar');
-    if (!pillars.length) return;
-    if (!('IntersectionObserver' in window)) {
-        pillars.forEach(function(p) { p.classList.add('is-revealed'); });
-        return;
-    }
-    var observer = new IntersectionObserver(function(entries, obs) {
-        entries.forEach(function(entry) {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('is-revealed');
-                obs.unobserve(entry.target);
-            }
-        });
-    }, { threshold: 0.3 });
-    pillars.forEach(function(p) { observer.observe(p); });
-})();
-</script>
-
-</body>
-</html>
+<?php require_once __DIR__ . '/includes/footer-book.php'; ?>

@@ -1,84 +1,31 @@
 <?php
-$pageTitle = 'Solo Mom Empty Nest Support';
-$pageDescription = 'I\'m Cece. I raised my kids alone. When they left, I built what I wished had existed.';
-require_once __DIR__ . '/includes/header.php';
+// Built from mockups/hub-homepage-chapters/index.html (2026-09-26 book redesign).
+$pageTitle = "Solo Mom Empty Nest Support";
+$pageDescription = "I'm Cece. I raised my kids alone. When they left, I built what I wished had existed.";
+require_once __DIR__ . '/includes/header-book.php';
 ?>
-
-<!-- Hero + Story — single cream section, no gap -->
-<section class="section-cream">
-    <div class="container-narrow text-center" style="padding-bottom: 0;">
-        <h1 class="fade-in" style="font-size: 2rem; color: var(--deep-coffee); margin-bottom: 1rem;">I'm Cece</h1>
-        <p class="fade-in-delay-1" style="font-size: 1.1rem; line-height: 1.7; color: var(--deep-coffee); margin-bottom: 1rem;">Solo mom. Empty nest. Now what?<br>That question sat in my house for a long time before I did anything with it.</p>
-    </div>
-    <div class="container-narrow" style="padding-top: 1rem;">
-        <div style="font-size: 1.05rem; line-height: 1.8; color: var(--deep-coffee);">
-
-            <p>I raised my kids alone. No partner. No co-parent. No one on the other end of the couch when the house went quiet. When they left, I didn't just lose the noise — I lost the entire structure my life was built around. Everything I did was for them. Meals, schedules, the reason I got up in the morning. And then one day that reason was gone, and I had no idea what to do with myself or the house I was still standing in.</p>
-
-            <p>I looked for help. Read the books. Searched online. Everything I found was written for couples — two people sitting together figuring out their "next chapter." Or it was written by therapists using words I couldn't connect with. None of it sounded like me. A mom who did it alone, figuring it out alone, again.</p>
-
-            <p>So I started building what I wished had existed.</p>
-
-            <h2 style="margin-top: 2.5rem; margin-bottom: 1rem; font-size: 1.1rem;">What My Nest Chapter is</h2>
-
-            <p>Everything here comes from what I actually lived through — and what I'm still figuring out.</p>
-
-            <p>I write about it on the blog. Not polished advice from someone who's on the other side of it, but real updates from where I am right now. I build tools because I needed them myself. The workbooks, the widgets, the cheat sheets — all of it came from a specific moment where I thought, I need something for this and it doesn't exist.</p>
-
-            <p>None of it promises to fix you or make you happy. But I'm not going to pretend the goal is only getting through it, either — some nights now are good. Cooking something I want, doing something because I feel like it, realizing an hour went by and I didn't think about the quiet once. That didn't come from one workbook or one night deciding to feel better. It came from picking up one specific thing at a time — the money stuff, the closet stuff, the 6pm stuff — until most nights stopped aching the way they used to. Some still do. Most don't anymore. That's not a promise. That's what happened for me, one thing at a time.</p>
-
-            <h2 style="margin-top: 2.5rem; margin-bottom: 1rem; font-size: 1.1rem;">What this is not</h2>
-
-            <p>I'm not a coach. I'm not a therapist. I don't have a framework or a program or a promise of transformation. I'm a mom who did it alone, and I share what worked for me. Maybe some of it works for you. Maybe it doesn't. Either way — you're not broken. You don't need fixing.</p>
-
-            <p>This is one mom talking to another. That's it.</p>
-
-            <h2 style="margin-top: 2.5rem; margin-bottom: 1rem; font-size: 1.1rem;">Where I am now</h2>
-
-            <p>I'm a grandma now. That's a whole new chapter I didn't see coming — doing grandparenthood the same way I did everything else. On my own, figuring it out as I go. I'm writing about that too, because I can't find anything out there that sounds like my experience.</p>
-
-            <p>If any of this sounds like where you are, you're in the right place.</p>
-
-        </div>
-    </div>
+<section class="spread" id="p-about" aria-label="Page two: About Cece">
+  <div class="page l story">
+    <div class="pager desk"><a class="bk" href="/"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 12H5M11 6l-6 6 6 6"/></svg> Back</a></div>
+    <p class="epi">Hey. I see you. I get you. I am you. Stay a minute.</p>
+    <figure class="album mini"><div class="corners"><img src="/assets/images/cece-writing.jpg" alt="Cece writing in a notebook at a sunlit kitchen table" width="176" height="220" loading="lazy"><i></i><i></i><i></i><i></i></div><figcaption>Still writing.</figcaption></figure>
+    <h1 class="as-h2" tabindex="-1">I'm Cece.</h1>
+    <p class="tagline">Solo mom. Empty nest. Now what?</p>
+    <p class="lead">That question sat in my house for a long time before I did anything with it.</p>
+    <p>I raised my kids alone. No partner. No co-parent. No one on the other end of the couch when the house went quiet. When they left, I didn't just lose the noise — I lost the entire structure my life was built around. Everything I did was for them. Meals, schedules, the reason I got up in the morning. And then one day that reason was gone, and I had no idea what to do with myself or the house I was still standing in.</p>
+    <p>I looked for help. Read the books. Searched online. Everything I found was written for couples — two people sitting together figuring out their "next chapter." Or it was written by therapists using words I couldn't connect with. None of it sounded like me. A mom who did it alone, figuring it out alone, again.</p>
+    <p>So I started building what I wished had existed.</p>
+  </div>
+  <div class="page r story">
+    <h2>What this is not</h2>
+    <p>I'm not a coach. I'm not a therapist. I don't have a framework or a program or a promise of transformation. I'm a mom who did it alone, and I share what worked for me. Maybe some of it works for you. Maybe it doesn't. Either way — you're not broken. You don't need fixing.</p>
+    <p class="lead">This is one mom talking to another. That's it.</p>
+    <h3 class="sub-h">Where I am now</h3>
+    <p>I'm a grandma now. That's a whole new chapter I didn't see coming — doing grandparenthood the same way I did everything else. On my own, figuring it out as I go. I'm writing about that too, because I can't find anything out there that sounds like my experience.</p>
+    <p class="closing">If any of this sounds like where you are, <span class="hl">you're in the right place.</span></p>
+    <div class="cta-row"><a class="btn" href="/start-here">Get your card — it's free <span class="arr" aria-hidden="true">→</span></a></div>
+    <div class="pager"><a class="bk mob" href="/"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 12H5M11 6l-6 6 6 6"/></svg> Back</a><a class="nx" href="/blog">Turn the page <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg></a></div>
+    <a class="curl" href="/blog" tabindex="-1" aria-hidden="true"></a>
+  </div>
 </section>
-
-<!-- QUIZ CTA -->
-<section class="section-cream" style="border-top: 1px solid var(--warm-sand);">
-    <div class="container-narrow text-center">
-        <p style="font-weight: 800; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; color: var(--warm-gray); margin-bottom: 1.5rem;">Not sure where you fit? Start here.</p>
-        <button onclick="openQuizModal()" class="btn btn-primary btn-pulse" style="cursor:pointer;">What Kind of Empty Nester Are You?</button>
-    </div>
-</section>
-
-<!-- Quiz Modal -->
-<div id="quizModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(43,31,24,0.82); z-index:1000; align-items:center; justify-content:center; padding:20px;" onclick="handleModalClick(event)">
-    <div style="position:relative; width:100%; max-width:610px;">
-        <button onclick="closeQuizModal()" aria-label="Close quiz" style="position:absolute; top:14px; right:14px; background:rgba(43,31,24,0.82); border:none; color:var(--vanilla-cream); width:40px; height:40px; border-radius:9999px; font-size:22px; line-height:40px; text-align:center; cursor:pointer; z-index:10; font-family:var(--font-body);">&times;</button>
-        <iframe id="quizIframe" src="" data-src="/widgets/empty-nester-quiz/" style="width:100%; height:min(95vh,900px); border:none; border-radius:10px; overflow:hidden; display:block;" title="What Kind of Empty Nester Are You?"></iframe>
-    </div>
-</div>
-
-<script>
-function openQuizModal() {
-    var modal = document.getElementById('quizModal');
-    var iframe = document.getElementById('quizIframe');
-    if (!iframe.src || iframe.src === window.location.href) {
-        iframe.src = iframe.getAttribute('data-src');
-    }
-    modal.style.display = 'flex';
-    document.body.style.overflow = 'hidden';
-}
-function closeQuizModal() {
-    document.getElementById('quizModal').style.display = 'none';
-    document.body.style.overflow = '';
-}
-function handleModalClick(e) {
-    if (e.target === document.getElementById('quizModal')) closeQuizModal();
-}
-window.addEventListener('message', function(e) {
-    if (e.data === 'closeQuiz') closeQuizModal();
-});
-</script>
-
-<?php require_once __DIR__ . '/includes/footer.php'; ?>
+<?php require_once __DIR__ . '/includes/footer-book.php'; ?>

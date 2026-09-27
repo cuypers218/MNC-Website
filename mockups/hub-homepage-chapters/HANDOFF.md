@@ -30,6 +30,9 @@ One motion for every turn, forward or back: the right page lifts, swings over th
 - The curled page corner is now a real turn-the-page button (mouse only; keyboard uses the Turn the page link).
 - Browser tab title now changes per page.
 
+## Hub facts corrected (2026-09-26)
+The Hub's Support Circle is a personal list of people she leans on (name, relationship, how they help). It is NOT a group of other members. The mockup had said "other women to talk to"; that was wrong and is fixed. Hub wording now follows the real Start Here page: Reflections (a private journal, just for you), Meaningful Days (a record of what actually matters), Support Circle (the people you lean on, in one place). If a real member community is ever built, the wording can change then.
+
 ## Handwriting font (2026-09-26)
 Cece chose **Nothing You Could Do** with a thin outline (`-webkit-text-stroke:.9px`) to look bolder. It is used only for short lines: card captions, the About epigraph, and the — Cece signature. The font file is hosted with the page (`fonts/nothing-you-could-do.woff2`); the outline is added only after the font has actually loaded (class `hand-ready`), so a fallback font never gets the outline. Replaces Homemade Apple. For the real build, self-host the other fonts too.
 

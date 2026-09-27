@@ -55,7 +55,16 @@ $__img   = !empty($pageImage) ? $pageImage : '/assets/images/logo.png';
     <link rel="preload" href="/assets/fonts/atkinson-hyperlegible-next-400.woff2" as="font" type="font/woff2" crossorigin>
 
     <link rel="stylesheet" href="/assets/css/book.css?v=<?= @filemtime(__DIR__ . '/../assets/css/book.css') ?: '1' ?>">
-    <script>document.documentElement.classList.add('js');</script>
+    <script>
+    document.documentElement.classList.add('js');
+    // The bolder handwriting outline is only added once the font has really loaded,
+    // so a fallback font never gets an outline it was not designed for.
+    if (document.fonts && document.fonts.load) {
+        document.fonts.load("1.3rem 'Nothing You Could Do'").then(function (f) {
+            if (f && f.length) document.documentElement.classList.add('hand-ready');
+        }).catch(function () {});
+    }
+    </script>
 </head>
 <body>
 

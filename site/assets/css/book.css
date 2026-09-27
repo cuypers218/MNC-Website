@@ -207,6 +207,8 @@ main{flex:1}
 .story .album.mini .corners i:nth-of-type(1){top:-5px;left:-5px}.story .album.mini .corners i:nth-of-type(2){top:-5px;right:-5px}.story .album.mini .corners i:nth-of-type(3){bottom:-5px;left:-5px}.story .album.mini .corners i:nth-of-type(4){bottom:-5px;right:-5px}
 .story .album.mini figcaption{font-size:1.15rem;margin-top:.8rem}
 @media(max-width:600px){.story .album.mini{float:none;width:230px;margin:0 auto 1.2rem}}
+.as-h2{font-size:clamp(1.9rem,3vw,2.7rem)}
+.story h1{font-size:clamp(1.7rem,2.5vw,2.25rem);margin-bottom:.9rem}
 .story h2{font-size:clamp(1.7rem,2.5vw,2.25rem);margin-bottom:.9rem}
 .story p{font-size:1.02rem;line-height:1.55;max-width:60ch}
 .story .closing{font:400 clamp(1.4rem,2vw,1.75rem)/1.25 var(--display);color:var(--current);margin-top:1.3rem;max-width:26ch}
