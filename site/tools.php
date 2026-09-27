@@ -62,11 +62,14 @@ $paid = array_values(array_filter(getProducts(), fn($p) => $p['price'] > 0));
         $n = (float)$p['price'];
         // "$27" for whole dollars, "$14.99" otherwise
         $priceLabel = $soon ? 'soon' : '$' . (floor($n) == $n ? number_format($n, 0) : number_format($n, 2));
+        // The workbook has its own richer sales page; every other product uses the generic one.
+        // (Matches the 2026-09-22 fix noted in CLAUDE.md -- don't reintroduce the thin-page link.)
+        $productLink = $p['slug'] === 'now-what-workbook' ? '/workbook' : '/shop/' . rawurlencode($p['slug']);
 ?>
       <li>
         <?php if (!empty($p['image_path'])): ?><img src="<?= esc($p['image_path']) ?>" alt="" width="84" height="63" loading="lazy"><?php else: ?><span class="thumb-blank" aria-hidden="true"></span><?php endif; ?>
         <div>
-          <div class="row"><a class="nm" href="/shop/<?= esc($p['slug']) ?>"><?= esc($p['title']) ?></a><span class="lead"></span><span class="pr"><?= esc($priceLabel) ?></span></div>
+          <div class="row"><a class="nm" href="<?= esc($productLink) ?>"><?= esc($p['title']) ?></a><span class="lead"></span><span class="pr"><?= esc($priceLabel) ?></span></div>
           <p class="for"><?= esc($line) ?></p>
           <?php if (!$soon): ?><a class="link" href="<?= esc(hubBuyUrl($p['slug'])) ?>">See it in the Hub →</a><?php endif; ?>
         </div>
