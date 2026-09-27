@@ -386,3 +386,54 @@ footer .hard-link a{display:inline-flex;align-items:center;min-height:44px;color
 
 /* page turn between real pages (assets/js/book.js) */
 .book.turning>.spread{display:none}
+
+/* ============ PLAIN PAGES (Phase 5: 404, quiz, product, connect) ============ */
+.page.plain{padding-bottom:2.5rem}
+.page.plain.narrow .as-h2{max-width:44ch}
+.err-code{font:400 3rem/1 var(--display);color:var(--copper);margin-bottom:.3rem}
+
+/* ============ PRODUCT PAGE ============ */
+.pd-image,.pd-video{width:100%;height:auto;border-radius:8px;box-shadow:0 14px 28px -12px rgba(43,31,24,.5)}
+.pd-image-blank{aspect-ratio:4/5;background:var(--beige)}
+.pd-price{font:700 1.5rem var(--type);color:var(--copper);margin:.3rem 0 1rem}
+.pd-desc{font-size:1.1rem;line-height:1.65;max-width:60ch;margin-bottom:1.6rem}
+.pd-demo{margin-top:.9rem}
+.connect-page .connect-h2{font-size:1.7rem;margin:2rem 0 .8rem;color:var(--current)}
+.connect-card{margin-top:1.6rem;padding:1.4rem 1.5rem;background:var(--beige);border-radius:8px}
+.connect-card h2{font-size:1.5rem;margin-bottom:.6rem}
+.connect-card p{max-width:none}
+.faq{margin-top:1.1rem}
+.faq .q{font-weight:700;color:var(--current);margin-bottom:.3rem}
+.faq p:not(.q){max-width:60ch}
+.connect-photo{margin:2rem 0 0}
+.connect-photo .corners{max-width:176px}
+
+/* ============ WORKBOOK PAGE ============ */
+.wb-cover .corners{max-width:340px;margin:0 auto}
+.wb-badge{margin-top:1.1rem;font:700 .78rem var(--ui);letter-spacing:.1em;text-transform:uppercase;color:var(--sienna);text-align:center}
+.wb-hook{font:italic 400 1.15rem/1.6 var(--serif);color:var(--sienna);border-left:3px solid var(--honey);padding-left:1.1rem;margin:1.2rem 0 0;max-width:56ch}
+.wb-pills{list-style:none;display:flex;flex-wrap:wrap;gap:.6rem;margin-top:1.3rem}
+.wb-pills li{border:1.5px solid var(--honey);border-radius:9999px;padding:.35rem 1rem;font:500 .85rem var(--ui);color:var(--sienna)}
+.buy-row{display:flex;flex-direction:column;gap:1rem;margin-top:1.1rem}
+.buy-opt{display:flex;align-items:center;justify-content:space-between;gap:1.2rem;flex-wrap:wrap;padding:1.1rem 1.3rem;background:var(--cream);border:1.5px solid var(--beige);border-radius:8px;transition:border-color .2s}
+.buy-opt:hover{border-color:var(--copper)}
+.buy-type{font:700 .78rem var(--ui);letter-spacing:.08em;text-transform:uppercase;color:var(--sienna)}
+.buy-desc{margin-top:.2rem;font-size:.95rem;max-width:none}
+.buy-right{display:flex;align-items:center;gap:1rem;flex-shrink:0}
+.buy-price{font:700 1.25rem var(--display);color:var(--current)}
+.wb-quote{margin-top:1rem;padding:1.6rem 1.8rem;background:var(--current);color:var(--cream);border-radius:8px;font:italic 400 1.15rem/1.6 var(--serif)}
+.wb-quote cite{display:block;margin-top:1rem;font:400 .85rem var(--ui);font-style:normal;letter-spacing:.05em;text-transform:uppercase;color:var(--honey)}
+.wb-weeks{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--beige);border:1.5px solid var(--beige);margin-top:1.6rem}
+.wb-weeks>div{background:var(--cream);padding:1.4rem 1.5rem}
+.wb-wk-no{font:700 .72rem var(--ui);letter-spacing:.1em;text-transform:uppercase;color:var(--sienna)}
+.wb-weeks h3{font-size:1.2rem;margin:.4rem 0 .6rem;color:var(--current)}
+.wb-weeks p:not(.wb-wk-no){font-size:.98rem;max-width:none}
+.wb-format{margin-top:2rem;padding:1.4rem 1.5rem;background:var(--beige);border-radius:8px}
+.format-title{font:700 .72rem var(--ui);letter-spacing:.1em;text-transform:uppercase;color:var(--current);margin-bottom:1rem}
+.wb-steps{list-style:none;display:grid;grid-template-columns:repeat(4,1fr);gap:1.2rem;counter-reset:step}
+.wb-steps li{counter-increment:step}
+.wb-steps li::before{content:counter(step);display:flex;align-items:center;justify-content:center;width:28px;height:28px;background:var(--current);color:var(--cream);font:700 .8rem var(--ui);margin-bottom:.5rem}
+.wb-steps b{display:block;font-size:.95rem;color:var(--current);margin-bottom:.3rem}
+.wb-steps span{font-size:.85rem;color:var(--sienna);line-height:1.4}
+.wb-for li span:last-child{max-width:60ch}
+@media(max-width:900px){.wb-weeks{grid-template-columns:1fr}.wb-steps{grid-template-columns:1fr 1fr}}

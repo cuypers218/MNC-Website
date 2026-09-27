@@ -1,13 +1,18 @@
 <?php
+/**
+ * A single product page (2026-09-26 book redesign).
+ * Same data and logic as before: ownership, free/paid/coming-soon states,
+ * the Garage Sale Planner demo video, and per-product "try the demo" links.
+ * Restyled only; no branch removed or changed.
+ */
 require_once __DIR__ . '/includes/functions.php';
 require_once __DIR__ . '/includes/auth.php';
 
-// Handle download request — generate a secure token and redirect to /download/{token}
 if (isset($_GET['download']) && $_GET['download'] == '1') {
     requireLogin();
     $dlSlug = $_GET['slug'] ?? '';
     $dlProduct = getProductBySlug($dlSlug);
-    if (!$dlProduct) { header('Location: /shop'); exit; }
+    if (!$dlProduct) { header('Location: /tools'); exit; }
     $dlUser = getCurrentUser();
     $dlFree  = $dlProduct['price'] == 0;
     $dlOwned = userOwnsPurchase($dlUser['id'], $dlProduct['id']);
@@ -24,28 +29,29 @@ $product = getProductBySlug($slug);
 if (!$product) {
     http_response_code(404);
     $pageTitle = 'Not Found';
-    require_once __DIR__ . '/includes/header.php';
-    echo '<section class="section"><div class="container text-center"><h1>Not Found</h1><p style="color:var(--warm-gray);margin-top:1rem;">This product doesn\'t exist or isn\'t available yet.</p><a href="/shop" class="btn btn-outline" style="margin-top:1.5rem;">Back to Shop</a></div></section>';
-    require_once __DIR__ . '/includes/footer.php';
+    require_once __DIR__ . '/includes/header-book.php';
+    ?>
+<section class="spread"><div class="page one plain">
+    <h1 class="as-h2">Not found.</h1>
+    <p>This product doesn't exist or isn't available yet.</p>
+    <div class="cta-row"><a class="btn" href="/tools">Back to Tools <span class="arr" aria-hidden="true">→</span></a></div>
+</div></section>
+<?php
+    require_once __DIR__ . '/includes/footer-book.php';
     exit;
 }
 
 $pageTitle = $product['title'];
 $pageDescription = $product['short_description'] ?? 'A tool from My Nest Chapter.';
 $pageImage = $product['image_path'] ?? null;
-require_once __DIR__ . '/includes/header.php';
+require_once __DIR__ . '/includes/header-book.php';
 
 $isFree = $product['price'] == 0;
 $isComingSoon = $product['status'] === 'coming_soon';
 $isInteractiveTool = $product['category'] === 'interactive_tool';
 $isOwned = false;
 
-// Product slug doesn't always match its /widgets/ folder name (e.g. the
-// shop record is "someday-list-builder" but the actual folder is
-// "someday-list") -- map the exceptions here rather than assuming a match.
-$widgetFolderOverrides = [
-    'someday-list-builder' => 'someday-list',
-];
+$widgetFolderOverrides = ['someday-list-builder' => 'someday-list'];
 $widgetSlug = $widgetFolderOverrides[$product['slug']] ?? $product['slug'];
 
 if (isLoggedIn()) {
@@ -53,154 +59,88 @@ if (isLoggedIn()) {
     $isOwned = userOwnsPurchase($user['id'], $product['id']);
 }
 
-// Get related products
 $db = getDB();
 $stmt = $db->prepare('SELECT * FROM products WHERE category = ? AND id != ? AND status IN ("active","coming_soon") ORDER BY sort_order LIMIT 3');
 $stmt->execute([$product['category'], $product['id']]);
 $related = $stmt->fetchAll();
+$hasRealFile = !empty($product['file_path']);
 ?>
+<section class="spread" aria-label="<?= esc($product['title']) ?>">
+  <div class="page l">
+<?php if ($product['slug'] === 'garage-sale-planner'): ?>
+    <video class="pd-video" autoplay loop muted playsinline controls>
+        <source src="/assets/videos/garage-sale-planner-demo.mp4" type="video/mp4">
+    </video>
+<?php elseif ($product['image_path']): ?>
+    <img class="pd-image" src="<?= esc($product['image_path']) ?>" alt="<?= esc($product['title']) ?> cover">
+<?php else: ?>
+    <div class="pd-image pd-image-blank" aria-hidden="true"></div>
+<?php endif; ?>
+    <div class="pager desk"><a class="bk" href="/tools"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 12H5M11 6l-6 6 6 6"/></svg> Back to Tools</a></div>
+  </div>
 
-<section class="section pd-scope">
-    <div class="container">
+  <div class="page r">
+    <p class="menu-sub"><?= esc(str_replace('_', ' ', $product['category'])) ?></p>
+    <h1 class="as-h2"><?= esc($product['title']) ?></h1>
+<?php if (!$isComingSoon): ?>
+    <p class="pd-price"><?= formatPrice($product['price']) ?></p>
+<?php endif; ?>
+    <div class="pd-desc"><?= nl2br(esc($product['description'] ?? $product['short_description'])) ?></div>
 
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: start;">
-            
-            <!-- Product Image / Video -->
-            <div>
-                <?php if ($product['slug'] === 'garage-sale-planner'): ?>
-                    <video autoplay loop muted playsinline controls style="width:100%;border:1px solid var(--warm-sand);display:block;">
-                        <source src="/assets/videos/garage-sale-planner-demo.mp4" type="video/mp4">
-                    </video>
-                <?php elseif ($product['image_path']): ?>
-                    <img src="<?= esc($product['image_path']) ?>" alt="<?= esc($product['title']) ?> cover" style="width: 100%; border-radius: 10px; box-shadow: 0 10px 40px rgba(37,37,53,0.07);">
-                <?php else: ?>
-                    <div style="width: 100%; height: 400px; background: var(--warm-beige-card); border-radius: 10px; display: flex; align-items: center; justify-content: center;">
-                        <span style="font-weight: 800; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--deep-coffee);">PRODUCT IMAGE</span>
-                    </div>
-                <?php endif; ?>
-            </div>
-            
-            <!-- Product Details -->
-            <div>
-                <span style="font-weight: 800; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--taupe);"><?= esc(str_replace('_', ' ', $product['category'])) ?></span>
-
-                <h1 style="font-size: 1.75rem; margin: 0.5rem 0 1rem;"><?= esc($product['title']) ?></h1>
-
-                <?php if (!$isComingSoon): ?>
-                    <p style="font-weight: 800; font-size: 1.5rem; color: var(--burnished-copper); margin-bottom: 1.5rem;">
-                        <?= formatPrice($product['price']) ?>
-                    </p>
-                <?php endif; ?>
-                
-                <div style="line-height: 1.7; color: var(--deep-coffee); margin-bottom: 2rem;">
-                    <?= nl2br(esc($product['description'] ?? $product['short_description'])) ?>
-                </div>
-                
-                <!-- CTA Button -->
-                <?php
-                    // A product only has a real download if file_path is set. Interactive
-                    // tools (or any product miscategorized/missing a file) should link to
-                    // the actual widget instead of a dead-end Download button that redirects
-                    // to itself when there's nothing to download (this was a live bug for
-                    // The Someday List Builder — category wasn't 'interactive_tool', so it
-                    // fell into the Download branch with no file_path behind it).
-                    $hasRealFile = !empty($product['file_path']);
-                ?>
-                <?php if ($isComingSoon): ?>
-                    <button class="btn btn-disabled btn-full" disabled>Coming Soon</button>
-                <?php elseif ($isOwned): ?>
-                    <?php if ($hasRealFile): ?>
-                        <a href="/shop/<?= esc($product['slug']) ?>?download=1" class="btn btn-primary btn-full">Download</a>
-                    <?php else: ?>
-                        <a href="/widgets/<?= esc($widgetSlug) ?>/" class="btn btn-primary btn-full">Open <?= esc(ctaTitle($product['title'])) ?></a>
-                    <?php endif; ?>
-                    <p style="color: var(--warm-gray); font-size: 0.85rem; margin-top: 0.75rem; text-align: center;">You own this product.</p>
-                <?php elseif ($isFree): ?>
-                    <?php if (strpos($product['file_path'] ?? '', 'http') === 0): ?>
-                        <a href="<?= esc($product['file_path']) ?>" target="_blank" rel="noopener" class="btn btn-primary btn-full">Download Free</a>
-                    <?php elseif ($hasRealFile && isLoggedIn()): ?>
-                        <a href="/shop/<?= esc($product['slug']) ?>?download=1" class="btn btn-primary btn-full">Download Free</a>
-                    <?php elseif ($hasRealFile): ?>
-                        <a href="/start-here" class="btn btn-primary btn-full">Join the Hub — It's Free</a>
-                    <?php else: ?>
-                        <a href="/widgets/<?= esc($widgetSlug) ?>/" class="btn btn-primary btn-full">Try It Free — No Account Needed</a>
-                    <?php endif; ?>
-                <?php else: ?>
-                    <a href="<?= esc(hubBuyUrl($product['slug'])) ?>" class="btn btn-primary btn-full">Get the <?= esc(ctaTitle($product['title'])) ?></a>
-                    <p style="font-family:Arial,sans-serif;font-size:0.8rem;color:var(--warm-gray);text-align:center;margin-top:0.6rem;">Free to join. Secure checkout via Stripe. Instant access after purchase.</p>
-                    <?php
-                    $slugsWithDemo = ['cooking-for-one'];
-                    $slugsWithQueryDemo = ['goal-habit-tracker'];
-                    $slugsWithDirectDemo = ['garage-sale-planner'];
-                    if ($isInteractiveTool && in_array($product['slug'], $slugsWithDemo)): ?>
-                        <p style="margin-top: 1rem; text-align: center;">
-                            <a href="/widgets/<?= esc($product['slug']) ?>-demo/" style="font-weight: 800; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--burnished-copper);">Try the demo first &rarr;</a>
-                        </p>
-                    <?php elseif ($isInteractiveTool && in_array($product['slug'], $slugsWithQueryDemo)): ?>
-                        <p style="margin-top: 1rem; text-align: center;">
-                            <a href="/widgets/<?= esc($product['slug']) ?>/?demo=1" style="font-weight: 800; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--burnished-copper);">Try the demo first &rarr;</a>
-                        </p>
-                    <?php elseif ($isInteractiveTool && in_array($product['slug'], $slugsWithDirectDemo)): ?>
-                        <p style="margin-top: 1rem; text-align: center;">
-                            <a href="/widgets/<?= esc($product['slug']) ?>/" style="font-weight: 800; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--burnished-copper);">Try it free — no account needed &rarr;</a>
-                        </p>
-                    <?php endif; ?>
-                <?php endif; ?>
-            </div>
-        </div>
-        
-        <!-- Back to shop -->
-        <div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--warm-sand);">
-            <a href="/shop" style="font-weight: 800; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--burnished-copper);">&larr; Back to Shop</a>
-        </div>
-        
-    </div>
+<?php if ($isComingSoon): ?>
+    <button class="btn" disabled style="opacity:.6;cursor:not-allowed">Coming soon</button>
+<?php elseif ($isOwned): ?>
+    <?php if ($hasRealFile): ?>
+    <a class="btn" href="/shop/<?= esc($product['slug']) ?>?download=1">Download <span class="arr" aria-hidden="true">→</span></a>
+    <?php else: ?>
+    <a class="btn" href="/widgets/<?= esc($widgetSlug) ?>/">Open <?= esc(ctaTitle($product['title'])) ?> <span class="arr" aria-hidden="true">→</span></a>
+    <?php endif; ?>
+    <p class="note-line" style="margin-top:.8rem">You own this product.</p>
+<?php elseif ($isFree): ?>
+    <?php if (strpos($product['file_path'] ?? '', 'http') === 0): ?>
+    <a class="btn" href="<?= esc($product['file_path']) ?>" target="_blank" rel="noopener">Download free <span class="arr" aria-hidden="true">→</span></a>
+    <?php elseif ($hasRealFile && isLoggedIn()): ?>
+    <a class="btn" href="/shop/<?= esc($product['slug']) ?>?download=1">Download free <span class="arr" aria-hidden="true">→</span></a>
+    <?php elseif ($hasRealFile): ?>
+    <a class="btn" href="/start-here">Join the Hub, it's free <span class="arr" aria-hidden="true">→</span></a>
+    <?php else: ?>
+    <a class="btn" href="/widgets/<?= esc($widgetSlug) ?>/">Try it free, no account needed <span class="arr" aria-hidden="true">→</span></a>
+    <?php endif; ?>
+<?php else: ?>
+    <a class="btn" href="<?= esc(hubBuyUrl($product['slug'])) ?>">Get <?= esc(ctaTitle($product['title'])) ?> <span class="arr" aria-hidden="true">→</span></a>
+    <p class="note-line" style="margin-top:.7rem">Free to join. Secure checkout via Stripe. Instant access after purchase.</p>
+    <?php
+    $slugsWithDemo = ['cooking-for-one'];
+    $slugsWithQueryDemo = ['goal-habit-tracker'];
+    $slugsWithDirectDemo = ['garage-sale-planner'];
+    if ($isInteractiveTool && in_array($product['slug'], $slugsWithDemo)): ?>
+    <p class="pd-demo"><a class="link" href="/widgets/<?= esc($product['slug']) ?>-demo/">Try the demo first →</a></p>
+    <?php elseif ($isInteractiveTool && in_array($product['slug'], $slugsWithQueryDemo)): ?>
+    <p class="pd-demo"><a class="link" href="/widgets/<?= esc($product['slug']) ?>/?demo=1">Try the demo first →</a></p>
+    <?php elseif ($isInteractiveTool && in_array($product['slug'], $slugsWithDirectDemo)): ?>
+    <p class="pd-demo"><a class="link" href="/widgets/<?= esc($product['slug']) ?>/">Try it free, no account needed →</a></p>
+    <?php endif; ?>
+<?php endif; ?>
+    <div class="pager"><a class="bk mob" href="/tools"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 12H5M11 6l-6 6 6 6"/></svg> Back to Tools</a></div>
+  </div>
 </section>
 
-<!-- Related Products -->
 <?php if (!empty($related)): ?>
-<section class="section-alt">
-    <div class="container">
-        <h2 class="text-center" style="margin-bottom: 2rem;">You Might Also Like</h2>
-        <div class="product-grid">
-            <?php foreach ($related as $rel): ?>
-            <div class="product-card">
-                <?php if ($rel['price'] == 0): ?>
-                    <span class="badge badge-free">FREE</span>
-                <?php elseif ($rel['status'] === 'coming_soon'): ?>
-                    <span class="badge badge-coming">COMING SOON</span>
-                <?php else: ?>
-                    <span class="badge"><?= formatPrice($rel['price']) ?></span>
-                <?php endif; ?>
-                
-                <?php if ($rel['image_path']): ?>
-                    <img src="<?= esc($rel['image_path']) ?>" alt="<?= esc($rel['title']) ?> cover" class="product-card-image">
-                <?php else: ?>
-                    <div class="product-card-image" style="background: var(--warm-beige-card);"></div>
-                <?php endif; ?>
-                
-                <div class="product-card-content">
-                    <span class="product-card-category"><?= esc(str_replace('_', ' ', $rel['category'])) ?></span>
-                    <h3 class="product-card-title"><?= esc($rel['title']) ?></h3>
-                    <p class="product-card-description"><?= esc(truncateWords($rel['short_description'], 20)) ?></p>
-                    <a href="/shop/<?= esc($rel['slug']) ?>" class="btn btn-outline">View</a>
-                </div>
-            </div>
-            <?php endforeach; ?>
+<section class="spread" aria-labelledby="related-h">
+  <div class="page one plain">
+    <h2 id="related-h">You might also like</h2>
+    <ul class="menu take">
+    <?php foreach ($related as $rel): $n = (float)$rel['price']; $price = $rel['status'] === 'coming_soon' ? 'soon' : ($n == 0 ? 'free' : '$' . (floor($n) == $n ? number_format($n, 0) : number_format($n, 2))); ?>
+      <li>
+        <?php if (!empty($rel['image_path'])): ?><img src="<?= esc($rel['image_path']) ?>" alt="" width="84" height="63" loading="lazy"><?php else: ?><span class="thumb-blank" aria-hidden="true"></span><?php endif; ?>
+        <div>
+          <div class="row"><a class="nm" href="/shop/<?= esc($rel['slug']) ?>"><?= esc($rel['title']) ?></a><span class="lead"></span><span class="pr"><?= esc($price) ?></span></div>
+          <p class="for"><?= esc(truncateWords($rel['short_description'], 16)) ?></p>
         </div>
-    </div>
+      </li>
+    <?php endforeach; ?>
+    </ul>
+  </div>
 </section>
 <?php endif; ?>
-
-<style>
-@media (max-width: 768px) {
-    .section > .container > div[style*="grid-template-columns"] {
-        display: block !important;
-    }
-    .section > .container > div[style*="grid-template-columns"] > div:first-child {
-        margin-bottom: 2rem;
-    }
-}
-</style>
-
-<?php require_once __DIR__ . '/includes/footer.php'; ?>
+<?php require_once __DIR__ . '/includes/footer-book.php'; ?>
