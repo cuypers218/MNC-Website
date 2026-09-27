@@ -1,4 +1,10 @@
 <?php
+/**
+ * A single blog post, as a reading page (2026-09-26 book redesign).
+ * Same data and behavior as before: post body from the database, a product
+ * suggestion by category, guest comments (posted to /blog-comment-submit.php
+ * with CSRF and a honeypot field), and related posts.
+ */
 require_once __DIR__ . '/includes/functions.php';
 
 $slug = $_GET['slug'] ?? '';
@@ -7,155 +13,125 @@ $post = getPostBySlug($slug);
 if (!$post) {
     http_response_code(404);
     $pageTitle = 'Not Found';
-    require_once __DIR__ . '/includes/header.php';
-    echo '<section class="section"><div class="container text-center"><h1>Post Not Found</h1><p style="color:var(--warm-gray);margin-top:1rem;">This post doesn\'t exist or hasn\'t been published yet.</p><a href="/blog" class="btn btn-outline" style="margin-top:1.5rem;">Back to Blog</a></div></section>';
-    require_once __DIR__ . '/includes/footer.php';
+    require_once __DIR__ . '/includes/header-book.php';
+    ?>
+<section class="spread"><div class="page one" style="padding-bottom:2.5rem">
+    <h1 class="as-h2">Post not found.</h1>
+    <p>This post doesn't exist or hasn't been published yet.</p>
+    <div class="cta-row"><a class="btn" href="/blog">Back to the blog <span class="arr" aria-hidden="true">→</span></a></div>
+</div></section>
+<?php
+    require_once __DIR__ . '/includes/footer-book.php';
     exit;
 }
 
 $pageTitle = $post['title'];
 $pageDescription = $post['meta_description'] ?? $post['excerpt'] ?? '';
-require_once __DIR__ . '/includes/header.php';
+if (!empty($post['featured_image'])) $pageImage = $post['featured_image'];
+require_once __DIR__ . '/includes/header-book.php';
 
-// Get related posts
 $db = getDB();
-$stmt = $db->prepare('SELECT id, title, slug, excerpt, featured_image, category, published_at FROM blog_posts WHERE status = "published" AND id != ? ORDER BY published_at DESC LIMIT 3');
+$stmt = $db->prepare('SELECT id, title, slug, excerpt, category, published_at FROM blog_posts WHERE status = "published" AND id != ? ORDER BY published_at DESC LIMIT 3');
 $stmt->execute([$post['id']]);
 $related = $stmt->fetchAll();
 
-// Comments
-$comments = getCommentsForPost($post['id']);
-$commented = ($_GET['commented'] ?? '') === '1';
+$comments     = getCommentsForPost($post['id']);
+$commented    = ($_GET['commented'] ?? '') === '1';
 $commentError = ($_GET['comment_error'] ?? '') === '1';
+
+// Product suggestion by category (unchanged from the old page)
+$cat = strtolower($post['category'] ?? '');
+if (str_contains($cat, 'cook') || str_contains($cat, 'food') || str_contains($cat, 'meal')) {
+    $ctaText  = 'Cooking for yourself after years of cooking for everyone else is its own adjustment.';
+    $ctaLink  = '/shop/cooking-for-one';
+    $ctaLabel = 'Get the Cooking for One Planner';
+} elseif (str_contains($cat, 'garage') || str_contains($cat, 'declutter') || str_contains($cat, 'organiz')) {
+    $ctaText  = 'Ready to clear out the house and actually make money doing it?';
+    $ctaLink  = '/shop/garage-sale-planner';
+    $ctaLabel = 'Get the Garage Sale Planner';
+} else {
+    $ctaText  = "If you're figuring out what comes next, the Now What? Workbook is where most women start.";
+    $ctaLink  = '/workbook';
+    $ctaLabel = 'Get the Now What? Workbook';
+}
 ?>
+<section class="spread" id="p-post" aria-label="<?= esc($post['title']) ?>">
+  <article class="page one post-page">
+    <div class="post-inner">
+<?php if (!empty($post['category'])): ?>
+      <p class="post-cat"><a href="/blog?category=<?= urlencode($post['category']) ?>"><?= esc($post['category']) ?></a></p>
+<?php endif; ?>
+      <h1 class="post-title"><?= esc($post['title']) ?></h1>
+      <p class="post-meta"><?= esc(formatDate($post['published_at'])) ?></p>
+<?php if (!empty($post['featured_image'])): ?>
+      <div class="post-hero"><img src="<?= esc($post['featured_image']) ?>" alt="<?= esc($post['title']) ?>"></div>
+<?php endif; ?>
+      <div class="post-body"><?= $post['body'] /* trusted HTML written in the admin */ ?></div>
 
-<article class="blog-post">
-    
-    <?php if ($post['category']): ?>
-        <span style="font-weight: 800; font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.12em; color: var(--warm-gray);"><?= esc($post['category']) ?></span>
-    <?php endif; ?>
-    
-    <h1 class="blog-post-title fade-in"><?= esc($post['title']) ?></h1>
-    
-    <div class="blog-post-meta fade-in-delay-1"><?= formatDate($post['published_at']) ?></div>
-    
-    <?php if ($post['featured_image']): ?>
-        <img src="<?= esc($post['featured_image']) ?>" alt="<?= esc($post['title']) ?>" style="width: 100%; margin-bottom: 2rem; border: 1px solid var(--warm-sand);">
-    <?php endif; ?>
-    
-    <div class="blog-post-body fade-in-delay-2">
-        <?= $post['body'] ?>
+      <div class="post-cta">
+        <p><?= esc($ctaText) ?></p>
+        <a class="btn" href="<?= esc($ctaLink) ?>"><?= esc($ctaLabel) ?> <span class="arr" aria-hidden="true">→</span></a>
+      </div>
+      <p class="post-back"><a class="link" href="/blog">← Back to the blog</a></p>
     </div>
-    
-    <!-- Product CTA -->
-    <?php
-    $cat = strtolower($post['category'] ?? '');
-    if (str_contains($cat, 'cook') || str_contains($cat, 'food') || str_contains($cat, 'meal')) {
-        $ctaText  = 'Cooking for yourself after years of cooking for everyone else is its own adjustment.';
-        $ctaLink  = '/shop/cooking-for-one';
-        $ctaLabel = 'Get the Cooking for One Planner';
-    } elseif (str_contains($cat, 'garage') || str_contains($cat, 'declutter') || str_contains($cat, 'organiz')) {
-        $ctaText  = 'Ready to clear out the house and actually make money doing it?';
-        $ctaLink  = '/shop/garage-sale-planner';
-        $ctaLabel = 'Get the Garage Sale Planner';
-    } else {
-        $ctaText  = 'If you\'re figuring out what comes next, the Now What? Workbook is where most women start.';
-        $ctaLink  = '/workbook';
-        $ctaLabel = 'Get the Now What? Workbook';
-    }
-    ?>
-    <div style="background:var(--deep-coffee);padding:28px 32px;margin-top:3rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1.5rem;">
-        <p style="font-size:0.95rem;color:var(--vanilla-cream);margin:0;line-height:1.6;max-width:520px;"><?= esc($ctaText) ?></p>
-        <a href="<?= esc($ctaLink) ?>" style="font-weight:800;font-size:0.75rem;text-transform:uppercase;letter-spacing:0.05em;color:var(--warm-sand);white-space:nowrap;flex-shrink:0;"><?= esc($ctaLabel) ?> &rarr;</a>
-    </div>
-
-    <!-- Email Capture -->
-    <div class="email-capture" style="margin-top: 3rem;">
-        <h3>I Write About This Every Month</h3>
-        <p>If this one landed, there's more where it came from. Real updates, not advice.</p>
-        <form class="email-capture-form" onsubmit="event.preventDefault(); submitEmailCapture(this, 'blog-<?= esc($post['slug']) ?>');">
-            <input type="email" placeholder="Your email" required aria-label="Email address">
-            <button type="submit" class="btn btn-secondary">Send It</button>
-        </form>
-    </div>
-    
-    <!-- Back to blog -->
-    <div style="margin-top: 2.5rem; padding-top: 1.5rem; border-top: 1px solid var(--warm-sand);">
-        <a href="/blog" style="font-weight: 800; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--burnished-copper);">&larr; Back to Blog</a>
-    </div>
-
-</article>
-
-<!-- Comments — open to anyone, no account needed. See includes/functions.php getCommentsForPost() and blog-comment-submit.php -->
-<section class="blog-comments" id="comments">
-    <div class="blog-comments-inner">
-        <h2 class="blog-comments-heading"><?= count($comments) ?> <?= count($comments) === 1 ? 'Comment' : 'Comments' ?></h2>
-
-        <?php if ($commented): ?>
-            <p class="blog-comment-note blog-comment-note-success">Your comment is up — thank you.</p>
-        <?php endif; ?>
-
-        <?php if (empty($comments)): ?>
-            <p class="blog-comments-empty">No comments yet — be the first to say something.</p>
-        <?php else: ?>
-            <ul class="blog-comments-list">
-                <?php foreach ($comments as $c): ?>
-                    <li class="blog-comment">
-                        <div class="blog-comment-meta">
-                            <span class="blog-comment-name"><?= esc($c['first_name']) ?></span>
-                            <span class="blog-comment-date"><?= formatDate($c['created_at']) ?></span>
-                        </div>
-                        <p class="blog-comment-body"><?= nl2br(esc($c['body'])) ?></p>
-                    </li>
-                <?php endforeach; ?>
-            </ul>
-        <?php endif; ?>
-
-        <?php if ($commentError): ?>
-            <p class="blog-comment-note blog-comment-note-error">That didn't go through — check your name and comment and try again.</p>
-        <?php endif; ?>
-        <form class="blog-comment-form" method="POST" action="/blog-comment-submit.php">
-            <?= csrfField() ?>
-            <input type="hidden" name="slug" value="<?= esc($post['slug']) ?>">
-            <div class="hp-field" aria-hidden="true">
-                <label for="comment-website">Leave this blank</label>
-                <input type="text" id="comment-website" name="website" tabindex="-1" autocomplete="off">
-            </div>
-            <label for="comment-name" class="blog-comment-label">Name</label>
-            <input type="text" id="comment-name" name="name" required maxlength="100" placeholder="Your first name">
-            <label for="comment-body" class="blog-comment-label">Comment</label>
-            <textarea id="comment-body" name="body" rows="4" required maxlength="2000" placeholder="What's on your mind?"></textarea>
-            <button type="submit" class="btn btn-primary">Post Comment</button>
-        </form>
-    </div>
+  </article>
 </section>
 
-<!-- Related Posts -->
-<?php if (!empty($related)): ?>
-<section class="section-alt">
-    <div class="container">
-        <h2 class="text-center" style="margin-bottom: 2rem;">More from the Blog</h2>
-        <div class="blog-grid">
-            <?php foreach ($related as $rel): ?>
-            <article class="blog-card">
-                <?php if ($rel['featured_image']): ?>
-                    <img src="<?= esc($rel['featured_image']) ?>" alt="<?= esc($rel['title']) ?>" class="blog-card-image">
-                <?php endif; ?>
-                <div class="blog-card-content">
-                    <?php if ($rel['category']): ?>
-                        <span class="blog-card-category"><?= esc($rel['category']) ?></span>
-                    <?php endif; ?>
-                    <h3 class="blog-card-title">
-                        <a href="/blog/<?= esc($rel['slug']) ?>"><?= esc($rel['title']) ?></a>
-                    </h3>
-                    <p class="blog-card-excerpt"><?= esc(truncateWords($rel['excerpt'], 20)) ?></p>
-                    <span class="blog-card-date"><?= formatDate($rel['published_at']) ?></span>
-                </div>
-            </article>
-            <?php endforeach; ?>
-        </div>
-    </div>
-</section>
+<section class="spread" aria-labelledby="comments-h">
+  <div class="page one post-page" id="comments">
+    <div class="post-inner">
+      <h2 id="comments-h" tabindex="-1"><?= count($comments) ?> <?= count($comments) === 1 ? 'Comment' : 'Comments' ?></h2>
+
+<?php if ($commented): ?>
+      <p class="cnote ok" role="status">Your comment is up. Thank you.</p>
 <?php endif; ?>
 
-<?php require_once __DIR__ . '/includes/footer.php'; ?>
+<?php if (empty($comments)): ?>
+      <p class="menu-sub">No comments yet. Be the first to say something.</p>
+<?php else: ?>
+      <ul class="comments-list">
+<?php foreach ($comments as $c): ?>
+        <li>
+          <p class="cmeta"><span class="cname"><?= esc($c['first_name']) ?></span> <span class="cdate"><?= esc(formatDate($c['created_at'])) ?></span></p>
+          <p class="cbody"><?= nl2br(esc($c['body'])) ?></p>
+        </li>
+<?php endforeach; ?>
+      </ul>
+<?php endif; ?>
+
+<?php if ($commentError): ?>
+      <p class="cnote bad" role="alert">That didn't go through. Check your name and comment and try again.</p>
+<?php endif; ?>
+      <form class="cform" method="POST" action="/blog-comment-submit.php">
+        <?= csrfField() ?>
+        <input type="hidden" name="slug" value="<?= esc($post['slug']) ?>">
+        <div class="hp-field" aria-hidden="true">
+          <label for="comment-website">Leave this blank</label>
+          <input type="text" id="comment-website" name="website" tabindex="-1" autocomplete="off">
+        </div>
+        <label for="comment-name">Name</label>
+        <input type="text" id="comment-name" name="name" required maxlength="100" placeholder="Your first name" autocomplete="given-name">
+        <label for="comment-body">Comment</label>
+        <textarea id="comment-body" name="body" rows="4" required maxlength="2000" placeholder="What's on your mind?"></textarea>
+        <button type="submit" class="btn">Post comment <span class="arr" aria-hidden="true">→</span></button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<?php if (!empty($related)): ?>
+<section class="spread" aria-labelledby="more-h">
+  <div class="page one post-page">
+    <div class="post-inner">
+      <h2 id="more-h">More from the blog</h2>
+      <ul class="menu posts">
+<?php foreach ($related as $rel): ?>
+        <li>
+          <div class="row"><a class="nm" href="/blog/<?= esc($rel['slug']) ?>"><?= esc($rel['title']) ?></a><span class="lead"></span><span class="pr"><?= esc(date('M Y', strtotime($rel['published_at']))) ?></span></div>        </li>
+<?php endforeach; ?>
+      </ul>
+    </div>
+  </div>
+</section>
+<?php endif; ?>
+<?php require_once __DIR__ . '/includes/footer-book.php'; ?>

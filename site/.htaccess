@@ -46,17 +46,20 @@ RewriteRule ^blog/?$ blog.php [L]
 # Blog single post
 RewriteRule ^blog/([a-z0-9-]+)/?$ blog-post.php?slug=$1 [L]
 
-# Shop index
-RewriteRule ^shop/?$ shop.php [L]
+# Tools (the café menu; replaces Shop, Resources and Freebies)
+RewriteRule ^tools/?$ tools.php [L]
+
+# Old Shop index now lives on Tools (permanent redirect; single products stay at /shop/slug)
+RewriteRule ^shop/?$ /tools [R=301,L]
 
 # Shop single product
 RewriteRule ^shop/([a-z0-9-]+)/?$ product.php?slug=$1 [L]
 
-# Resources
-RewriteRule ^resources/?$ resources.php [L]
+# Old Resources: the crisis resources now sit on Tools, so send people straight to them
+RewriteRule ^resources/?$ /tools#when-its-hard [R=301,NE,L]
 
-# Freebies
-RewriteRule ^freebies/?$ freebies.php [L]
+# Old Freebies now lives on Tools
+RewriteRule ^freebies/?$ /tools [R=301,L]
 
 # Login
 RewriteRule ^login/?$ login.php [L]
