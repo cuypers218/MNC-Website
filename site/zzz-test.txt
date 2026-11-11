@@ -1,1 +1,0 @@
-FTP deploy test file — created 2026-07-17 to diagnose why uploads report success but don't appear live.

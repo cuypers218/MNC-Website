@@ -81,70 +81,69 @@ try {
 // ── Email content per result ──────────────────────────────
 $emails = [
     'nester' => [
-        'subject' => "You're The Nester 🪺",
+        'subject' => "Your quiz result: The Nester",
         'body'    => '
 <p>The extra plates. The juice boxes. The room that hasn\'t changed since move-in day.</p>
 <p>I see you.</p>
 <p>I made something for exactly where you are. One page, yours to keep.</p>
 <p style="text-align:center;margin:28px 0;">
   <a href="https://mynestchapter.com/downloads/freebie_the_nester.pdf"
-     style="background:#A35E33;color:#ffffff;font-family:\'DM Sans\',Arial,sans-serif;font-weight:800;font-size:14px;text-transform:uppercase;letter-spacing:1px;text-decoration:none;padding:14px 28px;display:inline-block;">
-    Get Your Free Guide &rarr;
+     style="background:#1F6F78;color:#ffffff;font-family:\'DM Sans\',Arial,sans-serif;font-weight:800;font-size:14px;text-transform:uppercase;letter-spacing:1px;text-decoration:none;padding:14px 28px;display:inline-block;">
+    Get your free guide &rarr;
   </a>
 </p>
-<p>When you\'re ready for more &mdash; the workbook is where I actually started figuring things out. Every page written for a mom who did this alone.</p>
+<p>When you\'re ready for more, the workbook is where I started figuring things out. Every page written for a mom who did this alone.</p>
 <p style="text-align:center;margin:28px 0;">
-  <a href="https://mynestchapter.com/workbook"
-     style="background:#0A2F3A;color:#ffffff;font-family:\'DM Sans\',Arial,sans-serif;font-weight:800;font-size:14px;text-transform:uppercase;letter-spacing:1px;text-decoration:none;padding:14px 28px;display:inline-block;">
-    Get the Workbook &rarr;
+  <a href="https://hub.mynestchapter.com/#/shop/workbook"
+     style="background:#1E2F33;color:#ffffff;font-family:\'DM Sans\',Arial,sans-serif;font-weight:800;font-size:14px;text-transform:uppercase;letter-spacing:1px;text-decoration:none;padding:14px 28px;display:inline-block;">
+    See the workbook &rarr;
   </a>
 </p>
-<p>&mdash; Cece</p>
-<p style="color:#6B655C;font-size:13px;font-style:italic;">P.S. Put the juice boxes back. Nobody\'s coming for them.</p>
+<p>Cece</p>
 ',
     ],
     'busyer' => [
-        'subject' => "You're The Busy-er 🏃‍♀️",
+        'subject' => "Your quiz result: The Busy-er",
         'body'    => '
 <p>Calendar full. Coffee cold. Completely fine.</p>
 <p>I made something for the five minutes between things. One page, yours to keep.</p>
 <p style="text-align:center;margin:28px 0;">
   <a href="https://mynestchapter.com/downloads/freebie_the_busyer.pdf"
-     style="background:#A35E33;color:#ffffff;font-family:\'DM Sans\',Arial,sans-serif;font-weight:800;font-size:14px;text-transform:uppercase;letter-spacing:1px;text-decoration:none;padding:14px 28px;display:inline-block;">
-    Get Your Free Guide &rarr;
+     style="background:#1F6F78;color:#ffffff;font-family:\'DM Sans\',Arial,sans-serif;font-weight:800;font-size:14px;text-transform:uppercase;letter-spacing:1px;text-decoration:none;padding:14px 28px;display:inline-block;">
+    Get your free guide &rarr;
   </a>
 </p>
-<p>When you\'re ready to look at what\'s underneath all the busy &mdash; the workbook is where I started. Written for a mom who did this alone.</p>
+<p>When you\'re ready to look at what\'s underneath all the busy, the workbook is where I started. Written for a mom who did this alone.</p>
 <p style="text-align:center;margin:28px 0;">
-  <a href="https://mynestchapter.com/workbook"
-     style="background:#0A2F3A;color:#ffffff;font-family:\'DM Sans\',Arial,sans-serif;font-weight:800;font-size:14px;text-transform:uppercase;letter-spacing:1px;text-decoration:none;padding:14px 28px;display:inline-block;">
-    Get the Workbook &rarr;
+  <a href="https://hub.mynestchapter.com/#/shop/workbook"
+     style="background:#1E2F33;color:#ffffff;font-family:\'DM Sans\',Arial,sans-serif;font-weight:800;font-size:14px;text-transform:uppercase;letter-spacing:1px;text-decoration:none;padding:14px 28px;display:inline-block;">
+    See the workbook &rarr;
   </a>
 </p>
-<p>&mdash; Cece</p>
-<p style="color:#6B655C;font-size:13px;font-style:italic;">P.S. The quiet will wait. It\'s very patient.</p>
+<p>Cece</p>
+<p style="color:#46585C;font-size:13px;font-style:italic;">P.S. The quiet will wait. It\'s very patient.</p>
 ',
     ],
     'wonderer' => [
-        'subject' => "You're The Wonderer 🗺️",
+        'subject' => "Your quiz result: The Wonderer",
         'body'    => '
 <p>Questions you haven\'t let yourself ask in a while. A someday list that\'s been sitting in your head. A thrift shop across town you\'ve never been in.</p>
 <p>I made something for right where you are. One page, yours to keep.</p>
 <p style="text-align:center;margin:28px 0;">
   <a href="https://mynestchapter.com/downloads/freebie_the_wonderer.pdf"
-     style="background:#A35E33;color:#ffffff;font-family:\'DM Sans\',Arial,sans-serif;font-weight:800;font-size:14px;text-transform:uppercase;letter-spacing:1px;text-decoration:none;padding:14px 28px;display:inline-block;">
-    Get Your Free Guide &rarr;
+     style="background:#1F6F78;color:#ffffff;font-family:\'DM Sans\',Arial,sans-serif;font-weight:800;font-size:14px;text-transform:uppercase;letter-spacing:1px;text-decoration:none;padding:14px 28px;display:inline-block;">
+    Get your free guide &rarr;
   </a>
 </p>
-<p>If you want to go further &mdash; the workbook is where I figured out what actually came next. Every page written for a mom who did this alone.</p>
+<p>If you want to go further, the workbook is where I figured out what came next. Every page written for a mom who did this alone.</p>
 <p style="text-align:center;margin:28px 0;">
-  <a href="https://mynestchapter.com/workbook"
-     style="background:#0A2F3A;color:#ffffff;font-family:\'DM Sans\',Arial,sans-serif;font-weight:800;font-size:14px;text-transform:uppercase;letter-spacing:1px;text-decoration:none;padding:14px 28px;display:inline-block;">
-    Get the Workbook &rarr;
+  <a href="https://hub.mynestchapter.com/#/shop/workbook"
+     style="background:#1E2F33;color:#ffffff;font-family:\'DM Sans\',Arial,sans-serif;font-weight:800;font-size:14px;text-transform:uppercase;letter-spacing:1px;text-decoration:none;padding:14px 28px;display:inline-block;">
+    See the workbook &rarr;
   </a>
 </p>
-<p>&mdash; Cece</p>
-<p style="color:#6B655C;font-size:13px;font-style:italic;">P.S. Go to the thrift shop.</p>
+<p>Cece</p>
+<p style="color:#46585C;font-size:13px;font-style:italic;">P.S. Go to the thrift shop.</p>
 ',
     ],
 ];
@@ -160,19 +159,19 @@ $html = '<!DOCTYPE html>
     <tr><td align="center">
       <table width="580" cellpadding="0" cellspacing="0" style="background:#ffffff;max-width:580px;width:100%;">
         <tr>
-          <td style="background:#0A2F3A;padding:20px 40px;">
+          <td style="background:#1E2F33;padding:20px 40px;">
             <p style="margin:0;font-family:\'DM Sans\',Arial,sans-serif;font-weight:800;font-size:11px;letter-spacing:3px;text-transform:uppercase;color:#ffffff;">MY NEST CHAPTER</p>
           </td>
         </tr>
         <tr>
-          <td style="padding:40px;color:#2B1F18;font-size:16px;line-height:1.7;">
+          <td style="padding:40px;color:#1E2F33;font-size:16px;line-height:1.7;">
             ' . $emailData['body'] . '
           </td>
         </tr>
         <tr>
-          <td style="padding:20px 40px;border-top:1px solid #D9C7AC;">
-            <p style="margin:0;font-family:Arial,sans-serif;font-size:12px;color:#6B655C;line-height:1.6;">
-              You\'re receiving this because you took the What Kind of Empty Nester Are You? quiz at <a href="https://mynestchapter.com" style="color:#A35E33;">mynestchapter.com</a>
+          <td style="padding:20px 40px;border-top:1px solid #D9ECEF;">
+            <p style="margin:0;font-family:Arial,sans-serif;font-size:12px;color:#46585C;line-height:1.6;">
+              You\'re receiving this because you took the What Kind of Empty Nester Are You? quiz at <a href="https://mynestchapter.com" style="color:#1F6F78;">mynestchapter.com</a>
             </p>
           </td>
         </tr>

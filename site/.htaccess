@@ -21,6 +21,26 @@ RewriteRule ^downloads/now-what-workbook\.pdf$ - [F,L]
 RewriteRule ^downloads/garage-sale-planner\.pdf$ - [F,L]
 RewriteRule ^downloads/someday-companion\.pdf$ - [F,L]
 
+# --- Old pages (Nov 2026 one-page site) ---
+# The website is now one page. Every old address forwards somewhere useful,
+# so old Google results, posts and emails never land on an error.
+# These run BEFORE the "file exists" rule, so a leftover .php file on the
+# server can't be served either.
+
+# About now lives in the "About me" section of the home page
+RewriteRule ^about(\.php)?/?$ /#about [R=301,NE,L]
+
+# Pages whose job the home page does now
+RewriteRule ^(start-here|connect|blog|blog-post|freebies|resources|coloring|nest-type)(\.php)?/?$ / [R=301,L]
+RewriteRule ^blog/[a-z0-9-]+/?$ / [R=301,L]
+
+# Buying happens in the Hub Shop
+RewriteRule ^(shop|tools|workbook|product|checkout)(\.php)?/?$ https://hub.mynestchapter.com/#/shop [R=301,NE,L]
+RewriteRule ^shop/[a-z0-9-]+/?$ https://hub.mynestchapter.com/#/shop [R=301,NE,L]
+
+# Accounts, freebies and the old dashboard live in the Hub
+RewriteRule ^(login|register|forgot-password|reset-password|dashboard|6pm-cheat-sheet)(\.php)?/?$ https://hub.mynestchapter.com/ [R=301,L]
+
 # If the file or directory exists, serve it directly
 RewriteCond %{REQUEST_FILENAME} -f [OR]
 RewriteCond %{REQUEST_FILENAME} -d
@@ -31,68 +51,8 @@ RewriteRule ^ - [L]
 # Homepage
 RewriteRule ^$ index.php [L]
 
-# About
-RewriteRule ^about/?$ about.php [L]
-
-# Connect (email/book-a-call page, not in main nav)
-RewriteRule ^connect/?$ connect.php [L]
-
-# Start Here (hero CTA destination, not in main nav)
-RewriteRule ^start-here/?$ start-here.php [L]
-
-# Blog index
-RewriteRule ^blog/?$ blog.php [L]
-
-# Blog single post
-RewriteRule ^blog/([a-z0-9-]+)/?$ blog-post.php?slug=$1 [L]
-
-# Tools (the café menu; replaces Shop, Resources and Freebies)
-RewriteRule ^tools/?$ tools.php [L]
-
-# Old Shop index now lives on Tools (permanent redirect; single products stay at /shop/slug)
-RewriteRule ^shop/?$ /tools [R=301,L]
-
-# Shop single product
-RewriteRule ^shop/([a-z0-9-]+)/?$ product.php?slug=$1 [L]
-
-# Old Resources: the crisis resources now sit on Tools, so send people straight to them
-RewriteRule ^resources/?$ /tools#when-its-hard [R=301,NE,L]
-
-# Old Freebies now lives on Tools
-RewriteRule ^freebies/?$ /tools [R=301,L]
-
-# Login
-RewriteRule ^login/?$ login.php [L]
-
-# Register
-RewriteRule ^register/?$ register.php [L]
-
-# Forgot Password
-RewriteRule ^forgot-password/?$ forgot-password.php [L]
-
-# Reset Password
-RewriteRule ^reset-password/?$ reset-password.php [L]
-
-# Dashboard
-RewriteRule ^dashboard/?$ dashboard.php [L]
-
-# Nest Type result page
-RewriteRule ^nest-type/?$ nest-type.php [L]
-
-# Empty Nester quiz (dedicated shareable page)
+# Empty Nester quiz (the Hub links here)
 RewriteRule ^nester-quiz/?$ nester-quiz.php [L]
-
-# Checkout
-RewriteRule ^checkout/?$ checkout.php [L]
-
-# Workbook product page
-RewriteRule ^workbook/?$ workbook.php [L]
-
-# Coloring pages lead magnet
-RewriteRule ^coloring/?$ coloring.php [L]
-
-# 6pm Cheat Sheet smart redirect (logged-in → dashboard, logged-out → /6pm-experience/)
-RewriteRule ^6pm-cheat-sheet/?$ 6pm-cheat-sheet.php [L]
 
 # Download with token
 RewriteRule ^download/([a-zA-Z0-9]+)/?$ download.php?token=$1 [L]

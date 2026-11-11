@@ -35,13 +35,13 @@ $downloadUrl = $moodFiles[$mood] ?? 'https://mynestchapter.com/downloads/mnc-col
 $moodLabels = [
     'distraction' => 'I need a distraction',
     'unwind'      => 'I want to unwind',
-    'coloring'    => 'I just feel like coloring',
+    'coloring'    => 'I feel like coloring',
 ];
 $moodLabel = $moodLabels[$mood] ?? $mood;
 
 $payload = [
     'email' => $email,
-    'note'  => 'Coloring widget — mood: ' . $moodLabel,
+    'note'  => 'Coloring widget, mood: ' . $moodLabel,
 ];
 if ($firstName) $payload['name'] = $firstName;
 
@@ -62,26 +62,26 @@ $html = '<!DOCTYPE html><html><head><meta charset="UTF-8"></head>
 <body style="margin:0;padding:0;background:#FAFAFA;font-family:Arial,sans-serif;">
   <table width="100%" cellpadding="0" cellspacing="0" style="background:#FAFAFA;padding:40px 0;">
     <tr><td align="center">
-      <table width="580" cellpadding="0" cellspacing="0" style="background:#0A2F3A;max-width:580px;width:100%;">
-        <tr><td style="background:#0A2F3A;padding:24px 40px;">
-          <p style="margin:0;font-family:Arial,sans-serif;font-weight:800;font-size:11px;letter-spacing:3px;text-transform:uppercase;color:#D9C7AC;">MY NEST CHAPTER</p>
+      <table width="580" cellpadding="0" cellspacing="0" style="background:#1E2F33;max-width:580px;width:100%;">
+        <tr><td style="background:#1E2F33;padding:24px 40px;">
+          <p style="margin:0;font-family:Arial,sans-serif;font-weight:800;font-size:11px;letter-spacing:3px;text-transform:uppercase;color:#D9ECEF;">MY NEST CHAPTER</p>
         </td></tr>
-        <tr><td style="padding:40px;color:#F6F1E6;font-size:16px;line-height:1.7;">
+        <tr><td style="padding:40px;color:#EAF7FA;font-size:16px;line-height:1.7;">
           <p>' . $greeting . '</p>
           <p style="margin-top:16px;">Your coloring page is here.</p>
-          <p style="margin-top:16px;">A few quiet minutes, just for you.</p>
+          <p style="margin-top:16px;">A few quiet minutes for you.</p>
           <p style="text-align:center;margin:32px 0;">
             <a href="' . $downloadUrl . '"
-               style="background:#A35E33;color:#ffffff;font-family:Arial,sans-serif;font-weight:800;font-size:14px;text-transform:uppercase;letter-spacing:1px;text-decoration:none;padding:16px 32px;display:inline-block;border-radius:6px;">
-              Download Your Coloring Page &rarr;
+               style="background:#1F6F78;color:#ffffff;font-family:Arial,sans-serif;font-weight:800;font-size:14px;text-transform:uppercase;letter-spacing:1px;text-decoration:none;padding:16px 32px;display:inline-block;border-radius:6px;">
+              Download your coloring page &rarr;
             </a>
           </p>
-          <p style="color:#D9C7AC;font-size:14px;">— Cece</p>
-          <p style="color:#D9C7AC;font-size:13px;margin-top:8px;font-style:italic;">P.S. If the quiet house gets loud again, come back and pick a different mood anytime.</p>
+          <p style="color:#D9ECEF;font-size:14px;">Cece</p>
+          <p style="color:#D9ECEF;font-size:13px;margin-top:8px;font-style:italic;">P.S. If the quiet house gets loud again, come back and pick a different mood anytime.</p>
         </td></tr>
-        <tr><td style="padding:20px 40px;border-top:1px solid #D9C7AC;">
-          <p style="margin:0;font-family:Arial,sans-serif;font-size:12px;color:#D9C7AC;line-height:1.6;">
-            You\'re receiving this because you picked up a free coloring page at <a href="https://mynestchapter.com" style="color:#D9C7AC;">mynestchapter.com</a>
+        <tr><td style="padding:20px 40px;border-top:1px solid #D9ECEF;">
+          <p style="margin:0;font-family:Arial,sans-serif;font-size:12px;color:#D9ECEF;line-height:1.6;">
+            You\'re receiving this because you picked up a free coloring page at <a href="https://mynestchapter.com" style="color:#D9ECEF;">mynestchapter.com</a>
           </p>
         </td></tr>
       </table>
@@ -91,7 +91,7 @@ $html = '<!DOCTYPE html><html><head><meta charset="UTF-8"></head>
 
 mail(
     $email,
-    'Your coloring page is here 🎨',
+    'Your coloring page is here',
     $html,
     implode("\r\n", [
         'MIME-Version: 1.0',

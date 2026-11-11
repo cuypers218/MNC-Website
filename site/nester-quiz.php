@@ -1,13 +1,14 @@
 <?php
+// The Hub links here. The quiz itself is the widget in /widgets/empty-nester-quiz/.
 $pageTitle = 'What Kind of Empty Nester Are You?';
 $pageDescription = 'Ten questions, three possible types. Find out which one fits where you are right now.';
-require_once __DIR__ . '/includes/header-book.php';
+require_once __DIR__ . '/includes/simple-header.php';
 ?>
-<section class="spread" aria-label="What Kind of Empty Nester Are You?">
-  <div class="page one plain narrow">
-    <p class="menu-sub" style="margin-top:0">Not sure where you fit? Start here.</p>
-    <h1 class="as-h2">What Kind of Empty Nester Are You?</h1>
-    <iframe src="/widgets/empty-nester-quiz/" style="width:100%;height:min(95vh,900px);border:none;border-radius:8px;overflow:hidden;display:block;margin:1.5rem auto 0" title="What Kind of Empty Nester Are You?"></iframe>
+<section class="simple-page">
+  <div class="wrap simple-in wide">
+    <p class="script label">A little quiz</p>
+    <h1 class="simple-h">What kind of empty nester are you?</h1>
+    <iframe class="quiz-frame" src="/widgets/empty-nester-quiz/" title="What Kind of Empty Nester Are You? quiz"></iframe>
   </div>
 </section>
-<?php require_once __DIR__ . '/includes/footer-book.php'; ?>
+<?php require_once __DIR__ . '/includes/simple-footer.php'; ?>

@@ -6,33 +6,33 @@
 <title>The Someday List | My Nest Chapter</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Montserrat:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&display=swap" rel="stylesheet">
 <style>
 :root {
-  --pink:        #A35E33;
-  --pink-dark:   #7F4928;
-  --pink-soft:   #D8975A;
-  --pink-faint:  #F1D9B3;
-  --pink-pale:   #F6F1E6;
+  --pink:        #1F6F78;
+  --pink-dark:   #175860;
+  --pink-soft:   #F49B8F;
+  --pink-faint:  #FFF1ED;
+  --pink-pale:   #EAF7FA;
 
-  --charcoal:    #2B1F18;
-  --periwinkle:  #6B655C;
-  --cream:       #F6F1E6;
+  --charcoal:    #1E2F33;
+  --periwinkle:  #46585C;
+  --cream:       #EAF7FA;
 
-  --bg:          #F6F1E6;
+  --bg:          #EAF7FA;
   --card:        #FFFFFF;
-  --rule:        #D9C7AC;
-  --rule-light:  rgba(217,199,172,0.5);
+  --rule:        #D9ECEF;
+  --rule-light:  rgba(217,236,239,0.5);
 
-  --ink:         #2B1F18;
-  --ink-mid:     #6B655C;
-  --ink-light:   #6B655C;
-  --ink-faint:   rgba(107,101,92,0.65);
+  --ink:         #1E2F33;
+  --ink-mid:     #46585C;
+  --ink-light:   #46585C;
+  --ink-faint:   rgba(70,88,92,0.65);
 
   --shadow-card:
-    0 1px 2px  rgba(37,37,53,0.05),
-    0 4px 12px rgba(37,37,53,0.06),
-    0 16px 48px rgba(37,37,53,0.05);
+    0 1px 2px  rgba(30,47,51,0.05),
+    0 4px 12px rgba(30,47,51,0.06),
+    0 16px 48px rgba(30,47,51,0.05);
 
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
 }
@@ -44,7 +44,7 @@ html { -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; 
 .sdl-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(37,37,53,0.55);
+  background: rgba(30,47,51,0.55);
   backdrop-filter: blur(6px);
   -webkit-backdrop-filter: blur(6px);
   display: flex;
@@ -99,7 +99,7 @@ html { -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; 
 .card {
   background: var(--card);
   border-radius: 0;
-  border: 1px solid rgba(217,199,172,0.4);
+  border: 1px solid rgba(217,236,239,0.4);
   box-shadow: var(--shadow-card);
   position: relative;
   overflow: hidden;
@@ -109,90 +109,90 @@ html { -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; 
 
 /* ── INTRO ── */
 #screen-intro .inner { padding: 44px 40px 48px; display: flex; flex-direction: column; align-items: center; text-align: center; }
-.brand-eyebrow { display: inline-flex; align-items: center; gap: 12px; font-family: 'DM Sans', sans-serif; font-size: 10px; font-weight: 800; letter-spacing: 3.5px; text-transform: uppercase; color: var(--periwinkle); margin-bottom: 32px; }
+.brand-eyebrow { display: inline-flex; align-items: center; gap: 12px; font-family: 'Montserrat', sans-serif; font-size: 10px; font-weight: 800; letter-spacing: 3.5px; text-transform: uppercase; color: var(--periwinkle); margin-bottom: 32px; }
 .brand-eyebrow span { display: block; width: 28px; height: 1px; background: currentColor; opacity: 0.5; }
-.intro-title { font-family: 'Lora', serif; font-size: 40px; font-weight: 700; color: var(--charcoal); line-height: 1.12; letter-spacing: -0.8px; margin-bottom: 14px; }
+.intro-title { font-family: 'Playfair Display', Georgia, serif; font-size: 40px; font-weight: 700; color: var(--charcoal); line-height: 1.12; letter-spacing: -0.8px; margin-bottom: 14px; }
 .intro-rule { width: 36px; height: 2px; border-radius: 0; background: linear-gradient(90deg, var(--pink), var(--pink-soft)); margin: 0 auto 16px; }
-.intro-subtitle { font-family: 'Lora', serif; font-style: italic; font-size: 17px; color: var(--ink-light); margin-bottom: 32px; }
+.intro-subtitle { font-family: 'Playfair Display', Georgia, serif; font-style: italic; font-size: 17px; color: var(--ink-light); margin-bottom: 32px; }
 .intro-divider { width: 100%; height: 1px; background: var(--rule-light); margin-bottom: 28px; }
-.intro-body { font-family: 'DM Sans', sans-serif; font-size: 15px; line-height: 1.78; color: var(--ink-mid); text-align: left; margin-bottom: 44px; }
+.intro-body { font-family: 'Montserrat', sans-serif; font-size: 15px; line-height: 1.78; color: var(--ink-mid); text-align: left; margin-bottom: 44px; }
 
-.btn-primary { font-family: 'DM Sans', sans-serif; font-size: 12px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; color: var(--card); background: var(--pink); border: none; border-radius: 0; padding: 17px 56px; cursor: pointer; transition: background 0.25s, transform 0.18s var(--ease-out); box-shadow: none; }
+.btn-primary { font-family: 'Montserrat', sans-serif; font-size: 12px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; color: var(--card); background: var(--pink); border: none; border-radius: 0; padding: 17px 56px; cursor: pointer; transition: background 0.25s, transform 0.18s var(--ease-out); box-shadow: none; }
 .btn-primary:hover { background: var(--pink-dark); transform: translateY(-2px); }
 .btn-primary:active { transform: translateY(0); }
 
 /* ── DUMP SCREEN ── */
 #screen-dump .inner { padding: 40px 40px 44px; display: flex; flex-direction: column; }
-.dump-eyebrow { font-family: 'DM Sans', sans-serif; font-size: 10px; font-weight: 800; letter-spacing: 3px; text-transform: uppercase; color: var(--periwinkle); margin-bottom: 14px; }
-.dump-prompt { font-family: 'Lora', serif; font-size: 26px; font-weight: 700; color: var(--charcoal); line-height: 1.3; letter-spacing: -0.3px; margin-bottom: 6px; }
-.dump-sub { font-family: 'DM Sans', sans-serif; font-size: 14px; color: var(--ink-faint); margin-bottom: 28px; }
+.dump-eyebrow { font-family: 'Montserrat', sans-serif; font-size: 10px; font-weight: 800; letter-spacing: 3px; text-transform: uppercase; color: var(--periwinkle); margin-bottom: 14px; }
+.dump-prompt { font-family: 'Playfair Display', Georgia, serif; font-size: 26px; font-weight: 700; color: var(--charcoal); line-height: 1.3; letter-spacing: -0.3px; margin-bottom: 6px; }
+.dump-sub { font-family: 'Montserrat', sans-serif; font-size: 14px; color: var(--ink-faint); margin-bottom: 28px; }
 
 .input-row { display: flex; gap: 10px; margin-bottom: 28px; }
-.text-input { font-family: 'DM Sans', sans-serif; font-size: 14px; flex: 1; min-width: 0; padding: 13px 16px; background: var(--card); border: 1.5px solid var(--rule); border-radius: 0; color: var(--ink); outline: none; transition: border-color 0.2s; }
+.text-input { font-family: 'Montserrat', sans-serif; font-size: 14px; flex: 1; min-width: 0; padding: 13px 16px; background: var(--card); border: 1.5px solid var(--rule); border-radius: 0; color: var(--ink); outline: none; transition: border-color 0.2s; }
 .text-input:focus { border-color: var(--pink); box-shadow: none; }
 .text-input::placeholder { color: var(--ink-faint); }
-.btn-add { font-family: 'DM Sans', sans-serif; font-size: 12px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; color: var(--card); background: var(--pink); border: none; border-radius: 0; padding: 13px 22px; cursor: pointer; white-space: nowrap; transition: background 0.2s, transform 0.15s; box-shadow: none; }
+.btn-add { font-family: 'Montserrat', sans-serif; font-size: 12px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; color: var(--card); background: var(--pink); border: none; border-radius: 0; padding: 13px 22px; cursor: pointer; white-space: nowrap; transition: background 0.2s, transform 0.15s; box-shadow: none; }
 .btn-add:hover { background: var(--pink-dark); transform: translateY(-1px); }
 .btn-add:active { transform: translateY(0); }
 
-.chips-label { font-family: 'DM Sans', sans-serif; font-size: 10px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; color: var(--ink-faint); margin-bottom: 12px; }
+.chips-label { font-family: 'Montserrat', sans-serif; font-size: 10px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; color: var(--ink-faint); margin-bottom: 12px; }
 .chips { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 32px; }
-.chip { font-family: 'DM Sans', sans-serif; font-size: 12px; font-weight: 500; padding: 7px 14px; border-radius: 0; border: 1px solid var(--rule); background: var(--cream); color: var(--ink-mid); cursor: pointer; transition: color 0.2s, border-color 0.2s, background 0.2s; }
+.chip { font-family: 'Montserrat', sans-serif; font-size: 12px; font-weight: 500; padding: 7px 14px; border-radius: 0; border: 1px solid var(--rule); background: var(--cream); color: var(--ink-mid); cursor: pointer; transition: color 0.2s, border-color 0.2s, background 0.2s; }
 .chip:hover { border-color: var(--pink); color: var(--pink); background: var(--pink-faint); }
 .chip.used { opacity: 0.3; pointer-events: none; text-decoration: line-through; }
 
 .list-area { min-height: 80px; margin-bottom: 20px; border-top: 1px solid var(--rule-light); }
 .someday-item { display: flex; align-items: center; padding: 14px 0; border-bottom: 1px solid var(--rule-light); animation: itemIn 0.35s var(--ease-out) both; }
 @keyframes itemIn { from { opacity: 0; transform: translateX(-8px); } to { opacity: 1; transform: translateX(0); } }
-.item-num { font-family: 'Lora', serif; font-size: 13px; font-weight: 700; color: var(--periwinkle); min-width: 26px; }
-.item-text { flex: 1; font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 400; color: var(--ink); line-height: 1.5; }
+.item-num { font-family: 'Playfair Display', Georgia, serif; font-size: 13px; font-weight: 700; color: var(--periwinkle); min-width: 26px; }
+.item-text { flex: 1; font-family: 'Montserrat', sans-serif; font-size: 14px; font-weight: 400; color: var(--ink); line-height: 1.5; }
 .item-remove { font-size: 16px; color: var(--ink-faint); cursor: pointer; padding: 4px 6px; border: none; background: none; transition: color 0.2s; line-height: 1; }
 .item-remove:hover { color: var(--pink); }
 
-.counter { font-family: 'DM Sans', sans-serif; font-size: 12px; font-weight: 500; letter-spacing: 0.5px; color: var(--ink-faint); text-align: center; margin-bottom: 24px; min-height: 18px; }
+.counter { font-family: 'Montserrat', sans-serif; font-size: 12px; font-weight: 500; letter-spacing: 0.5px; color: var(--ink-faint); text-align: center; margin-bottom: 24px; min-height: 18px; }
 
-.btn-done { font-family: 'DM Sans', sans-serif; font-size: 12px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; color: var(--card); background: var(--pink); border: none; border-radius: 0; padding: 17px 56px; cursor: pointer; align-self: center; transition: background 0.25s, transform 0.18s var(--ease-out); box-shadow: none; }
+.btn-done { font-family: 'Montserrat', sans-serif; font-size: 12px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; color: var(--card); background: var(--pink); border: none; border-radius: 0; padding: 17px 56px; cursor: pointer; align-self: center; transition: background 0.25s, transform 0.18s var(--ease-out); box-shadow: none; }
 .btn-done:hover { background: var(--pink-dark); transform: translateY(-2px); }
 .btn-done:active { transform: translateY(0); }
 .btn-done:disabled { background: var(--rule); color: var(--ink-faint); box-shadow: none; cursor: not-allowed; transform: none; }
 
 /* ── RESULT ── */
 #screen-result .inner { padding: 40px 40px 44px; display: flex; flex-direction: column; }
-.result-eyebrow { font-family: 'DM Sans', sans-serif; font-size: 10px; font-weight: 800; letter-spacing: 3px; text-transform: uppercase; color: var(--periwinkle); margin-bottom: 14px; }
+.result-eyebrow { font-family: 'Montserrat', sans-serif; font-size: 10px; font-weight: 800; letter-spacing: 3px; text-transform: uppercase; color: var(--periwinkle); margin-bottom: 14px; }
 .result-headline { display: flex; align-items: baseline; gap: 12px; margin-bottom: 6px; }
-.result-count { font-family: 'Lora', serif; font-size: 52px; font-weight: 700; color: var(--pink); line-height: 1; letter-spacing: -1.5px; }
-.result-word { font-family: 'Lora', serif; font-size: 20px; font-weight: 600; color: var(--charcoal); }
-.result-sub { font-family: 'Lora', serif; font-size: 14px; font-style: italic; color: var(--ink-light); margin-bottom: 28px; }
+.result-count { font-family: 'Playfair Display', Georgia, serif; font-size: 52px; font-weight: 700; color: var(--pink); line-height: 1; letter-spacing: -1.5px; }
+.result-word { font-family: 'Playfair Display', Georgia, serif; font-size: 20px; font-weight: 600; color: var(--charcoal); }
+.result-sub { font-family: 'Playfair Display', Georgia, serif; font-size: 14px; font-style: italic; color: var(--ink-light); margin-bottom: 28px; }
 
 .result-list-wrap { background: var(--cream); border: 1px solid var(--rule-light); border-radius: 0; padding: 20px 24px; margin-bottom: 32px; max-height: 200px; overflow-y: auto; position: relative; }
 .result-list-wrap::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, var(--pink), transparent 80%); opacity: 0.45; border-radius: 0; }
 .result-list { list-style: none; }
-.result-list li { font-family: 'DM Sans', sans-serif; font-size: 14px; color: var(--ink); line-height: 1.5; padding: 8px 0; border-bottom: 1px solid var(--rule-light); display: flex; gap: 10px; }
+.result-list li { font-family: 'Montserrat', sans-serif; font-size: 14px; color: var(--ink); line-height: 1.5; padding: 8px 0; border-bottom: 1px solid var(--rule-light); display: flex; gap: 10px; }
 .result-list li:last-child { border-bottom: none; }
-.result-list .rnum { font-family: 'Lora', serif; font-weight: 700; color: var(--periwinkle); min-width: 20px; }
+.result-list .rnum { font-family: 'Playfair Display', Georgia, serif; font-weight: 700; color: var(--periwinkle); min-width: 20px; }
 
 .freebie-section { background: var(--cream); border: 1px solid var(--rule-light); border-radius: 0; padding: 28px 26px; margin-bottom: 28px; position: relative; overflow: hidden; }
 .freebie-section::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, var(--pink), transparent 80%); opacity: 0.45; }
-.freebie-header { font-family: 'Lora', serif; font-size: 16px; font-weight: 600; color: var(--charcoal); margin-bottom: 6px; }
-.freebie-text { font-family: 'DM Sans', sans-serif; font-size: 14px; line-height: 1.65; color: var(--ink-mid); margin-bottom: 20px; font-style: italic; }
+.freebie-header { font-family: 'Playfair Display', Georgia, serif; font-size: 16px; font-weight: 600; color: var(--charcoal); margin-bottom: 6px; }
+.freebie-text { font-family: 'Montserrat', sans-serif; font-size: 14px; line-height: 1.65; color: var(--ink-mid); margin-bottom: 20px; font-style: italic; }
 .email-row { display: flex; gap: 10px; }
-.email-input { font-family: 'DM Sans', sans-serif; font-size: 14px; flex: 1; min-width: 0; padding: 13px 16px; background: var(--card); border: 1.5px solid var(--rule); border-radius: 0; color: var(--ink); outline: none; transition: border-color 0.2s; }
+.email-input { font-family: 'Montserrat', sans-serif; font-size: 14px; flex: 1; min-width: 0; padding: 13px 16px; background: var(--card); border: 1.5px solid var(--rule); border-radius: 0; color: var(--ink); outline: none; transition: border-color 0.2s; }
 .email-input:focus { border-color: var(--pink); box-shadow: none; }
 .email-input::placeholder { color: var(--ink-faint); }
-.send-btn { font-family: 'DM Sans', sans-serif; font-size: 12px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; color: var(--card); background: var(--pink); border: none; border-radius: 0; padding: 13px 22px; cursor: pointer; white-space: nowrap; transition: background 0.2s, transform 0.15s; box-shadow: none; }
+.send-btn { font-family: 'Montserrat', sans-serif; font-size: 12px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; color: var(--card); background: var(--pink); border: none; border-radius: 0; padding: 13px 22px; cursor: pointer; white-space: nowrap; transition: background 0.2s, transform 0.15s; box-shadow: none; }
 .send-btn:hover { background: var(--pink-dark); transform: translateY(-1px); }
 .send-btn:active { transform: translateY(0); }
 .send-btn.loading { opacity: 0.7; cursor: not-allowed; transform: none; }
-.email-success { display: none; font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 500; color: var(--pink); padding-top: 14px; }
-.email-error { display: none; font-family: 'DM Sans', sans-serif; font-size: 13px; color: #9E3D0F; padding-top: 12px; }
+.email-success { display: none; font-family: 'Montserrat', sans-serif; font-size: 14px; font-weight: 500; color: var(--pink); padding-top: 14px; }
+.email-error { display: none; font-family: 'Montserrat', sans-serif; font-size: 13px; color: #B00C60; padding-top: 12px; }
 
 .result-divider { width: 100%; height: 1px; background: var(--rule-light); margin-bottom: 24px; }
 .cta-section { text-align: center; }
-.cta-text { font-family: 'DM Sans', sans-serif; font-size: 14px; line-height: 1.72; color: var(--ink-mid); margin-bottom: 16px; }
-.cta-link { font-family: 'DM Sans', sans-serif; font-size: 12px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; color: var(--pink); text-decoration: none; border-bottom: 1.5px solid var(--rule); padding-bottom: 2px; transition: border-color 0.2s; }
+.cta-text { font-family: 'Montserrat', sans-serif; font-size: 14px; line-height: 1.72; color: var(--ink-mid); margin-bottom: 16px; }
+.cta-link { font-family: 'Montserrat', sans-serif; font-size: 12px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; color: var(--pink); text-decoration: none; border-bottom: 1.5px solid var(--rule); padding-bottom: 2px; transition: border-color 0.2s; }
 .cta-link:hover { border-color: var(--pink); }
 
-.meter-footer { font-family: 'DM Sans', sans-serif; text-align: center; margin-top: 16px; padding-bottom: 8px; font-size: 11px; color: var(--ink-faint); letter-spacing: 0.5px; }
+.meter-footer { font-family: 'Montserrat', sans-serif; text-align: center; margin-top: 16px; padding-bottom: 8px; font-size: 11px; color: var(--ink-faint); letter-spacing: 0.5px; }
 
 @media (max-width: 520px) {
   #screen-intro .inner, #screen-dump .inner, #screen-result .inner { padding: 28px 22px 32px; }
@@ -202,6 +202,17 @@ html { -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; 
   .input-row, .email-row { flex-direction: column; }
   .btn-add, .send-btn { width: 100%; text-align: center; }
 }
+
+/* Hub look (Nov 2026): rounded cards and pill buttons, sentence case */
+.card { border-radius: 18px; }
+.card::after { display: none; }
+.card { border-color: #D9ECEF; }
+.card-accent { background: linear-gradient(90deg, #1F6F78 0%, #63D1D2 50%, #F49B8F 100%); }
+.btn-primary, .btn-done, .btn-add, .send-btn { border-radius: 999px; text-transform: none; letter-spacing: 0; font-weight: 600; font-size: 14px; }
+.text-input, .email-input { border-radius: 12px; }
+.chip { border-radius: 999px; background: #FCFCFA; }
+.result-list-wrap, .freebie-section { border-radius: 14px; }
+.cta-link { text-transform: none; letter-spacing: 0; font-weight: 600; font-size: 14px; }
 </style>
 </head>
 <body>
@@ -219,8 +230,8 @@ html { -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; 
         <div class="intro-rule"></div>
         <p class="intro-subtitle">For the solo mom who kept saying someday.</p>
         <div class="intro-divider"></div>
-        <p class="intro-body">I had a list in my head for years — all the things I told myself I'd do when the kids were gone. A cruise. A Spanish class. That designer bag I never bought because the money always went to them. I never wrote any of it down. When they finally left, I couldn't remember half of it. This is where you get it out of your head and onto the screen.</p>
-        <button class="btn-primary" onclick="showScreen('screen-dump')">Start My List</button>
+        <p class="intro-body">I had a list in my head for years. All the things I told myself I'd do when the kids were grown. A cruise. A Spanish class. That designer bag I never bought because the money always went to them. I never wrote any of it down. When they finally left, I couldn't remember half of it. This is where you get it out of your head and onto the screen.</p>
+        <button class="btn-primary" onclick="showScreen('screen-dump')">Start my list</button>
       </div>
     </div>
 
@@ -241,12 +252,12 @@ html { -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; 
           <span class="chip" onclick="useChip(this)">Learn something new</span>
           <span class="chip" onclick="useChip(this)">Redecorate a room</span>
           <span class="chip" onclick="useChip(this)">Say yes to something that scares me</span>
-          <span class="chip" onclick="useChip(this)">Buy something just for me</span>
+          <span class="chip" onclick="useChip(this)">Buy something for myself</span>
           <span class="chip" onclick="useChip(this)">Go back to school</span>
         </div>
         <div class="list-area" id="list-area"></div>
         <p class="counter" id="counter"></p>
-        <button class="btn-done" id="done-btn" disabled onclick="showResult()">I&rsquo;m Done</button>
+        <button class="btn-done" id="done-btn" disabled onclick="showResult()">I&rsquo;m done</button>
       </div>
     </div>
 
@@ -265,18 +276,18 @@ html { -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; 
         </div>
         <div class="freebie-section" id="freebie-section">
           <div class="freebie-header">Want me to email you this list?</div>
-          <p class="freebie-text">So it&rsquo;s there when you&rsquo;re ready &mdash; not just gone when you close this tab.</p>
+          <p class="freebie-text">So it&rsquo;s there when you&rsquo;re ready, and not gone when you close this tab.</p>
           <div class="email-row" id="email-row">
             <input type="email" class="email-input" id="email-input" placeholder="Your email address" autocomplete="email" />
             <button class="send-btn" id="send-btn" onclick="submitEmail()">Send it</button>
           </div>
           <div class="email-success" id="email-success">&#10003;&nbsp; Check your inbox.</div>
-          <div class="email-error" id="email-error">Something went wrong &mdash; please try again.</div>
+          <div class="email-error" id="email-error">Something went wrong. Please try again.</div>
         </div>
         <div class="result-divider"></div>
         <div class="cta-section">
-          <p class="cta-text" id="cta-text">Now that they&rsquo;re written down &mdash; the Someday Companion is what you use to actually look at them. No pressure to do everything. Just a way to figure out where to start.</p>
-          <a href="https://mynestchapter.com/shop/someday-companion" class="cta-link" id="cta-link" target="_blank">Get the Someday Companion &rarr;</a>
+          <p class="cta-text" id="cta-text">Now that they&rsquo;re written down, the Someday Companion is one way to look at them, one item at a time. No pressure to do everything. It&rsquo;s a way to figure out where to start.</p>
+          <a href="https://hub.mynestchapter.com/#/shop/someday-companion" class="cta-link" id="cta-link" target="_blank">See the Someday Companion &rarr;</a>
         </div>
       </div>
     </div>
@@ -342,16 +353,16 @@ function showResult() {
   document.getElementById('result-count').textContent = n;
   document.getElementById('result-sub').textContent =
     n >= 10 ? 'Out of your head, onto the screen. That\'s the first step.'
-    : n >= 5 ? 'A real list. More in there — you can always come back.'
-    : 'A start. The important thing is you started.';
+    : n >= 5 ? 'A real list. Think of more later? You can always come back.'
+    : 'A start. You can always add more.';
   document.getElementById('result-list').innerHTML = somedays.map((s, i) =>
     `<li><span class="rnum">${i+1}.</span>${escapeHtml(s)}</li>`).join('');
 
   if (memberMode) {
     document.getElementById('freebie-section').style.display = 'none';
-    document.getElementById('cta-text').textContent = 'Now that they\'re written down — the Someday Companion is what you use to actually look at them. One item at a time. No timeline. No one watching.';
-    document.getElementById('cta-link').href = 'https://mynestchapter.com/shop/someday-companion';
-    document.getElementById('cta-link').textContent = 'Get the Someday Companion — $7.99 →';
+    document.getElementById('cta-text').textContent = 'Now that they\'re written down, the Someday Companion is one way to look at them. One item at a time. No timeline. No one watching.';
+    document.getElementById('cta-link').href = 'https://hub.mynestchapter.com/#/shop/someday-companion';
+    document.getElementById('cta-link').textContent = 'See the Someday Companion →';
   }
 
   showScreen('screen-result');

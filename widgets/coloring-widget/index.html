@@ -3,16 +3,16 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Pick Your Mood — My Nest Chapter</title>
-<link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
+<title>Pick Your Mood | My Nest Chapter</title>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Montserrat:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; }
 
   body {
-    font-family: 'DM Sans', sans-serif;
+    font-family: 'Montserrat', sans-serif;
     font-size: 12pt;
-    color: #2B1F18;
-    background: #F6F1E6;
+    color: #1E2F33;
+    background: #EAF7FA;
     margin: 0;
     padding: 40px 20px;
     display: flex;
@@ -25,17 +25,17 @@
     width: 100%;
     max-width: 550px;
     background: #FFFFFF;
-    border: 1px solid #D9C7AC;
+    border: 1px solid #D9ECEF;
     padding: 40px;
   }
 
   .brand-tag {
-    font-family: 'Lora', serif;
+    font-family: 'Playfair Display', Georgia, serif;
     font-weight: 800;
     font-size: 9pt;
     text-transform: uppercase;
     letter-spacing: 3px;
-    color: #A35E33;
+    color: #1F6F78;
     margin-bottom: 28px;
     display: block;
   }
@@ -49,19 +49,19 @@
   }
 
   h2 {
-    font-family: 'Lora', serif;
+    font-family: 'Playfair Display', Georgia, serif;
     font-weight: 800;
     font-size: 14pt;
-    color: #2B1F18;
+    color: #1E2F33;
     text-transform: uppercase;
     letter-spacing: 0.5px;
     margin: 0 0 10px 0;
   }
 
   p.intro-text {
-    font-family: 'DM Sans', sans-serif;
+    font-family: 'Montserrat', sans-serif;
     font-size: 12pt;
-    color: #2B1F18;
+    color: #1E2F33;
     line-height: 1.6;
     margin: 0 0 28px 0;
   }
@@ -70,12 +70,12 @@
   .mood-btn {
     display: block;
     width: 100%;
-    font-family: 'Lora', serif;
+    font-family: 'Playfair Display', Georgia, serif;
     font-weight: 800;
     font-size: 12pt;
-    color: #2B1F18;
+    color: #1E2F33;
     background: #FFFFFF;
-    border: 1px solid #D9C7AC;
+    border: 1px solid #D9ECEF;
     padding: 18px 20px;
     text-align: left;
     cursor: pointer;
@@ -84,15 +84,15 @@
     transition: border-color 0.15s, background 0.15s;
   }
   .mood-btn:last-child { margin-bottom: 0; }
-  .mood-btn:hover { border-color: #A35E33; background: #F6F1E6; }
+  .mood-btn:hover { border-color: #1F6F78; background: #EAF7FA; }
   .mood-btn:active { transform: translateY(1px); }
 
   /* EMAIL SCREEN */
   .mood-selected {
-    font-family: 'Lora', serif;
+    font-family: 'Playfair Display', Georgia, serif;
     font-weight: 800;
     font-size: 11pt;
-    color: #A35E33;
+    color: #1F6F78;
     text-transform: uppercase;
     letter-spacing: 1px;
     margin-bottom: 20px;
@@ -100,12 +100,12 @@
   }
 
   label {
-    font-family: 'Lora', serif;
+    font-family: 'Playfair Display', Georgia, serif;
     font-weight: 800;
     font-size: 9pt;
     text-transform: uppercase;
     letter-spacing: 1px;
-    color: #6B655C;
+    color: #46585C;
     display: block;
     margin-bottom: 6px;
     margin-top: 16px;
@@ -114,35 +114,35 @@
 
   input[type="text"],
   input[type="email"] {
-    font-family: 'DM Sans', sans-serif;
+    font-family: 'Montserrat', sans-serif;
     font-size: 12pt;
-    color: #2B1F18;
-    background: #F6F1E6;
-    border: 1px solid #D9C7AC;
+    color: #1E2F33;
+    background: #EAF7FA;
+    border: 1px solid #D9ECEF;
     padding: 14px;
     width: 100%;
     outline: none;
     touch-action: manipulation;
   }
-  input:focus { border-color: #A35E33; background: #FFFFFF; }
-  input::placeholder { color: rgba(107,101,92,0.55); }
+  input:focus { border-color: #1F6F78; background: #FFFFFF; }
+  input::placeholder { color: rgba(70,88,92,0.55); }
 
   .error-msg {
-    font-family: 'DM Sans', sans-serif;
+    font-family: 'Montserrat', sans-serif;
     font-size: 11pt;
-    color: #9E3D0F;
+    color: #B00C60;
     margin-top: 8px;
     display: none;
   }
 
   .btn-primary {
-    font-family: 'Lora', serif;
+    font-family: 'Playfair Display', Georgia, serif;
     font-weight: 800;
     font-size: 12pt;
     text-transform: uppercase;
     letter-spacing: 0.5px;
     color: #FFFFFF;
-    background: #A35E33;
+    background: #1F6F78;
     border: none;
     padding: 16px;
     width: 100%;
@@ -150,14 +150,14 @@
     margin-top: 24px;
     touch-action: manipulation;
   }
-  .btn-primary:hover { background: #7F4928; }
+  .btn-primary:hover { background: #175860; }
   .btn-primary:active { transform: translateY(1px); }
   .btn-primary:disabled { opacity: 0.55; cursor: not-allowed; }
 
   .back-link {
-    font-family: 'DM Sans', sans-serif;
+    font-family: 'Montserrat', sans-serif;
     font-size: 11pt;
-    color: #6B655C;
+    color: #46585C;
     background: none;
     border: none;
     cursor: pointer;
@@ -167,35 +167,35 @@
     text-underline-offset: 3px;
     touch-action: manipulation;
   }
-  .back-link:hover { color: #2B1F18; }
+  .back-link:hover { color: #1E2F33; }
 
   .small-print {
-    font-family: 'DM Sans', sans-serif;
+    font-family: 'Montserrat', sans-serif;
     font-size: 10pt;
-    color: #6B655C;
+    color: #46585C;
     margin-top: 10px;
     line-height: 1.5;
   }
 
   /* CONFIRM SCREEN */
   .confirm-heading {
-    font-family: 'Lora', serif;
+    font-family: 'Playfair Display', Georgia, serif;
     font-weight: 800;
     font-size: 14pt;
-    color: #2B1F18;
+    color: #1E2F33;
     text-transform: uppercase;
     margin: 0 0 10px 0;
   }
 
   .btn-download {
     display: block;
-    font-family: 'Lora', serif;
+    font-family: 'Playfair Display', Georgia, serif;
     font-weight: 800;
     font-size: 12pt;
     text-transform: uppercase;
     letter-spacing: 0.5px;
     color: #FFFFFF;
-    background: #A35E33;
+    background: #1F6F78;
     border: none;
     padding: 16px;
     width: 100%;
@@ -205,12 +205,12 @@
     margin-top: 24px;
     touch-action: manipulation;
   }
-  .btn-download:hover { background: #7F4928; }
+  .btn-download:hover { background: #175860; }
   .btn-download:active { transform: translateY(1px); }
 
   .divider {
     border: none;
-    border-top: 1px solid #D9C7AC;
+    border-top: 1px solid #D9ECEF;
     margin: 28px 0;
   }
 
@@ -224,6 +224,17 @@
     body { padding: 20px 12px; }
     .widget-container { padding: 28px 20px; }
   }
+
+  /* Hub look (Nov 2026): rounded, sentence case, Playfair headings, Montserrat buttons */
+  body { background: #FCFCFA; font-size: 11.5pt; }
+  .widget-container { border-radius: 18px; border-color: #D9ECEF; box-shadow: 0 14px 34px -18px rgba(31,111,120,0.35); }
+  .brand-tag { font-family: 'Montserrat', sans-serif; font-weight: 700; }
+  h2, .confirm-heading { font-family: 'Playfair Display', Georgia, serif; font-weight: 600; text-transform: none; letter-spacing: 0; font-size: 18pt; }
+  .mood-btn { font-family: 'Montserrat', sans-serif; font-weight: 600; border-radius: 14px; }
+  .mood-selected, label { font-family: 'Montserrat', sans-serif; font-weight: 600; text-transform: none; letter-spacing: 0; }
+  input[type="text"], input[type="email"] { border-radius: 12px; background: #FCFCFA; }
+  .btn-primary, .btn-download { font-family: 'Montserrat', sans-serif; font-weight: 600; text-transform: none; letter-spacing: 0; border-radius: 999px; }
+  .sign-off { font-family: 'Caveat', cursive; font-size: 18pt; color: #1F6F78; }
 </style>
 </head>
 <body>
@@ -235,11 +246,11 @@
 
     <!-- SCREEN 1: Pick Your Mood -->
     <div class="screen active" id="screen-mood" role="region" aria-label="Pick your mood">
-      <h2>Pick Your Mood</h2>
+      <h2>Pick your mood</h2>
       <p class="intro-text">Some nights you don't need advice. Pick where you are right now and I'll send you a free coloring page that fits.</p>
       <button class="mood-btn" onclick="selectMood('distraction')" aria-label="I need a distraction">I need a distraction</button>
       <button class="mood-btn" onclick="selectMood('unwind')" aria-label="I want to unwind">I want to unwind</button>
-      <button class="mood-btn" onclick="selectMood('coloring')" aria-label="I just feel like coloring">I just feel like coloring</button>
+      <button class="mood-btn" onclick="selectMood('coloring')" aria-label="I feel like coloring">I feel like coloring</button>
     </div>
 
     <!-- SCREEN 2: Email Capture -->
@@ -256,7 +267,7 @@
 
       <p class="error-msg" id="error-msg" role="alert">Please enter a valid email address.</p>
 
-      <button class="btn-primary" id="submit-btn" onclick="submitEmail()">Send My Coloring Pages</button>
+      <button class="btn-primary" id="submit-btn" onclick="submitEmail()">Send my coloring pages</button>
       <button class="back-link" onclick="goBack()">Change my mood</button>
       <p class="small-print">No spam. Unsubscribe anytime.</p>
     </div>
@@ -264,10 +275,10 @@
     <!-- SCREEN 3: Confirm + Download -->
     <div class="screen" id="screen-confirm" role="region" aria-label="Download your coloring pages">
       <p class="confirm-heading">Here are your pages.</p>
-      <p class="intro-text" id="confirm-inbox-note">Check your inbox too — I'll send a copy there as well. Find a quiet spot and enjoy a few minutes that are just for you.</p>
-      <a class="btn-download" id="download-link" href="#" download>Download My Coloring Pages</a>
+      <p class="intro-text" id="confirm-inbox-note">Check your inbox too. I'll send a copy there as well.</p>
+      <a class="btn-download" id="download-link" href="#" download>Download my coloring pages</a>
       <hr class="divider">
-      <p class="small-print">From my nest to yours — Cece</p>
+      <p class="small-print sign-off">From my nest to yours, Cece</p>
     </div>
 
   </div>
@@ -279,7 +290,7 @@
   var moodLabels = {
     distraction: 'You said: I need a distraction.',
     unwind:      'You said: I want to unwind.',
-    coloring:    'You said: I just feel like coloring.'
+    coloring:    'You said: I feel like coloring.'
   };
 
   var moodFiles = {

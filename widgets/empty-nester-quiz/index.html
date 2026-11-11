@@ -3,16 +3,16 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>What Kind of Empty Nester Are You? — My Nest Chapter</title>
-<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<title>What Kind of Empty Nester Are You? | My Nest Chapter</title>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Montserrat:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
   body {
-    font-family: 'DM Sans', sans-serif;
+    font-family: 'Montserrat', sans-serif;
     font-size: 12pt;
-    color: #2B1F18;
-    background-color: #F6F1E6;
+    color: #1E2F33;
+    background-color: #EAF7FA;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
@@ -22,9 +22,9 @@
 
   .skip-link {
     position: absolute; top: -40px; left: 0;
-    background: #2B1F18; color: #F6F1E6;
+    background: #1E2F33; color: #EAF7FA;
     padding: 8px 16px;
-    font-family: 'DM Sans', sans-serif; font-weight: 800; font-size: 9pt;
+    font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 9pt;
     text-decoration: none; z-index: 100;
   }
   .skip-link:focus { top: 0; }
@@ -39,28 +39,28 @@
 
   .brand-tag {
     display: inline-flex; align-items: center; gap: 12px;
-    font-family: 'DM Sans', sans-serif; font-weight: 800;
-    font-size: 9pt; letter-spacing: 3.5px; color: #6B655C;
+    font-family: 'Montserrat', sans-serif; font-weight: 800;
+    font-size: 9pt; letter-spacing: 3.5px; color: #46585C;
     text-transform: uppercase; text-align: center; margin-bottom: 6px;
     justify-content: center;
   }
   .brand-tag span { display: block; width: 24px; height: 1px; background: currentColor; opacity: 0.5; }
 
   .brand-sub {
-    font-family: 'DM Sans', sans-serif; font-weight: 400;
-    font-size: 8pt; letter-spacing: 1px; color: #6B655C;
+    font-family: 'Montserrat', sans-serif; font-weight: 400;
+    font-size: 8pt; letter-spacing: 1px; color: #46585C;
     text-transform: uppercase; text-align: center; margin-bottom: 32px;
   }
 
   .widget-container {
     width: 100%; max-width: 550px;
     background: #FFFFFF;
-    border: 1px solid #D9C7AC;
+    border: 1px solid #D9ECEF;
     border-radius: 10px;
     padding: 24px;
     overflow: visible;
     position: relative;
-    box-shadow: 0 10px 40px rgba(37,37,53,0.07);
+    box-shadow: 0 10px 40px rgba(31,111,120,0.07);
   }
   .widget-container::before { display: none; }
 
@@ -72,12 +72,12 @@
 
   .progress-wrap { margin-bottom: 14px; }
   .progress-label {
-    font-family: 'DM Sans', sans-serif; font-weight: 400;
-    font-size: 8pt; color: #6B655C; margin-bottom: 6px;
+    font-family: 'Montserrat', sans-serif; font-weight: 400;
+    font-size: 8pt; color: #46585C; margin-bottom: 6px;
     text-transform: uppercase; letter-spacing: 1px;
   }
-  .progress-bar-bg { background: #D9C7AC; height: 4px; width: 100%; overflow: hidden; }
-  .progress-bar-fill { background: #A35E33; height: 4px; width: 100%; transform-origin: left; transform: scaleX(0); transition: transform 0.3s ease; }
+  .progress-bar-bg { background: #D9ECEF; height: 4px; width: 100%; overflow: hidden; }
+  .progress-bar-fill { background: #1F6F78; height: 4px; width: 100%; transform-origin: left; transform: scaleX(0); transition: transform 0.3s ease; }
 
   .scene {
     display: block !important;
@@ -105,8 +105,8 @@
     width: 100% !important;
     aspect-ratio: auto !important;
     margin: 0 0 28px 0 !important;
-    background: #F6F1E6 !important;
-    border: 1px solid #D9C7AC !important;
+    background: #EAF7FA !important;
+    border: 1px solid #D9ECEF !important;
     padding: 20px 16px !important;
     overflow: hidden !important;
     border-radius: 0 !important;
@@ -123,109 +123,109 @@
   .scene svg { max-width: 260px; width: 100%; }
 
   h2.question {
-    font-family: 'DM Sans', sans-serif; font-weight: 800;
-    font-size: 14pt; color: #2B1F18; text-transform: uppercase;
+    font-family: 'Montserrat', sans-serif; font-weight: 800;
+    font-size: 14pt; color: #1E2F33; text-transform: uppercase;
     letter-spacing: 0.5px; margin-bottom: 12px; line-height: 1.3;
   }
 
   .answers { display: flex; flex-direction: column; gap: 0; }
 
   .answer-btn {
-    font-family: 'DM Sans', sans-serif; font-size: 11pt; color: #2B1F18;
-    background: #FFFFFF; border: 1px solid #D9C7AC; border-bottom: none;
+    font-family: 'Montserrat', sans-serif; font-size: 11pt; color: #1E2F33;
+    background: #FFFFFF; border: 1px solid #D9ECEF; border-bottom: none;
     padding: 11px 16px; text-align: left; cursor: pointer;
     line-height: 1.5; transition: background 0.15s; touch-action: manipulation;
   }
-  .answer-btn:last-child { border-bottom: 1px solid #D9C7AC; }
-  .answer-btn:hover { background: #F6F1E6; border-color: #A35E33; }
-  .answer-btn.selected { background: #F6F1E6; border-color: #A35E33; color: #2B1F18; font-weight: bold; }
+  .answer-btn:last-child { border-bottom: 1px solid #D9ECEF; }
+  .answer-btn:hover { background: #EAF7FA; border-color: #1F6F78; }
+  .answer-btn.selected { background: #EAF7FA; border-color: #1F6F78; color: #1E2F33; font-weight: bold; }
   .answer-btn:active { transform: translateY(1px); }
 
   .answer-letter {
-    font-family: 'DM Sans', sans-serif; font-weight: 800;
-    font-size: 9pt; color: #A35E33; margin-right: 12px; text-transform: uppercase;
+    font-family: 'Montserrat', sans-serif; font-weight: 800;
+    font-size: 9pt; color: #1F6F78; margin-right: 12px; text-transform: uppercase;
   }
 
   .btn-primary {
-    font-family: 'DM Sans', sans-serif; font-weight: 800;
-    font-size: 12pt; color: #FFFFFF; background: #A35E33; border: none;
+    font-family: 'Montserrat', sans-serif; font-weight: 800;
+    font-size: 12pt; color: #FFFFFF; background: #1F6F78; border: none;
     border-radius: 6px;
     padding: 12px 32px; cursor: pointer; text-transform: uppercase;
     letter-spacing: 1px; width: 100%; margin-top: 14px;
     touch-action: manipulation; display: block;
   }
-  .btn-primary:hover { background: #7F4928; }
+  .btn-primary:hover { background: #175860; }
   .btn-primary:active { transform: translateY(1px); }
-  .btn-primary:disabled { background: #D9C7AC; color: #6B655C; cursor: not-allowed; }
+  .btn-primary:disabled { background: #D9ECEF; color: #46585C; cursor: not-allowed; }
 
   .btn-secondary {
-    font-family: 'DM Sans', sans-serif; font-weight: 800;
-    font-size: 11pt; color: #A35E33; background: #FFFFFF;
-    border: 1px solid #A35E33; border-radius: 6px; padding: 14px 32px; cursor: pointer;
+    font-family: 'Montserrat', sans-serif; font-weight: 800;
+    font-size: 11pt; color: #1F6F78; background: #FFFFFF;
+    border: 1px solid #1F6F78; border-radius: 6px; padding: 14px 32px; cursor: pointer;
     text-transform: uppercase; letter-spacing: 1px; width: 100%;
     margin-top: 12px; touch-action: manipulation; display: block;
   }
-  .btn-secondary:hover { background: #F6F1E6; }
+  .btn-secondary:hover { background: #EAF7FA; }
   .btn-secondary:active { transform: translateY(1px); }
 
   .cover-title {
-    font-family: 'Lora', serif; font-weight: 700;
-    font-size: 20pt; color: #2B1F18;
+    font-family: 'Playfair Display', Georgia, serif; font-weight: 700;
+    font-size: 20pt; color: #1E2F33;
     letter-spacing: -0.3px; margin-bottom: 14px; line-height: 1.2; text-align: center;
   }
 
   .cover-sub {
-    font-family: 'DM Sans', sans-serif; font-size: 12pt; color: #6B655C;
+    font-family: 'Montserrat', sans-serif; font-size: 12pt; color: #46585C;
     line-height: 1.6; text-align: center; margin-bottom: 8px;
   }
 
   .email-label {
-    font-family: 'DM Sans', sans-serif; font-weight: 800;
-    font-size: 9pt; color: #2B1F18; text-transform: uppercase;
+    font-family: 'Montserrat', sans-serif; font-weight: 800;
+    font-size: 9pt; color: #1E2F33; text-transform: uppercase;
     letter-spacing: 1px; display: block; margin-bottom: 8px;
   }
 
   input[type="email"] {
-    font-family: 'DM Sans', sans-serif; font-size: 12pt; color: #2B1F18;
-    background: #FFFFFF; border: 1px solid #D9C7AC;
+    font-family: 'Montserrat', sans-serif; font-size: 12pt; color: #1E2F33;
+    background: #FFFFFF; border: 1px solid #D9ECEF;
     padding: 14px; width: 100%; outline: none;
     touch-action: manipulation;
   }
-  input[type="email"]:focus { border-color: #A35E33; background: #FFFFFF; }
-  input[type="email"]::placeholder { color: #6B655C; }
+  input[type="email"]:focus { border-color: #1F6F78; background: #FFFFFF; }
+  input[type="email"]::placeholder { color: #46585C; }
 
   .privacy-note {
-    font-family: 'DM Sans', sans-serif; font-weight: 400;
-    font-size: 8pt; color: #6B655C; text-align: center; margin-top: 14px;
+    font-family: 'Montserrat', sans-serif; font-weight: 400;
+    font-size: 8pt; color: #46585C; text-align: center; margin-top: 14px;
   }
 
   .result-type {
-    font-family: 'DM Sans', sans-serif; font-weight: 800;
-    font-size: 18pt; color: #A35E33; text-transform: uppercase;
+    font-family: 'Montserrat', sans-serif; font-weight: 800;
+    font-size: 18pt; color: #1F6F78; text-transform: uppercase;
     letter-spacing: 1px; text-align: center; margin-bottom: 8px;
   }
 
-  .result-divider { border: none; border-top: 1px solid #D9C7AC; margin: 20px 0; }
+  .result-divider { border: none; border-top: 1px solid #D9ECEF; margin: 20px 0; }
 
   .result-body {
-    font-family: 'DM Sans', sans-serif; font-size: 12pt;
-    color: #2B1F18; line-height: 1.6; margin-bottom: 12px;
+    font-family: 'Montserrat', sans-serif; font-size: 12pt;
+    color: #1E2F33; line-height: 1.6; margin-bottom: 12px;
   }
 
   .result-note {
-    font-family: 'DM Sans', sans-serif; font-size: 11pt;
-    color: #6B655C; line-height: 1.6; font-style: italic; margin-bottom: 0;
+    font-family: 'Montserrat', sans-serif; font-size: 11pt;
+    color: #46585C; line-height: 1.6; font-style: italic; margin-bottom: 0;
   }
 
   .error-msg {
-    font-family: 'DM Sans', sans-serif; font-weight: 400;
-    font-size: 9pt; color: #9E3D0F; margin-top: 8px; display: none;
+    font-family: 'Montserrat', sans-serif; font-weight: 400;
+    font-size: 9pt; color: #B00C60; margin-top: 8px; display: none;
   }
 
   .toast {
     position: fixed; top: 20px; left: 50%; transform: translateX(-50%);
-    background: #2B1F18; border-bottom: 2px solid #A35E33; color: #F6F1E6;
-    font-family: 'DM Sans', sans-serif; font-weight: 800;
+    background: #1E2F33; border-bottom: 2px solid #1F6F78; color: #EAF7FA;
+    font-family: 'Montserrat', sans-serif; font-weight: 800;
     font-size: 9pt; letter-spacing: 2px; text-transform: uppercase;
     padding: 12px 24px; z-index: 999; display: none;
   }
@@ -239,14 +239,14 @@
     top: 14px; right: 14px;
     display: none;
     width: 36px; height: 36px;
-    background: rgba(43,31,24,0.72);
+    background: rgba(30,47,51,0.72);
     border: none; border-radius: 9999px;
     align-items: center; justify-content: center;
     cursor: pointer; font-size: 20px; line-height: 1;
-    color: #F6F1E6; z-index: 20;
-    font-family: 'DM Sans', sans-serif;
+    color: #EAF7FA; z-index: 20;
+    font-family: 'Montserrat', sans-serif;
   }
-  .quiz-close-btn:hover { background: #A35E33; }
+  .quiz-close-btn:hover { background: #1F6F78; }
 
   @media (max-width: 600px) {
     body { padding: 20px 12px; }
@@ -256,6 +256,25 @@
       max-height: 220px !important;
     }
   }
+
+  /* Hub look (Nov 2026): rounded, sentence case, Playfair headings */
+  body { background-color: #FCFCFA; font-size: 11.5pt; }
+  .widget-container { border-radius: 18px; border-color: #D9ECEF; box-shadow: 0 14px 34px -18px rgba(31,111,120,0.35); }
+  .brand-tag, .brand-sub { color: #1F6F78; }
+  h2.question { font-family: 'Playfair Display', Georgia, serif; font-weight: 600; text-transform: none; letter-spacing: 0; font-size: 15pt; }
+  .cover-title { font-family: 'Playfair Display', Georgia, serif; }
+  .answers { gap: 8px; }
+  .answer-btn, .answer-btn:last-child { border: 1px solid #D9ECEF; border-radius: 14px; }
+  .answer-btn:hover, .answer-btn.selected { background: #EAF7FA; border-color: #1F6F78; }
+  .btn-primary, .btn-secondary { border-radius: 999px; text-transform: none; letter-spacing: 0; font-weight: 600; }
+  .btn-primary:disabled { background: #D9ECEF; color: #46585C; }
+  .progress-bar-bg, .progress-bar-fill { border-radius: 999px; }
+  .progress-bar-fill { background: #F49B8F; }
+  .result-type { font-family: 'Playfair Display', Georgia, serif; text-transform: none; letter-spacing: 0; font-size: 22pt; font-weight: 700; }
+  .scene.scene-result { border-radius: 14px !important; background: #FFFFFF !important; }
+  input[type="email"] { border-radius: 12px; }
+  .email-label { text-transform: none; letter-spacing: 0; font-weight: 600; font-size: 10pt; }
+  .toast { border-radius: 999px; text-transform: none; letter-spacing: 0; font-weight: 600; }
 </style>
 </head>
 <body>
@@ -272,13 +291,13 @@
 </main>
 
 <script>
-const WORKBOOK_URL = 'https://mynestchapter.com/shop/now-what-workbook';
+const WORKBOOK_URL = 'https://hub.mynestchapter.com/#/shop/workbook';
 
 function closeQuiz() {
   if (window.parent !== window) {
     window.parent.postMessage('closeQuiz', '*');
   } else {
-    window.location.href = '/about/';
+    window.location.href = '/';
   }
 }
 
@@ -326,7 +345,7 @@ const questions = [
     options: [
       { letter: 'A', text: "Enough for everyone. Realized at the register. Kept it anyway." },
       { letter: 'B', text: "A water and a small popcorn. I had a good parking spot and wasn't rushing." },
-      { letter: 'C', text: "Whatever I actually wanted. Which felt weird. But also kind of good." }
+      { letter: 'C', text: "Whatever I wanted. Which felt weird. But also kind of good." }
     ]
   },
   {
@@ -353,7 +372,7 @@ const scenes = {
 
   yelling:  `<img src="images/scene-yelling.png.png" alt="Stick figure yelling into empty house">`,
 
-  email:    `<div style="background:#A35E33;padding:32px;text-align:center;"><p style="font-family:'DM Sans',sans-serif;font-weight:800;font-size:13pt;color:#ffffff;text-transform:uppercase;letter-spacing:2px;margin:0;">My Nest Chapter</p></div>`,
+  email:    `<div style="background:#1F6F78;padding:32px;text-align:center;"><p style="font-family:'Montserrat',sans-serif;font-weight:800;font-size:13pt;color:#ffffff;text-transform:uppercase;letter-spacing:2px;margin:0;">My Nest Chapter</p></div>`,
   nester:   `<img src="scene-result-nester.png" alt="The Nester">`,
   busyer:   `<img src="scene-result-busyer.png" alt="The Busy-er">`,
   wonderer: `<img src="scene-result-wonderer.png" alt="The Wonderer">`
@@ -363,20 +382,20 @@ const results = {
   nester: {
     scene: 'nester',
     type: 'The Nester',
-    body: `The plates are still set for five. The cart still has juice boxes in it. Their room is exactly the way they left it and that's not changing anytime soon. You're not stuck. You're just not done yet. And that's okay.`,
-    note: `Check your email — I sent you something I made for exactly where you are.`
+    body: `You still catch yourself reaching for an extra plate, and their room still looks the way they left it. I did that too. There's no rush. Your next chapter is right there whenever you're curious, and you get to open it at your own pace.`,
+    note: `Check your email. I sent you something I made for right where you are.`
   },
   busyer: {
     scene: 'busyer',
     type: 'The Busy-er',
-    body: `Your calendar has not had a blank square since they left. You're fine. You're handling it. You've got things — so many things. Somewhere under all of it, the quiet is waiting. You already know that.`,
-    note: `Check your email — I sent you something for the five minutes between things.`
+    body: `Your calendar hasn't had a blank square in a while. You keep everything moving, and that's a real skill. Maybe somewhere in all that busy there's one thing you'd pick for yourself. That might be a fun place to start.`,
+    note: `Check your email. I sent you something for the five minutes between things.`
   },
   wonderer: {
     scene: 'wonderer',
     type: 'The Wonderer',
-    body: `You're not holding on to everything anymore and you're not running from the quiet. You're starting to ask questions you haven't let yourself ask before. You don't have the answers yet — but you're finally asking.`,
-    note: `Check your email — I sent you something to help you start figuring it out.`
+    body: `You're starting to ask what you want now. Some of it feels a little weird, and some of it feels kind of good. That's where the possibilities start to show up, and you get to choose which ones to try.`,
+    note: `Check your email. I sent you something for exploring what's next.`
   }
 };
 
@@ -415,7 +434,7 @@ function showCover() {
   render(`
     <div class="scene">${scenes.door}</div>
     <h1 class="cover-title">What Kind of Empty Nester Are You?</h1>
-    <button class="btn-primary" onclick="showQuestion(0)">Let's Find Out</button>
+    <button class="btn-primary" onclick="showQuestion(0)">Let's find out</button>
   `);
 }
 
@@ -436,7 +455,7 @@ function showQuestion(index) {
     <h2 class="question">${q.question}</h2>
     <div class="answers" role="group" aria-label="Answer options">${optionsHTML}</div>
     <button class="btn-primary" id="nextBtn" onclick="handleNext(${index})" ${selectedAnswer ? '' : 'disabled'}>
-      ${index < 4 ? 'Next Question' : 'See My Results'}
+      ${index < 4 ? 'Next question' : 'See my result'}
     </button>
     ${index > 0 ? `<button class="btn-secondary" onclick="showQuestion(${index - 1})">Back</button>` : ''}
   `);
@@ -457,15 +476,15 @@ function showEmailCapture() {
   result = calculateResult();
   render(`
     <div class="scene">${scenes.email}</div>
-    <h2 style="font-family:'DM Sans',sans-serif;font-weight:800;font-size:16pt;color:#2B1F18;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:12px;text-align:center;">Okay. Your result is ready.</h2>
-    <p style="font-family:'DM Sans',sans-serif;font-size:12pt;color:#2B1F18;line-height:1.6;margin-bottom:24px;text-align:center;">Drop your email and I'll send it over — plus something small I made that goes with your type.</p>
+    <h2 style="font-family:'Montserrat',sans-serif;font-weight:800;font-size:16pt;color:#1E2F33;letter-spacing:0;margin-bottom:12px;text-align:center;font-family:'Playfair Display',Georgia,serif;">Okay. Your result is ready.</h2>
+    <p style="font-family:'Montserrat',sans-serif;font-size:12pt;color:#1E2F33;line-height:1.6;margin-bottom:24px;text-align:center;">Drop your email and I'll send it over, plus something small I made that goes with your type.</p>
     <div class="input-group">
       <label class="email-label" for="emailInput">Your email address</label>
       <input type="email" id="emailInput" placeholder="you@email.com" autocomplete="email" aria-required="true"/>
       <p class="error-msg" id="emailError" role="alert">Please enter a valid email address.</p>
     </div>
-    <button class="btn-primary" onclick="submitEmail()">Send Me My Result</button>
-    <p class="privacy-note">No spam. Just your result and something I made for you.</p>
+    <button class="btn-primary" onclick="submitEmail()">Send me my result</button>
+    <p class="privacy-note">No spam. Your result and something I made for you.</p>
   `);
 }
 
@@ -492,9 +511,9 @@ async function submitEmail() {
     if (res.ok && data.success) { showResult(); }
     else { throw new Error(); }
   } catch {
-    btn.textContent = 'Send Me My Result';
+    btn.textContent = 'Send me my result';
     btn.disabled = false;
-    document.getElementById('emailError').textContent = 'Something went wrong — please try again.';
+    document.getElementById('emailError').textContent = 'Something went wrong. Please try again.';
     document.getElementById('emailError').style.display = 'block';
   }
 }
@@ -509,8 +528,8 @@ function showResult() {
     <p class="result-body">${r.body}</p>
     <p class="result-note">${r.note}</p>
     <hr class="result-divider">
-    <a href="${WORKBOOK_URL}" class="btn-primary" style="text-decoration:none;display:block;text-align:center;" target="_blank">Get the Workbook</a>
-    <button class="btn-secondary" onclick="showCover()">Take the Quiz Again</button>
+    <a href="${WORKBOOK_URL}" class="btn-primary" style="text-decoration:none;display:block;text-align:center;" target="_blank">See the Now What? Workbook</a>
+    <button class="btn-secondary" onclick="showCover()">Take the quiz again</button>
   `);
 }
 
