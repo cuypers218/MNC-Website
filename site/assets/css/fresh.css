@@ -1,0 +1,174 @@
+/* PREVIEW: warm white + flowing bands. Loaded after home.css on fresh.php.
+   One lead color carries the page; the other two brand colors are small sparkle pops. */
+:root{
+  --page:#FFFCF8;
+  --ink:#2B2427; --ink-soft:#5A4D52;
+  --line:#F1E4DE;
+  --shadow:0 14px 30px -18px rgba(90,50,40,.30);
+  --shadow-lift:0 22px 40px -18px rgba(90,50,40,.38);
+  --wave-h:64px;
+  --wave-top:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 80' preserveAspectRatio='none'%3E%3Cpath d='M0 80V44C160 10 340 6 520 30S860 76 1040 52 1320 8 1440 26V80Z'/%3E%3C/svg%3E");
+  --wave-bot:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 80' preserveAspectRatio='none'%3E%3Cpath d='M0 0V34C200 70 420 74 640 46S1040 0 1240 22 1400 52 1440 46V0Z'/%3E%3C/svg%3E");
+}
+
+/* Lagoon leads; raspberry and coral sparkle */
+html[data-lead="lagoon"]{
+  --tint:#E3F6F6; --dot:rgba(99,209,210,.30);
+  --bold:#63D1D2; --on-bold:#123236; --on-bold-soft:#1E464B; --label-bold:#8D184E;
+  --btn:#B00C60; --btn-h:#8D184E; --accent:#B00C60; --und:#63D1D2; --label:#B00C60;
+  --pop1:#B00C60; --pop2:#F49B8F; --pop3:#63D1D2;
+  --sp1:rgba(99,209,210,.75); --sp2:rgba(244,155,143,.6); --sp3:rgba(254,202,218,.8);
+  --foot-span:#8D184E; --ico-bg:#E3F6F6;
+}
+/* Coral leads; lagoon and raspberry sparkle */
+html[data-lead="coral"]{
+  --tint:#FEEDE8; --dot:rgba(244,155,143,.34);
+  --bold:#F49B8F; --on-bold:#35171A; --on-bold-soft:#4A2226; --label-bold:#6E0F3F;
+  --btn:#B23E33; --btn-h:#922F26; --accent:#C2483C; --und:#F49B8F; --label:#C2483C;
+  --pop1:#2BB8BA; --pop2:#B00C60; --pop3:#F49B8F;
+  --sp1:rgba(244,155,143,.75); --sp2:rgba(99,209,210,.55); --sp3:rgba(255,207,200,.9);
+  --foot-span:#6E0F3F; --ico-bg:#FEEDE8;
+}
+/* Raspberry leads; lagoon and coral sparkle */
+html[data-lead="raspberry"]{
+  --tint:#FCEAF2; --dot:rgba(176,12,96,.16);
+  --bold:#A30F5A; --on-bold:#FFFFFF; --on-bold-soft:rgba(255,255,255,.9); --label-bold:#FFCFC8;
+  --btn:#B00C60; --btn-h:#8D184E; --accent:#B00C60; --und:#FECADA; --label:#B00C60;
+  --pop1:#63D1D2; --pop2:#F49B8F; --pop3:#B00C60;
+  --sp1:rgba(254,202,218,.9); --sp2:rgba(99,209,210,.55); --sp3:rgba(244,155,143,.6);
+  --foot-span:#FFCFC8; --ico-bg:#FCEAF2;
+}
+
+body{background:var(--page);color:var(--ink)}
+h1{font-weight:600}
+h2{font-weight:600}
+a{color:var(--btn)}
+:focus-visible{outline-color:var(--btn)}
+.band-bold :focus-visible,.foot :focus-visible{outline-color:var(--on-bold)}
+.top{background:rgba(255,252,248,.9);border-bottom-color:var(--line)}
+.nav-link:hover{background:var(--tint)}
+.btn{background:var(--btn);box-shadow:0 10px 22px -10px color-mix(in srgb,var(--btn) 70%,transparent)}
+.btn:hover{background:var(--btn-h);box-shadow:0 14px 26px -10px color-mix(in srgb,var(--btn) 75%,transparent)}
+.btn-on-bold{background:#fff;color:var(--btn);box-shadow:0 12px 24px -12px rgba(40,10,20,.45)}
+.btn-on-bold:hover{background:#fff;color:var(--btn-h)}
+.text-link{border-color:var(--btn);color:var(--btn);background:transparent}
+.text-link:hover{background:var(--tint)}
+.label{color:var(--label)}
+.lead{color:var(--ink-soft)}
+.sec-head p{color:var(--ink-soft)}
+
+/* Hero */
+h1 em{color:var(--accent)}
+h1 em::after{background:var(--und);opacity:.75}
+.tag{color:var(--ink)}
+.tag::after{background:var(--und)}
+.b1{background:radial-gradient(closest-side,var(--sp1),transparent)}
+.b2{background:radial-gradient(closest-side,var(--sp2),transparent)}
+.b3{background:radial-gradient(closest-side,var(--sp3),transparent)}
+
+/* Bands that flow: every colored band has a soft wave on top, so nothing is cut off */
+.band{position:relative;background-color:var(--bg);overflow-x:clip}
+.made{overflow-x:clip}
+.band-tint{--bg:var(--tint)}
+.band-bold{--bg:var(--bold);color:var(--on-bold)}
+.band::before,.wave-bottom::after{content:"";position:absolute;left:0;right:0;height:var(--wave-h);background-color:var(--bg);pointer-events:none}
+.band::before{bottom:calc(100% - 1px);-webkit-mask:var(--wave-top) center/100% 100% no-repeat;mask:var(--wave-top) center/100% 100% no-repeat}
+.wave-bottom::after{top:calc(100% - 1px);-webkit-mask:var(--wave-bot) center/100% 100% no-repeat;mask:var(--wave-bot) center/100% 100% no-repeat}
+.band-bold h2,.band-bold h3{color:var(--on-bold)}
+.band-bold .sec-head p{color:var(--on-bold-soft)}
+.band-bold .label,.band-bold .sec-head .label{color:var(--label-bold)}
+
+/* Watercolor splashes along the way */
+.splash{position:absolute;pointer-events:none;border-radius:50%;filter:url(#wash);opacity:.7}
+.sp-1{width:420px;height:300px;top:-40px;right:-120px;background:radial-gradient(closest-side,var(--sp2),transparent)}
+.sp-2{width:380px;height:280px;top:120px;left:-150px;background:radial-gradient(closest-side,var(--sp1),transparent)}
+.sp-3{width:420px;height:300px;bottom:40px;right:-140px;background:radial-gradient(closest-side,var(--sp3),transparent)}
+
+/* Sparkle confetti, baked into the design (and twinkling, so phones get the fun too) */
+.cf{position:absolute;z-index:4;width:22px;height:22px;color:var(--pop1);pointer-events:none;animation:twinkle 3.4s ease-in-out infinite}
+.cf svg{width:100%;height:100%;fill:currentColor;display:block}
+.cf.sm{width:13px;height:13px;animation-delay:-1.2s}
+.cf-b{color:var(--pop2);animation-delay:-2.1s}
+.cf-c{color:var(--pop3);animation-delay:-.6s}
+.band-bold .cf-c{color:#fff}
+.band-bold .cf svg{filter:drop-shadow(0 0 3px rgba(255,255,255,.7))}
+.closing .cf{width:34px;height:34px}.closing .cf.sm{width:19px;height:19px}
+@keyframes twinkle{0%,100%{transform:scale(.75) rotate(0);opacity:.75}50%{transform:scale(1.1) rotate(25deg);opacity:1}}
+
+/* 2. Possibilities: the note hangs over into the Hub band */
+.chapters{width:100%;margin:0;border-radius:0;padding:96px 0 0;background-image:radial-gradient(var(--dot) 1.3px,transparent 1.6px)}
+.chapters .label{font-size:1.8rem}
+.note{z-index:3;margin-bottom:-90px;box-shadow:0 2px 4px rgba(43,36,39,.08),0 30px 46px -22px rgba(60,30,30,.45)}
+.s-1{background:var(--pop1)}.s-2{background:var(--pop2)}.s-3{background:var(--pop3)}
+
+/* 3. The Hub */
+.hub{padding:170px 0 64px}
+.tiles{list-style:none;margin:0 auto;padding:0;max-width:1040px;display:grid;grid-template-columns:repeat(3,1fr);gap:40px 48px}
+.tiles li{display:flex;gap:16px;align-items:flex-start}
+.tiles h3{font-size:1.3rem;margin:4px 0 6px}
+.tiles p{color:var(--on-bold-soft);font-size:1rem;line-height:1.6}
+.tiles li{align-items:center}
+.tiles .ico{flex:none;width:96px;height:96px;background:var(--page);box-shadow:0 8px 18px -10px rgba(90,40,30,.35)}
+.tiles .ico img{width:74px;height:74px;display:block}
+.join-note{margin-top:14px;font-size:.95rem;color:var(--on-bold-soft)}
+
+/* 4. Things I made: big art */
+.made{position:relative;padding:140px 0 110px}
+.products{grid-template-columns:repeat(2,1fr);gap:28px;max-width:1000px;margin:0 auto}
+.product{border:0;border-radius:22px;box-shadow:var(--shadow)}
+.product img{aspect-ratio:16/11;background:var(--tint)}
+.p-txt{padding:20px 26px 24px}
+.product h3{font-size:1.4rem;margin:0 0 6px}
+.product p{margin:0;font-size:1.02rem;color:var(--ink-soft)}
+.product .p-go{margin-top:12px;font-size:.95rem;font-weight:600;color:var(--btn)}
+.product .p-go span{display:inline-block;transition:transform .2s ease}
+.product:hover .p-go span{transform:translateX(4px)}
+
+/* 5. About */
+.about{padding:96px 0 120px}
+.pull{position:relative;background:none;border:0;border-radius:0;box-shadow:none;padding:0 0 18px;font-size:1.9rem;color:var(--accent);max-width:15em}
+.pull::after{content:"";position:absolute;left:0;bottom:0;width:140px;height:6px;border-radius:999px;background:var(--und);opacity:.7;transform:rotate(-1.5deg)}
+.sign{color:var(--accent)}
+.about-copy p{color:var(--ink)}
+
+/* 6. Closing flows straight into the footer, same color: the page lands softly */
+.closing{width:100%;margin:0;border-radius:0;box-shadow:none;padding:110px 0 56px;overflow:visible;background-image:radial-gradient(color-mix(in srgb,var(--on-bold) 14%,transparent) 1.3px,transparent 1.6px)}
+.closing h2{color:var(--on-bold)}
+.closing .small{color:var(--on-bold-soft)}
+.closing .small a{color:var(--on-bold);display:inline-block;padding:12px 6px;margin:-12px 0}
+.foot{background:var(--bold);border-top:0;padding:8px 0 44px}
+.foot-in{color:var(--on-bold-soft);border-top:1px solid color-mix(in srgb,var(--on-bold) 22%,transparent);padding-top:28px}
+.foot .brand{color:var(--on-bold)}
+.foot .brand span{color:var(--foot-span)}
+.fine a{color:var(--on-bold-soft)}
+
+.star-divider,.strip{display:none}
+
+@media (max-width:980px){
+  .tiles{grid-template-columns:repeat(2,1fr);gap:36px 36px}
+}
+@media (max-width:760px){
+  :root{--wave-h:34px}
+  .chapters{padding:72px 0 0}
+  .note{margin-bottom:-60px}
+  .hub{padding:120px 0 48px}
+  .tiles{grid-template-columns:1fr;gap:26px}
+  .tiles .ico{width:76px;height:76px}.tiles .ico img{width:58px;height:58px}
+  .pull{font-size:1.6rem}
+  .closing .cf{width:24px;height:24px}.closing .cf.sm{width:14px;height:14px}
+  /* phone: keep the closing sparkles above the words */
+  .closing .cf{top:auto!important;bottom:auto!important;left:auto!important;right:auto!important}
+  .closing .cf:nth-of-type(1){top:22px!important;left:8%!important}
+  .closing .cf:nth-of-type(2){top:50px!important;left:22%!important}
+  .closing .cf:nth-of-type(3){top:30px!important;right:9%!important}
+  .closing .cf:nth-of-type(4){top:56px!important;right:25%!important}
+  .closing .cf:nth-of-type(n+5){display:none}
+  .made{padding:96px 0 72px}
+  .products{grid-template-columns:1fr;gap:20px}
+  .product h3{font-size:1.25rem;margin:0 0 4px}
+  .product p{margin:0;font-size:1rem}
+  .p-txt{padding:16px 20px 20px}
+  .about{padding:72px 0 88px}
+  .closing{padding:84px 0 44px}
+  .splash{opacity:.5;transform:scale(.7)}
+}
