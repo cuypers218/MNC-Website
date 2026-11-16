@@ -54,6 +54,9 @@ RewriteRule ^$ index.php [L]
 # Empty Nester quiz (the Hub links here)
 RewriteRule ^nester-quiz/?$ nester-quiz.php [L]
 
+# Privacy policy (website and Hub)
+RewriteRule ^privacy/?$ privacy.php [L]
+
 # Download with token
 RewriteRule ^download/([a-zA-Z0-9]+)/?$ download.php?token=$1 [L]
 

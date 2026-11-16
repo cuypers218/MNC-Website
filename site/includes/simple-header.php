@@ -17,7 +17,7 @@ $__desc  = isset($pageDescription) ? $pageDescription : 'A free Hub for single a
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Montserrat:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500;1,600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/css/home.css?v=3">
+<link rel="stylesheet" href="/assets/css/home.css?v=17">
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
