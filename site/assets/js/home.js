@@ -57,8 +57,8 @@
     s.style.top = y + 'px';
     var pal = palette || colors;
     var c = pal[(Math.random() * pal.length) | 0];
-    if (c === 'gold') s.className += ' gold'; else s.style.background = c;
-    if (life) { s.style.setProperty('--life', life + 's'); s.style.animationDuration = s.className.indexOf('gold') > -1 ? '' : life + 's'; }
+    if (c === 'gold' || c === 'teal') s.className += ' ' + c; else s.style.background = c;
+    if (life) { s.style.setProperty('--life', life + 's'); s.style.animationDuration = /gold|teal/.test(s.className) ? '' : life + 's'; }
     s.style.setProperty('--sz', size.toFixed(1) + 'px');
     s.style.setProperty('--dx', (Math.cos(angle) * dist).toFixed(1) + 'px');
     s.style.setProperty('--dy', (Math.sin(angle) * dist + (spread ? 0 : 16)).toFixed(1) + 'px');
@@ -112,7 +112,7 @@
     next();
   };
 
-  // Gold sparkles pop off the Join buttons when she hovers (or taps on a phone).
+  // Metallic light teal sparkles pop off the Join buttons when she hovers (or taps on a phone).
   Array.prototype.forEach.call(document.querySelectorAll('a.btn'), function (btn) {
     var lastPop = 0;
     function pop() {
@@ -123,7 +123,7 @@
       for (var i = 0; i < 12; i++) {
         var x = r.left + window.scrollX + Math.random() * r.width;
         var y = r.top + window.scrollY + (i % 2 ? r.height - 2 : 2);
-        spark(x, y, 38, ['gold', 'gold', 'gold', '#F49B8F'], false, i % 3 !== 0, 0.9);
+        spark(x, y, 38, ['teal', 'teal', 'teal', '#F49B8F'], false, i % 3 !== 0, 0.9);
       }
     }
     btn.addEventListener('pointerenter', function (e) { if (e.pointerType === 'mouse') pop(); });

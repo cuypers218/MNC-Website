@@ -371,3 +371,6 @@ html[data-lead="coral"] h1 em{color:#B00C60}
 /* labels, the About quote and the signature in raspberry too */
 html[data-lead="coral"]{--accent:#B00C60;--label:#B00C60}
 .sec-head p.label{color:var(--label)}
+/* Join button sparkles: metallic light teal instead of gold, same burst */
+.spark.teal{background:linear-gradient(135deg,#F2FFFF 0%,#8DDEDF 28%,#2BB8BA 55%,#C8F4F4 78%,#1F8A8F 100%)!important;animation:spark var(--life,.9s) ease-out forwards,glint .2s ease-in-out infinite alternate}
+.spark.teal.fleck{box-shadow:inset 0 0 0 .6px rgba(20,100,104,.55)}
