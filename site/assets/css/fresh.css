@@ -80,16 +80,14 @@ h1 em::after{left:0;right:0;height:.08em;bottom:-.1em}
 /* Section 2: a peek inside the Hub, its Home page in a browser window that hangs over into the coral band */
 .peek-in{display:grid;grid-template-columns:auto 1fr;gap:40px 56px;align-items:center;justify-items:center;max-width:1160px;margin:0 auto}
 .chapters.peek{padding-top:88px;padding-bottom:150px}
-.peek-phone .phone-frame img{aspect-ratio:600/940}
+.peek-phone .phone-frame img{aspect-ratio:600/1154}
 /* The magic: the phone rises, her teal pen writes three ideas on the page's lines, then gold glitter (home.js drives the pen) */
 .phone-screen{position:relative;container-type:inline-size}
 .phone-writing{position:absolute;inset:0;pointer-events:none}
-.pw{position:absolute;left:16.5%;font-family:var(--script);font-weight:700;font-size:6.4cqw;line-height:1;color:#173B45;white-space:nowrap;transform:translateY(-92%)}
-.pw1{top:50.3%}.pw2{top:55.9%}.pw3{top:61.4%}
+.pw{position:absolute;left:50%;text-align:center;font-family:var(--script);font-weight:700;font-size:6.4cqw;line-height:1;color:#173B45;white-space:nowrap;transform:translate(-50%,-92%)}
+.pw1{top:50.3%}.pw2{top:59.3%}.pw3{top:68.4%}
+.pw{display:inline-flex;align-items:center;gap:2.2cqw}.pw .star{width:3.6cqw;height:3.6cqw}
 .peek-phone .phone-frame img.pw-pen{position:absolute;left:15%;top:50.8%;width:44cqw;height:auto;aspect-ratio:auto;border-radius:0;background:none;display:block;opacity:0;transform-origin:0 50%;transform:translate(0,-50%) rotate(-38deg);filter:drop-shadow(0 6px 6px rgba(40,20,20,.25))}
-.js .peek-phone{opacity:0;translate:0 56px;transition:opacity .9s ease,translate 1.1s cubic-bezier(.2,.7,.2,1)}
-.peek.in .peek-phone{opacity:1;translate:0 0}
-.js .pw{clip-path:inset(-40% 100% -40% 0)}
 /* Glitter that looks like glitter: metallic gold that glints, with a soft glow */
 .spark.gold{background:linear-gradient(135deg,#FFF6CC 0%,#F2C230 28%,#C8901A 55%,#FCE48A 78%,#A8740F 100%)!important;animation:spark var(--life,.9s) ease-out forwards,glint .2s ease-in-out infinite alternate}
 .spark.fleck{clip-path:none;border-radius:50%;box-shadow:inset 0 0 0 .6px rgba(140,90,10,.55)}
@@ -102,7 +100,7 @@ h1 em::after{left:0;right:0;height:.08em;bottom:-.1em}
 .peek-art{display:block;width:160px;height:auto;margin:28px auto 0;position:relative;z-index:4;transform:rotate(5deg);filter:drop-shadow(0 16px 18px rgba(90,40,30,.18))}
 .peek-phone{position:relative;z-index:3;margin:0}
 .peek-side{z-index:4}
-.peek-phone .phone-frame{width:320px}
+.peek-phone .phone-frame{width:280px}
 
 .hub-line{color:var(--ink)}
 .hub-line b{color:var(--btn);font-weight:700}
@@ -161,7 +159,7 @@ html[data-lead="coral"] .sp-1{background:radial-gradient(closest-side,var(--sp1)
 .sec-head h2{text-wrap:balance}
 .tiles .ico{flex:none;width:96px;height:96px;background:var(--page);box-shadow:0 8px 18px -10px rgba(90,40,30,.35)}
 .tiles .ico img{width:74px;height:74px;display:block}
-.tiles .ico img[src*="possibilities.webp"]{filter:drop-shadow(0 2px 2px rgba(90,40,30,.22)) drop-shadow(0 6px 8px rgba(90,40,30,.14))}
+.tiles .ico img[src*="possibilities.webp"]{width:56px;height:56px;filter:drop-shadow(0 2px 2px rgba(90,40,30,.22)) drop-shadow(0 6px 8px rgba(90,40,30,.14))}
 .join-note{margin-top:14px;font-size:.95rem;color:var(--on-bold-soft)}
 /* A real peek inside the Hub, held up like a phone */
 .hub-grid{display:grid;grid-template-columns:300px 1fr;gap:56px 64px;align-items:center;max-width:1080px;margin:0 auto}
@@ -256,3 +254,22 @@ html[data-lead="coral"] .sp-1{background:radial-gradient(closest-side,var(--sp1)
 @media (prefers-reduced-motion:reduce){.sparkle-word{animation:none;background:none;-webkit-text-fill-color:currentColor}.sw-star{animation:none;opacity:.9}}
 @media (max-width:980px){.peek-side h2.sparkle-h{white-space:normal}.peek-side h2.sparkle-h .hl{display:block}}
 @media (max-width:760px){.peek-side h2.sparkle-h{font-size:clamp(1.8rem,7.4vw,2.3rem)}}
+
+@media (max-width:760px){.tiles .ico img[src*="possibilities.webp"]{width:44px;height:44px}}
+
+/* no word left alone at the end of the hero lines */
+.hero .lead{text-wrap:balance}
+
+/* "Take a peek inside": a plain link like Log in, no outline, so Join stays the main step */
+.cta-row .text-link{border:0;background:none;box-shadow:none;padding:12px 18px;border-radius:999px;transition:background .2s ease;min-height:44px;display:inline-flex;align-items:center;gap:6px;color:var(--btn);font-weight:600;text-decoration:none}
+.cta-row .text-link::after{content:"\2193";font-size:.95em;transition:transform .2s ease}
+.cta-row .text-link:hover{background:var(--tint);text-decoration:none;transform:none}
+.cta-row .text-link:hover::after{transform:translateY(2px)}
+
+/* desktop: phone and words as one centered group, comfortable space between */
+@media (min-width:981px){.peek-in{grid-template-columns:auto auto;justify-content:center;column-gap:84px}.peek-side{max-width:640px}}
+
+/* the three ideas on the phone glint gold like "sparkle", one after another */
+.pw-glint{color:#173B45;background:linear-gradient(110deg,#173B45 0 42%,#B98A2E 47%,#E3C376 50%,#B98A2E 53%,#173B45 58% 100%);background-size:260% 100%;background-position:100% 0;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;animation:word-glint 4.5s ease-in-out 1.7s infinite}
+.pw-glint.g2{animation-delay:2.2s}.pw-glint.g3{animation-delay:2.7s}
+@media (prefers-reduced-motion:reduce){.pw-glint{animation:none;background:none;-webkit-text-fill-color:currentColor}}

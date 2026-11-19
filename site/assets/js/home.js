@@ -32,7 +32,6 @@
         entries.forEach(function (e) {
           if (e.isIntersecting) {
             peek.classList.add('in'); po.disconnect();
-            setTimeout(function () { if (writeIdeas) writeIdeas(); }, 1100);
           }
         });
       }, { threshold: 0, rootMargin: '0px 0px -30% 0px' });
