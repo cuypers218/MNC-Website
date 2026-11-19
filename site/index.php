@@ -27,7 +27,7 @@ $star = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 0l2.6 9.4L24 1
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Montserrat:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500;1,600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/assets/css/home.css?v=18">
-<link rel="stylesheet" href="/assets/css/fresh.css?v=87">
+<link rel="stylesheet" href="/assets/css/fresh.css?v=89">
 <script>document.documentElement.classList.add('js')</script>
 <script src="/assets/js/home.js?v=20261118h" defer></script>
 </head>

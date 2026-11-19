@@ -368,3 +368,6 @@ html[data-lead="coral"] .sp-1{background:radial-gradient(closest-side,var(--sp1)
 /* one action color: raspberry for "Anything!", the Join buttons and the links that act like them */
 html[data-lead="coral"]{--btn:#B00C60;--btn-h:#8D184E}
 html[data-lead="coral"] h1 em{color:#B00C60}
+/* labels, the About quote and the signature in raspberry too */
+html[data-lead="coral"]{--accent:#B00C60;--label:#B00C60}
+.sec-head p.label{color:var(--label)}
