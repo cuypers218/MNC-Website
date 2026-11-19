@@ -27,7 +27,7 @@ $star = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 0l2.6 9.4L24 1
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Montserrat:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500;1,600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/assets/css/home.css?v=18">
-<link rel="stylesheet" href="/assets/css/fresh.css?v=64">
+<link rel="stylesheet" href="/assets/css/fresh.css?v=86">
 <script>document.documentElement.classList.add('js')</script>
 <script src="/assets/js/home.js?v=20261118h" defer></script>
 </head>
@@ -102,11 +102,11 @@ $star = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 0l2.6 9.4L24 1
       <figure class="hub-phone peek-phone">
         <div class="phone-frame"><div class="phone-screen">
           <img src="/assets/images/hub/my-possibilities-phone.webp?v=10" alt="My Possibilities in the Hub on a phone, with ideas written on the page: take a pottery class, a road trip out west, learn how to paint." width="600" height="1154" loading="lazy">
-          <div class="phone-writing" aria-hidden="true"><span class="pw pw1"><span class="star s-1"></span>take a <span class="pw-glint">pottery class</span></span><span class="pw pw2"><span class="star s-2"></span>a <span class="pw-glint g2">road trip</span> out west</span><span class="pw pw3"><span class="star s-3"></span>learn how to <span class="pw-glint g3">paint</span></span></div>
+          <div class="phone-writing" aria-hidden="true"><span class="pw pw1"><span class="star s-1"></span><span class="pw-t">take a <span class="pw-glint">pottery</span> class</span></span><span class="pw pw2"><span class="star s-2"></span><span class="pw-t">a <span class="pw-glint g2">road</span> trip out west</span></span><span class="pw pw3"><span class="star s-3"></span><span class="pw-t">learn how to <span class="pw-glint g3">paint</span></span></span></div>
         </div></div>
       </figure>
       <div class="peek-side">
-        <p class="script label">The My Nest Chapter Hub</p>
+        <p class="script label">Inside the My Nest Chapter Hub</p>
         <h2 id="hub-h" class="sparkle-h"><span class="hl">Where your possibilities</span> <span class="hl">start to <span class="sparkle-word">sparkle<span class="sw-star sw1" aria-hidden="true"></span><span class="sw-star sw2" aria-hidden="true"></span><span class="sw-star sw3" aria-hidden="true"></span></span>.</span></h2>
       </div>
     </div>
