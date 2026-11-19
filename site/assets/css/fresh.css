@@ -253,6 +253,8 @@ html[data-lead="coral"] .sp-1{background:radial-gradient(closest-side,var(--sp1)
 @keyframes sw-twinkle{0%,100%{transform:scale(.5) rotate(0);opacity:.35}50%{transform:scale(1.15) rotate(30deg);opacity:1}}
 @media (prefers-reduced-motion:reduce){.sparkle-word{animation:none;background:none;-webkit-text-fill-color:currentColor}.sw-star{animation:none;opacity:.9}}
 @media (max-width:980px){.peek-side h2.sparkle-h{white-space:normal}.peek-side h2.sparkle-h .hl{display:block}}
+/* two-line heading: keep the small star off "possibilities" on the line above */
+@media (max-width:980px){.sw2{top:auto;bottom:-6px;left:-16px}}
 @media (max-width:760px){.peek-side h2.sparkle-h{font-size:clamp(1.8rem,7.4vw,2.3rem)}}
 
 @media (max-width:760px){.tiles .ico img[src*="possibilities.webp"]{width:44px;height:44px}}
@@ -273,3 +275,15 @@ html[data-lead="coral"] .sp-1{background:radial-gradient(closest-side,var(--sp1)
 .pw-glint{color:#173B45;background:linear-gradient(110deg,#173B45 0 42%,#B98A2E 47%,#E3C376 50%,#B98A2E 53%,#173B45 58% 100%);background-size:260% 100%;background-position:100% 0;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;animation:word-glint 4.5s ease-in-out 1.7s infinite}
 .pw-glint.g2{animation-delay:2.2s}.pw-glint.g3{animation-delay:2.7s}
 @media (prefers-reduced-motion:reduce){.pw-glint{animation:none;background:none;-webkit-text-fill-color:currentColor}}
+
+/* Hub peek sparkle: "sparkle" shimmers all the time (soft gold); the phone ideas shine one after another, then rest */
+.peek .sparkle-word{color:#A07B2E;background-image:linear-gradient(110deg,#A07B2E 0 40%,#D9B868 47%,#F3DE9E 50%,#D9B868 53%,#A07B2E 60% 100%);animation:word-shimmer 3.2s linear infinite}
+@keyframes word-shimmer{from{background-position:100% 0}to{background-position:0 0}}
+.peek .pw-glint{color:#A07B2E;background-image:linear-gradient(110deg,#A07B2E 0 40%,#D9B868 47%,#F3DE9E 50%,#D9B868 53%,#A07B2E 60% 100%);animation:pw-wave 6s ease-in-out 1.5s infinite}
+.peek .pw-glint.g2{animation-delay:3s}.peek .pw-glint.g3{animation-delay:4.5s}
+@keyframes pw-wave{0%{background-position:100% 0}25%,100%{background-position:0 0}}
+.peek .sw-star,.peek .sw2,.peek .sw3{animation:sw-twinkle 2.25s ease-in-out 1.2s infinite}
+.peek .pw .star{animation:pw-twinkle 2.25s ease-in-out 1.2s infinite}
+@keyframes pw-twinkle{0%,100%{transform:scale(.8) rotate(0);opacity:.7}50%{transform:scale(1.15) rotate(30deg);opacity:1}}
+@media (prefers-reduced-motion:reduce){.peek .sparkle-word,.peek .pw-glint,.peek .sw-star,.peek .pw .star{animation:none}}
+@media (prefers-reduced-motion:reduce){.peek .sparkle-word,.peek .pw-glint{background:none;-webkit-text-fill-color:#A07B2E}}
