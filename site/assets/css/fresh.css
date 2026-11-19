@@ -364,3 +364,7 @@ html[data-lead="coral"] .sp-1{background:radial-gradient(closest-side,var(--sp1)
 :root{--wave-h:34px}
 .closing::before{display:none}
 @media (max-width:760px){.peek-side .label{font-size:1.55rem;text-wrap:balance;line-height:1.15}}
+
+/* one action color: raspberry for "Anything!", the Join buttons and the links that act like them */
+html[data-lead="coral"]{--btn:#B00C60;--btn-h:#8D184E}
+html[data-lead="coral"] h1 em{color:#B00C60}
