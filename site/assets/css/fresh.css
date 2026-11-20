@@ -374,3 +374,20 @@ html[data-lead="coral"]{--accent:#B00C60;--label:#B00C60}
 /* Join button sparkles: metallic light teal instead of gold, same burst */
 .spark.teal{background:linear-gradient(135deg,#F2FFFF 0%,#8DDEDF 28%,#2BB8BA 55%,#C8F4F4 78%,#1F8A8F 100%)!important;animation:spark var(--life,.9s) ease-out forwards,glint .2s ease-in-out infinite alternate}
 .spark.teal.fleck{box-shadow:inset 0 0 0 .6px rgba(20,100,104,.55)}
+
+/* Header Join the Hub button: smaller, so it sits quietly in the corner */
+.top-nav .btn-sm{padding:7px 16px;font-size:.84rem;min-height:38px;box-shadow:0 6px 14px -8px color-mix(in srgb,var(--btn) 60%,transparent)}
+
+/* "sparkle": same speed of light passing through, shorter rest before it starts again (about 1.5s instead of 5s) */
+.peek .sparkle-word{animation:word-light-quick 5.5s ease-in-out infinite}
+@keyframes word-light-quick{
+  0%{background-position:100% 0;filter:drop-shadow(0 0 0 rgba(217,71,154,0))}
+  36%{filter:drop-shadow(0 0 7px rgba(217,71,154,.45))}
+  73%,100%{background-position:0 0;filter:drop-shadow(0 0 0 rgba(217,71,154,0))}}
+@media (prefers-reduced-motion:reduce){.peek .sparkle-word{animation:none}}
+
+/* Hub headline: the dot grid fades away behind the words so "sparkle" reads cleanly; no visible box */
+/* the clear area sits behind the label and both headline lines together, centered on them
+   (the label and headline are nudged up 22-24px, so the area is nudged up to match) */
+.peek-side{isolation:isolate}
+.peek-side::before{content:"";position:absolute;left:-150px;right:-150px;top:-112px;bottom:-46px;z-index:-1;pointer-events:none;background:radial-gradient(ellipse closest-side,#FEEDE8 72%,rgba(254,237,232,0) 100%)}
